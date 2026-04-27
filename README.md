@@ -5,7 +5,7 @@ intended for developers and researchers who want to reproduce baseline
 experiments, change topology/PHY/traffic parameters, and add new routing
 protocols for comparison.
 
-Licensed under Apache-2.0.
+Licensed under MIT.
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
 ideas under a fixed SX1262-style PHY profile.
