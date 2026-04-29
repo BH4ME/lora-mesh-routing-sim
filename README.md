@@ -21,6 +21,9 @@ The simulator is not a firmware clone. It is a research harness for comparing
 routing behavior under the same topology, traffic, propagation, collision, and
 LoRa airtime model.
 
+See [Terminology and Formulas](docs/terminology-and-formulas.md) for the English
+terms, abbreviations, metrics, and formulas used by the simulator.
+
 ## Run
 
 Clone and enter the project:
