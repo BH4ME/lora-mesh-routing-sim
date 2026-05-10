@@ -8,6 +8,11 @@ keeps the main `README.md` as the entry point.
 - [Conference Research Plan](research/conference-research-plan.md): current
   conference-facing framing and experiment plan.
 
+## Source Layout
+
+- [Source Layout](source-layout.md): where simulator source, firmware source,
+  tools, tests, generated results, and archives live.
+
 ## Results
 
 - [Three Protocol Comparison](results/three_protocol_comparison.md): concise

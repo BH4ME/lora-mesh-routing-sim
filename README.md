@@ -28,6 +28,9 @@ Research plans, result narratives, firmware notes, and project-history files are
 kept in separate folders so the repository root stays focused on the simulator
 entry point.
 
+For source-file ownership and folder purposes, see
+[Source Layout](docs/source-layout.md).
+
 See [Terminology and Formulas](docs/reference/terminology-and-formulas.md) for
 the English terms, abbreviations, metrics, and formulas used by the simulator.
 
