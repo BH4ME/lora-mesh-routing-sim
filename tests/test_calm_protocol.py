@@ -192,6 +192,31 @@ class CalmProtocolTest(unittest.TestCase):
             seed=3,
             max_hops=3,
         )
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=1.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=3, duration_s=1.0)
+        self.assertEqual(summary["fallback_forward_count"], 1)
+
+    def test_smart_calm_prefers_cached_path_retry_before_timeout_fallback(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=0.3,
+            max_timeout_retries=1,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 4000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=8,
+            max_hops=3,
+        )
         protocol.route_cache[0][1] = RouteEntry(
             created_at=0.0,
             expires_at=100.0,
@@ -202,7 +227,33 @@ class CalmProtocolTest(unittest.TestCase):
         protocol.send_app(0, 1, flow_id=1)
         sim.run(until_s=1.0)
 
-        summary = sim.metrics.summarize(protocol.name, seed=3, duration_s=1.0)
+        summary = sim.metrics.summarize(protocol.name, seed=8, duration_s=1.0)
+        self.assertEqual(summary["data_tx"], 2)
+        self.assertEqual(summary["fallback_forward_count"], 0)
+
+    def test_smart_calm_does_not_stack_timeout_retry_after_route_miss_fallback(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=2.5,
+            max_timeout_retries=1,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 4000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=4,
+            max_hops=3,
+        )
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=3.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=4, duration_s=3.0)
         self.assertEqual(summary["fallback_forward_count"], 1)
 
     def test_smart_calm_profiles_are_built_from_run_args(self) -> None:
@@ -241,6 +292,7 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(protocol.learning_rate, 0.45)
         self.assertLessEqual(protocol.exploration, 0.02)
         self.assertEqual(protocol.flow_timeout_s, 35.0)
+        self.assertEqual(protocol.max_timeout_retries, 2)
         self.assertEqual(protocol.discovery_window_s, 2.0)
 
     def test_partial_run_args_use_cli_discovery_window_default(self) -> None:

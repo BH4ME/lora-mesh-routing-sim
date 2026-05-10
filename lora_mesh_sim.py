@@ -1339,7 +1339,8 @@ class SmartCalmMesh(CalmMesh):
         discount: float = 0.75,
         exploration: float = 0.02,
         flow_timeout_s: float = 35.0,
-        max_timeout_retries: int = 1,
+        max_timeout_retries: int = 2,
+        retry_after_fallback: bool = False,
         prior_q_values: Optional[Dict[Tuple[int, int], float]] = None,
         profiles: Sequence[AdaptiveProfile] = DEFAULT_PROFILES,
         **kwargs: Any,
@@ -1351,6 +1352,7 @@ class SmartCalmMesh(CalmMesh):
         self.exploration = exploration
         self.flow_timeout_s = flow_timeout_s
         self.max_timeout_retries = max_timeout_retries
+        self.retry_after_fallback = retry_after_fallback
         self.profiles = tuple(profiles)
         self.active_profile_index = 1 if len(self.profiles) > 1 else 0
         self.active_state_index = 0
@@ -1546,6 +1548,27 @@ class SmartCalmMesh(CalmMesh):
             decision.confidence = max(decision.confidence, self.route_confidence(entry))
         super().send_data_on_path(src, dst, flow_id, entry)
 
+    def retry_data_on_cached_path(self, decision: FlowDecision, flow_id: int) -> bool:
+        entry = self.get_route(decision.src, decision.dst)
+        if entry is None or len(entry.path) < 2:
+            return False
+        confidence = self.route_confidence(entry)
+        packet = Packet(
+            kind="DATA",
+            flow_id=flow_id,
+            origin=decision.src,
+            final_dst=decision.dst,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.metrics.flows[flow_id].created_at,
+            protocol=self.name,
+            path=entry.path,
+            path_index=0,
+        )
+        decision.confidence = max(decision.confidence, confidence)
+        self.sim.metrics.record_path_confidence(confidence)
+        self.sim.transmit_later(decision.src, packet, delay_s=0.0)
+        return True
+
     def on_delivery(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
         super().on_delivery(flow_id, receiver, now, packet)
         decision = self.flow_decisions.get(flow_id)
@@ -1560,16 +1583,22 @@ class SmartCalmMesh(CalmMesh):
         decision = self.flow_decisions.get(flow_id)
         if decision is None or decision.delivered:
             return
-        if not delivered and decision.timeout_retries < self.max_timeout_retries:
+        can_retry_timeout = (
+            not delivered
+            and decision.timeout_retries < self.max_timeout_retries
+            and (self.retry_after_fallback or decision.fallback_count == 0)
+        )
+        if can_retry_timeout:
             decision.timeout_retries += 1
-            retry_ttl = max(self.fallback_ttl, 2)
-            self.start_fallback(
-                decision.src,
-                decision.dst,
-                flow_id,
-                ttl=retry_ttl,
-                delay_s=0.0,
-            )
+            if not self.retry_data_on_cached_path(decision, flow_id):
+                retry_ttl = max(self.fallback_ttl, 2)
+                self.start_fallback(
+                    decision.src,
+                    decision.dst,
+                    flow_id,
+                    ttl=retry_ttl,
+                    delay_s=0.0,
+                )
             self.sim.schedule(now + self.flow_timeout_s, "flow_timeout", flow_id)
             return
         self.learn_from_flow(decision, delivered=delivered, now=now)
@@ -1685,7 +1714,8 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             learning_rate=getattr(args, "smart_learning_rate", 0.45),
             exploration=getattr(args, "smart_exploration", 0.02),
             flow_timeout_s=getattr(args, "smart_flow_timeout_s", 35.0),
-            max_timeout_retries=getattr(args, "smart_max_timeout_retries", 1),
+            max_timeout_retries=getattr(args, "smart_max_timeout_retries", 2),
+            retry_after_fallback=getattr(args, "smart_retry_after_fallback", False),
             prior_q_values=SmartCalmMesh.load_prior_q_values(getattr(args, "smart_prior_json"))
             if getattr(args, "smart_prior_json", None)
             else None,
@@ -1819,7 +1849,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--smart-learning-rate", type=float, default=0.45)
     parser.add_argument("--smart-exploration", type=float, default=0.02)
     parser.add_argument("--smart-flow-timeout-s", type=float, default=35.0)
-    parser.add_argument("--smart-max-timeout-retries", type=int, default=1)
+    parser.add_argument("--smart-max-timeout-retries", type=int, default=2)
+    parser.add_argument(
+        "--smart-retry-after-fallback",
+        action="store_true",
+        help="allow Smart-CALM to send a timeout retry even after the flow already used fallback",
+    )
     parser.add_argument("--smart-prior-json", type=Path)
     parser.add_argument("--csv", type=Path)
     return parser.parse_args()

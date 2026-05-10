@@ -44,3 +44,9 @@
 - Connected the ESP32 firmware loop to `SmartCalmMesh` and added a serial command `send <dst> <text>` for hardware smoke testing.
 - Re-verified both `esp32dev_sx1262` and `esp32dev_sx127x` PlatformIO builds after adding the mesh data plane.
 - Confirmed `smart-calm-sim-v1.0` as the frozen Smart-CALM simulator baseline and `codex/smart-calm-sim-optimization` as the branch for future optimization work.
+- Added Smart-CALM v1.1 timeout recovery: retry cached source-route DATA before fallback flooding, and avoid timeout retry after a flow has already used fallback.
+- Re-ran v1.1 formal mixed, high-shadowing, and high-offered-load comparisons with 20 seeds, preserving v1.0 CSVs for rollback/comparison.
+- Regenerated the three-protocol meeting table and SVG charts from v1.1 result CSVs.
+- Updated `docs/project-management/smart_calm_sim_versions.md` with v1.1 deltas and recovery-design notes.
+- Tested a v1.2 piggybacked-RREQ candidate and rejected it because the small PDR gain required much higher airtime and collision pressure.
+- Archived the rejected v1.2 CSVs under `archive/experiments/smart_calm_v1_2_rejected/` for rollback and future design traceability.

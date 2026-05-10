@@ -102,38 +102,48 @@ Higher shadowing check, 50 nodes, mixed traffic, `shadow-sigma-db = 6`:
 
 ## Smart-CALM High-Reliability Training Results
 
-After training experiments, directly transferring an unconstrained Q-table prior proved too rescue-biased. The stronger training outcome is a bounded timeout-retry action: when a unicast flow is still undelivered after the learned timeout, Smart-CALM triggers at most one limited fallback retry. This is a high-reliability mode, not the lowest-airtime mode.
+After training experiments, directly transferring an unconstrained Q-table prior proved too rescue-biased. The stronger training outcome is bounded timeout recovery: when a unicast flow is still undelivered after the learned timeout, Smart-CALM first retries over a cached source route if one is available, and only uses fallback flooding when path knowledge is unavailable.
 
 Mixed traffic, 50 nodes, 20 seeds:
 
 - `meshtastic-like`: unicast PDR about `0.948`, broadcast coverage about `0.949`, airtime about `1170 s`, collision failures about `122048`.
 - `meshcore-like`: unicast PDR about `0.642`, broadcast coverage about `0.967`, airtime about `962 s`, collision failures about `82047`.
 - `calm-mesh`: unicast PDR about `0.768`, broadcast coverage about `0.970`, airtime about `835 s`, collision failures about `73923`.
-- `smart-calm`: unicast PDR about `0.962`, broadcast coverage about `0.968`, airtime about `935 s`, collision failures about `83492`.
+- `smart-calm`: unicast PDR about `0.962`, broadcast coverage about `0.967`, airtime about `896 s`, collision failures about `79562`.
 
 High shadowing, 50 nodes, mixed traffic, `shadow-sigma-db = 6`, 20 seeds:
 
 - `meshtastic-like`: unicast PDR about `0.950`, broadcast coverage about `0.954`, airtime about `1178 s`, collision failures about `121836`.
 - `meshcore-like`: unicast PDR about `0.633`, broadcast coverage about `0.971`, airtime about `970 s`, collision failures about `83424`.
 - `calm-mesh`: unicast PDR about `0.733`, broadcast coverage about `0.975`, airtime about `830 s`, collision failures about `74048`.
-- `smart-calm`: unicast PDR about `0.963`, broadcast coverage about `0.969`, airtime about `914 s`, collision failures about `82047`.
+- `smart-calm`: unicast PDR about `0.963`, broadcast coverage about `0.961`, airtime about `876 s`, collision failures about `78064`.
 
 Interpretation:
 
-- Smart-CALM high-reliability mode now exceeds the managed-flooding baseline's unicast PDR in mixed and high-shadowing scenarios while still using less airtime than flooding.
-- Compared with MeshCore-like, it trades modest extra redundancy for a large reliability gain.
+- Smart-CALM v1.1 keeps flooding-class unicast reliability in mixed and high-shadowing scenarios while using less airtime than flooding.
+- Compared with v1.0, v1.1 lowers fallback forwarding by roughly one third without sacrificing PDR.
 
 High offered load, 50 nodes, mixed traffic, `rate-per-min = 10`, 20 seeds:
 
 - `meshtastic-like`: unicast PDR about `0.917`, broadcast coverage about `0.915`, airtime about `1875 s`, collision failures about `198166`.
 - `meshcore-like`: unicast PDR about `0.488`, broadcast coverage about `0.936`, airtime about `1415 s`, collision failures about `125205`.
 - `calm-mesh`: unicast PDR about `0.596`, broadcast coverage about `0.939`, airtime about `1233 s`, collision failures about `113447`.
-- `smart-calm`: unicast PDR about `0.923`, broadcast coverage about `0.923`, airtime about `1506 s`, collision failures about `140102`.
+- `smart-calm`: unicast PDR about `0.937`, broadcast coverage about `0.933`, airtime about `1410 s`, collision failures about `131345`.
 
 Interpretation:
 
-- Under heavier traffic, Smart-CALM high-reliability mode nearly matches flooding reliability while still saving substantial airtime compared with flooding.
-- It no longer has the lowest airtime; the honest claim is a selectable high-reliability mode learned from timeout feedback.
+- Under heavier traffic, Smart-CALM v1.1 exceeds flooding reliability while reducing airtime to approximately MeshCore-like levels.
+- The honest claim is recovery discipline: retry known paths first, reserve fallback flooding for cases where path knowledge is unavailable.
+
+Rejected follow-up:
+
+- A `smart-calm-sim-v1.2` candidate tested piggybacking the first unicast
+  payload on route requests.
+- It raised PDR slightly, but increased airtime by about `65%` to `87%` and
+  collision failures by about `21%` to `32%` versus v1.1.
+- Keep v1.1 as the active base because it better matches the current objective:
+  maintain flooding-class PDR while lowering collision pressure and channel
+  occupancy.
 
 ## ESP32 Direct-LoRa Firmware Packet Layer
 

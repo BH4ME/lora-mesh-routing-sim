@@ -12,6 +12,7 @@ from typing import Dict, Iterable, List, Sequence
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
+DOCS_RESULTS = ROOT / "docs" / "results"
 OUT_DIR = RESULTS / "figures"
 
 
@@ -39,17 +40,17 @@ SCENARIOS = (
     Scenario(
         key="mixed",
         label="Mixed traffic",
-        csv_path=RESULTS / "smart_calm_50n_mixed.csv",
+        csv_path=RESULTS / "smart_calm_v1_1_50n_mixed.csv",
     ),
     Scenario(
         key="shadow6",
         label="High shadowing",
-        csv_path=RESULTS / "smart_calm_50n_mixed_shadow6.csv",
+        csv_path=RESULTS / "smart_calm_v1_1_50n_mixed_shadow6.csv",
     ),
     Scenario(
         key="rate10",
         label="High offered load",
-        csv_path=RESULTS / "smart_calm_50n_mixed_rate10.csv",
+        csv_path=RESULTS / "smart_calm_v1_1_50n_mixed_rate10.csv",
     ),
 )
 
@@ -142,7 +143,8 @@ def fmt(value: float, precision: int, unit: str = "") -> str:
 
 
 def write_markdown(data: Dict[str, Dict[str, Dict[str, float]]]) -> Path:
-    out_path = RESULTS / "three_protocol_comparison.md"
+    DOCS_RESULTS.mkdir(parents=True, exist_ok=True)
+    out_path = DOCS_RESULTS / "three_protocol_comparison.md"
     lines = [
         "# Three-Protocol Comparison",
         "",

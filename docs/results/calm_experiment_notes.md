@@ -153,7 +153,7 @@ Interpretation:
 
 Smart-CALM improves delivery over MeshCore-like source-route caching, but currently spends more airtime and creates more collision pressure than both MeshCore-like and tuned CALM in this repeated-unicast case. This is useful diagnostically: the online learner is responding with real per-flow context, but the reward is still slightly rescue-biased and should penalize unnecessary fallback more strongly.
 
-### Formal Smart-CALM Comparison: Mixed Traffic
+### Smart-CALM v1.1 Comparison: Mixed Traffic
 
 Scenario:
 
@@ -164,17 +164,17 @@ Key means:
 - `meshtastic-like`: unicast PDR `0.948`, broadcast coverage `0.949`, airtime `1170 s`, collision failures `122048`
 - `meshcore-like`: unicast PDR `0.642`, broadcast coverage `0.967`, airtime `962 s`, collision failures `82047`
 - `calm-mesh`: unicast PDR `0.768`, broadcast coverage `0.970`, airtime `835 s`, collision failures `73923`
-- `smart-calm`: unicast PDR `0.962`, broadcast coverage `0.968`, airtime `935 s`, collision failures `83492`
+- `smart-calm`: unicast PDR `0.962`, broadcast coverage `0.967`, airtime `896 s`, collision failures `79562`
 
 Interpretation:
 
-In mixed traffic, the high-reliability Smart-CALM training mode raises unicast PDR from MeshCore-like's `0.642` to `0.962`. It spends less airtime than managed flooding while reaching flooding-class unicast reliability. The cost is extra bounded fallback compared with tuned CALM.
+In mixed traffic, Smart-CALM v1.1 raises unicast PDR from MeshCore-like's `0.642` to `0.962`. Compared with v1.0, it keeps PDR effectively unchanged while cutting airtime by `4.21%`, collision failures by `4.71%`, and fallback forwarding by `29.85%`.
 
 Conference phrasing:
 
 > Smart-CALM should not be presented as simply combining MeshCore and Meshtastic. The stronger claim is that it converts a static protocol-choice problem into a local online control problem: each device adjusts its redundancy and route-admission policy from observed delivery, cache misses, and channel pressure.
 
-### Smart-CALM Stress Check: Higher Shadowing
+### Smart-CALM v1.1 Stress Check: Higher Shadowing
 
 Scenario:
 
@@ -185,13 +185,13 @@ Key means:
 - `meshtastic-like`: unicast PDR `0.950`, broadcast coverage `0.954`, airtime `1178 s`, collision failures `121836`
 - `meshcore-like`: unicast PDR `0.633`, broadcast coverage `0.971`, airtime `970 s`, collision failures `83424`
 - `calm-mesh`: unicast PDR `0.733`, broadcast coverage `0.975`, airtime `830 s`, collision failures `74048`
-- `smart-calm`: unicast PDR `0.963`, broadcast coverage `0.969`, airtime `914 s`, collision failures `82047`
+- `smart-calm`: unicast PDR `0.963`, broadcast coverage `0.961`, airtime `876 s`, collision failures `78064`
 
 Interpretation:
 
-Under stronger shadowing, high-reliability Smart-CALM exceeds both MeshCore-like and managed flooding on unicast PDR while still using less airtime than flooding. This should be presented as the reliability-optimized operating point.
+Under stronger shadowing, Smart-CALM v1.1 still exceeds MeshCore-like and managed flooding on unicast PDR while using less airtime than flooding. Compared with v1.0, PDR is essentially unchanged while airtime drops by `4.20%`, collision failures by `4.86%`, and fallback forwarding by `34.61%`.
 
-### Smart-CALM Stress Check: Higher Offered Load
+### Smart-CALM v1.1 Stress Check: Higher Offered Load
 
 Scenario:
 
@@ -202,12 +202,12 @@ Key means:
 - `meshtastic-like`: unicast PDR `0.917`, broadcast coverage `0.915`, airtime `1875 s`, collision failures `198166`
 - `meshcore-like`: unicast PDR `0.488`, broadcast coverage `0.936`, airtime `1415 s`, collision failures `125205`
 - `calm-mesh`: unicast PDR `0.596`, broadcast coverage `0.939`, airtime `1233 s`, collision failures `113447`
-- `smart-calm`: unicast PDR `0.923`, broadcast coverage `0.923`, airtime `1506 s`, collision failures `140102`
+- `smart-calm`: unicast PDR `0.937`, broadcast coverage `0.933`, airtime `1410 s`, collision failures `131345`
 
 Interpretation:
 
-Higher load shows the clearest benefit of timeout-trained reliability control. Smart-CALM raises unicast PDR from MeshCore-like's `0.488` to `0.923`, slightly above managed flooding's `0.917`, while still using less airtime than flooding. It is not the minimum-airtime point; it is the high-reliability operating mode.
+Higher load shows the clearest benefit of the v1.1 recovery change. Smart-CALM raises unicast PDR from MeshCore-like's `0.488` to `0.937`, above managed flooding's `0.917`, while reducing airtime to roughly MeshCore-like levels. Compared with v1.0, PDR improves by `1.44%`, airtime drops by `6.39%`, collision failures drop by `6.25%`, and fallback forwarding drops by `33.34%`.
 
 ### Training Note
 
-The first offline training experiment generated a direct Q-table prior in `results/smart_calm_prior.json`, but A/B testing showed that unconstrained Q transfer over-selected rescue/fallback behavior. The adopted training outcome is therefore more constrained: the firmware keeps the online profile learner and adds one timeout-triggered bounded fallback retry for undelivered unicast flows.
+The first offline training experiment generated a direct Q-table prior in `results/smart_calm_prior.json`, but A/B testing showed that unconstrained Q transfer over-selected rescue/fallback behavior. The adopted training outcome is therefore more constrained: the firmware keeps the online profile learner and uses timeout-triggered recovery with a cached-path retry before fallback flooding.

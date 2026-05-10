@@ -7,6 +7,29 @@ from tools import build_three_protocol_comparison as comparison
 
 
 class ThreeProtocolComparisonTest(unittest.TestCase):
+    def test_write_markdown_writes_to_docs_results_folder(self) -> None:
+        data = {
+            scenario.key: {
+                protocol: {
+                    metric: 1.0
+                    for metric in comparison.METRICS
+                }
+                for protocol in comparison.PROTOCOLS
+            }
+            for scenario in comparison.SCENARIOS
+        }
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            original_docs_results = comparison.DOCS_RESULTS
+            comparison.DOCS_RESULTS = Path(tmpdir) / "docs" / "results"
+            try:
+                out_path = comparison.write_markdown(data)
+            finally:
+                comparison.DOCS_RESULTS = original_docs_results
+
+        self.assertEqual(out_path.parent.name, "results")
+        self.assertEqual(out_path.parent.parent.name, "docs")
+
     def test_collect_rejects_missing_protocol_rows(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             csv_path = Path(tmpdir) / "comparison.csv"

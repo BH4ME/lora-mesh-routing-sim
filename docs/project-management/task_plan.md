@@ -25,7 +25,8 @@ Turn the current LoRa Mesh simulator into a clean conference-ready research proj
 | 10. Train high-reliability Smart-CALM mode | complete | Added offline prior tooling and a learned timeout-retry action that raises unicast PDR in all three formal scenarios. |
 | 11. Build ESP32 direct-LoRa firmware prototype | complete | Added a PlatformIO ESP32 prototype with Smart-CALM controller, explicit CRC-protected over-the-air frame encoding, and SX1262/SX127x build targets. |
 | 12. Port first mesh data plane to firmware | complete | Added Smart-CALM-owned RREQ/RREP/DATA/ACK source-route behavior and serial-triggered application sends, inspired by MeshCore/Meshtastic mechanics but not their protocols. |
-| 13. Add firmware reliability refinements | pending | Add timeout retry, persistent route aging, neighbor/link-quality tables, and richer delivery telemetry for online policy learning. |
+| 13. Optimize Smart-CALM recovery overhead | complete | Added v1.1 cached-path timeout retry before fallback flooding and re-ran three 20-seed comparison scenarios. |
+| 14. Add firmware reliability refinements | pending | Port v1.1 timeout recovery, persistent route aging, neighbor/link-quality tables, and richer delivery telemetry for online policy learning. |
 
 ## Proposed Protocol Framing
 
@@ -58,7 +59,9 @@ Online adaptive extension:
 - `smart-calm` chooses among `lean`, `balanced`, and `rescue` profiles.
 - State is based on recent reliability and congestion buckets.
 - The active profile is selected per unicast flow, so MCU firmware can react to current conditions instead of waiting for a manual reconfiguration cycle.
-- A learned high-reliability mode triggers at most one bounded fallback retry after a unicast timeout.
+- A learned high-reliability mode first retries a timed-out unicast over cached
+  source-route DATA, then uses bounded fallback only when path knowledge is
+  unavailable.
 - Reward penalizes control overhead, collision pressure, route repairs, fallback redundancy, and delay.
 - The controller uses a tiny Q table suitable for MCU firmware rather than a neural network.
 - The ESP32 prototype should keep the controller logic separate from the radio driver so the same policy can later be adapted to different LoRa chips.
