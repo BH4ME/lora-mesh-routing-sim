@@ -41,6 +41,12 @@ The stronger conference framing is not "fusion of two protocols." It is:
 
 The proposed protocol should allocate redundancy based on route confidence.
 
+Protocol lineage note:
+
+- `calm-mesh` and `smart-calm` are self-defined routing/control layers in this repository.
+- They are inspired by source-routing and managed-flooding ideas, but they are not a copy of Meshtastic or MeshCore internals.
+- The ESP32 version should therefore be implemented as our own controller sitting above the radio driver, not as a fork of an existing mesh stack.
+
 Working name:
 
 **CALM: Confidence-Aware LoRa Mesh Routing**
@@ -53,7 +59,7 @@ Why this is better:
 
 ## Useful Existing Design Notes
 
-The earlier document `docs/ei-mesh-research-plan.md` already proposes:
+The archived draft `archive/research-drafts/ei-mesh-research-plan.md` already proposes:
 
 - Link cost using ToA, PER estimate, congestion, energy risk, route age, and SNR margin.
 - Candidate path collection instead of accepting the first RREQ.
@@ -128,3 +134,46 @@ Interpretation:
 
 - Under heavier traffic, Smart-CALM high-reliability mode nearly matches flooding reliability while still saving substantial airtime compared with flooding.
 - It no longer has the lowest airtime; the honest claim is a selectable high-reliability mode learned from timeout feedback.
+
+## ESP32 Direct-LoRa Firmware Packet Layer
+
+The first firmware milestone targets ESP32 directly controlling an SX1262 or
+SX127x/RFM9x LoRa radio through RadioLib. This is not a UART transparent-modem
+port and not a MeshCore/Meshtastic fork.
+
+The over-the-air Smart-CALM packet is now explicit rather than a raw C++ struct
+copy. It includes:
+
+- magic/version/type
+- source, destination, and sequence number
+- flow ID, creation timestamp, and TTL
+- state/action indexes and flags
+- confidence in milli-units
+- payload length and payload
+- CRC-16
+
+Both PlatformIO build targets compile:
+
+- `esp32dev_sx1262`
+- `esp32dev_sx127x`
+
+The current firmware can initialize the radio, transmit status/hello frames,
+receive and validate Smart-CALM frames, reject malformed/CRC-failed packets, and
+run a custom mesh data plane with `RREQ`, `RREP`, `DATA`, and `ACK` frames.
+
+Design boundary for the conference narrative:
+
+- It may be described as borrowing the general source-route discovery idea that
+  MeshCore-like systems make useful.
+- It may be described as borrowing the controlled fallback/limited broadcast
+  idea that managed-flooding systems make useful.
+- It should not be described as a MeshCore or Meshtastic protocol fork. The
+  frame format, route payload, confidence fields, controller hooks, and learning
+  behavior are Smart-CALM-specific.
+
+Remaining firmware work:
+
+- timeout retry on missing ACK
+- persistent route aging and eviction policy
+- neighbor/link-quality table using RSSI/SNR
+- richer delivery telemetry back into the online controller

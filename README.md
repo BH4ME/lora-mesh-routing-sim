@@ -21,8 +21,41 @@ The simulator is not a firmware clone. It is a research harness for comparing
 routing behavior under the same topology, traffic, propagation, collision, and
 LoRa airtime model.
 
-See [Terminology and Formulas](docs/terminology-and-formulas.md) for the English
-terms, abbreviations, metrics, and formulas used by the simulator.
+## Documentation
+
+The Markdown documents are organized under [docs/README.md](docs/README.md).
+Research plans, result narratives, firmware notes, and project-history files are
+kept in separate folders so the repository root stays focused on the simulator
+entry point.
+
+See [Terminology and Formulas](docs/reference/terminology-and-formulas.md) for
+the English terms, abbreviations, metrics, and formulas used by the simulator.
+
+## Firmware Prototype
+
+The `firmware/esp32_smart_calm/` directory contains a burnable ESP32/PlatformIO
+prototype for the Smart-CALM control layer on directly attached LoRa radios. It
+is our own controller and compact over-the-air frame format built on top of
+RadioLib, not a Meshtastic or MeshCore fork.
+
+The current firmware supports ESP32 + SX1262 and ESP32 + SX127x/RFM9x build
+targets. It sends/receives CRC-protected Smart-CALM frames, status beacons, and
+a custom `RREQ/RREP/DATA/ACK` mesh data plane.
+
+Detailed firmware notes are in
+[ESP32 Smart-CALM Direct-LoRa Firmware](docs/firmware/esp32_smart_calm.md).
+
+```bash
+cd firmware/esp32_smart_calm
+pio run -e esp32dev_sx1262
+pio run -e esp32dev_sx127x
+```
+
+If you want the current trained prior in the firmware header, run:
+
+```bash
+python3 tools/generate_smart_calm_prior_header.py
+```
 
 ## Run
 

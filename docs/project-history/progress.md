@@ -7,7 +7,7 @@
 - Read existing docs and confirmed the prior optimization idea: use the two existing protocols as baselines to motivate a confidence-aware adaptive routing mechanism.
 - Ran existing result aggregation for `results/exp_50n_unicast_pairs.csv` and `results/exp_50n_mixed.csv`.
 - Started persistent planning files for the conference-ready work.
-- Created `docs/conference-research-plan.md` and reframed the work as confidence-aware routing optimization.
+- Created `docs/research/conference-research-plan.md` and reframed the work as confidence-aware routing optimization.
 - Moved old reports, previews, conflict copies, and reference PDFs into `archive/`.
 - Implemented `calm-mesh` in `lora_mesh_sim.py`.
 - Added CALM metrics: fallback forwards, route repairs, mean path confidence, and control overhead ratio.
@@ -29,8 +29,17 @@
 - Added cancellation of delayed fallback packets after successful source-route delivery to avoid redundant airtime.
 - Added per-flow Smart-CALM policy selection so each unicast flow can use the current learned profile.
 - Re-ran formal 50-node mixed, high-shadowing, and high-offered-load comparisons with 20 seeds.
-- Regenerated `results/three_protocol_comparison.md` and SVG charts for the three-protocol meeting view.
+- Regenerated `docs/results/three_protocol_comparison.md` and SVG charts for the three-protocol meeting view.
 - Added `tools/train_smart_calm_prior.py` for offline Smart-CALM prior training experiments.
 - Trained a small Smart-CALM prior and found that unconstrained Q-table transfer overfits to rescue/fallback choices.
 - Added learned timeout-triggered bounded fallback retry as the high-reliability training outcome.
 - Re-ran three formal 50-node mixed/stress comparisons with the high-reliability training mode and regenerated summaries/charts.
+- Started the ESP32 firmware prototype phase and clarified that the protocol is a self-written control layer rather than a Meshtastic/MeshCore fork.
+- Reworked the ESP32 firmware packet layer into explicit Smart-CALM wire encoding with magic/version/type, sequence number, payload length, and CRC-16.
+- Added PlatformIO build environments for `esp32dev_sx1262` and `esp32dev_sx127x`.
+- Verified the firmware packet/controller smoke test with host C++ compilation.
+- Verified both ESP32 firmware environments compile successfully with PlatformIO.
+- Added `SmartCalmMesh`, a firmware data-plane module with Smart-CALM-owned `RREQ`, `RREP`, `DATA`, and `ACK` behavior inspired by source-route discovery and managed fallback rather than copied from MeshCore/Meshtastic.
+- Added a host C++ smoke test that exercises a three-hop `RREQ -> RREP -> DATA -> ACK` path.
+- Connected the ESP32 firmware loop to `SmartCalmMesh` and added a serial command `send <dst> <text>` for hardware smoke testing.
+- Re-verified both `esp32dev_sx1262` and `esp32dev_sx127x` PlatformIO builds after adding the mesh data plane.

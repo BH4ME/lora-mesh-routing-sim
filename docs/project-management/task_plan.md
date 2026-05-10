@@ -14,7 +14,7 @@ Turn the current LoRa Mesh simulator into a clean conference-ready research proj
 | Phase | Status | Notes |
 | --- | --- | --- |
 | 1. Inspect existing project | complete | Existing simulator, baseline results, docs, and report assets have been reviewed. |
-| 2. Write research plan | complete | Formal conference plan added in `docs/conference-research-plan.md`. |
+| 2. Write research plan | complete | Formal conference plan added in `docs/research/conference-research-plan.md`. |
 | 3. Clean directory layout | complete | Old papers, PPTs, previews, and legacy report tools were moved into `archive/`. |
 | 4. Implement proposed protocol | complete | Added `calm-mesh` with confidence-aware route admission and emergency fallback. |
 | 5. Run simulations | complete | Generated 50-node repeated-unicast and mixed-traffic CSVs with 20 seeds. |
@@ -23,6 +23,9 @@ Turn the current LoRa Mesh simulator into a clean conference-ready research proj
 | 8. Continue stress simulations | complete | Added Smart-CALM comparisons under high shadowing and higher offered load. |
 | 9. Optimize Smart-CALM significance | complete | Added per-flow policy selection, redundant fallback cancellation, and updated formal three-scenario comparison. |
 | 10. Train high-reliability Smart-CALM mode | complete | Added offline prior tooling and a learned timeout-retry action that raises unicast PDR in all three formal scenarios. |
+| 11. Build ESP32 direct-LoRa firmware prototype | complete | Added a PlatformIO ESP32 prototype with Smart-CALM controller, explicit CRC-protected over-the-air frame encoding, and SX1262/SX127x build targets. |
+| 12. Port first mesh data plane to firmware | complete | Added Smart-CALM-owned RREQ/RREP/DATA/ACK source-route behavior and serial-triggered application sends, inspired by MeshCore/Meshtastic mechanics but not their protocols. |
+| 13. Add firmware reliability refinements | pending | Add timeout retry, persistent route aging, neighbor/link-quality tables, and richer delivery telemetry for online policy learning. |
 
 ## Proposed Protocol Framing
 
@@ -58,6 +61,9 @@ Online adaptive extension:
 - A learned high-reliability mode triggers at most one bounded fallback retry after a unicast timeout.
 - Reward penalizes control overhead, collision pressure, route repairs, fallback redundancy, and delay.
 - The controller uses a tiny Q table suitable for MCU firmware rather than a neural network.
+- The ESP32 prototype should keep the controller logic separate from the radio driver so the same policy can later be adapted to different LoRa chips.
+- The first direct-LoRa firmware milestone now has a compact Smart-CALM wire frame with magic/version/type, source/destination/sequence, TTL, confidence, payload length, and CRC-16.
+- The first mesh data-plane milestone borrows general source-route discovery and managed-fallback mechanics, while keeping all frame definitions and payload encodings Smart-CALM-specific.
 
 ## Directory Policy
 
@@ -142,3 +148,5 @@ The proposed protocol should show at least one conference-worthy pattern:
 | `analyze_results.py` failed on old CSVs after new metrics were added | Analyze old baseline CSV | Made metric aggregation skip missing columns. |
 | Parameter tuning script could not import `lora_mesh_sim` from `tools/` | Run tuning smoke | Added project root to `sys.path` in the tuning script. |
 | Initial parameter-injection test did not trigger fallback | Unit test | Reworked the test scenario and confirmed parameters flow through `run_one()`. |
+| Host firmware smoke test failed on `SmartCalmController(Settings = Settings{})` | C++17 compile check | Split the default constructor from the parameterized constructor for compiler compatibility. |
+| Host firmware smoke test expected the wrong low-reliability state bucket | C++ smoke test | Corrected the test expectation to match the controller's state mapping. |
