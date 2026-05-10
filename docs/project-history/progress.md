@@ -43,3 +43,4 @@
 - Added a host C++ smoke test that exercises a three-hop `RREQ -> RREP -> DATA -> ACK` path.
 - Connected the ESP32 firmware loop to `SmartCalmMesh` and added a serial command `send <dst> <text>` for hardware smoke testing.
 - Re-verified both `esp32dev_sx1262` and `esp32dev_sx127x` PlatformIO builds after adding the mesh data plane.
+- Confirmed `smart-calm-sim-v1.0` as the frozen Smart-CALM simulator baseline and `codex/smart-calm-sim-optimization` as the branch for future optimization work.
