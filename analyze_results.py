@@ -15,6 +15,7 @@ METRICS = [
     "unicast_pdr",
     "broadcast_coverage",
     "avg_delay_s",
+    "mean_delivery_delay_s",
     "tx_count",
     "data_tx",
     "control_tx",
@@ -25,6 +26,14 @@ METRICS = [
     "suppressed_forwards",
     "route_cache_hits",
     "route_cache_misses",
+    "fallback_forward_count",
+    "route_repair_count",
+    "mean_path_confidence",
+    "control_overhead_ratio",
+    "policy_switch_count",
+    "policy_update_count",
+    "policy_reward_total",
+    "active_profile_index",
 ]
 
 
@@ -45,7 +54,13 @@ def main() -> None:
         print(f"\n{protocol}  n={len(rows)}")
         print("-" * (len(protocol) + 6 + len(str(len(rows)))))
         for metric in METRICS:
-            values = [float(row[metric]) for row in rows]
+            values = [
+                float(row[metric])
+                for row in rows
+                if row.get(metric) not in {None, ""}
+            ]
+            if not values:
+                continue
             mu = mean(values)
             if len(values) >= 2:
                 sd = stdev(values)

@@ -6,6 +6,13 @@ __pycache__/
 .venv/
 venv/
 env/
+archive/
 results/*
 !results/*.csv
+!results/*_summary.txt
+!results/calm_experiment_notes.md
+!results/three_protocol_comparison.md
+!results/smart_calm_prior.json
+!results/figures/
+!results/figures/*.svg
 *.pdf

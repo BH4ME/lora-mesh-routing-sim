@@ -1,0 +1,5 @@
+round,scenario,seed,unicast_pdr,total_airtime_s,collision_fail,policy_switch_count,policy_update_count,policy_reward_total
+1,mixed,100,0.5,219.63776,21104,4,18,1.832095
+1,shadow6,200,1.0,100.194304,8495,3,9,6.452612
+1,rate10,300,0.75,245.303296,23854,4,22,13.441145
+1,rate10,400,0.85,242.095104,18481,3,26,21.359776
