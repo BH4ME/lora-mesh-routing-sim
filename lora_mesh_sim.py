@@ -1058,11 +1058,7 @@ class CalmMesh(RoutingProtocol):
         self.rreq_timers.discard(key)
         candidates = self.rreq_candidates.pop(key, [])
         if not candidates:
-            src, dst, _ = key
-            queued = self.pending_data.pop((src, dst), [])
-            for flow_id in queued:
-                self.sim.metrics.route_repair_count += 1
-                self.start_fallback(src, dst, flow_id, ttl=self.sim.max_hops, delay_s=0.0)
+            self.finish_failed_route_discovery(key)
             return
         src, dst, request_id = key
         path, confidence = max(candidates, key=lambda item: (item[1], -len(item[0])))
@@ -1084,6 +1080,22 @@ class CalmMesh(RoutingProtocol):
         )
         self.sim.transmit_later(dst, reply, delay_s=0.0)
         self.sim.metrics.record_path_confidence(confidence)
+
+    def route_miss_recovery_ttl(self) -> int:
+        return self.sim.max_hops
+
+    def finish_failed_route_discovery(self, key: Tuple[int, int, int]) -> None:
+        src, dst, _ = key
+        queued = self.pending_data.pop((src, dst), [])
+        for flow_id in queued:
+            self.sim.metrics.route_repair_count += 1
+            self.start_fallback(
+                src,
+                dst,
+                flow_id,
+                ttl=self.route_miss_recovery_ttl(),
+                delay_s=0.0,
+            )
 
     def send_data_on_path(self, src: int, dst: int, flow_id: int, entry: RouteEntry) -> None:
         if len(entry.path) < 2:
@@ -1341,6 +1353,7 @@ class SmartCalmMesh(CalmMesh):
         flow_timeout_s: float = 35.0,
         max_timeout_retries: int = 2,
         retry_after_fallback: bool = False,
+        route_miss_fallback_ttl: int = 0,
         prior_q_values: Optional[Dict[Tuple[int, int], float]] = None,
         profiles: Sequence[AdaptiveProfile] = DEFAULT_PROFILES,
         **kwargs: Any,
@@ -1353,6 +1366,7 @@ class SmartCalmMesh(CalmMesh):
         self.flow_timeout_s = flow_timeout_s
         self.max_timeout_retries = max_timeout_retries
         self.retry_after_fallback = retry_after_fallback
+        self.route_miss_fallback_ttl = route_miss_fallback_ttl
         self.profiles = tuple(profiles)
         self.active_profile_index = 1 if len(self.profiles) > 1 else 0
         self.active_state_index = 0
@@ -1542,6 +1556,11 @@ class SmartCalmMesh(CalmMesh):
                 decision.confidence = confidence
         super().finish_route_discovery(key)
 
+    def route_miss_recovery_ttl(self) -> int:
+        if self.route_miss_fallback_ttl > 0:
+            return self.route_miss_fallback_ttl
+        return self.sim.max_hops
+
     def send_data_on_path(self, src: int, dst: int, flow_id: int, entry: RouteEntry) -> None:
         decision = self.flow_decisions.get(flow_id)
         if decision is not None:
@@ -1591,7 +1610,7 @@ class SmartCalmMesh(CalmMesh):
         if can_retry_timeout:
             decision.timeout_retries += 1
             if not self.retry_data_on_cached_path(decision, flow_id):
-                retry_ttl = max(self.fallback_ttl, 2)
+                retry_ttl = max(self.fallback_ttl, 1)
                 self.start_fallback(
                     decision.src,
                     decision.dst,
@@ -1716,6 +1735,7 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             flow_timeout_s=getattr(args, "smart_flow_timeout_s", 35.0),
             max_timeout_retries=getattr(args, "smart_max_timeout_retries", 2),
             retry_after_fallback=getattr(args, "smart_retry_after_fallback", False),
+            route_miss_fallback_ttl=getattr(args, "smart_route_miss_fallback_ttl", 0),
             prior_q_values=SmartCalmMesh.load_prior_q_values(getattr(args, "smart_prior_json"))
             if getattr(args, "smart_prior_json", None)
             else None,
@@ -1850,6 +1870,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--smart-exploration", type=float, default=0.02)
     parser.add_argument("--smart-flow-timeout-s", type=float, default=35.0)
     parser.add_argument("--smart-max-timeout-retries", type=int, default=2)
+    parser.add_argument(
+        "--smart-route-miss-fallback-ttl",
+        type=int,
+        default=0,
+        help="limit route-miss fallback radius; 0 keeps the normal max-hops route-discovery recovery",
+    )
     parser.add_argument(
         "--smart-retry-after-fallback",
         action="store_true",

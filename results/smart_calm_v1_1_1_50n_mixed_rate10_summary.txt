@@ -1,0 +1,100 @@
+
+meshtastic-like  n=20
+-----------------------
+unicast_pdr              mean=0.916836  sd=0.029543
+broadcast_coverage       mean=0.914626  sd=0.024036
+avg_delay_s              mean=0.806060  sd=0.131787
+mean_delivery_delay_s    mean=0.729212  sd=0.108119
+tx_count                 mean=7596.800000  sd=541.839324
+data_tx                  mean=7596.800000  sd=541.839324
+control_tx               mean=0.000000  sd=0.000000
+total_airtime_s          mean=1874.768691  sd=133.717276
+airtime_per_delivery_s   mean=0.404568  sd=0.029637
+collision_fail           mean=198166.250000  sd=13885.846720
+duplicate_rx             mean=5288.500000  sd=716.623846
+suppressed_forwards      mean=3237.600000  sd=321.359022
+route_cache_hits         mean=0.000000  sd=0.000000
+route_cache_misses       mean=0.000000  sd=0.000000
+fallback_forward_count   mean=0.000000  sd=0.000000
+route_repair_count       mean=0.000000  sd=0.000000
+mean_path_confidence     mean=0.000000  sd=0.000000
+control_overhead_ratio   mean=0.000000  sd=0.000000
+policy_switch_count      mean=0.000000  sd=0.000000
+policy_update_count      mean=0.000000  sd=0.000000
+policy_reward_total      mean=0.000000  sd=0.000000
+active_profile_index     mean=-1.000000  sd=0.000000
+
+meshcore-like  n=20
+---------------------
+unicast_pdr              mean=0.487597  sd=0.152732
+broadcast_coverage       mean=0.936004  sd=0.021921
+avg_delay_s              mean=0.390376  sd=0.023929
+mean_delivery_delay_s    mean=0.501428  sd=0.086489
+tx_count                 mean=5732.150000  sd=536.516177
+data_tx                  mean=4816.600000  sd=498.137098
+control_tx               mean=915.550000  sd=200.028807
+total_airtime_s          mean=1414.602906  sd=132.403608
+airtime_per_delivery_s   mean=0.300132  sd=0.011430
+collision_fail           mean=125204.800000  sd=11506.371167
+duplicate_rx             mean=2838.200000  sd=400.212259
+suppressed_forwards      mean=0.000000  sd=0.000000
+route_cache_hits         mean=44.450000  sd=14.522125
+route_cache_misses       mean=58.500000  sd=13.453624
+fallback_forward_count   mean=0.000000  sd=0.000000
+route_repair_count       mean=0.000000  sd=0.000000
+mean_path_confidence     mean=0.000000  sd=0.000000
+control_overhead_ratio   mean=0.160047  sd=0.032743
+policy_switch_count      mean=0.000000  sd=0.000000
+policy_update_count      mean=0.000000  sd=0.000000
+policy_reward_total      mean=0.000000  sd=0.000000
+active_profile_index     mean=-1.000000  sd=0.000000
+
+calm-mesh  n=20
+-----------------
+unicast_pdr              mean=0.596178  sd=0.162868
+broadcast_coverage       mean=0.939142  sd=0.024911
+avg_delay_s              mean=0.741633  sd=0.119453
+mean_delivery_delay_s    mean=0.493642  sd=0.073964
+tx_count                 mean=4995.600000  sd=434.429983
+data_tx                  mean=4241.900000  sd=414.699244
+control_tx               mean=753.700000  sd=110.705917
+total_airtime_s          mean=1232.834150  sd=107.210369
+airtime_per_delivery_s   mean=0.260223  sd=0.008770
+collision_fail           mean=113447.000000  sd=10699.735516
+duplicate_rx             mean=2460.050000  sd=388.447311
+suppressed_forwards      mean=1370.700000  sd=187.509466
+route_cache_hits         mean=58.650000  sd=18.003728
+route_cache_misses       mean=44.300000  sd=15.120916
+fallback_forward_count   mean=70.100000  sd=48.098474
+route_repair_count       mean=8.500000  sd=2.605662
+mean_path_confidence     mean=0.940332  sd=0.009288
+control_overhead_ratio   mean=0.151471  sd=0.022759
+policy_switch_count      mean=0.000000  sd=0.000000
+policy_update_count      mean=0.000000  sd=0.000000
+policy_reward_total      mean=0.000000  sd=0.000000
+active_profile_index     mean=-1.000000  sd=0.000000
+
+smart-calm  n=20
+------------------
+unicast_pdr              mean=0.931820  sd=0.033827
+broadcast_coverage       mean=0.934529  sd=0.024292
+avg_delay_s              mean=11.615367  sd=4.914706
+mean_delivery_delay_s    mean=0.758953  sd=0.157461
+tx_count                 mean=5338.750000  sd=751.777744
+data_tx                  mean=4590.050000  sd=765.591032
+control_tx               mean=748.700000  sd=60.650943
+total_airtime_s          mean=1317.518080  sd=185.526719
+airtime_per_delivery_s   mean=0.277564  sd=0.034799
+collision_fail           mean=122430.850000  sd=18112.061074
+duplicate_rx             mean=2825.250000  sd=497.372769
+suppressed_forwards      mean=1542.050000  sd=245.802333
+route_cache_hits         mean=66.600000  sd=15.715899
+route_cache_misses       mean=36.350000  sd=14.386671
+fallback_forward_count   mean=443.600000  sd=656.925727
+route_repair_count       mean=8.500000  sd=1.670172
+mean_path_confidence     mean=0.943085  sd=0.017552
+control_overhead_ratio   mean=0.143086  sd=0.024667
+policy_switch_count      mean=5.050000  sd=3.103055
+policy_update_count      mean=141.400000  sd=10.913054
+policy_reward_total      mean=130.923947  sd=22.132515
+active_profile_index     mean=0.550000  sd=0.759155

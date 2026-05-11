@@ -17,37 +17,37 @@ text{font-family:Georgia,'Times New Roman',serif;fill:#17212b}
 <line x1="120" y1="502.0" x2="1040" y2="502.0" class="grid"/>
 <text x="108" y="506.0" text-anchor="end" class="tick">0.000</text>
 <line x1="120" y1="418.8" x2="1040" y2="418.8" class="grid"/>
-<text x="108" y="422.8" text-anchor="end" class="tick">0.216</text>
+<text x="108" y="422.8" text-anchor="end" class="tick">0.217</text>
 <line x1="120" y1="335.6" x2="1040" y2="335.6" class="grid"/>
-<text x="108" y="339.6" text-anchor="end" class="tick">0.432</text>
+<text x="108" y="339.6" text-anchor="end" class="tick">0.434</text>
 <line x1="120" y1="252.4" x2="1040" y2="252.4" class="grid"/>
-<text x="108" y="256.4" text-anchor="end" class="tick">0.647</text>
+<text x="108" y="256.4" text-anchor="end" class="tick">0.651</text>
 <line x1="120" y1="169.2" x2="1040" y2="169.2" class="grid"/>
-<text x="108" y="173.2" text-anchor="end" class="tick">0.863</text>
+<text x="108" y="173.2" text-anchor="end" class="tick">0.868</text>
 <line x1="120" y1="86.0" x2="1040" y2="86.0" class="grid"/>
-<text x="108" y="90.0" text-anchor="end" class="tick">1.079</text>
+<text x="108" y="90.0" text-anchor="end" class="tick">1.086</text>
 <line x1="120" y1="86" x2="120" y2="502" class="axis"/>
 <line x1="120" y1="502" x2="1040" y2="502" class="axis"/>
-<rect x="187.5" y="136.5" width="47.8" height="365.5" rx="6" fill="#2f6f73"/>
-<text x="211.4" y="128.5" text-anchor="middle" class="value">0.948</text>
-<rect x="248.8" y="254.7" width="47.8" height="247.3" rx="6" fill="#c77d32"/>
-<text x="272.7" y="246.7" text-anchor="middle" class="value">0.642</text>
-<rect x="310.1" y="131.2" width="47.8" height="370.8" rx="6" fill="#1f4e8c"/>
-<text x="334.1" y="123.2" text-anchor="middle" class="value">0.962</text>
+<rect x="187.5" y="138.7" width="47.8" height="363.3" rx="6" fill="#2f6f73"/>
+<text x="211.4" y="130.7" text-anchor="middle" class="value">0.948</text>
+<rect x="248.8" y="256.1" width="47.8" height="245.9" rx="6" fill="#c77d32"/>
+<text x="272.7" y="248.1" text-anchor="middle" class="value">0.642</text>
+<rect x="310.1" y="133.4" width="47.8" height="368.6" rx="6" fill="#1f4e8c"/>
+<text x="334.1" y="125.4" text-anchor="middle" class="value">0.962</text>
 <text x="273.3" y="548" text-anchor="middle" class="label">Mixed traffic</text>
-<rect x="494.1" y="135.7" width="47.8" height="366.3" rx="6" fill="#2f6f73"/>
-<text x="518.1" y="127.7" text-anchor="middle" class="value">0.950</text>
-<rect x="555.5" y="258.0" width="47.8" height="244.0" rx="6" fill="#c77d32"/>
-<text x="579.4" y="250.0" text-anchor="middle" class="value">0.633</text>
+<rect x="494.1" y="137.9" width="47.8" height="364.1" rx="6" fill="#2f6f73"/>
+<text x="518.1" y="129.9" text-anchor="middle" class="value">0.950</text>
+<rect x="555.5" y="259.5" width="47.8" height="242.5" rx="6" fill="#c77d32"/>
+<text x="579.4" y="251.5" text-anchor="middle" class="value">0.633</text>
 <rect x="616.8" y="130.6" width="47.8" height="371.4" rx="6" fill="#1f4e8c"/>
-<text x="640.7" y="122.6" text-anchor="middle" class="value">0.963</text>
+<text x="640.7" y="122.6" text-anchor="middle" class="value">0.969</text>
 <text x="580.0" y="548" text-anchor="middle" class="label">High shadowing</text>
-<rect x="800.8" y="148.5" width="47.8" height="353.5" rx="6" fill="#2f6f73"/>
-<text x="824.7" y="140.5" text-anchor="middle" class="value">0.917</text>
-<rect x="862.1" y="314.0" width="47.8" height="188.0" rx="6" fill="#c77d32"/>
-<text x="886.1" y="306.0" text-anchor="middle" class="value">0.488</text>
-<rect x="923.5" y="140.9" width="47.8" height="361.1" rx="6" fill="#1f4e8c"/>
-<text x="947.4" y="132.9" text-anchor="middle" class="value">0.937</text>
+<rect x="800.8" y="150.7" width="47.8" height="351.3" rx="6" fill="#2f6f73"/>
+<text x="824.7" y="142.7" text-anchor="middle" class="value">0.917</text>
+<rect x="862.1" y="315.1" width="47.8" height="186.9" rx="6" fill="#c77d32"/>
+<text x="886.1" y="307.1" text-anchor="middle" class="value">0.488</text>
+<rect x="923.5" y="144.9" width="47.8" height="357.1" rx="6" fill="#1f4e8c"/>
+<text x="947.4" y="136.9" text-anchor="middle" class="value">0.932</text>
 <text x="886.7" y="548" text-anchor="middle" class="label">High offered load</text>
 <rect x="120" y="569" width="18" height="18" rx="4" fill="#2f6f73"/>
 <text x="146" y="584" class="legend">Meshtastic-like</text>

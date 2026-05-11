@@ -4,7 +4,7 @@ This file tracks simulation baselines before further optimization.
 
 ## `smart-calm-sim-v1.1`
 
-- Status: working version on branch `codex/smart-calm-sim-optimization`.
+- Status: superseded baseline on branch `codex/smart-calm-sim-optimization`.
 - Baseline ancestry: starts from `smart-calm-sim-v1.0` and keeps the v1.0 CSVs
   untouched for comparison.
 - Core change: timeout recovery now prefers a cached source-route DATA retry
@@ -34,12 +34,52 @@ Twenty-seed Smart-CALM deltas versus v1.0:
 
 Notes:
 
-- Treat v1.1 as the active optimization base for the next round.
+- Treat v1.1 as the historical optimization base for v1.1.1.
 - The conference explanation should emphasize recovery discipline: Smart-CALM
   keeps reliability high by retrying along known paths first, and only spends
   fallback flooding when path knowledge is unavailable.
+- The v1.1 comparison charts were generated from v1.1 result CSVs before the
+  v1.1.1 timeout-rescue-radius optimization.
+
+## `smart-calm-sim-v1.1.1`
+
+- Status: accepted optimization candidate after v1.1.
+- Core change: timeout recovery now uses the active Smart-CALM profile's
+  fallback radius instead of forcing at least two fallback hops. Route-miss
+  recovery still defaults to the normal full-radius recovery so first-contact
+  reachability is not weakened.
+- Optional experiment knob: `--smart-route-miss-fallback-ttl`; default `0`
+  keeps full route-miss recovery.
+- Decision: use this as the next simulation baseline because it lowers airtime
+  and collision failures without materially changing the reliability story.
+
+Key v1.1.1 result files:
+
+- `results/smart_calm_v1_1_1_50n_mixed.csv`
+- `results/smart_calm_v1_1_1_50n_mixed_shadow6.csv`
+- `results/smart_calm_v1_1_1_50n_mixed_rate10.csv`
+- `results/smart_calm_v1_1_1_50n_mixed_summary.txt`
+- `results/smart_calm_v1_1_1_50n_mixed_shadow6_summary.txt`
+- `results/smart_calm_v1_1_1_50n_mixed_rate10_summary.txt`
+
+Twenty-seed Smart-CALM deltas versus v1.1:
+
+| Scenario | PDR delta | Airtime delta | Collision delta | Fallback delta |
+| --- | ---: | ---: | ---: | ---: |
+| Mixed traffic | `+0.02%` | `-7.60%` | `-7.62%` | `-71.80%` |
+| High shadowing | `+0.61%` | `-6.51%` | `-6.51%` | `-71.84%` |
+| High offered load | `-0.51%` | `-6.57%` | `-6.79%` | `-47.24%` |
+
+Notes:
+
+- The accepted explanation is "targeted timeout-rescue radius control", not
+  "global flooding reduction". Route discovery failures remain conservative;
+  only late timeout rescue follows the selected online profile.
+- Rejected candidate runs for tighter route-miss fallback and stricter timeout
+  retry budgets are archived under
+  `archive/experiments/smart_calm_v1_1_1_candidates/`.
 - The current comparison charts in `results/figures/` and
-  `docs/results/three_protocol_comparison.md` are generated from v1.1 result
+  `docs/results/three_protocol_comparison.md` are generated from v1.1.1 result
   CSVs.
 
 ## Rejected candidate: `smart-calm-sim-v1.2`

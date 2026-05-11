@@ -6,6 +6,7 @@ from pathlib import Path
 
 from lora_mesh_sim import (
     CalmMesh,
+    FlowDecision,
     Node,
     RadioConfig,
     RouteEntry,
@@ -231,6 +232,43 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(summary["data_tx"], 2)
         self.assertEqual(summary["fallback_forward_count"], 0)
 
+    def test_smart_calm_timeout_fallback_uses_active_profile_radius(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=0.3,
+            max_timeout_retries=1,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 80.0, 0.0),
+            Node(2, 160.0, 0.0),
+            Node(3, 5000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=12,
+            max_hops=7,
+        )
+        protocol.apply_profile(0)
+
+        protocol.flow_decisions[1] = FlowDecision(
+            src=0,
+            dst=3,
+            state_index=0,
+            action_index=0,
+            profile_name="lean",
+            created_at=0.0,
+        )
+        sim.metrics.register_flow(1, 0, 3, 0.0)
+        protocol.on_flow_completion(flow_id=1, delivered=False, now=0.3)
+        sim.run(until_s=2.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=12, duration_s=2.0)
+        self.assertEqual(summary["fallback_forward_count"], 1)
+
     def test_smart_calm_does_not_stack_timeout_retry_after_route_miss_fallback(self) -> None:
         protocol = SmartCalmMesh(
             update_interval_s=999.0,
@@ -255,6 +293,59 @@ class CalmProtocolTest(unittest.TestCase):
 
         summary = sim.metrics.summarize(protocol.name, seed=4, duration_s=3.0)
         self.assertEqual(summary["fallback_forward_count"], 1)
+
+    def test_smart_calm_bounds_route_miss_fallback_scope(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=5.0,
+            route_miss_fallback_ttl=1,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 80.0, 0.0),
+            Node(2, 160.0, 0.0),
+            Node(3, 5000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=9,
+            max_hops=7,
+        )
+
+        protocol.send_app(0, 3, flow_id=1)
+        sim.run(until_s=3.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=9, duration_s=3.0)
+        self.assertEqual(summary["fallback_forward_count"], 1)
+
+    def test_smart_calm_uses_full_route_miss_recovery_by_default(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=5.0,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 80.0, 0.0),
+            Node(2, 160.0, 0.0),
+            Node(3, 5000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=9,
+            max_hops=7,
+        )
+
+        protocol.send_app(0, 3, flow_id=1)
+        sim.run(until_s=5.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=9, duration_s=3.0)
+        self.assertGreater(summary["fallback_forward_count"], 1)
 
     def test_smart_calm_profiles_are_built_from_run_args(self) -> None:
         args = argparse.Namespace(
