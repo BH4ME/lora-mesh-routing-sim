@@ -15,6 +15,8 @@ keeps the main `README.md` as the entry point.
 
 ## Results
 
+- [Smart-CALM Tag Gallery](results/smart_calm_tag_gallery.md): version tags,
+  commits, and per-version bar charts for Smart-CALM simulation baselines.
 - [Three Protocol Comparison](results/three_protocol_comparison.md): concise
   meeting view comparing Meshtastic-like, MeshCore-like, and Smart-CALM.
 - [CALM Experiment Notes](results/calm_experiment_notes.md): detailed simulation
