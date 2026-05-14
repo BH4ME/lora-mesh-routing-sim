@@ -15,6 +15,7 @@ class SmartCalmTagGalleryTest(unittest.TestCase):
                 "smart-calm-sim-v1.0",
                 "smart-calm-sim-v1.1",
                 "smart-calm-sim-v1.1.1",
+                "smart-calm-sim-v1.1.2",
             ],
         )
         for version in gallery.VERSIONS:

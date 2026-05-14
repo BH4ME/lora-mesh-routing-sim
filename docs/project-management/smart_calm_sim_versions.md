@@ -82,6 +82,34 @@ Notes:
   `docs/results/three_protocol_comparison.md` are generated from v1.1.1 result
   CSVs.
 
+## `smart-calm-sim-v1.1.2`
+
+- Status: current optimization candidate on branch `version/v1.1.2`.
+- Core change: timeout rescue is now congestion-aware. When the active profile
+  is already the rescue profile and the recent channel pressure is clearly
+  high, Smart-CALM caps timeout fallback TTL to avoid over-spreading rescue
+  floods.
+- Design intent: keep the reliability of the rescue path, but stop it from
+  escalating airtime and collision pressure in already congested conditions.
+- Current evidence:
+  - `rate14` improves unicast PDR from about `0.884` to `0.904`, while total
+    airtime drops from about `1740 s` to `1626 s`, collisions drop from about
+    `168778` to `157536`, and fallback forwards drop from about `799` to `357`.
+  - `shadow8` stays effectively unchanged.
+  - `sparse4k` shows a small PDR decrease of about `0.23%`, with a slight
+    airtime increase, so this version is still the active tuning candidate
+    rather than the final accepted baseline.
+- Key result files:
+  - `results/v1_1_2_rate14_smart.csv`
+  - `results/v1_1_2_shadow8_smart.csv`
+  - `results/v1_1_2_sparse4k_smart.csv`
+- Notes:
+  - Keep this candidate as the next step for the conference narrative, but do
+    not relabel it as the final baseline until the sparse-load regression is
+    either explained or eliminated.
+  - The intended conference framing is "congestion-aware rescue throttling,"
+    not "more aggressive flooding."
+
 ## Rejected candidate: `smart-calm-sim-v1.2`
 
 - Archive: `archive/experiments/smart_calm_v1_2_rejected/`

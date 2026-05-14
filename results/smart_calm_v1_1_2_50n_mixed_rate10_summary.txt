@@ -1,0 +1,25 @@
+
+smart-calm  n=20
+------------------
+unicast_pdr              mean=0.931330  sd=0.034054
+broadcast_coverage       mean=0.936443  sd=0.021249
+avg_delay_s              mean=11.567224  sd=4.845059
+mean_delivery_delay_s    mean=0.757171  sd=0.155010
+tx_count                 mean=5262.700000  sd=681.643610
+data_tx                  mean=4510.500000  sd=688.398561
+control_tx               mean=752.200000  sd=57.183546
+total_airtime_s          mean=1298.750157  sd=168.218737
+airtime_per_delivery_s   mean=0.272669  sd=0.025741
+collision_fail           mean=120768.000000  sd=16473.812197
+duplicate_rx             mean=2802.150000  sd=493.417969
+suppressed_forwards      mean=1518.850000  sd=240.375644
+route_cache_hits         mean=66.750000  sd=15.542387
+route_cache_misses       mean=36.200000  sd=14.207485
+fallback_forward_count   mean=353.050000  sd=515.557795
+route_repair_count       mean=8.500000  sd=1.670172
+mean_path_confidence     mean=0.943695  sd=0.017156
+control_overhead_ratio   mean=0.145248  sd=0.022474
+policy_switch_count      mean=5.500000  sd=3.692097
+policy_update_count      mean=141.350000  sd=10.888309
+policy_reward_total      mean=131.557856  sd=21.038747
+active_profile_index     mean=0.500000  sd=0.688247

@@ -50,3 +50,9 @@
 - Updated `docs/project-management/smart_calm_sim_versions.md` with v1.1 deltas and recovery-design notes.
 - Tested a v1.2 piggybacked-RREQ candidate and rejected it because the small PDR gain required much higher airtime and collision pressure.
 - Archived the rejected v1.2 CSVs under `archive/experiments/smart_calm_v1_2_rejected/` for rollback and future design traceability.
+- Started the v1.1.2 candidate with congestion-aware timeout rescue capping to
+  reduce fallback over-spread under high channel pressure.
+- Ran v1.1.2 candidate simulations for high-load, high-shadowing, and sparse
+  scenarios and kept the version as a refinement candidate because the
+  high-load gains are strong while sparse-load regression is still under
+  review.

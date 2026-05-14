@@ -66,6 +66,13 @@ VERSIONS = (
         result_prefix="smart_calm_v1_1_1_50n",
         note="Timeout-rescue radius follows the active online profile.",
     ),
+    Version(
+        key="v1_1_2",
+        tag="smart-calm-sim-v1.1.2",
+        label="v1.1.2",
+        result_prefix="smart_calm_v1_1_2_50n",
+        note="Congestion-aware timeout rescue cap.",
+    ),
 )
 
 METRICS = {
@@ -90,6 +97,7 @@ VERSION_COLORS = {
     "v1_0": "#8a5a44",
     "v1_1": "#2f6f73",
     "v1_1_1": "#1f4e8c",
+    "v1_1_2": "#b15b1a",
 }
 
 

@@ -269,6 +269,133 @@ class CalmProtocolTest(unittest.TestCase):
         summary = sim.metrics.summarize(protocol.name, seed=12, duration_s=2.0)
         self.assertEqual(summary["fallback_forward_count"], 1)
 
+    def test_smart_calm_caps_timeout_fallback_under_congestion(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=0.3,
+            max_timeout_retries=1,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 80.0, 0.0),
+            Node(2, 160.0, 0.0),
+            Node(3, 5000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=13,
+            max_hops=7,
+        )
+        protocol.apply_profile(2)
+        protocol.active_profile_index = 2
+
+        protocol.flow_decisions[1] = FlowDecision(
+            src=0,
+            dst=3,
+            state_index=0,
+            action_index=2,
+            profile_name="rescue",
+            created_at=0.0,
+        )
+        sim.metrics.register_flow(1, 0, 3, 0.0)
+        sim.metrics.tx_count = 20
+        sim.metrics.collision_fail = 500
+        sim.metrics.fallback_forward_count = 20
+
+        protocol.on_flow_completion(flow_id=1, delivered=False, now=0.3)
+        sim.run(until_s=2.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=13, duration_s=2.0)
+        self.assertEqual(protocol.timeout_fallback_ttl(), 1)
+        self.assertEqual(summary["fallback_forward_count"] - 20, 1)
+
+    def test_smart_calm_keeps_timeout_rescue_radius_when_not_congested(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=0.3,
+            max_timeout_retries=1,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 80.0, 0.0),
+            Node(2, 160.0, 0.0),
+            Node(3, 5000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=14,
+            max_hops=7,
+        )
+        protocol.apply_profile(2)
+        protocol.active_profile_index = 2
+
+        protocol.flow_decisions[1] = FlowDecision(
+            src=0,
+            dst=3,
+            state_index=0,
+            action_index=2,
+            profile_name="rescue",
+            created_at=0.0,
+        )
+        sim.metrics.register_flow(1, 0, 3, 0.0)
+        sim.metrics.tx_count = 100
+        sim.metrics.collision_fail = 5
+        sim.metrics.unicast_flows = 10
+        sim.metrics.fallback_forward_count = 5
+
+        protocol.on_flow_completion(flow_id=1, delivered=False, now=0.3)
+        sim.run(until_s=2.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=14, duration_s=2.0)
+        self.assertEqual(protocol.timeout_fallback_ttl(), 3)
+        self.assertGreaterEqual(summary["fallback_forward_count"] - 5, 2)
+
+    def test_smart_calm_keeps_rescue_radius_for_sparse_channel_pressure(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=0.3,
+            max_timeout_retries=1,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 80.0, 0.0),
+            Node(2, 160.0, 0.0),
+            Node(3, 5000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=15,
+            max_hops=7,
+        )
+        protocol.apply_profile(2)
+        protocol.active_profile_index = 2
+
+        protocol.flow_decisions[1] = FlowDecision(
+            src=0,
+            dst=3,
+            state_index=0,
+            action_index=2,
+            profile_name="rescue",
+            created_at=0.0,
+        )
+        sim.metrics.register_flow(1, 0, 3, 0.0)
+        sim.now = 1200.0
+        sim.metrics.tx_count = 3000
+        sim.metrics.collision_fail = 72000
+        sim.metrics.unicast_flows = 60
+        sim.metrics.fallback_forward_count = 130
+
+        self.assertEqual(protocol.timeout_fallback_ttl(), 3)
+
     def test_smart_calm_does_not_stack_timeout_retry_after_route_miss_fallback(self) -> None:
         protocol = SmartCalmMesh(
             update_interval_s=999.0,

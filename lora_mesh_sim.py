@@ -1561,6 +1561,25 @@ class SmartCalmMesh(CalmMesh):
             return self.route_miss_fallback_ttl
         return self.sim.max_hops
 
+    def timeout_fallback_ttl(self) -> int:
+        ttl = max(self.fallback_ttl, 1)
+        if self.active_profile_index != len(self.profiles) - 1:
+            return ttl
+
+        snapshot = self.sim.metrics.snapshot()
+        collision_per_tx = snapshot.collision_fail / max(1, snapshot.tx_count)
+        fallback_per_unicast = snapshot.fallback_forward_count / max(1, snapshot.unicast_flows)
+        tx_per_min = snapshot.tx_count / max(1.0 / 60.0, self.sim.now / 60.0)
+
+        if tx_per_min < 220.0:
+            return ttl
+
+        if collision_per_tx > 23.0 and fallback_per_unicast > 2.0:
+            return 1
+        if collision_per_tx > 22.5 and fallback_per_unicast > 1.5:
+            return min(ttl, 2)
+        return ttl
+
     def send_data_on_path(self, src: int, dst: int, flow_id: int, entry: RouteEntry) -> None:
         decision = self.flow_decisions.get(flow_id)
         if decision is not None:
@@ -1610,7 +1629,7 @@ class SmartCalmMesh(CalmMesh):
         if can_retry_timeout:
             decision.timeout_retries += 1
             if not self.retry_data_on_cached_path(decision, flow_id):
-                retry_ttl = max(self.fallback_ttl, 1)
+                retry_ttl = self.timeout_fallback_ttl()
                 self.start_fallback(
                     decision.src,
                     decision.dst,

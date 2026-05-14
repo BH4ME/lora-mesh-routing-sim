@@ -130,6 +130,18 @@ High offered load, 50 nodes, mixed traffic, `rate-per-min = 10`, 20 seeds:
 - `calm-mesh`: unicast PDR about `0.596`, broadcast coverage about `0.939`, airtime about `1233 s`, collision failures about `113447`.
 - `smart-calm`: unicast PDR about `0.937`, broadcast coverage about `0.933`, airtime about `1410 s`, collision failures about `131345`.
 
+## v1.1.2 Candidate
+
+- A congestion-aware timeout rescue cap improved the high-load `rate14`
+  scenario: `smart-calm` unicast PDR rose to about `0.904`, airtime fell to
+  about `1626 s`, collision failures fell to about `157536`, and fallback
+  forwards fell to about `357`.
+- The same change left the high-shadowing `shadow8` scenario effectively
+  unchanged.
+- The sparse-load `sparse4k` scenario showed a small PDR drop and a small
+  airtime increase, so the candidate remains under refinement rather than
+  becoming the final baseline yet.
+
 Interpretation:
 
 - Under heavier traffic, Smart-CALM v1.1 exceeds flooding reliability while reducing airtime to approximately MeshCore-like levels.
