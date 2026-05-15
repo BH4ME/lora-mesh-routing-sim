@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="940" viewBox="0 0 1280 940">
+<style>
+text{font-family:Georgia,'Times New Roman',serif;fill:#17212b}
+.title{font-size:32px;font-weight:700}
+.subtitle{font-size:15px;fill:#596674}
+.panel-title{font-size:20px;font-weight:700}
+.axis{stroke:#26323d;stroke-width:1.2}
+.grid{stroke:#d9e0e6;stroke-width:1}
+.tick{font-size:11px;fill:#65717d}
+.label{font-size:13px;font-weight:600}
+.value{font-size:11px;fill:#17212b}
+.legend{font-size:14px;font-weight:600}
+</style>
+<rect width="100%" height="100%" fill="#fbf8ef"/>
+<rect x="24" y="24" width="1232" height="892" rx="24" fill="#fffdf8" stroke="#e1d7c2"/>
+<text x="72" y="68" class="title">Smart-CALM Candidate Comparison</text>
+<text x="72" y="94" class="subtitle">Mean over fixed stress seeds; lower is better for airtime, collisions, and fallback.</text>
+<rect x="840" y="50" width="20" height="14" rx="3" fill="#7c8794"/>
+<text x="868" y="63" class="legend">v1.1.1</text>
+<rect x="965" y="50" width="20" height="14" rx="3" fill="#b15b1a"/>
+<text x="993" y="63" class="legend">v1.1.2</text>
+<rect x="1090" y="50" width="20" height="14" rx="3" fill="#1f6f5b"/>
+<text x="1118" y="63" class="legend">v1.1.3</text>
+<text x="90" y="134" class="panel-title">Unicast PDR</text>
+<line x1="160" y1="403.0" x2="615" y2="403.0" class="grid"/>
+<text x="150" y="407.0" text-anchor="end" class="tick">0.000</text>
+<line x1="160" y1="341.8" x2="615" y2="341.8" class="grid"/>
+<text x="150" y="345.8" text-anchor="end" class="tick">0.277</text>
+<line x1="160" y1="280.5" x2="615" y2="280.5" class="grid"/>
+<text x="150" y="284.5" text-anchor="end" class="tick">0.554</text>
+<line x1="160" y1="219.2" x2="615" y2="219.2" class="grid"/>
+<text x="150" y="223.2" text-anchor="end" class="tick">0.831</text>
+<line x1="160" y1="158.0" x2="615" y2="158.0" class="grid"/>
+<text x="150" y="162.0" text-anchor="end" class="tick">1.108</text>
+<line x1="160" y1="158" x2="160" y2="403" class="axis"/>
+<line x1="160" y1="403" x2="615" y2="403" class="axis"/>
+<rect x="174.2" y="207.4" width="36.4" height="195.6" rx="5" fill="#7c8794"/>
+<text x="192.4" y="201.4" text-anchor="middle" class="value">0.884</text>
+<rect x="217.6" y="203.2" width="36.4" height="199.8" rx="5" fill="#b15b1a"/>
+<text x="235.8" y="197.2" text-anchor="middle" class="value">0.904</text>
+<rect x="261.0" y="203.2" width="36.4" height="199.8" rx="5" fill="#1f6f5b"/>
+<text x="279.2" y="197.2" text-anchor="middle" class="value">0.904</text>
+<text x="235.8" y="431" text-anchor="middle" class="label">High load</text>
+<rect x="325.9" y="190.1" width="36.4" height="212.9" rx="5" fill="#7c8794"/>
+<text x="344.1" y="184.1" text-anchor="middle" class="value">0.963</text>
+<rect x="369.3" y="190.1" width="36.4" height="212.9" rx="5" fill="#b15b1a"/>
+<text x="387.5" y="184.1" text-anchor="middle" class="value">0.963</text>
+<rect x="412.7" y="190.1" width="36.4" height="212.9" rx="5" fill="#1f6f5b"/>
+<text x="430.9" y="184.1" text-anchor="middle" class="value">0.963</text>
+<text x="387.5" y="431" text-anchor="middle" class="label">High shadow</text>
+<rect x="477.6" y="190.0" width="36.4" height="213.0" rx="5" fill="#7c8794"/>
+<text x="495.8" y="184.0" text-anchor="middle" class="value">0.963</text>
+<rect x="521.0" y="190.5" width="36.4" height="212.5" rx="5" fill="#b15b1a"/>
+<text x="539.2" y="184.5" text-anchor="middle" class="value">0.961</text>
+<rect x="564.4" y="190.5" width="36.4" height="212.5" rx="5" fill="#1f6f5b"/>
+<text x="582.6" y="184.5" text-anchor="middle" class="value">0.961</text>
+<text x="539.2" y="431" text-anchor="middle" class="label">Sparse</text>
+<text x="720" y="134" class="panel-title">Total Airtime (s)</text>
+<line x1="790" y1="403.0" x2="1245" y2="403.0" class="grid"/>
+<text x="780" y="407.0" text-anchor="end" class="tick">0</text>
+<line x1="790" y1="341.8" x2="1245" y2="341.8" class="grid"/>
+<text x="780" y="345.8" text-anchor="end" class="tick">500</text>
+<line x1="790" y1="280.5" x2="1245" y2="280.5" class="grid"/>
+<text x="780" y="284.5" text-anchor="end" class="tick">1001</text>
+<line x1="790" y1="219.3" x2="1245" y2="219.3" class="grid"/>
+<text x="780" y="223.3" text-anchor="end" class="tick">1501</text>
+<line x1="790" y1="158.0" x2="1245" y2="158.0" class="grid"/>
+<text x="780" y="162.0" text-anchor="end" class="tick">2001</text>
+<line x1="790" y1="158" x2="790" y2="403" class="axis"/>
+<line x1="790" y1="403" x2="1245" y2="403" class="axis"/>
+<rect x="804.2" y="190.0" width="36.4" height="213.0" rx="5" fill="#7c8794"/>
+<text x="822.4" y="184.0" text-anchor="middle" class="value">1740</text>
+<rect x="847.6" y="204.0" width="36.4" height="199.0" rx="5" fill="#b15b1a"/>
+<text x="865.8" y="198.0" text-anchor="middle" class="value">1626</text>
+<rect x="891.0" y="203.8" width="36.4" height="199.2" rx="5" fill="#1f6f5b"/>
+<text x="909.2" y="197.8" text-anchor="middle" class="value">1627</text>
+<text x="865.8" y="431" text-anchor="middle" class="label">High load</text>
+<rect x="955.9" y="307.8" width="36.4" height="95.2" rx="5" fill="#7c8794"/>
+<text x="974.1" y="301.8" text-anchor="middle" class="value">777</text>
+<rect x="999.3" y="307.8" width="36.4" height="95.2" rx="5" fill="#b15b1a"/>
+<text x="1017.5" y="301.8" text-anchor="middle" class="value">777</text>
+<rect x="1042.7" y="307.8" width="36.4" height="95.2" rx="5" fill="#1f6f5b"/>
+<text x="1060.9" y="301.8" text-anchor="middle" class="value">777</text>
+<text x="1017.5" y="431" text-anchor="middle" class="label">High shadow</text>
+<rect x="1107.6" y="305.9" width="36.4" height="97.1" rx="5" fill="#7c8794"/>
+<text x="1125.8" y="299.9" text-anchor="middle" class="value">793</text>
+<rect x="1151.0" y="304.9" width="36.4" height="98.1" rx="5" fill="#b15b1a"/>
+<text x="1169.2" y="298.9" text-anchor="middle" class="value">801</text>
+<rect x="1194.4" y="304.9" width="36.4" height="98.1" rx="5" fill="#1f6f5b"/>
+<text x="1212.6" y="298.9" text-anchor="middle" class="value">801</text>
+<text x="1169.2" y="431" text-anchor="middle" class="label">Sparse</text>
+<text x="90" y="574" class="panel-title">Collision Failures</text>
+<line x1="160" y1="843.0" x2="615" y2="843.0" class="grid"/>
+<text x="150" y="847.0" text-anchor="end" class="tick">0</text>
+<line x1="160" y1="781.8" x2="615" y2="781.8" class="grid"/>
+<text x="150" y="785.8" text-anchor="end" class="tick">48524</text>
+<line x1="160" y1="720.5" x2="615" y2="720.5" class="grid"/>
+<text x="150" y="724.5" text-anchor="end" class="tick">97048</text>
+<line x1="160" y1="659.2" x2="615" y2="659.2" class="grid"/>
+<text x="150" y="663.2" text-anchor="end" class="tick">145571</text>
+<line x1="160" y1="598.0" x2="615" y2="598.0" class="grid"/>
+<text x="150" y="602.0" text-anchor="end" class="tick">194095</text>
+<line x1="160" y1="598" x2="160" y2="843" class="axis"/>
+<line x1="160" y1="843" x2="615" y2="843" class="axis"/>
+<rect x="174.2" y="630.0" width="36.4" height="213.0" rx="5" fill="#7c8794"/>
+<text x="192.4" y="624.0" text-anchor="middle" class="value">168778</text>
+<rect x="217.6" y="644.1" width="36.4" height="198.9" rx="5" fill="#b15b1a"/>
+<text x="235.8" y="638.1" text-anchor="middle" class="value">157536</text>
+<rect x="261.0" y="644.4" width="36.4" height="198.6" rx="5" fill="#1f6f5b"/>
+<text x="279.2" y="638.4" text-anchor="middle" class="value">157335</text>
+<text x="235.8" y="871" text-anchor="middle" class="label">High load</text>
+<rect x="325.9" y="755.3" width="36.4" height="87.7" rx="5" fill="#7c8794"/>
+<text x="344.1" y="749.3" text-anchor="middle" class="value">69492</text>
+<rect x="369.3" y="755.3" width="36.4" height="87.7" rx="5" fill="#b15b1a"/>
+<text x="387.5" y="749.3" text-anchor="middle" class="value">69492</text>
+<rect x="412.7" y="755.3" width="36.4" height="87.7" rx="5" fill="#1f6f5b"/>
+<text x="430.9" y="749.3" text-anchor="middle" class="value">69492</text>
+<text x="387.5" y="871" text-anchor="middle" class="label">High shadow</text>
+<rect x="477.6" y="753.9" width="36.4" height="89.1" rx="5" fill="#7c8794"/>
+<text x="495.8" y="747.9" text-anchor="middle" class="value">70578</text>
+<rect x="521.0" y="752.5" width="36.4" height="90.5" rx="5" fill="#b15b1a"/>
+<text x="539.2" y="746.5" text-anchor="middle" class="value">71735</text>
+<rect x="564.4" y="752.5" width="36.4" height="90.5" rx="5" fill="#1f6f5b"/>
+<text x="582.6" y="746.5" text-anchor="middle" class="value">71735</text>
+<text x="539.2" y="871" text-anchor="middle" class="label">Sparse</text>
+<text x="720" y="574" class="panel-title">Fallback Forwards</text>
+<line x1="790" y1="843.0" x2="1245" y2="843.0" class="grid"/>
+<text x="780" y="847.0" text-anchor="end" class="tick">0</text>
+<line x1="790" y1="781.8" x2="1245" y2="781.8" class="grid"/>
+<text x="780" y="785.8" text-anchor="end" class="tick">230</text>
+<line x1="790" y1="720.5" x2="1245" y2="720.5" class="grid"/>
+<text x="780" y="724.5" text-anchor="end" class="tick">459</text>
+<line x1="790" y1="659.2" x2="1245" y2="659.2" class="grid"/>
+<text x="780" y="663.2" text-anchor="end" class="tick">689</text>
+<line x1="790" y1="598.0" x2="1245" y2="598.0" class="grid"/>
+<text x="780" y="602.0" text-anchor="end" class="tick">919</text>
+<line x1="790" y1="598" x2="790" y2="843" class="axis"/>
+<line x1="790" y1="843" x2="1245" y2="843" class="axis"/>
+<rect x="804.2" y="630.0" width="36.4" height="213.0" rx="5" fill="#7c8794"/>
+<text x="822.4" y="624.0" text-anchor="middle" class="value">799</text>
+<rect x="847.6" y="747.9" width="36.4" height="95.1" rx="5" fill="#b15b1a"/>
+<text x="865.8" y="741.9" text-anchor="middle" class="value">357</text>
+<rect x="891.0" y="746.7" width="36.4" height="96.3" rx="5" fill="#1f6f5b"/>
+<text x="909.2" y="740.7" text-anchor="middle" class="value">361</text>
+<text x="865.8" y="871" text-anchor="middle" class="label">High load</text>
+<rect x="955.9" y="823.8" width="36.4" height="19.2" rx="5" fill="#7c8794"/>
+<text x="974.1" y="817.8" text-anchor="middle" class="value">72</text>
+<rect x="999.3" y="823.8" width="36.4" height="19.2" rx="5" fill="#b15b1a"/>
+<text x="1017.5" y="817.8" text-anchor="middle" class="value">72</text>
+<rect x="1042.7" y="823.8" width="36.4" height="19.2" rx="5" fill="#1f6f5b"/>
+<text x="1060.9" y="817.8" text-anchor="middle" class="value">72</text>
+<text x="1017.5" y="871" text-anchor="middle" class="label">High shadow</text>
+<rect x="1107.6" y="815.6" width="36.4" height="27.4" rx="5" fill="#7c8794"/>
+<text x="1125.8" y="809.6" text-anchor="middle" class="value">103</text>
+<rect x="1151.0" y="808.5" width="36.4" height="34.5" rx="5" fill="#b15b1a"/>
+<text x="1169.2" y="802.5" text-anchor="middle" class="value">129</text>
+<rect x="1194.4" y="808.5" width="36.4" height="34.5" rx="5" fill="#1f6f5b"/>
+<text x="1212.6" y="802.5" text-anchor="middle" class="value">129</text>
+<text x="1169.2" y="871" text-anchor="middle" class="label">Sparse</text>
+</svg>

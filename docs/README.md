@@ -7,6 +7,8 @@ keeps the main `README.md` as the entry point.
 
 - [Conference Research Plan](research/conference-research-plan.md): current
   conference-facing framing and experiment plan.
+- [Fallback Budget Controller Design](research/fallback_budget_controller_design.md):
+  literature-backed Smart-CALM fallback control rationale.
 
 ## Source Layout
 
@@ -17,8 +19,8 @@ keeps the main `README.md` as the entry point.
 
 - [Smart-CALM Tag Gallery](results/smart_calm_tag_gallery.md): version tags,
   commits, and per-version bar charts for Smart-CALM simulation baselines.
-- [Smart-CALM v1.1.2 Candidate](results/smart_calm_v1_1_2_candidate.md):
-  congestion-aware rescue tuning notes and the latest candidate summary.
+- [Smart-CALM v1.1.2/v1.1.3 Candidates](results/smart_calm_v1_1_2_candidate.md):
+  congestion-aware rescue and FBC tuning notes with candidate charts.
 - [Three Protocol Comparison](results/three_protocol_comparison.md): concise
   meeting view comparing Meshtastic-like, MeshCore-like, and Smart-CALM.
 - [CALM Experiment Notes](results/calm_experiment_notes.md): detailed simulation

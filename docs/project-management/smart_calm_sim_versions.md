@@ -110,6 +110,27 @@ Notes:
   - The intended conference framing is "congestion-aware rescue throttling,"
     not "more aggressive flooding."
 
+## `smart-calm-sim-v1.1.3`
+
+- Status: literature-backed control candidate on branch `version/v1.1.3`.
+- Core change: replaces instant fallback thresholds with FBC, a fallback budget
+  controller using smoothed pressure, fast guard triggers, and hysteresis.
+- Literature basis:
+  - RPL metric guidance motivates smoothed dynamic metrics and multiple
+    thresholds.
+  - MRHOF motivates hysteresis to avoid control churn.
+  - Trickle and broadcast-storm work motivate suppressing redundant rescue
+    transmissions under stable or congested state.
+  - ETX motivates reliability/cost-aware forwarding decisions instead of pure
+    hop-count behavior.
+- Current evidence versus v1.1.2 on `rate14`:
+  - PDR stays about `0.904`.
+  - Collision failures are slightly lower, about `157335` versus `157536`.
+  - Airtime is slightly higher, about `1627 s` versus `1626 s`.
+  - Fallback forwards are slightly higher, about `361` versus `357`.
+- Decision: keep v1.1.3 as the more defensible algorithmic branch, while
+  retaining v1.1.2 as the slightly stronger fallback-count metric point.
+
 ## Rejected candidate: `smart-calm-sim-v1.2`
 
 - Archive: `archive/experiments/smart_calm_v1_2_rejected/`

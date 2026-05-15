@@ -396,6 +396,47 @@ class CalmProtocolTest(unittest.TestCase):
 
         self.assertEqual(protocol.timeout_fallback_ttl(), 3)
 
+    def test_smart_calm_fallback_controller_uses_hysteresis(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=0.3,
+            max_timeout_retries=1,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 80.0, 0.0),
+            Node(2, 160.0, 0.0),
+            Node(3, 5000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=16,
+            max_hops=7,
+        )
+        protocol.apply_profile(2)
+        protocol.active_profile_index = 2
+
+        sim.now = 60.0
+        sim.metrics.tx_count = 360
+        sim.metrics.collision_fail = 9000
+        sim.metrics.unicast_flows = 80
+        sim.metrics.unicast_deliveries = 75
+        sim.metrics.fallback_forward_count = 240
+
+        self.assertEqual(protocol.timeout_fallback_ttl(), 1)
+
+        sim.now = 90.0
+        sim.metrics.tx_count = 430
+        sim.metrics.collision_fail = 9100
+        sim.metrics.unicast_flows = 120
+        sim.metrics.unicast_deliveries = 115
+        sim.metrics.fallback_forward_count = 160
+
+        self.assertLessEqual(protocol.timeout_fallback_ttl(), 2)
+
     def test_smart_calm_does_not_stack_timeout_retry_after_route_miss_fallback(self) -> None:
         protocol = SmartCalmMesh(
             update_interval_s=999.0,

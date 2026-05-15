@@ -142,6 +142,17 @@ High offered load, 50 nodes, mixed traffic, `rate-per-min = 10`, 20 seeds:
   airtime increase, so the candidate remains under refinement rather than
   becoming the final baseline yet.
 
+## v1.1.3 FBC Candidate
+
+- v1.1.3 replaces instant timeout-rescue thresholds with a fallback budget
+  controller using pressure smoothing and hysteresis.
+- The controller is more defensible for a paper or conference explanation
+  because it follows known mesh-network control ideas: smoothed dynamic metrics,
+  hysteresis, and redundant-transmission suppression.
+- Stress metrics are close to v1.1.2 rather than dramatically better: `rate14`
+  keeps PDR around `0.904`, lowers collisions slightly, but gives back a small
+  amount of airtime and fallback count.
+
 Interpretation:
 
 - Under heavier traffic, Smart-CALM v1.1 exceeds flooding reliability while reducing airtime to approximately MeshCore-like levels.

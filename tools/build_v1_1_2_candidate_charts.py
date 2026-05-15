@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build Smart-CALM v1.1.2 candidate comparison charts."""
+"""Build Smart-CALM candidate comparison charts."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from typing import Dict, Iterable, List
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
-OUT_DIR = RESULTS / "figures" / "smart_calm_v1_1_2"
+OUT_DIR = RESULTS / "figures" / "smart_calm_candidates"
 SMART_PROTOCOL = "smart-calm"
 
 
@@ -21,7 +21,8 @@ class Scenario:
     key: str
     label: str
     old_csv: Path
-    new_csv: Path
+    v112_csv: Path
+    v113_csv: Path
 
 
 SCENARIOS = (
@@ -29,19 +30,22 @@ SCENARIOS = (
         key="rate14",
         label="High load",
         old_csv=RESULTS / "anti_cherrypick_stress" / "rate14.csv",
-        new_csv=RESULTS / "v1_1_2_rate14_smart.csv",
+        v112_csv=RESULTS / "v1_1_2_rate14_smart.csv",
+        v113_csv=RESULTS / "v1_1_3_rate14_smart.csv",
     ),
     Scenario(
         key="shadow8",
         label="High shadow",
         old_csv=RESULTS / "anti_cherrypick_stress" / "shadow8.csv",
-        new_csv=RESULTS / "v1_1_2_shadow8_smart.csv",
+        v112_csv=RESULTS / "v1_1_2_shadow8_smart.csv",
+        v113_csv=RESULTS / "v1_1_3_shadow8_smart.csv",
     ),
     Scenario(
         key="sparse4k",
         label="Sparse",
         old_csv=RESULTS / "anti_cherrypick_stress" / "sparse4k.csv",
-        new_csv=RESULTS / "v1_1_2_sparse4k_smart.csv",
+        v112_csv=RESULTS / "v1_1_2_sparse4k_smart.csv",
+        v113_csv=RESULTS / "v1_1_3_sparse4k_smart.csv",
     ),
 )
 
@@ -75,8 +79,13 @@ def collect() -> Dict[str, Dict[str, Dict[str, float]]]:
     for scenario in SCENARIOS:
         data[scenario.key] = {}
         old_rows = rows(scenario.old_csv)
-        new_rows = rows(scenario.new_csv)
-        for version, source_rows in (("v1.1.1", old_rows), ("v1.1.2", new_rows)):
+        v112_rows = rows(scenario.v112_csv)
+        v113_rows = rows(scenario.v113_csv)
+        for version, source_rows in (
+            ("v1.1.1", old_rows),
+            ("v1.1.2", v112_rows),
+            ("v1.1.3", v113_rows),
+        ):
             data[scenario.key][version] = {
                 metric: metric_mean(source_rows, metric)
                 for metric in METRICS
@@ -107,7 +116,8 @@ def write_svg(data: Dict[str, Dict[str, Dict[str, float]]]) -> Path:
     margin_y = 110
     gap_x = 70
     gap_y = 90
-    colors = {"v1.1.1": "#7c8794", "v1.1.2": "#b15b1a"}
+    versions = ("v1.1.1", "v1.1.2", "v1.1.3")
+    colors = {"v1.1.1": "#7c8794", "v1.1.2": "#b15b1a", "v1.1.3": "#1f6f5b"}
 
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
@@ -125,13 +135,13 @@ def write_svg(data: Dict[str, Dict[str, Dict[str, float]]]) -> Path:
         "</style>",
         '<rect width="100%" height="100%" fill="#fbf8ef"/>',
         '<rect x="24" y="24" width="1232" height="892" rx="24" fill="#fffdf8" stroke="#e1d7c2"/>',
-        '<text x="72" y="68" class="title">Smart-CALM v1.1.2 Candidate vs v1.1.1</text>',
+        '<text x="72" y="68" class="title">Smart-CALM Candidate Comparison</text>',
         '<text x="72" y="94" class="subtitle">Mean over fixed stress seeds; lower is better for airtime, collisions, and fallback.</text>',
     ]
 
     legend_x = 840
-    for i, version in enumerate(("v1.1.1", "v1.1.2")):
-        x = legend_x + i * 150
+    for i, version in enumerate(versions):
+        x = legend_x + i * 125
         parts.append(f'<rect x="{x}" y="50" width="20" height="14" rx="3" fill="{colors[version]}"/>')
         parts.append(f'<text x="{x + 28}" y="63" class="legend">{version}</text>')
 
@@ -148,7 +158,7 @@ def write_svg(data: Dict[str, Dict[str, Dict[str, float]]]) -> Path:
         max_value = max(
             data[scenario.key][version][metric]
             for scenario in SCENARIOS
-            for version in ("v1.1.1", "v1.1.2")
+            for version in versions
         )
         y_max = max_value * 1.15 if max_value else 1.0
         group_w = chart_w / len(SCENARIOS)
@@ -168,10 +178,10 @@ def write_svg(data: Dict[str, Dict[str, Dict[str, float]]]) -> Path:
 
         for scenario_index, scenario in enumerate(SCENARIOS):
             center = chart_left + scenario_index * group_w + group_w / 2
-            for version_index, version in enumerate(("v1.1.1", "v1.1.2")):
+            for version_index, version in enumerate(versions):
                 value = data[scenario.key][version][metric]
                 h = (value / y_max) * chart_h
-                x = center + (version_index - 0.5) * (bar_w + 8) - bar_w / 2
+                x = center + (version_index - 1.0) * (bar_w + 7) - bar_w / 2
                 y = chart_top + chart_h - h
                 parts.append(
                     f'<rect x="{x:.1f}" y="{y:.1f}" width="{bar_w:.1f}" height="{h:.1f}" '
@@ -186,7 +196,7 @@ def write_svg(data: Dict[str, Dict[str, Dict[str, float]]]) -> Path:
                 f'{esc(scenario.label)}</text>'
             )
 
-    out_path = OUT_DIR / "v1_1_2_candidate_comparison.svg"
+    out_path = OUT_DIR / "smart_calm_candidate_comparison.svg"
     parts.append("</svg>")
     out_path.write_text("\n".join(parts) + "\n", encoding="utf-8")
     return out_path

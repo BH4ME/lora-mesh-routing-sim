@@ -56,3 +56,8 @@
   scenarios and kept the version as a refinement candidate because the
   high-load gains are strong while sparse-load regression is still under
   review.
+- Added the v1.1.3 fallback budget controller candidate after reviewing mesh
+  routing literature on smoothed dynamic metrics, hysteresis, Trickle-style
+  suppression, ETX, and broadcast-storm control.
+- Ran v1.1.3 stress simulations and found it is algorithmically cleaner than
+  v1.1.2 while producing near-tied stress metrics.

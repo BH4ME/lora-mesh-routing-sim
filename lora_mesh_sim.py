@@ -1374,6 +1374,8 @@ class SmartCalmMesh(CalmMesh):
         self.last_snapshot: Optional[LearningSnapshot] = None
         self.flow_decisions: Dict[int, FlowDecision] = {}
         self.prior_q_values: Dict[Tuple[int, int], float] = dict(prior_q_values or {})
+        self.fallback_pressure_ewma = 0.0
+        self.fallback_controller_state = 0
         self.apply_profile(self.active_profile_index)
 
     def bind(self, sim: Simulator) -> None:
@@ -1384,6 +1386,8 @@ class SmartCalmMesh(CalmMesh):
         self.q_values = dict(self.prior_q_values)
         self.last_snapshot = sim.metrics.snapshot()
         self.flow_decisions = {}
+        self.fallback_pressure_ewma = 0.0
+        self.fallback_controller_state = 0
         sim.metrics.active_profile_index = self.active_profile_index
         sim.schedule(
             sim.now + self.update_interval_s,
@@ -1566,19 +1570,67 @@ class SmartCalmMesh(CalmMesh):
         if self.active_profile_index != len(self.profiles) - 1:
             return ttl
 
+        controller_state = self.update_fallback_controller()
+        if controller_state >= 2:
+            return 1
+        if controller_state == 1:
+            return min(ttl, 2)
+        return ttl
+
+    def update_fallback_controller(self) -> int:
         snapshot = self.sim.metrics.snapshot()
+        pressure = self.fallback_pressure_score(snapshot)
+        self.fallback_pressure_ewma = max(
+            pressure,
+            0.7 * self.fallback_pressure_ewma + 0.3 * pressure,
+        )
+        guard_state = self.fallback_pressure_guard_state(snapshot)
+
+        if guard_state >= 2 or pressure >= 0.78:
+            self.fallback_controller_state = 2
+        elif self.fallback_controller_state >= 2:
+            if self.fallback_pressure_ewma < 0.52:
+                self.fallback_controller_state = 1
+        elif self.fallback_controller_state == 1:
+            if self.fallback_pressure_ewma >= 0.78:
+                self.fallback_controller_state = 2
+            elif self.fallback_pressure_ewma < 0.34:
+                self.fallback_controller_state = 0
+        elif guard_state >= 1 or self.fallback_pressure_ewma >= 0.58:
+            self.fallback_controller_state = 1
+
+        return self.fallback_controller_state
+
+    def fallback_pressure_guard_state(self, snapshot: LearningSnapshot) -> int:
         collision_per_tx = snapshot.collision_fail / max(1, snapshot.tx_count)
         fallback_per_unicast = snapshot.fallback_forward_count / max(1, snapshot.unicast_flows)
         tx_per_min = snapshot.tx_count / max(1.0 / 60.0, self.sim.now / 60.0)
 
         if tx_per_min < 220.0:
-            return ttl
-
+            return 0
         if collision_per_tx > 23.0 and fallback_per_unicast > 2.0:
-            return 1
+            return 2
         if collision_per_tx > 22.5 and fallback_per_unicast > 1.5:
-            return min(ttl, 2)
-        return ttl
+            return 1
+        return 0
+
+    def fallback_pressure_score(self, snapshot: LearningSnapshot) -> float:
+        collision_per_tx = snapshot.collision_fail / max(1, snapshot.tx_count)
+        fallback_per_unicast = snapshot.fallback_forward_count / max(1, snapshot.unicast_flows)
+        tx_per_min = snapshot.tx_count / max(1.0 / 60.0, self.sim.now / 60.0)
+        miss_ratio = 1.0 - snapshot.unicast_deliveries / max(1, snapshot.unicast_flows)
+
+        collision_score = clamp((collision_per_tx - 18.0) / 8.0, 0.0, 1.0)
+        fallback_score = clamp((fallback_per_unicast - 1.0) / 3.0, 0.0, 1.0)
+        load_score = clamp((tx_per_min - 180.0) / 180.0, 0.0, 1.0)
+        reliability_score = clamp(miss_ratio / 0.25, 0.0, 1.0)
+
+        return (
+            0.34 * collision_score
+            + 0.28 * fallback_score
+            + 0.28 * load_score
+            + 0.10 * reliability_score
+        )
 
     def send_data_on_path(self, src: int, dst: int, flow_id: int, entry: RouteEntry) -> None:
         decision = self.flow_decisions.get(flow_id)
