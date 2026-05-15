@@ -131,6 +131,30 @@ Notes:
 - Decision: keep v1.1.3 as the more defensible algorithmic branch, while
   retaining v1.1.2 as the slightly stronger fallback-count metric point.
 
+## `smart-calm-sim-v1.1.4`
+
+- Status: ACK-confirmed semantics and firmware-alignment release on branch
+  `version/v1.1.4`.
+- Core simulator change: unicast PDR is now source-side ACK-confirmed delivery.
+  The previous destination DATA-arrival interpretation is preserved separately
+  as `destination_unicast_pdr`.
+- Fairness change: Meshtastic-like, MeshCore-like, CALM, and Smart-CALM all pay
+  explicit ACK airtime/control overhead for unicast confirmation, so later
+  three-protocol comparisons do not give one baseline a hidden control-plane
+  advantage.
+- Smart-CALM learning change: online state and window reward use ACK-confirmed
+  unicast success, matching what a real source node can observe after flashing.
+- Firmware change: ESP32 `Snapshot` now carries `unicast_acks`, the controller
+  uses ACK-confirmed PDR, flow-decision slot overflow is counted as
+  `overflow=`, and cross-node `created_at_ms` is treated as opaque metadata
+  except at the source-side ACK completion point.
+- Notes:
+  - This is a semantic release, not a claim of better headline metrics.
+  - Old CSVs where `unicast_pdr` meant destination delivery must not be mixed
+    with v1.1.4 ACK-confirmed CSVs without labeling the metric definition.
+  - Keep `destination_unicast_pdr` in reports when diagnosing whether a failure
+    is data-path loss or ACK-return loss.
+
 ## Rejected candidate: `smart-calm-sim-v1.2`
 
 - Archive: `archive/experiments/smart_calm_v1_2_rejected/`

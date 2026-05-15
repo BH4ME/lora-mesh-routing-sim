@@ -144,12 +144,14 @@ all protocols share the same generated values, making comparisons fair.
 
 The table and CSV include:
 
-- `unicast_pdr`
+- `unicast_pdr` ACK-confirmed source delivery ratio
+- `destination_unicast_pdr` destination DATA arrival ratio
 - `broadcast_coverage`
 - `avg_delay_s`
 - `tx_count`
 - `data_tx`
 - `control_tx`
+- `ack_tx`
 - `total_airtime_s`
 - `airtime_per_delivery_s`
 - `collision_fail`

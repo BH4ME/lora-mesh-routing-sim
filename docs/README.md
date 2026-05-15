@@ -17,10 +17,14 @@ keeps the main `README.md` as the entry point.
 
 ## Results
 
+- [Anti-Cherrypick Stress Test Report](results/anti_cherrypick_stress_report.md):
+  harsher Smart-CALM v1.1.1 stress checks, including failure/tradeoff cases.
 - [Smart-CALM Tag Gallery](results/smart_calm_tag_gallery.md): version tags,
   commits, and per-version bar charts for Smart-CALM simulation baselines.
 - [Smart-CALM v1.1.2/v1.1.3 Candidates](results/smart_calm_v1_1_2_candidate.md):
   congestion-aware rescue and FBC tuning notes with candidate charts.
+- [ACK-Aware Smart-CALM Version Comparison](../results/ack_aware_comparison/ack_aware_version_comparison.md):
+  comparison notes for destination-arrival versus source-confirmed PDR semantics.
 - [Three Protocol Comparison](results/three_protocol_comparison.md): concise
   meeting view comparing Meshtastic-like, MeshCore-like, and Smart-CALM.
 - [CALM Experiment Notes](results/calm_experiment_notes.md): detailed simulation

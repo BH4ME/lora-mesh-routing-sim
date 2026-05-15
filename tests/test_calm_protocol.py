@@ -7,7 +7,9 @@ from pathlib import Path
 from lora_mesh_sim import (
     CalmMesh,
     FlowDecision,
+    MeshtasticLike,
     Node,
+    PendingSend,
     RadioConfig,
     RouteEntry,
     Simulator,
@@ -269,6 +271,44 @@ class CalmProtocolTest(unittest.TestCase):
         summary = sim.metrics.summarize(protocol.name, seed=12, duration_s=2.0)
         self.assertEqual(summary["fallback_forward_count"], 1)
 
+    def test_smart_calm_timeout_fallback_can_reproduce_v1_1_min_radius(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=0.3,
+            max_timeout_retries=1,
+            timeout_fallback_min_ttl=2,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 80.0, 0.0),
+            Node(2, 160.0, 0.0),
+            Node(3, 5000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=12,
+            max_hops=7,
+        )
+        protocol.apply_profile(0)
+
+        protocol.flow_decisions[1] = FlowDecision(
+            src=0,
+            dst=3,
+            state_index=0,
+            action_index=0,
+            profile_name="lean",
+            created_at=0.0,
+        )
+        sim.metrics.register_flow(1, 0, 3, 0.0)
+        protocol.on_flow_completion(flow_id=1, delivered=False, now=0.3)
+        sim.run(until_s=2.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=12, duration_s=2.0)
+        self.assertGreater(summary["fallback_forward_count"], 1)
+
     def test_smart_calm_caps_timeout_fallback_under_congestion(self) -> None:
         protocol = SmartCalmMesh(
             update_interval_s=999.0,
@@ -423,7 +463,7 @@ class CalmProtocolTest(unittest.TestCase):
         sim.metrics.tx_count = 360
         sim.metrics.collision_fail = 9000
         sim.metrics.unicast_flows = 80
-        sim.metrics.unicast_deliveries = 75
+        sim.metrics.unicast_acks = 75
         sim.metrics.fallback_forward_count = 240
 
         self.assertEqual(protocol.timeout_fallback_ttl(), 1)
@@ -432,7 +472,7 @@ class CalmProtocolTest(unittest.TestCase):
         sim.metrics.tx_count = 430
         sim.metrics.collision_fail = 9100
         sim.metrics.unicast_flows = 120
-        sim.metrics.unicast_deliveries = 115
+        sim.metrics.unicast_acks = 115
         sim.metrics.fallback_forward_count = 160
 
         self.assertLessEqual(protocol.timeout_fallback_ttl(), 2)
@@ -633,6 +673,147 @@ class CalmProtocolTest(unittest.TestCase):
         summary = sim.metrics.summarize(protocol.name, seed=5, duration_s=2.0)
         self.assertEqual(summary["unicast_pdr"], 1.0)
         self.assertEqual(summary["fallback_forward_count"], 0)
+
+    def test_calm_unicast_returns_end_to_end_ack(self) -> None:
+        protocol = CalmMesh()
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 1.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(shadow_sigma_db=0.0),
+            protocol,
+            seed=10,
+            max_hops=3,
+        )
+        protocol.route_cache[0][1] = RouteEntry(
+            created_at=0.0,
+            expires_at=100.0,
+            path=(0, 1),
+            confidence=0.95,
+        )
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=1.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=10, duration_s=1.0)
+        self.assertEqual(summary["unicast_pdr"], 1.0)
+        self.assertEqual(summary["data_tx"], 1)
+        self.assertEqual(summary["ack_tx"], 1)
+        self.assertEqual(summary["control_tx"], 1)
+
+    def test_unicast_pdr_requires_source_ack_confirmation(self) -> None:
+        protocol = CalmMesh()
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 1.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(shadow_sigma_db=0.0),
+            protocol,
+            seed=11,
+            max_hops=3,
+        )
+        protocol.route_cache[0][1] = RouteEntry(
+            created_at=0.0,
+            expires_at=100.0,
+            path=(0, 1),
+            confidence=0.95,
+        )
+        original_transmit_later = sim.transmit_later
+
+        def drop_ack(sender, packet, delay_s, pending=None):
+            if packet.kind == "ACK":
+                return PendingSend(canceled=True)
+            return original_transmit_later(sender, packet, delay_s, pending)
+
+        sim.transmit_later = drop_ack
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=1.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=11, duration_s=1.0)
+        self.assertEqual(summary["destination_unicast_pdr"], 1.0)
+        self.assertEqual(summary["unicast_pdr"], 0.0)
+        self.assertIsNone(sim.metrics.flows[1].acked_at)
+
+    def test_meshtastic_unicast_returns_end_to_end_ack(self) -> None:
+        protocol = MeshtasticLike()
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 1.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(shadow_sigma_db=0.0),
+            protocol,
+            seed=15,
+            max_hops=3,
+        )
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=1.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=15, duration_s=1.0)
+        self.assertEqual(summary["unicast_pdr"], 1.0)
+        self.assertEqual(summary["ack_tx"], 1)
+        self.assertEqual(summary["control_tx"], 1)
+        self.assertIsNotNone(sim.metrics.flows[1].acked_at)
+
+    def test_smart_calm_learns_when_source_receives_ack(self) -> None:
+        protocol = SmartCalmMesh(update_interval_s=999.0, exploration=0.0)
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 1.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(shadow_sigma_db=0.0),
+            protocol,
+            seed=13,
+            max_hops=3,
+        )
+        protocol.route_cache[0][1] = RouteEntry(
+            created_at=0.0,
+            expires_at=100.0,
+            path=(0, 1),
+            confidence=0.95,
+        )
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=1.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=13, duration_s=1.0)
+        self.assertEqual(summary["unicast_pdr"], 1.0)
+        self.assertEqual(summary["ack_tx"], 1)
+        self.assertEqual(summary["policy_update_count"], 1)
+        self.assertNotIn(1, protocol.flow_decisions)
+
+    def test_calm_fallback_ack_returns_over_relay_path(self) -> None:
+        protocol = CalmMesh()
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 400.0, 0.0),
+            Node(2, 800.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=10.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=14,
+            max_hops=4,
+        )
+        sim.metrics.register_flow(1, 0, 2, 0.0)
+
+        protocol.start_fallback(0, 2, flow_id=1, ttl=3, delay_s=0.0)
+        sim.run(until_s=3.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=14, duration_s=3.0)
+        self.assertEqual(summary["unicast_pdr"], 1.0)
+        self.assertGreaterEqual(summary["ack_tx"], 2)
+        self.assertIsNotNone(sim.metrics.flows[1].acked_at)
 
     def test_calm_delays_fallback_by_configured_grace_margin(self) -> None:
         def build_sim() -> Simulator:

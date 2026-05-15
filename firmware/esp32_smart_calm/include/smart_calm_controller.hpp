@@ -42,6 +42,7 @@ class SmartCalmController {
     active_state_index_ = 0;
     policy_switch_count_ = 0;
     policy_update_count_ = 0;
+    decision_overflow_count_ = 0;
     policy_reward_total_ = 0.0f;
     applyProfile(active_profile_index_);
     last_snapshot_ = Snapshot{};
@@ -94,7 +95,7 @@ class SmartCalmController {
 
   std::uint8_t stateIndexFromSnapshot(const Snapshot& snapshot) const {
     const float attempts = std::max(1.0f, static_cast<float>(snapshot.unicast_flows));
-    const float pdr = static_cast<float>(snapshot.unicast_deliveries) / attempts;
+    const float pdr = static_cast<float>(snapshot.unicast_acks) / attempts;
     const float route_attempts = static_cast<float>(snapshot.route_cache_hits + snapshot.route_cache_misses);
     const float miss_ratio = static_cast<float>(snapshot.route_cache_misses) / std::max(1.0f, route_attempts);
     const float collision_per_tx = static_cast<float>(snapshot.collision_fail) /
@@ -218,25 +219,30 @@ class SmartCalmController {
     return kMaxTrackedFlows;
   }
 
+  std::uint32_t decisionOverflowCount() const {
+    return decision_overflow_count_;
+  }
+
   void formatStatus(char* out, std::size_t out_size) const {
     if (out == nullptr || out_size == 0) {
       return;
     }
     const float pdr = last_snapshot_.unicast_flows
-                          ? static_cast<float>(last_snapshot_.unicast_deliveries) /
+                          ? static_cast<float>(last_snapshot_.unicast_acks) /
                                 static_cast<float>(last_snapshot_.unicast_flows)
                           : 0.0f;
     std::snprintf(
         out,
         out_size,
-        "profile=%s state=%u q=%.3f reward=%.3f pdr=%.3f switch=%lu update=%lu",
+        "profile=%s state=%u q=%.3f reward=%.3f pdr=%.3f switch=%lu update=%lu overflow=%lu",
         activeProfile().name,
         static_cast<unsigned>(active_profile_index_),
         q_values_[index(active_state_index_, active_profile_index_)],
         policy_reward_total_,
         pdr,
         static_cast<unsigned long>(policy_switch_count_),
-        static_cast<unsigned long>(policy_update_count_));
+        static_cast<unsigned long>(policy_update_count_),
+        static_cast<unsigned long>(decision_overflow_count_));
   }
 
  private:
@@ -249,6 +255,7 @@ class SmartCalmController {
   std::uint8_t active_state_index_ = 0;
   std::uint32_t policy_switch_count_ = 0;
   std::uint32_t policy_update_count_ = 0;
+  std::uint32_t decision_overflow_count_ = 0;
   float policy_reward_total_ = 0.0f;
 
   static constexpr std::size_t index(std::uint8_t state, std::uint8_t action) {
@@ -279,8 +286,8 @@ class SmartCalmController {
   float windowReward(const Snapshot& previous, const Snapshot& current) const {
     const float new_unicast = static_cast<float>(current.unicast_flows - previous.unicast_flows);
     const float new_broadcast = static_cast<float>(current.broadcast_flows - previous.broadcast_flows);
-    const float new_unicast_deliveries =
-        static_cast<float>(current.unicast_deliveries - previous.unicast_deliveries);
+    const float new_unicast_acks =
+        static_cast<float>(current.unicast_acks - previous.unicast_acks);
     const float new_broadcast_deliveries =
         static_cast<float>(current.broadcast_deliveries - previous.broadcast_deliveries);
     const float new_tx = static_cast<float>(current.tx_count - previous.tx_count);
@@ -295,7 +302,7 @@ class SmartCalmController {
     const float new_delay_samples =
         static_cast<float>(current.delivery_delay_samples - previous.delivery_delay_samples);
 
-    const float unicast_pdr = new_unicast_deliveries / std::max(1.0f, new_unicast);
+    const float unicast_pdr = new_unicast_acks / std::max(1.0f, new_unicast);
     const float broadcast_gain = new_broadcast_deliveries /
                                  std::max(1.0f, new_broadcast *
                                                          std::max(1.0f, static_cast<float>(settings_.node_count - 1)));
@@ -347,6 +354,7 @@ class SmartCalmController {
         return decision;
       }
     }
+    ++decision_overflow_count_;
     return decisions_[0];
   }
 

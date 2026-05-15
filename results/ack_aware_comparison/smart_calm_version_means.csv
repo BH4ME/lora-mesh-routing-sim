@@ -1,0 +1,13 @@
+scenario,run,ack_aware,unicast_pdr,destination_unicast_pdr,total_airtime_s,collision_fail,fallback_forward_count,ack_tx
+mixed,v1_1_previous,false,0.9618026,,895.98633,79562.2,405.85,
+mixed,v1_1_ack,true,0.95632535,,883.684147,78530.6,308.9,62.9
+mixed,v1_1_1_previous,false,0.96198795,,827.873946,73496.1,114.45,
+mixed,latest_ack,true,0.9565335,,845.85216,75265.05,140,63.3
+shadow6,v1_1_previous,false,0.96340565,,875.799398,78063.55,336.95,
+shadow6,v1_1_ack,true,0.96486105,,912.434483,82024.3,413.35,62.15
+shadow6,v1_1_1_previous,false,0.96924025,,818.792294,72980.45,94.9,
+shadow6,latest_ack,true,0.9592437,,857.956915,76803.75,201.85,61.55
+rate10,v1_1_previous,false,0.93659455,,1410.17313,131345,840.8,
+rate10,v1_1_ack,true,0.91213075,,1445.27816,134234.45,848.4,102.6
+rate10,v1_1_1_previous,false,0.9318203,,1317.51808,122430.85,443.6,
+rate10,latest_ack,true,0.9202362,,1379.79402,128378.1,577.1,103.9

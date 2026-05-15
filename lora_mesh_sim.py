@@ -133,7 +133,7 @@ class Packet:
 
     @property
     def is_control(self) -> bool:
-        return self.kind in {"RREQ", "RREP"}
+        return self.kind in {"RREQ", "RREP", "ACK"}
 
     def with_ttl(self, ttl: int) -> "Packet":
         return Packet(
@@ -186,6 +186,23 @@ class Packet:
             app_payload=self.app_payload,
         )
 
+    def retreat_path(self) -> "Packet":
+        return Packet(
+            kind=self.kind,
+            flow_id=self.flow_id,
+            origin=self.origin,
+            final_dst=self.final_dst,
+            ttl=self.ttl,
+            created_at=self.created_at,
+            protocol=self.protocol,
+            request_id=self.request_id,
+            path=self.path,
+            path_index=self.path_index - 1,
+            learned_path=self.learned_path,
+            path_confidence=self.path_confidence,
+            app_payload=self.app_payload,
+        )
+
 
 @dataclass
 class PendingSend:
@@ -217,6 +234,7 @@ class FlowRecord:
     dst: int
     created_at: float
     delivered_at: Optional[float] = None
+    acked_at: Optional[float] = None
     broadcast_receivers: Set[int] = field(default_factory=set)
 
 
@@ -254,6 +272,7 @@ class LearningSnapshot:
     unicast_flows: int
     broadcast_flows: int
     unicast_deliveries: int
+    unicast_acks: int
     broadcast_deliveries: int
     delivery_delay_total_s: float
     delivery_delay_samples: int
@@ -283,12 +302,14 @@ class Metrics:
         self.unicast_flows = 0
         self.broadcast_flows = 0
         self.unicast_deliveries = 0
+        self.unicast_acks = 0
         self.broadcast_deliveries = 0
         self.delivery_delay_total_s = 0.0
         self.delivery_delay_samples = 0
         self.tx_count = 0
         self.data_tx = 0
         self.control_tx = 0
+        self.ack_tx = 0
         self.total_airtime_s = 0.0
         self.rx_success = 0
         self.rx_fail = 0
@@ -335,6 +356,19 @@ class Metrics:
             self.delivery_delay_total_s += delay
             self.delivery_delay_samples += 1
 
+    def mark_acknowledged(self, flow_id: int, receiver: int, now: float) -> bool:
+        flow = self.flows.get(flow_id)
+        if (
+            flow is None
+            or flow.dst == BROADCAST_DST
+            or receiver != flow.src
+            or flow.acked_at is not None
+        ):
+            return False
+        flow.acked_at = now
+        self.unicast_acks += 1
+        return True
+
     def record_path_confidence(self, confidence: float) -> None:
         self.path_confidence_total += clamp(confidence, 0.0, 1.0)
         self.path_confidence_samples += 1
@@ -353,6 +387,7 @@ class Metrics:
             unicast_flows=self.unicast_flows,
             broadcast_flows=self.broadcast_flows,
             unicast_deliveries=self.unicast_deliveries,
+            unicast_acks=self.unicast_acks,
             broadcast_deliveries=self.broadcast_deliveries,
             delivery_delay_total_s=self.delivery_delay_total_s,
             delivery_delay_samples=self.delivery_delay_samples,
@@ -361,9 +396,13 @@ class Metrics:
     def summarize(self, protocol: str, seed: int, duration_s: float) -> Dict[str, Any]:
         unicast = [f for f in self.flows.values() if f.dst != BROADCAST_DST]
         broadcast = [f for f in self.flows.values() if f.dst == BROADCAST_DST]
-        delivered_unicast = [f for f in unicast if f.delivered_at is not None]
-        unicast_pdr = len(delivered_unicast) / len(unicast) if unicast else 0.0
-        delays = [f.delivered_at - f.created_at for f in delivered_unicast if f.delivered_at]
+        destination_delivered_unicast = [f for f in unicast if f.delivered_at is not None]
+        acked_unicast = [f for f in unicast if f.acked_at is not None]
+        destination_unicast_pdr = (
+            len(destination_delivered_unicast) / len(unicast) if unicast else 0.0
+        )
+        unicast_pdr = len(acked_unicast) / len(unicast) if unicast else 0.0
+        delays = [f.acked_at - f.created_at for f in acked_unicast if f.acked_at]
         avg_delay = sum(delays) / len(delays) if delays else 0.0
 
         if broadcast:
@@ -373,7 +412,7 @@ class Metrics:
         else:
             broadcast_coverage = 0.0
 
-        delivered_total = len(delivered_unicast) + sum(len(f.broadcast_receivers) for f in broadcast)
+        delivered_total = len(acked_unicast) + sum(len(f.broadcast_receivers) for f in broadcast)
         airtime_per_delivery = self.total_airtime_s / delivered_total if delivered_total else 0.0
         mean_delivery_delay = (
             self.delivery_delay_total_s / self.delivery_delay_samples
@@ -395,13 +434,16 @@ class Metrics:
             "unicast_flows": len(unicast),
             "broadcast_flows": len(broadcast),
             "unicast_pdr": round(unicast_pdr, 6),
+            "destination_unicast_pdr": round(destination_unicast_pdr, 6),
             "broadcast_coverage": round(broadcast_coverage, 6),
             "avg_delay_s": round(avg_delay, 6),
             "unicast_deliveries": self.unicast_deliveries,
+            "unicast_acks": self.unicast_acks,
             "broadcast_deliveries": self.broadcast_deliveries,
             "tx_count": self.tx_count,
             "data_tx": self.data_tx,
             "control_tx": self.control_tx,
+            "ack_tx": self.ack_tx,
             "total_airtime_s": round(self.total_airtime_s, 6),
             "airtime_per_delivery_s": round(airtime_per_delivery, 6),
             "mean_delivery_delay_s": round(mean_delivery_delay, 6),
@@ -505,6 +547,8 @@ class Simulator:
             self.metrics.route_requests += 1
         if packet.kind == "RREP":
             self.metrics.route_replies += 1
+        if packet.kind == "ACK":
+            self.metrics.ack_tx += 1
         if packet.kind == "FALLBACK":
             self.metrics.fallback_forward_count += 1
         self.schedule(end, "tx_end", tx)
@@ -585,6 +629,10 @@ class Simulator:
         if was_delivered:
             self.protocol.on_delivery(flow_id, receiver, self.now, packet)
 
+    def mark_acknowledged(self, flow_id: int, receiver: int, packet: Packet) -> None:
+        if self.metrics.mark_acknowledged(flow_id, receiver, self.now):
+            self.protocol.on_ack(flow_id, receiver, self.now, packet)
+
     def run(self, until_s: float) -> Metrics:
         while self.events:
             when, _, event_type, data = heapq.heappop(self.events)
@@ -605,7 +653,11 @@ class Simulator:
                 flow_id = data
                 flow = self.metrics.flows.get(flow_id)
                 if flow is not None and flow.dst != BROADCAST_DST:
-                    self.protocol.on_flow_completion(flow_id, flow.delivered_at is not None, self.now)
+                    self.protocol.on_flow_completion(
+                        flow_id,
+                        self.protocol.flow_confirmed(flow),
+                        self.now,
+                    )
             else:
                 raise ValueError(f"unknown event type: {event_type}")
         self.now = until_s
@@ -627,8 +679,64 @@ class RoutingProtocol:
     def on_delivery(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
         return None
 
+    def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        return None
+
     def on_flow_completion(self, flow_id: int, delivered: bool, now: float) -> None:
         return None
+
+    def flow_confirmed(self, flow: FlowRecord) -> bool:
+        return flow.delivered_at is not None
+
+    def ack_next_hop_matches(self, receiver: int, packet: Packet) -> bool:
+        return 0 <= packet.path_index < len(packet.path) and packet.path[packet.path_index] == receiver
+
+    def send_ack_on_reverse_path(self, receiver: int, packet: Packet) -> None:
+        if packet.path_index <= 0 or receiver != packet.final_dst:
+            return
+        ack = Packet(
+            kind="ACK",
+            flow_id=packet.flow_id,
+            origin=receiver,
+            final_dst=packet.origin,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.now,
+            protocol=self.name,
+            request_id=packet.request_id,
+            path=packet.path,
+            path_index=packet.path_index - 1,
+            app_payload=False,
+        )
+        self.sim.transmit_later(receiver, ack, delay_s=0.0)
+
+    def send_direct_ack(self, receiver: int, packet: Packet) -> None:
+        if receiver != packet.final_dst or packet.origin == BROADCAST_DST:
+            return
+        ack = Packet(
+            kind="ACK",
+            flow_id=packet.flow_id,
+            origin=receiver,
+            final_dst=packet.origin,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.now,
+            protocol=self.name,
+            request_id=packet.request_id,
+            path=(receiver, packet.origin),
+            path_index=1,
+            app_payload=False,
+        )
+        self.sim.transmit_later(receiver, ack, delay_s=0.0)
+
+    def on_ack_packet(self, receiver: int, packet: Packet) -> None:
+        if not self.ack_next_hop_matches(receiver, packet):
+            return
+        if receiver == packet.final_dst:
+            self.sim.mark_acknowledged(packet.flow_id, receiver, packet)
+            return
+        if packet.ttl <= 1:
+            return
+        forwarded = packet.retreat_path().with_ttl(packet.ttl - 1)
+        self.sim.transmit_later(receiver, forwarded, delay_s=0.0)
 
 
 class MeshtasticLike(RoutingProtocol):
@@ -667,6 +775,7 @@ class MeshtasticLike(RoutingProtocol):
             ttl=self.sim.max_hops,
             created_at=self.sim.now,
             protocol=self.name,
+            path=(src,),
         )
         self.seen[src].add(packet.flood_key)
         self.sim.transmit_later(src, packet, delay_s=0.0)
@@ -685,6 +794,9 @@ class MeshtasticLike(RoutingProtocol):
         )
 
     def on_receive(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
+        if packet.kind == "ACK":
+            self.on_ack_packet(receiver, packet)
+            return
         if packet.kind != "DATA":
             return
         key = packet.flood_key
@@ -698,8 +810,27 @@ class MeshtasticLike(RoutingProtocol):
             return
 
         self.seen[receiver].add(key)
+        packet_at_receiver = packet
+        if packet.final_dst != BROADCAST_DST and packet.path:
+            packet_at_receiver = Packet(
+                kind=packet.kind,
+                flow_id=packet.flow_id,
+                origin=packet.origin,
+                final_dst=packet.final_dst,
+                ttl=packet.ttl,
+                created_at=packet.created_at,
+                protocol=packet.protocol,
+                request_id=packet.request_id,
+                path=packet.path + (receiver,),
+                path_index=len(packet.path),
+                learned_path=packet.learned_path,
+                path_confidence=packet.path_confidence,
+                app_payload=packet.app_payload,
+            )
         if packet.final_dst == BROADCAST_DST or packet.final_dst == receiver:
-            self.sim.mark_delivered(packet.flow_id, receiver, packet)
+            self.sim.mark_delivered(packet.flow_id, receiver, packet_at_receiver)
+            if packet.final_dst == receiver:
+                self.send_ack_on_reverse_path(receiver, packet_at_receiver)
 
         node = self.sim.nodes[receiver]
         if packet.ttl <= 1 or not node.can_relay:
@@ -707,7 +838,7 @@ class MeshtasticLike(RoutingProtocol):
         if packet.final_dst != BROADCAST_DST and packet.final_dst == receiver:
             return
 
-        forwarded = packet.with_ttl(packet.ttl - 1)
+        forwarded = packet_at_receiver.with_ttl(packet.ttl - 1)
         delay = self.managed_delay(receiver, rx)
         pending = self.sim.transmit_later(receiver, forwarded, delay_s=delay)
         self.pending[pending_key] = pending
@@ -825,6 +956,8 @@ class MeshCoreLike(RoutingProtocol):
             self.on_rrep(receiver, packet)
         elif packet.kind == "DATA":
             self.on_data(receiver, packet)
+        elif packet.kind == "ACK":
+            self.on_ack_packet(receiver, packet)
 
     def on_rreq(self, receiver: int, packet: Packet) -> None:
         if receiver in packet.path:
@@ -909,10 +1042,10 @@ class MeshCoreLike(RoutingProtocol):
             return
         advanced = packet.advance_path()
         if receiver == packet.final_dst:
-            self.sim.mark_delivered(packet.flow_id, receiver, packet)
+            self.sim.mark_delivered(packet.flow_id, receiver, advanced)
+            self.send_ack_on_reverse_path(receiver, advanced)
             return
         self.sim.transmit_later(receiver, advanced, delay_s=0.0)
-
 
 class CalmMesh(RoutingProtocol):
     """Confidence-aware adaptive routing for LoRa Mesh.
@@ -1130,6 +1263,7 @@ class CalmMesh(RoutingProtocol):
             ttl=ttl,
             created_at=self.sim.metrics.flows[flow_id].created_at,
             protocol=self.name,
+            path=(src,),
         )
         self.seen_floods[src].add(fallback.flood_key)
         pending = self.sim.transmit_later(src, fallback, delay_s=delay_s)
@@ -1137,6 +1271,9 @@ class CalmMesh(RoutingProtocol):
             self.source_fallbacks.setdefault(flow_id, []).append(pending)
 
     def on_delivery(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        return None
+
+    def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
         pending_fallbacks = self.source_fallbacks.pop(flow_id, [])
         for pending in pending_fallbacks:
             pending.canceled = True
@@ -1154,6 +1291,8 @@ class CalmMesh(RoutingProtocol):
             self.on_data(receiver, packet, rx)
         elif packet.kind == "FALLBACK":
             self.on_fallback(receiver, packet, rx)
+        elif packet.kind == "ACK":
+            self.on_ack_packet(receiver, packet)
 
     def on_rreq(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
         if receiver in packet.path:
@@ -1224,7 +1363,8 @@ class CalmMesh(RoutingProtocol):
             return
         advanced = packet.advance_path()
         if receiver == packet.final_dst:
-            self.sim.mark_delivered(packet.flow_id, receiver, packet)
+            self.sim.mark_delivered(packet.flow_id, receiver, advanced)
+            self.send_ack_on_reverse_path(receiver, advanced)
             return
         self.sim.transmit_later(receiver, advanced, delay_s=0.0)
 
@@ -1239,9 +1379,32 @@ class CalmMesh(RoutingProtocol):
             self.sim.metrics.duplicate_rx += 1
             return
         self.seen_floods[receiver].add(key)
+        if packet.path:
+            packet_at_receiver = Packet(
+                kind=packet.kind,
+                flow_id=packet.flow_id,
+                origin=packet.origin,
+                final_dst=packet.final_dst,
+                ttl=packet.ttl,
+                created_at=packet.created_at,
+                protocol=packet.protocol,
+                request_id=packet.request_id,
+                path=packet.path + (receiver,),
+                path_index=len(packet.path),
+                learned_path=packet.learned_path,
+                path_confidence=packet.path_confidence,
+                app_payload=packet.app_payload,
+            )
+        else:
+            packet_at_receiver = packet
 
         if packet.final_dst == BROADCAST_DST or packet.final_dst == receiver:
-            self.sim.mark_delivered(packet.flow_id, receiver, packet)
+            self.sim.mark_delivered(packet.flow_id, receiver, packet_at_receiver)
+            if packet.final_dst == receiver:
+                if packet_at_receiver.path:
+                    self.send_ack_on_reverse_path(receiver, packet_at_receiver)
+                else:
+                    self.send_direct_ack(receiver, packet_at_receiver)
 
         node = self.sim.nodes[receiver]
         if packet.ttl <= 1 or not node.can_relay:
@@ -1249,7 +1412,7 @@ class CalmMesh(RoutingProtocol):
         if packet.final_dst != BROADCAST_DST and packet.final_dst == receiver:
             return
 
-        forwarded = packet.with_ttl(packet.ttl - 1)
+        forwarded = packet_at_receiver.with_ttl(packet.ttl - 1)
         pending = self.sim.transmit_later(receiver, forwarded, delay_s=self.flood_delay(receiver, rx))
         self.pending_fallback[pending_key] = pending
 
@@ -1354,6 +1517,7 @@ class SmartCalmMesh(CalmMesh):
         max_timeout_retries: int = 2,
         retry_after_fallback: bool = False,
         route_miss_fallback_ttl: int = 0,
+        timeout_fallback_min_ttl: int = 1,
         prior_q_values: Optional[Dict[Tuple[int, int], float]] = None,
         profiles: Sequence[AdaptiveProfile] = DEFAULT_PROFILES,
         **kwargs: Any,
@@ -1367,6 +1531,7 @@ class SmartCalmMesh(CalmMesh):
         self.max_timeout_retries = max_timeout_retries
         self.retry_after_fallback = retry_after_fallback
         self.route_miss_fallback_ttl = route_miss_fallback_ttl
+        self.timeout_fallback_min_ttl = max(1, timeout_fallback_min_ttl)
         self.profiles = tuple(profiles)
         self.active_profile_index = 1 if len(self.profiles) > 1 else 0
         self.active_state_index = 0
@@ -1407,7 +1572,7 @@ class SmartCalmMesh(CalmMesh):
 
     def state_index_from_snapshot(self, snapshot: LearningSnapshot) -> int:
         attempts = max(1, snapshot.unicast_flows)
-        delivered = snapshot.unicast_deliveries
+        delivered = snapshot.unicast_acks
         pdr = delivered / attempts
         route_attempts = snapshot.route_cache_hits + snapshot.route_cache_misses
         miss_ratio = snapshot.route_cache_misses / max(1, route_attempts)
@@ -1457,7 +1622,7 @@ class SmartCalmMesh(CalmMesh):
     def window_reward(self, previous: LearningSnapshot, current: LearningSnapshot) -> float:
         new_unicast = current.unicast_flows - previous.unicast_flows
         new_broadcast = current.broadcast_flows - previous.broadcast_flows
-        new_unicast_deliveries = current.unicast_deliveries - previous.unicast_deliveries
+        new_unicast_acks = current.unicast_acks - previous.unicast_acks
         new_broadcast_deliveries = current.broadcast_deliveries - previous.broadcast_deliveries
         new_tx = current.tx_count - previous.tx_count
         new_control = current.control_tx - previous.control_tx
@@ -1467,7 +1632,7 @@ class SmartCalmMesh(CalmMesh):
         new_delay_total = current.delivery_delay_total_s - previous.delivery_delay_total_s
         new_delay_samples = current.delivery_delay_samples - previous.delivery_delay_samples
 
-        unicast_pdr = new_unicast_deliveries / max(1, new_unicast)
+        unicast_pdr = new_unicast_acks / max(1, new_unicast)
         broadcast_gain = new_broadcast_deliveries / max(1, new_broadcast * max(1, self.sim.metrics.node_count - 1))
         avg_delay = new_delay_total / max(1, new_delay_samples)
         control_ratio = new_control / max(1, new_tx)
@@ -1618,7 +1783,7 @@ class SmartCalmMesh(CalmMesh):
         collision_per_tx = snapshot.collision_fail / max(1, snapshot.tx_count)
         fallback_per_unicast = snapshot.fallback_forward_count / max(1, snapshot.unicast_flows)
         tx_per_min = snapshot.tx_count / max(1.0 / 60.0, self.sim.now / 60.0)
-        miss_ratio = 1.0 - snapshot.unicast_deliveries / max(1, snapshot.unicast_flows)
+        miss_ratio = 1.0 - snapshot.unicast_acks / max(1, snapshot.unicast_flows)
 
         collision_score = clamp((collision_per_tx - 18.0) / 8.0, 0.0, 1.0)
         fallback_score = clamp((fallback_per_unicast - 1.0) / 3.0, 0.0, 1.0)
@@ -1660,7 +1825,13 @@ class SmartCalmMesh(CalmMesh):
         return True
 
     def on_delivery(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
-        super().on_delivery(flow_id, receiver, now, packet)
+        return None
+
+    def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        super().on_ack(flow_id, receiver, now, packet)
+        pending_fallbacks = self.source_fallbacks.pop(flow_id, [])
+        for pending in pending_fallbacks:
+            pending.canceled = True
         decision = self.flow_decisions.get(flow_id)
         if decision is None or decision.delivered:
             return
@@ -1668,6 +1839,9 @@ class SmartCalmMesh(CalmMesh):
         decision.delivered_at = now
         self.learn_from_flow(decision, delivered=True, now=now)
         self.flow_decisions.pop(flow_id, None)
+
+    def flow_confirmed(self, flow: FlowRecord) -> bool:
+        return flow.acked_at is not None
 
     def on_flow_completion(self, flow_id: int, delivered: bool, now: float) -> None:
         decision = self.flow_decisions.get(flow_id)
@@ -1681,7 +1855,7 @@ class SmartCalmMesh(CalmMesh):
         if can_retry_timeout:
             decision.timeout_retries += 1
             if not self.retry_data_on_cached_path(decision, flow_id):
-                retry_ttl = self.timeout_fallback_ttl()
+                retry_ttl = max(self.timeout_fallback_ttl(), self.timeout_fallback_min_ttl)
                 self.start_fallback(
                     decision.src,
                     decision.dst,
@@ -1807,6 +1981,7 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             max_timeout_retries=getattr(args, "smart_max_timeout_retries", 2),
             retry_after_fallback=getattr(args, "smart_retry_after_fallback", False),
             route_miss_fallback_ttl=getattr(args, "smart_route_miss_fallback_ttl", 0),
+            timeout_fallback_min_ttl=getattr(args, "smart_timeout_fallback_min_ttl", 1),
             prior_q_values=SmartCalmMesh.load_prior_q_values(getattr(args, "smart_prior_json"))
             if getattr(args, "smart_prior_json", None)
             else None,
@@ -1853,12 +2028,14 @@ def print_table(rows: Sequence[Dict[str, Any]]) -> None:
         "seed",
         "flows",
         "unicast_pdr",
+        "destination_unicast_pdr",
         "broadcast_coverage",
         "avg_delay_s",
         "mean_delivery_delay_s",
         "tx_count",
         "data_tx",
         "control_tx",
+        "ack_tx",
         "total_airtime_s",
         "airtime_per_delivery_s",
         "collision_fail",
@@ -1946,6 +2123,12 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=0,
         help="limit route-miss fallback radius; 0 keeps the normal max-hops route-discovery recovery",
+    )
+    parser.add_argument(
+        "--smart-timeout-fallback-min-ttl",
+        type=int,
+        default=1,
+        help="minimum fallback radius after a timeout retry; use 2 to reproduce Smart-CALM v1.1",
     )
     parser.add_argument(
         "--smart-retry-after-fallback",

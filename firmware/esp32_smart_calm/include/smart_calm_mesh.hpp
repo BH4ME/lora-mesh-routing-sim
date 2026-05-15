@@ -480,8 +480,6 @@ class SmartCalmMesh {
         std::min<float>(static_cast<float>(frame.confidence_milli) / 1000.0f, confidenceFromSnr(snr));
     if (route.path_index + 1U >= route.path_len) {
       snapshot.unicast_deliveries++;
-      snapshot.delivery_delay_total_s += static_cast<float>(now_ms - frame.created_at_ms) / 1000.0f;
-      snapshot.delivery_delay_samples++;
       snapshot.path_confidence_total += confidence;
       snapshot.path_confidence_samples++;
 
@@ -522,6 +520,9 @@ class SmartCalmMesh {
       return 0;
     }
     if (route.path_index == 0) {
+      snapshot.unicast_acks++;
+      snapshot.delivery_delay_total_s += static_cast<float>(now_ms - frame.created_at_ms) / 1000.0f;
+      snapshot.delivery_delay_samples++;
       controller.completeFlow(frame.flow_id, true, snapshot, now_ms);
       return 0;
     }
