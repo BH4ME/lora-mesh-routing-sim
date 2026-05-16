@@ -140,6 +140,8 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertGreater(row["policy_update_count"], 0)
         self.assertGreaterEqual(row["policy_switch_count"], 0)
         self.assertIn(row["active_profile_index"], {0, 1, 2})
+        self.assertIn("smart_timeout_fallback_min_ttl", row)
+        self.assertEqual(row["smart_timeout_fallback_min_ttl"], 1)
 
     def test_smart_calm_records_decision_context_before_transmission(self) -> None:
         protocol = SmartCalmMesh(update_interval_s=999.0, exploration=0.0)

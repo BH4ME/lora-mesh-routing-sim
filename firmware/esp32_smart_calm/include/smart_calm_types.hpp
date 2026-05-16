@@ -43,6 +43,7 @@ struct Snapshot {
   std::uint32_t path_confidence_samples = 0;
   std::uint32_t unicast_flows = 0;
   std::uint32_t broadcast_flows = 0;
+  // Destination-side DATA arrivals. Learning decisions use unicast_acks.
   std::uint32_t unicast_deliveries = 0;
   std::uint32_t unicast_acks = 0;
   std::uint32_t broadcast_deliveries = 0;

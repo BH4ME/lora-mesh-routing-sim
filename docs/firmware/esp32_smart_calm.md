@@ -110,6 +110,8 @@ path.
   and hello/status emission continue correctly across `millis()` wrap.
 - Snapshot counters are saturating 32-bit counters in firmware to avoid wrap
   corruption of learning state in long-lived runs.
+- `unicast_deliveries` records destination-side DATA arrivals, while policy
+  learning uses `unicast_acks` as the source-confirmed delivery signal.
 - The next firmware step is to add timeout retry, persistent route aging,
   neighbor/link-quality tables, and richer delivery telemetry.
 - Current v1 boundary: proactive timeout-triggered fallback start (as in the

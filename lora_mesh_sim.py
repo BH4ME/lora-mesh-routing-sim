@@ -169,6 +169,25 @@ class Packet:
             app_payload=self.app_payload,
         )
 
+    def at_receiver(self, receiver: int) -> "Packet":
+        if not self.path:
+            return self
+        return Packet(
+            kind=self.kind,
+            flow_id=self.flow_id,
+            origin=self.origin,
+            final_dst=self.final_dst,
+            ttl=self.ttl,
+            created_at=self.created_at,
+            protocol=self.protocol,
+            request_id=self.request_id,
+            path=self.path + (receiver,),
+            path_index=len(self.path),
+            learned_path=self.learned_path,
+            path_confidence=self.path_confidence,
+            app_payload=self.app_payload,
+        )
+
     def advance_path(self) -> "Packet":
         return Packet(
             kind=self.kind,
@@ -465,6 +484,21 @@ class Metrics:
             "policy_reward_total": round(self.policy_reward_total, 6),
             "active_profile_index": self.active_profile_index,
         }
+
+
+def summary_runtime_config(
+    protocol_name: str,
+    protocol: RoutingProtocol,
+    args: argparse.Namespace,
+) -> Dict[str, Any]:
+    config: Dict[str, Any] = {}
+    if protocol_name == "smart-calm" and isinstance(protocol, SmartCalmMesh):
+        config["smart_flow_timeout_s"] = round(protocol.flow_timeout_s, 6)
+        config["smart_max_timeout_retries"] = protocol.max_timeout_retries
+        config["smart_retry_after_fallback"] = int(protocol.retry_after_fallback)
+        config["smart_route_miss_fallback_ttl"] = protocol.route_miss_fallback_ttl
+        config["smart_timeout_fallback_min_ttl"] = protocol.timeout_fallback_min_ttl
+    return config
 
 
 class Simulator:
@@ -810,23 +844,11 @@ class MeshtasticLike(RoutingProtocol):
             return
 
         self.seen[receiver].add(key)
-        packet_at_receiver = packet
-        if packet.final_dst != BROADCAST_DST and packet.path:
-            packet_at_receiver = Packet(
-                kind=packet.kind,
-                flow_id=packet.flow_id,
-                origin=packet.origin,
-                final_dst=packet.final_dst,
-                ttl=packet.ttl,
-                created_at=packet.created_at,
-                protocol=packet.protocol,
-                request_id=packet.request_id,
-                path=packet.path + (receiver,),
-                path_index=len(packet.path),
-                learned_path=packet.learned_path,
-                path_confidence=packet.path_confidence,
-                app_payload=packet.app_payload,
-            )
+        packet_at_receiver = (
+            packet.at_receiver(receiver)
+            if packet.final_dst != BROADCAST_DST
+            else packet
+        )
         if packet.final_dst == BROADCAST_DST or packet.final_dst == receiver:
             self.sim.mark_delivered(packet.flow_id, receiver, packet_at_receiver)
             if packet.final_dst == receiver:
@@ -1270,9 +1292,6 @@ class CalmMesh(RoutingProtocol):
         if delay_s > 0.0:
             self.source_fallbacks.setdefault(flow_id, []).append(pending)
 
-    def on_delivery(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
-        return None
-
     def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
         pending_fallbacks = self.source_fallbacks.pop(flow_id, [])
         for pending in pending_fallbacks:
@@ -1379,24 +1398,7 @@ class CalmMesh(RoutingProtocol):
             self.sim.metrics.duplicate_rx += 1
             return
         self.seen_floods[receiver].add(key)
-        if packet.path:
-            packet_at_receiver = Packet(
-                kind=packet.kind,
-                flow_id=packet.flow_id,
-                origin=packet.origin,
-                final_dst=packet.final_dst,
-                ttl=packet.ttl,
-                created_at=packet.created_at,
-                protocol=packet.protocol,
-                request_id=packet.request_id,
-                path=packet.path + (receiver,),
-                path_index=len(packet.path),
-                learned_path=packet.learned_path,
-                path_confidence=packet.path_confidence,
-                app_payload=packet.app_payload,
-            )
-        else:
-            packet_at_receiver = packet
+        packet_at_receiver = packet.at_receiver(receiver)
 
         if packet.final_dst == BROADCAST_DST or packet.final_dst == receiver:
             self.sim.mark_delivered(packet.flow_id, receiver, packet_at_receiver)
@@ -2014,7 +2016,9 @@ def run_one(args: argparse.Namespace, protocol_name: str, seed: int) -> Dict[str
         args.pair_count,
     )
     metrics = sim.run(args.duration_s)
-    return metrics.summarize(protocol.name, seed, args.duration_s)
+    row = metrics.summarize(protocol.name, seed, args.duration_s)
+    row.update(summary_runtime_config(protocol_name, protocol, args))
+    return row
 
 
 def print_table(rows: Sequence[Dict[str, Any]]) -> None:
