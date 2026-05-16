@@ -94,6 +94,8 @@ path.
 - The current firmware is a direct LoRa prototype, not a UART transparent modem.
 - It already has an over-the-air packet format, route discovery, source-route
   forwarding, ACK return path, and a serial-triggered application send path.
+- Routing requests keep the target in `WireFrame.dst` (16-bit), so node IDs
+  above `255` are supported by discovery and reply without truncation.
 - Simulator changes must stay portable to ESP32-class firmware: prefer compact
   per-flow counters, bounded source paths, and explicit ACK confirmation over
   simulator-only global history or large dynamic tables.
@@ -101,5 +103,16 @@ path.
   in a fixed array and uses a linear scan. With the current small capacity this
   avoids heap allocation; slot overflow is counted and printed in the serial
   status as `overflow=`.
+- `collision_fail` in firmware is a transmit-failure proxy (channel pressure),
+  while the simulator's `collision_fail` represents receive-side collision loss.
+  They are directionally related but not numerically identical.
+- The scheduler uses rollover-safe `millis()` comparisons, so periodic learning
+  and hello/status emission continue correctly across `millis()` wrap.
+- Snapshot counters are saturating 32-bit counters in firmware to avoid wrap
+  corruption of learning state in long-lived runs.
 - The next firmware step is to add timeout retry, persistent route aging,
   neighbor/link-quality tables, and richer delivery telemetry.
+- Current v1 boundary: proactive timeout-triggered fallback start (as in the
+  simulator's timeout recovery path) is not yet implemented in firmware; current
+  fallback handling is receive-driven (`handleFallback`) plus per-flow fallback
+  learning marks (`markFallback`).

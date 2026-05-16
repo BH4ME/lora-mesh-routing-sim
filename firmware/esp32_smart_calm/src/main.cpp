@@ -88,6 +88,10 @@ constexpr std::uint32_t kLearningTickMs = 30000;
 constexpr std::uint32_t kStatusTxMs = 15000;
 constexpr std::uint32_t kHelloTxMs = 45000;
 
+bool timeReached(std::uint32_t now_ms, std::uint32_t deadline_ms) {
+  return static_cast<std::int32_t>(now_ms - deadline_ms) >= 0;
+}
+
 void setPacketFlag() {
   packet_received = true;
 }
@@ -108,13 +112,18 @@ void copyPayload(WireFrame& frame, const char* text) {
 
 void sendFrame(const WireFrame& frame) {
   const auto bytes = encodeWireFrame(frame);
+  if (bytes.size == 0) {
+    Serial.println(F("[Smart-CALM] encode failed, frame dropped"));
+    return;
+  }
   const int16_t state = radio.transmit(bytes.bytes.data(), bytes.size);
-  ++snapshot.tx_count;
+  saturatingIncrement(snapshot.tx_count);
   if (frame.type != FrameType::Data) {
-    ++snapshot.control_tx;
+    saturatingIncrement(snapshot.control_tx);
   }
   if (state != RADIOLIB_ERR_NONE) {
-    ++snapshot.collision_fail;
+    // Firmware uses transmit failures as a channel-pressure proxy.
+    saturatingIncrement(snapshot.collision_fail);
     Serial.print(F("[Smart-CALM] transmit failed, code "));
     Serial.println(state);
   }
@@ -171,8 +180,8 @@ void sendHello(std::uint32_t now_ms) {
 
 void handleReceivedFrame(const WireFrame& frame, float rssi, float snr, std::uint32_t now_ms) {
   if (frame.type == FrameType::Status) {
-    ++snapshot.broadcast_flows;
-    ++snapshot.broadcast_deliveries;
+    saturatingIncrement(snapshot.broadcast_flows);
+    saturatingIncrement(snapshot.broadcast_deliveries);
     if (frame.payload_len > 0) {
       Serial.print(F("[Smart-CALM] status from "));
       Serial.print(frame.src);
@@ -223,7 +232,7 @@ void pollRadio(std::uint32_t now_ms) {
 }
 
 void updateLearning(std::uint32_t now_ms) {
-  if (now_ms < next_learning_tick_ms) {
+  if (!timeReached(now_ms, next_learning_tick_ms)) {
     return;
   }
   controller.learningTick(snapshot, esp_random());
@@ -235,11 +244,11 @@ void updateLearning(std::uint32_t now_ms) {
 }
 
 void maybeTransmitPeriodicFrames(std::uint32_t now_ms) {
-  if (now_ms >= next_hello_tx_ms) {
+  if (timeReached(now_ms, next_hello_tx_ms)) {
     sendHello(now_ms);
     next_hello_tx_ms = now_ms + kHelloTxMs;
   }
-  if (now_ms >= next_status_tx_ms) {
+  if (timeReached(now_ms, next_status_tx_ms)) {
     sendStatusBeacon(now_ms);
     next_status_tx_ms = now_ms + kStatusTxMs;
   }

@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <limits>
 
 namespace smart_calm {
 
@@ -48,6 +49,27 @@ struct Snapshot {
   float delivery_delay_total_s = 0.0f;
   std::uint32_t delivery_delay_samples = 0;
 };
+
+inline void saturatingIncrement(std::uint32_t& value) {
+  if (value < std::numeric_limits<std::uint32_t>::max()) {
+    ++value;
+  }
+}
+
+inline void saturatingAdd(std::uint32_t& value, std::uint32_t delta) {
+  const std::uint32_t cap = std::numeric_limits<std::uint32_t>::max();
+  const std::uint32_t room = cap - value;
+  value += delta > room ? room : delta;
+}
+
+inline void saturatingAddFloat(float& value, float delta, float abs_bound) {
+  value += delta;
+  if (value > abs_bound) {
+    value = abs_bound;
+  } else if (value < -abs_bound) {
+    value = -abs_bound;
+  }
+}
 
 struct PriorEntry {
   std::uint8_t state;

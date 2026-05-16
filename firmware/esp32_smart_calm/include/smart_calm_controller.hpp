@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cinttypes>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -140,7 +141,7 @@ class SmartCalmController {
     const std::uint8_t state_index = stateIndexFromSnapshot(snapshot);
     const std::uint8_t action_index = selectAction(state_index, entropy);
     if (action_index != active_profile_index_) {
-      ++policy_switch_count_;
+      saturatingIncrement(policy_switch_count_);
     }
     active_state_index_ = state_index;
     active_profile_index_ = action_index;
@@ -160,13 +161,17 @@ class SmartCalmController {
 
   void markRouteMiss(std::uint32_t flow_id) {
     if (FlowDecision* decision = findDecision(flow_id)) {
-      ++decision->route_miss;
+      if (decision->route_miss < 255U) {
+        ++decision->route_miss;
+      }
     }
   }
 
   void markFallback(std::uint32_t flow_id) {
     if (FlowDecision* decision = findDecision(flow_id)) {
-      ++decision->fallback_count;
+      if (decision->fallback_count < 255U) {
+        ++decision->fallback_count;
+      }
     }
   }
 
@@ -203,12 +208,12 @@ class SmartCalmController {
     const float best_next = bestNextValue(new_state);
     q_values_[old_key] =
         old_value + settings_.learning_rate * (reward + settings_.discount * best_next - old_value);
-    ++policy_update_count_;
-    policy_reward_total_ += reward;
+    saturatingIncrement(policy_update_count_);
+    saturatingAddFloat(policy_reward_total_, reward, 1.0e9f);
     active_state_index_ = new_state;
     const std::uint8_t next_action = selectAction(new_state, entropy);
     if (next_action != active_profile_index_) {
-      ++policy_switch_count_;
+      saturatingIncrement(policy_switch_count_);
     }
     active_profile_index_ = next_action;
     applyProfile(next_action);
@@ -234,15 +239,15 @@ class SmartCalmController {
     std::snprintf(
         out,
         out_size,
-        "profile=%s state=%u q=%.3f reward=%.3f pdr=%.3f switch=%lu update=%lu overflow=%lu",
+        "profile=%s state=%u q=%.3f reward=%.3f pdr=%.3f switch=%" PRIu32 " update=%" PRIu32 " overflow=%" PRIu32,
         activeProfile().name,
         static_cast<unsigned>(active_profile_index_),
         q_values_[index(active_state_index_, active_profile_index_)],
         policy_reward_total_,
         pdr,
-        static_cast<unsigned long>(policy_switch_count_),
-        static_cast<unsigned long>(policy_update_count_),
-        static_cast<unsigned long>(decision_overflow_count_));
+        policy_switch_count_,
+        policy_update_count_,
+        decision_overflow_count_);
   }
 
  private:
@@ -284,19 +289,32 @@ class SmartCalmController {
   }
 
   float windowReward(const Snapshot& previous, const Snapshot& current) const {
-    const float new_unicast = static_cast<float>(current.unicast_flows - previous.unicast_flows);
-    const float new_broadcast = static_cast<float>(current.broadcast_flows - previous.broadcast_flows);
-    const float new_unicast_acks =
-        static_cast<float>(current.unicast_acks - previous.unicast_acks);
+    const float new_unicast = static_cast<float>(current.unicast_flows >= previous.unicast_flows
+                                                     ? current.unicast_flows - previous.unicast_flows
+                                                     : 0U);
+    const float new_broadcast = static_cast<float>(current.broadcast_flows >= previous.broadcast_flows
+                                                       ? current.broadcast_flows - previous.broadcast_flows
+                                                       : 0U);
+    const float new_unicast_acks = static_cast<float>(current.unicast_acks >= previous.unicast_acks
+                                                          ? current.unicast_acks - previous.unicast_acks
+                                                          : 0U);
     const float new_broadcast_deliveries =
-        static_cast<float>(current.broadcast_deliveries - previous.broadcast_deliveries);
-    const float new_tx = static_cast<float>(current.tx_count - previous.tx_count);
-    const float new_control = static_cast<float>(current.control_tx - previous.control_tx);
-    const float new_collisions = static_cast<float>(current.collision_fail - previous.collision_fail);
+        static_cast<float>(current.broadcast_deliveries >= previous.broadcast_deliveries
+                               ? current.broadcast_deliveries - previous.broadcast_deliveries
+                               : 0U);
+    const float new_tx = static_cast<float>(current.tx_count >= previous.tx_count ? current.tx_count - previous.tx_count : 0U);
+    const float new_control =
+        static_cast<float>(current.control_tx >= previous.control_tx ? current.control_tx - previous.control_tx : 0U);
+    const float new_collisions = static_cast<float>(
+        current.collision_fail >= previous.collision_fail ? current.collision_fail - previous.collision_fail : 0U);
     const float new_repairs =
-        static_cast<float>(current.route_repair_count - previous.route_repair_count);
+        static_cast<float>(current.route_repair_count >= previous.route_repair_count
+                               ? current.route_repair_count - previous.route_repair_count
+                               : 0U);
     const float new_fallback =
-        static_cast<float>(current.fallback_forward_count - previous.fallback_forward_count);
+        static_cast<float>(current.fallback_forward_count >= previous.fallback_forward_count
+                               ? current.fallback_forward_count - previous.fallback_forward_count
+                               : 0U);
     const float new_delay_total =
         current.delivery_delay_total_s - previous.delivery_delay_total_s;
     const float new_delay_samples =
@@ -321,8 +339,8 @@ class SmartCalmController {
     const float best_next = bestNextValue(state);
     q_values_[key] =
         old_value + settings_.learning_rate * (reward + settings_.discount * best_next - old_value);
-    ++policy_update_count_;
-    policy_reward_total_ += reward;
+    saturatingIncrement(policy_update_count_);
+    saturatingAddFloat(policy_reward_total_, reward, 1.0e9f);
   }
 
   void applyProfile(std::uint8_t index) {
@@ -354,7 +372,7 @@ class SmartCalmController {
         return decision;
       }
     }
-    ++decision_overflow_count_;
+    saturatingIncrement(decision_overflow_count_);
     return decisions_[0];
   }
 

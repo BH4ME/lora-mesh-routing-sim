@@ -29,20 +29,36 @@ inline std::uint16_t crc16Ccitt(const std::uint8_t* data, std::size_t len) {
   return crc;
 }
 
-inline void putU8(EncodedFrame& encoded, std::uint8_t value) {
-  encoded.bytes[encoded.size++] = value;
+inline bool canWrite(const EncodedFrame& encoded, std::size_t bytes) {
+  return encoded.size + bytes <= encoded.bytes.size();
 }
 
-inline void putU16(EncodedFrame& encoded, std::uint16_t value) {
+inline bool putU8(EncodedFrame& encoded, std::uint8_t value) {
+  if (!canWrite(encoded, 1)) {
+    return false;
+  }
+  encoded.bytes[encoded.size++] = value;
+  return true;
+}
+
+inline bool putU16(EncodedFrame& encoded, std::uint16_t value) {
+  if (!canWrite(encoded, 2)) {
+    return false;
+  }
   encoded.bytes[encoded.size++] = static_cast<std::uint8_t>(value & 0xFFU);
   encoded.bytes[encoded.size++] = static_cast<std::uint8_t>((value >> 8U) & 0xFFU);
+  return true;
 }
 
-inline void putU32(EncodedFrame& encoded, std::uint32_t value) {
+inline bool putU32(EncodedFrame& encoded, std::uint32_t value) {
+  if (!canWrite(encoded, 4)) {
+    return false;
+  }
   encoded.bytes[encoded.size++] = static_cast<std::uint8_t>(value & 0xFFU);
   encoded.bytes[encoded.size++] = static_cast<std::uint8_t>((value >> 8U) & 0xFFU);
   encoded.bytes[encoded.size++] = static_cast<std::uint8_t>((value >> 16U) & 0xFFU);
   encoded.bytes[encoded.size++] = static_cast<std::uint8_t>((value >> 24U) & 0xFFU);
+  return true;
 }
 
 inline bool getU8(const std::uint8_t* bytes, std::size_t len, std::size_t& offset, std::uint8_t* value) {
@@ -80,25 +96,26 @@ inline EncodedFrame encodeWireFrame(const WireFrame& frame) {
   const std::uint8_t payload_len =
       frame.payload_len > kWirePayloadSize ? static_cast<std::uint8_t>(kWirePayloadSize) : frame.payload_len;
 
-  putU16(encoded, kWireMagic);
-  putU8(encoded, kWireVersion);
-  putU8(encoded, static_cast<std::uint8_t>(frame.type));
-  putU16(encoded, frame.src);
-  putU16(encoded, frame.dst);
-  putU16(encoded, frame.seq);
-  putU32(encoded, frame.flow_id);
-  putU32(encoded, frame.created_at_ms);
-  putU8(encoded, frame.ttl);
-  putU8(encoded, frame.state_index);
-  putU8(encoded, frame.action_index);
-  putU8(encoded, frame.flags);
-  putU16(encoded, frame.confidence_milli);
-  putU8(encoded, payload_len);
+  if (!putU16(encoded, kWireMagic) || !putU8(encoded, kWireVersion) ||
+      !putU8(encoded, static_cast<std::uint8_t>(frame.type)) || !putU16(encoded, frame.src) ||
+      !putU16(encoded, frame.dst) || !putU16(encoded, frame.seq) || !putU32(encoded, frame.flow_id) ||
+      !putU32(encoded, frame.created_at_ms) || !putU8(encoded, frame.ttl) ||
+      !putU8(encoded, frame.state_index) || !putU8(encoded, frame.action_index) ||
+      !putU8(encoded, frame.flags) || !putU16(encoded, frame.confidence_milli) ||
+      !putU8(encoded, payload_len)) {
+    encoded.size = 0;
+    return encoded;
+  }
   for (std::uint8_t i = 0; i < payload_len; ++i) {
-    putU8(encoded, static_cast<std::uint8_t>(frame.payload[i]));
+    if (!putU8(encoded, static_cast<std::uint8_t>(frame.payload[i]))) {
+      encoded.size = 0;
+      return encoded;
+    }
   }
   const std::uint16_t crc = crc16Ccitt(encoded.bytes.data(), encoded.size);
-  putU16(encoded, crc);
+  if (!putU16(encoded, crc)) {
+    encoded.size = 0;
+  }
   return encoded;
 }
 

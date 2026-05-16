@@ -1716,7 +1716,7 @@ class SmartCalmMesh(CalmMesh):
         super().start_fallback(src, dst, flow_id, ttl, delay_s)
 
     def finish_route_discovery(self, key: Tuple[int, int, int]) -> None:
-        candidates = self.rreq_candidates.get(key, [])
+        candidates = self.rreq_candidates.pop(key, [])
         if candidates:
             _, confidence = max(candidates, key=lambda item: (item[1], -len(item[0])))
             _, _, flow_id = key
@@ -1823,9 +1823,6 @@ class SmartCalmMesh(CalmMesh):
         self.sim.metrics.record_path_confidence(confidence)
         self.sim.transmit_later(decision.src, packet, delay_s=0.0)
         return True
-
-    def on_delivery(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
-        return None
 
     def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
         super().on_ack(flow_id, receiver, now, packet)

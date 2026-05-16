@@ -94,7 +94,7 @@ int main() {
   std::size_t count = node1.sendApp(3, 77, app_payload, sizeof(app_payload), 1000, 123, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Rreq);
-  assert(out[0].frame.dst == kBroadcastAddress);
+  assert(out[0].frame.dst == 3);
   RoutePayload route{};
   assert(decodeRoutePayload(out[0].frame, &route));
   assert(route.path_len == 1);
@@ -164,6 +164,52 @@ int main() {
   assert(mesh_snapshot.unicast_acks == 1);
   assert(mesh_snapshot.delivery_delay_samples == 1);
   assert(mesh_snapshot.delivery_delay_total_s > 0.0f);
+
+  // Regression: destination IDs above 255 must still receive RREQ and emit RREP.
+  SmartCalmMesh high_src(258);
+  SmartCalmMesh high_mid(300);
+  SmartCalmMesh high_dst(511);
+  Snapshot high_snapshot{};
+  OutboundFrame high_out[kMaxOutboundFrames]{};
+
+  const std::uint8_t hi_payload[] = {'h', 'i'};
+  count = high_src.sendApp(511, 88, hi_payload, sizeof(hi_payload), 2000, 999, mesh_controller, high_snapshot, high_out, 2);
+  assert(count == 1);
+  assert(high_out[0].frame.type == FrameType::Rreq);
+
+  WireFrame high_rreq = high_out[0].frame;
+  count = high_mid.handleFrame(high_rreq, 2100, -94.0f, 7.5f, mesh_controller, high_snapshot, high_out, 2);
+  assert(count == 1);
+  assert(high_out[0].frame.type == FrameType::Rreq);
+
+  high_rreq = high_out[0].frame;
+  count = high_dst.handleFrame(high_rreq, 2200, -92.0f, 8.0f, mesh_controller, high_snapshot, high_out, 2);
+  assert(count == 1);
+  assert(high_out[0].frame.type == FrameType::Rrep);
+  assert(high_out[0].frame.dst == 300);
+  assert(decodeRoutePayload(high_out[0].frame, &route));
+  assert(route.path_len == 3);
+  assert(route.path[0] == 258);
+  assert(route.path[1] == 300);
+  assert(route.path[2] == 511);
+
+  // Fallback forwarding smoke: relay decrements TTL and counts forwarding.
+  WireFrame fallback{};
+  fallback.type = FrameType::Fallback;
+  fallback.src = 100;
+  fallback.dst = kBroadcastAddress;
+  fallback.seq = 9;
+  fallback.flow_id = 9001;
+  fallback.created_at_ms = 2500;
+  fallback.ttl = 3;
+  fallback.confidence_milli = 800;
+  fallback.payload_len = 0;
+  const std::uint32_t fallback_before = high_snapshot.fallback_forward_count;
+  count = high_mid.handleFrame(fallback, 2600, -90.0f, 6.0f, mesh_controller, high_snapshot, high_out, 2);
+  assert(count == 1);
+  assert(high_out[0].frame.type == FrameType::Fallback);
+  assert(high_out[0].frame.ttl == 2);
+  assert(high_snapshot.fallback_forward_count == fallback_before + 1);
 
   char summary[128];
   controller.formatStatus(summary, sizeof(summary));
