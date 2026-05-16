@@ -502,6 +502,32 @@ class CalmProtocolTest(unittest.TestCase):
         summary = sim.metrics.summarize(protocol.name, seed=4, duration_s=3.0)
         self.assertEqual(summary["fallback_forward_count"], 1)
 
+    def test_smart_calm_can_stack_timeout_retry_after_route_miss_fallback_when_enabled(self) -> None:
+        protocol = SmartCalmMesh(
+            update_interval_s=999.0,
+            exploration=0.0,
+            flow_timeout_s=2.5,
+            max_timeout_retries=1,
+            retry_after_fallback=True,
+        )
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 4000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=4,
+            max_hops=3,
+        )
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=3.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=4, duration_s=3.0)
+        self.assertGreater(summary["fallback_forward_count"], 1)
+
     def test_smart_calm_bounds_route_miss_fallback_scope(self) -> None:
         protocol = SmartCalmMesh(
             update_interval_s=999.0,
