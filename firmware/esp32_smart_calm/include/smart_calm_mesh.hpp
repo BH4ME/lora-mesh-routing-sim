@@ -329,15 +329,13 @@ class SmartCalmMesh {
     route.path_index = 0;
     route.path[0] = node_id_;
 
-    WireFrame frame = baseFrame(FrameType::Rreq, kBroadcastAddress, flow_id, now_ms);
+    WireFrame frame = baseFrame(FrameType::Rreq, dst, flow_id, now_ms);
     frame.ttl = kDefaultRreqTtl;
     frame.flags = 0;
     frame.confidence_milli = 1000;
     if (!encodeRoutePayload(frame, route)) {
       return 0;
     }
-    frame.dst = kBroadcastAddress;
-    frame.flags = static_cast<std::uint8_t>(dst & 0xFFU);
     return pushOutbound(frame, true, out, out_capacity);
   }
 
@@ -388,7 +386,7 @@ class SmartCalmMesh {
     if (!decodeRoutePayload(frame, &route) || route.path_len >= kMaxRouteHops) {
       return 0;
     }
-    const std::uint16_t wanted_dst = frame.flags;
+    const std::uint16_t wanted_dst = frame.dst;
     for (std::uint8_t i = 0; i < route.path_len; ++i) {
       if (route.path[i] == node_id_) {
         return 0;
@@ -480,8 +478,6 @@ class SmartCalmMesh {
         std::min<float>(static_cast<float>(frame.confidence_milli) / 1000.0f, confidenceFromSnr(snr));
     if (route.path_index + 1U >= route.path_len) {
       snapshot.unicast_deliveries++;
-      snapshot.delivery_delay_total_s += static_cast<float>(now_ms - frame.created_at_ms) / 1000.0f;
-      snapshot.delivery_delay_samples++;
       snapshot.path_confidence_total += confidence;
       snapshot.path_confidence_samples++;
 
@@ -522,6 +518,9 @@ class SmartCalmMesh {
       return 0;
     }
     if (route.path_index == 0) {
+      snapshot.unicast_acks++;
+      snapshot.delivery_delay_total_s += static_cast<float>(now_ms - frame.created_at_ms) / 1000.0f;
+      snapshot.delivery_delay_samples++;
       controller.completeFlow(frame.flow_id, true, snapshot, now_ms);
       return 0;
     }
@@ -529,7 +528,7 @@ class SmartCalmMesh {
       return 0;
     }
     route.path_index--;
-    WireFrame forward = baseFrame(FrameType::Ack, route.path[route.path_index], frame.flow_id, now_ms);
+    WireFrame forward = baseFrame(FrameType::Ack, route.path[route.path_index], frame.flow_id, frame.created_at_ms);
     forward.ttl = static_cast<std::uint8_t>(frame.ttl - 1U);
     forward.confidence_milli = frame.confidence_milli;
     if (!encodeRoutePayload(forward, route)) {

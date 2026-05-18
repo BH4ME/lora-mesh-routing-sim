@@ -13,12 +13,14 @@ from typing import Dict, List
 
 METRICS = [
     "unicast_pdr",
+    "destination_unicast_pdr",
     "broadcast_coverage",
     "avg_delay_s",
     "mean_delivery_delay_s",
     "tx_count",
     "data_tx",
     "control_tx",
+    "ack_tx",
     "total_airtime_s",
     "airtime_per_delivery_s",
     "collision_fail",

@@ -21,6 +21,7 @@ to change simulation parameters or add new routing protocols.
 | Route discovery | 路由发现 | The source floods a route request to discover a path to the destination. |
 | Route request, RREQ | 路由请求 | A control packet used to discover a path. |
 | Route reply, RREP | 路由回复 | A control packet returned by the destination along the reverse path. |
+| Acknowledgment, ACK | 确认包 | A unicast control packet returned to the source after the destination receives DATA. |
 | Route cache | 路由缓存 | A stored path reused for later unicast packets. |
 | Source route | 源路由 | A packet carries the complete path to the destination. |
 | Path | 路径 | An ordered node list, such as `A -> B -> C -> D`. |
@@ -257,7 +258,13 @@ formula to decide whether the packet is received.
 Unicast PDR:
 
 ```text
-unicast_pdr = delivered_unicast_flows / total_unicast_flows
+unicast_pdr = ack_confirmed_unicast_flows / total_unicast_flows
+```
+
+Destination unicast PDR:
+
+```text
+destination_unicast_pdr = destination_data_arrivals / total_unicast_flows
 ```
 
 Broadcast coverage:
@@ -271,7 +278,7 @@ Average unicast delay:
 
 ```text
 avg_delay_s =
-    mean(delivered_time - created_time for each delivered unicast flow)
+    mean(ack_time - created_time for each ACK-confirmed unicast flow)
 ```
 
 Total airtime:
@@ -284,7 +291,7 @@ Airtime per delivered packet:
 
 ```text
 airtime_per_delivery_s =
-    total_airtime_s / (delivered_unicast_flows + total_broadcast_receivers)
+    total_airtime_s / (ack_confirmed_unicast_flows + total_broadcast_receivers)
 ```
 
 This metric is important because it shows how much channel time the network
@@ -300,12 +307,14 @@ spends for each successful delivery.
 | `flows` | Total application-level flows generated. |
 | `unicast_flows` | Number of unicast flows. |
 | `broadcast_flows` | Number of broadcast flows. |
-| `unicast_pdr` | Unicast packet delivery ratio. |
+| `unicast_pdr` | ACK-confirmed unicast packet delivery ratio. |
+| `destination_unicast_pdr` | Destination DATA arrival ratio before ACK confirmation. |
 | `broadcast_coverage` | Broadcast delivery coverage. |
 | `avg_delay_s` | Average delay of delivered unicast flows. |
 | `tx_count` | Total number of packet transmissions. |
 | `data_tx` | Number of data-packet transmissions. |
-| `control_tx` | Number of control-packet transmissions. |
+| `control_tx` | Number of control-packet transmissions, including RREQ, RREP, and unicast ACK. |
+| `ack_tx` | Number of ACK transmissions. |
 | `total_airtime_s` | Sum of all packet time-on-air values. |
 | `airtime_per_delivery_s` | Airtime cost per successful delivery. |
 | `rx_success` | Successful packet receptions at receivers. |
@@ -317,6 +326,11 @@ spends for each successful delivery.
 | `route_replies` | RREP transmissions. |
 | `route_cache_hits` | Times a cached route is reused. |
 | `route_cache_misses` | Times a route discovery is needed. |
+
+Compatibility note: legacy CSV artifacts generated before ACK-aware metrics
+used `unicast_pdr` to mean destination DATA arrival ratio. Re-run those
+experiments if you need strict comparability with current ACK-confirmed
+`unicast_pdr`.
 
 ## Baseline Protocol Logic
 
@@ -350,11 +364,13 @@ The simulator model:
 3. The source caches the discovered path.
 4. Later unicast DATA packets carry the complete source route.
 5. Only the next node on the source route forwards the packet.
+6. The destination returns an ACK along the reverse source route.
 ```
 
 This reduces redundant transmissions when repeated unicast pairs reuse the same
 path, but a weak hop can reduce delivery probability because the model does not
-currently include per-hop retransmission or local route repair.
+currently include per-hop retransmission or local route repair. ACKs are counted
+as control transmissions and contribute to total airtime.
 
 ## Random Seed
 
@@ -372,4 +388,3 @@ forwarding jitter
 Running many seeds is necessary because one random topology can be unusually
 easy or unusually difficult. For paper-style experiments, report mean and
 standard deviation over many seeds.
-

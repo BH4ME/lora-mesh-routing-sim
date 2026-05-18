@@ -144,12 +144,14 @@ all protocols share the same generated values, making comparisons fair.
 
 The table and CSV include:
 
-- `unicast_pdr`
+- `unicast_pdr` ACK-confirmed source delivery ratio
+- `destination_unicast_pdr` destination DATA arrival ratio
 - `broadcast_coverage`
 - `avg_delay_s`
 - `tx_count`
 - `data_tx`
 - `control_tx`
+- `ack_tx`
 - `total_airtime_s`
 - `airtime_per_delivery_s`
 - `collision_fail`
@@ -169,6 +171,11 @@ simulator:
 - `baseline_smoke.csv`: small smoke-test run.
 - `exp_50n_unicast_pairs.csv`: 50-node repeated-unicast baseline comparison.
 - `exp_50n_mixed.csv`: 50-node mixed-traffic baseline comparison.
+
+Historical note: CSV files generated before the ACK-aware update use the old
+`unicast_pdr` definition (destination DATA arrival). New runs treat
+`unicast_pdr` as source ACK-confirmed delivery and expose the old view as
+`destination_unicast_pdr`, so avoid directly mixing old/new CSVs in one plot.
 
 Regenerate or replace them with your own scenarios as the routing model evolves.
 

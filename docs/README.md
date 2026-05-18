@@ -15,6 +15,8 @@ keeps the main `README.md` as the entry point.
 
 ## Results
 
+- [Anti-Cherrypick Stress Test Report](results/anti_cherrypick_stress_report.md):
+  harsher Smart-CALM v1.1.1 stress checks, including failure/tradeoff cases.
 - [Smart-CALM Tag Gallery](results/smart_calm_tag_gallery.md): version tags,
   commits, and per-version bar charts for Smart-CALM simulation baselines.
 - [Three Protocol Comparison](results/three_protocol_comparison.md): concise

@@ -49,6 +49,11 @@ Fields:
 
 Maximum encoded size is `56 bytes` with the default `32 byte` payload.
 
+`created_at_ms` is the source node's local `millis()` timestamp. Other nodes
+must treat it as opaque metadata because ESP32 nodes are not clock synchronized;
+source-side ACK handling uses the controller's local flow start time for
+latency-sensitive learning.
+
 ## Build
 
 1. Install PlatformIO.
@@ -89,5 +94,12 @@ path.
 - The current firmware is a direct LoRa prototype, not a UART transparent modem.
 - It already has an over-the-air packet format, route discovery, source-route
   forwarding, ACK return path, and a serial-triggered application send path.
+- Simulator changes must stay portable to ESP32-class firmware: prefer compact
+  per-flow counters, bounded source paths, and explicit ACK confirmation over
+  simulator-only global history or large dynamic tables.
+- The controller intentionally tracks only `kMaxTrackedFlows` active decisions
+  in a fixed array and uses a linear scan. With the current small capacity this
+  avoids heap allocation; slot overflow is counted and printed in the serial
+  status as `overflow=`.
 - The next firmware step is to add timeout retry, persistent route aging,
   neighbor/link-quality tables, and richer delivery telemetry.

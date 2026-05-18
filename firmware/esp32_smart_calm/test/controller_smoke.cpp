@@ -15,6 +15,7 @@ int main() {
   Snapshot snapshot{};
   snapshot.unicast_flows = 10;
   snapshot.unicast_deliveries = 9;
+  snapshot.unicast_acks = 9;
   snapshot.route_cache_hits = 8;
   snapshot.route_cache_misses = 2;
   snapshot.collision_fail = 5;
@@ -24,6 +25,7 @@ int main() {
   Snapshot low{};
   low.unicast_flows = 10;
   low.unicast_deliveries = 2;
+  low.unicast_acks = 2;
   low.route_cache_hits = 1;
   low.route_cache_misses = 6;
   low.collision_fail = 20;
@@ -32,6 +34,14 @@ int main() {
 
   const std::uint8_t action = controller.beginFlow(42, low, 7, 1234);
   assert(action < kActionCount);
+
+  SmartCalmController overflow_controller;
+  for (std::size_t i = 0; i < kMaxTrackedFlows; ++i) {
+    overflow_controller.beginFlow(1000 + static_cast<std::uint32_t>(i), low, 7, 2000 + static_cast<std::uint32_t>(i));
+  }
+  assert(overflow_controller.decisionOverflowCount() == 0);
+  overflow_controller.beginFlow(9000, low, 7, 3000);
+  assert(overflow_controller.decisionOverflowCount() == 1);
 
   WireFrame frame{};
   frame.type = FrameType::Data;
@@ -84,7 +94,7 @@ int main() {
   std::size_t count = node1.sendApp(3, 77, app_payload, sizeof(app_payload), 1000, 123, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Rreq);
-  assert(out[0].frame.dst == kBroadcastAddress);
+  assert(out[0].frame.dst == 3);
   RoutePayload route{};
   assert(decodeRoutePayload(out[0].frame, &route));
   assert(route.path_len == 1);
@@ -143,18 +153,24 @@ int main() {
   assert(mesh_snapshot.unicast_deliveries == 1);
 
   WireFrame ack = out[0].frame;
+  const std::uint32_t ack_created_at_ms = ack.created_at_ms;
   count = node2.handleFrame(ack, 1700, -85.0f, 10.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Ack);
   assert(out[0].frame.dst == 1);
+  assert(out[0].frame.created_at_ms == ack_created_at_ms);
 
   ack = out[0].frame;
   count = node1.handleFrame(ack, 1800, -85.0f, 10.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 0);
+  assert(mesh_snapshot.unicast_acks == 1);
+  assert(mesh_snapshot.delivery_delay_samples == 1);
+  assert(mesh_snapshot.delivery_delay_total_s > 0.0f);
 
   char summary[128];
   controller.formatStatus(summary, sizeof(summary));
   assert(std::strstr(summary, "profile=") != nullptr);
+  assert(std::strstr(summary, "overflow=") != nullptr);
 
   return 0;
 }

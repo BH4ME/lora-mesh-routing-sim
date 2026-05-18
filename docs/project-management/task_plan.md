@@ -65,6 +65,9 @@ Online adaptive extension:
 - v1.1.1 keeps route-miss recovery conservative while shrinking late timeout
   rescue according to the active online profile, reducing airtime and collision
   pressure without materially changing PDR.
+- Current ACK-aware simulation treats `unicast_pdr` as source-confirmed delivery;
+  `destination_unicast_pdr` remains available to diagnose packets that reached
+  the destination but failed to ACK back to the sender.
 - Reward penalizes control overhead, collision pressure, route repairs, fallback redundancy, and delay.
 - The controller uses a tiny Q table suitable for MCU firmware rather than a neural network.
 - The ESP32 prototype should keep the controller logic separate from the radio driver so the same policy can later be adapted to different LoRa chips.

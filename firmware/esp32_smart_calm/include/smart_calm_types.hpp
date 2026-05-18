@@ -43,6 +43,7 @@ struct Snapshot {
   std::uint32_t unicast_flows = 0;
   std::uint32_t broadcast_flows = 0;
   std::uint32_t unicast_deliveries = 0;
+  std::uint32_t unicast_acks = 0;
   std::uint32_t broadcast_deliveries = 0;
   float delivery_delay_total_s = 0.0f;
   std::uint32_t delivery_delay_samples = 0;
