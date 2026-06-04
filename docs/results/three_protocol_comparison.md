@@ -20,5 +20,5 @@ Scenarios use `50 nodes / 3000 m / 1200 s / mixed traffic / pair-count 8 / 20 se
 
 - `Meshtastic-like` keeps strong reliability, but spends the most airtime and creates the most collisions.
 - `MeshCore-like` is cheaper than flooding, but loses unicast reliability in mixed and stressed traffic.
-- `Smart-CALM v1.1.1` keeps the reliability target while reducing both airtime and collision failures below the MeshCore-like baseline in all three scenarios.
-- Under high offered load, `Smart-CALM v1.1.1` trades about half a PDR point versus v1.1 for a clear reduction in channel occupancy and collisions.
+- `Smart-CALM v2` keeps the reliability target while reducing both airtime and collision failures below the MeshCore-like baseline in all three scenarios.
+- Under high offered load, `Smart-CALM v2` trades about half a PDR point versus v1.1 for a clear reduction in channel occupancy and collisions.

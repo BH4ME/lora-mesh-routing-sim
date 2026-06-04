@@ -14,9 +14,11 @@ class SmartCalmTagGalleryTest(unittest.TestCase):
             [
                 "smart-calm-sim-v1.0",
                 "smart-calm-sim-v1.1",
-                "smart-calm-sim-v1.1.1",
+                "smart-calm-sim-v2",
             ],
         )
+        self.assertEqual(gallery.VERSIONS[-1].key, "v2")
+        self.assertEqual(gallery.VERSIONS[-1].label, "v2")
         for version in gallery.VERSIONS:
             for scenario in gallery.SCENARIOS:
                 self.assertTrue(
@@ -47,7 +49,8 @@ class SmartCalmTagGalleryTest(unittest.TestCase):
             self.assertIn(f"{version.key}_unicast_pdr.svg", content)
             self.assertIn(f"{version.key}_total_airtime_s.svg", content)
             self.assertIn(f"{version.key}_collision_fail.svg", content)
-        self.assertIn("| Tag | Commit | Version focus |", content)
+        self.assertIn("| Tag | Commit / ref | Version focus |", content)
+        self.assertIn("`release tag`", content)
 
 
 if __name__ == "__main__":

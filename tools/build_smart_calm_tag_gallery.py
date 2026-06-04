@@ -33,6 +33,7 @@ class Version:
     label: str
     result_prefix: str
     note: str
+    commit_ref: str | None = None
 
     def csv_path(self, scenario: Scenario) -> Path:
         return RESULTS / f"{self.result_prefix}_{scenario.suffix}.csv"
@@ -60,11 +61,12 @@ VERSIONS = (
         note="Cached-path timeout retry before fallback flooding.",
     ),
     Version(
-        key="v1_1_1",
-        tag="smart-calm-sim-v1.1.1",
-        label="v1.1.1",
-        result_prefix="smart_calm_v1_1_1_50n",
+        key="v2",
+        tag="smart-calm-sim-v2",
+        label="v2",
+        result_prefix="smart_calm_v2_50n",
         note="Timeout-rescue radius follows the active online profile.",
+        commit_ref="release tag",
     ),
 )
 
@@ -89,7 +91,7 @@ METRICS = {
 VERSION_COLORS = {
     "v1_0": "#8a5a44",
     "v1_1": "#2f6f73",
-    "v1_1_1": "#1f4e8c",
+    "v2": "#1f4e8c",
 }
 
 
@@ -151,6 +153,10 @@ def resolve_tag_commit(tag: str) -> str:
     except (subprocess.CalledProcessError, FileNotFoundError):
         return "unknown"
     return commit[:7] if commit else "unknown"
+
+
+def version_commit_ref(version: Version) -> str:
+    return version.commit_ref or resolve_tag_commit(version.tag)
 
 
 def fmt(value: float, precision: int, unit: str = "") -> str:
@@ -260,7 +266,7 @@ def write_markdown(
         "",
         "Formal scenarios use `50 nodes / 3000 m / 1200 s / mixed traffic / pair-count 8 / 20 seeds` unless noted.",
         "",
-        "| Tag | Commit | Version focus | Mixed PDR | Mixed airtime (s) | Mixed collisions | High-load PDR | High-load airtime (s) | High-load collisions |",
+        "| Tag | Commit / ref | Version focus | Mixed PDR | Mixed airtime (s) | Mixed collisions | High-load PDR | High-load airtime (s) | High-load collisions |",
         "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for version in VERSIONS:
@@ -269,7 +275,7 @@ def write_markdown(
         lines.append(
             "| "
             f"`{version.tag}` | "
-            f"`{resolve_tag_commit(version.tag)}` | "
+            f"`{version_commit_ref(version)}` | "
             f"{version.note} | "
             f"{mixed['unicast_pdr']:.3f} | "
             f"{mixed['total_airtime_s']:.0f} | "

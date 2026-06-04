@@ -25,8 +25,8 @@ Turn the current LoRa Mesh simulator into a clean conference-ready research proj
 | 10. Train high-reliability Smart-CALM mode | complete | Added offline prior tooling and a learned timeout-retry action that raises unicast PDR in all three formal scenarios. |
 | 11. Build ESP32 direct-LoRa firmware prototype | complete | Added a PlatformIO ESP32 prototype with Smart-CALM controller, explicit CRC-protected over-the-air frame encoding, and SX1262/SX127x build targets. |
 | 12. Port first mesh data plane to firmware | complete | Added Smart-CALM-owned RREQ/RREP/DATA/ACK source-route behavior and serial-triggered application sends, inspired by MeshCore/Meshtastic mechanics but not their protocols. |
-| 13. Optimize Smart-CALM recovery overhead | complete | Added v1.1 cached-path timeout retry before fallback flooding, then accepted v1.1.1 timeout-rescue radius control after three 20-seed comparison scenarios. |
-| 14. Add firmware reliability refinements | pending | Port v1.1.1 timeout recovery, persistent route aging, neighbor/link-quality tables, and richer delivery telemetry for online policy learning. |
+| 13. Optimize Smart-CALM recovery overhead | complete | Added v1.1 cached-path timeout retry before fallback flooding, then accepted v2 timeout-rescue radius control after three 20-seed comparison scenarios. |
+| 14. Add firmware reliability refinements | pending | Port v2 timeout recovery, persistent route aging, neighbor/link-quality tables, and richer delivery telemetry for online policy learning. |
 
 ## Proposed Protocol Framing
 
@@ -62,7 +62,7 @@ Online adaptive extension:
 - A learned high-reliability mode first retries a timed-out unicast over cached
   source-route DATA, then uses bounded fallback only when path knowledge is
   unavailable.
-- v1.1.1 keeps route-miss recovery conservative while shrinking late timeout
+- v2 keeps route-miss recovery conservative while shrinking late timeout
   rescue according to the active online profile, reducing airtime and collision
   pressure without materially changing PDR.
 - Current ACK-aware simulation treats `unicast_pdr` as source-confirmed delivery;

@@ -34,14 +34,14 @@ Twenty-seed Smart-CALM deltas versus v1.0:
 
 Notes:
 
-- Treat v1.1 as the historical optimization base for v1.1.1.
+- Treat v1.1 as the historical optimization base for v2.
 - The conference explanation should emphasize recovery discipline: Smart-CALM
   keeps reliability high by retrying along known paths first, and only spends
   fallback flooding when path knowledge is unavailable.
 - The v1.1 comparison charts were generated from v1.1 result CSVs before the
-  v1.1.1 timeout-rescue-radius optimization.
+  v2 timeout-rescue-radius optimization.
 
-## `smart-calm-sim-v1.1.1`
+## `smart-calm-sim-v2`
 
 - Status: accepted optimization candidate after v1.1.
 - Core change: timeout recovery now uses the active Smart-CALM profile's
@@ -50,17 +50,17 @@ Notes:
   reachability is not weakened.
 - Optional experiment knob: `--smart-route-miss-fallback-ttl`; default `0`
   keeps full route-miss recovery.
-- Decision: use this as the next simulation baseline because it lowers airtime
+- Decision: publish this as the v2 simulation baseline because it lowers airtime
   and collision failures without materially changing the reliability story.
 
-Key v1.1.1 result files:
+Key v2 result files:
 
-- `results/smart_calm_v1_1_1_50n_mixed.csv`
-- `results/smart_calm_v1_1_1_50n_mixed_shadow6.csv`
-- `results/smart_calm_v1_1_1_50n_mixed_rate10.csv`
-- `results/smart_calm_v1_1_1_50n_mixed_summary.txt`
-- `results/smart_calm_v1_1_1_50n_mixed_shadow6_summary.txt`
-- `results/smart_calm_v1_1_1_50n_mixed_rate10_summary.txt`
+- `results/smart_calm_v2_50n_mixed.csv`
+- `results/smart_calm_v2_50n_mixed_shadow6.csv`
+- `results/smart_calm_v2_50n_mixed_rate10.csv`
+- `results/smart_calm_v2_50n_mixed_summary.txt`
+- `results/smart_calm_v2_50n_mixed_shadow6_summary.txt`
+- `results/smart_calm_v2_50n_mixed_rate10_summary.txt`
 
 Twenty-seed Smart-CALM deltas versus v1.1:
 
@@ -76,10 +76,9 @@ Notes:
   "global flooding reduction". Route discovery failures remain conservative;
   only late timeout rescue follows the selected online profile.
 - Rejected candidate runs for tighter route-miss fallback and stricter timeout
-  retry budgets are archived under
-  `archive/experiments/smart_calm_v1_1_1_candidates/`.
+  retry budgets should remain separate from the published v2 result files.
 - The current comparison charts in `results/figures/` and
-  `docs/results/three_protocol_comparison.md` are generated from v1.1.1 result
+  `docs/results/three_protocol_comparison.md` are generated from v2 result
   CSVs.
 
 ## Rejected candidate: `smart-calm-sim-v1.2`
