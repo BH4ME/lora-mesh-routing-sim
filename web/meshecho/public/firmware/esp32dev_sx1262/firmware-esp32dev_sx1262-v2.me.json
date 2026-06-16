@@ -1,0 +1,43 @@
+{
+  "project": "MeshEcho",
+  "schema": "meshecho-target-manifest-v1",
+  "version": "v2.0.0",
+  "target": "esp32dev_sx1262",
+  "platformio_target": "esp32dev_sx1262",
+  "chip": "ESP32",
+  "radio": "SX1262",
+  "flash_mode": "esptool-js",
+  "files": [
+    {
+      "name": "bootloader",
+      "offset": "0x1000",
+      "url": "/firmware/esp32dev_sx1262/bootloader.bin",
+      "sha256": "3d234a7471f67b013686dabd4dee7c1fa915c9928463616a94bc9297acf1abf8",
+      "bytes": 17536
+    },
+    {
+      "name": "partitions",
+      "offset": "0x8000",
+      "url": "/firmware/esp32dev_sx1262/partitions.bin",
+      "sha256": "148b959cbff1c38aa8e1d5c0ba9d612c54997b945e56a63f41223eef650653a1",
+      "bytes": 3072
+    },
+    {
+      "name": "firmware",
+      "offset": "0x10000",
+      "url": "/firmware/esp32dev_sx1262/firmware.bin",
+      "sha256": "170cf24d1fd036b11705b01f08e07fee3f993d58feb96bb5470e33b9439e3967",
+      "bytes": 345216
+    }
+  ],
+  "partitions": [
+    {
+      "name": "app0",
+      "type": "app",
+      "subtype": "factory",
+      "offset": "0x10000",
+      "size": "0x140000"
+    }
+  ],
+  "generated_at": "2026-06-08T06:12:30.961Z"
+}
