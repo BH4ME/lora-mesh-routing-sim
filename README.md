@@ -7,7 +7,8 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current release: `2.1.2` (`meshecho-firmware-v2.1.2`).
+Current repository release: `2.1.3` (paper/results package; firmware prototype
+remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
 ideas under a fixed SX1262-style PHY profile.

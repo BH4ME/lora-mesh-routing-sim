@@ -24,6 +24,8 @@ keeps the main `README.md` as the entry point.
 - [ICC 2027 Comparison](results/icc2027_comparison.md): verified four-scenario
   Smart-CALM ICC matrix with ACK-confirmed PDR, airtime, delay, and fallback
   tradeoffs.
+- [ICC 2027 Comparison, 2.1.2 Refresh](results/icc2027_comparison_v2_1_2.md):
+  current correct-prefix four-scenario matrix used by the full paper.
 - [CALM Experiment Notes](results/calm_experiment_notes.md): detailed simulation
   notes and interpretation.
 - [Prior Model Comparison Summary](results/prior_model_comparison_summary.md):

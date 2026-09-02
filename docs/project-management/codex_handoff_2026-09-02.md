@@ -5,8 +5,8 @@
 The current research line targets IEEE ICC 2027 IoT and Sensor Networks with
 an ACK-aware Smart-CALM LoRa mesh protocol. The repository contains the
 simulator, ESP32 firmware prototype, experiment scripts, results, and a
-working paper. The current version boundary for the new experiment line is
-`2.1.2`.
+working paper. The repository release boundary is `2.1.3`; the firmware
+prototype itself remains `meshecho-firmware-v2.1.2`.
 
 ## 2.1.2 Refresh In This Turn
 
@@ -31,7 +31,40 @@ working paper. The current version boundary for the new experiment line is
   - `pio run -e esp32dev_sx1262` passed.
   - `pio run -e esp32dev_sx127x` passed.
 
-## Completed In This Run
+## ICC Refresh In This Run
+
+- The correct-prefix ICC matrix was rerun with:
+  `OUT_PREFIX=meshecho_v2_1_2 tools/run_icc_experiments.sh`.
+- All four scenarios completed without an error:
+  - `results/meshecho_v2_1_2_50n_unicast_pairs.csv`
+  - `results/meshecho_v2_1_2_50n_mixed.csv`
+  - `results/meshecho_v2_1_2_50n_mixed_shadow6.csv`
+  - `results/meshecho_v2_1_2_50n_mixed_rate10.csv`
+- Each correct-prefix raw CSV contains 140 data rows: seven protocols over
+  seeds 1 through 20.
+- Each correct-prefix long-format summary contains 259 data rows: seven
+  protocols times 37 metrics, with `n=20` for every protocol/metric pair.
+- The run log is preserved at
+  `tmp/meshecho_v2_1_2_icc_experiments.log`.
+- The older `meshecho_v2_1_0_icc_50n_*` files remain the frozen ICC comparison
+  line. The `meshecho_v2_1_2_50n_*` files are the current reproducibility
+  refresh and should be used for the next paper tables.
+
+## 2.1.3 Paper Package In This Run
+
+- Added `docs/results/icc2027_comparison_v2_1_2.md` as the versioned report for
+  the refreshed ICC matrix.
+- Expanded `paper/full2026/smart_calm_full_paper.tex` into a five-page IEEE
+  conference draft with methods, equations, tables, limitations, and verified
+  references.
+- Added `paper/full2026/references.bib` and the architecture figure assets
+  under `paper/full2026/figures/`.
+- Updated `.gitignore` so the paper PDF and architecture PDF are visible to Git
+  and can be included in the submission bundle.
+- Verified the manuscript with TinyTeX: `latexmk -pdf` passes and the output
+  PDF has 5 pages.
+
+## Completed Earlier
 
 - Added and verified the ICC protocol matrix with seven configurations:
   `meshtastic`, `meshcore`, `calm`, `smart-calm`, `smart-calm-static`,
@@ -53,7 +86,7 @@ working paper. The current version boundary for the new experiment line is
 
 ## Result Files
 
-Raw CSV and summary files are under `results/` with prefix
+Frozen raw CSV and summary files are under `results/` with prefix
 `meshecho_v2_1_0_icc_50n_`:
 
 - `unicast_pairs.csv`
@@ -62,7 +95,12 @@ Raw CSV and summary files are under `results/` with prefix
 - `mixed_rate10.csv`
 - Matching `_summary.csv` and `_summary.txt` files
 
-The verified ICC summary is also published as
+The refreshed raw CSV and summary files are under `results/` with prefix
+`meshecho_v2_1_2_50n_` and use the same four scenario suffixes. The refreshed
+ICC summary should be published as a separate versioned report rather than
+silently replacing the frozen report.
+
+The frozen ICC summary is published as
 [docs/results/icc2027_comparison.md](/Users/bh4me_macair/Documents/Codex/lora_mesh/docs/results/icc2027_comparison.md).
 
 The main mixed-traffic means are:
@@ -94,23 +132,17 @@ claiming dominance on every metric.
   before using this ablation as evidence that confidence ranking has no effect.
 - The simulator is packet-level and does not replace waveform-level LoRa
   validation or board-level current measurements.
-- The full paper at `paper/full2026/smart_calm_full_paper.tex` remains a
-  working manuscript with author placeholders and an evaluation-plan section.
-  The ICC results still need to be integrated into tables, figures, methods,
-  and limitations before submission.
+- The full paper at `paper/full2026/smart_calm_full_paper.tex` is now a
+  five-page working submission draft, but it still has author placeholders.
 
-## Pending Publication Steps
+## Remaining Publication Steps
 
-1. Freeze the ICC result prefix and do not mix these CSVs with older
-   `v1.1` or `v1.1.1` result sets.
-2. Add the four scenario summaries to the manuscript and generate the final
-   paper tables/figures.
-3. Decide whether to add a targeted confidence-ranking scenario and rerun the
-   full matrix if the ablation is required in the main claim.
-4. Replace author placeholders and verify the final IEEE page limit and
-   symposium choice.
-5. Commit and push only after the manuscript and result version boundary are
-   reviewed. No commit or push was performed in this run.
+1. Replace author placeholders and verify the final IEEE page limit and
+   symposium choice before submission.
+2. Add a targeted route-conflict scenario only if confidence ranking is kept
+   as a central ablation claim.
+3. Commit and push the `2.1.3` package. The earlier `2.1.2` branch/tag push is
+   still pending because the network attempt timed out.
 
 ## Verification Commands
 

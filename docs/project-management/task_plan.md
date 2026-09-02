@@ -28,6 +28,7 @@ Turn the current LoRa Mesh simulator into a clean conference-ready research proj
 | 13. Optimize Smart-CALM recovery overhead | complete | Added v1.1 cached-path timeout retry before fallback flooding, then accepted v2 timeout-rescue radius control after three 20-seed comparison scenarios. |
 | 14. Add firmware reliability refinements | complete | v2.1.1 completes timeout recovery, route/neighbor aging, bounded fallback ACK return, profile-bound retries, and delivery telemetry. |
 | 15. Normalize release artifacts | complete | v2.1.2 normalizes simulator and analysis CSV output to LF, reruns the current v2 simulation line, and refreshes release metadata. |
+| 16. Freeze ICC refresh and full paper package | complete | v2.1.3 adds the correct-prefix four-scenario ICC matrix, a versioned comparison report, and a five-page IEEE conference manuscript with verified references. |
 
 ## Proposed Protocol Framing
 

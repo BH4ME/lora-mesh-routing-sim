@@ -3,9 +3,19 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current firmware and project release is `2.1.2`; simulation CSV baselines keep
+current repository release is `2.1.3`; the firmware prototype remains
+`2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.3`
+
+- Status: ICC result freeze and full-paper package on 2026-09-02.
+- Evidence: four correct-prefix 20-seed ICC scenarios under
+  `results/meshecho_v2_1_2_50n_*`.
+- Paper: `paper/full2026/smart_calm_full_paper.tex` uses this refreshed matrix.
+- This repository release adds results and paper artifacts; it does not change
+  firmware behavior, so the firmware version remains `2.1.2`.
 
 ## `smart-calm-sim-v2.1.2`
 

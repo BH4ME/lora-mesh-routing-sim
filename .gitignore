@@ -16,3 +16,5 @@ results/*
 !results/figures/
 !results/figures/*.svg
 *.pdf
+!paper/full2026/figures/fig_smart_calm_architecture.pdf
+!paper/full2026/smart_calm_full_paper.pdf
