@@ -187,7 +187,11 @@ def main() -> None:
     rows.sort(key=lambda row: row["score"], reverse=True)
     args.csv.parent.mkdir(parents=True, exist_ok=True)
     with args.csv.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(
+            f,
+            fieldnames=list(rows[0].keys()),
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
 

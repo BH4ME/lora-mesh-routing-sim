@@ -25,6 +25,15 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 BROADCAST_DST = -1
 DEFAULT_CALM_DISCOVERY_WINDOW_S = 2.0
+ICC_PROTOCOLS = (
+    "meshtastic",
+    "meshcore",
+    "calm",
+    "smart-calm",
+    "smart-calm-static",
+    "smart-calm-no-fallback",
+    "smart-calm-no-confidence",
+)
 
 
 def dbm_to_mw(dbm: float) -> float:
@@ -39,6 +48,21 @@ def mw_to_dbm(mw: float) -> float:
 
 def clamp(value: float, lo: float, hi: float) -> float:
     return max(lo, min(hi, value))
+
+
+def percentile(values: Sequence[float], quantile: float) -> float:
+    """Return a linearly interpolated percentile for a finite sample."""
+
+    if not values:
+        return 0.0
+    ordered = sorted(values)
+    position = clamp(quantile, 0.0, 1.0) * (len(ordered) - 1)
+    lower = math.floor(position)
+    upper = math.ceil(position)
+    if lower == upper:
+        return ordered[lower]
+    fraction = position - lower
+    return ordered[lower] + fraction * (ordered[upper] - ordered[lower])
 
 
 def required_snr_db(sf: int) -> float:
@@ -71,6 +95,9 @@ class RadioConfig:
     shadow_sigma_db: float = 4.0
     capture_threshold_db: float = 6.0
     prr_slope: float = 1.15
+    tx_current_ma: float = 120.0
+    rx_current_ma: float = 10.3
+    supply_voltage_v: float = 3.3
 
     @property
     def noise_floor_dbm(self) -> float:
@@ -93,6 +120,18 @@ class RadioConfig:
         denominator = 4 * (sf - 2 * de)
         payload_symbols = 8 + max(math.ceil(numerator / denominator) * (cr + 4), 0)
         return t_preamble + payload_symbols * t_sym
+
+    @property
+    def tx_energy_per_packet_j(self) -> float:
+        """Electrical energy consumed by one radio transmission."""
+
+        return self.supply_voltage_v * (self.tx_current_ma / 1000.0) * self.toa_s
+
+    @property
+    def rx_energy_per_packet_j(self) -> float:
+        """Electrical energy consumed while a radio listens for one packet."""
+
+        return self.supply_voltage_v * (self.rx_current_ma / 1000.0) * self.toa_s
 
 
 @dataclass
@@ -262,6 +301,8 @@ class AdaptiveProfile:
 class LearningSnapshot:
     tx_count: int
     control_tx: int
+    rx_success: int
+    rx_fail: int
     collision_fail: int
     route_cache_hits: int
     route_cache_misses: int
@@ -293,6 +334,7 @@ class FlowDecision:
     route_miss: int = 0
     timeout_retries: int = 0
     confidence: float = 0.0
+    profile: Optional[AdaptiveProfile] = None
 
 
 class Metrics:
@@ -311,6 +353,10 @@ class Metrics:
         self.control_tx = 0
         self.ack_tx = 0
         self.total_airtime_s = 0.0
+        self.channel_busy_time_s = 0.0
+        self.tx_energy_j = 0.0
+        self.rx_energy_j = 0.0
+        self.transmission_intervals: List[Tuple[float, float]] = []
         self.rx_success = 0
         self.rx_fail = 0
         self.collision_fail = 0
@@ -328,6 +374,7 @@ class Metrics:
         self.policy_update_count = 0
         self.policy_reward_total = 0.0
         self.active_profile_index = -1
+        self.profile_selection_counts: Dict[int, int] = {}
 
     def register_flow(self, flow_id: int, src: int, dst: int, now: float) -> None:
         self.flows[flow_id] = FlowRecord(flow_id, src, dst, now)
@@ -373,10 +420,45 @@ class Metrics:
         self.path_confidence_total += clamp(confidence, 0.0, 1.0)
         self.path_confidence_samples += 1
 
+    def record_profile_selection(self, profile_index: int) -> None:
+        self.profile_selection_counts[profile_index] = (
+            self.profile_selection_counts.get(profile_index, 0) + 1
+        )
+
+    def record_transmission(self, start: float, end: float) -> None:
+        self.transmission_intervals.append((start, end))
+
+    def finalize_channel_busy_time(self, duration_s: Optional[float] = None) -> None:
+        if not self.transmission_intervals:
+            self.channel_busy_time_s = 0.0
+            return
+        intervals = self.transmission_intervals
+        if duration_s is not None:
+            intervals = [
+                (max(0.0, start), min(duration_s, end))
+                for start, end in intervals
+                if start < duration_s and end > 0.0
+            ]
+        if not intervals:
+            self.channel_busy_time_s = 0.0
+            return
+        ordered = sorted(intervals)
+        busy = 0.0
+        current_start, current_end = ordered[0]
+        for start, end in ordered[1:]:
+            if start <= current_end:
+                current_end = max(current_end, end)
+            else:
+                busy += current_end - current_start
+                current_start, current_end = start, end
+        self.channel_busy_time_s = busy + current_end - current_start
+
     def snapshot(self) -> LearningSnapshot:
         return LearningSnapshot(
             tx_count=self.tx_count,
             control_tx=self.control_tx,
+            rx_success=self.rx_success,
+            rx_fail=self.rx_fail,
             collision_fail=self.collision_fail,
             route_cache_hits=self.route_cache_hits,
             route_cache_misses=self.route_cache_misses,
@@ -394,6 +476,7 @@ class Metrics:
         )
 
     def summarize(self, protocol: str, seed: int, duration_s: float) -> Dict[str, Any]:
+        self.finalize_channel_busy_time(duration_s)
         unicast = [f for f in self.flows.values() if f.dst != BROADCAST_DST]
         broadcast = [f for f in self.flows.values() if f.dst == BROADCAST_DST]
         destination_delivered_unicast = [f for f in unicast if f.delivered_at is not None]
@@ -402,8 +485,17 @@ class Metrics:
             len(destination_delivered_unicast) / len(unicast) if unicast else 0.0
         )
         unicast_pdr = len(acked_unicast) / len(unicast) if unicast else 0.0
-        delays = [f.acked_at - f.created_at for f in acked_unicast if f.acked_at]
+        delays = [
+            f.acked_at - f.created_at
+            for f in acked_unicast
+            if f.acked_at is not None
+        ]
         avg_delay = sum(delays) / len(delays) if delays else 0.0
+        delivery_delays = [
+            f.delivered_at - f.created_at
+            for f in destination_delivered_unicast
+            if f.delivered_at is not None
+        ]
 
         if broadcast:
             expected = len(broadcast) * (self.node_count - 1)
@@ -425,6 +517,9 @@ class Metrics:
             else 0.0
         )
         control_overhead_ratio = self.control_tx / self.tx_count if self.tx_count else 0.0
+        rx_attempts = self.rx_success + self.rx_fail
+        packet_reception_ratio = self.rx_success / rx_attempts if rx_attempts else 0.0
+        collision_rate = self.collision_fail / rx_attempts if rx_attempts else 0.0
 
         return {
             "protocol": protocol,
@@ -437,6 +532,17 @@ class Metrics:
             "destination_unicast_pdr": round(destination_unicast_pdr, 6),
             "broadcast_coverage": round(broadcast_coverage, 6),
             "avg_delay_s": round(avg_delay, 6),
+            "unicast_delivery_delay_s": round(
+                sum(delivery_delays) / len(delivery_delays)
+                if delivery_delays
+                else 0.0,
+                6,
+            ),
+            "unicast_ack_delay_s": round(avg_delay, 6),
+            "p95_unicast_delivery_delay_s": round(
+                percentile(delivery_delays, 0.95), 6
+            ),
+            "p95_unicast_ack_delay_s": round(percentile(delays, 0.95), 6),
             "unicast_deliveries": self.unicast_deliveries,
             "unicast_acks": self.unicast_acks,
             "broadcast_deliveries": self.broadcast_deliveries,
@@ -445,11 +551,28 @@ class Metrics:
             "control_tx": self.control_tx,
             "ack_tx": self.ack_tx,
             "total_airtime_s": round(self.total_airtime_s, 6),
+            "channel_busy_time_s": round(self.channel_busy_time_s, 6),
+            "channel_busy_ratio": round(
+                self.channel_busy_time_s / duration_s if duration_s else 0.0,
+                6,
+            ),
+            "tx_energy_j": round(self.tx_energy_j, 6),
+            "rx_energy_j": round(self.rx_energy_j, 6),
+            "total_energy_j": round(self.tx_energy_j + self.rx_energy_j, 6),
+            "energy_per_delivery_j": round(
+                (self.tx_energy_j + self.rx_energy_j) / delivered_total
+                if delivered_total
+                else 0.0,
+                6,
+            ),
             "airtime_per_delivery_s": round(airtime_per_delivery, 6),
             "mean_delivery_delay_s": round(mean_delivery_delay, 6),
             "rx_success": self.rx_success,
             "rx_fail": self.rx_fail,
+            "rx_attempts": rx_attempts,
+            "packet_reception_ratio": round(packet_reception_ratio, 6),
             "collision_fail": self.collision_fail,
+            "collision_rate": round(collision_rate, 6),
             "duplicate_rx": self.duplicate_rx,
             "suppressed_forwards": self.suppressed_forwards,
             "route_requests": self.route_requests,
@@ -464,6 +587,9 @@ class Metrics:
             "policy_update_count": self.policy_update_count,
             "policy_reward_total": round(self.policy_reward_total, 6),
             "active_profile_index": self.active_profile_index,
+            "profile_lean_count": self.profile_selection_counts.get(0, 0),
+            "profile_balanced_count": self.profile_selection_counts.get(1, 0),
+            "profile_rescue_count": self.profile_selection_counts.get(2, 0),
         }
 
 
@@ -487,6 +613,15 @@ class Simulator:
         self._tx_counter = 0
         self.events: List[Tuple[float, int, str, Any]] = []
         self.transmissions: List[Transmission] = []
+        shadow_rng = random.Random(seed + 0x5F3759DF)
+        self.link_shadowing_db: Dict[Tuple[int, int], float] = {}
+        node_ids = sorted(self.nodes)
+        for index, first in enumerate(node_ids):
+            for second in node_ids[index + 1 :]:
+                self.link_shadowing_db[(first, second)] = shadow_rng.gauss(
+                    0.0,
+                    self.radio.shadow_sigma_db,
+                )
         self.metrics = Metrics(len(nodes))
         self.protocol.bind(self)
 
@@ -499,15 +634,28 @@ class Simulator:
         nb = self.nodes[b]
         return math.hypot(na.x - nb.x, na.y - nb.y)
 
-    def path_loss_db(self, distance_m: float) -> float:
+    def path_loss_db(
+        self,
+        distance_m: float,
+        shadowing_db: Optional[float] = None,
+    ) -> float:
         distance_m = max(distance_m, 1.0)
         # Free-space path loss at 1 m. 32.44 + MHz + km form.
         pl0 = 32.44 + 20.0 * math.log10(self.radio.carrier_mhz) + 20.0 * math.log10(0.001)
-        shadow = self.random.gauss(0.0, self.radio.shadow_sigma_db)
+        shadow = (
+            self.random.gauss(0.0, self.radio.shadow_sigma_db)
+            if shadowing_db is None
+            else shadowing_db
+        )
         return pl0 + 10.0 * self.radio.path_loss_exp * math.log10(distance_m) + shadow
 
     def rx_power_dbm(self, sender: int, receiver: int) -> float:
-        return self.radio.tx_power_dbm - self.path_loss_db(self.distance_m(sender, receiver))
+        key = tuple(sorted((sender, receiver)))
+        shadowing_db = self.link_shadowing_db.get(key, 0.0)
+        return self.radio.tx_power_dbm - self.path_loss_db(
+            self.distance_m(sender, receiver),
+            shadowing_db=shadowing_db,
+        )
 
     def snr_from_power(self, rx_power_dbm: float) -> float:
         return rx_power_dbm - self.radio.noise_floor_dbm
@@ -539,6 +687,15 @@ class Simulator:
         self.transmissions.append(tx)
         self.metrics.tx_count += 1
         self.metrics.total_airtime_s += self.radio.toa_s
+        self.metrics.record_transmission(start, end)
+        self.metrics.tx_energy_j += self.radio.tx_energy_per_packet_j
+        listening_nodes = sum(
+            1
+            for receiver in self.nodes
+            if receiver != sender
+            and not self.receiver_is_transmitting(receiver, start, end)
+        )
+        self.metrics.rx_energy_j += listening_nodes * self.radio.rx_energy_per_packet_j
         if packet.is_control:
             self.metrics.control_tx += 1
         else:
@@ -1117,11 +1274,41 @@ class CalmMesh(RoutingProtocol):
         hop_penalty = max(0, len(path) - 2) * self.hop_penalty_per_hop
         return clamp(inbound_confidence - hop_penalty, 0.05, 0.98)
 
-    def route_confidence(self, entry: RouteEntry) -> float:
+    def route_confidence(
+        self,
+        entry: RouteEntry,
+        route_age_penalty: Optional[float] = None,
+    ) -> float:
         age = max(0.0, self.sim.now - entry.created_at)
         lifetime = max(1.0, entry.expires_at - entry.created_at)
-        age_penalty = clamp(age / lifetime, 0.0, 1.0) * self.route_age_penalty
+        penalty = self.route_age_penalty if route_age_penalty is None else route_age_penalty
+        age_penalty = clamp(age / lifetime, 0.0, 1.0) * penalty
         return clamp(entry.confidence - age_penalty, 0.0, 1.0)
+
+    def route_ttl_for(self, flow_id: int) -> float:
+        return self.route_ttl_s
+
+    def discovery_window_for(self, flow_id: int) -> float:
+        return self.discovery_window_s
+
+    def fallback_confidence_threshold_for(self, flow_id: int) -> float:
+        return self.fallback_confidence_threshold
+
+    def fallback_ttl_for(self, flow_id: int) -> int:
+        return self.fallback_ttl
+
+    def fallback_delay_margin_for(self, flow_id: int) -> float:
+        return self.fallback_delay_margin_s
+
+    def route_age_penalty_for(self, flow_id: int) -> float:
+        return self.route_age_penalty
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        return max(candidates, key=lambda item: (item[1], -len(item[0])))
 
     def send_app(self, src: int, dst: int, flow_id: int) -> None:
         self.sim.metrics.register_flow(flow_id, src, dst, self.sim.now)
@@ -1182,7 +1369,7 @@ class CalmMesh(RoutingProtocol):
         if key not in self.rreq_timers:
             self.rreq_timers.add(key)
             self.sim.schedule(
-                self.sim.now + self.discovery_window_s,
+                self.sim.now + self.discovery_window_for(flow_id),
                 "protocol_timer",
                 lambda key=key: self.finish_route_discovery(key),
             )
@@ -1194,7 +1381,7 @@ class CalmMesh(RoutingProtocol):
             self.finish_failed_route_discovery(key)
             return
         src, dst, request_id = key
-        path, confidence = max(candidates, key=lambda item: (item[1], -len(item[0])))
+        path, confidence = self.select_route_candidate(candidates, request_id)
         reverse_path = tuple(reversed(path))
         reply = Packet(
             kind="RREP",
@@ -1214,26 +1401,38 @@ class CalmMesh(RoutingProtocol):
         self.sim.transmit_later(dst, reply, delay_s=0.0)
         self.sim.metrics.record_path_confidence(confidence)
 
-    def route_miss_recovery_ttl(self) -> int:
-        return self.sim.max_hops
-
     def finish_failed_route_discovery(self, key: Tuple[int, int, int]) -> None:
         src, dst, _ = key
         queued = self.pending_data.pop((src, dst), [])
         for flow_id in queued:
             self.sim.metrics.route_repair_count += 1
+            fallback_ttl = self.route_miss_recovery_ttl(flow_id)
+            if fallback_ttl <= 0:
+                continue
             self.start_fallback(
                 src,
                 dst,
                 flow_id,
-                ttl=self.route_miss_recovery_ttl(),
+                ttl=fallback_ttl,
                 delay_s=0.0,
             )
 
-    def send_data_on_path(self, src: int, dst: int, flow_id: int, entry: RouteEntry) -> None:
+    def route_miss_recovery_ttl(self, flow_id: Optional[int] = None) -> int:
+        return self.sim.max_hops
+
+    def send_data_on_path(
+        self,
+        src: int,
+        dst: int,
+        flow_id: int,
+        entry: RouteEntry,
+    ) -> None:
         if len(entry.path) < 2:
             return
-        confidence = self.route_confidence(entry)
+        confidence = self.route_confidence(
+            entry,
+            self.route_age_penalty_for(flow_id),
+        )
         packet = Packet(
             kind="DATA",
             flow_id=flow_id,
@@ -1247,12 +1446,18 @@ class CalmMesh(RoutingProtocol):
         )
         self.sim.transmit_later(src, packet, delay_s=0.0)
         self.sim.metrics.record_path_confidence(confidence)
-        if confidence < self.fallback_confidence_threshold:
+        if confidence < self.fallback_confidence_threshold_for(flow_id):
             fallback_delay = (
                 self.sim.radio.toa_s * min(max(len(entry.path) - 1, 1), 4)
-                + self.fallback_delay_margin_s
+                + self.fallback_delay_margin_for(flow_id)
             )
-            self.start_fallback(src, dst, flow_id, ttl=self.fallback_ttl, delay_s=fallback_delay)
+            self.start_fallback(
+                src,
+                dst,
+                flow_id,
+                ttl=self.fallback_ttl_for(flow_id),
+                delay_s=fallback_delay,
+            )
 
     def start_fallback(self, src: int, dst: int, flow_id: int, ttl: int, delay_s: float) -> None:
         fallback = Packet(
@@ -1340,7 +1545,7 @@ class CalmMesh(RoutingProtocol):
             confidence = packet.path_confidence or clamp(1.0 - (len(learned) - 2) * 0.06, 0.25, 0.95)
             self.route_cache[receiver][dst] = RouteEntry(
                 created_at=self.sim.now,
-                expires_at=self.sim.now + self.route_ttl_s,
+                expires_at=self.sim.now + self.route_ttl_for(packet.flow_id),
                 path=learned,
                 confidence=confidence,
             )
@@ -1506,20 +1711,26 @@ class SmartCalmMesh(CalmMesh):
 
     def __init__(
         self,
+        protocol_name: str = "smart-calm",
         update_interval_s: float = 30.0,
         learning_rate: float = 0.45,
         discount: float = 0.75,
         exploration: float = 0.02,
-        flow_timeout_s: float = 35.0,
+        flow_timeout_s: float = 15.0,
         max_timeout_retries: int = 2,
         retry_after_fallback: bool = False,
         route_miss_fallback_ttl: int = 0,
         timeout_fallback_min_ttl: int = 1,
         prior_q_values: Optional[Dict[Tuple[int, int], float]] = None,
         profiles: Sequence[AdaptiveProfile] = DEFAULT_PROFILES,
+        learning_enabled: bool = True,
+        fallback_enabled: bool = True,
+        confidence_enabled: bool = True,
+        fixed_profile_index: Optional[int] = None,
         **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
+        self.name = protocol_name
         self.update_interval_s = update_interval_s
         self.learning_rate = learning_rate
         self.discount = discount
@@ -1530,6 +1741,15 @@ class SmartCalmMesh(CalmMesh):
         self.route_miss_fallback_ttl = route_miss_fallback_ttl
         self.timeout_fallback_min_ttl = max(1, timeout_fallback_min_ttl)
         self.profiles = tuple(profiles)
+        self.learning_enabled = learning_enabled
+        self.fallback_enabled = fallback_enabled
+        self.confidence_enabled = confidence_enabled
+        self.fixed_profile_index = fixed_profile_index
+        if self.fixed_profile_index is not None:
+            self.fixed_profile_index = max(
+                0,
+                min(self.fixed_profile_index, len(self.profiles) - 1),
+            )
         self.active_profile_index = 1 if len(self.profiles) > 1 else 0
         self.active_state_index = 0
         self.q_values: Dict[Tuple[int, int], float] = {}
@@ -1547,11 +1767,12 @@ class SmartCalmMesh(CalmMesh):
         self.last_snapshot = sim.metrics.snapshot()
         self.flow_decisions = {}
         sim.metrics.active_profile_index = self.active_profile_index
-        sim.schedule(
-            sim.now + self.update_interval_s,
-            "protocol_timer",
-            self.learning_tick,
-        )
+        if self.learning_enabled:
+            sim.schedule(
+                sim.now + self.update_interval_s,
+                "protocol_timer",
+                self.learning_tick,
+            )
 
     def apply_profile(self, index: int) -> None:
         profile = self.profiles[index]
@@ -1569,7 +1790,8 @@ class SmartCalmMesh(CalmMesh):
         pdr = delivered / attempts
         route_attempts = snapshot.route_cache_hits + snapshot.route_cache_misses
         miss_ratio = snapshot.route_cache_misses / max(1, route_attempts)
-        collision_per_tx = snapshot.collision_fail / max(1, snapshot.tx_count)
+        receive_attempts = snapshot.rx_success + snapshot.rx_fail
+        collision_rate = snapshot.collision_fail / max(1, receive_attempts)
 
         if pdr < 0.65 or miss_ratio > 0.45:
             reliability_bucket = 0
@@ -1578,10 +1800,12 @@ class SmartCalmMesh(CalmMesh):
         else:
             reliability_bucket = 2
 
-        congestion_bucket = 1 if collision_per_tx > 18.0 else 0
+        congestion_bucket = 1 if collision_rate > 0.18 else 0
         return reliability_bucket * 2 + congestion_bucket
 
     def learning_tick(self) -> None:
+        if not self.learning_enabled:
+            return
         current = self.sim.metrics.snapshot()
         previous = self.last_snapshot or current
         reward = self.window_reward(previous, current)
@@ -1624,12 +1848,14 @@ class SmartCalmMesh(CalmMesh):
         new_fallback = current.fallback_forward_count - previous.fallback_forward_count
         new_delay_total = current.delivery_delay_total_s - previous.delivery_delay_total_s
         new_delay_samples = current.delivery_delay_samples - previous.delivery_delay_samples
+        new_rx_success = current.rx_success - previous.rx_success
+        new_rx_fail = current.rx_fail - previous.rx_fail
 
         unicast_pdr = new_unicast_acks / max(1, new_unicast)
         broadcast_gain = new_broadcast_deliveries / max(1, new_broadcast * max(1, self.sim.metrics.node_count - 1))
         avg_delay = new_delay_total / max(1, new_delay_samples)
         control_ratio = new_control / max(1, new_tx)
-        collision_pressure = new_collisions / max(1, new_tx)
+        collision_pressure = new_collisions / max(1, new_rx_success + new_rx_fail)
 
         return (
             1.6 * unicast_pdr
@@ -1655,6 +1881,68 @@ class SmartCalmMesh(CalmMesh):
 
         return max(range(len(self.profiles)), key=score)
 
+    def choose_profile_for_flow(self, state_index: int) -> int:
+        if self.fixed_profile_index is not None:
+            return self.fixed_profile_index
+        if not self.learning_enabled:
+            return self.active_profile_index
+        return self.select_action(state_index)
+
+    def _profile_for_flow(self, flow_id: int) -> Optional[AdaptiveProfile]:
+        decision = self.flow_decisions.get(flow_id)
+        return decision.profile if decision is not None else None
+
+    def route_ttl_for(self, flow_id: int) -> float:
+        profile = self._profile_for_flow(flow_id)
+        return profile.route_ttl_s if profile is not None else super().route_ttl_for(flow_id)
+
+    def discovery_window_for(self, flow_id: int) -> float:
+        profile = self._profile_for_flow(flow_id)
+        return (
+            profile.discovery_window_s
+            if profile is not None
+            else super().discovery_window_for(flow_id)
+        )
+
+    def fallback_confidence_threshold_for(self, flow_id: int) -> float:
+        if not self.fallback_enabled:
+            return float("inf")
+        profile = self._profile_for_flow(flow_id)
+        return (
+            profile.fallback_confidence_threshold
+            if profile is not None
+            else super().fallback_confidence_threshold_for(flow_id)
+        )
+
+    def fallback_ttl_for(self, flow_id: int) -> int:
+        profile = self._profile_for_flow(flow_id)
+        return profile.fallback_ttl if profile is not None else super().fallback_ttl_for(flow_id)
+
+    def fallback_delay_margin_for(self, flow_id: int) -> float:
+        profile = self._profile_for_flow(flow_id)
+        return (
+            profile.fallback_delay_margin_s
+            if profile is not None
+            else super().fallback_delay_margin_for(flow_id)
+        )
+
+    def route_age_penalty_for(self, flow_id: int) -> float:
+        profile = self._profile_for_flow(flow_id)
+        return (
+            profile.route_age_penalty
+            if profile is not None
+            else super().route_age_penalty_for(flow_id)
+        )
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        if not self.confidence_enabled:
+            return min(candidates, key=lambda item: (len(item[0]), item[0]))
+        return super().select_route_candidate(candidates, flow_id)
+
     @classmethod
     def load_prior_q_values(cls, path: Path | str) -> Dict[Tuple[int, int], float]:
         prior_path = Path(path)
@@ -1674,13 +1962,14 @@ class SmartCalmMesh(CalmMesh):
     def send_app(self, src: int, dst: int, flow_id: int) -> None:
         if dst != BROADCAST_DST:
             state_index = self.state_index_from_snapshot(self.sim.metrics.snapshot())
-            action_index = self.select_action(state_index)
+            action_index = self.choose_profile_for_flow(state_index)
             if action_index != self.active_profile_index:
                 self.sim.metrics.policy_switch_count += 1
             self.active_state_index = state_index
             self.active_profile_index = action_index
             self.apply_profile(action_index)
             self.sim.metrics.active_profile_index = self.active_profile_index
+            self.sim.metrics.record_profile_selection(action_index)
             self.flow_decisions[flow_id] = FlowDecision(
                 src=src,
                 dst=dst,
@@ -1688,6 +1977,7 @@ class SmartCalmMesh(CalmMesh):
                 action_index=action_index,
                 profile_name=self.profiles[action_index].name,
                 created_at=self.sim.now,
+                profile=self.profiles[action_index],
             )
             self.sim.schedule(
                 self.sim.now + self.flow_timeout_s,
@@ -1711,14 +2001,16 @@ class SmartCalmMesh(CalmMesh):
     def finish_route_discovery(self, key: Tuple[int, int, int]) -> None:
         candidates = self.rreq_candidates.get(key, [])
         if candidates:
-            _, confidence = max(candidates, key=lambda item: (item[1], -len(item[0])))
             _, _, flow_id = key
+            _, confidence = self.select_route_candidate(candidates, flow_id)
             decision = self.flow_decisions.get(flow_id)
             if decision is not None:
                 decision.confidence = confidence
         super().finish_route_discovery(key)
 
-    def route_miss_recovery_ttl(self) -> int:
+    def route_miss_recovery_ttl(self, flow_id: Optional[int] = None) -> int:
+        if not self.fallback_enabled:
+            return 0
         if self.route_miss_fallback_ttl > 0:
             return self.route_miss_fallback_ttl
         return self.sim.max_hops
@@ -1726,14 +2018,20 @@ class SmartCalmMesh(CalmMesh):
     def send_data_on_path(self, src: int, dst: int, flow_id: int, entry: RouteEntry) -> None:
         decision = self.flow_decisions.get(flow_id)
         if decision is not None:
-            decision.confidence = max(decision.confidence, self.route_confidence(entry))
+            decision.confidence = max(
+                decision.confidence,
+                self.route_confidence(entry, self.route_age_penalty_for(flow_id)),
+            )
         super().send_data_on_path(src, dst, flow_id, entry)
 
     def retry_data_on_cached_path(self, decision: FlowDecision, flow_id: int) -> bool:
         entry = self.get_route(decision.src, decision.dst)
         if entry is None or len(entry.path) < 2:
             return False
-        confidence = self.route_confidence(entry)
+        confidence = self.route_confidence(
+            entry,
+            self.route_age_penalty_for(flow_id),
+        )
         packet = Packet(
             kind="DATA",
             flow_id=flow_id,
@@ -1775,20 +2073,26 @@ class SmartCalmMesh(CalmMesh):
         if can_retry_timeout:
             decision.timeout_retries += 1
             if not self.retry_data_on_cached_path(decision, flow_id):
-                retry_ttl = max(self.fallback_ttl, self.timeout_fallback_min_ttl)
-                self.start_fallback(
-                    decision.src,
-                    decision.dst,
-                    flow_id,
-                    ttl=retry_ttl,
-                    delay_s=0.0,
-                )
+                if self.fallback_enabled:
+                    retry_ttl = max(
+                        self.fallback_ttl_for(flow_id),
+                        self.timeout_fallback_min_ttl,
+                    )
+                    self.start_fallback(
+                        decision.src,
+                        decision.dst,
+                        flow_id,
+                        ttl=retry_ttl,
+                        delay_s=0.0,
+                    )
             self.sim.schedule(now + self.flow_timeout_s, "flow_timeout", flow_id)
             return
         self.learn_from_flow(decision, delivered=delivered, now=now)
         self.flow_decisions.pop(flow_id, None)
 
     def learn_from_flow(self, decision: FlowDecision, delivered: bool, now: float) -> None:
+        if not self.learning_enabled:
+            return
         latency = max(0.0, (decision.delivered_at or now) - decision.created_at)
         reward = (
             (1.0 if delivered else -0.8)
@@ -1881,9 +2185,14 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             hop_penalty_per_hop=getattr(args, "calm_hop_penalty_per_hop", 0.025),
             route_age_penalty=getattr(args, "calm_route_age_penalty", 0.1),
         )
-    if name == "smart-calm":
+    if name in {
+        "smart-calm",
+        "smart-calm-static",
+        "smart-calm-no-fallback",
+        "smart-calm-no-confidence",
+    }:
         if args is None:
-            return SmartCalmMesh()
+            args = argparse.Namespace()
         profiles = SmartCalmMesh.profiles_from_base_parameters(
             route_ttl_s=getattr(args, "calm_route_ttl_s", 600.0),
             discovery_window_s=getattr(args, "calm_discovery_window_s", DEFAULT_CALM_DISCOVERY_WINDOW_S),
@@ -1894,10 +2203,11 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             route_age_penalty=getattr(args, "calm_route_age_penalty", 0.1),
         )
         return SmartCalmMesh(
+            protocol_name=name,
             update_interval_s=getattr(args, "smart_update_interval_s", 30.0),
             learning_rate=getattr(args, "smart_learning_rate", 0.45),
             exploration=getattr(args, "smart_exploration", 0.02),
-            flow_timeout_s=getattr(args, "smart_flow_timeout_s", 35.0),
+            flow_timeout_s=getattr(args, "smart_flow_timeout_s", 15.0),
             max_timeout_retries=getattr(args, "smart_max_timeout_retries", 2),
             retry_after_fallback=getattr(args, "smart_retry_after_fallback", False),
             route_miss_fallback_ttl=getattr(args, "smart_route_miss_fallback_ttl", 0),
@@ -1908,6 +2218,10 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             flood_base_delay_s=getattr(args, "calm_flood_base_delay_s", 0.45),
             flood_jitter_s=getattr(args, "calm_flood_jitter_s", 0.65),
             profiles=profiles,
+            learning_enabled=name != "smart-calm-static",
+            fallback_enabled=name != "smart-calm-no-fallback",
+            confidence_enabled=name != "smart-calm-no-confidence",
+            fixed_profile_index=1 if name == "smart-calm-static" else None,
         )
     raise ValueError(f"unknown protocol: {name}")
 
@@ -1921,6 +2235,9 @@ def run_one(args: argparse.Namespace, protocol_name: str, seed: int) -> Dict[str
         cr=args.cr,
         payload_bytes=args.payload_bytes,
         tx_power_dbm=args.tx_power_dbm,
+        tx_current_ma=getattr(args, "tx_current_ma", 120.0),
+        rx_current_ma=getattr(args, "rx_current_ma", 10.3),
+        supply_voltage_v=getattr(args, "supply_voltage_v", 3.3),
         path_loss_exp=args.path_loss_exp,
         shadow_sigma_db=args.shadow_sigma_db,
         capture_threshold_db=args.capture_threshold_db,
@@ -1952,13 +2269,19 @@ def print_table(rows: Sequence[Dict[str, Any]]) -> None:
         "broadcast_coverage",
         "avg_delay_s",
         "mean_delivery_delay_s",
+        "p95_unicast_ack_delay_s",
         "tx_count",
         "data_tx",
         "control_tx",
         "ack_tx",
         "total_airtime_s",
+        "channel_busy_ratio",
+        "total_energy_j",
+        "energy_per_delivery_j",
         "airtime_per_delivery_s",
+        "packet_reception_ratio",
         "collision_fail",
+        "collision_rate",
         "duplicate_rx",
         "suppressed_forwards",
         "route_cache_hits",
@@ -1988,7 +2311,11 @@ def write_csv(path: Path, rows: Sequence[Dict[str, Any]]) -> None:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(
+            f,
+            fieldnames=list(rows[0].keys()),
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
 
@@ -1997,7 +2324,19 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="LoRa mesh routing simulator")
     parser.add_argument(
         "--protocol",
-        choices=["meshtastic", "meshcore", "calm", "smart-calm", "both", "all", "all4"],
+        choices=[
+            "meshtastic",
+            "meshcore",
+            "calm",
+            "smart-calm",
+            "smart-calm-static",
+            "smart-calm-no-fallback",
+            "smart-calm-no-confidence",
+            "both",
+            "all",
+            "all4",
+            "icc",
+        ],
         default="both",
     )
     parser.add_argument("--nodes", type=int, default=40)
@@ -2021,6 +2360,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cr", type=int, default=1)
     parser.add_argument("--payload-bytes", type=int, default=32)
     parser.add_argument("--tx-power-dbm", type=float, default=17.0)
+    parser.add_argument(
+        "--tx-current-ma",
+        type=float,
+        default=120.0,
+        help="radio transmit current used for energy accounting",
+    )
+    parser.add_argument(
+        "--rx-current-ma",
+        type=float,
+        default=10.3,
+        help="radio receive/listen current used for energy accounting",
+    )
+    parser.add_argument(
+        "--supply-voltage-v",
+        type=float,
+        default=3.3,
+        help="radio supply voltage used for energy accounting",
+    )
     parser.add_argument("--path-loss-exp", type=float, default=2.7)
     parser.add_argument("--shadow-sigma-db", type=float, default=4.0)
     parser.add_argument("--capture-threshold-db", type=float, default=6.0)
@@ -2036,7 +2393,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--smart-update-interval-s", type=float, default=30.0)
     parser.add_argument("--smart-learning-rate", type=float, default=0.45)
     parser.add_argument("--smart-exploration", type=float, default=0.02)
-    parser.add_argument("--smart-flow-timeout-s", type=float, default=35.0)
+    parser.add_argument("--smart-flow-timeout-s", type=float, default=15.0)
     parser.add_argument("--smart-max-timeout-retries", type=int, default=2)
     parser.add_argument(
         "--smart-route-miss-fallback-ttl",
@@ -2068,6 +2425,8 @@ def main() -> None:
         protocols = ["meshtastic", "meshcore", "calm"]
     elif args.protocol == "all4":
         protocols = ["meshtastic", "meshcore", "calm", "smart-calm"]
+    elif args.protocol == "icc":
+        protocols = list(ICC_PROTOCOLS)
     else:
         protocols = [args.protocol]
     rows = []

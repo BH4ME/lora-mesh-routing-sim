@@ -11,21 +11,23 @@
 
 namespace smart_calm {
 
-constexpr std::size_t kMaxRouteHops = 6;
 constexpr std::size_t kMaxRouteCacheEntries = 8;
 constexpr std::size_t kMaxPendingFlows = 4;
 constexpr std::size_t kMaxSeenRequests = 12;
+constexpr std::size_t kMaxNeighbors = 16;
 constexpr std::size_t kMaxOutboundFrames = 3;
 constexpr std::uint8_t kDefaultRreqTtl = 6;
 constexpr std::uint8_t kDefaultDataTtl = 6;
 constexpr std::uint8_t kDefaultAckTtl = 6;
+constexpr std::uint32_t kSeenRequestTtlMs = 60000U;
+constexpr std::uint32_t kNeighborTtlMs = 120000U;
 
 struct RoutePayload {
   std::uint8_t path_len = 0;
   std::uint8_t path_index = 0;
   std::uint8_t app_len = 0;
   std::uint16_t path[kMaxRouteHops] = {};
-  std::uint8_t app[kWirePayloadSize - 2 - 2 * kMaxRouteHops] = {};
+  std::uint8_t app[kRouteAppPayloadSize] = {};
 };
 
 struct OutboundFrame {
@@ -112,7 +114,32 @@ class SmartCalmMesh {
     return node_id_;
   }
 
-  std::size_t sendApp(std::uint16_t dst,
+  std::size_t activeRouteCount() const {
+    std::size_t count = 0;
+    for (const auto& route : routes_) {
+      count += route.active ? 1U : 0U;
+    }
+    return count;
+  }
+
+  std::size_t pendingFlowCount() const {
+    std::size_t count = 0;
+    for (const auto& pending : pending_) {
+      count += pending.active ? 1U : 0U;
+    }
+    return count;
+  }
+
+  std::size_t neighborCount() const {
+    std::size_t count = 0;
+    for (const auto& neighbor : neighbors_) {
+      count += neighbor.active ? 1U : 0U;
+    }
+    return count;
+  }
+
+  std::size_t sendApp(const MeshRuntimeLimits& limits,
+                      std::uint16_t dst,
                       std::uint32_t flow_id,
                       const std::uint8_t* payload,
                       std::size_t payload_len,
@@ -122,30 +149,50 @@ class SmartCalmMesh {
                       Snapshot& snapshot,
                       OutboundFrame* out,
                       std::size_t out_capacity) {
-    if (out == nullptr || out_capacity == 0 || payload == nullptr || payload_len > kWirePayloadSize) {
+    if (out == nullptr || out_capacity == 0 || payload == nullptr || payload_len > kRouteAppPayloadSize) {
       return 0;
     }
     snapshot.unicast_flows++;
     controller.beginFlow(flow_id, snapshot, entropy, now_ms);
 
-    if (RouteEntry* route = findRoute(dst, now_ms, controller.activeProfile().route_ttl_s)) {
-      snapshot.route_cache_hits++;
-      return emitDataFromRoute(*route, flow_id, payload, payload_len, now_ms, controller, snapshot, out, out_capacity);
-    }
-
-    snapshot.route_cache_misses++;
-    controller.markRouteMiss(flow_id);
     PendingFlow& pending = acquirePending(flow_id);
+    pending = PendingFlow{};
     pending.active = true;
     pending.dst = dst;
     pending.flow_id = flow_id;
     pending.created_at_ms = now_ms;
-    pending.payload_len = static_cast<std::uint8_t>(std::min<std::size_t>(payload_len, sizeof(pending.payload)));
+    pending.last_attempt_at_ms = now_ms;
+    pending.state_index = controller.activeStateIndex();
+    pending.action_index = controller.activeProfileIndex();
+    pending.payload_len = static_cast<std::uint8_t>(payload_len);
     std::memcpy(pending.payload, payload, pending.payload_len);
-    return emitRreq(dst, flow_id, now_ms, out, out_capacity);
+
+    if (RouteEntry* route = findRoute(dst, now_ms, effectiveRouteTtl(limits, controller))) {
+      snapshot.route_cache_hits++;
+      return emitDataFromRoute(
+          *route,
+          limits,
+          flow_id,
+          payload,
+          payload_len,
+          pending.state_index,
+          pending.action_index,
+          now_ms,
+          pending.created_at_ms,
+          controller,
+          snapshot,
+          out,
+          out_capacity);
+    }
+
+    snapshot.route_cache_misses++;
+    controller.markRouteMiss(flow_id);
+    ++snapshot.route_repair_count;
+    return emitRreq(limits, dst, flow_id, now_ms, out, out_capacity);
   }
 
-  std::size_t handleFrame(const WireFrame& frame,
+  std::size_t handleFrame(const MeshRuntimeLimits& limits,
+                          const WireFrame& frame,
                           std::uint32_t now_ms,
                           float rssi,
                           float snr,
@@ -156,15 +203,16 @@ class SmartCalmMesh {
     if (out == nullptr || out_capacity == 0 || frame.src == node_id_) {
       return 0;
     }
+    observeNeighbor(frame.src, now_ms, rssi, snr);
     switch (frame.type) {
       case FrameType::Rreq:
-        return handleRreq(frame, now_ms, snr, out, out_capacity);
+        return handleRreq(limits, frame, now_ms, rssi, snr, out, out_capacity);
       case FrameType::Rrep:
-        return handleRrep(frame, now_ms, snr, controller, snapshot, out, out_capacity);
+        return handleRrep(limits, frame, now_ms, rssi, snr, controller, snapshot, out, out_capacity);
       case FrameType::Data:
-        return handleData(frame, now_ms, snr, controller, snapshot, out, out_capacity);
+        return handleData(limits, frame, now_ms, rssi, snr, controller, snapshot, out, out_capacity);
       case FrameType::Fallback:
-        return handleFallback(frame, now_ms, snr, controller, snapshot, out, out_capacity);
+        return handleFallback(limits, frame, now_ms, rssi, snr, controller, snapshot, out, out_capacity);
       case FrameType::Ack:
         return handleAck(frame, now_ms, controller, snapshot, out, out_capacity);
       case FrameType::Hello:
@@ -172,6 +220,74 @@ class SmartCalmMesh {
         snapshot.broadcast_flows++;
         snapshot.broadcast_deliveries++;
         return 0;
+    }
+    return 0;
+  }
+
+  std::size_t tick(const MeshRuntimeLimits& limits,
+                   std::uint32_t now_ms,
+                   SmartCalmController& controller,
+                   Snapshot& snapshot,
+                   OutboundFrame* out,
+                   std::size_t out_capacity) {
+    if (out == nullptr || out_capacity == 0) {
+      return 0;
+    }
+
+    purgeExpiredRoutes(now_ms, effectiveRouteTtl(limits, controller));
+    purgeExpiredNeighbors(now_ms);
+    purgeExpiredSeen(now_ms);
+    snapshot.route_expired_count = route_expired_count_;
+    snapshot.neighbor_updates = neighbor_update_count_;
+    snapshot.neighbor_expired_count = neighbor_expired_count_;
+
+    for (auto& pending : pending_) {
+      if (!pending.active || now_ms - pending.last_attempt_at_ms < std::max<std::uint16_t>(1, limits.ack_timeout_ms)) {
+        continue;
+      }
+
+      const bool can_retry =
+          pending.timeout_retries < limits.max_timeout_retries &&
+          (limits.retry_after_fallback || !pending.used_fallback);
+      if (!can_retry) {
+        ++snapshot.unicast_failures;
+        controller.completeFlow(pending.flow_id, false, snapshot, now_ms);
+        pending.active = false;
+        continue;
+      }
+
+      ++pending.timeout_retries;
+      controller.markTimeoutRetry(pending.flow_id);
+      ++snapshot.route_repair_count;
+
+      if (RouteEntry* route = findRoute(pending.dst, now_ms, effectiveRouteTtl(limits, controller))) {
+        const std::size_t count = emitDataFromRoute(
+            *route,
+            limits,
+            pending.flow_id,
+            pending.payload,
+            pending.payload_len,
+            pending.state_index,
+            pending.action_index,
+            now_ms,
+            pending.created_at_ms,
+            controller,
+            snapshot,
+            out,
+            out_capacity);
+        if (count > 0) {
+          pending.last_attempt_at_ms = now_ms;
+          return count;
+        }
+      }
+
+      const std::size_t count =
+          emitFallbackFromPending(limits, pending, now_ms, controller, snapshot, out, out_capacity);
+      if (count > 0) {
+        pending.last_attempt_at_ms = now_ms;
+        pending.used_fallback = true;
+        return count;
+      }
     }
     return 0;
   }
@@ -191,16 +307,31 @@ class SmartCalmMesh {
     std::uint16_t dst = 0;
     std::uint32_t flow_id = 0;
     std::uint32_t created_at_ms = 0;
+    std::uint32_t last_attempt_at_ms = 0;
+    std::uint8_t state_index = 0;
+    std::uint8_t action_index = 1;
+    std::uint8_t timeout_retries = 0;
+    bool used_fallback = false;
     std::uint8_t payload_len = 0;
-    std::uint8_t payload[kWirePayloadSize] = {};
+    std::uint8_t payload[kRouteAppPayloadSize] = {};
   };
 
   struct SeenRequest {
     bool active = false;
+    FrameType type = FrameType::Rreq;
     std::uint16_t src = 0;
     std::uint16_t dst = 0;
     std::uint32_t flow_id = 0;
     std::uint32_t seen_at_ms = 0;
+  };
+
+  struct NeighborEntry {
+    bool active = false;
+    std::uint16_t node = 0;
+    std::uint32_t updated_at_ms = 0;
+    float rssi = 0.0f;
+    float snr = 0.0f;
+    float confidence = 0.0f;
   };
 
   std::uint16_t node_id_;
@@ -208,6 +339,10 @@ class SmartCalmMesh {
   std::array<RouteEntry, kMaxRouteCacheEntries> routes_{};
   std::array<PendingFlow, kMaxPendingFlows> pending_{};
   std::array<SeenRequest, kMaxSeenRequests> seen_{};
+  std::array<NeighborEntry, kMaxNeighbors> neighbors_{};
+  std::uint32_t route_expired_count_ = 0;
+  std::uint32_t neighbor_update_count_ = 0;
+  std::uint32_t neighbor_expired_count_ = 0;
 
   WireFrame baseFrame(FrameType type, std::uint16_t dst, std::uint32_t flow_id, std::uint32_t now_ms) {
     WireFrame frame{};
@@ -233,6 +368,17 @@ class SmartCalmMesh {
       route.active = false;
     }
     return nullptr;
+  }
+
+  float effectiveRouteTtl(const MeshRuntimeLimits& limits, const SmartCalmController& controller) const {
+    const float profile_ttl_s = controller.activeProfile().route_ttl_s;
+    const float configured_ttl_s = static_cast<float>(std::max<std::uint16_t>(1, limits.route_ttl_s));
+    return std::min(profile_ttl_s, configured_ttl_s);
+  }
+
+  std::uint8_t boundedTtl(std::uint8_t requested, const MeshRuntimeLimits& limits) const {
+    const std::uint8_t max_hops = std::max<std::uint8_t>(1, limits.max_hops);
+    return static_cast<std::uint8_t>(std::min<std::uint8_t>(std::max<std::uint8_t>(1, requested), max_hops));
   }
 
   RouteEntry& acquireRoute(std::uint16_t dst) {
@@ -273,23 +419,86 @@ class SmartCalmMesh {
   }
 
   bool markSeen(const WireFrame& frame, std::uint32_t now_ms) {
+    return markSeenKey(frame.type, frame.src, frame.dst, frame.flow_id, now_ms);
+  }
+
+  bool markSeenKey(FrameType type,
+                   std::uint16_t src,
+                   std::uint16_t dst,
+                   std::uint32_t flow_id,
+                   std::uint32_t now_ms) {
     for (auto& seen : seen_) {
-      if (seen.active && seen.src == frame.src && seen.dst == frame.dst && seen.flow_id == frame.flow_id) {
+      if (seen.active && seen.type == type && seen.src == src && seen.dst == dst &&
+          seen.flow_id == flow_id) {
         return false;
       }
     }
     for (auto& seen : seen_) {
-      if (!seen.active || now_ms - seen.seen_at_ms > 60000U) {
+      if (!seen.active || now_ms - seen.seen_at_ms > kSeenRequestTtlMs) {
         seen.active = true;
-        seen.src = frame.src;
-        seen.dst = frame.dst;
-        seen.flow_id = frame.flow_id;
+        seen.type = type;
+        seen.src = src;
+        seen.dst = dst;
+        seen.flow_id = flow_id;
         seen.seen_at_ms = now_ms;
         return true;
       }
     }
-    seen_[0] = SeenRequest{true, frame.src, frame.dst, frame.flow_id, now_ms};
+    seen_[0] = SeenRequest{true, type, src, dst, flow_id, now_ms};
     return true;
+  }
+
+  void observeNeighbor(std::uint16_t node, std::uint32_t now_ms, float rssi, float snr) {
+    NeighborEntry* oldest = &neighbors_[0];
+    for (auto& neighbor : neighbors_) {
+      if (neighbor.active && neighbor.node == node) {
+        neighbor.updated_at_ms = now_ms;
+        neighbor.rssi = rssi;
+        neighbor.snr = snr;
+        neighbor.confidence = confidenceFromSnr(snr);
+        ++neighbor_update_count_;
+        return;
+      }
+      if (!neighbor.active) {
+        oldest = &neighbor;
+        break;
+      }
+      if (neighbor.updated_at_ms < oldest->updated_at_ms) {
+        oldest = &neighbor;
+      }
+    }
+    *oldest = NeighborEntry{true, node, now_ms, rssi, snr, confidenceFromSnr(snr)};
+    ++neighbor_update_count_;
+  }
+
+  void purgeExpiredRoutes(std::uint32_t now_ms, float route_ttl_s) {
+    for (auto& route : routes_) {
+      if (!route.active) {
+        continue;
+      }
+      const float age_s = static_cast<float>(now_ms - route.updated_at_ms) / 1000.0f;
+      if (age_s > route_ttl_s) {
+        route.active = false;
+        ++route_expired_count_;
+      }
+    }
+  }
+
+  void purgeExpiredNeighbors(std::uint32_t now_ms) {
+    for (auto& neighbor : neighbors_) {
+      if (neighbor.active && now_ms - neighbor.updated_at_ms > kNeighborTtlMs) {
+        neighbor.active = false;
+        ++neighbor_expired_count_;
+      }
+    }
+  }
+
+  void purgeExpiredSeen(std::uint32_t now_ms) {
+    for (auto& seen : seen_) {
+      if (seen.active && now_ms - seen.seen_at_ms > kSeenRequestTtlMs) {
+        seen.active = false;
+      }
+    }
   }
 
   void cacheRouteFromPath(std::uint16_t dst,
@@ -319,7 +528,8 @@ class SmartCalmMesh {
     return 1;
   }
 
-  std::size_t emitRreq(std::uint16_t dst,
+  std::size_t emitRreq(const MeshRuntimeLimits& limits,
+                       std::uint16_t dst,
                        std::uint32_t flow_id,
                        std::uint32_t now_ms,
                        OutboundFrame* out,
@@ -330,7 +540,7 @@ class SmartCalmMesh {
     route.path[0] = node_id_;
 
     WireFrame frame = baseFrame(FrameType::Rreq, dst, flow_id, now_ms);
-    frame.ttl = kDefaultRreqTtl;
+    frame.ttl = boundedTtl(kDefaultRreqTtl, limits);
     frame.flags = 0;
     frame.confidence_milli = 1000;
     if (!encodeRoutePayload(frame, route)) {
@@ -340,10 +550,14 @@ class SmartCalmMesh {
   }
 
   std::size_t emitDataFromRoute(const RouteEntry& route,
+                                const MeshRuntimeLimits& limits,
                                 std::uint32_t flow_id,
                                 const std::uint8_t* payload,
                                 std::size_t payload_len,
+                                std::uint8_t state_index,
+                                std::uint8_t action_index,
                                 std::uint32_t now_ms,
+                                std::uint32_t created_at_ms,
                                 SmartCalmController& controller,
                                 Snapshot& snapshot,
                                 OutboundFrame* out,
@@ -361,9 +575,10 @@ class SmartCalmMesh {
     std::memcpy(route_payload.app, payload, payload_len);
 
     WireFrame frame = baseFrame(FrameType::Data, route.path[1], flow_id, now_ms);
-    frame.ttl = kDefaultDataTtl;
-    frame.state_index = controller.activeStateIndex();
-    frame.action_index = controller.activeProfileIndex();
+    frame.created_at_ms = created_at_ms;
+    frame.ttl = boundedTtl(kDefaultDataTtl, limits);
+    frame.state_index = state_index;
+    frame.action_index = action_index;
     frame.confidence_milli = confidenceMilli(route.confidence);
     if (!encodeRoutePayload(frame, route_payload)) {
       return 0;
@@ -374,12 +589,43 @@ class SmartCalmMesh {
     return pushOutbound(frame, false, out, out_capacity);
   }
 
-  std::size_t handleRreq(const WireFrame& frame,
+  std::size_t emitFallbackFromPending(const MeshRuntimeLimits& limits,
+                                      PendingFlow& pending,
+                                      std::uint32_t now_ms,
+                                      SmartCalmController& controller,
+                                      Snapshot& snapshot,
+                                      OutboundFrame* out,
+                                      std::size_t out_capacity) {
+    RoutePayload route{};
+    route.path_len = 1;
+    route.path_index = 0;
+    route.app_len = pending.payload_len;
+    route.path[0] = node_id_;
+    std::memcpy(route.app, pending.payload, pending.payload_len);
+
+    WireFrame frame = baseFrame(FrameType::Fallback, pending.dst, pending.flow_id, now_ms);
+    frame.created_at_ms = pending.created_at_ms;
+    frame.ttl = boundedTtl(std::max<std::uint8_t>(1, limits.fallback_ttl), limits);
+    frame.state_index = pending.state_index;
+    frame.action_index = pending.action_index;
+    frame.confidence_milli = 1000;
+    if (!encodeRoutePayload(frame, route)) {
+      return 0;
+    }
+    controller.markFallback(pending.flow_id);
+    ++snapshot.fallback_forward_count;
+    return pushOutbound(frame, true, out, out_capacity);
+  }
+
+  std::size_t handleRreq(const MeshRuntimeLimits& limits,
+                         const WireFrame& frame,
                          std::uint32_t now_ms,
+                         float rssi,
                          float snr,
                          OutboundFrame* out,
                          std::size_t out_capacity) {
-    if (frame.ttl <= 1 || !markSeen(frame, now_ms)) {
+    (void)rssi;
+    if (!markSeen(frame, now_ms)) {
       return 0;
     }
     RoutePayload route{};
@@ -400,13 +646,17 @@ class SmartCalmMesh {
         return 0;
       }
       WireFrame reply = baseFrame(FrameType::Rrep, route.path[route.path_len - 2U], frame.flow_id, now_ms);
-      reply.ttl = kDefaultDataTtl;
+      reply.ttl = boundedTtl(kDefaultDataTtl, limits);
       reply.confidence_milli = confidenceMilli(confidenceFromSnr(snr));
       route.path_index = static_cast<std::uint8_t>(route.path_len - 2U);
       if (!encodeRoutePayload(reply, route)) {
         return 0;
       }
       return pushOutbound(reply, false, out, out_capacity);
+    }
+
+    if (frame.ttl <= 1) {
+      return 0;
     }
 
     WireFrame forward = frame;
@@ -421,13 +671,16 @@ class SmartCalmMesh {
     return pushOutbound(forward, true, out, out_capacity);
   }
 
-  std::size_t handleRrep(const WireFrame& frame,
+  std::size_t handleRrep(const MeshRuntimeLimits& limits,
+                         const WireFrame& frame,
                          std::uint32_t now_ms,
+                         float rssi,
                          float snr,
                          SmartCalmController& controller,
                          Snapshot& snapshot,
                          OutboundFrame* out,
                          std::size_t out_capacity) {
+    (void)rssi;
     RoutePayload route{};
     if (!decodeRoutePayload(frame, &route) || route.path[route.path_index] != node_id_) {
       return 0;
@@ -439,17 +692,33 @@ class SmartCalmMesh {
 
     if (route.path_index == 0) {
       if (PendingFlow* pending = findPending(frame.flow_id)) {
-        pending->active = false;
-        return emitDataFromRoute(*findRoute(final_dst, now_ms, controller.activeProfile().route_ttl_s),
-                                 pending->flow_id,
-                                 pending->payload,
-                                 pending->payload_len,
-                                 now_ms,
-                                 controller,
-                                 snapshot,
-                                 out,
-                                 out_capacity);
+        RouteEntry* cached = findRoute(final_dst, now_ms, effectiveRouteTtl(limits, controller));
+        if (cached == nullptr) {
+          pending->last_attempt_at_ms = now_ms;
+          return 0;
+        }
+        const std::size_t count = emitDataFromRoute(*cached,
+                                                   limits,
+                                                   pending->flow_id,
+                                                   pending->payload,
+                                                   pending->payload_len,
+                                                   pending->state_index,
+                                                   pending->action_index,
+                                                   now_ms,
+                                                   pending->created_at_ms,
+                                                   controller,
+                                                   snapshot,
+                                                   out,
+                                                   out_capacity);
+        if (count > 0) {
+          pending->last_attempt_at_ms = now_ms;
+        }
+        return count;
       }
+      return 0;
+    }
+
+    if (frame.ttl <= 1) {
       return 0;
     }
 
@@ -463,13 +732,16 @@ class SmartCalmMesh {
     return pushOutbound(forward, false, out, out_capacity);
   }
 
-  std::size_t handleData(const WireFrame& frame,
+  std::size_t handleData(const MeshRuntimeLimits& limits,
+                         const WireFrame& frame,
                          std::uint32_t now_ms,
+                         float rssi,
                          float snr,
                          SmartCalmController& controller,
                          Snapshot& snapshot,
                          OutboundFrame* out,
                          std::size_t out_capacity) {
+    (void)rssi;
     RoutePayload route{};
     if (!decodeRoutePayload(frame, &route) || route.path[route.path_index] != node_id_) {
       return 0;
@@ -483,7 +755,8 @@ class SmartCalmMesh {
 
       route.path_index--;
       WireFrame ack = baseFrame(FrameType::Ack, route.path[route.path_index], frame.flow_id, now_ms);
-      ack.ttl = kDefaultAckTtl;
+      ack.created_at_ms = frame.created_at_ms;
+      ack.ttl = boundedTtl(kDefaultAckTtl, limits);
       ack.confidence_milli = confidenceMilli(confidence);
       if (!encodeRoutePayload(ack, route)) {
         return 0;
@@ -521,6 +794,9 @@ class SmartCalmMesh {
       snapshot.unicast_acks++;
       snapshot.delivery_delay_total_s += static_cast<float>(now_ms - frame.created_at_ms) / 1000.0f;
       snapshot.delivery_delay_samples++;
+      if (PendingFlow* pending = findPending(frame.flow_id)) {
+        pending->active = false;
+      }
       controller.completeFlow(frame.flow_id, true, snapshot, now_ms);
       return 0;
     }
@@ -537,13 +813,55 @@ class SmartCalmMesh {
     return pushOutbound(forward, false, out, out_capacity);
   }
 
-  std::size_t handleFallback(const WireFrame& frame,
+  std::size_t handleFallback(const MeshRuntimeLimits& limits,
+                             const WireFrame& frame,
                              std::uint32_t now_ms,
+                             float rssi,
                              float snr,
                              SmartCalmController& controller,
                              Snapshot& snapshot,
                              OutboundFrame* out,
                              std::size_t out_capacity) {
+    (void)rssi;
+    RoutePayload route{};
+    if (!decodeRoutePayload(frame, &route) || route.path_len >= kMaxRouteHops) {
+      return 0;
+    }
+
+    const std::uint16_t origin = route.path[0];
+    if (!markSeenKey(FrameType::Fallback, origin, frame.dst, frame.flow_id, now_ms)) {
+      return 0;
+    }
+    for (std::uint8_t i = 0; i < route.path_len; ++i) {
+      if (route.path[i] == node_id_) {
+        return 0;
+      }
+    }
+    route.path[route.path_len++] = node_id_;
+    route.path_index = static_cast<std::uint8_t>(route.path_len - 1U);
+    const float confidence =
+        std::min<float>(static_cast<float>(frame.confidence_milli) / 1000.0f, confidenceFromSnr(snr));
+
+    if (frame.dst == node_id_) {
+      snapshot.unicast_deliveries++;
+      snapshot.fallback_delivery_count++;
+      snapshot.path_confidence_total += confidence;
+      snapshot.path_confidence_samples++;
+      controller.markConfidence(frame.flow_id, confidence);
+
+      route.path_index--;
+      WireFrame ack = baseFrame(FrameType::Ack, route.path[route.path_index], frame.flow_id, now_ms);
+      ack.created_at_ms = frame.created_at_ms;
+      ack.ttl = boundedTtl(kDefaultAckTtl, limits);
+      ack.state_index = frame.state_index;
+      ack.action_index = frame.action_index;
+      ack.confidence_milli = confidenceMilli(confidence);
+      if (!encodeRoutePayload(ack, route)) {
+        return 0;
+      }
+      return pushOutbound(ack, false, out, out_capacity);
+    }
+
     if (frame.ttl <= 1) {
       return 0;
     }
@@ -554,7 +872,10 @@ class SmartCalmMesh {
     forward.seq = next_seq_++;
     forward.ttl = static_cast<std::uint8_t>(frame.ttl - 1U);
     forward.confidence_milli =
-        static_cast<std::uint16_t>(std::min<std::uint16_t>(frame.confidence_milli, confidenceMilli(confidenceFromSnr(snr))));
+        static_cast<std::uint16_t>(std::min<std::uint16_t>(frame.confidence_milli, confidenceMilli(confidence)));
+    if (!encodeRoutePayload(forward, route)) {
+      return 0;
+    }
     return pushOutbound(forward, true, out, out_capacity);
   }
 };

@@ -5,7 +5,7 @@ Smart-CALM controller on directly attached LoRa radios. It is a self-written
 control layer inspired by source-routing and managed-flooding ideas, not a fork
 of MeshCore or Meshtastic.
 
-Firmware release: `meshecho-firmware-v2.1.1` (`VERSION` `2.1.1`).
+Firmware release: `meshecho-firmware-v2.1.2` (`VERSION` `2.1.2`).
 
 ## What it does
 
@@ -112,6 +112,6 @@ path.
   in a fixed array and uses a linear scan. With the current small capacity this
   avoids heap allocation; slot overflow is counted and printed in the serial
   status as `overflow=`.
-- The v2.1.1 reliability refinement is complete. Physical-radio validation
+- The v2.1.2 reliability refinement is complete. Physical-radio validation
   remains separate from the host smoke test because it requires the target
   board, wiring, and RF environment.

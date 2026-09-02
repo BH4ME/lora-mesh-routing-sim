@@ -1,100 +1,160 @@
 
 meshtastic-like  n=20
 -----------------------
-unicast_pdr              mean=0.950164  sd=0.024837
-broadcast_coverage       mean=0.954097  sd=0.025731
-avg_delay_s              mean=0.498526  sd=0.123014
-mean_delivery_delay_s    mean=0.496992  sd=0.133151
-tx_count                 mean=4774.900000  sd=359.673229
-data_tx                  mean=4774.900000  sd=359.673229
-control_tx               mean=0.000000  sd=0.000000
-total_airtime_s          mean=1178.368922  sd=88.761598
-airtime_per_delivery_s   mean=0.411284  sd=0.054215
-collision_fail           mean=121836.450000  sd=8461.120689
-duplicate_rx             mean=2986.450000  sd=382.337475
-suppressed_forwards      mean=1917.250000  sd=176.536227
-route_cache_hits         mean=0.000000  sd=0.000000
-route_cache_misses       mean=0.000000  sd=0.000000
-fallback_forward_count   mean=0.000000  sd=0.000000
-route_repair_count       mean=0.000000  sd=0.000000
-mean_path_confidence     mean=0.000000  sd=0.000000
-control_overhead_ratio   mean=0.000000  sd=0.000000
-policy_switch_count      mean=0.000000  sd=0.000000
-policy_update_count      mean=0.000000  sd=0.000000
-policy_reward_total      mean=0.000000  sd=0.000000
-active_profile_index     mean=-1.000000  sd=0.000000
+unicast_pdr                      mean=0.841936  sd=0.049353  ci95=[0.818838, 0.865034]
+destination_unicast_pdr          mean=0.949086  sd=0.026973  ci95=[0.936462, 0.961710]
+broadcast_coverage               mean=0.951911  sd=0.029048  ci95=[0.938316, 0.965505]
+avg_delay_s                      mean=0.609917  sd=0.087258  ci95=[0.569079, 0.650755]
+mean_delivery_delay_s            mean=0.534417  sd=0.111476  ci95=[0.482245, 0.586589]
+unicast_delivery_delay_s         mean=0.579434  sd=0.128596  ci95=[0.519250, 0.639619]
+unicast_ack_delay_s              mean=0.609917  sd=0.087258  ci95=[0.569079, 0.650755]
+p95_unicast_delivery_delay_s     mean=2.615186  sd=0.898850  ci95=[2.194516, 3.035856]
+p95_unicast_ack_delay_s          mean=1.235572  sd=0.808314  ci95=[0.857274, 1.613870]
+tx_count                         mean=4761.600000  sd=357.108623  ci95=[4594.469941, 4928.730059]
+data_tx                          mean=4696.300000  sd=349.773024  ci95=[4532.603067, 4859.996933]
+control_tx                       mean=65.300000  sd=11.635246  ci95=[59.854600, 70.745400]
+ack_tx                           mean=65.300000  sd=11.635246  ci95=[59.854600, 70.745400]
+total_airtime_s                  mean=1175.086694  sd=88.128694  ci95=[1133.841670, 1216.331719]
+channel_busy_time_s              mean=172.612181  sd=14.901274  ci95=[165.638251, 179.586112]
+channel_busy_ratio               mean=0.143844  sd=0.012418  ci95=[0.138032, 0.149655]
+tx_energy_j                      mean=465.334331  sd=34.898963  ci95=[449.001301, 481.667361]
+rx_energy_j                      mean=1542.777795  sd=115.351944  ci95=[1488.792044, 1596.763546]
+total_energy_j                   mean=2008.112126  sd=150.151710  ci95=[1937.839770, 2078.384482]
+energy_per_delivery_j            mean=0.704266  sd=0.093297  ci95=[0.660603, 0.747930]
+airtime_per_delivery_s           mean=0.412069  sd=0.054367  ci95=[0.386625, 0.437513]
+rx_attempts                      mean=233286.550000  sd=17513.532661  ci95=[225090.058608, 241483.041392]
+packet_reception_ratio           mean=0.049981  sd=0.002320  ci95=[0.048895, 0.051066]
+collision_fail                   mean=123321.900000  sd=9215.362493  ci95=[119009.027160, 127634.772840]
+collision_rate                   mean=0.528709  sd=0.008319  ci95=[0.524816, 0.532602]
+duplicate_rx                     mean=3249.250000  sd=500.542219  ci95=[3014.991723, 3483.508277]
+suppressed_forwards              mean=2015.300000  sd=265.622427  ci95=[1890.986306, 2139.613694]
+route_cache_hits                 mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+route_cache_misses               mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+fallback_forward_count           mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+route_repair_count               mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+mean_path_confidence             mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+control_overhead_ratio           mean=0.013675  sd=0.001959  ci95=[0.012758, 0.014591]
+policy_switch_count              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+policy_update_count              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+policy_reward_total              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+active_profile_index             mean=-1.000000  sd=0.000000  ci95=[-1.000000, -1.000000]
 
 meshcore-like  n=20
 ---------------------
-unicast_pdr              mean=0.632881  sd=0.179003
-broadcast_coverage       mean=0.970845  sd=0.020791
-avg_delay_s              mean=0.459073  sd=0.037999
-mean_delivery_delay_s    mean=0.410760  sd=0.108678
-tx_count                 mean=3929.050000  sd=393.470988
-data_tx                  mean=2996.650000  sd=395.293665
-control_tx               mean=932.400000  sd=150.303693
-total_airtime_s          mean=969.626675  sd=97.102344
-airtime_per_delivery_s   mean=0.332155  sd=0.018992
-collision_fail           mean=83424.450000  sd=8380.562834
-duplicate_rx             mean=1800.400000  sd=294.782953
-suppressed_forwards      mean=0.000000  sd=0.000000
-route_cache_hits         mean=26.650000  sd=9.143735
-route_cache_misses       mean=34.800000  sd=9.174335
-fallback_forward_count   mean=0.000000  sd=0.000000
-route_repair_count       mean=0.000000  sd=0.000000
-mean_path_confidence     mean=0.000000  sd=0.000000
-control_overhead_ratio   mean=0.239102  sd=0.042497
-policy_switch_count      mean=0.000000  sd=0.000000
-policy_update_count      mean=0.000000  sd=0.000000
-policy_reward_total      mean=0.000000  sd=0.000000
-active_profile_index     mean=-1.000000  sd=0.000000
+unicast_pdr                      mean=0.386851  sd=0.107503  ci95=[0.336539, 0.437163]
+destination_unicast_pdr          mean=0.662217  sd=0.158906  ci95=[0.587847, 0.736586]
+broadcast_coverage               mean=0.961937  sd=0.022300  ci95=[0.951500, 0.972373]
+avg_delay_s                      mean=0.510894  sd=0.034534  ci95=[0.494732, 0.527057]
+mean_delivery_delay_s            mean=0.397137  sd=0.083419  ci95=[0.358096, 0.436178]
+unicast_delivery_delay_s         mean=0.451228  sd=0.041877  ci95=[0.431629, 0.470827]
+unicast_ack_delay_s              mean=0.510894  sd=0.034534  ci95=[0.494732, 0.527057]
+p95_unicast_delivery_delay_s     mean=0.740352  sd=0.000000  ci95=[0.740352, 0.740352]
+p95_unicast_ack_delay_s          mean=0.622117  sd=0.263333  ci95=[0.498875, 0.745359]
+tx_count                         mean=3928.900000  sd=419.257728  ci95=[3732.683599, 4125.116401]
+data_tx                          mean=2971.950000  sd=397.063627  ci95=[2786.120638, 3157.779362]
+control_tx                       mean=956.950000  sd=168.470980  ci95=[878.104061, 1035.795939]
+ack_tx                           mean=41.050000  sd=10.595307  ci95=[36.091301, 46.008699]
+total_airtime_s                  mean=969.589658  sd=103.466099  ci95=[921.166589, 1018.012726]
+channel_busy_time_s              mean=121.881121  sd=12.875978  ci95=[115.855047, 127.907195]
+channel_busy_ratio               mean=0.101568  sd=0.010730  ci95=[0.096546, 0.106589]
+tx_energy_j                      mean=383.957504  sd=40.972575  ci95=[364.781969, 403.133039]
+rx_energy_j                      mean=1191.780772  sd=124.222062  ci95=[1133.643726, 1249.917818]
+total_energy_j                   mean=1575.738276  sd=165.091709  ci95=[1498.473867, 1653.002686]
+energy_per_delivery_j            mean=0.547485  sd=0.034615  ci95=[0.531284, 0.563685]
+airtime_per_delivery_s           mean=0.336808  sd=0.021140  ci95=[0.326915, 0.346702]
+rx_attempts                      mean=192501.400000  sd=20528.518767  ci95=[182893.867892, 202108.932108]
+packet_reception_ratio           mean=0.050258  sd=0.005892  ci95=[0.047501, 0.053016]
+collision_fail                   mean=82323.550000  sd=8854.177500  ci95=[78179.714997, 86467.385003]
+collision_rate                   mean=0.427776  sd=0.012644  ci95=[0.421858, 0.433694]
+duplicate_rx                     mean=1794.250000  sd=363.943008  ci95=[1623.921387, 1964.578613]
+suppressed_forwards              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+route_cache_hits                 mean=28.150000  sd=8.707377  ci95=[24.074869, 32.225131]
+route_cache_misses               mean=33.300000  sd=8.742516  ci95=[29.208424, 37.391576]
+fallback_forward_count           mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+route_repair_count               mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+mean_path_confidence             mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+control_overhead_ratio           mean=0.244953  sd=0.043648  ci95=[0.224525, 0.265381]
+policy_switch_count              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+policy_update_count              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+policy_reward_total              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+active_profile_index             mean=-1.000000  sd=0.000000  ci95=[-1.000000, -1.000000]
 
 calm-mesh  n=20
 -----------------
-unicast_pdr              mean=0.733473  sd=0.151243
-broadcast_coverage       mean=0.974972  sd=0.017381
-avg_delay_s              mean=0.921479  sd=0.166001
-mean_delivery_delay_s    mean=0.409728  sd=0.069151
-tx_count                 mean=3365.250000  sd=378.003046
-data_tx                  mean=2645.600000  sd=346.255063
-control_tx               mean=719.650000  sd=73.760120
-total_airtime_s          mean=830.489856  sd=93.285104
-airtime_per_delivery_s   mean=0.282157  sd=0.011750
-collision_fail           mean=74047.600000  sd=9413.633453
-duplicate_rx             mean=1627.950000  sd=395.838813
-suppressed_forwards      mean=833.750000  sd=158.457324
-route_cache_hits         mean=36.950000  sd=9.500554
-route_cache_misses       mean=24.500000  sd=8.550162
-fallback_forward_count   mean=42.750000  sd=37.556799
-route_repair_count       mean=7.350000  sd=1.980829
-mean_path_confidence     mean=0.949490  sd=0.004573
-control_overhead_ratio   mean=0.215420  sd=0.024943
-policy_switch_count      mean=0.000000  sd=0.000000
-policy_update_count      mean=0.000000  sd=0.000000
-policy_reward_total      mean=0.000000  sd=0.000000
-active_profile_index     mean=-1.000000  sd=0.000000
+unicast_pdr                      mean=0.731076  sd=0.116961  ci95=[0.676337, 0.785815]
+destination_unicast_pdr          mean=0.774666  sd=0.114373  ci95=[0.721138, 0.828193]
+broadcast_coverage               mean=0.965346  sd=0.024165  ci95=[0.954036, 0.976655]
+avg_delay_s                      mean=1.090255  sd=0.100285  ci95=[1.043320, 1.137189]
+mean_delivery_delay_s            mean=0.429309  sd=0.093167  ci95=[0.385706, 0.472912]
+unicast_delivery_delay_s         mean=0.916385  sd=0.144579  ci95=[0.848720, 0.984049]
+unicast_ack_delay_s              mean=1.090255  sd=0.100285  ci95=[1.043320, 1.137189]
+p95_unicast_delivery_delay_s     mean=2.572632  sd=0.238182  ci95=[2.461160, 2.684103]
+p95_unicast_ack_delay_s          mean=2.740352  sd=0.000000  ci95=[2.740352, 2.740352]
+tx_count                         mean=3378.700000  sd=344.929909  ci95=[3217.269689, 3540.130311]
+data_tx                          mean=2605.000000  sd=320.400407  ci95=[2455.049717, 2754.950283]
+control_tx                       mean=773.700000  sd=72.826470  ci95=[739.616555, 807.783445]
+ack_tx                           mean=48.050000  sd=8.666177  ci95=[43.994151, 52.105849]
+total_airtime_s                  mean=833.809101  sd=85.123183  ci95=[793.970683, 873.647519]
+channel_busy_time_s              mean=123.348071  sd=14.721034  ci95=[116.458494, 130.237648]
+channel_busy_ratio               mean=0.102790  sd=0.012268  ci95=[0.097049, 0.108531]
+tx_energy_j                      mean=330.188404  sd=33.708780  ci95=[314.412390, 345.964418]
+rx_energy_j                      mean=1048.075591  sd=111.220374  ci95=[996.023452, 1100.127730]
+total_energy_j                   mean=1378.263995  sd=144.774779  ci95=[1310.508091, 1446.019898]
+energy_per_delivery_j            mean=0.473515  sd=0.024137  ci95=[0.462219, 0.484811]
+airtime_per_delivery_s           mean=0.286539  sd=0.014491  ci95=[0.279758, 0.293321]
+rx_attempts                      mean=165544.050000  sd=16895.615820  ci95=[157636.749268, 173451.350732]
+packet_reception_ratio           mean=0.063285  sd=0.005787  ci95=[0.060576, 0.065993]
+collision_fail                   mean=74128.800000  sd=9357.278133  ci95=[69749.509359, 78508.090641]
+collision_rate                   mean=0.446969  sd=0.019203  ci95=[0.437982, 0.455956]
+duplicate_rx                     mean=1664.100000  sd=399.943930  ci95=[1476.922630, 1851.277370]
+suppressed_forwards              mean=856.100000  sd=189.117313  ci95=[767.591390, 944.608610]
+route_cache_hits                 mean=38.950000  sd=7.556628  ci95=[35.413430, 42.486570]
+route_cache_misses               mean=22.500000  sd=6.932001  ci95=[19.255761, 25.744239]
+fallback_forward_count           mean=50.550000  sd=45.071259  ci95=[29.456244, 71.643756]
+route_repair_count               mean=7.600000  sd=1.729009  ci95=[6.790808, 8.409192]
+mean_path_confidence             mean=0.949343  sd=0.004088  ci95=[0.947430, 0.951256]
+control_overhead_ratio           mean=0.230495  sd=0.025779  ci95=[0.218430, 0.242560]
+policy_switch_count              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+policy_update_count              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+policy_reward_total              mean=0.000000  sd=0.000000  ci95=[0.000000, 0.000000]
+active_profile_index             mean=-1.000000  sd=0.000000  ci95=[-1.000000, -1.000000]
 
 smart-calm  n=20
 ------------------
-unicast_pdr              mean=0.969240  sd=0.021978
-broadcast_coverage       mean=0.974613  sd=0.023025
-avg_delay_s              mean=6.714355  sd=3.880777
-mean_delivery_delay_s    mean=0.540680  sd=0.162314
-tx_count                 mean=3317.850000  sd=408.342513
-data_tx                  mean=2710.800000  sd=382.155466
-control_tx               mean=607.050000  sd=78.086642
-total_airtime_s          mean=818.792294  sd=100.772399
-airtime_per_delivery_s   mean=0.276889  sd=0.019004
-collision_fail           mean=72980.450000  sd=10268.270502
-duplicate_rx             mean=1594.150000  sd=381.744234
-suppressed_forwards      mean=846.250000  sd=176.594056
-route_cache_hits         mean=42.050000  sd=7.323179
-route_cache_misses       mean=19.400000  sd=8.184710
-fallback_forward_count   mean=94.900000  sd=134.710176
-route_repair_count       mean=5.500000  sd=2.395171
-mean_path_confidence     mean=0.948722  sd=0.007657
-control_overhead_ratio   mean=0.184763  sd=0.026907
-policy_switch_count      mean=3.350000  sd=2.601113
-policy_update_count      mean=100.750000  sd=8.447204
-policy_reward_total      mean=103.149287  sd=10.797078
-active_profile_index     mean=0.200000  sd=0.523148
+unicast_pdr                      mean=0.932668  sd=0.048445  ci95=[0.909996, 0.955341]
+destination_unicast_pdr          mean=0.962287  sd=0.035834  ci95=[0.945516, 0.979058]
+broadcast_coverage               mean=0.965997  sd=0.020584  ci95=[0.956363, 0.975630]
+avg_delay_s                      mean=8.404761  sd=4.686711  ci95=[6.211338, 10.598184]
+mean_delivery_delay_s            mean=0.568502  sd=0.154349  ci95=[0.496265, 0.640739]
+unicast_delivery_delay_s         mean=7.320448  sd=4.709391  ci95=[5.116410, 9.524486]
+unicast_ack_delay_s              mean=8.404761  sd=4.686711  ci95=[6.211338, 10.598184]
+p95_unicast_delivery_delay_s     mean=27.114670  sd=13.438658  ci95=[20.825257, 33.404084]
+p95_unicast_ack_delay_s          mean=32.699211  sd=7.915663  ci95=[28.994609, 36.403812]
+tx_count                         mean=3592.550000  sd=450.828066  ci95=[3381.558395, 3803.541605]
+data_tx                          mean=2899.050000  sd=418.249796  ci95=[2703.305320, 3094.794680]
+control_tx                       mean=693.500000  sd=71.766801  ci95=[659.912489, 727.087511]
+ack_tx                           mean=63.500000  sd=9.304781  ci95=[59.145279, 67.854721]
+total_airtime_s                  mean=886.583859  sd=111.257153  ci95=[834.514507, 938.653211]
+channel_busy_time_s              mean=134.781545  sd=15.842408  ci95=[127.367155, 142.195935]
+channel_busy_ratio               mean=0.112318  sd=0.013202  ci95=[0.106139, 0.118497]
+tx_energy_j                      mean=351.087208  sd=44.057833  ci95=[330.467745, 371.706672]
+rx_energy_j                      mean=1119.862124  sd=143.970568  ci95=[1052.482599, 1187.241650]
+total_energy_j                   mean=1470.949333  sd=187.923348  ci95=[1382.999509, 1558.899156]
+energy_per_delivery_j            mean=0.505340  sd=0.075661  ci95=[0.469930, 0.540750]
+airtime_per_delivery_s           mean=0.304615  sd=0.045306  ci95=[0.283412, 0.325819]
+rx_attempts                      mean=176027.600000  sd=22085.048122  ci95=[165691.598102, 186363.601898]
+packet_reception_ratio           mean=0.067287  sd=0.007482  ci95=[0.063786, 0.070789]
+collision_fail                   mean=79474.100000  sd=11968.536620  ci95=[73872.716813, 85075.483187]
+collision_rate                   mean=0.450310  sd=0.017356  ci95=[0.442187, 0.458433]
+duplicate_rx                     mean=1732.150000  sd=420.867434  ci95=[1535.180241, 1929.119759]
+suppressed_forwards              mean=928.850000  sd=198.519328  ci95=[835.941162, 1021.758838]
+route_cache_hits                 mean=42.000000  sd=9.136393  ci95=[37.724085, 46.275915]
+route_cache_misses               mean=19.450000  sd=8.899882  ci95=[15.284775, 23.615225]
+fallback_forward_count           mean=333.950000  sd=377.666028  ci95=[157.198889, 510.701111]
+route_repair_count               mean=6.150000  sd=2.368099  ci95=[5.041708, 7.258292]
+mean_path_confidence             mean=0.943933  sd=0.013871  ci95=[0.937441, 0.950424]
+control_overhead_ratio           mean=0.195080  sd=0.024721  ci95=[0.183511, 0.206650]
+policy_switch_count              mean=4.250000  sd=2.633289  ci95=[3.017597, 5.482403]
+policy_update_count              mean=100.450000  sd=8.249242  ci95=[96.589280, 104.310720]
+policy_reward_total              mean=100.933850  sd=16.650655  ci95=[93.141193, 108.726506]
+active_profile_index             mean=0.400000  sd=0.753937  ci95=[0.047151, 0.752849]

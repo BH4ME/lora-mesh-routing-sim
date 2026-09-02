@@ -53,7 +53,7 @@ to change simulation parameters or add new routing protocols.
 
 | Parameter | Meaning |
 | --- | --- |
-| `--protocol` | Which protocol to run: `meshtastic`, `meshcore`, or `both`. |
+| `--protocol` | Which protocol to run: an individual protocol, `both`, `all`, `all4`, or `icc` for the full seven-configuration comparison. |
 | `--nodes` | Number of simulated nodes. |
 | `--area-m` | Side length of the square simulation area in meters. |
 | `--duration-s` | Simulation duration in seconds. |
@@ -69,6 +69,9 @@ to change simulation parameters or add new routing protocols.
 | `--cr` | LoRa coding-rate index. `1` means 4/5 in the simulator. |
 | `--payload-bytes` | Payload size used for airtime calculation. |
 | `--tx-power-dbm` | Transmit power in dBm. |
+| `--tx-current-ma` | Transmit current used for energy accounting. |
+| `--rx-current-ma` | Receive/listen current used for energy accounting. |
+| `--supply-voltage-v` | Supply voltage used for energy accounting. |
 | `--path-loss-exp` | Path-loss exponent. Larger values mean faster signal decay with distance. |
 | `--shadow-sigma-db` | Standard deviation of log-normal shadowing in dB. |
 | `--capture-threshold-db` | Required signal advantage for capture during collision. |
@@ -157,8 +160,9 @@ Received power is:
 RSSI_dBm = TxPower_dBm - PathLoss(d)
 ```
 
-The simulator uses a new shadowing sample when computing receive power. This is
-a compact way to model link variation without simulating full radio waveforms.
+The simulator draws one shadowing value per unordered node pair and seed, then
+reuses it for every packet on that link. This keeps the propagation realization
+identical across protocol runs while avoiding a full waveform model.
 
 ## Noise, SNR, and SINR
 

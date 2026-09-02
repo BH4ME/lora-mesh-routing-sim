@@ -6,7 +6,30 @@ The current research line targets IEEE ICC 2027 IoT and Sensor Networks with
 an ACK-aware Smart-CALM LoRa mesh protocol. The repository contains the
 simulator, ESP32 firmware prototype, experiment scripts, results, and a
 working paper. The current version boundary for the new experiment line is
-`2.1.1`.
+`2.1.2`.
+
+## 2.1.2 Refresh In This Turn
+
+- Normalized CSV output writing to LF across the simulator and analysis /
+  training helpers so generated result files stop producing CRLF diff noise.
+- Bumped the repository release boundary to `2.1.2` in `VERSION`, `README.md`,
+  firmware version strings, and the release notes.
+- Re-ran the `smart_calm_v2` experiment line with
+  `OUT_PREFIX=smart_calm_v2 bash tools/run_calm_experiments.sh`.
+- The `results/smart_calm_v2_50n_unicast_pairs.csv`,
+  `results/smart_calm_v2_50n_mixed.csv`,
+  `results/smart_calm_v2_50n_mixed_shadow6.csv`, and
+  `results/smart_calm_v2_50n_mixed_rate10.csv` files were overwritten with new
+  LF-terminated output, along with their matching `_summary.txt` files.
+- The new outputs should be treated as the current `v2` simulation line until
+  a later paper-version freeze decides otherwise.
+- Verification completed after the refresh:
+  - `git diff --check` passed.
+  - `python3 -m unittest discover -s tests -p 'test_*.py' -v` passed (`35` tests).
+  - `python3 -m py_compile lora_mesh_sim.py analyze_results.py tools/*.py tests/*.py` passed.
+  - `g++ -std=c++17 -Wall -Wextra -pedantic -Ifirmware/esp32_smart_calm/include firmware/esp32_smart_calm/test/controller_smoke.cpp -o /tmp/smart_calm_controller_smoke && /tmp/smart_calm_controller_smoke` passed.
+  - `pio run -e esp32dev_sx1262` passed.
+  - `pio run -e esp32dev_sx127x` passed.
 
 ## Completed In This Run
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.2 - CSV normalization and release refresh
+
+- Normalize generated CSV outputs to LF line endings across simulator and
+  analysis scripts.
+- Refresh the ICC comparison and versioned Smart-CALM comparison artifacts.
+- Bump firmware and project release metadata to `2.1.2`.
+
 ## 2.1.1 - ICC comparison freeze
 
 - Add the verified ICC 2027 comparison report and handoff note.

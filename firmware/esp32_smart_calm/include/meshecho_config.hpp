@@ -9,7 +9,7 @@
 
 namespace smart_calm {
 
-constexpr const char* kMeshEchoFirmwareVersion = "meshecho-firmware-v2.1.1";
+constexpr const char* kMeshEchoFirmwareVersion = "meshecho-firmware-v2.1.2";
 constexpr const char* kMeshEchoConfigProtocol = "meshecho-config-v1";
 constexpr std::size_t kMeshEchoCallsignSize = 17;
 

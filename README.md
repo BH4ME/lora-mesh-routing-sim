@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current release: `2.1.1` (`meshecho-firmware-v2.1.1`).
+Current release: `2.1.2` (`meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
 ideas under a fixed SX1262-style PHY profile.
@@ -49,10 +49,11 @@ RadioLib, not a Meshtastic or MeshCore fork.
 
 The current firmware supports ESP32 + SX1262 and ESP32 + SX127x/RFM9x build
 targets. It sends/receives CRC-protected Smart-CALM frames, status beacons, and
-a custom `RREQ/RREP/DATA/ACK` mesh data plane. The `2.1.1` firmware release
+a custom `RREQ/RREP/DATA/ACK` mesh data plane. The `2.1.2` firmware release
 keeps the bounded fallback delivery with reverse-path ACKs, prevents
-post-ACK timeout retries, and exposes richer delivery and route-aging
-telemetry while aligning the repository with the ICC comparison freeze.
+post-ACK timeout retries, emits LF-normalized experiment CSVs, and exposes
+richer delivery and route-aging telemetry while preserving the ICC comparison
+freeze.
 
 Detailed firmware notes are in
 [ESP32 Smart-CALM Direct-LoRa Firmware](docs/firmware/esp32_smart_calm.md).

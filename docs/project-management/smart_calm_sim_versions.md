@@ -3,9 +3,18 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current firmware and project release is `2.1.1`; simulation CSV baselines keep
+current firmware and project release is `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.2`
+
+- Status: CSV normalization and release refresh on 2026-09-02.
+- Core change: the simulator and analysis scripts now emit LF-only CSVs, so
+  generated experiment files produce stable diffs across platforms.
+- Keep the frozen ICC comparison line and the versioned Smart-CALM result
+  prefixes unchanged; this release is a packaging and reproducibility refresh
+  rather than a new algorithm baseline.
 
 ## `smart-calm-sim-v2.1.1`
 

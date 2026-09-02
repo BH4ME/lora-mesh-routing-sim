@@ -116,7 +116,7 @@ struct FlowDecision {
   std::uint32_t created_at_ms = 0;
 };
 
-inline constexpr const char* kSmartCalmSoftwareVersion = "2.1.1";
+inline constexpr const char* kSmartCalmSoftwareVersion = "2.1.2";
 
 inline constexpr std::array<Profile, kProfileCount> defaultProfiles() {
   return {{

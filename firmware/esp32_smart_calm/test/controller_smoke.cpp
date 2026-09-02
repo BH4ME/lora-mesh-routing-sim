@@ -22,7 +22,7 @@ int main() {
       handleMeshEchoConfigCommand("version", config, runtime, config_response, sizeof(config_response));
   assert(command.handled);
   assert(command.ok);
-  assert(std::strstr(config_response, "\"version\":\"meshecho-firmware-v2.1.1\"") != nullptr);
+  assert(std::strstr(config_response, "\"version\":\"meshecho-firmware-v2.1.2\"") != nullptr);
   assert(std::strstr(config_response, "\"target\":\"esp32dev_sx1262\"") != nullptr);
 
   command = handleMeshEchoConfigCommand("get config", config, runtime, config_response, sizeof(config_response));

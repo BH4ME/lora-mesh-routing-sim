@@ -42,6 +42,7 @@ class ThreeProtocolComparisonTest(unittest.TestCase):
                         "total_airtime_s",
                         "collision_fail",
                     ],
+                    lineterminator="\n",
                 )
                 writer.writeheader()
                 writer.writerows(

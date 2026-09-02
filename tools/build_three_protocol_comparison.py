@@ -20,7 +20,7 @@ PROTOCOLS = ("meshtastic-like", "meshcore-like", "smart-calm")
 PROTOCOL_LABELS = {
     "meshtastic-like": "Meshtastic-like",
     "meshcore-like": "MeshCore-like",
-    "smart-calm": "Smart-CALM",
+    "smart-calm": "Smart-CALM v1.1",
 }
 COLORS = {
     "meshtastic-like": "#2f6f73",
@@ -40,17 +40,17 @@ SCENARIOS = (
     Scenario(
         key="mixed",
         label="Mixed traffic",
-        csv_path=RESULTS / "smart_calm_v2_50n_mixed.csv",
+        csv_path=RESULTS / "smart_calm_v1_1_50n_mixed.csv",
     ),
     Scenario(
         key="shadow6",
         label="High shadowing",
-        csv_path=RESULTS / "smart_calm_v2_50n_mixed_shadow6.csv",
+        csv_path=RESULTS / "smart_calm_v1_1_50n_mixed_shadow6.csv",
     ),
     Scenario(
         key="rate10",
         label="High offered load",
-        csv_path=RESULTS / "smart_calm_v2_50n_mixed_rate10.csv",
+        csv_path=RESULTS / "smart_calm_v1_1_50n_mixed_rate10.csv",
     ),
 )
 
@@ -148,9 +148,11 @@ def write_markdown(data: Dict[str, Dict[str, Dict[str, float]]]) -> Path:
     lines = [
         "# Three-Protocol Comparison",
         "",
-        "Protocols compared: `Meshtastic-like`, `MeshCore-like`, and `Smart-CALM`.",
+        "Protocols compared: `Meshtastic-like`, `MeshCore-like`, and `Smart-CALM v1.1`.",
         "",
         "Scenarios use `50 nodes / 3000 m / 1200 s / mixed traffic / pair-count 8 / 20 seeds` unless noted.",
+        "",
+        "This report is pinned to the archived Smart-CALM v1.1 CSV files. The later v2 algorithm is intentionally excluded here. ACK-confirmed variants are reported separately in `results/ack_aware_comparison/`.",
         "",
         "| Scenario | Protocol | Unicast PDR | Airtime (s) | Collision failures |",
         "| --- | --- | ---: | ---: | ---: |",
@@ -173,8 +175,8 @@ def write_markdown(data: Dict[str, Dict[str, Dict[str, float]]]) -> Path:
             "",
             "- `Meshtastic-like` keeps strong reliability, but spends the most airtime and creates the most collisions.",
             "- `MeshCore-like` is cheaper than flooding, but loses unicast reliability in mixed and stressed traffic.",
-            "- `Smart-CALM v2` keeps the reliability target while reducing both airtime and collision failures below the MeshCore-like baseline in all three scenarios.",
-            "- Under high offered load, `Smart-CALM v2` trades about half a PDR point versus v1.1 for a clear reduction in channel occupancy and collisions.",
+            "- `Smart-CALM v1.1` improves unicast PDR over `MeshCore-like` while staying materially below `Meshtastic-like` airtime in the three archived scenarios.",
+            "- Under high offered load, `Smart-CALM v1.1` stays close to managed flooding on reliability while still reducing channel occupancy.",
         ]
     )
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

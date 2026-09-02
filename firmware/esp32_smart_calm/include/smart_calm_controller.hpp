@@ -23,7 +23,7 @@ class SmartCalmController {
     float learning_rate = 0.45f;
     float discount = 0.75f;
     float exploration = 0.02f;
-    float flow_timeout_s = 35.0f;
+    float flow_timeout_s = 15.0f;
   };
 
   SmartCalmController() : SmartCalmController(Settings{}, defaultProfiles()) {}
@@ -77,6 +77,12 @@ class SmartCalmController {
     return profiles_[active_profile_index_];
   }
 
+  const Profile& profileAt(std::uint8_t profile_index) const {
+    const std::uint8_t bounded_index =
+        std::min<std::uint8_t>(profile_index, static_cast<std::uint8_t>(kProfileCount - 1U));
+    return profiles_[bounded_index];
+  }
+
   std::uint8_t activeProfileIndex() const {
     return active_profile_index_;
   }
@@ -91,6 +97,14 @@ class SmartCalmController {
 
   const Settings& settings() const {
     return settings_;
+  }
+
+  std::uint32_t policySwitchCount() const {
+    return policy_switch_count_;
+  }
+
+  std::uint32_t policyUpdateCount() const {
+    return policy_update_count_;
   }
 
   std::uint8_t stateIndexFromSnapshot(const Snapshot& snapshot) const {
@@ -170,6 +184,12 @@ class SmartCalmController {
     }
   }
 
+  void markTimeoutRetry(std::uint32_t flow_id) {
+    if (FlowDecision* decision = findDecision(flow_id)) {
+      ++decision->timeout_retries;
+    }
+  }
+
   void markConfidence(std::uint32_t flow_id, float confidence) {
     if (FlowDecision* decision = findDecision(flow_id)) {
       decision->confidence = std::max(decision->confidence, clampFloat(confidence, 0.0f, 1.0f));
@@ -187,7 +207,8 @@ class SmartCalmController {
     const float latency_s = static_cast<float>(now_ms - decision->created_at_ms) / 1000.0f;
     const float reward =
         (delivered ? 1.0f : -0.8f) - 0.02f * latency_s - 0.08f * decision->route_miss -
-        0.035f * decision->fallback_count + 0.08f * decision->confidence;
+        0.035f * decision->fallback_count - 0.055f * decision->timeout_retries +
+        0.08f * decision->confidence;
     updateFromReward(*decision, reward, snapshot);
     decision->active = false;
   }
@@ -231,15 +252,20 @@ class SmartCalmController {
                           ? static_cast<float>(last_snapshot_.unicast_acks) /
                                 static_cast<float>(last_snapshot_.unicast_flows)
                           : 0.0f;
+    const float avg_ack_delay = last_snapshot_.delivery_delay_samples
+                                    ? last_snapshot_.delivery_delay_total_s /
+                                          static_cast<float>(last_snapshot_.delivery_delay_samples)
+                                    : 0.0f;
     std::snprintf(
         out,
         out_size,
-        "profile=%s state=%u q=%.3f reward=%.3f pdr=%.3f switch=%lu update=%lu overflow=%lu",
+        "profile=%s state=%u q=%.3f reward=%.3f pdr=%.3f ack=%.2fs switch=%lu update=%lu overflow=%lu",
         activeProfile().name,
         static_cast<unsigned>(active_profile_index_),
         q_values_[index(active_state_index_, active_profile_index_)],
         policy_reward_total_,
         pdr,
+        avg_ack_delay,
         static_cast<unsigned long>(policy_switch_count_),
         static_cast<unsigned long>(policy_update_count_),
         static_cast<unsigned long>(decision_overflow_count_));
@@ -293,6 +319,8 @@ class SmartCalmController {
     const float new_tx = static_cast<float>(current.tx_count - previous.tx_count);
     const float new_control = static_cast<float>(current.control_tx - previous.control_tx);
     const float new_collisions = static_cast<float>(current.collision_fail - previous.collision_fail);
+    const float new_rx_fail = static_cast<float>(current.rx_fail - previous.rx_fail);
+    const float new_rx_success = static_cast<float>(current.rx_success - previous.rx_success);
     const float new_repairs =
         static_cast<float>(current.route_repair_count - previous.route_repair_count);
     const float new_fallback =
@@ -309,9 +337,12 @@ class SmartCalmController {
     const float avg_delay = new_delay_total / std::max(1.0f, new_delay_samples);
     const float control_ratio = new_control / std::max(1.0f, new_tx);
     const float collision_pressure = new_collisions / std::max(1.0f, new_tx);
+    const float reception_failure_rate =
+        new_rx_fail / std::max(1.0f, new_rx_fail + new_rx_success);
 
     return 1.6f * unicast_pdr + 0.4f * broadcast_gain - 0.03f * avg_delay - 0.35f * control_ratio -
-           0.012f * collision_pressure - 0.05f * new_repairs - 0.004f * new_fallback;
+           0.012f * collision_pressure - 0.05f * new_repairs - 0.004f * new_fallback -
+           0.12f * reception_failure_rate;
   }
 
   void updateFromReward(const FlowDecision& decision, float reward, const Snapshot& snapshot) {
