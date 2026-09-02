@@ -10,7 +10,9 @@ constexpr std::size_t kProfileCount = 3;
 constexpr std::size_t kStateCount = 6;
 constexpr std::size_t kActionCount = 3;
 constexpr std::size_t kMaxTrackedFlows = 8;
+constexpr std::size_t kMaxRouteHops = 6;
 constexpr std::size_t kWirePayloadSize = 32;
+constexpr std::size_t kRouteAppPayloadSize = kWirePayloadSize - 2 - 2 * kMaxRouteHops;
 constexpr std::uint16_t kWireMagic = 0x5343;
 constexpr std::uint8_t kWireVersion = 1;
 constexpr std::size_t kWirePrefixSize = 2 + 1 + 1 + 2 + 2 + 2 + 4 + 4 + 1 + 1 + 1 + 1 + 2 + 1;
@@ -33,10 +35,15 @@ struct Profile {
 struct Snapshot {
   std::uint32_t tx_count = 0;
   std::uint32_t control_tx = 0;
+  std::uint32_t rx_success = 0;
+  std::uint32_t rx_fail = 0;
   std::uint32_t collision_fail = 0;
   std::uint32_t route_cache_hits = 0;
   std::uint32_t route_cache_misses = 0;
   std::uint32_t route_repair_count = 0;
+  std::uint32_t route_expired_count = 0;
+  std::uint32_t neighbor_updates = 0;
+  std::uint32_t neighbor_expired_count = 0;
   std::uint32_t fallback_forward_count = 0;
   float path_confidence_total = 0.0f;
   std::uint32_t path_confidence_samples = 0;
@@ -44,9 +51,20 @@ struct Snapshot {
   std::uint32_t broadcast_flows = 0;
   std::uint32_t unicast_deliveries = 0;
   std::uint32_t unicast_acks = 0;
+  std::uint32_t unicast_failures = 0;
+  std::uint32_t fallback_delivery_count = 0;
   std::uint32_t broadcast_deliveries = 0;
   float delivery_delay_total_s = 0.0f;
   std::uint32_t delivery_delay_samples = 0;
+};
+
+struct MeshRuntimeLimits {
+  std::uint8_t max_hops = 6;
+  std::uint16_t route_ttl_s = 600;
+  std::uint8_t fallback_ttl = 2;
+  std::uint16_t ack_timeout_ms = 1800;
+  std::uint8_t max_timeout_retries = 2;
+  bool retry_after_fallback = false;
 };
 
 struct PriorEntry {
@@ -97,6 +115,8 @@ struct FlowDecision {
   std::uint8_t timeout_retries = 0;
   std::uint32_t created_at_ms = 0;
 };
+
+inline constexpr const char* kSmartCalmSoftwareVersion = "2.1.1";
 
 inline constexpr std::array<Profile, kProfileCount> defaultProfiles() {
   return {{

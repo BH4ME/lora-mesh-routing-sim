@@ -21,6 +21,9 @@ keeps the main `README.md` as the entry point.
   commits, and per-version bar charts for Smart-CALM simulation baselines.
 - [Three Protocol Comparison](results/three_protocol_comparison.md): concise
   meeting view comparing Meshtastic-like, MeshCore-like, and Smart-CALM.
+- [ICC 2027 Comparison](results/icc2027_comparison.md): verified four-scenario
+  Smart-CALM ICC matrix with ACK-confirmed PDR, airtime, delay, and fallback
+  tradeoffs.
 - [CALM Experiment Notes](results/calm_experiment_notes.md): detailed simulation
   notes and interpretation.
 - [Prior Model Comparison Summary](results/prior_model_comparison_summary.md):
@@ -30,6 +33,15 @@ keeps the main `README.md` as the entry point.
 
 - [ESP32 Smart-CALM Direct-LoRa Firmware](firmware/esp32_smart_calm.md):
   firmware build, packet format, and serial smoke-test instructions.
+
+## Web Platform
+
+- [MeshEcho Web Platform Plan](web/meshecho_web_platform_plan.md): plan for the
+  official website, browser firmware flasher, and Web Serial/BLE/WiFi
+  configuration console.
+- [MeshEcho Web App](../web/meshecho/README.md): runnable frontend prototype for
+  the official site, Meshtastic-style flasher shell, and browser configuration
+  console.
 
 ## Reference
 

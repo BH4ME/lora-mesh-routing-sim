@@ -1,9 +1,11 @@
 # ESP32 Smart-CALM Direct-LoRa Firmware
 
-This directory contains the first burnable ESP32 firmware prototype for the
+This directory contains the burnable ESP32 firmware prototype for the
 Smart-CALM controller on directly attached LoRa radios. It is a self-written
 control layer inspired by source-routing and managed-flooding ideas, not a fork
 of MeshCore or Meshtastic.
+
+Firmware release: `meshecho-firmware-v2.1.1` (`VERSION` `2.1.1`).
 
 ## What it does
 
@@ -16,6 +18,14 @@ of MeshCore or Meshtastic.
 - Receives Smart-CALM frames, rejects malformed/CRC-failed packets, and runs a
   custom mesh data plane with `RREQ`, `RREP`, `DATA`, `ACK`, and bounded
   fallback frame types.
+- Completes fallback delivery at the destination and returns an ACK over the
+  observed reverse path.
+- Expires stale routes, neighbors, and duplicate-suppression entries, and
+  reports route/neighbor aging counters.
+- Keeps timeout retries bound to the profile selected when the application flow
+  started, and removes a pending flow immediately after source-side ACK.
+- Exposes receive success/failure, delivery counts, ACK delay, fallback
+  deliveries, and policy update counters through the `show` command.
 - Keeps the controller logic separate from the radio driver so the data-plane
   can be expanded later.
 
@@ -51,8 +61,8 @@ Maximum encoded size is `56 bytes` with the default `32 byte` payload.
 
 `created_at_ms` is the source node's local `millis()` timestamp. Other nodes
 must treat it as opaque metadata because ESP32 nodes are not clock synchronized;
-source-side ACK handling uses the controller's local flow start time for
-latency-sensitive learning.
+the source preserves it through retries and ACK return so the originating node
+can measure end-to-end elapsed time against its own clock.
 
 ## Build
 
@@ -92,8 +102,9 @@ path.
 
 - Default frequency is `915 MHz`, which is the usual US ISM band setting.
 - The current firmware is a direct LoRa prototype, not a UART transparent modem.
-- It already has an over-the-air packet format, route discovery, source-route
-  forwarding, ACK return path, and a serial-triggered application send path.
+- It has an over-the-air packet format, route discovery, source-route
+  forwarding, bounded fallback with reverse-path ACK, and a serial-triggered
+  application send path.
 - Simulator changes must stay portable to ESP32-class firmware: prefer compact
   per-flow counters, bounded source paths, and explicit ACK confirmation over
   simulator-only global history or large dynamic tables.
@@ -101,5 +112,6 @@ path.
   in a fixed array and uses a linear scan. With the current small capacity this
   avoids heap allocation; slot overflow is counted and printed in the serial
   status as `overflow=`.
-- The next firmware step is to add timeout retry, persistent route aging,
-  neighbor/link-quality tables, and richer delivery telemetry.
+- The v2.1.1 reliability refinement is complete. Physical-radio validation
+  remains separate from the host smoke test because it requires the target
+  board, wiring, and RF environment.

@@ -7,15 +7,21 @@ protocols for comparison.
 
 Licensed under MIT.
 
+Current release: `2.1.1` (`meshecho-firmware-v2.1.1`).
+
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
 ideas under a fixed SX1262-style PHY profile.
 
-It currently implements two behavior-equivalent baselines:
+It currently implements two behavior-equivalent baselines and the CALM family:
 
 - `meshtastic-like`: managed flooding with delayed rebroadcast and suppression
   when another copy is heard.
 - `meshcore-like`: first unicast floods a route request, the destination replies
   on the reverse path, then later unicast packets use a cached source route.
+- `calm-mesh`: confidence-aware source routing with bounded fallback forwarding.
+- `smart-calm`: MCU-friendly profile-based online adaptation, plus explicit
+  `smart-calm-static`, `smart-calm-no-fallback`, and
+  `smart-calm-no-confidence` ablations.
 
 The simulator is not a firmware clone. It is a research harness for comparing
 routing behavior under the same topology, traffic, propagation, collision, and
@@ -43,7 +49,10 @@ RadioLib, not a Meshtastic or MeshCore fork.
 
 The current firmware supports ESP32 + SX1262 and ESP32 + SX127x/RFM9x build
 targets. It sends/receives CRC-protected Smart-CALM frames, status beacons, and
-a custom `RREQ/RREP/DATA/ACK` mesh data plane.
+a custom `RREQ/RREP/DATA/ACK` mesh data plane. The `2.1.1` firmware release
+keeps the bounded fallback delivery with reverse-path ACKs, prevents
+post-ACK timeout retries, and exposes richer delivery and route-aging
+telemetry while aligning the repository with the ICC comparison freeze.
 
 Detailed firmware notes are in
 [ESP32 Smart-CALM Direct-LoRa Firmware](docs/firmware/esp32_smart_calm.md).
@@ -94,6 +103,21 @@ Aggregate a multi-seed CSV:
 python3 analyze_results.py results/baselines.csv
 ```
 
+For the ICC comparison matrix, run:
+
+```bash
+tools/run_icc_experiments.sh
+```
+
+This runs seven configurations (`meshtastic`, `meshcore`, `calm`, full
+`smart-calm`, and three Smart-CALM ablations) over repeated-unicast, mixed
+traffic, stronger-shadowing, and higher-load scenarios. Each scenario writes a
+raw CSV, a text summary, and a long-format summary CSV with mean, standard
+deviation, and 95% confidence intervals. See
+[ICC 2027 Experiment Plan](docs/icc2027_experiment_plan.md) for the table
+layout and reproducibility rules. The verified matrix is summarized in
+[ICC 2027 Comparison](docs/results/icc2027_comparison.md).
+
 Useful parameters:
 
 ```bash
@@ -109,6 +133,9 @@ Useful parameters:
 --cr 1
 --payload-bytes 32
 --tx-power-dbm 17
+--tx-current-ma 120
+--rx-current-ma 10.3
+--supply-voltage-v 3.3
 --path-loss-exp 2.7
 --shadow-sigma-db 4
 --max-hops 7
@@ -138,7 +165,8 @@ The PHY model uses:
 
 The simulator produces virtual RSSI/SNR values from the propagation model. A
 real deployment would obtain those values from the SX1262 driver; in simulation,
-all protocols share the same generated values, making comparisons fair.
+all protocols share the same topology, traffic trace, and static per-link
+shadowing realization for a given seed.
 
 ## Metrics
 
@@ -153,8 +181,13 @@ The table and CSV include:
 - `control_tx`
 - `ack_tx`
 - `total_airtime_s`
+- `channel_busy_ratio`
+- `total_energy_j`
+- `energy_per_delivery_j`
 - `airtime_per_delivery_s`
+- `packet_reception_ratio`
 - `collision_fail`
+- `collision_rate`
 - `duplicate_rx`
 - `suppressed_forwards`
 - `route_cache_hits`

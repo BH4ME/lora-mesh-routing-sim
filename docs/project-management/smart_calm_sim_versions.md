@@ -2,9 +2,23 @@
 
 This file tracks simulation baselines before further optimization.
 
+The repository-wide release version is tracked separately in `VERSION`. The
+current firmware and project release is `2.1.1`; simulation CSV baselines keep
+their existing `smart-calm-sim-v2` identity so historical comparisons remain
+stable.
+
+## `smart-calm-sim-v2.1.1`
+
+- Status: ICC comparison freeze on 2026-09-02.
+- Core change: the repository release metadata is aligned with the verified
+  ICC 2027 matrix and the new `docs/results/icc2027_comparison.md` summary.
+- Keep the `meshecho_v2_1_0_icc_50n_*` CSV prefix for the frozen ICC result
+  line so the raw experiment files remain stable even though the repository
+  release number advanced.
+
 ## `smart-calm-sim-v1.1`
 
-- Status: superseded baseline on branch `codex/smart-calm-sim-optimization`.
+- Status: active paper baseline; later v2 work remains separate.
 - Baseline ancestry: starts from `smart-calm-sim-v1.0` and keeps the v1.0 CSVs
   untouched for comparison.
 - Core change: timeout recovery now prefers a cached source-route DATA retry
@@ -34,12 +48,13 @@ Twenty-seed Smart-CALM deltas versus v1.0:
 
 Notes:
 
-- Treat v1.1 as the historical optimization base for v2.
+- Treat v1.1 as the active ICNP paper comparison baseline.
 - The conference explanation should emphasize recovery discipline: Smart-CALM
   keeps reliability high by retrying along known paths first, and only spends
   fallback flooding when path knowledge is unavailable.
-- The v1.1 comparison charts were generated from v1.1 result CSVs before the
-  v2 timeout-rescue-radius optimization.
+- The v1.1 comparison charts are generated from v1.1 result CSVs. The later v2
+  timeout-rescue-radius optimization is preserved separately for a later
+  release.
 
 ## `smart-calm-sim-v2`
 
@@ -78,7 +93,7 @@ Notes:
 - Rejected candidate runs for tighter route-miss fallback and stricter timeout
   retry budgets should remain separate from the published v2 result files.
 - The current comparison charts in `results/figures/` and
-  `docs/results/three_protocol_comparison.md` are generated from v2 result
+  `docs/results/three_protocol_comparison.md` are generated from v1.1 result
   CSVs.
 
 ## Rejected candidate: `smart-calm-sim-v1.2`

@@ -26,7 +26,7 @@ Turn the current LoRa Mesh simulator into a clean conference-ready research proj
 | 11. Build ESP32 direct-LoRa firmware prototype | complete | Added a PlatformIO ESP32 prototype with Smart-CALM controller, explicit CRC-protected over-the-air frame encoding, and SX1262/SX127x build targets. |
 | 12. Port first mesh data plane to firmware | complete | Added Smart-CALM-owned RREQ/RREP/DATA/ACK source-route behavior and serial-triggered application sends, inspired by MeshCore/Meshtastic mechanics but not their protocols. |
 | 13. Optimize Smart-CALM recovery overhead | complete | Added v1.1 cached-path timeout retry before fallback flooding, then accepted v2 timeout-rescue radius control after three 20-seed comparison scenarios. |
-| 14. Add firmware reliability refinements | pending | Port v2 timeout recovery, persistent route aging, neighbor/link-quality tables, and richer delivery telemetry for online policy learning. |
+| 14. Add firmware reliability refinements | complete | v2.1.1 completes timeout recovery, route/neighbor aging, bounded fallback ACK return, profile-bound retries, and delivery telemetry. |
 
 ## Proposed Protocol Framing
 

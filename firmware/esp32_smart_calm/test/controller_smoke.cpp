@@ -1,6 +1,7 @@
 #include <cassert>
 #include <cstring>
 
+#include "../include/meshecho_config.hpp"
 #include "../include/smart_calm_controller.hpp"
 #include "../include/smart_calm_mesh.hpp"
 #include "../include/smart_calm_prior.hpp"
@@ -9,6 +10,68 @@
 using namespace smart_calm;
 
 int main() {
+  MeshEchoConfig config = makeDefaultMeshEchoConfig(1, 915.0f, 125.0f, 9, 7, 17, false);
+  MeshEchoRuntimeInfo runtime{};
+  runtime.target = "esp32dev_sx1262";
+  runtime.chip = "ESP32";
+  runtime.radio = "SX1262";
+  runtime.uptime_ms = 42;
+  char config_response[1024]{};
+
+  MeshEchoConfigCommandResult command =
+      handleMeshEchoConfigCommand("version", config, runtime, config_response, sizeof(config_response));
+  assert(command.handled);
+  assert(command.ok);
+  assert(std::strstr(config_response, "\"version\":\"meshecho-firmware-v2.1.1\"") != nullptr);
+  assert(std::strstr(config_response, "\"target\":\"esp32dev_sx1262\"") != nullptr);
+
+  command = handleMeshEchoConfigCommand("get config", config, runtime, config_response, sizeof(config_response));
+  assert(command.handled);
+  assert(command.ok);
+  assert(std::strstr(config_response, "\"node_id\":1") != nullptr);
+  assert(std::strstr(config_response, "\"freq_mhz\":915.000") != nullptr);
+
+  runtime.tx_count = 12;
+  runtime.rx_success = 9;
+  runtime.rx_fail = 1;
+  runtime.unicast_deliveries = 4;
+  runtime.unicast_acks = 3;
+  runtime.delivery_delay_total_s = 3.0f;
+  runtime.delivery_delay_samples = 3;
+  runtime.policy_update_count = 2;
+  command = handleMeshEchoConfigCommand("show", config, runtime, config_response, sizeof(config_response));
+  assert(command.handled);
+  assert(command.ok);
+  assert(std::strstr(config_response, "\"rx_success\":9") != nullptr);
+  assert(std::strstr(config_response, "\"unicast_acks\":3") != nullptr);
+  assert(std::strstr(config_response, "\"avg_ack_delay_s\":1.000") != nullptr);
+  assert(std::strstr(config_response, "\"policy_update_count\":2") != nullptr);
+
+  command = handleMeshEchoConfigCommand("set node_id 12", config, runtime, config_response, sizeof(config_response));
+  assert(command.handled);
+  assert(command.ok);
+  assert(command.node_id_changed);
+  assert(config.node_id == 12);
+  assert(std::strstr(config_response, "\"field\":\"node_id\"") != nullptr);
+
+  command = handleMeshEchoConfigCommand("set callsign BH4ME", config, runtime, config_response, sizeof(config_response));
+  assert(command.handled);
+  assert(command.ok);
+  assert(std::strcmp(config.callsign, "BH4ME") == 0);
+
+  command = handleMeshEchoConfigCommand("set sf 13", config, runtime, config_response, sizeof(config_response));
+  assert(command.handled);
+  assert(!command.ok);
+  assert(config.sf == 9);
+
+  command = handleMeshEchoConfigCommand("send 2 hello", config, runtime, config_response, sizeof(config_response));
+  assert(!command.handled);
+
+  command = handleMeshEchoConfigCommand("unknown", config, runtime, config_response, sizeof(config_response));
+  assert(command.handled);
+  assert(!command.ok);
+  assert(std::strstr(config_response, "unknown command") != nullptr);
+
   SmartCalmController controller;
   controller.loadPrior(kSmartCalmPrior);
 
@@ -89,9 +152,10 @@ int main() {
   SmartCalmController mesh_controller;
   Snapshot mesh_snapshot{};
   OutboundFrame out[kMaxOutboundFrames]{};
+  MeshRuntimeLimits limits{};
 
   const std::uint8_t app_payload[] = {'p', 'i', 'n', 'g'};
-  std::size_t count = node1.sendApp(3, 77, app_payload, sizeof(app_payload), 1000, 123, mesh_controller, mesh_snapshot, out, 2);
+  std::size_t count = node1.sendApp(limits, 3, 77, app_payload, sizeof(app_payload), 1000, 123, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Rreq);
   assert(out[0].frame.dst == 3);
@@ -101,7 +165,7 @@ int main() {
   assert(route.path[0] == 1);
 
   WireFrame rreq = out[0].frame;
-  count = node2.handleFrame(rreq, 1100, -96.0f, 7.5f, mesh_controller, mesh_snapshot, out, 2);
+  count = node2.handleFrame(limits, rreq, 1100, -96.0f, 7.5f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Rreq);
   assert(decodeRoutePayload(out[0].frame, &route));
@@ -110,7 +174,7 @@ int main() {
   assert(route.path[1] == 2);
 
   rreq = out[0].frame;
-  count = node3.handleFrame(rreq, 1200, -92.0f, 8.0f, mesh_controller, mesh_snapshot, out, 2);
+  count = node3.handleFrame(limits, rreq, 1200, -92.0f, 8.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Rrep);
   assert(out[0].frame.dst == 2);
@@ -120,7 +184,7 @@ int main() {
   assert(route.path[2] == 3);
 
   WireFrame rrep = out[0].frame;
-  count = node2.handleFrame(rrep, 1300, -91.0f, 7.0f, mesh_controller, mesh_snapshot, out, 2);
+  count = node2.handleFrame(limits, rrep, 1300, -91.0f, 7.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Rrep);
   assert(out[0].frame.dst == 1);
@@ -128,7 +192,7 @@ int main() {
   assert(route.path_index == 0);
 
   rrep = out[0].frame;
-  count = node1.handleFrame(rrep, 1400, -90.0f, 8.0f, mesh_controller, mesh_snapshot, out, 2);
+  count = node1.handleFrame(limits, rrep, 1400, -90.0f, 8.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Data);
   assert(out[0].frame.dst == 2);
@@ -138,7 +202,7 @@ int main() {
   assert(std::memcmp(route.app, app_payload, sizeof(app_payload)) == 0);
 
   WireFrame data = out[0].frame;
-  count = node2.handleFrame(data, 1500, -88.0f, 9.0f, mesh_controller, mesh_snapshot, out, 2);
+  count = node2.handleFrame(limits, data, 1500, -88.0f, 9.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Data);
   assert(out[0].frame.dst == 3);
@@ -146,7 +210,7 @@ int main() {
   assert(route.path_index == 2);
 
   data = out[0].frame;
-  count = node3.handleFrame(data, 1600, -85.0f, 10.0f, mesh_controller, mesh_snapshot, out, 2);
+  count = node3.handleFrame(limits, data, 1600, -85.0f, 10.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Ack);
   assert(out[0].frame.dst == 2);
@@ -154,18 +218,115 @@ int main() {
 
   WireFrame ack = out[0].frame;
   const std::uint32_t ack_created_at_ms = ack.created_at_ms;
-  count = node2.handleFrame(ack, 1700, -85.0f, 10.0f, mesh_controller, mesh_snapshot, out, 2);
+  count = node2.handleFrame(limits, ack, 1700, -85.0f, 10.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 1);
   assert(out[0].frame.type == FrameType::Ack);
   assert(out[0].frame.dst == 1);
   assert(out[0].frame.created_at_ms == ack_created_at_ms);
 
   ack = out[0].frame;
-  count = node1.handleFrame(ack, 1800, -85.0f, 10.0f, mesh_controller, mesh_snapshot, out, 2);
+  count = node1.handleFrame(limits, ack, 1800, -85.0f, 10.0f, mesh_controller, mesh_snapshot, out, 2);
   assert(count == 0);
   assert(mesh_snapshot.unicast_acks == 1);
   assert(mesh_snapshot.delivery_delay_samples == 1);
   assert(mesh_snapshot.delivery_delay_total_s > 0.0f);
+  assert(node1.pendingFlowCount() == 0);
+  count = node1.tick(limits, 4000, mesh_controller, mesh_snapshot, out, 2);
+  assert(count == 0);
+
+  SmartCalmMesh fallback_source(10);
+  SmartCalmMesh fallback_relay(11);
+  SmartCalmMesh fallback_destination(12);
+  SmartCalmController fallback_source_controller;
+  SmartCalmController fallback_relay_controller;
+  SmartCalmController fallback_destination_controller;
+  Snapshot fallback_source_snapshot{};
+  Snapshot fallback_relay_snapshot{};
+  Snapshot fallback_destination_snapshot{};
+  MeshRuntimeLimits fallback_limits{};
+  fallback_limits.ack_timeout_ms = 1000;
+  fallback_limits.max_timeout_retries = 1;
+  fallback_limits.fallback_ttl = 2;
+  const std::uint8_t fallback_payload[] = {'o', 'k'};
+
+  count = fallback_source.sendApp(
+      fallback_limits,
+      12,
+      88,
+      fallback_payload,
+      sizeof(fallback_payload),
+      1000,
+      17,
+      fallback_source_controller,
+      fallback_source_snapshot,
+      out,
+      2);
+  assert(count == 1);
+  assert(out[0].frame.type == FrameType::Rreq);
+
+  count = fallback_source.tick(
+      fallback_limits, 2100, fallback_source_controller, fallback_source_snapshot, out, 2);
+  assert(count == 1);
+  assert(out[0].frame.type == FrameType::Fallback);
+  WireFrame fallback = out[0].frame;
+
+  count = fallback_relay.handleFrame(
+      fallback_limits,
+      fallback,
+      2200,
+      -90.0f,
+      8.0f,
+      fallback_relay_controller,
+      fallback_relay_snapshot,
+      out,
+      2);
+  assert(count == 1);
+  assert(out[0].frame.type == FrameType::Fallback);
+  assert(fallback_relay.neighborCount() == 1);
+  fallback = out[0].frame;
+
+  count = fallback_destination.handleFrame(
+      fallback_limits,
+      fallback,
+      2300,
+      -88.0f,
+      9.0f,
+      fallback_destination_controller,
+      fallback_destination_snapshot,
+      out,
+      2);
+  assert(count == 1);
+  assert(out[0].frame.type == FrameType::Ack);
+  assert(out[0].frame.dst == 11);
+  assert(fallback_destination_snapshot.unicast_deliveries == 1);
+  assert(fallback_destination_snapshot.fallback_delivery_count == 1);
+
+  WireFrame fallback_ack = out[0].frame;
+  count = fallback_relay.handleFrame(
+      fallback_limits,
+      fallback_ack,
+      2400,
+      -88.0f,
+      9.0f,
+      fallback_relay_controller,
+      fallback_relay_snapshot,
+      out,
+      2);
+  assert(count == 1);
+  fallback_ack = out[0].frame;
+  count = fallback_source.handleFrame(
+      fallback_limits,
+      fallback_ack,
+      2500,
+      -88.0f,
+      9.0f,
+      fallback_source_controller,
+      fallback_source_snapshot,
+      out,
+      2);
+  assert(count == 0);
+  assert(fallback_source_snapshot.unicast_acks == 1);
+  assert(fallback_source.pendingFlowCount() == 0);
 
   char summary[128];
   controller.formatStatus(summary, sizeof(summary));

@@ -6,6 +6,7 @@ from pathlib import Path
 
 from lora_mesh_sim import (
     CalmMesh,
+    ICC_PROTOCOLS,
     FlowDecision,
     MeshtasticLike,
     Node,
@@ -58,8 +59,16 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertIn("mean_path_confidence", row)
         self.assertIn("fallback_forward_count", row)
         self.assertIn("control_overhead_ratio", row)
+        self.assertIn("p95_unicast_ack_delay_s", row)
+        self.assertIn("channel_busy_ratio", row)
+        self.assertIn("total_energy_j", row)
+        self.assertIn("packet_reception_ratio", row)
         self.assertGreaterEqual(row["mean_path_confidence"], 0.0)
         self.assertLessEqual(row["mean_path_confidence"], 1.0)
+
+        args.tx_current_ma = 240.0
+        higher_tx_energy = run_one(args, "calm", seed=3)
+        self.assertGreater(higher_tx_energy["tx_energy_j"], row["tx_energy_j"])
 
     def test_calm_parameters_are_applied_from_run_args(self) -> None:
         args = argparse.Namespace(
@@ -98,6 +107,30 @@ class CalmProtocolTest(unittest.TestCase):
             aggressive["fallback_forward_count"],
             conservative["fallback_forward_count"],
         )
+
+    def test_simulator_reuses_the_same_link_shadowing_for_a_seed(self) -> None:
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 100.0, 0.0),
+        ]
+        first = Simulator(
+            nodes,
+            RadioConfig(shadow_sigma_db=6.0),
+            MeshtasticLike(),
+            seed=16,
+            max_hops=3,
+        )
+        second = Simulator(
+            nodes,
+            RadioConfig(shadow_sigma_db=6.0),
+            MeshtasticLike(),
+            seed=16,
+            max_hops=3,
+        )
+
+        self.assertEqual(first.link_shadowing_db, second.link_shadowing_db)
+        self.assertEqual(first.rx_power_dbm(0, 1), first.rx_power_dbm(0, 1))
+        self.assertEqual(first.rx_power_dbm(0, 1), second.rx_power_dbm(0, 1))
 
     def test_smart_calm_runs_and_updates_policy_online(self) -> None:
         protocol = build_protocol("smart-calm")
@@ -176,6 +209,84 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(protocol.active_profile_index, 2)
         self.assertEqual(protocol.flow_decisions[1].action_index, 2)
         self.assertEqual(sim.metrics.policy_switch_count, 1)
+
+    def test_icc_protocol_variants_expose_explicit_ablation_controls(self) -> None:
+        self.assertEqual(len(ICC_PROTOCOLS), 7)
+        for name in ICC_PROTOCOLS:
+            protocol = build_protocol(name)
+            if name.startswith("smart-calm"):
+                self.assertIsInstance(protocol, SmartCalmMesh)
+            else:
+                self.assertNotIsInstance(protocol, SmartCalmMesh)
+
+        static = build_protocol("smart-calm-static")
+        no_fallback = build_protocol("smart-calm-no-fallback")
+        no_confidence = build_protocol("smart-calm-no-confidence")
+        self.assertFalse(static.learning_enabled)
+        self.assertEqual(static.fixed_profile_index, 1)
+        self.assertFalse(no_fallback.fallback_enabled)
+        self.assertFalse(no_confidence.confidence_enabled)
+
+    def test_smart_calm_no_confidence_prefers_shortest_route_candidate(self) -> None:
+        smart_calm = build_protocol("smart-calm")
+        no_confidence = build_protocol("smart-calm-no-confidence")
+        candidates = [
+            ((0, 1, 2), 0.95),
+            ((0, 3), 0.70),
+        ]
+
+        self.assertEqual(
+            smart_calm.select_route_candidate(candidates, flow_id=7),
+            ((0, 1, 2), 0.95),
+        )
+        self.assertEqual(
+            no_confidence.select_route_candidate(candidates, flow_id=7),
+            ((0, 3), 0.70),
+        )
+
+    def test_smart_calm_keeps_profile_parameters_bound_to_each_flow(self) -> None:
+        protocol = SmartCalmMesh(update_interval_s=999.0, exploration=0.0)
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 100.0, 0.0),
+        ]
+        Simulator(nodes, RadioConfig(), protocol, seed=14, max_hops=3)
+
+        protocol.q_values[(0, 2)] = 1.0
+        protocol.send_app(0, 1, flow_id=1)
+        self.assertEqual(protocol.flow_decisions[1].profile_name, "rescue")
+
+        protocol.q_values[(0, 0)] = 2.0
+        protocol.send_app(0, 1, flow_id=2)
+        self.assertEqual(protocol.flow_decisions[2].profile_name, "lean")
+        self.assertEqual(
+            protocol.route_ttl_for(1),
+            protocol.profiles[2].route_ttl_s,
+        )
+        self.assertEqual(
+            protocol.route_ttl_for(2),
+            protocol.profiles[0].route_ttl_s,
+        )
+
+    def test_smart_calm_no_fallback_variant_suppresses_recovery_flooding(self) -> None:
+        protocol = build_protocol("smart-calm-no-fallback")
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 4000.0, 0.0),
+        ]
+        sim = Simulator(
+            nodes,
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            protocol,
+            seed=15,
+            max_hops=3,
+        )
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=3.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=15, duration_s=3.0)
+        self.assertEqual(summary["fallback_forward_count"], 0)
 
     def test_smart_calm_retries_undelivered_unicast_after_timeout(self) -> None:
         protocol = SmartCalmMesh(
@@ -422,7 +533,7 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(protocol.update_interval_s, 30.0)
         self.assertEqual(protocol.learning_rate, 0.45)
         self.assertLessEqual(protocol.exploration, 0.02)
-        self.assertEqual(protocol.flow_timeout_s, 35.0)
+        self.assertEqual(protocol.flow_timeout_s, 15.0)
         self.assertEqual(protocol.max_timeout_retries, 2)
         self.assertEqual(protocol.discovery_window_s, 2.0)
 
@@ -457,7 +568,7 @@ class CalmProtocolTest(unittest.TestCase):
                 smart_update_interval_s=60.0,
                 smart_learning_rate=0.35,
                 smart_exploration=0.18,
-                smart_flow_timeout_s=35.0,
+                smart_flow_timeout_s=15.0,
                 calm_route_ttl_s=720.0,
                 calm_discovery_window_s=3.1,
                 calm_flood_base_delay_s=0.45,
