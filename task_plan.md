@@ -14,8 +14,8 @@ and publish the intended changes to GitHub.
 - [completed] Revise paper and release metadata to version 2.1.11.
 - [completed] Record checkpoint state and compile/inspect the PDF.
 - [completed] Run tests and consistency checks.
-- [in_progress] Push the committed task-related files and update the draft PR.
-- [pending] Verify remote commit, PR metadata, and final artifact state.
+- [completed] Push the committed task-related files and update the draft PR.
+- [completed] Verify remote commit, PR metadata, and final artifact state.
 
 ## Scope Rules
 
@@ -79,3 +79,11 @@ and publish the intended changes to GitHub.
 
 - The first push attempt failed at the HTTP/2 transport layer before any
   remote update. Retry with HTTP/1.1; no local commit was lost.
+
+## Final Publish State - 2026-09-04
+
+- Push completed successfully with HTTP/1.1.
+- Local and remote `version/v2` both point to `6a17eff`.
+- Draft PR 1 is open and updated to the 2.1.11 fairness/budget-matched
+  revision.
+- Final artifact and validation checks passed.

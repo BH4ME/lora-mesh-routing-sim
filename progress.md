@@ -73,3 +73,14 @@
 - `git push -u origin version/v2` failed before updating the remote with an
   HTTP/2 framing-layer error. Local commits are intact.
 - Retry with HTTP/1.1, then verify the remote branch and PR.
+
+## Final Publish State - 2026-09-04
+
+- HTTP/1.1 push succeeded; local and remote `version/v2` match at
+  `6a17eff94a0a30bb191b8199b452769437b8e613`.
+- PR 1 is open as a draft with the updated 2.1.11 title and body:
+  `https://github.com/BH4ME/lora-mesh-routing-sim/pull/1`.
+- `VERSION` is `2.1.11`; the final paper is an 8-page PDF with SHA-256
+  `b822940c36b13a084538691b526a2b72c0d32463c67ff4772e76937fa4ab9b9a`.
+- The requested paper revision, version bump, GitHub publish, and resumable
+  Markdown state tracking are complete.

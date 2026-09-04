@@ -262,3 +262,22 @@ again, read this file first and continue from the publish gate.
   update with `fatal: unable to access ... HTTP2 framing layer`.
 - Local commits remain intact; retry the push using Git HTTP/1.1, then verify
   the remote branch before updating PR 1.
+
+## Final Publish State - 2026-09-04
+
+- The HTTP/1.1 retry succeeded. `origin/version/v2` now points to
+  `6a17eff94a0a30bb191b8199b452769437b8e613`, matching local `HEAD`.
+- Draft PR 1 is open at
+  `https://github.com/BH4ME/lora-mesh-routing-sim/pull/1` with title
+  `[codex] MeshEcho 2.1.11 fairness and budget-matched evaluation`.
+- The PR body now describes the fairness-aware manuscript, random-pair probe,
+  budget-matched diagnostics, route-discovery audit, and version `2.1.11`.
+- Final artifact verification: `VERSION` is `2.1.11`; the manuscript PDF is
+  8 pages, PDF 1.5, and SHA-256
+  `b822940c36b13a084538691b526a2b72c0d32463c67ff4772e76937fa4ab9b9a`.
+- `gh pr view 1` confirms state `OPEN`, `isDraft=true`, head
+  `version/v2`, and base `main`.
+- Untracked build outputs, caches, temporary files, course materials, and
+  unrelated documents remain intentionally outside the published commits.
+- The objective is complete. Future changes should start from the current
+  remote state and use a new versioned experiment line.
