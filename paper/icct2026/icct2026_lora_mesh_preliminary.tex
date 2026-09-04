@@ -44,6 +44,14 @@ reception from SNR margin. Using this harness, we compare managed flooding, a
     routes, and adaptive recovery is not budget-matched across all protocol
     variants. These results support a bounded preliminary claim rather than
     universal dominance.
+
+    An additional ten-seed, one-shot random-pair probe with timeout retries
+    disabled for Smart-CALM gives MeshEcho 0.413 ACK-confirmed PDR and 97.5 s
+    of airtime, versus 0.456 PDR and 139.5 s for source-route caching. Smart-CALM
+    and its no-confidence control reach 0.489 and 0.488 PDR, respectively, with
+    a paired 95\% interval for their difference that includes zero. Thus, the
+    efficiency advantage persists outside the frozen matrix, but a general
+    confidence-ranking advantage is not established.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -203,22 +211,25 @@ model.
 
 \subsection{Traffic Model and Metrics}
 
-We evaluate repeated unicast traffic and mixed traffic. Repeated unicast uses a
-fixed set of source-destination pairs so that route caching has a meaningful
-opportunity to help. Mixed traffic contains both unicast and broadcast flows,
-which is closer to many IoT mesh deployments that combine telemetry, control,
-and local announcements.
+We evaluate repeated unicast traffic, mixed traffic, and a separate random-pair
+probe. Repeated unicast uses a fixed set of source-destination pairs so that
+route caching has a meaningful opportunity to help. Mixed traffic contains both
+unicast and broadcast flows, which is closer to many IoT mesh deployments that
+combine telemetry, control, and local announcements. The random-pair probe
+draws a new unicast source-destination pair for each application flow and is
+used to test whether the frozen result depends on pair reuse.
 
 The main metrics are unicast packet delivery ratio (PDR), broadcast coverage,
 total transmissions, total airtime, airtime per delivery, and collision
-failures. We report means over 20 random seeds. Each seed changes node
-placement, traffic timing, selected pairs, the static per-link shadowing
-realization, and stochastic reception outcomes. The frozen main matrix also
-uses the historical shared random stream in which forwarding jitter and
-reception draws can consume the same generator. The released simulator
-provides an opt-in independent channel-randomness mode for new runs; this
-separates reception draws from forwarding jitter and learning exploration, but
-it still does not create event-by-event common random numbers when protocols
+failures. The frozen main matrix reports means over 20 random seeds, while the
+random-pair probe reports means over 10 seeds as a fairness diagnostic. Each
+seed changes node placement, traffic timing, selected pairs, the static
+per-link shadowing realization, and stochastic reception outcomes. The frozen
+main matrix also uses the historical shared random stream in which forwarding
+jitter and reception draws can consume the same generator. The released
+simulator provides an opt-in independent channel-randomness mode for new runs;
+this separates reception draws from forwarding jitter and learning exploration,
+but it still does not create event-by-event common random numbers when protocols
 generate different numbers of transmissions. In the main matrix,
 \texttt{unicast\_pdr} is the source-side ACK-confirmed delivery ratio;
 destination DATA arrival is reported separately because destination reception
@@ -316,6 +327,70 @@ enable the simulator's \texttt{--independent-rng-streams} option, while the
 frozen files remain in legacy mode for exact reproduction of the published
 numbers.
 
+\subsection{Random-Pair Non-Saturated Multi-Hop Probe}
+
+To test whether the preceding result depends on fixed-pair reuse and
+link-quality saturation, we ran a separate ten-seed probe with 50 nodes in an
+$18\,\mathrm{km} \times 18\,\mathrm{km}$ square. The probe uses random
+source-destination pairs, mixed traffic at four application flows per minute,
+SF7, 17 dBm transmit power, path-loss exponent 2.75, 4 dB shadowing, and the
+independent channel-reception random stream. It is a fairness diagnostic rather
+than a replacement for the frozen 20-seed matrix.
+
+The mean per-seed direct-link PRR quantiles are 0.000026, 0.017577, 0.756816,
+0.999517, and 1.000000 at the 5th, 25th, 50th, 75th, and 95th percentiles,
+respectively. Fractions of direct links below 0.99 and 0.50 PRR are 0.642 and
+0.443. The distribution is therefore non-degenerate, although some flows still
+fail route discovery and the setting should not be treated as a calibrated
+deployment model.
+
+The Smart-CALM rows in Table~\ref{tab:randomprobe} use zero additional timeout
+retries. This one-shot setting matches the timeout-retry budget across the
+Smart-CALM variants, while retaining their declared routing and fallback
+semantics. It is therefore a mechanism-control line, not a claim that all
+protocols have identical native recovery controllers.
+
+\begin{table*}[t]
+\centering
+\caption{One-shot, budget-matched random-pair, non-saturated multi-hop probe
+over 10 seeds. Smart-CALM timeout retries are disabled. Values are means
+$\pm$ half-widths of two-sided 95\% confidence intervals. The multi-hop-route
+fraction is measured among completed cached routes; it is not defined for
+managed flooding.}
+\label{tab:randomprobe}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+Protocol & ACK PDR & Destination PDR & Airtime (s) &
+P95 ACK delay (s) & Multi-hop route fraction \\
+\midrule
+Managed flooding & 0.680$\pm$0.055 & 1.000$\pm$0.000 &
+37.3$\pm$4.0 & 1.67$\pm$0.62 & -- \\
+Source-route cache & 0.456$\pm$0.074 & 0.486$\pm$0.065 &
+139.5$\pm$14.1 & 0.56$\pm$0.41 & 0.102 \\
+MeshEcho & 0.413$\pm$0.117 & 0.479$\pm$0.108 &
+97.5$\pm$10.2 & 2.49$\pm$0.08 & 0.434 \\
+Smart-CALM & 0.489$\pm$0.122 & 0.557$\pm$0.132 &
+98.7$\pm$10.3 & 3.07$\pm$0.43 & 0.449 \\
+Smart-CALM-no-confidence & 0.488$\pm$0.090 & 0.566$\pm$0.096 &
+97.5$\pm$10.3 & 2.97$\pm$0.38 & 0.328 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+MeshEcho reduces airtime by approximately 30.1\% relative to source-route
+caching in this probe, but its ACK PDR is 0.413 versus 0.456. Under the
+one-shot budget, Smart-CALM reaches 0.489 ACK PDR and its no-confidence control
+reaches 0.488. Paired by seed, the full-versus-no-confidence difference is
+$+0.001$ with a 95\% confidence interval of $[-0.105,0.108]$; the
+full-versus-no-fallback difference is $+0.024$ with
+$[-0.041,0.090]$. Both intervals include zero. These results preserve the
+airtime tradeoff but do not support an unconditional reliability or
+confidence-ranking claim.
+
 \begin{table*}[t]
 \centering
 \caption{Repeated-unicast results over 20 seeds. MeshEcho denotes the
@@ -383,9 +458,9 @@ This scenario favors route caching because the same source-destination pairs
 repeat. It is therefore a useful cache-efficiency case, but not a neutral
 workload for protocols that do not rely on route reuse. The result should be
 read as a tradeoff point rather than as evidence that MeshEcho dominates
-flooding or generalizes to arbitrary pair churn. A fair follow-up should report
-random-pair traffic separately and should pre-register a non-degenerate
-direct-link PRR distribution and multi-hop route fraction.
+flooding or generalizes to arbitrary pair churn. The separate random-pair probe
+below reports pair churn together with a non-degenerate direct-link PRR
+distribution and cached-route hop statistics.
 
 \subsection{Mixed Traffic}
 
@@ -478,9 +553,27 @@ three-hop route. The moderate +5 dB condition is an important negative control:
 the observed mean delta is zero, so the mechanism does not produce a gain for
 every small perturbation.
 
+\subsection{Route-Discovery Stress Check}
+
+The connected-pair selector was also exercised separately to distinguish
+multi-hop geometry from route-discovery operability. It selected a shared pool
+of pairs at graph distance 2--4 using a static link-budget graph whose retained
+edges had analytical PRR at least 0.90. In a 50-node, 15 km square with
+24 pairs, SF7, and 0.5 flows per minute, MeshCore-like installed a route in
+only 0.063 of route-discovery attempts and achieved 0.049 destination PDR.
+A 20-seed single-flow check still gave a 0.050 discovery-success rate. The
+RREP/RREQ transmission ratio was only 0.027 in the low-load run. We therefore
+treat this configuration as a broadcast route-discovery stress test rather than
+as evidence that source-route data forwarding is intrinsically inferior.
+MeshCore-like also emits an RREP immediately upon first destination reception,
+whereas MeshEcho waits for its candidate-collection window; in a
+collision-limited flood, this reply-timing asymmetry can affect discovery
+success. The corresponding raw rows and discovery diagnostics are released
+separately from the headline comparison.
+
 \section{Discussion}
 
-The preliminary results support four observations. First, fixed flooding and
+The preliminary results support five observations. First, fixed flooding and
 fixed source-route caching expose different sides of the LoRa mesh design
 space. Flooding protects delivery but consumes substantial airtime. Cached
 source routing saves airtime, but it can underperform when the selected route is
@@ -500,7 +593,16 @@ recovery unavailable to the fixed baselines. This is a protocol-bundle result,
 not an isolated estimate of confidence ranking. Redundancy should therefore be
 treated as a per-context budget rather than a static network-wide mode.
 
-Fourth, the two experiments answer different questions: route-conflict isolates
+Fourth, the random-pair probe changes the external-validity interpretation. In
+the non-saturated multi-hop setting, MeshEcho retains lower airtime than the
+source-route baseline but does not improve ACK PDR. After disabling additional
+Smart-CALM timeout retries, the full and no-confidence variants are nearly
+identical in mean ACK PDR, and their paired interval includes zero. Online
+adaptation and confidence ranking should therefore not be presented as
+general-purpose improvements from this probe. The probe is useful evidence
+against overclaiming, not a replacement for a larger calibrated evaluation.
+
+Fifth, the two experiments answer different questions: route-conflict isolates
 admission under a known quality difference, while the random matrix measures
 end-to-end behavior. The main matrix is a common-harness comparison, not a
 fully budget-matched comparison of all recovery mechanisms; a mechanism study
@@ -514,23 +616,29 @@ collision, and capture, but not full waveforms, duty-cycle regulation, real
 firmware queues, or hardware sensitivity variation. The default 50-node,
 3000 m, SF9 setting is a contention-oriented, high-PRR regime with almost no
 multi-hop cached paths. Repeated unicast and the unicast component of mixed
-traffic use eight fixed pairs, and no random-pair workload is included.
-Consequently, the current data are not sufficient to claim calibrated
-multi-hop deployment performance.
+traffic use eight fixed pairs. A separate ten-seed random-pair probe is included
+to test this bias, but it has a harsh, partially disconnected operating point
+and is diagnostic rather than a calibrated deployment study. Consequently,
+the current data are not sufficient to claim calibrated multi-hop deployment
+performance.
 
 The comparison is fair at the common-harness level but not fully budget-matched:
 MeshEcho has bounded fallback, while the fixed baselines have no identical
-recovery controller. The frozen \texttt{calm-mesh} line uses a zero
-confidence-fallback threshold, while the exploratory Smart-CALM variants also
-allow timeout retries and profile changes. Their reliability cannot therefore be
-attributed to confidence ranking alone. Moreover, reception, forwarding jitter,
-and exploration share one stream in the frozen matrix: same seeds fix
+recovery controller. The one-shot random-pair probe disables additional
+Smart-CALM timeout retries, so the confidence and no-confidence variants have
+the same timeout-retry budget, but native fallback semantics remain different.
+The separate two-retry Smart-CALM run is a recovery evaluation and is not used
+as evidence for a confidence-only gain. Moreover, reception, forwarding
+jitter, and exploration share one stream in the frozen matrix: same seeds fix
 topology, traffic, and static shadowing, but not strict event-by-event common
 random numbers. The released independent-stream option removes this particular
 coupling for new reruns, but does not solve the different-transmission-count
 problem. All packet kinds also use the same configured payload length, so
 source-route header growth and control-frame format differences are omitted
-from the airtime estimate.
+from the airtime estimate. The connected-pair stress check also contains a
+route-reply timing difference: MeshCore-like replies immediately, while
+MeshEcho waits for candidate collection. This is another reason that the stress
+check is not used as a neutral cross-protocol headline comparison.
 
 The historical Smart-CALM ablation CSVs predate the no-fallback threshold fix
 included in the released implementation and are not used for the main
@@ -546,12 +654,12 @@ forwarding use the same static link realization, so stale or noisy confidence is
 not tested. Finally, the comparison does not include a separately implemented
 ETX or airtime-aware routing baseline.
 
-Future work will calibrate a genuine multi-hop regime using a pre-registered
-direct-link PRR distribution and cached-route hop distribution, add random-pair
-workloads, equalize retry and fallback budgets, use the independent channel
-random stream (or keyed per-event draws), model variable packet headers,
-introduce time-varying links, and validate the design with hardware-in-the-loop
-experiments.
+Future work will expand the random-pair probe into a pre-registered full matrix,
+calibrate a genuine multi-hop regime using direct-link PRR, route-discovery
+success, and cached-route hop distributions, equalize retry and fallback
+budgets, use the independent channel-random stream (or keyed per-event draws),
+model variable packet headers, introduce time-varying links, and validate the
+design with hardware-in-the-loop experiments.
 
 \section{Conclusion}
 
@@ -566,19 +674,24 @@ MeshEcho reaches 0.735 ACK-confirmed unicast PDR with 840 s of airtime,
 compared with 0.389 PDR and 971 s for source-route caching. The controlled
 audit further shows that the route-ranking gain disappears under null,
 moderate, and reverse controls, which bounds the mechanism claim to conditions
-where link-quality evidence is informative. Because fixed pairs and unequal
-recovery budgets remain, these results should be read as preliminary
-common-harness evidence rather than a universal ranking of LoRa mesh protocols.
+where link-quality evidence is informative. The one-shot random-pair probe
+confirms the same boundary: MeshEcho keeps an airtime advantage but does not
+show a PDR advantage over source-route caching, and Smart-CALM is nearly
+identical to its no-confidence control. Because fixed pairs, limited probe
+seeds, route-discovery stress cases, and unequal native recovery semantics
+remain, these results should be read as preliminary common-harness evidence
+rather than a universal ranking of LoRa mesh protocols.
 
 \section*{Reproducibility and Declarations}
 The MeshEcho simulator, routing implementation, experiment scripts, raw
 results, and paper source are released in the accompanying repository:
-\url{https://github.com/BH4ME/lora-mesh-routing-sim}. No human participants or
-personal data were involved. The authors report no conflicts of interest and no
-external funding. Author contributions cover protocol design, implementation,
-experiment design, analysis, and manuscript preparation. AI-based tools
-assisted with code inspection and language editing; the authors verified the
-implementation, numerical results, and final manuscript.
+\url{https://github.com/BH4ME/lora-mesh-routing-sim} (repository release
+2.1.11). No human participants or personal data were involved. The authors
+report no conflicts of interest and no external funding. Author contributions
+cover protocol design, implementation, experiment design, analysis, and
+manuscript preparation. AI-based tools assisted with code inspection and
+language editing; the authors verified the implementation, numerical results,
+and final manuscript.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

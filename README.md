@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.9` (paper/results package; firmware prototype
+Current repository release: `2.1.11` (paper/results package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -140,18 +140,47 @@ deviation, and 95% confidence intervals. See
 layout and reproducibility rules. The verified matrix is summarized in
 [ICC 2027 Comparison](docs/results/icc2027_comparison.md).
 
-For a new comparison that keeps channel-reception draws separate from
-forwarding jitter and learning exploration, run:
+New ICC matrices use an isolated channel-reception stream by default, keeping
+it separate from forwarding jitter and learning exploration. To make that
+explicit, run:
 
 ```bash
 INDEPENDENT_RNG_STREAMS=1 OUT_PREFIX=meshecho_fair \
   tools/run_icc_experiments.sh
 ```
 
-The default remains the legacy random-stream mode so frozen result files stay
-reproducible. The split mode improves experimental isolation, but it does not
-make protocol executions event-by-event identical when they generate different
+Set `INDEPENDENT_RNG_STREAMS=0` only when reproducing legacy frozen result
+files. The split mode improves experimental isolation, but it does not make
+protocol executions event-by-event identical when they generate different
 numbers of transmissions.
+
+Run the non-saturated random-pair fairness probe:
+
+```bash
+python3 tools/run_fair_multihop_probe.py
+```
+
+The default probe uses 50 nodes in an 18 km square, SF7, random
+source-destination pairs, 10 seeds, and independent channel-reception
+randomness. It writes direct-link PRR quantiles, cached-route hop diagnostics,
+protocol metrics, and paired ablation values to
+`results/meshecho_fair_multihop_probe.csv` and
+`docs/results/meshecho_fair_multihop_probe.md`. Use this probe to check whether
+the conclusion survives outside the fixed-pair, link-friendly main matrix.
+
+For a one-shot mechanism check with Smart-CALM timeout retries disabled, add:
+
+```bash
+python3 tools/run_fair_multihop_probe.py \
+  --smart-max-timeout-retries 0 \
+  --csv results/meshecho_fair_budget_matched.csv \
+  --report docs/results/meshecho_fair_budget_matched.md
+```
+
+The probe also reports route-discovery attempts, source-side route-discovery
+success rate, and the RREP/RREQ transmission ratio. Connected-pair runs with
+very low discovery success are route-discovery stress checks, not neutral
+data-plane benchmarks.
 
 Useful parameters:
 

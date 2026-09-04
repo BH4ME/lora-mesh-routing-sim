@@ -76,13 +76,17 @@ machine-readable long-format summary for table generation.
 7. Before freezing a matrix, report direct-link PRR quantiles and the cached
    route hop distribution. Reject a setting in which nearly all direct links
    have PRR above 0.99 or nearly all successful cached routes are one hop.
-8. For a new fairness matrix, run with
-   `INDEPENDENT_RNG_STREAMS=1` so channel-reception randomness is separated
-   from forwarding jitter and learning exploration. The default legacy mode is
-   retained for frozen-result reproducibility.
+8. New ICC matrices use `INDEPENDENT_RNG_STREAMS=1` by default, so
+   channel-reception randomness is separated from forwarding jitter and learning
+   exploration. Set it to `0` only for frozen-result reproducibility.
 9. For mechanism claims, equalize retry and fallback budgets across the
    confidence and no-confidence variants and state whether fixed baselines have
    an equivalent recovery controller.
+10. The fairness probe accepts
+    `--smart-max-timeout-retries 0` for a one-shot, budget-matched mechanism
+    comparison. Runs using the default value `2` must be labeled as recovery
+    evaluations, because the fixed baselines do not have the same timeout
+    controller.
 
 ## Suggested Paper Tables
 
@@ -99,10 +103,19 @@ remaining metrics for supplementary analysis.
 See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
 four-scenario summary.
 
-The current `2.1.9` audit concludes that the existing 3000 m matrix is fair as
+The current `2.1.11` audit concludes that the existing 3000 m matrix is fair as
 a shared-harness comparison, but too link-friendly and too asymmetric for a
 standalone claim about general multi-hop confidence-aware routing. See
 `docs/results/meshecho_fairness_audit.md` before using the frozen results.
+
+The ten-seed random-pair probe in
+`docs/results/meshecho_fair_multihop_probe.md` confirms this boundary:
+CALM/MeshEcho keeps an airtime advantage but does not beat the source-route
+baseline on ACK PDR in the non-saturated multi-hop setting. Smart-CALM's
+remaining PDR difference is not statistically established as a
+confidence-ranking gain after the one-shot timeout budget check. The connected
+pair diagnostics further show that some hard settings are route-discovery
+stress cases rather than neutral data-plane comparisons.
 
 The pre-fix Smart-CALM ablation rows in the historical `2.1.3`/`2.1.7`
 artifacts must not be used as current evidence for the no-fallback variant.

@@ -3,10 +3,39 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.9`; the firmware prototype remains
+current repository release is `2.1.11`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.11`
+
+- Status: fairness diagnostics and budget-matched paper revision on
+  2026-09-04.
+- Added route-discovery attempt/success counters and RREP/RREQ transmission
+  diagnostics to the simulator and fairness probe.
+- Added connected-pair low-load and single-flow stress matrices. These
+  demonstrate that graph-level pair connectivity does not guarantee operational
+  route discovery under a broadcast-collision model.
+- Added a zero-timeout-retry probe mode and revised the ICCT manuscript so
+  confidence-only claims are based on one-shot paired results rather than on
+  Smart-CALM's extra recovery budget.
+- The frozen 3 km matrix remains unchanged. The firmware prototype remains
+  `meshecho-firmware-v2.1.2`.
+
+## `smart-calm-sim-v2.1.10`
+
+- Status: random-pair fairness evidence integrated into the ICCT manuscript on
+  2026-09-04.
+- Added the ten-seed non-saturated multi-hop probe to the paper's evidence
+  chain. The probe removes fixed-pair reuse and uses independent
+  channel-reception randomness.
+- The probe preserves MeshEcho's airtime advantage over source-route caching
+  but does not establish a general ACK-PDR advantage. Full Smart-CALM also
+  does not outperform its fixed-profile control in this setting.
+- The frozen 3 km matrix remains unchanged and is still labeled as a
+  contention-oriented, high-PRR case. The firmware prototype remains
+  `meshecho-firmware-v2.1.2`.
 
 ## `smart-calm-sim-v2.1.9`
 

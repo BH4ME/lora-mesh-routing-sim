@@ -364,6 +364,8 @@ class Metrics:
         self.suppressed_forwards = 0
         self.route_requests = 0
         self.route_replies = 0
+        self.route_discovery_attempts = 0
+        self.route_discovery_successes = 0
         self.route_cache_hits = 0
         self.route_cache_misses = 0
         self.fallback_forward_count = 0
@@ -577,6 +579,8 @@ class Metrics:
             "suppressed_forwards": self.suppressed_forwards,
             "route_requests": self.route_requests,
             "route_replies": self.route_replies,
+            "route_discovery_attempts": self.route_discovery_attempts,
+            "route_discovery_successes": self.route_discovery_successes,
             "route_cache_hits": self.route_cache_hits,
             "route_cache_misses": self.route_cache_misses,
             "fallback_forward_count": self.fallback_forward_count,
@@ -1079,6 +1083,7 @@ class MeshCoreLike(RoutingProtocol):
         return path
 
     def start_route_discovery(self, src: int, dst: int, flow_id: int) -> None:
+        self.sim.metrics.route_discovery_attempts += 1
         request_id = flow_id
         packet = Packet(
             kind="RREQ",
@@ -1184,6 +1189,8 @@ class MeshCoreLike(RoutingProtocol):
             dst = learned[-1]
             self.route_cache[receiver][dst] = (self.sim.now + self.route_ttl_s, learned)
             queued = self.pending_data.pop((receiver, dst), [])
+            if queued:
+                self.sim.metrics.route_discovery_successes += 1
             for flow_id in queued:
                 self.send_data_on_path(receiver, dst, flow_id, learned)
             return
@@ -1356,6 +1363,7 @@ class CalmMesh(RoutingProtocol):
         return entry
 
     def start_route_discovery(self, src: int, dst: int, flow_id: int) -> None:
+        self.sim.metrics.route_discovery_attempts += 1
         request_id = flow_id
         key = (src, dst, request_id)
         self.rreq_candidates[key] = []
@@ -1558,6 +1566,8 @@ class CalmMesh(RoutingProtocol):
                 confidence=confidence,
             )
             queued = self.pending_data.pop((receiver, dst), [])
+            if queued:
+                self.sim.metrics.route_discovery_successes += 1
             for flow_id in queued:
                 entry = self.route_cache[receiver][dst]
                 self.send_data_on_path(receiver, dst, flow_id, entry)
@@ -2176,6 +2186,18 @@ def schedule_traffic(
         t += rng.expovariate(1.0 / mean_interval)
 
 
+def independent_rng_streams_enabled(args: argparse.Namespace) -> bool:
+    """Read both spellings used by older callers and the CLI parser."""
+
+    return bool(
+        getattr(
+            args,
+            "independent_rng_streams",
+            getattr(args, "independent_random_streams", False),
+        )
+    )
+
+
 def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> RoutingProtocol:
     if name == "meshtastic":
         return MeshtasticLike()
@@ -2259,11 +2281,7 @@ def run_one(args: argparse.Namespace, protocol_name: str, seed: int) -> Dict[str
         protocol,
         seed=seed,
         max_hops=args.max_hops,
-        independent_random_streams=getattr(
-            args,
-            "independent_random_streams",
-            False,
-        ),
+        independent_random_streams=independent_rng_streams_enabled(args),
     )
     traffic_rng = random.Random(seed + 10_000)
     schedule_traffic(

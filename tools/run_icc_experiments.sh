@@ -34,8 +34,11 @@ BASE_ARGS=(
   --supply-voltage-v 3.3
 )
 
+# Fresh ICC matrices use an isolated channel stream by default so protocol
+# jitter/exploration cannot move later reception draws. Set this to 0 only
+# when reproducing legacy frozen CSVs.
 RNG_ARGS=()
-if [[ "${INDEPENDENT_RNG_STREAMS:-0}" == "1" ]]; then
+if [[ "${INDEPENDENT_RNG_STREAMS:-1}" == "1" ]]; then
   RNG_ARGS+=(--independent-rng-streams)
 fi
 

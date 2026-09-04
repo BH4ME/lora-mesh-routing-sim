@@ -124,3 +124,113 @@ manuscript/PDF and release files, recheck `gh auth status`, commit as the
 PR against `main`. Do not add build directories, caches, temporary probes,
 course materials, or unrelated worktree changes. If context is compressed
 again, read this file first and continue from the publish gate.
+
+## Final Publish State - 2026-09-04
+
+- Commit: `a94aaee` (`Prepare 2.1.9 fairness-aware paper release`).
+- Remote: `origin/version/v2` points to the same commit as local `HEAD`.
+- Draft PR: `https://github.com/BH4ME/lora-mesh-routing-sim/pull/1`.
+- PR state: OPEN and DRAFT; base branch `main`, head branch `version/v2`.
+- Final verification: 42 tests passed; Python compilation and shell syntax
+  checks passed; staged diff check passed.
+- Final paper: 7 pages, PDF 1.5, root artifact at
+  `paper/icct2026/icct2026_lora_mesh_preliminary.pdf`; seven rendered pages
+  were inspected.
+- Untracked build outputs, caches, temporary probes, course materials, and
+  unrelated documents remain outside the published commit by design.
+- The goal is complete unless the user requests additional revision or a new
+  fair multi-hop result matrix.
+
+## Current Resume State - 2026-09-04 (2.1.10 fairness-probe revision)
+
+- User requested that the ICCT manuscript be revised using the fairness
+  findings, that the repository version be incremented for traceability, and
+  that the resulting changes be uploaded to GitHub.
+- The manuscript source now includes a random-pair, non-saturated multi-hop
+  probe section and table. It reports the ten-seed direct-link PRR quantiles,
+  ACK PDR, destination PDR, airtime, P95 ACK delay, and cached-route hop
+  fraction. The abstract, traffic model, discussion, limitations, future work,
+  and conclusion were updated to match the evidence.
+- The manuscript preserves the frozen 3 km repeated-pair matrix and labels it
+  as a contention-oriented high-PRR case. It does not claim universal
+  MeshEcho or Smart-CALM superiority.
+- Repository version is now `2.1.10`; `CHANGELOG.md`,
+  `README.md`, `docs/icc2027_experiment_plan.md`, and
+  `docs/project-management/smart_calm_sim_versions.md` were updated.
+- The fairness audit now describes the random-pair probe as an initial check
+  that should be expanded, rather than as an absent future experiment.
+- The next exact actions are: compile the revised manuscript using the
+  `latex-compile` skill, inspect page count and diagnostics, run the Python
+  tests and diff checks, stage only the relevant manuscript/probe/evidence/
+  release files, commit as a 2.1.10 fairness-probe revision, push
+  `version/v2`, update draft PR 1, and verify the remote state.
+- Do not stage build directories, caches, temporary probes, course materials,
+  or unrelated worktree changes. If context is compressed again, read this
+  section first and continue from the compile/verification step.
+
+## Current Resume State - 2026-09-04 (2.1.11 fairness and budget revision)
+
+- The user requested that the ICCT paper be updated using the fairness audit,
+  that the repository version increase by one for traceability, and that the
+  changes be uploaded to GitHub. The user also requested that ongoing state be
+  written to Markdown before context compression and read back after resume.
+- The current branch remains `version/v2`; the remote is
+  `BH4ME/lora-mesh-routing-sim`; the existing draft PR is PR 1 against `main`.
+- The repository version has been changed from `2.1.10` to `2.1.11`. The
+  firmware prototype remains `meshecho-firmware-v2.1.2`.
+- The simulator and fairness probe now expose
+  `route_discovery_attempts`, `route_discovery_successes`,
+  `route_discovery_success_rate`, and `rrep_rreq_tx_ratio`. The probe also
+  accepts `--smart-max-timeout-retries 0` for a one-shot mechanism check.
+- New preserved diagnostics:
+  - `results/meshecho_fair_connected90_lowload.csv`
+  - `results/meshecho_fair_connected90_singleflow.csv`
+  - `results/meshecho_fair_budget_matched.csv`
+  - `results/meshecho_fair_budget_matched_connected20.csv`
+  - matching Markdown reports under `docs/results/`
+- The one-shot random-pair table now uses:
+  - MeshEcho ACK-PDR `0.413`, airtime `97.5 s`;
+  - source-route cache ACK-PDR `0.456`, airtime `139.5 s`;
+  - Smart-CALM ACK-PDR `0.489`;
+  - Smart-CALM-no-confidence ACK-PDR `0.488`;
+  - paired full-vs-no-confidence ACK-PDR delta `+0.001`, 95% CI
+    `[-0.105, 0.108]`.
+- The paper source
+  `paper/icct2026/icct2026_lora_mesh_preliminary.tex` has been revised to:
+  - label the original 3 km/SF9 matrix as link-friendly and cache-friendly;
+  - use the one-shot budget-matched random-pair result instead of the
+    recovery-heavy Smart-CALM result;
+  - add a route-discovery stress-check subsection;
+  - state that general confidence-ranking superiority is not established;
+  - update the repository release string to `2.1.11`.
+- Release documentation updated:
+  `VERSION`, `README.md`, `CHANGELOG.md`,
+  `docs/icc2027_experiment_plan.md`,
+  `docs/project-management/smart_calm_sim_versions.md`,
+  `docs/results/meshecho_fairness_audit.md`,
+  `findings.md`, `progress.md`, and `task_plan.md`.
+- The compatibility patch for the probe uses a default of two timeout retries
+  when called with an older `argparse.Namespace` that lacks the new field.
+- Validation already completed before this handoff update:
+  targeted tests `45 passed`; full `pytest -q` also passed when invoked with
+  `python3 -m pytest -q`; Python compilation and `git diff --check` passed.
+  A bare `pytest -q` failed during collection because the repository root was
+  not placed on `sys.path`; do not use that command as the final test command.
+- Final validation after this handoff checkpoint is complete:
+  `python3 -m pytest -q` reports 45 passed; Python compilation, shell syntax,
+  and `git diff --check` passed.
+- The revised manuscript compiled successfully with bundled Tectonic to 8 pages.
+  All 8 rendered pages were visually checked. The final log contains only
+  font fallback and underfull-box diagnostics, with no unresolved references.
+  The root PDF is byte-identical to the `build-2_1_11` PDF and has SHA-256
+  `b822940c36b13a084538691b526a2b72c0d32463c67ff4772e76937fa4ab9b9a`.
+- Remaining exact actions:
+  1. Stage only the related paper, result, fairness, simulator, test, probe,
+     release, and planning files; do not stage unrelated build outputs or
+     user-generated documents.
+  2. Commit as a `2.1.11` fairness/budget-matched revision and push
+     `version/v2`.
+  3. Update draft PR 1 from `2.1.9` to `2.1.11` and verify remote state.
+- If context is compressed again, read this section plus `task_plan.md`,
+  `findings.md`, and `progress.md` before continuing. Do not restart the
+  analysis or silently replace the frozen main matrix.

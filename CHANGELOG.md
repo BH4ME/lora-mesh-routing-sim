@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.1.11 - Fairness diagnostics and budget-matched probe
+
+- Add route-discovery attempt/success metrics and RREP/RREQ transmission
+  diagnostics to the simulator and fairness probe.
+- Add independent connected-pair low-load and single-flow stress matrices that
+  show when a multi-hop setting is dominated by route-discovery contention.
+- Add `--smart-max-timeout-retries 0` for a one-shot Smart-CALM mechanism
+  comparison with no extra timeout retries.
+- Revise the ICCT manuscript to use the one-shot budget-matched random-pair
+  result and to avoid attributing recovery-driven gains to confidence ranking.
+- Preserve the firmware prototype at `meshecho-firmware-v2.1.2`.
+
+## 2.1.10 - Random-pair fairness evidence
+
+- Integrate the ten-seed random-pair, non-saturated multi-hop probe into the
+  ICCT manuscript.
+- Report that MeshEcho retains an airtime advantage outside the frozen
+  repeated-pair matrix, but does not establish a general ACK-PDR advantage.
+- Report that the adaptive Smart-CALM variant is not unconditionally better than
+  its fixed-profile control in the fairness probe.
+- Preserve the frozen 3 km matrix and document the new probe as diagnostic
+  evidence rather than silently replacing the original result line.
+
 ## 2.1.9 - Fairness-aware manuscript and RNG isolation
 
 - Revise the ICCT manuscript to state the verified fairness boundary of the
