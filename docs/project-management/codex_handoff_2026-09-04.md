@@ -234,3 +234,24 @@ again, read this file first and continue from the publish gate.
 - If context is compressed again, read this section plus `task_plan.md`,
   `findings.md`, and `progress.md` before continuing. Do not restart the
   analysis or silently replace the frozen main matrix.
+
+## Publish Continuation - 2026-09-04
+
+- The current local `HEAD` is `087f84e`
+  (`Update MeshEcho paper with fairness-aware evaluation`), and it contains
+  the complete 2.1.11 manuscript, fairness evidence, simulator diagnostics,
+  tests, and release metadata.
+- `VERSION` is `2.1.11`; the firmware prototype identity remains
+  `meshecho-firmware-v2.1.2`.
+- The local branch is `version/v2`, one commit ahead of
+  `origin/version/v2`. The remote branch still points to the earlier 2.1.9
+  publish commit, and draft PR 1 still has the 2.1.9 title.
+- Validation already confirmed: `python3 -m pytest -q` reported 45 passed,
+  Python compilation passed, shell syntax passed, `git diff --check` passed,
+  and the final paper is an 8-page PDF with SHA-256
+  `b822940c36b13a084538691b526a2b72c0d32463c67ff4772e76937fa4ab9b9a`.
+- Untracked build outputs, caches, temporary files, course materials, and
+  unrelated documents remain intentionally outside the commit.
+- Exact next action: push `version/v2`, update draft PR 1 to describe the
+  2.1.11 fairness/budget-matched revision, then verify remote commit, PR
+  metadata, and final artifact state.

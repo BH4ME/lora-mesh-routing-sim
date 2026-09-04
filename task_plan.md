@@ -14,8 +14,8 @@ and publish the intended changes to GitHub.
 - [completed] Revise paper and release metadata to version 2.1.11.
 - [completed] Record checkpoint state and compile/inspect the PDF.
 - [completed] Run tests and consistency checks.
-- [in_progress] Stage only task-related files, commit, and push to GitHub.
-- [pending] Verify remote commit and final artifact state.
+- [in_progress] Push the committed task-related files and update the draft PR.
+- [pending] Verify remote commit, PR metadata, and final artifact state.
 
 ## Scope Rules
 
@@ -67,3 +67,10 @@ and publish the intended changes to GitHub.
 3. Push `version/v2` and update draft PR 1's title/body from `2.1.9` to
    `2.1.11`.
 4. Verify the remote commit, PR metadata, and final artifact checks.
+
+## Publish Continuation - 2026-09-04
+
+- Local `HEAD` is `087f84e`, version `2.1.11`, and is one commit ahead of
+  `origin/version/v2`.
+- The relevant files are already committed; the remaining publish gate is
+  `git push` followed by updating and verifying draft PR 1.

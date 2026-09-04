@@ -59,3 +59,11 @@
 - Only explicitly selected task files should be staged. Build directories,
   rendered images, temporary probes, course materials, and other unrelated
   worktree files remain excluded.
+
+## Publish Continuation - 2026-09-04
+
+- Rechecked the repository before publishing. Local `HEAD` is `087f84e`,
+  `VERSION` is `2.1.11`, and the branch is one commit ahead of the remote.
+- The complete fairness-aware manuscript revision is already committed.
+- The next action is to push `version/v2`, update draft PR 1 from 2.1.9 to
+  2.1.11, and verify the remote state.
