@@ -282,3 +282,53 @@ again, read this file first and continue from the publish gate.
   unrelated documents remain intentionally outside the published commits.
 - The objective is complete. Future changes should start from the current
   remote state and use a new versioned experiment line.
+
+## New Revision Handoff - 2026-09-04 (2.1.12)
+
+- User requested another fairness-aware manuscript revision based on the
+  simulation, a repository patch-version increment, GitHub publication, and
+  Markdown checkpoints that survive context compression.
+- Current baseline is repository `2.1.11`, branch `version/v2`, with PR 1 open
+  as a draft. The working tree has many unrelated untracked artifacts; do not
+  stage them.
+- The new revision will formalize an explicit `calm-mesh` route-miss fallback
+  control, run a paired 20-seed sensitivity audit under the main scenario, and
+  use the result to tighten the manuscript's fairness language.
+- Required next action: edit the simulator/parser, add the audit script and
+  tests, then run the audit before changing the paper numbers.
+
+## 2.1.12 Continuation - 2026-09-04
+
+- Added `--calm-disable-route-miss-fallback` and
+  `tools/run_recovery_budget_audit.py`.
+- Re-ran the paired 20-seed audit with independent channel-reception streams.
+- Fixed a reporting bug: route-discovery success is now
+  `route_discovery_successes / route_discovery_attempts`, and the report shows
+  both attempts and the rate.
+- Corrected mean per-seed rates are `0.834` for MeshCore-like, `0.798` for CALM
+  with fallback, and `0.805` for CALM without fallback.
+- Updated the ICCT manuscript release string to `2.1.12` and added the
+  route-discovery fairness interpretation.
+- Added `--meshcore-route-ttl-s` and
+  `tools/run_route_ttl_audit.py` after finding that native MeshCore-like uses
+  `300 s` TTL while MeshEcho uses `600 s`.
+- Matching MeshCore-like to `600 s` raised ACK PDR from `0.381` to `0.519`; the
+  remaining matched-TTL MeshEcho difference was `+0.209 +/- 0.071` ACK PDR.
+- Updated the ICCT manuscript and fairness report to disclose the TTL mismatch
+  and use the matched audit as the fairer reference.
+- Next exact actions: recompile/inspect the updated PDF, run the final
+  validation suite, selectively commit and push the 2.1.12 revision, update
+  PR 1, and verify all artifacts.
+
+## 2.1.12 Final Verification - 2026-09-04
+
+- The updated manuscript compiles successfully to 9 pages after adding the
+  route-cache TTL audit. Root PDF SHA-256:
+  `97a5fc593a60ea1295697d0e90df09940ade0c158c54f290c611308598b70920`.
+- Latest rendered pages were visually inspected with no clipping or overlap.
+- `python3 -m pytest -q` reports 47 passed; Python compilation, shell syntax,
+  CLI help, and `git diff --check` passed.
+- Fresh ICC matrices now default to matched `600 s` MeshCore-like TTL;
+  `MESHCORE_ROUTE_TTL_S=300` reproduces the legacy native baseline.
+- Exact next actions: selectively stage only this revision's files, commit and
+  push `version/v2`, update PR 1, and verify the remote commit and artifacts.

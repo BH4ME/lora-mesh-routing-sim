@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.1.12 - Recovery-budget sensitivity audit
+
+- Add the explicit `--calm-disable-route-miss-fallback` control for
+  current-code recovery-budget sensitivity checks.
+- Add a paired 20-seed main-scenario audit with raw CSV and Markdown report.
+- Add a configurable MeshCore-like route-cache TTL and a paired 20-seed
+  native-versus-matched TTL audit.
+- Make fresh ICC matrices use the matched 600 s MeshCore-like TTL by default;
+  legacy 300 s reproduction remains available through
+  `MESHCORE_ROUTE_TTL_S=300`.
+- Revise the ICCT manuscript to quantify route-miss recovery separately from
+  confidence-based route admission, quantify the route-cache TTL mismatch, and
+  retain the conservative fairness boundary.
+- Preserve the firmware prototype at `meshecho-firmware-v2.1.2`.
+
 ## 2.1.11 - Fairness diagnostics and budget-matched probe
 
 - Add route-discovery attempt/success metrics and RREP/RREQ transmission

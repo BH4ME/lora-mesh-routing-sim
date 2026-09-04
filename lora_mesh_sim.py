@@ -1240,6 +1240,7 @@ class CalmMesh(RoutingProtocol):
         fallback_delay_margin_s: float = 0.6,
         hop_penalty_per_hop: float = 0.025,
         route_age_penalty: float = 0.1,
+        route_miss_recovery_enabled: bool = True,
     ) -> None:
         self.route_ttl_s = route_ttl_s
         self.discovery_window_s = discovery_window_s
@@ -1250,6 +1251,7 @@ class CalmMesh(RoutingProtocol):
         self.fallback_delay_margin_s = fallback_delay_margin_s
         self.hop_penalty_per_hop = hop_penalty_per_hop
         self.route_age_penalty = route_age_penalty
+        self.route_miss_recovery_enabled = route_miss_recovery_enabled
         self.route_cache: Dict[int, Dict[int, RouteEntry]] = {}
         self.pending_data: Dict[Tuple[int, int], List[int]] = {}
         self.seen_floods: Dict[int, Set[Tuple[str, int, int, int]]] = {}
@@ -1434,6 +1436,8 @@ class CalmMesh(RoutingProtocol):
             )
 
     def route_miss_recovery_ttl(self, flow_id: Optional[int] = None) -> int:
+        if not self.route_miss_recovery_enabled:
+            return 0
         return self.sim.max_hops
 
     def send_data_on_path(
@@ -2202,7 +2206,11 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
     if name == "meshtastic":
         return MeshtasticLike()
     if name == "meshcore":
-        return MeshCoreLike()
+        if args is None:
+            return MeshCoreLike()
+        return MeshCoreLike(
+            route_ttl_s=getattr(args, "meshcore_route_ttl_s", 300.0),
+        )
     if name == "calm":
         if args is None:
             return CalmMesh()
@@ -2216,6 +2224,11 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             fallback_delay_margin_s=getattr(args, "calm_fallback_delay_margin_s", 0.6),
             hop_penalty_per_hop=getattr(args, "calm_hop_penalty_per_hop", 0.025),
             route_age_penalty=getattr(args, "calm_route_age_penalty", 0.1),
+            route_miss_recovery_enabled=not getattr(
+                args,
+                "calm_disable_route_miss_fallback",
+                False,
+            ),
         )
     if name in {
         "smart-calm",
@@ -2429,6 +2442,12 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument("--calm-route-ttl-s", type=float, default=600.0)
+    parser.add_argument(
+        "--meshcore-route-ttl-s",
+        type=float,
+        default=300.0,
+        help="source-route cache lifetime for the MeshCore-like baseline",
+    )
     parser.add_argument("--calm-discovery-window-s", type=float, default=2.0)
     parser.add_argument("--calm-flood-base-delay-s", type=float, default=0.45)
     parser.add_argument("--calm-flood-jitter-s", type=float, default=0.65)
@@ -2437,6 +2456,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--calm-fallback-delay-margin-s", type=float, default=0.6)
     parser.add_argument("--calm-hop-penalty-per-hop", type=float, default=0.025)
     parser.add_argument("--calm-route-age-penalty", type=float, default=0.1)
+    parser.add_argument(
+        "--calm-disable-route-miss-fallback",
+        action="store_true",
+        help=(
+            "disable CALM fallback after route-discovery failure; "
+            "used for recovery-budget sensitivity checks"
+        ),
+    )
     parser.add_argument("--smart-update-interval-s", type=float, default=30.0)
     parser.add_argument("--smart-learning-rate", type=float, default=0.45)
     parser.add_argument("--smart-exploration", type=float, default=0.02)

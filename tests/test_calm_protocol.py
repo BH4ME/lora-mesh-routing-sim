@@ -569,6 +569,27 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(protocol.profiles[1].discovery_window_s, 2.0)
         self.assertEqual(protocol.discovery_window_s, 2.0)
 
+    def test_calm_route_miss_fallback_can_be_disabled_for_budget_audit(self) -> None:
+        enabled = build_protocol("calm", argparse.Namespace())
+        disabled = build_protocol(
+            "calm",
+            argparse.Namespace(calm_disable_route_miss_fallback=True),
+        )
+
+        self.assertTrue(enabled.route_miss_recovery_enabled)
+        self.assertTrue(disabled.route_miss_recovery_enabled is False)
+        self.assertEqual(disabled.route_miss_recovery_ttl(), 0)
+
+    def test_meshcore_route_ttl_can_be_matched_for_fairness_audit(self) -> None:
+        native = build_protocol("meshcore", argparse.Namespace())
+        matched = build_protocol(
+            "meshcore",
+            argparse.Namespace(meshcore_route_ttl_s=600.0),
+        )
+
+        self.assertEqual(native.route_ttl_s, 300.0)
+        self.assertEqual(matched.route_ttl_s, 600.0)
+
     def test_smart_calm_can_load_a_policy_prior(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             prior_path = Path(tmpdir) / "smart_prior.json"

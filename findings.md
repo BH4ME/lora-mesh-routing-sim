@@ -58,7 +58,8 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
 
 ## Release State
 
-- The intended release for this revision is repository version `2.1.11`;
+- The prior fairness revision was repository version `2.1.11`; the current
+  recovery-budget revision is repository version `2.1.12`;
   firmware identity remains `meshecho-firmware-v2.1.2`.
 - The paper source and release metadata are already updated in the worktree.
 - The PDF has now been compiled and visually inspected successfully. It is
@@ -77,3 +78,55 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   `2.1.11` commit, update its title and body.
 - Do not stage generated LaTeX auxiliaries, rendered page images, `.venv-fig`,
   `.playwright-cli`, `tmp`, course artifacts, or unrelated documents.
+
+## 2.1.12 Audit Questions
+
+- Formalize the `calm-mesh` route-miss fallback setting so the recovery
+  contribution can be measured without temporary monkey-patching.
+- Use paired seeds and the same main-scene topology/traffic to estimate the
+  effect of disabling only route-miss fallback.
+- Keep the result separate from the confidence-only route-conflict experiment:
+  fallback is a recovery mechanism, not evidence of confidence ranking.
+- Keep the original frozen matrix unchanged; the new audit is a sensitivity
+  result for the 2.1.12 revision.
+
+## 2.1.12 Audit Result
+
+- The recovery-budget script now reports route-discovery success rate as
+  `route_discovery_successes / route_discovery_attempts` and includes the
+  attempt count in the Markdown table.
+- In the paired 20-seed main-scene replay, mean route-discovery success rates
+  were `0.834` for MeshCore-like, `0.798` for CALM with route-miss fallback,
+  and `0.805` for CALM without route-miss fallback.
+- The corrected rate metric does not change the PDR or airtime results:
+  fallback versus no fallback is `+0.009 +/- 0.018` ACK PDR and
+  `+0.023 +/- 0.023` destination PDR, with `+15.9 s` airtime.
+- This supports the narrower conclusion that MeshEcho was not favored by an
+  easier route-discovery process in this replay, while the comparison remains
+  a sensitivity audit rather than a fully budget-matched baseline study.
+
+## 2.1.12 Route-TTL Audit Result
+
+- The native main matrix uses a `300 s` MeshCore-like route-cache TTL and a
+  `600 s` CALM/MeshEcho TTL. Because the workload reuses eight fixed pairs,
+  this is a real favorable bias toward MeshEcho.
+- After matching MeshCore-like to `600 s`, its ACK PDR rose from `0.381` to
+  `0.519`, destination PDR from `0.652` to `0.722`, and airtime fell from
+  `970.9 s` to `905.5 s`.
+- The paired TTL effect was `+0.138 +/- 0.031` ACK PDR and
+  `-65.4 +/- 14.1 s` airtime. The remaining matched-TTL MeshEcho difference
+  was `+0.209 +/- 0.071` ACK PDR and `-58.2 +/- 19.2 s` airtime.
+- Therefore the native `+0.347` ACK-PDR gap overstates the more comparable
+  matched-TTL bundle difference by `0.138` in this replay. The current paper
+  now reports the matched audit and does not present the native gap as a
+  strategy-only effect.
+
+## 2.1.12 Final Verification
+
+- The updated manuscript compiles to 9 pages after adding the TTL fairness
+  audit. The root PDF is PDF 1.5 with SHA-256
+  `97a5fc593a60ea1295697d0e90df09940ade0c158c54f290c611308598b70920`.
+- The latest rendered pages were visually inspected; no clipping, overlap, or
+  unreadable table/figure was found.
+- Final checks report `47 passed`; Python compilation, shell syntax, CLI help,
+  and `git diff --check` passed.

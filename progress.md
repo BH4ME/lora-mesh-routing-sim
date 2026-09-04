@@ -84,3 +84,51 @@
   `b822940c36b13a084538691b526a2b72c0d32463c67ff4772e76937fa4ab9b9a`.
 - The requested paper revision, version bump, GitHub publish, and resumable
   Markdown state tracking are complete.
+
+## 2026-09-04 - 2.1.12 Revision Started
+
+- Reopened the fairness question after confirming that the main 3 km/SF9 case
+  is link-friendly and mostly one-hop, while the random-pair probe does not
+  show a general PDR advantage.
+- Confirmed the next revision should quantify the remaining recovery-budget
+  asymmetry rather than only describe it.
+- Planned a formal current-code audit with identical 20-seed main-scene
+  inputs and two `calm-mesh` settings: default route-miss fallback versus
+  route-miss fallback disabled. MeshCore-like will be retained as the fixed
+  source-route reference.
+- Added the explicit route-miss fallback control and the paired recovery-budget
+  audit script.
+- Re-ran the 20-seed audit after correcting the report's route-discovery metric
+  from a raw success count to successes divided by attempts.
+- Corrected mean route-discovery success rates are `0.834` for MeshCore-like,
+  `0.798` for CALM with fallback, and `0.805` for CALM without fallback.
+- Updated the ICCT manuscript to release `2.1.12` and state that the audit does
+  not show an easier route-discovery process for MeshEcho.
+- Found and quantified a second fairness issue: MeshCore-like used a `300 s`
+  route-cache TTL while MeshEcho used `600 s`.
+- Added configurable `--meshcore-route-ttl-s`, reran a paired 20-seed TTL
+  audit, and found that matching MeshCore-like to `600 s` changes ACK PDR from
+  `0.381` to `0.519`; the remaining matched-TTL MeshEcho gap is
+  `+0.209 +/- 0.071`.
+- Updated the paper and fairness report to identify the native TTL mismatch as
+  a favorable bias and to use the matched audit as the fairer reference.
+
+## Next Actions
+
+1. Compile and inspect the manuscript after the TTL disclosure.
+2. Run the final tests, static checks, and consistency checks.
+3. Selectively commit, push, update PR 1, and verify the remote state.
+
+## 2.1.12 Final Verification - 2026-09-04
+
+- Added the route-cache TTL audit and changed fresh ICC matrices to use the
+  matched `600 s` MeshCore-like TTL by default. Legacy `300 s` reproduction is
+  still available with `MESHCORE_ROUTE_TTL_S=300`.
+- Recompiled the manuscript after the TTL disclosure. It is now 9 pages,
+  PDF 1.5, SHA-256
+  `97a5fc593a60ea1295697d0e90df09940ade0c158c54f290c611308598b70920`.
+- Latest validation: `python3 -m pytest -q` reports 47 passed; Python
+  compilation, `bash -n`, CLI help, and `git diff --check` passed.
+- Latest rendered pages were visually checked with no layout defects.
+- Remaining actions are selective commit, push, PR update, and remote
+  verification.

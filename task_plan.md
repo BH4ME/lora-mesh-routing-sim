@@ -87,3 +87,67 @@ and publish the intended changes to GitHub.
 - Draft PR 1 is open and updated to the 2.1.11 fairness/budget-matched
   revision.
 - Final artifact and validation checks passed.
+
+## New Revision - 2026-09-04 (2.1.12 recovery-budget audit)
+
+- The user requested another fairness-aware paper revision based on the
+  current simulation, with a patch-version increment and GitHub publication.
+- The current `2.1.11` evidence is honest about fixed-pair/link-quality bias,
+  but the recovery-budget contribution is not yet represented by a formal
+  command-line experiment for the `calm-mesh` line.
+- Planned `2.1.12` work:
+  - add an explicit `--calm-disable-route-miss-fallback` control;
+  - run a paired 20-seed recovery-budget sensitivity audit under the main
+    scenario using independent channel-reception randomness;
+  - revise the manuscript to distinguish route admission from route-miss
+    recovery and static-channel confidence evidence;
+  - bump repository metadata from `2.1.11` to `2.1.12`;
+  - compile and inspect the PDF, run tests, selectively commit, push, update
+    PR 1, and verify the remote state.
+- Unrelated untracked build outputs, caches, course material, and user
+  documents remain out of scope.
+
+## 2.1.12 Progress
+
+- Completed the explicit CALM route-miss fallback control.
+- Completed and re-ran the 20-seed recovery-budget audit.
+- Corrected the audit's route-discovery metric to report successes divided by
+  attempts, with attempts shown in the report.
+- Updated the paper and fairness notes with the corrected rates and the
+  conservative interpretation.
+- Found and quantified the native route-cache TTL mismatch: MeshCore-like
+  uses `300 s`, while MeshEcho uses `600 s`.
+- Added a configurable MeshCore-like TTL and the paired
+  `tools/run_route_ttl_audit.py` experiment. Matching TTL raises MeshCore-like
+  ACK PDR from `0.381` to `0.519`; the remaining matched-TTL gap is
+  `+0.209 +/- 0.071`.
+- Updated the manuscript, README, changelog, and fairness report to disclose
+  the TTL mismatch and report the matched audit.
+- Remaining gates are PDF compilation/inspection, final tests, selective
+  commit, push, PR update, and remote verification.
+
+## 2.1.12 Verification
+
+- A previous Tectonic compilation of the recovery-only revision succeeded with
+  an 8-page PDF; the TTL disclosure requires a fresh compilation.
+- `python3 -m pytest -q` reported 47 passed before the TTL paper edits.
+- Python compilation, shell syntax, and `git diff --check` passed.
+- Remaining gates are fresh PDF compilation/inspection, final validation,
+  selective commit, push, PR update, and remote verification.
+
+## 2.1.12 Final Verification Update
+
+- Recompiled after the TTL disclosure; the paper is 9 pages, PDF 1.5, with
+  SHA-256 `97a5fc593a60ea1295697d0e90df09940ade0c158c54f290c611308598b70920`.
+- Visually inspected the latest rendered pages, including the abstract,
+  fairness audit, limitations, conclusion, and references.
+- `python3 -m pytest -q`: 47 passed.
+- Python compilation, shell syntax, CLI help, and `git diff --check` passed.
+- Remaining gates are selective staging, commit, push, PR update, and remote
+  verification.
+
+## Continuation Rule
+
+Before any context compression, append completed commands/results and the
+exact next action to this file, `findings.md`, and `progress.md`. After
+resuming, read all three before taking further action.

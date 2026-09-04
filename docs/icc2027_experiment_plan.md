@@ -76,10 +76,13 @@ machine-readable long-format summary for table generation.
 7. Before freezing a matrix, report direct-link PRR quantiles and the cached
    route hop distribution. Reject a setting in which nearly all direct links
    have PRR above 0.99 or nearly all successful cached routes are one hop.
-8. New ICC matrices use `INDEPENDENT_RNG_STREAMS=1` by default, so
-   channel-reception randomness is separated from forwarding jitter and learning
-   exploration. Set it to `0` only for frozen-result reproducibility.
-9. For mechanism claims, equalize retry and fallback budgets across the
+8. New ICC matrices use a matched `600 s` MeshCore-like route-cache TTL and
+   `INDEPENDENT_RNG_STREAMS=1` by default, so channel-reception randomness is
+   separated from forwarding jitter and learning exploration. Set
+   `MESHCORE_ROUTE_TTL_S=300` and `INDEPENDENT_RNG_STREAMS=0` only for legacy
+   frozen-result reproducibility.
+9. For mechanism claims, equalize route-cache lifetime, retry, and fallback
+   budgets across the
    confidence and no-confidence variants and state whether fixed baselines have
    an equivalent recovery controller.
 10. The fairness probe accepts
@@ -103,9 +106,11 @@ remaining metrics for supplementary analysis.
 See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
 four-scenario summary.
 
-The current `2.1.11` audit concludes that the existing 3000 m matrix is fair as
+The current `2.1.12` audit concludes that the existing 3000 m matrix is fair as
 a shared-harness comparison, but too link-friendly and too asymmetric for a
-standalone claim about general multi-hop confidence-aware routing. See
+standalone claim about general multi-hop confidence-aware routing. Its legacy
+native rows also use a shorter MeshCore-like route-cache TTL than MeshEcho.
+See
 `docs/results/meshecho_fairness_audit.md` before using the frozen results.
 
 The ten-seed random-pair probe in

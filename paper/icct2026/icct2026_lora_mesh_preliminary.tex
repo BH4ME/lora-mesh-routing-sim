@@ -33,7 +33,11 @@ reception from SNR margin. Using this harness, we compare managed flooding, a
     prototype, MeshEcho, that ranks discovered paths and uses bounded recovery
     forwarding for route-recovery cases. In the frozen 50-node mixed-traffic matrix, MeshEcho
     reaches 0.735 ACK-confirmed unicast PDR versus 0.389 for the source-route
-    baseline, with 839.6 s versus 971.5 s of aggregate airtime. A separate
+    baseline, with 839.6 s versus 971.5 s of aggregate airtime. A paired cache-
+    lifetime audit shows that matching the source-route baseline's cache TTL to
+    MeshEcho's 600 s raises its ACK PDR to 0.519, reducing the native mean gap
+    by 0.138 while leaving a 0.209 ACK-PDR gap in the matched bundle comparison.
+    A separate
     controlled route-conflict experiment shows that the route-selection gain
     appears only when the shorter candidate contains a materially weaker hop:
     with 7.5 dB extra loss on that hop, MeshEcho reaches 0.999 ACK-confirmed
@@ -42,8 +46,11 @@ reception from SNR margin. Using this harness, we compare managed flooding, a
     fairness boundaries: fixed repeated pairs favor route caching, the default
     link setting is link-quality saturated and produces very few multi-hop
     routes, and adaptive recovery is not budget-matched across all protocol
-    variants. These results support a bounded preliminary claim rather than
-    universal dominance.
+    variants. A current-code recovery audit shows that disabling route-miss
+    fallback changes ACK PDR by only $+0.009\pm0.018$ in a paired 20-seed
+    replay, but does not make the baseline recovery budgets identical. These
+    results support a bounded preliminary claim rather than universal
+    dominance.
 
     An additional ten-seed, one-shot random-pair probe with timeout retries
     disabled for Smart-CALM gives MeshEcho 0.413 ACK-confirmed PDR and 97.5 s
@@ -479,6 +486,52 @@ relative to the source-route baseline. Collision failures decrease from
     gap to managed flooding indicates that the preliminary policy spends less
     redundancy but does not fully replace flood diversity.
 
+\subsection{Recovery-Budget Sensitivity}
+
+The frozen main matrix compares the CALM/MeshEcho bundle with a fixed
+source-route baseline that has no equivalent route-miss recovery controller.
+To quantify the contribution of this asymmetry, we reran the current code on
+the same 20 seeds, topology-generation rule, traffic trace, and mixed-traffic
+parameters while enabling the independent channel-reception stream. The only
+change between the two CALM variants was whether a failed route discovery
+could invoke route-miss fallback.
+
+With fallback enabled, CALM reached 0.728 ACK PDR, 0.766 destination PDR, and
+847.3 s of airtime. Disabling only route-miss fallback changed these values to
+0.719, 0.744, and 831.4 s, respectively. The paired ACK-PDR difference was
+$+0.009\pm0.018$ (two-sided 95\% t interval), while the paired destination-PDR
+difference was $+0.023\pm0.023$. Fallback added 62.4 forwarding
+transmissions and 15.9 s of airtime on average. Thus, route-miss recovery
+contributes to the end-to-end result, but its mean ACK-PDR effect is small
+relative to the full CALM-versus-MeshCore-like gap and is not statistically
+separated from zero in this replay. The corresponding mean route-discovery
+success rates were 0.798 with fallback, 0.805 without fallback, and 0.834 for
+MeshCore-like. Thus, the headline CALM result is not explained by a higher
+route-discovery success rate in this audit, although the native recovery
+controllers are still not fully budget-matched. The audit is a sensitivity
+check rather than a fully budget-matched baseline comparison.
+
+\subsection{Route-Cache Lifetime Sensitivity}
+
+The native configurations also use different route-cache lifetimes: 300 s for
+MeshCore-like and 600 s for CALM/MeshEcho. Because the main workload reuses
+eight fixed pairs, this difference can affect both route-discovery overhead and
+the number of packets sent on an already discovered path. We therefore reran
+the same 20 seeds with MeshCore-like at both 300 s and 600 s, while keeping
+MeshEcho at 600 s.
+
+The native 300 s MeshCore-like setting reached 0.381 ACK PDR, 0.652 destination
+PDR, and 970.9 s of airtime. Matching its cache lifetime to 600 s increased
+these values to 0.519, 0.722, and 905.5 s. The paired change was
+$+0.138\pm0.031$ ACK PDR, $+0.070\pm0.034$ destination PDR, and
+$-65.4\pm14.1$ s of airtime. Under the matched 600 s TTL, MeshEcho reached
+0.728 ACK PDR and 847.3 s of airtime, giving a remaining paired difference of
+$+0.209\pm0.071$ ACK PDR and $-58.2\pm19.2$ s of airtime. Thus, the native
+headline comparison was materially favorable to MeshEcho because of the cache
+TTL mismatch, although the matched audit still shows a protocol-bundle
+difference. The frozen native matrix is retained for traceability; the matched
+audit is the more appropriate fairness reference.
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig_tradeoff.pdf}
@@ -589,9 +642,12 @@ links are mostly high-PRR and cached paths are almost always one hop.
 Third, the best operating point depends on traffic. In repeated unicast, route
 caching is already strong and MeshEcho mainly improves efficiency. In mixed
 traffic, its reliability gain over source-route caching includes bounded
-recovery unavailable to the fixed baselines. This is a protocol-bundle result,
-not an isolated estimate of confidence ranking. Redundancy should therefore be
-treated as a per-context budget rather than a static network-wide mode.
+    recovery unavailable to the fixed baselines. The current-code sensitivity
+    audit estimates a small but nonzero mean effect from route-miss fallback
+    ($+0.009\pm0.018$ ACK PDR), with a corresponding airtime cost. This remains
+    a protocol-bundle result, not an isolated estimate of confidence ranking.
+    Redundancy should therefore be treated as a per-context budget rather than
+    a static network-wide mode.
 
 Fourth, the random-pair probe changes the external-validity interpretation. In
 the non-saturated multi-hop setting, MeshEcho retains lower airtime than the
@@ -606,7 +662,7 @@ Fifth, the two experiments answer different questions: route-conflict isolates
 admission under a known quality difference, while the random matrix measures
 end-to-end behavior. The main matrix is a common-harness comparison, not a
 fully budget-matched comparison of all recovery mechanisms; a mechanism study
-must disable recovery for all protocols or equalize retry and fallback budgets.
+must equalize route-cache lifetime, retry, and fallback budgets as well.
 
 \section{Limitations and Future Work}
 
@@ -624,9 +680,15 @@ performance.
 
 The comparison is fair at the common-harness level but not fully budget-matched:
 MeshEcho has bounded fallback, while the fixed baselines have no identical
-recovery controller. The one-shot random-pair probe disables additional
+recovery controller. The new paired recovery audit shows that disabling
+route-miss fallback changes the current CALM line by $+0.009\pm0.018$ ACK PDR
+and $+0.023\pm0.023$ destination PDR, while reducing airtime by 15.9 s on
+average. The one-shot random-pair probe disables additional
 Smart-CALM timeout retries, so the confidence and no-confidence variants have
 the same timeout-retry budget, but native fallback semantics remain different.
+The native route-cache TTL is also 300 s for MeshCore-like versus 600 s for
+MeshEcho; matching it to 600 s raises MeshCore-like ACK PDR by
+$+0.138\pm0.031$ in the paired audit and reduces the remaining matched gap.
 The separate two-retry Smart-CALM run is a recovery evaluation and is not used
 as evidence for a confidence-only gain. Moreover, reception, forwarding
 jitter, and exploration share one stream in the frozen matrix: same seeds fix
@@ -686,7 +748,7 @@ rather than a universal ranking of LoRa mesh protocols.
 The MeshEcho simulator, routing implementation, experiment scripts, raw
 results, and paper source are released in the accompanying repository:
 \url{https://github.com/BH4ME/lora-mesh-routing-sim} (repository release
-2.1.11). No human participants or personal data were involved. The authors
+2.1.12). No human participants or personal data were involved. The authors
 report no conflicts of interest and no external funding. Author contributions
 cover protocol design, implementation, experiment design, analysis, and
 manuscript preparation. AI-based tools assisted with code inspection and

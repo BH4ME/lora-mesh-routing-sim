@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.11` (paper/results package; firmware prototype
+Current repository release: `2.1.12` (paper/results package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -125,11 +125,34 @@ It writes `results/meshecho_route_conflict_fairness.csv` and
 `docs/results/meshecho_route_conflict_fairness.md`. The audit is a controlled
 mechanism check and does not replace random-topology or high-load evaluation.
 
+Run the paired recovery-budget sensitivity audit:
+
+```bash
+python3 tools/run_recovery_budget_audit.py
+```
+
+It compares the current CALM route-miss fallback with the same CALM line after
+that fallback is disabled, using shared 20-seed main-scenario inputs. The
+result is a sensitivity check, not a fully budget-matched MeshCore comparison.
+
+Run the paired route-cache lifetime audit:
+
+```bash
+python3 tools/run_route_ttl_audit.py
+```
+
+It matches MeshCore-like's route-cache lifetime to MeshEcho's 600 s setting and
+reports the native-versus-matched source-route result separately.
+
 For the ICC comparison matrix, run:
 
 ```bash
 tools/run_icc_experiments.sh
 ```
+
+Fresh matrices from this script use a 600 s MeshCore-like route-cache TTL to
+match MeshEcho. Set `MESHCORE_ROUTE_TTL_S=300` only to reproduce the legacy
+native baseline.
 
 This runs seven configurations (`meshtastic`, `meshcore`, `calm`, full
 `smart-calm`, and three Smart-CALM ablations) over repeated-unicast, mixed

@@ -11,7 +11,8 @@ the current matrix.
 
 The simulator is fair as a shared-harness comparison, but the current
 experiments are not yet fair as one general multi-hop benchmark. The original
-3 km matrix is too link-friendly and cache-friendly. The later connected-pair
+3 km matrix is too link-friendly and cache-friendly, and its native route-cache
+TTL is longer for MeshEcho than for MeshCore-like. The later connected-pair
 matrix corrects the link-quality saturation, but it drives route discovery
 into a broadcast-collision regime in which MeshCore is barely able to install a
 route. These are different questions and must be reported separately.
@@ -38,6 +39,7 @@ derived from the same seed for each protocol.
 | Pair reuse | Eight fixed unicast pairs | Deliberately favors route-cache reuse. This is valid as a cache-efficiency case, not as a neutral workload. |
 | Link budget | 50 nodes, 3000 m square, SF9, 17 dBm, path-loss exponent 2.7 | Direct-link reception is too easy for a calibrated multi-hop study. |
 | Cached paths | Across the 20 main seeds, 128/129 MeshCore cached routes and 142/142 CALM cached routes were one hop | The main matrix is mostly a connected, contention-dominated network rather than a multi-hop route-selection benchmark. |
+| Route-cache lifetime | MeshCore-like `300 s`; MeshEcho/CALM `600 s` | Favors MeshEcho in the repeated-pair matrix. A matched-TTL audit is required before interpreting the native PDR gap. |
 | Link-quality stress check | With an additional 8 dB path-loss penalty in a link-budget calculation, the minimum direct-link reception probability over the replayed pairs remained 0.9999866 | The main setting does not expose enough weak-link variation for confidence ranking to matter often. |
 | Recovery budget | CALM/MeshEcho has bounded fallback; the fixed baselines do not have an identical recovery controller. The exploratory Smart-CALM configuration additionally allows timeout retries. | End-to-end PDR gains cannot be attributed to confidence ranking alone. |
 | Confidence ablation | `smart-calm-no-confidence` is numerically almost identical to `smart-calm` in the main mixed and shadowing matrices | The random matrix does not provide a standalone estimate of the average confidence benefit. |
@@ -176,6 +178,63 @@ The one-shot outputs are stored separately as:
 - `results/meshecho_fair_budget_matched_connected20.csv`
 - `docs/results/meshecho_fair_budget_matched.md`
 - `docs/results/meshecho_fair_budget_matched_connected20.md`
+
+## Recovery-Budget Sensitivity Audit
+
+The current code was also replayed on the main 50-node mixed-traffic setting
+with the independent channel-reception stream and 20 paired seeds. The audit
+compares default CALM route-miss fallback with the same CALM route-admission
+logic after route-miss fallback is disabled:
+
+| Variant | ACK PDR | Destination PDR | Airtime (s) | Fallback forwards |
+| --- | ---: | ---: | ---: | ---: |
+| CALM with route-miss fallback | `0.728` | `0.766` | `847.3` | `62.4` |
+| CALM without route-miss fallback | `0.719` | `0.744` | `831.4` | `0.0` |
+
+The paired ACK-PDR difference was `+0.009 +/- 0.018` and the destination-PDR
+difference was `+0.023 +/- 0.023`; both two-sided 95% t intervals include zero.
+Fallback therefore contributes to the end-to-end operating point, but it does
+not explain the entire CALM-versus-MeshCore-like gap. MeshCore-like still lacks
+an equivalent recovery controller in this harness, so this remains a
+sensitivity audit rather than a fully budget-matched baseline comparison.
+The corrected audit report also gives mean per-seed route-discovery success
+rates of `0.798` for CALM with fallback, `0.805` for CALM without fallback, and
+`0.834` for MeshCore-like. This is descriptive evidence that MeshEcho was not
+given an easier route-discovery process in this replay; it does not remove the
+remaining differences in native recovery semantics.
+
+The reproducible artifacts are:
+
+- `results/meshecho_recovery_budget_audit.csv`
+- `docs/results/meshecho_recovery_budget_audit.md`
+- `tools/run_recovery_budget_audit.py`
+
+## Route-Cache Lifetime Sensitivity Audit
+
+The native main matrix uses a `300 s` MeshCore-like route-cache lifetime and a
+`600 s` CALM/MeshEcho lifetime. This is favorable to MeshEcho when the same
+eight pairs are reused. The paired 20-seed audit changed only the MeshCore-like
+TTL:
+
+| Variant | Route TTL (s) | ACK PDR | Destination PDR | Airtime (s) |
+| --- | ---: | ---: | ---: | ---: |
+| MeshCore-like native | 300 | `0.381` | `0.652` | `970.9` |
+| MeshCore-like matched | 600 | `0.519` | `0.722` | `905.5` |
+| MeshEcho | 600 | `0.728` | `0.766` | `847.3` |
+
+The paired 600 s versus 300 s MeshCore-like change was `+0.138 +/- 0.031`
+ACK PDR, `+0.070 +/- 0.034` destination PDR, and `-65.4 +/- 14.1 s`
+airtime. Under matched 600 s TTL, MeshEcho minus MeshCore-like was
+`+0.209 +/- 0.071` ACK PDR and `-58.2 +/- 19.2 s` airtime. The native
+`+0.347` ACK-PDR gap therefore overstates the more comparable matched-TTL
+bundle difference by `0.138` in this replay. This does not isolate confidence
+ranking, because discovery timing and recovery behavior remain different.
+
+The reproducible artifacts are:
+
+- `results/meshecho_route_ttl_audit.csv`
+- `docs/results/meshecho_route_ttl_audit.md`
+- `tools/run_route_ttl_audit.py`
 
 ## Connected-Pair Route-Discovery Stress Checks
 

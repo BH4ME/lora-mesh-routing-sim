@@ -3,10 +3,26 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.11`; the firmware prototype remains
+current repository release is `2.1.12`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.12`
+
+- Status: recovery-budget sensitivity revision on 2026-09-04.
+- Added the explicit `--calm-disable-route-miss-fallback` control and the
+  paired 20-seed `tools/run_recovery_budget_audit.py` experiment.
+- Added `--meshcore-route-ttl-s` and the paired 20-seed
+  `tools/run_route_ttl_audit.py` experiment. Matching MeshCore-like from
+  `300 s` to `600 s` raised ACK PDR from `0.381` to `0.519`.
+- In the current main mixed-scene replay, disabling route-miss fallback changed
+  CALM ACK PDR from `0.728` to `0.719` and destination PDR from `0.766` to
+  `0.744`, while reducing airtime from `847.3 s` to `831.4 s`.
+- The paired ACK-PDR difference was `+0.009 +/- 0.018`, so the manuscript
+  reports this as a small, statistically unresolved recovery effect rather
+  than as a confidence-only gain.
+- The frozen 3 km matrix and firmware prototype remain unchanged.
 
 ## `smart-calm-sim-v2.1.11`
 

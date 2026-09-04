@@ -11,6 +11,9 @@ DURATION_S="${DURATION_S:-1200}"
 PAIR_COUNT="${PAIR_COUNT:-8}"
 SEEDS="${SEEDS:-20}"
 SEED0="${SEED0:-1}"
+# New matrices match MeshEcho's 600 s route-cache lifetime. Set this to 300
+# only when reproducing the legacy frozen native MeshCore-like rows.
+MESHCORE_ROUTE_TTL_S="${MESHCORE_ROUTE_TTL_S:-600}"
 
 BASE_ARGS=(
   --protocol icc
@@ -32,6 +35,7 @@ BASE_ARGS=(
   --tx-current-ma 120
   --rx-current-ma 10.3
   --supply-voltage-v 3.3
+  --meshcore-route-ttl-s "$MESHCORE_ROUTE_TTL_S"
 )
 
 # Fresh ICC matrices use an isolated channel stream by default so protocol
