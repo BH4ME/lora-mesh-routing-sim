@@ -255,3 +255,10 @@ again, read this file first and continue from the publish gate.
 - Exact next action: push `version/v2`, update draft PR 1 to describe the
   2.1.11 fairness/budget-matched revision, then verify remote commit, PR
   metadata, and final artifact state.
+
+## Publish Transport Note - 2026-09-04
+
+- The first `git push -u origin version/v2` attempt failed before remote
+  update with `fatal: unable to access ... HTTP2 framing layer`.
+- Local commits remain intact; retry the push using Git HTTP/1.1, then verify
+  the remote branch before updating PR 1.

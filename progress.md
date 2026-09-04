@@ -67,3 +67,9 @@
 - The complete fairness-aware manuscript revision is already committed.
 - The next action is to push `version/v2`, update draft PR 1 from 2.1.9 to
   2.1.11, and verify the remote state.
+
+## Publish Transport Note - 2026-09-04
+
+- `git push -u origin version/v2` failed before updating the remote with an
+  HTTP/2 framing-layer error. Local commits are intact.
+- Retry with HTTP/1.1, then verify the remote branch and PR.

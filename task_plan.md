@@ -74,3 +74,8 @@ and publish the intended changes to GitHub.
   `origin/version/v2`.
 - The relevant files are already committed; the remaining publish gate is
   `git push` followed by updating and verifying draft PR 1.
+
+## Publish Transport Note - 2026-09-04
+
+- The first push attempt failed at the HTTP/2 transport layer before any
+  remote update. Retry with HTTP/1.1; no local commit was lost.
