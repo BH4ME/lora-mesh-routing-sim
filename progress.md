@@ -76,8 +76,8 @@
 
 ## Final Publish State - 2026-09-04
 
-- HTTP/1.1 push succeeded; local and remote `version/v2` match at
-  `6a17eff94a0a30bb191b8199b452769437b8e613`.
+- HTTP/1.1 push succeeded; the final local and remote `version/v2` state is
+  `251ba505d4763f971a647953f4ea99fe3a9399a3`.
 - PR 1 is open as a draft with the updated 2.1.11 title and body:
   `https://github.com/BH4ME/lora-mesh-routing-sim/pull/1`.
 - `VERSION` is `2.1.11`; the final paper is an 8-page PDF with SHA-256

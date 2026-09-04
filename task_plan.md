@@ -70,7 +70,7 @@ and publish the intended changes to GitHub.
 
 ## Publish Continuation - 2026-09-04
 
-- Local `HEAD` is `087f84e`, version `2.1.11`, and is one commit ahead of
+- The final local `HEAD` is `251ba50`, version `2.1.11`, and matches
   `origin/version/v2`.
 - The relevant files are already committed; the remaining publish gate is
   `git push` followed by updating and verifying draft PR 1.
@@ -83,7 +83,7 @@ and publish the intended changes to GitHub.
 ## Final Publish State - 2026-09-04
 
 - Push completed successfully with HTTP/1.1.
-- Local and remote `version/v2` both point to `6a17eff`.
+- Local and remote `version/v2` both point to `251ba50`.
 - Draft PR 1 is open and updated to the 2.1.11 fairness/budget-matched
   revision.
 - Final artifact and validation checks passed.

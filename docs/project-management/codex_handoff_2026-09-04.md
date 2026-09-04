@@ -265,8 +265,9 @@ again, read this file first and continue from the publish gate.
 
 ## Final Publish State - 2026-09-04
 
-- The HTTP/1.1 retry succeeded. `origin/version/v2` now points to
-  `6a17eff94a0a30bb191b8199b452769437b8e613`, matching local `HEAD`.
+- The HTTP/1.1 retry succeeded. The final publication-record commit
+  `251ba505d4763f971a647953f4ea99fe3a9399a3` is now present on both local
+  `HEAD` and `origin/version/v2`.
 - Draft PR 1 is open at
   `https://github.com/BH4ME/lora-mesh-routing-sim/pull/1` with title
   `[codex] MeshEcho 2.1.11 fairness and budget-matched evaluation`.
