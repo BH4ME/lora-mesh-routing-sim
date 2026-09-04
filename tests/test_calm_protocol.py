@@ -288,6 +288,26 @@ class CalmProtocolTest(unittest.TestCase):
         summary = sim.metrics.summarize(protocol.name, seed=15, duration_s=3.0)
         self.assertEqual(summary["fallback_forward_count"], 0)
 
+    def test_smart_calm_no_fallback_disables_confidence_triggered_fallback(self) -> None:
+        protocol = build_protocol("smart-calm-no-fallback")
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 100.0, 0.0),
+        ]
+        sim = Simulator(nodes, RadioConfig(shadow_sigma_db=0.0), protocol, seed=16, max_hops=3)
+        protocol.route_cache[0][1] = RouteEntry(
+            created_at=0.0,
+            expires_at=100.0,
+            path=(0, 1),
+            confidence=0.01,
+        )
+
+        protocol.send_app(0, 1, flow_id=1)
+        sim.run(until_s=2.0)
+
+        summary = sim.metrics.summarize(protocol.name, seed=16, duration_s=2.0)
+        self.assertEqual(summary["fallback_forward_count"], 0)
+
     def test_smart_calm_retries_undelivered_unicast_after_timeout(self) -> None:
         protocol = SmartCalmMesh(
             update_interval_s=999.0,

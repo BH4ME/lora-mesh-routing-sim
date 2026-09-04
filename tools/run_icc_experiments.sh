@@ -34,6 +34,11 @@ BASE_ARGS=(
   --supply-voltage-v 3.3
 )
 
+RNG_ARGS=()
+if [[ "${INDEPENDENT_RNG_STREAMS:-0}" == "1" ]]; then
+  RNG_ARGS+=(--independent-rng-streams)
+fi
+
 run_scenario() {
   local suffix="$1"
   local traffic="$2"
@@ -46,6 +51,7 @@ run_scenario() {
 
   python3 lora_mesh_sim.py \
     "${BASE_ARGS[@]}" \
+    "${RNG_ARGS[@]}" \
     --traffic "$traffic" \
     --rate-per-min "$rate_per_min" \
     "$@" \

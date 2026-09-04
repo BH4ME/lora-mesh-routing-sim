@@ -73,6 +73,16 @@ machine-readable long-format summary for table generation.
    even if the full method does not win every individual metric.
 6. State that this is a packet-level channel model rather than a waveform-level
    LoRa emulator, and report the PHY and radio-current assumptions.
+7. Before freezing a matrix, report direct-link PRR quantiles and the cached
+   route hop distribution. Reject a setting in which nearly all direct links
+   have PRR above 0.99 or nearly all successful cached routes are one hop.
+8. For a new fairness matrix, run with
+   `INDEPENDENT_RNG_STREAMS=1` so channel-reception randomness is separated
+   from forwarding jitter and learning exploration. The default legacy mode is
+   retained for frozen-result reproducibility.
+9. For mechanism claims, equalize retry and fallback budgets across the
+   confidence and no-confidence variants and state whether fixed baselines have
+   an equivalent recovery controller.
 
 ## Suggested Paper Tables
 
@@ -88,3 +98,14 @@ remaining metrics for supplementary analysis.
 
 See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
 four-scenario summary.
+
+The current `2.1.9` audit concludes that the existing 3000 m matrix is fair as
+a shared-harness comparison, but too link-friendly and too asymmetric for a
+standalone claim about general multi-hop confidence-aware routing. See
+`docs/results/meshecho_fairness_audit.md` before using the frozen results.
+
+The pre-fix Smart-CALM ablation rows in the historical `2.1.3`/`2.1.7`
+artifacts must not be used as current evidence for the no-fallback variant.
+The no-fallback implementation and its regression test were corrected in
+`2.1.8`; a new ablation matrix must be generated before making quantitative
+claims about those rows.

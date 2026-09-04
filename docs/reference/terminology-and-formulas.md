@@ -162,7 +162,8 @@ RSSI_dBm = TxPower_dBm - PathLoss(d)
 
 The simulator draws one shadowing value per unordered node pair and seed, then
 reuses it for every packet on that link. This keeps the propagation realization
-identical across protocol runs while avoiding a full waveform model.
+identical across protocol runs while avoiding a full waveform model. Temporal
+fading is not modeled in the current version.
 
 ## Noise, SNR, and SINR
 

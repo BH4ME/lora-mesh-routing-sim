@@ -601,12 +601,20 @@ class Simulator:
         protocol: "RoutingProtocol",
         seed: int,
         max_hops: int,
+        independent_random_streams: bool = False,
     ) -> None:
         self.nodes = {node.node_id: node for node in nodes}
         self.radio = radio
         self.protocol = protocol
         self.seed = seed
         self.random = random.Random(seed)
+        # Keep legacy output reproducible by default. The split mode prevents
+        # protocol-specific jitter/exploration draws from moving channel draws.
+        self.channel_random = (
+            random.Random(seed + 0x51ED270B)
+            if independent_random_streams
+            else self.random
+        )
         self.max_hops = max_hops
         self.now = 0.0
         self._event_counter = 0
@@ -643,7 +651,7 @@ class Simulator:
         # Free-space path loss at 1 m. 32.44 + MHz + km form.
         pl0 = 32.44 + 20.0 * math.log10(self.radio.carrier_mhz) + 20.0 * math.log10(0.001)
         shadow = (
-            self.random.gauss(0.0, self.radio.shadow_sigma_db)
+            self.channel_random.gauss(0.0, self.radio.shadow_sigma_db)
             if shadowing_db is None
             else shadowing_db
         )
@@ -760,7 +768,7 @@ class Simulator:
             sinr_db = 10.0 * math.log10(signal_mw / (noise_mw + interference_mw))
             collided = True
 
-        if self.random.random() <= self.prr_from_snr(sinr_db):
+        if self.channel_random.random() <= self.prr_from_snr(sinr_db):
             self.metrics.rx_success += 1
             return RxInfo(tx.sender, signal_dbm, snr_db, sinr_db, collided)
 
@@ -1906,7 +1914,9 @@ class SmartCalmMesh(CalmMesh):
 
     def fallback_confidence_threshold_for(self, flow_id: int) -> float:
         if not self.fallback_enabled:
-            return float("inf")
+            # A negative threshold keeps the confidence-triggered fallback
+            # branch disabled without changing route-miss/timeout guards.
+            return -float("inf")
         profile = self._profile_for_flow(flow_id)
         return (
             profile.fallback_confidence_threshold
@@ -2243,7 +2253,18 @@ def run_one(args: argparse.Namespace, protocol_name: str, seed: int) -> Dict[str
         capture_threshold_db=args.capture_threshold_db,
     )
     protocol = build_protocol(protocol_name, args)
-    sim = Simulator(nodes, radio, protocol, seed=seed, max_hops=args.max_hops)
+    sim = Simulator(
+        nodes,
+        radio,
+        protocol,
+        seed=seed,
+        max_hops=args.max_hops,
+        independent_random_streams=getattr(
+            args,
+            "independent_random_streams",
+            False,
+        ),
+    )
     traffic_rng = random.Random(seed + 10_000)
     schedule_traffic(
         sim,
@@ -2381,6 +2402,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--path-loss-exp", type=float, default=2.7)
     parser.add_argument("--shadow-sigma-db", type=float, default=4.0)
     parser.add_argument("--capture-threshold-db", type=float, default=6.0)
+    parser.add_argument(
+        "--independent-rng-streams",
+        action="store_true",
+        help=(
+            "use a separate random stream for channel reception outcomes; "
+            "keeps protocol jitter and learning draws from consuming it"
+        ),
+    )
     parser.add_argument("--calm-route-ttl-s", type=float, default=600.0)
     parser.add_argument("--calm-discovery-window-s", type=float, default=2.0)
     parser.add_argument("--calm-flood-base-delay-s", type=float, default=0.45)

@@ -3,10 +3,79 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.3`; the firmware prototype remains
+current repository release is `2.1.9`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.9`
+
+- Status: fairness-aware manuscript and reproducibility refinement on
+  2026-09-04.
+- Added the opt-in `--independent-rng-streams` simulator mode and documented
+  its scope: it separates channel-reception draws from protocol jitter and
+  learning exploration, but does not create event-by-event common random
+  numbers when protocols generate different transmission counts.
+- The ICCT manuscript now states that the frozen matrix is a contention-oriented
+  high-PRR case, discloses fixed-pair and recovery-budget effects, and records
+  the fixed-payload limitation for source-route header airtime.
+- The frozen result files are retained; no post-hoc harder parameter sweep is
+  substituted into the published tables.
+- The firmware prototype remains `meshecho-firmware-v2.1.2`.
+
+## `smart-calm-sim-v2.1.8`
+
+- Status: final fairness-traceable ICCT paper package and no-fallback fix on
+  2026-09-04.
+- Evidence: the revised
+  `paper/icct2026/icct2026_lora_mesh_preliminary.tex`,
+  `docs/results/meshecho_fairness_audit.md`, and the regression test in
+  `tests/test_calm_protocol.py`.
+- The frozen three-protocol main matrix is retained. Smart-CALM ablation rows
+  generated before the no-fallback fix remain historical and require a fresh
+  rerun before being used as current quantitative evidence.
+- The firmware prototype remains `meshecho-firmware-v2.1.2`.
+
+## `smart-calm-sim-v2.1.7`
+
+- Status: fairness-bounded paper revision and reproducibility correction on
+  2026-09-04.
+- Evidence: the revised
+  `paper/icct2026/icct2026_lora_mesh_preliminary.tex`,
+  `docs/results/meshecho_fairness_audit.md`, and the corrected shadowing-model
+  terminology documentation.
+- The frozen simulation CSVs are retained. This release does not silently
+  replace the 3000 m matrix with the harder diagnostic probes.
+- The firmware prototype remains `meshecho-firmware-v2.1.2`.
+
+## `smart-calm-sim-v2.1.6`
+
+- Status: fairness-aware ICCT manuscript package and release traceability on
+  2026-09-04.
+- Evidence: the revised
+  `paper/icct2026/icct2026_lora_mesh_preliminary.tex` and
+  `docs/results/meshecho_fairness_audit.md`.
+- The frozen simulation CSVs are retained; this release does not silently
+  replace the 3000 m matrix with the harder diagnostic probes.
+- The firmware prototype remains `meshecho-firmware-v2.1.2`.
+
+## `smart-calm-sim-v2.1.5`
+
+- Status: fairness audit and ICCT manuscript revision on 2026-09-04.
+- Evidence: `docs/results/meshecho_fairness_audit.md` and the revised
+  `paper/icct2026/icct2026_lora_mesh_preliminary.tex`.
+- Finding: the common seed/topology/traffic harness is shared, but the current
+  matrix is link-quality saturated, almost entirely one-hop, and not fully
+  budget-matched at the recovery-mechanism level.
+- The firmware prototype remains `meshecho-firmware-v2.1.2`.
+
+## `smart-calm-sim-v2.1.4`
+
+- Status: controlled route-conflict experiment added on 2026-09-03.
+- Evidence: `results/meshecho_route_conflict.csv` and
+  `docs/results/meshecho_route_conflict.md`.
+- Scope: isolates confidence-based candidate admission from online learning and
+  fallback recovery; it does not replace the random-topology ICC matrix.
 
 ## `smart-calm-sim-v2.1.3`
 

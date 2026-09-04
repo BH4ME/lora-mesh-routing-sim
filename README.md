@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.3` (paper/results package; firmware prototype
+Current repository release: `2.1.9` (paper/results package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -105,6 +105,26 @@ Aggregate a multi-seed CSV:
 python3 analyze_results.py results/baselines.csv
 ```
 
+Run the controlled route-conflict experiment, which isolates confidence-based
+candidate selection from online learning and fallback recovery:
+
+```bash
+python3 tools/run_route_conflict_experiment.py
+```
+
+It writes raw per-seed rows to `results/meshecho_route_conflict.csv` and the
+paired summary to `docs/results/meshecho_route_conflict.md`.
+
+Run the fairness audit with null, moderate, and reverse weak-link controls:
+
+```bash
+python3 tools/run_route_conflict_fairness_audit.py
+```
+
+It writes `results/meshecho_route_conflict_fairness.csv` and
+`docs/results/meshecho_route_conflict_fairness.md`. The audit is a controlled
+mechanism check and does not replace random-topology or high-load evaluation.
+
 For the ICC comparison matrix, run:
 
 ```bash
@@ -119,6 +139,19 @@ deviation, and 95% confidence intervals. See
 [ICC 2027 Experiment Plan](docs/icc2027_experiment_plan.md) for the table
 layout and reproducibility rules. The verified matrix is summarized in
 [ICC 2027 Comparison](docs/results/icc2027_comparison.md).
+
+For a new comparison that keeps channel-reception draws separate from
+forwarding jitter and learning exploration, run:
+
+```bash
+INDEPENDENT_RNG_STREAMS=1 OUT_PREFIX=meshecho_fair \
+  tools/run_icc_experiments.sh
+```
+
+The default remains the legacy random-stream mode so frozen result files stay
+reproducible. The split mode improves experimental isolation, but it does not
+make protocol executions event-by-event identical when they generate different
+numbers of transmissions.
 
 Useful parameters:
 
@@ -141,6 +174,7 @@ Useful parameters:
 --path-loss-exp 2.7
 --shadow-sigma-db 4
 --max-hops 7
+--independent-rng-streams
 ```
 
 Example scenarios:
