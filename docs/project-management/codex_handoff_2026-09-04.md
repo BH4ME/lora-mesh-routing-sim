@@ -332,3 +332,26 @@ again, read this file first and continue from the publish gate.
   `MESHCORE_ROUTE_TTL_S=300` reproduces the legacy native baseline.
 - Exact next actions: selectively stage only this revision's files, commit and
   push `version/v2`, update PR 1, and verify the remote commit and artifacts.
+
+## 2.1.13 Fairness-Focused Continuation - 2026-09-04
+
+- Rechecked the fairness boundary after the user's concern that the simulation
+  may be too favorable. The evidence supports a fair shared harness, but a
+  link-friendly and cache-friendly frozen workload rather than a neutral
+  multi-hop benchmark.
+- The manuscript now reports the matched-TTL result, the random-pair
+  non-saturated probe, the one-shot confidence ablation, and the controlled
+  route-conflict boundary without claiming universal MeshEcho superiority.
+- `VERSION` is now `2.1.13`; the firmware prototype remains
+  `meshecho-firmware-v2.1.2`.
+- Validation: `python3 -m pytest -q` reports 49 passed; Python compilation,
+  `bash -n tools/run_icc_experiments.sh`, and `git diff --check` pass.
+- The manuscript compiles successfully with bundled Tectonic to 9 pages at
+  `paper/icct2026/build-2_1_13-tectonic/icct2026_lora_mesh_preliminary.pdf`. The
+  verified root copy has SHA-256
+  `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+  Citation resolution and page rendering checks pass; remaining diagnostics
+  are font substitution and underfull-box warnings.
+- Exact next actions: selectively stage the 2.1.13 files, commit and push
+  `version/v2`, update PR 1, then verify the remote commit, PR metadata, and
+  final PDF.

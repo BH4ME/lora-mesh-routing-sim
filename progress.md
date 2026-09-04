@@ -132,3 +132,25 @@
 - Latest rendered pages were visually checked with no layout defects.
 - Remaining actions are selective commit, push, PR update, and remote
   verification.
+
+## 2026-09-04 - 2.1.13 Fairness-Focused Revision
+
+- Rechecked the simulation from a fairness perspective after the user asked
+  whether the data were too favorable.
+- Confirmed the original matrix is a valid shared-harness comparison but is
+  not a neutral multi-hop benchmark: direct-link PRR is nearly saturated,
+  fixed pairs favor caching, and native MeshCore-like TTL was shorter.
+- Preserved the matched-TTL audit, random-pair non-saturated probe, one-shot
+  timeout-budget check, and controlled route-conflict experiment as separate
+  evidence layers.
+- Updated the manuscript and release metadata to `2.1.13`; no-confidence
+  behavior is now explicitly disabled in both route admission and confidence
+  fallback/reward paths.
+- Full validation: `python3 -m pytest -q` reports 49 passed; Python
+  compilation, shell syntax, and `git diff --check` pass.
+- Bundled Tectonic build succeeded at
+  `paper/icct2026/build-2_1_13-tectonic/icct2026_lora_mesh_preliminary.pdf`; the
+  verified root PDF is 9 pages with SHA-256
+  `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- Next: stage only the 2.1.13 files, commit, push `version/v2`, update PR 1,
+  and verify the remote publication.

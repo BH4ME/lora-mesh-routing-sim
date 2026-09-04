@@ -146,6 +146,25 @@ and publish the intended changes to GitHub.
 - Remaining gates are selective staging, commit, push, PR update, and remote
   verification.
 
+## 2.1.13 Fairness-Focused Verification
+
+- Reframed the frozen 50-node matrix as a contention-oriented repeated-pair
+  case because direct-link PRR is saturated and cached routes are mostly one
+  hop.
+- Kept the matched 600 s MeshCore-like TTL, random-pair non-saturated probe,
+  one-shot timeout budget check, and controlled route-conflict experiment
+  separate in the manuscript.
+- Updated `VERSION`, release notes, experiment-plan notes, simulator defaults,
+  regression tests, and the ICCT manuscript to `2.1.13`.
+- `python3 -m pytest -q`: 49 passed. Python compilation, shell syntax, and
+  `git diff --check` pass.
+- Bundled Tectonic rebuilt the manuscript to 9 pages. Root PDF SHA-256:
+  `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- Rendered pages 1, 6, and 9 were inspected directly; PDF text extraction,
+  citation checks, and page metadata confirm a complete artifact.
+- Remaining actions are selective staging, commit, push, PR update, and
+  remote verification.
+
 ## Continuation Rule
 
 Before any context compression, append completed commands/results and the

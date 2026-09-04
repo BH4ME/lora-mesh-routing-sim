@@ -106,7 +106,7 @@ remaining metrics for supplementary analysis.
 See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
 four-scenario summary.
 
-The current `2.1.12` audit concludes that the existing 3000 m matrix is fair as
+The current `2.1.13` audit concludes that the existing 3000 m matrix is fair as
 a shared-harness comparison, but too link-friendly and too asymmetric for a
 standalone claim about general multi-hop confidence-aware routing. Its legacy
 native rows also use a shorter MeshCore-like route-cache TTL than MeshEcho.

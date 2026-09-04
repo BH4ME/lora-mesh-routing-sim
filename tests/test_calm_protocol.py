@@ -3,9 +3,11 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from lora_mesh_sim import (
     CalmMesh,
+    DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
     ICC_PROTOCOLS,
     FlowDecision,
     MeshtasticLike,
@@ -16,6 +18,7 @@ from lora_mesh_sim import (
     Simulator,
     SmartCalmMesh,
     build_protocol,
+    parse_args,
     run_one,
 )
 
@@ -226,6 +229,21 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(static.fixed_profile_index, 1)
         self.assertFalse(no_fallback.fallback_enabled)
         self.assertFalse(no_confidence.confidence_enabled)
+
+    def test_meshcore_cli_default_uses_matched_route_cache_ttl(self) -> None:
+        with patch("sys.argv", ["lora_mesh_sim.py"]):
+            args = parse_args()
+
+        self.assertEqual(
+            args.meshcore_route_ttl_s,
+            DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
+        )
+
+    def test_no_confidence_ablation_disables_confidence_behaviors(self) -> None:
+        protocol = build_protocol("smart-calm-no-confidence")
+        protocol.apply_profile(2)
+
+        self.assertEqual(protocol.fallback_confidence_threshold_for(1), -float("inf"))
 
     def test_smart_calm_no_confidence_prefers_shortest_route_candidate(self) -> None:
         smart_calm = build_protocol("smart-calm")

@@ -3,10 +3,21 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.12`; the firmware prototype remains
+current repository release is `2.1.13`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.13`
+
+- Status: fairness-focused manuscript revision on 2026-09-04.
+- Reframe the frozen repeated-pair matrix as a contention-oriented operating
+  point rather than a neutral multi-hop benchmark.
+- Add an explicit fairness judgment separating shared-harness construction,
+  matched-TTL sensitivity, random-pair external validity, and controlled
+  route-conflict mechanism evidence.
+- Keep historical CSVs unchanged and retain the firmware prototype at
+  `meshecho-firmware-v2.1.2`.
 
 ## `smart-calm-sim-v2.1.12`
 

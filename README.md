@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.12` (paper/results package; firmware prototype
+Current repository release: `2.1.13` (paper/results package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -283,6 +283,13 @@ The table and CSV include:
 
 For a paper, repeat each scenario with many seeds and report mean values with
 confidence intervals.
+
+The current release treats the original 50-node, 3000 m, fixed-pair matrix as
+a contention-oriented cache-efficiency case. It is not a neutral multi-hop
+benchmark because the default direct links are nearly all high-PRR and the
+native recovery budgets differ. Use the matched-TTL audit and the random-pair
+fairness probe before making general routing claims. See
+[ICC 2027 Experiment Plan](docs/icc2027_experiment_plan.md).
 
 ## Included Results
 

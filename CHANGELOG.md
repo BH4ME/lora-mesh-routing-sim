@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.1.13 - Fairness-focused paper revision
+
+- Reframe the ICCT manuscript so the frozen repeated-pair matrix is treated as
+  a contention-oriented operating point rather than a neutral multi-hop
+  benchmark.
+- Add an explicit fairness judgment that separates shared-harness fairness,
+  matched-TTL sensitivity, random-pair external-validity evidence, and
+  controlled route-conflict mechanism evidence.
+- Align manuscript, experiment-plan, and release documentation with the
+  current fairness boundary and the matched 600 s MeshCore-like default.
+- Retain all historical CSVs and the firmware prototype at
+  `meshecho-firmware-v2.1.2`.
+
 ## 2.1.12 - Recovery-budget sensitivity audit
 
 - Add the explicit `--calm-disable-route-miss-fallback` control for

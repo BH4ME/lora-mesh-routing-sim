@@ -31,34 +31,30 @@ shadowing, half-duplex radios, collision/capture behavior, and probabilistic
 reception from SNR margin. Using this harness, we compare managed flooding, a
     source-route cache baseline, and a lightweight confidence-aware routing
     prototype, MeshEcho, that ranks discovered paths and uses bounded recovery
-    forwarding for route-recovery cases. In the frozen 50-node mixed-traffic matrix, MeshEcho
-    reaches 0.735 ACK-confirmed unicast PDR versus 0.389 for the source-route
-    baseline, with 839.6 s versus 971.5 s of aggregate airtime. A paired cache-
-    lifetime audit shows that matching the source-route baseline's cache TTL to
-    MeshEcho's 600 s raises its ACK PDR to 0.519, reducing the native mean gap
-    by 0.138 while leaving a 0.209 ACK-PDR gap in the matched bundle comparison.
+    forwarding for route-recovery cases. In the frozen 50-node mixed-traffic
+    matrix, which is explicitly a contention-oriented repeated-pair case,
+    MeshEcho reaches 0.735 ACK-confirmed unicast PDR versus 0.389 for the
+    source-route baseline, with 839.6 s versus 971.5 s of aggregate airtime.
+    The same matrix is link-quality saturated: calculated direct-link PRR is
+    above 0.99 for all node pairs and almost all cached routes are one hop. A
+    paired cache-lifetime audit shows that matching the source-route baseline's
+    cache TTL to MeshEcho's 600 s raises its ACK PDR to 0.519, reducing the
+    native mean gap by 0.138 while leaving a 0.209 ACK-PDR gap in the matched
+    protocol-bundle comparison.
     A separate
     controlled route-conflict experiment shows that the route-selection gain
     appears only when the shorter candidate contains a materially weaker hop:
     with 7.5 dB extra loss on that hop, MeshEcho reaches 0.999 ACK-confirmed
     PDR versus 0.784 for a shortest-path ablation, whereas null, moderate, and
-    reverse controls produce no gain. The evaluation also exposes important
-    fairness boundaries: fixed repeated pairs favor route caching, the default
-    link setting is link-quality saturated and produces very few multi-hop
-    routes, and adaptive recovery is not budget-matched across all protocol
-    variants. A current-code recovery audit shows that disabling route-miss
-    fallback changes ACK PDR by only $+0.009\pm0.018$ in a paired 20-seed
-    replay, but does not make the baseline recovery budgets identical. These
-    results support a bounded preliminary claim rather than universal
+    reverse controls produce no gain. An additional ten-seed, one-shot
+    random-pair probe with Smart-CALM timeout retries disabled gives MeshEcho
+    0.413 ACK-confirmed PDR and 97.5 s of airtime, versus 0.456 PDR and 139.5 s
+    for source-route caching. Smart-CALM and its no-confidence control reach
+    0.489 and 0.488 PDR, respectively, with a paired 95\% interval for their
+    difference that includes zero. Recovery and route-cache audits further show
+    that native protocol budgets are not identical. These results support a
+    bounded preliminary reliability-airtime tradeoff claim, not universal
     dominance.
-
-    An additional ten-seed, one-shot random-pair probe with timeout retries
-    disabled for Smart-CALM gives MeshEcho 0.413 ACK-confirmed PDR and 97.5 s
-    of airtime, versus 0.456 PDR and 139.5 s for source-route caching. Smart-CALM
-    and its no-confidence control reach 0.489 and 0.488 PDR, respectively, with
-    a paired 95\% interval for their difference that includes zero. Thus, the
-    efficiency advantage persists outside the frozen matrix, but a general
-    confidence-ranking advantage is not established.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -117,6 +113,9 @@ The contributions of this paper are:
     \item We separate general random-topology results from a controlled
     route-conflict experiment with null and reverse controls, making the
     mechanism claim and its fairness boundary explicit.
+    \item We quantify evaluation sensitivity to fixed-pair reuse, link-quality
+    saturation, route-cache lifetime, and recovery budget instead of treating
+    the frozen matrix as a neutral multi-hop benchmark.
 \end{itemize}
 
 The scope is deliberately preliminary. We focus on simulation-based evidence and
@@ -237,7 +236,10 @@ jitter and reception draws can consume the same generator. The released
 simulator provides an opt-in independent channel-randomness mode for new runs;
 this separates reception draws from forwarding jitter and learning exploration,
 but it still does not create event-by-event common random numbers when protocols
-generate different numbers of transmissions. In the main matrix,
+generate different numbers of transmissions. Fresh ICC matrices from the
+current release use the independent mode and a matched 600 s MeshCore-like
+route-cache TTL by default; the frozen files remain historical artifacts for
+traceability. In the main matrix,
 \texttt{unicast\_pdr} is the source-side ACK-confirmed delivery ratio;
 destination DATA arrival is reported separately because destination reception
 does not guarantee a successful ACK return. The main tables use the frozen
@@ -400,8 +402,9 @@ confidence-ranking claim.
 
 \begin{table*}[t]
 \centering
-\caption{Repeated-unicast results over 20 seeds. MeshEcho denotes the
-confidence-aware prototype.}
+\caption{Frozen native repeated-unicast results over 20 seeds. MeshEcho denotes
+the confidence-aware prototype. This is a fixed-pair, contention-oriented
+case, not a neutral multi-hop benchmark.}
 \label{tab:unicast}
 \begin{tabular}{lrrrr}
 \toprule
@@ -416,8 +419,9 @@ MeshEcho & 0.831 & 256 & 17619 & 77.7\% \\
 
 \begin{table*}[t]
 \centering
-\caption{Mixed-traffic and high-shadowing results over 20 seeds. MeshEcho
-denotes the confidence-aware prototype.}
+\caption{Frozen native mixed-traffic and high-shadowing results over 20 seeds.
+MeshEcho denotes the confidence-aware prototype. The fixed-pair and native
+recovery limitations are discussed in the text.}
 \label{tab:mixed}
 \begin{tabular}{llrrrr}
 \toprule
@@ -451,7 +455,7 @@ High shadowing & MeshEcho & 0.731 & 0.965 & 834 & 74129 \\
 \subsection{Repeated Unicast}
 
 Table~\ref{tab:unicast} and Figs.~\ref{fig:pdr}--\ref{fig:airtime} show the
-repeated-unicast result. Managed flooding reaches the highest unicast PDR in
+frozen repeated-unicast result. Managed flooding reaches the highest unicast PDR in
 this scenario at 0.838, but spends 1152 s of aggregate airtime and produces
 120,276 collision failures. Source-route caching reduces airtime to 358 s, but
 its PDR drops to 0.605. MeshEcho reaches 0.831 PDR with 256 s of airtime and
@@ -472,7 +476,7 @@ distribution and cached-route hop statistics.
 \subsection{Mixed Traffic}
 
 Mixed traffic is more challenging because broadcast and unicast flows share the
-same channel. Table~\ref{tab:mixed} shows that the source-route baseline
+same channel. Table~\ref{tab:mixed} shows that the frozen source-route baseline
 maintains high broadcast coverage but has a lower ACK-confirmed unicast PDR of
 0.389, compared with 0.852 for managed flooding. MeshEcho recovers part of
 this loss, reaching 0.735 while reducing total airtime from 971 s to 840 s
@@ -664,6 +668,18 @@ end-to-end behavior. The main matrix is a common-harness comparison, not a
 fully budget-matched comparison of all recovery mechanisms; a mechanism study
 must equalize route-cache lifetime, retry, and fallback budgets as well.
 
+\paragraph{Fairness judgment.}
+The evaluation is fair in its shared-harness construction: topology, traffic
+trace, PHY settings, static shadowing, and seed values are reused across
+protocols. It is not fully neutral as a single benchmark. The frozen matrix
+favors route reuse and contains almost no multi-hop link-quality conflicts,
+while MeshEcho's native recovery behavior is not available to the fixed
+baselines. We therefore treat the frozen tables as a declared operating-point
+comparison, the matched-TTL audit as a sensitivity correction, the random-pair
+probe as an external-validity check, and the route-conflict experiment as
+mechanism evidence. This separation prevents the native PDR gap from being
+interpreted as a pure confidence-ranking effect.
+
 \section{Limitations and Future Work}
 
 This work is a packet-level simulation rather than a physical deployment. The
@@ -748,7 +764,7 @@ rather than a universal ranking of LoRa mesh protocols.
 The MeshEcho simulator, routing implementation, experiment scripts, raw
 results, and paper source are released in the accompanying repository:
 \url{https://github.com/BH4ME/lora-mesh-routing-sim} (repository release
-2.1.12). No human participants or personal data were involved. The authors
+2.1.13). No human participants or personal data were involved. The authors
 report no conflicts of interest and no external funding. Author contributions
 cover protocol design, implementation, experiment design, analysis, and
 manuscript preparation. AI-based tools assisted with code inspection and

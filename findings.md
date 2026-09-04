@@ -130,3 +130,28 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   unreadable table/figure was found.
 - Final checks report `47 passed`; Python compilation, shell syntax, CLI help,
   and `git diff --check` passed.
+
+## 2.1.13 Fairness Recheck
+
+- The user's concern is justified for the original headline setup: the
+  3 km/SF9/fixed-pair matrix is favorable to route caching and too easy to
+  expose link-quality conflicts. It should remain labeled as a
+  contention-oriented operating point.
+- The favorable TTL bias is quantified rather than hidden: matching
+  MeshCore-like from 300 s to 600 s raises its ACK PDR from 0.381 to 0.519,
+  leaving a matched protocol-bundle difference of 0.209 rather than the native
+  0.347.
+- The random-pair non-saturated probe removes pair reuse and retains an
+  airtime advantage for MeshEcho, but its ACK PDR is 0.413 versus 0.456 for
+  source-route caching. The one-shot Smart-CALM versus no-confidence delta is
+  +0.001 with a 95% interval containing zero.
+- The controlled route-conflict experiment supports only a bounded mechanism
+  claim: confidence helps when the shorter candidate contains a materially
+  weaker hop, not as a general topology-independent advantage.
+- The revised conclusion is therefore fairer: shared-harness comparison is
+  valid, but the scenario is not a neutral deployment benchmark and the
+  evidence does not establish universal confidence-ranking superiority.
+- The 2.1.13 paper compiles to 9 pages with bundled Tectonic; root PDF SHA-256
+  is `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- Final validation reports 49 passing tests, successful Python and shell
+  checks, clean diff whitespace, and no unresolved citation warnings.

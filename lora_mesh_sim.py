@@ -25,6 +25,7 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 BROADCAST_DST = -1
 DEFAULT_CALM_DISCOVERY_WINDOW_S = 2.0
+DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S = 600.0
 ICC_PROTOCOLS = (
     "meshtastic",
     "meshcore",
@@ -1927,9 +1928,11 @@ class SmartCalmMesh(CalmMesh):
         )
 
     def fallback_confidence_threshold_for(self, flow_id: int) -> float:
-        if not self.fallback_enabled:
+        if not self.fallback_enabled or not self.confidence_enabled:
             # A negative threshold keeps the confidence-triggered fallback
-            # branch disabled without changing route-miss/timeout guards.
+            # branch disabled without changing route-miss/timeout guards. The
+            # no-confidence ablation also disables this branch so it tests
+            # shortest-candidate admission without a hidden confidence path.
             return -float("inf")
         profile = self._profile_for_flow(flow_id)
         return (
@@ -2123,7 +2126,7 @@ class SmartCalmMesh(CalmMesh):
             - 0.02 * latency
             - 0.08 * decision.route_miss
             - 0.035 * decision.fallback_count
-            + 0.08 * decision.confidence
+            + (0.08 * decision.confidence if self.confidence_enabled else 0.0)
         )
         state = self.state_index_from_snapshot(self.sim.metrics.snapshot())
         key = (decision.state_index, decision.action_index)
@@ -2209,7 +2212,11 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
         if args is None:
             return MeshCoreLike()
         return MeshCoreLike(
-            route_ttl_s=getattr(args, "meshcore_route_ttl_s", 300.0),
+            route_ttl_s=getattr(
+                args,
+                "meshcore_route_ttl_s",
+                300.0,
+            ),
         )
     if name == "calm":
         if args is None:
@@ -2445,7 +2452,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--meshcore-route-ttl-s",
         type=float,
-        default=300.0,
+        default=DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
         help="source-route cache lifetime for the MeshCore-like baseline",
     )
     parser.add_argument("--calm-discovery-window-s", type=float, default=2.0)
