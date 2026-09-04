@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import heapq
 import math
 import random
@@ -23,6 +24,17 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 
 BROADCAST_DST = -1
+DEFAULT_CALM_DISCOVERY_WINDOW_S = 2.0
+DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S = 600.0
+ICC_PROTOCOLS = (
+    "meshtastic",
+    "meshcore",
+    "calm",
+    "smart-calm",
+    "smart-calm-static",
+    "smart-calm-no-fallback",
+    "smart-calm-no-confidence",
+)
 
 
 def dbm_to_mw(dbm: float) -> float:
@@ -37,6 +49,21 @@ def mw_to_dbm(mw: float) -> float:
 
 def clamp(value: float, lo: float, hi: float) -> float:
     return max(lo, min(hi, value))
+
+
+def percentile(values: Sequence[float], quantile: float) -> float:
+    """Return a linearly interpolated percentile for a finite sample."""
+
+    if not values:
+        return 0.0
+    ordered = sorted(values)
+    position = clamp(quantile, 0.0, 1.0) * (len(ordered) - 1)
+    lower = math.floor(position)
+    upper = math.ceil(position)
+    if lower == upper:
+        return ordered[lower]
+    fraction = position - lower
+    return ordered[lower] + fraction * (ordered[upper] - ordered[lower])
 
 
 def required_snr_db(sf: int) -> float:
@@ -69,6 +96,9 @@ class RadioConfig:
     shadow_sigma_db: float = 4.0
     capture_threshold_db: float = 6.0
     prr_slope: float = 1.15
+    tx_current_ma: float = 120.0
+    rx_current_ma: float = 10.3
+    supply_voltage_v: float = 3.3
 
     @property
     def noise_floor_dbm(self) -> float:
@@ -91,6 +121,18 @@ class RadioConfig:
         denominator = 4 * (sf - 2 * de)
         payload_symbols = 8 + max(math.ceil(numerator / denominator) * (cr + 4), 0)
         return t_preamble + payload_symbols * t_sym
+
+    @property
+    def tx_energy_per_packet_j(self) -> float:
+        """Electrical energy consumed by one radio transmission."""
+
+        return self.supply_voltage_v * (self.tx_current_ma / 1000.0) * self.toa_s
+
+    @property
+    def rx_energy_per_packet_j(self) -> float:
+        """Electrical energy consumed while a radio listens for one packet."""
+
+        return self.supply_voltage_v * (self.rx_current_ma / 1000.0) * self.toa_s
 
 
 @dataclass
@@ -122,6 +164,7 @@ class Packet:
     path: Tuple[int, ...] = ()
     path_index: int = 0
     learned_path: Tuple[int, ...] = ()
+    path_confidence: float = 0.0
     app_payload: bool = True
 
     @property
@@ -130,7 +173,7 @@ class Packet:
 
     @property
     def is_control(self) -> bool:
-        return self.kind in {"RREQ", "RREP"}
+        return self.kind in {"RREQ", "RREP", "ACK"}
 
     def with_ttl(self, ttl: int) -> "Packet":
         return Packet(
@@ -145,6 +188,7 @@ class Packet:
             path=self.path,
             path_index=self.path_index,
             learned_path=self.learned_path,
+            path_confidence=self.path_confidence,
             app_payload=self.app_payload,
         )
 
@@ -161,6 +205,7 @@ class Packet:
             path=self.path + (node_id,),
             path_index=self.path_index,
             learned_path=self.learned_path,
+            path_confidence=self.path_confidence,
             app_payload=self.app_payload,
         )
 
@@ -177,6 +222,24 @@ class Packet:
             path=self.path,
             path_index=self.path_index + 1,
             learned_path=self.learned_path,
+            path_confidence=self.path_confidence,
+            app_payload=self.app_payload,
+        )
+
+    def retreat_path(self) -> "Packet":
+        return Packet(
+            kind=self.kind,
+            flow_id=self.flow_id,
+            origin=self.origin,
+            final_dst=self.final_dst,
+            ttl=self.ttl,
+            created_at=self.created_at,
+            protocol=self.protocol,
+            request_id=self.request_id,
+            path=self.path,
+            path_index=self.path_index - 1,
+            learned_path=self.learned_path,
+            path_confidence=self.path_confidence,
             app_payload=self.app_payload,
         )
 
@@ -211,17 +274,90 @@ class FlowRecord:
     dst: int
     created_at: float
     delivered_at: Optional[float] = None
+    acked_at: Optional[float] = None
     broadcast_receivers: Set[int] = field(default_factory=set)
+
+
+@dataclass(frozen=True)
+class RouteEntry:
+    created_at: float
+    expires_at: float
+    path: Tuple[int, ...]
+    confidence: float
+
+
+@dataclass(frozen=True)
+class AdaptiveProfile:
+    name: str
+    route_ttl_s: float
+    discovery_window_s: float
+    fallback_confidence_threshold: float
+    fallback_ttl: int
+    fallback_delay_margin_s: float
+    hop_penalty_per_hop: float
+    route_age_penalty: float
+
+
+@dataclass(frozen=True)
+class LearningSnapshot:
+    tx_count: int
+    control_tx: int
+    rx_success: int
+    rx_fail: int
+    collision_fail: int
+    route_cache_hits: int
+    route_cache_misses: int
+    route_repair_count: int
+    fallback_forward_count: int
+    path_confidence_total: float
+    path_confidence_samples: int
+    unicast_flows: int
+    broadcast_flows: int
+    unicast_deliveries: int
+    unicast_acks: int
+    broadcast_deliveries: int
+    delivery_delay_total_s: float
+    delivery_delay_samples: int
+
+
+@dataclass
+class FlowDecision:
+    src: int
+    dst: int
+    state_index: int
+    action_index: int
+    profile_name: str
+    created_at: float
+    delivered: bool = False
+    delivered_at: Optional[float] = None
+    control_count: int = 0
+    fallback_count: int = 0
+    route_miss: int = 0
+    timeout_retries: int = 0
+    confidence: float = 0.0
+    profile: Optional[AdaptiveProfile] = None
 
 
 class Metrics:
     def __init__(self, node_count: int) -> None:
         self.node_count = node_count
         self.flows: Dict[int, FlowRecord] = {}
+        self.unicast_flows = 0
+        self.broadcast_flows = 0
+        self.unicast_deliveries = 0
+        self.unicast_acks = 0
+        self.broadcast_deliveries = 0
+        self.delivery_delay_total_s = 0.0
+        self.delivery_delay_samples = 0
         self.tx_count = 0
         self.data_tx = 0
         self.control_tx = 0
+        self.ack_tx = 0
         self.total_airtime_s = 0.0
+        self.channel_busy_time_s = 0.0
+        self.tx_energy_j = 0.0
+        self.rx_energy_j = 0.0
+        self.transmission_intervals: List[Tuple[float, float]] = []
         self.rx_success = 0
         self.rx_fail = 0
         self.collision_fail = 0
@@ -229,11 +365,26 @@ class Metrics:
         self.suppressed_forwards = 0
         self.route_requests = 0
         self.route_replies = 0
+        self.route_discovery_attempts = 0
+        self.route_discovery_successes = 0
         self.route_cache_hits = 0
         self.route_cache_misses = 0
+        self.fallback_forward_count = 0
+        self.route_repair_count = 0
+        self.path_confidence_total = 0.0
+        self.path_confidence_samples = 0
+        self.policy_switch_count = 0
+        self.policy_update_count = 0
+        self.policy_reward_total = 0.0
+        self.active_profile_index = -1
+        self.profile_selection_counts: Dict[int, int] = {}
 
     def register_flow(self, flow_id: int, src: int, dst: int, now: float) -> None:
         self.flows[flow_id] = FlowRecord(flow_id, src, dst, now)
+        if dst == BROADCAST_DST:
+            self.broadcast_flows += 1
+        else:
+            self.unicast_flows += 1
 
     def mark_delivered(self, flow_id: int, receiver: int, now: float) -> None:
         flow = self.flows.get(flow_id)
@@ -241,17 +392,113 @@ class Metrics:
             return
         if flow.dst == BROADCAST_DST:
             if receiver != flow.src:
+                was_new = receiver not in flow.broadcast_receivers
                 flow.broadcast_receivers.add(receiver)
+                if was_new:
+                    self.broadcast_deliveries += 1
+                    delay = max(0.0, now - flow.created_at)
+                    self.delivery_delay_total_s += delay
+                    self.delivery_delay_samples += 1
         elif receiver == flow.dst and flow.delivered_at is None:
             flow.delivered_at = now
+            self.unicast_deliveries += 1
+            delay = max(0.0, now - flow.created_at)
+            self.delivery_delay_total_s += delay
+            self.delivery_delay_samples += 1
+
+    def mark_acknowledged(self, flow_id: int, receiver: int, now: float) -> bool:
+        flow = self.flows.get(flow_id)
+        if (
+            flow is None
+            or flow.dst == BROADCAST_DST
+            or receiver != flow.src
+            or flow.acked_at is not None
+        ):
+            return False
+        flow.acked_at = now
+        self.unicast_acks += 1
+        return True
+
+    def record_path_confidence(self, confidence: float) -> None:
+        self.path_confidence_total += clamp(confidence, 0.0, 1.0)
+        self.path_confidence_samples += 1
+
+    def record_profile_selection(self, profile_index: int) -> None:
+        self.profile_selection_counts[profile_index] = (
+            self.profile_selection_counts.get(profile_index, 0) + 1
+        )
+
+    def record_transmission(self, start: float, end: float) -> None:
+        self.transmission_intervals.append((start, end))
+
+    def finalize_channel_busy_time(self, duration_s: Optional[float] = None) -> None:
+        if not self.transmission_intervals:
+            self.channel_busy_time_s = 0.0
+            return
+        intervals = self.transmission_intervals
+        if duration_s is not None:
+            intervals = [
+                (max(0.0, start), min(duration_s, end))
+                for start, end in intervals
+                if start < duration_s and end > 0.0
+            ]
+        if not intervals:
+            self.channel_busy_time_s = 0.0
+            return
+        ordered = sorted(intervals)
+        busy = 0.0
+        current_start, current_end = ordered[0]
+        for start, end in ordered[1:]:
+            if start <= current_end:
+                current_end = max(current_end, end)
+            else:
+                busy += current_end - current_start
+                current_start, current_end = start, end
+        self.channel_busy_time_s = busy + current_end - current_start
+
+    def snapshot(self) -> LearningSnapshot:
+        return LearningSnapshot(
+            tx_count=self.tx_count,
+            control_tx=self.control_tx,
+            rx_success=self.rx_success,
+            rx_fail=self.rx_fail,
+            collision_fail=self.collision_fail,
+            route_cache_hits=self.route_cache_hits,
+            route_cache_misses=self.route_cache_misses,
+            route_repair_count=self.route_repair_count,
+            fallback_forward_count=self.fallback_forward_count,
+            path_confidence_total=self.path_confidence_total,
+            path_confidence_samples=self.path_confidence_samples,
+            unicast_flows=self.unicast_flows,
+            broadcast_flows=self.broadcast_flows,
+            unicast_deliveries=self.unicast_deliveries,
+            unicast_acks=self.unicast_acks,
+            broadcast_deliveries=self.broadcast_deliveries,
+            delivery_delay_total_s=self.delivery_delay_total_s,
+            delivery_delay_samples=self.delivery_delay_samples,
+        )
 
     def summarize(self, protocol: str, seed: int, duration_s: float) -> Dict[str, Any]:
+        self.finalize_channel_busy_time(duration_s)
         unicast = [f for f in self.flows.values() if f.dst != BROADCAST_DST]
         broadcast = [f for f in self.flows.values() if f.dst == BROADCAST_DST]
-        delivered_unicast = [f for f in unicast if f.delivered_at is not None]
-        unicast_pdr = len(delivered_unicast) / len(unicast) if unicast else 0.0
-        delays = [f.delivered_at - f.created_at for f in delivered_unicast if f.delivered_at]
+        destination_delivered_unicast = [f for f in unicast if f.delivered_at is not None]
+        acked_unicast = [f for f in unicast if f.acked_at is not None]
+        destination_unicast_pdr = (
+            len(destination_delivered_unicast) / len(unicast) if unicast else 0.0
+        )
+        unicast_pdr = len(acked_unicast) / len(unicast) if unicast else 0.0
+        delays = [
+            f.acked_at - f.created_at
+            for f in acked_unicast
+            if f.acked_at is not None
+        ]
         avg_delay = sum(delays) / len(delays) if delays else 0.0
+        delivery_delays = [
+            f.delivered_at - f.created_at
+            for f in destination_delivered_unicast
+            if f.delivered_at is not None
+        ]
 
         if broadcast:
             expected = len(broadcast) * (self.node_count - 1)
@@ -260,8 +507,22 @@ class Metrics:
         else:
             broadcast_coverage = 0.0
 
-        delivered_total = len(delivered_unicast) + sum(len(f.broadcast_receivers) for f in broadcast)
+        delivered_total = len(acked_unicast) + sum(len(f.broadcast_receivers) for f in broadcast)
         airtime_per_delivery = self.total_airtime_s / delivered_total if delivered_total else 0.0
+        mean_delivery_delay = (
+            self.delivery_delay_total_s / self.delivery_delay_samples
+            if self.delivery_delay_samples
+            else 0.0
+        )
+        mean_path_confidence = (
+            self.path_confidence_total / self.path_confidence_samples
+            if self.path_confidence_samples
+            else 0.0
+        )
+        control_overhead_ratio = self.control_tx / self.tx_count if self.tx_count else 0.0
+        rx_attempts = self.rx_success + self.rx_fail
+        packet_reception_ratio = self.rx_success / rx_attempts if rx_attempts else 0.0
+        collision_rate = self.collision_fail / rx_attempts if rx_attempts else 0.0
 
         return {
             "protocol": protocol,
@@ -271,22 +532,69 @@ class Metrics:
             "unicast_flows": len(unicast),
             "broadcast_flows": len(broadcast),
             "unicast_pdr": round(unicast_pdr, 6),
+            "destination_unicast_pdr": round(destination_unicast_pdr, 6),
             "broadcast_coverage": round(broadcast_coverage, 6),
             "avg_delay_s": round(avg_delay, 6),
+            "unicast_delivery_delay_s": round(
+                sum(delivery_delays) / len(delivery_delays)
+                if delivery_delays
+                else 0.0,
+                6,
+            ),
+            "unicast_ack_delay_s": round(avg_delay, 6),
+            "p95_unicast_delivery_delay_s": round(
+                percentile(delivery_delays, 0.95), 6
+            ),
+            "p95_unicast_ack_delay_s": round(percentile(delays, 0.95), 6),
+            "unicast_deliveries": self.unicast_deliveries,
+            "unicast_acks": self.unicast_acks,
+            "broadcast_deliveries": self.broadcast_deliveries,
             "tx_count": self.tx_count,
             "data_tx": self.data_tx,
             "control_tx": self.control_tx,
+            "ack_tx": self.ack_tx,
             "total_airtime_s": round(self.total_airtime_s, 6),
+            "channel_busy_time_s": round(self.channel_busy_time_s, 6),
+            "channel_busy_ratio": round(
+                self.channel_busy_time_s / duration_s if duration_s else 0.0,
+                6,
+            ),
+            "tx_energy_j": round(self.tx_energy_j, 6),
+            "rx_energy_j": round(self.rx_energy_j, 6),
+            "total_energy_j": round(self.tx_energy_j + self.rx_energy_j, 6),
+            "energy_per_delivery_j": round(
+                (self.tx_energy_j + self.rx_energy_j) / delivered_total
+                if delivered_total
+                else 0.0,
+                6,
+            ),
             "airtime_per_delivery_s": round(airtime_per_delivery, 6),
+            "mean_delivery_delay_s": round(mean_delivery_delay, 6),
             "rx_success": self.rx_success,
             "rx_fail": self.rx_fail,
+            "rx_attempts": rx_attempts,
+            "packet_reception_ratio": round(packet_reception_ratio, 6),
             "collision_fail": self.collision_fail,
+            "collision_rate": round(collision_rate, 6),
             "duplicate_rx": self.duplicate_rx,
             "suppressed_forwards": self.suppressed_forwards,
             "route_requests": self.route_requests,
             "route_replies": self.route_replies,
+            "route_discovery_attempts": self.route_discovery_attempts,
+            "route_discovery_successes": self.route_discovery_successes,
             "route_cache_hits": self.route_cache_hits,
             "route_cache_misses": self.route_cache_misses,
+            "fallback_forward_count": self.fallback_forward_count,
+            "route_repair_count": self.route_repair_count,
+            "mean_path_confidence": round(mean_path_confidence, 6),
+            "control_overhead_ratio": round(control_overhead_ratio, 6),
+            "policy_switch_count": self.policy_switch_count,
+            "policy_update_count": self.policy_update_count,
+            "policy_reward_total": round(self.policy_reward_total, 6),
+            "active_profile_index": self.active_profile_index,
+            "profile_lean_count": self.profile_selection_counts.get(0, 0),
+            "profile_balanced_count": self.profile_selection_counts.get(1, 0),
+            "profile_rescue_count": self.profile_selection_counts.get(2, 0),
         }
 
 
@@ -298,18 +606,35 @@ class Simulator:
         protocol: "RoutingProtocol",
         seed: int,
         max_hops: int,
+        independent_random_streams: bool = False,
     ) -> None:
         self.nodes = {node.node_id: node for node in nodes}
         self.radio = radio
         self.protocol = protocol
         self.seed = seed
         self.random = random.Random(seed)
+        # Keep legacy output reproducible by default. The split mode prevents
+        # protocol-specific jitter/exploration draws from moving channel draws.
+        self.channel_random = (
+            random.Random(seed + 0x51ED270B)
+            if independent_random_streams
+            else self.random
+        )
         self.max_hops = max_hops
         self.now = 0.0
         self._event_counter = 0
         self._tx_counter = 0
         self.events: List[Tuple[float, int, str, Any]] = []
         self.transmissions: List[Transmission] = []
+        shadow_rng = random.Random(seed + 0x5F3759DF)
+        self.link_shadowing_db: Dict[Tuple[int, int], float] = {}
+        node_ids = sorted(self.nodes)
+        for index, first in enumerate(node_ids):
+            for second in node_ids[index + 1 :]:
+                self.link_shadowing_db[(first, second)] = shadow_rng.gauss(
+                    0.0,
+                    self.radio.shadow_sigma_db,
+                )
         self.metrics = Metrics(len(nodes))
         self.protocol.bind(self)
 
@@ -322,15 +647,28 @@ class Simulator:
         nb = self.nodes[b]
         return math.hypot(na.x - nb.x, na.y - nb.y)
 
-    def path_loss_db(self, distance_m: float) -> float:
+    def path_loss_db(
+        self,
+        distance_m: float,
+        shadowing_db: Optional[float] = None,
+    ) -> float:
         distance_m = max(distance_m, 1.0)
         # Free-space path loss at 1 m. 32.44 + MHz + km form.
         pl0 = 32.44 + 20.0 * math.log10(self.radio.carrier_mhz) + 20.0 * math.log10(0.001)
-        shadow = self.random.gauss(0.0, self.radio.shadow_sigma_db)
+        shadow = (
+            self.channel_random.gauss(0.0, self.radio.shadow_sigma_db)
+            if shadowing_db is None
+            else shadowing_db
+        )
         return pl0 + 10.0 * self.radio.path_loss_exp * math.log10(distance_m) + shadow
 
     def rx_power_dbm(self, sender: int, receiver: int) -> float:
-        return self.radio.tx_power_dbm - self.path_loss_db(self.distance_m(sender, receiver))
+        key = tuple(sorted((sender, receiver)))
+        shadowing_db = self.link_shadowing_db.get(key, 0.0)
+        return self.radio.tx_power_dbm - self.path_loss_db(
+            self.distance_m(sender, receiver),
+            shadowing_db=shadowing_db,
+        )
 
     def snr_from_power(self, rx_power_dbm: float) -> float:
         return rx_power_dbm - self.radio.noise_floor_dbm
@@ -362,6 +700,15 @@ class Simulator:
         self.transmissions.append(tx)
         self.metrics.tx_count += 1
         self.metrics.total_airtime_s += self.radio.toa_s
+        self.metrics.record_transmission(start, end)
+        self.metrics.tx_energy_j += self.radio.tx_energy_per_packet_j
+        listening_nodes = sum(
+            1
+            for receiver in self.nodes
+            if receiver != sender
+            and not self.receiver_is_transmitting(receiver, start, end)
+        )
+        self.metrics.rx_energy_j += listening_nodes * self.radio.rx_energy_per_packet_j
         if packet.is_control:
             self.metrics.control_tx += 1
         else:
@@ -370,6 +717,10 @@ class Simulator:
             self.metrics.route_requests += 1
         if packet.kind == "RREP":
             self.metrics.route_replies += 1
+        if packet.kind == "ACK":
+            self.metrics.ack_tx += 1
+        if packet.kind == "FALLBACK":
+            self.metrics.fallback_forward_count += 1
         self.schedule(end, "tx_end", tx)
 
     def transmissions_overlapping(self, start: float, end: float) -> Iterable[Transmission]:
@@ -422,7 +773,7 @@ class Simulator:
             sinr_db = 10.0 * math.log10(signal_mw / (noise_mw + interference_mw))
             collided = True
 
-        if self.random.random() <= self.prr_from_snr(sinr_db):
+        if self.channel_random.random() <= self.prr_from_snr(sinr_db):
             self.metrics.rx_success += 1
             return RxInfo(tx.sender, signal_dbm, snr_db, sinr_db, collided)
 
@@ -435,6 +786,22 @@ class Simulator:
             rx = self.try_receive(tx, receiver)
             if rx is not None:
                 self.protocol.on_receive(receiver, tx.packet, rx)
+
+    def mark_delivered(self, flow_id: int, receiver: int, packet: Packet) -> None:
+        flow = self.metrics.flows.get(flow_id)
+        was_delivered = False
+        if flow is not None:
+            if flow.dst == BROADCAST_DST:
+                was_delivered = receiver != flow.src and receiver not in flow.broadcast_receivers
+            else:
+                was_delivered = receiver == flow.dst and flow.delivered_at is None
+        self.metrics.mark_delivered(flow_id, receiver, self.now)
+        if was_delivered:
+            self.protocol.on_delivery(flow_id, receiver, self.now, packet)
+
+    def mark_acknowledged(self, flow_id: int, receiver: int, packet: Packet) -> None:
+        if self.metrics.mark_acknowledged(flow_id, receiver, self.now):
+            self.protocol.on_ack(flow_id, receiver, self.now, packet)
 
     def run(self, until_s: float) -> Metrics:
         while self.events:
@@ -450,6 +817,17 @@ class Simulator:
                 self.begin_transmission(sender, packet, pending)
             elif event_type == "tx_end":
                 self.handle_tx_end(data)
+            elif event_type == "protocol_timer":
+                data()
+            elif event_type == "flow_timeout":
+                flow_id = data
+                flow = self.metrics.flows.get(flow_id)
+                if flow is not None and flow.dst != BROADCAST_DST:
+                    self.protocol.on_flow_completion(
+                        flow_id,
+                        self.protocol.flow_confirmed(flow),
+                        self.now,
+                    )
             else:
                 raise ValueError(f"unknown event type: {event_type}")
         self.now = until_s
@@ -467,6 +845,68 @@ class RoutingProtocol:
 
     def on_receive(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
         raise NotImplementedError
+
+    def on_delivery(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        return None
+
+    def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        return None
+
+    def on_flow_completion(self, flow_id: int, delivered: bool, now: float) -> None:
+        return None
+
+    def flow_confirmed(self, flow: FlowRecord) -> bool:
+        return flow.delivered_at is not None
+
+    def ack_next_hop_matches(self, receiver: int, packet: Packet) -> bool:
+        return 0 <= packet.path_index < len(packet.path) and packet.path[packet.path_index] == receiver
+
+    def send_ack_on_reverse_path(self, receiver: int, packet: Packet) -> None:
+        if packet.path_index <= 0 or receiver != packet.final_dst:
+            return
+        ack = Packet(
+            kind="ACK",
+            flow_id=packet.flow_id,
+            origin=receiver,
+            final_dst=packet.origin,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.now,
+            protocol=self.name,
+            request_id=packet.request_id,
+            path=packet.path,
+            path_index=packet.path_index - 1,
+            app_payload=False,
+        )
+        self.sim.transmit_later(receiver, ack, delay_s=0.0)
+
+    def send_direct_ack(self, receiver: int, packet: Packet) -> None:
+        if receiver != packet.final_dst or packet.origin == BROADCAST_DST:
+            return
+        ack = Packet(
+            kind="ACK",
+            flow_id=packet.flow_id,
+            origin=receiver,
+            final_dst=packet.origin,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.now,
+            protocol=self.name,
+            request_id=packet.request_id,
+            path=(receiver, packet.origin),
+            path_index=1,
+            app_payload=False,
+        )
+        self.sim.transmit_later(receiver, ack, delay_s=0.0)
+
+    def on_ack_packet(self, receiver: int, packet: Packet) -> None:
+        if not self.ack_next_hop_matches(receiver, packet):
+            return
+        if receiver == packet.final_dst:
+            self.sim.mark_acknowledged(packet.flow_id, receiver, packet)
+            return
+        if packet.ttl <= 1:
+            return
+        forwarded = packet.retreat_path().with_ttl(packet.ttl - 1)
+        self.sim.transmit_later(receiver, forwarded, delay_s=0.0)
 
 
 class MeshtasticLike(RoutingProtocol):
@@ -505,6 +945,7 @@ class MeshtasticLike(RoutingProtocol):
             ttl=self.sim.max_hops,
             created_at=self.sim.now,
             protocol=self.name,
+            path=(src,),
         )
         self.seen[src].add(packet.flood_key)
         self.sim.transmit_later(src, packet, delay_s=0.0)
@@ -523,6 +964,9 @@ class MeshtasticLike(RoutingProtocol):
         )
 
     def on_receive(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
+        if packet.kind == "ACK":
+            self.on_ack_packet(receiver, packet)
+            return
         if packet.kind != "DATA":
             return
         key = packet.flood_key
@@ -536,8 +980,27 @@ class MeshtasticLike(RoutingProtocol):
             return
 
         self.seen[receiver].add(key)
+        packet_at_receiver = packet
+        if packet.final_dst != BROADCAST_DST and packet.path:
+            packet_at_receiver = Packet(
+                kind=packet.kind,
+                flow_id=packet.flow_id,
+                origin=packet.origin,
+                final_dst=packet.final_dst,
+                ttl=packet.ttl,
+                created_at=packet.created_at,
+                protocol=packet.protocol,
+                request_id=packet.request_id,
+                path=packet.path + (receiver,),
+                path_index=len(packet.path),
+                learned_path=packet.learned_path,
+                path_confidence=packet.path_confidence,
+                app_payload=packet.app_payload,
+            )
         if packet.final_dst == BROADCAST_DST or packet.final_dst == receiver:
-            self.sim.metrics.mark_delivered(packet.flow_id, receiver, self.sim.now)
+            self.sim.mark_delivered(packet.flow_id, receiver, packet_at_receiver)
+            if packet.final_dst == receiver:
+                self.send_ack_on_reverse_path(receiver, packet_at_receiver)
 
         node = self.sim.nodes[receiver]
         if packet.ttl <= 1 or not node.can_relay:
@@ -545,7 +1008,7 @@ class MeshtasticLike(RoutingProtocol):
         if packet.final_dst != BROADCAST_DST and packet.final_dst == receiver:
             return
 
-        forwarded = packet.with_ttl(packet.ttl - 1)
+        forwarded = packet_at_receiver.with_ttl(packet.ttl - 1)
         delay = self.managed_delay(receiver, rx)
         pending = self.sim.transmit_later(receiver, forwarded, delay_s=delay)
         self.pending[pending_key] = pending
@@ -621,6 +1084,7 @@ class MeshCoreLike(RoutingProtocol):
         return path
 
     def start_route_discovery(self, src: int, dst: int, flow_id: int) -> None:
+        self.sim.metrics.route_discovery_attempts += 1
         request_id = flow_id
         packet = Packet(
             kind="RREQ",
@@ -663,6 +1127,8 @@ class MeshCoreLike(RoutingProtocol):
             self.on_rrep(receiver, packet)
         elif packet.kind == "DATA":
             self.on_data(receiver, packet)
+        elif packet.kind == "ACK":
+            self.on_ack_packet(receiver, packet)
 
     def on_rreq(self, receiver: int, packet: Packet) -> None:
         if receiver in packet.path:
@@ -724,6 +1190,8 @@ class MeshCoreLike(RoutingProtocol):
             dst = learned[-1]
             self.route_cache[receiver][dst] = (self.sim.now + self.route_ttl_s, learned)
             queued = self.pending_data.pop((receiver, dst), [])
+            if queued:
+                self.sim.metrics.route_discovery_successes += 1
             for flow_id in queued:
                 self.send_data_on_path(receiver, dst, flow_id, learned)
             return
@@ -737,7 +1205,7 @@ class MeshCoreLike(RoutingProtocol):
                 self.sim.metrics.duplicate_rx += 1
                 return
             self.seen_rreq[receiver].add(key)
-            self.sim.metrics.mark_delivered(packet.flow_id, receiver, self.sim.now)
+            self.sim.mark_delivered(packet.flow_id, receiver, packet)
             node = self.sim.nodes[receiver]
             if packet.ttl > 1 and node.can_relay:
                 self.sim.transmit_later(receiver, packet.with_ttl(packet.ttl - 1), self.flood_delay())
@@ -747,9 +1215,931 @@ class MeshCoreLike(RoutingProtocol):
             return
         advanced = packet.advance_path()
         if receiver == packet.final_dst:
-            self.sim.metrics.mark_delivered(packet.flow_id, receiver, self.sim.now)
+            self.sim.mark_delivered(packet.flow_id, receiver, advanced)
+            self.send_ack_on_reverse_path(receiver, advanced)
             return
         self.sim.transmit_later(receiver, advanced, delay_s=0.0)
+
+class CalmMesh(RoutingProtocol):
+    """Confidence-aware adaptive routing for LoRa Mesh.
+
+    CALM treats redundancy as a controlled resource. It selects cached source
+    routes by estimated path confidence, then adds bounded fallback forwarding
+    only when a path is not confident enough for pure source routing.
+    """
+
+    name = "calm-mesh"
+
+    def __init__(
+        self,
+        route_ttl_s: float = 600.0,
+        discovery_window_s: float = 2.0,
+        flood_base_delay_s: float = 0.45,
+        flood_jitter_s: float = 0.65,
+        fallback_ttl: int = 2,
+        fallback_confidence_threshold: float = 0.0,
+        fallback_delay_margin_s: float = 0.6,
+        hop_penalty_per_hop: float = 0.025,
+        route_age_penalty: float = 0.1,
+        route_miss_recovery_enabled: bool = True,
+    ) -> None:
+        self.route_ttl_s = route_ttl_s
+        self.discovery_window_s = discovery_window_s
+        self.flood_base_delay_s = flood_base_delay_s
+        self.flood_jitter_s = flood_jitter_s
+        self.fallback_ttl = fallback_ttl
+        self.fallback_confidence_threshold = fallback_confidence_threshold
+        self.fallback_delay_margin_s = fallback_delay_margin_s
+        self.hop_penalty_per_hop = hop_penalty_per_hop
+        self.route_age_penalty = route_age_penalty
+        self.route_miss_recovery_enabled = route_miss_recovery_enabled
+        self.route_cache: Dict[int, Dict[int, RouteEntry]] = {}
+        self.pending_data: Dict[Tuple[int, int], List[int]] = {}
+        self.seen_floods: Dict[int, Set[Tuple[str, int, int, int]]] = {}
+        self.pending_fallback: Dict[Tuple[int, Tuple[str, int, int, int]], PendingSend] = {}
+        self.source_fallbacks: Dict[int, List[PendingSend]] = {}
+        self.rreq_candidates: Dict[Tuple[int, int, int], List[Tuple[Tuple[int, ...], float]]] = {}
+        self.rreq_timers: Set[Tuple[int, int, int]] = set()
+
+    def bind(self, sim: Simulator) -> None:
+        super().bind(sim)
+        self.route_cache = {node_id: {} for node_id in sim.nodes}
+        self.pending_data = {}
+        self.seen_floods = {node_id: set() for node_id in sim.nodes}
+        self.pending_fallback = {}
+        self.source_fallbacks = {}
+        self.rreq_candidates = {}
+        self.rreq_timers = set()
+
+    def flood_delay(self, receiver: Optional[int] = None, rx: Optional[RxInfo] = None) -> float:
+        delay = self.flood_base_delay_s + self.sim.random.random() * self.flood_jitter_s
+        if receiver is not None and rx is not None:
+            margin = rx.snr_db - required_snr_db(self.sim.radio.sf)
+            weak_link_penalty = clamp((5.0 - margin) / 10.0, 0.0, 1.0) * 0.35
+            repeater_discount = 0.15 if self.sim.nodes[receiver].role == "repeater" else 0.0
+            delay += weak_link_penalty - repeater_discount
+        return max(0.05, delay)
+
+    def link_confidence(self, rx: RxInfo) -> float:
+        margin = rx.snr_db - required_snr_db(self.sim.radio.sf)
+        margin_score = 1.0 / (1.0 + math.exp(-0.7 * margin))
+        collision_penalty = 0.18 if rx.collided else 0.0
+        return clamp(margin_score - collision_penalty, 0.05, 0.98)
+
+    def path_confidence(self, path: Tuple[int, ...], inbound_confidence: float) -> float:
+        if len(path) < 2:
+            return clamp(inbound_confidence, 0.0, 1.0)
+        hop_penalty = max(0, len(path) - 2) * self.hop_penalty_per_hop
+        return clamp(inbound_confidence - hop_penalty, 0.05, 0.98)
+
+    def route_confidence(
+        self,
+        entry: RouteEntry,
+        route_age_penalty: Optional[float] = None,
+    ) -> float:
+        age = max(0.0, self.sim.now - entry.created_at)
+        lifetime = max(1.0, entry.expires_at - entry.created_at)
+        penalty = self.route_age_penalty if route_age_penalty is None else route_age_penalty
+        age_penalty = clamp(age / lifetime, 0.0, 1.0) * penalty
+        return clamp(entry.confidence - age_penalty, 0.0, 1.0)
+
+    def route_ttl_for(self, flow_id: int) -> float:
+        return self.route_ttl_s
+
+    def discovery_window_for(self, flow_id: int) -> float:
+        return self.discovery_window_s
+
+    def fallback_confidence_threshold_for(self, flow_id: int) -> float:
+        return self.fallback_confidence_threshold
+
+    def fallback_ttl_for(self, flow_id: int) -> int:
+        return self.fallback_ttl
+
+    def fallback_delay_margin_for(self, flow_id: int) -> float:
+        return self.fallback_delay_margin_s
+
+    def route_age_penalty_for(self, flow_id: int) -> float:
+        return self.route_age_penalty
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        return max(candidates, key=lambda item: (item[1], -len(item[0])))
+
+    def send_app(self, src: int, dst: int, flow_id: int) -> None:
+        self.sim.metrics.register_flow(flow_id, src, dst, self.sim.now)
+        if dst == BROADCAST_DST:
+            packet = Packet(
+                kind="DATA",
+                flow_id=flow_id,
+                origin=src,
+                final_dst=dst,
+                ttl=self.sim.max_hops,
+                created_at=self.sim.now,
+                protocol=self.name,
+            )
+            self.seen_floods[src].add(packet.flood_key)
+            self.sim.transmit_later(src, packet, delay_s=0.0)
+            return
+
+        entry = self.get_route(src, dst)
+        if entry is not None:
+            self.sim.metrics.route_cache_hits += 1
+            self.send_data_on_path(src, dst, flow_id, entry)
+            return
+
+        self.sim.metrics.route_cache_misses += 1
+        self.pending_data.setdefault((src, dst), []).append(flow_id)
+        if len(self.pending_data[(src, dst)]) == 1:
+            self.start_route_discovery(src, dst, flow_id)
+
+    def get_route(self, src: int, dst: int) -> Optional[RouteEntry]:
+        entry = self.route_cache[src].get(dst)
+        if entry is None:
+            return None
+        if entry.expires_at <= self.sim.now:
+            del self.route_cache[src][dst]
+            self.sim.metrics.route_repair_count += 1
+            return None
+        return entry
+
+    def start_route_discovery(self, src: int, dst: int, flow_id: int) -> None:
+        self.sim.metrics.route_discovery_attempts += 1
+        request_id = flow_id
+        key = (src, dst, request_id)
+        self.rreq_candidates[key] = []
+        packet = Packet(
+            kind="RREQ",
+            flow_id=flow_id,
+            origin=src,
+            final_dst=dst,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.now,
+            protocol=self.name,
+            request_id=request_id,
+            path=(src,),
+            path_confidence=1.0,
+            app_payload=False,
+        )
+        self.seen_floods[src].add(packet.flood_key)
+        self.sim.transmit_later(src, packet, delay_s=0.0)
+        if key not in self.rreq_timers:
+            self.rreq_timers.add(key)
+            self.sim.schedule(
+                self.sim.now + self.discovery_window_for(flow_id),
+                "protocol_timer",
+                lambda key=key: self.finish_route_discovery(key),
+            )
+
+    def finish_route_discovery(self, key: Tuple[int, int, int]) -> None:
+        self.rreq_timers.discard(key)
+        candidates = self.rreq_candidates.pop(key, [])
+        if not candidates:
+            self.finish_failed_route_discovery(key)
+            return
+        src, dst, request_id = key
+        path, confidence = self.select_route_candidate(candidates, request_id)
+        reverse_path = tuple(reversed(path))
+        reply = Packet(
+            kind="RREP",
+            flow_id=request_id,
+            origin=dst,
+            final_dst=src,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.now,
+            protocol=self.name,
+            request_id=request_id,
+            path=reverse_path,
+            path_index=0,
+            learned_path=path,
+            path_confidence=confidence,
+            app_payload=False,
+        )
+        self.sim.transmit_later(dst, reply, delay_s=0.0)
+        self.sim.metrics.record_path_confidence(confidence)
+
+    def finish_failed_route_discovery(self, key: Tuple[int, int, int]) -> None:
+        src, dst, _ = key
+        queued = self.pending_data.pop((src, dst), [])
+        for flow_id in queued:
+            self.sim.metrics.route_repair_count += 1
+            fallback_ttl = self.route_miss_recovery_ttl(flow_id)
+            if fallback_ttl <= 0:
+                continue
+            self.start_fallback(
+                src,
+                dst,
+                flow_id,
+                ttl=fallback_ttl,
+                delay_s=0.0,
+            )
+
+    def route_miss_recovery_ttl(self, flow_id: Optional[int] = None) -> int:
+        if not self.route_miss_recovery_enabled:
+            return 0
+        return self.sim.max_hops
+
+    def send_data_on_path(
+        self,
+        src: int,
+        dst: int,
+        flow_id: int,
+        entry: RouteEntry,
+    ) -> None:
+        if len(entry.path) < 2:
+            return
+        confidence = self.route_confidence(
+            entry,
+            self.route_age_penalty_for(flow_id),
+        )
+        packet = Packet(
+            kind="DATA",
+            flow_id=flow_id,
+            origin=src,
+            final_dst=dst,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.metrics.flows[flow_id].created_at,
+            protocol=self.name,
+            path=entry.path,
+            path_index=0,
+        )
+        self.sim.transmit_later(src, packet, delay_s=0.0)
+        self.sim.metrics.record_path_confidence(confidence)
+        if confidence < self.fallback_confidence_threshold_for(flow_id):
+            fallback_delay = (
+                self.sim.radio.toa_s * min(max(len(entry.path) - 1, 1), 4)
+                + self.fallback_delay_margin_for(flow_id)
+            )
+            self.start_fallback(
+                src,
+                dst,
+                flow_id,
+                ttl=self.fallback_ttl_for(flow_id),
+                delay_s=fallback_delay,
+            )
+
+    def start_fallback(self, src: int, dst: int, flow_id: int, ttl: int, delay_s: float) -> None:
+        fallback = Packet(
+            kind="FALLBACK",
+            flow_id=flow_id,
+            origin=src,
+            final_dst=dst,
+            ttl=ttl,
+            created_at=self.sim.metrics.flows[flow_id].created_at,
+            protocol=self.name,
+            path=(src,),
+        )
+        self.seen_floods[src].add(fallback.flood_key)
+        pending = self.sim.transmit_later(src, fallback, delay_s=delay_s)
+        if delay_s > 0.0:
+            self.source_fallbacks.setdefault(flow_id, []).append(pending)
+
+    def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        pending_fallbacks = self.source_fallbacks.pop(flow_id, [])
+        for pending in pending_fallbacks:
+            pending.canceled = True
+
+    def path_next_hop_matches(self, receiver: int, packet: Packet) -> bool:
+        next_index = packet.path_index + 1
+        return next_index < len(packet.path) and packet.path[next_index] == receiver
+
+    def on_receive(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
+        if packet.kind == "RREQ":
+            self.on_rreq(receiver, packet, rx)
+        elif packet.kind == "RREP":
+            self.on_rrep(receiver, packet)
+        elif packet.kind == "DATA":
+            self.on_data(receiver, packet, rx)
+        elif packet.kind == "FALLBACK":
+            self.on_fallback(receiver, packet, rx)
+        elif packet.kind == "ACK":
+            self.on_ack_packet(receiver, packet)
+
+    def on_rreq(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
+        if receiver in packet.path:
+            return
+        key = packet.flood_key
+        new_path = packet.path + (receiver,)
+        inherited_confidence = packet.path_confidence or 1.0
+        confidence = self.path_confidence(
+            new_path,
+            min(inherited_confidence, self.link_confidence(rx)),
+        )
+        if receiver == packet.final_dst:
+            request_key = (packet.origin, packet.final_dst, packet.request_id)
+            self.rreq_candidates.setdefault(request_key, []).append((new_path, confidence))
+            self.seen_floods[receiver].add(key)
+            return
+
+        if key in self.seen_floods[receiver]:
+            self.sim.metrics.duplicate_rx += 1
+            return
+        self.seen_floods[receiver].add(key)
+
+        node = self.sim.nodes[receiver]
+        if packet.ttl <= 1 or not node.can_relay:
+            return
+        forwarded = Packet(
+            kind="RREQ",
+            flow_id=packet.flow_id,
+            origin=packet.origin,
+            final_dst=packet.final_dst,
+            ttl=packet.ttl - 1,
+            created_at=packet.created_at,
+            protocol=self.name,
+            request_id=packet.request_id,
+            path=new_path,
+            path_confidence=confidence,
+            app_payload=False,
+        )
+        self.sim.transmit_later(receiver, forwarded, delay_s=self.flood_delay(receiver, rx))
+
+    def on_rrep(self, receiver: int, packet: Packet) -> None:
+        if not self.path_next_hop_matches(receiver, packet):
+            return
+        advanced = packet.advance_path()
+        if receiver == packet.final_dst:
+            learned = packet.learned_path
+            dst = learned[-1]
+            confidence = packet.path_confidence or clamp(1.0 - (len(learned) - 2) * 0.06, 0.25, 0.95)
+            self.route_cache[receiver][dst] = RouteEntry(
+                created_at=self.sim.now,
+                expires_at=self.sim.now + self.route_ttl_for(packet.flow_id),
+                path=learned,
+                confidence=confidence,
+            )
+            queued = self.pending_data.pop((receiver, dst), [])
+            if queued:
+                self.sim.metrics.route_discovery_successes += 1
+            for flow_id in queued:
+                entry = self.route_cache[receiver][dst]
+                self.send_data_on_path(receiver, dst, flow_id, entry)
+            return
+        self.sim.transmit_later(receiver, advanced, delay_s=0.0)
+
+    def on_data(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
+        if packet.final_dst == BROADCAST_DST:
+            self.on_fallback(receiver, packet, rx)
+            return
+
+        if not self.path_next_hop_matches(receiver, packet):
+            return
+        advanced = packet.advance_path()
+        if receiver == packet.final_dst:
+            self.sim.mark_delivered(packet.flow_id, receiver, advanced)
+            self.send_ack_on_reverse_path(receiver, advanced)
+            return
+        self.sim.transmit_later(receiver, advanced, delay_s=0.0)
+
+    def on_fallback(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
+        key = packet.flood_key
+        pending_key = (receiver, key)
+        if key in self.seen_floods[receiver]:
+            pending = self.pending_fallback.get(pending_key)
+            if pending is not None and not pending.canceled:
+                pending.canceled = True
+                self.sim.metrics.suppressed_forwards += 1
+            self.sim.metrics.duplicate_rx += 1
+            return
+        self.seen_floods[receiver].add(key)
+        if packet.path:
+            packet_at_receiver = Packet(
+                kind=packet.kind,
+                flow_id=packet.flow_id,
+                origin=packet.origin,
+                final_dst=packet.final_dst,
+                ttl=packet.ttl,
+                created_at=packet.created_at,
+                protocol=packet.protocol,
+                request_id=packet.request_id,
+                path=packet.path + (receiver,),
+                path_index=len(packet.path),
+                learned_path=packet.learned_path,
+                path_confidence=packet.path_confidence,
+                app_payload=packet.app_payload,
+            )
+        else:
+            packet_at_receiver = packet
+
+        if packet.final_dst == BROADCAST_DST or packet.final_dst == receiver:
+            self.sim.mark_delivered(packet.flow_id, receiver, packet_at_receiver)
+            if packet.final_dst == receiver:
+                if packet_at_receiver.path:
+                    self.send_ack_on_reverse_path(receiver, packet_at_receiver)
+                else:
+                    self.send_direct_ack(receiver, packet_at_receiver)
+
+        node = self.sim.nodes[receiver]
+        if packet.ttl <= 1 or not node.can_relay:
+            return
+        if packet.final_dst != BROADCAST_DST and packet.final_dst == receiver:
+            return
+
+        forwarded = packet_at_receiver.with_ttl(packet.ttl - 1)
+        pending = self.sim.transmit_later(receiver, forwarded, delay_s=self.flood_delay(receiver, rx))
+        self.pending_fallback[pending_key] = pending
+
+
+class SmartCalmMesh(CalmMesh):
+    """MCU-friendly online-learning CALM variant.
+
+    The controller is intentionally small: it learns among a few prevalidated
+    parameter profiles instead of running an expensive neural policy. That makes
+    the design realistic for firmware while still allowing nodes to adapt after
+    deployment.
+    """
+
+    name = "smart-calm"
+
+    DEFAULT_PROFILES = (
+        AdaptiveProfile(
+            name="lean",
+            route_ttl_s=900.0,
+            discovery_window_s=2.0,
+            fallback_confidence_threshold=0.0,
+            fallback_ttl=1,
+            fallback_delay_margin_s=0.6,
+            hop_penalty_per_hop=0.02,
+            route_age_penalty=0.08,
+        ),
+        AdaptiveProfile(
+            name="balanced",
+            route_ttl_s=600.0,
+            discovery_window_s=2.0,
+            fallback_confidence_threshold=0.0,
+            fallback_ttl=2,
+            fallback_delay_margin_s=0.6,
+            hop_penalty_per_hop=0.025,
+            route_age_penalty=0.1,
+        ),
+        AdaptiveProfile(
+            name="rescue",
+            route_ttl_s=360.0,
+            discovery_window_s=2.8,
+            fallback_confidence_threshold=0.9,
+            fallback_ttl=3,
+            fallback_delay_margin_s=0.9,
+            hop_penalty_per_hop=0.04,
+            route_age_penalty=0.18,
+        ),
+    )
+
+    @classmethod
+    def profiles_from_base_parameters(
+        cls,
+        route_ttl_s: float,
+        discovery_window_s: float,
+        fallback_confidence_threshold: float,
+        fallback_ttl: int,
+        fallback_delay_margin_s: float,
+        hop_penalty_per_hop: float,
+        route_age_penalty: float,
+    ) -> Tuple[AdaptiveProfile, ...]:
+        """Build learning profiles around the user-provided CALM baseline."""
+
+        return (
+            AdaptiveProfile(
+                name="lean",
+                route_ttl_s=route_ttl_s * 1.5,
+                discovery_window_s=max(0.1, discovery_window_s - 0.4),
+                fallback_confidence_threshold=max(0.0, fallback_confidence_threshold - 0.15),
+                fallback_ttl=max(1, fallback_ttl - 1),
+                fallback_delay_margin_s=fallback_delay_margin_s,
+                hop_penalty_per_hop=max(0.0, hop_penalty_per_hop * 0.8),
+                route_age_penalty=max(0.0, route_age_penalty * 0.8),
+            ),
+            AdaptiveProfile(
+                name="balanced",
+                route_ttl_s=route_ttl_s,
+                discovery_window_s=discovery_window_s,
+                fallback_confidence_threshold=fallback_confidence_threshold,
+                fallback_ttl=fallback_ttl,
+                fallback_delay_margin_s=fallback_delay_margin_s,
+                hop_penalty_per_hop=hop_penalty_per_hop,
+                route_age_penalty=route_age_penalty,
+            ),
+            AdaptiveProfile(
+                name="rescue",
+                route_ttl_s=max(1.0, route_ttl_s * 0.6),
+                discovery_window_s=discovery_window_s + 0.4,
+                fallback_confidence_threshold=max(0.9, fallback_confidence_threshold),
+                fallback_ttl=fallback_ttl + 1,
+                fallback_delay_margin_s=fallback_delay_margin_s + 0.3,
+                hop_penalty_per_hop=hop_penalty_per_hop * 1.6,
+                route_age_penalty=route_age_penalty * 1.8,
+            ),
+        )
+
+    def __init__(
+        self,
+        protocol_name: str = "smart-calm",
+        update_interval_s: float = 30.0,
+        learning_rate: float = 0.45,
+        discount: float = 0.75,
+        exploration: float = 0.02,
+        flow_timeout_s: float = 15.0,
+        max_timeout_retries: int = 2,
+        retry_after_fallback: bool = False,
+        route_miss_fallback_ttl: int = 0,
+        timeout_fallback_min_ttl: int = 1,
+        prior_q_values: Optional[Dict[Tuple[int, int], float]] = None,
+        profiles: Sequence[AdaptiveProfile] = DEFAULT_PROFILES,
+        learning_enabled: bool = True,
+        fallback_enabled: bool = True,
+        confidence_enabled: bool = True,
+        fixed_profile_index: Optional[int] = None,
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(**kwargs)
+        self.name = protocol_name
+        self.update_interval_s = update_interval_s
+        self.learning_rate = learning_rate
+        self.discount = discount
+        self.exploration = exploration
+        self.flow_timeout_s = flow_timeout_s
+        self.max_timeout_retries = max_timeout_retries
+        self.retry_after_fallback = retry_after_fallback
+        self.route_miss_fallback_ttl = route_miss_fallback_ttl
+        self.timeout_fallback_min_ttl = max(1, timeout_fallback_min_ttl)
+        self.profiles = tuple(profiles)
+        self.learning_enabled = learning_enabled
+        self.fallback_enabled = fallback_enabled
+        self.confidence_enabled = confidence_enabled
+        self.fixed_profile_index = fixed_profile_index
+        if self.fixed_profile_index is not None:
+            self.fixed_profile_index = max(
+                0,
+                min(self.fixed_profile_index, len(self.profiles) - 1),
+            )
+        self.active_profile_index = 1 if len(self.profiles) > 1 else 0
+        self.active_state_index = 0
+        self.q_values: Dict[Tuple[int, int], float] = {}
+        self.last_snapshot: Optional[LearningSnapshot] = None
+        self.flow_decisions: Dict[int, FlowDecision] = {}
+        self.prior_q_values: Dict[Tuple[int, int], float] = dict(prior_q_values or {})
+        self.apply_profile(self.active_profile_index)
+
+    def bind(self, sim: Simulator) -> None:
+        super().bind(sim)
+        self.active_profile_index = min(self.active_profile_index, len(self.profiles) - 1)
+        self.apply_profile(self.active_profile_index)
+        self.active_state_index = 0
+        self.q_values = dict(self.prior_q_values)
+        self.last_snapshot = sim.metrics.snapshot()
+        self.flow_decisions = {}
+        sim.metrics.active_profile_index = self.active_profile_index
+        if self.learning_enabled:
+            sim.schedule(
+                sim.now + self.update_interval_s,
+                "protocol_timer",
+                self.learning_tick,
+            )
+
+    def apply_profile(self, index: int) -> None:
+        profile = self.profiles[index]
+        self.route_ttl_s = profile.route_ttl_s
+        self.discovery_window_s = profile.discovery_window_s
+        self.fallback_confidence_threshold = profile.fallback_confidence_threshold
+        self.fallback_ttl = profile.fallback_ttl
+        self.fallback_delay_margin_s = profile.fallback_delay_margin_s
+        self.hop_penalty_per_hop = profile.hop_penalty_per_hop
+        self.route_age_penalty = profile.route_age_penalty
+
+    def state_index_from_snapshot(self, snapshot: LearningSnapshot) -> int:
+        attempts = max(1, snapshot.unicast_flows)
+        delivered = snapshot.unicast_acks
+        pdr = delivered / attempts
+        route_attempts = snapshot.route_cache_hits + snapshot.route_cache_misses
+        miss_ratio = snapshot.route_cache_misses / max(1, route_attempts)
+        receive_attempts = snapshot.rx_success + snapshot.rx_fail
+        collision_rate = snapshot.collision_fail / max(1, receive_attempts)
+
+        if pdr < 0.65 or miss_ratio > 0.45:
+            reliability_bucket = 0
+        elif pdr < 0.85 or miss_ratio > 0.25:
+            reliability_bucket = 1
+        else:
+            reliability_bucket = 2
+
+        congestion_bucket = 1 if collision_rate > 0.18 else 0
+        return reliability_bucket * 2 + congestion_bucket
+
+    def learning_tick(self) -> None:
+        if not self.learning_enabled:
+            return
+        current = self.sim.metrics.snapshot()
+        previous = self.last_snapshot or current
+        reward = self.window_reward(previous, current)
+        new_state = self.state_index_from_snapshot(current)
+        old_key = (self.active_state_index, self.active_profile_index)
+        old_value = self.q_values.get(old_key, 0.0)
+        best_next = max(
+            self.q_values.get((new_state, action_index), 0.0)
+            for action_index in range(len(self.profiles))
+        )
+        updated = old_value + self.learning_rate * (
+            reward + self.discount * best_next - old_value
+        )
+        self.q_values[old_key] = updated
+        self.sim.metrics.policy_update_count += 1
+        self.sim.metrics.policy_reward_total += reward
+        self.active_state_index = new_state
+        next_action = self.select_action(new_state)
+        if next_action != self.active_profile_index:
+            self.sim.metrics.policy_switch_count += 1
+        self.active_profile_index = next_action
+        self.apply_profile(next_action)
+        self.sim.metrics.active_profile_index = self.active_profile_index
+        self.last_snapshot = current
+        self.sim.schedule(
+            self.sim.now + self.update_interval_s,
+            "protocol_timer",
+            self.learning_tick,
+        )
+
+    def window_reward(self, previous: LearningSnapshot, current: LearningSnapshot) -> float:
+        new_unicast = current.unicast_flows - previous.unicast_flows
+        new_broadcast = current.broadcast_flows - previous.broadcast_flows
+        new_unicast_acks = current.unicast_acks - previous.unicast_acks
+        new_broadcast_deliveries = current.broadcast_deliveries - previous.broadcast_deliveries
+        new_tx = current.tx_count - previous.tx_count
+        new_control = current.control_tx - previous.control_tx
+        new_collisions = current.collision_fail - previous.collision_fail
+        new_repairs = current.route_repair_count - previous.route_repair_count
+        new_fallback = current.fallback_forward_count - previous.fallback_forward_count
+        new_delay_total = current.delivery_delay_total_s - previous.delivery_delay_total_s
+        new_delay_samples = current.delivery_delay_samples - previous.delivery_delay_samples
+        new_rx_success = current.rx_success - previous.rx_success
+        new_rx_fail = current.rx_fail - previous.rx_fail
+
+        unicast_pdr = new_unicast_acks / max(1, new_unicast)
+        broadcast_gain = new_broadcast_deliveries / max(1, new_broadcast * max(1, self.sim.metrics.node_count - 1))
+        avg_delay = new_delay_total / max(1, new_delay_samples)
+        control_ratio = new_control / max(1, new_tx)
+        collision_pressure = new_collisions / max(1, new_rx_success + new_rx_fail)
+
+        return (
+            1.6 * unicast_pdr
+            + 0.4 * broadcast_gain
+            - 0.03 * avg_delay
+            - 0.35 * control_ratio
+            - 0.012 * collision_pressure
+            - 0.05 * new_repairs
+            - 0.004 * new_fallback
+        )
+
+    def select_action(self, state_index: int) -> int:
+        if self.sim.random.random() < self.exploration:
+            return self.sim.random.randrange(len(self.profiles))
+
+        def score(action_index: int) -> Tuple[float, float]:
+            profile_bias = {
+                0: 0.015,
+                1: 0.0,
+                2: -0.015,
+            }.get(action_index, 0.0)
+            return (self.q_values.get((state_index, action_index), 0.0) + profile_bias, -action_index)
+
+        return max(range(len(self.profiles)), key=score)
+
+    def choose_profile_for_flow(self, state_index: int) -> int:
+        if self.fixed_profile_index is not None:
+            return self.fixed_profile_index
+        if not self.learning_enabled:
+            return self.active_profile_index
+        return self.select_action(state_index)
+
+    def _profile_for_flow(self, flow_id: int) -> Optional[AdaptiveProfile]:
+        decision = self.flow_decisions.get(flow_id)
+        return decision.profile if decision is not None else None
+
+    def route_ttl_for(self, flow_id: int) -> float:
+        profile = self._profile_for_flow(flow_id)
+        return profile.route_ttl_s if profile is not None else super().route_ttl_for(flow_id)
+
+    def discovery_window_for(self, flow_id: int) -> float:
+        profile = self._profile_for_flow(flow_id)
+        return (
+            profile.discovery_window_s
+            if profile is not None
+            else super().discovery_window_for(flow_id)
+        )
+
+    def fallback_confidence_threshold_for(self, flow_id: int) -> float:
+        if not self.fallback_enabled or not self.confidence_enabled:
+            # A negative threshold keeps the confidence-triggered fallback
+            # branch disabled without changing route-miss/timeout guards. The
+            # no-confidence ablation also disables this branch so it tests
+            # shortest-candidate admission without a hidden confidence path.
+            return -float("inf")
+        profile = self._profile_for_flow(flow_id)
+        return (
+            profile.fallback_confidence_threshold
+            if profile is not None
+            else super().fallback_confidence_threshold_for(flow_id)
+        )
+
+    def fallback_ttl_for(self, flow_id: int) -> int:
+        profile = self._profile_for_flow(flow_id)
+        return profile.fallback_ttl if profile is not None else super().fallback_ttl_for(flow_id)
+
+    def fallback_delay_margin_for(self, flow_id: int) -> float:
+        profile = self._profile_for_flow(flow_id)
+        return (
+            profile.fallback_delay_margin_s
+            if profile is not None
+            else super().fallback_delay_margin_for(flow_id)
+        )
+
+    def route_age_penalty_for(self, flow_id: int) -> float:
+        profile = self._profile_for_flow(flow_id)
+        return (
+            profile.route_age_penalty
+            if profile is not None
+            else super().route_age_penalty_for(flow_id)
+        )
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        if not self.confidence_enabled:
+            return min(candidates, key=lambda item: (len(item[0]), item[0]))
+        return super().select_route_candidate(candidates, flow_id)
+
+    @classmethod
+    def load_prior_q_values(cls, path: Path | str) -> Dict[Tuple[int, int], float]:
+        prior_path = Path(path)
+        with prior_path.open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+        q_values: Dict[Tuple[int, int], float] = {}
+        for item in payload.get("q_values", []):
+            try:
+                state = int(item["state"])
+                action = int(item["action"])
+                value = float(item["value"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            q_values[(state, action)] = value
+        return q_values
+
+    def send_app(self, src: int, dst: int, flow_id: int) -> None:
+        if dst != BROADCAST_DST:
+            state_index = self.state_index_from_snapshot(self.sim.metrics.snapshot())
+            action_index = self.choose_profile_for_flow(state_index)
+            if action_index != self.active_profile_index:
+                self.sim.metrics.policy_switch_count += 1
+            self.active_state_index = state_index
+            self.active_profile_index = action_index
+            self.apply_profile(action_index)
+            self.sim.metrics.active_profile_index = self.active_profile_index
+            self.sim.metrics.record_profile_selection(action_index)
+            self.flow_decisions[flow_id] = FlowDecision(
+                src=src,
+                dst=dst,
+                state_index=state_index,
+                action_index=action_index,
+                profile_name=self.profiles[action_index].name,
+                created_at=self.sim.now,
+                profile=self.profiles[action_index],
+            )
+            self.sim.schedule(
+                self.sim.now + self.flow_timeout_s,
+                "flow_timeout",
+                flow_id,
+            )
+        super().send_app(src, dst, flow_id)
+
+    def start_route_discovery(self, src: int, dst: int, flow_id: int) -> None:
+        decision = self.flow_decisions.get(flow_id)
+        if decision is not None:
+            decision.route_miss += 1
+        super().start_route_discovery(src, dst, flow_id)
+
+    def start_fallback(self, src: int, dst: int, flow_id: int, ttl: int, delay_s: float) -> None:
+        decision = self.flow_decisions.get(flow_id)
+        if decision is not None:
+            decision.fallback_count += 1
+        super().start_fallback(src, dst, flow_id, ttl, delay_s)
+
+    def finish_route_discovery(self, key: Tuple[int, int, int]) -> None:
+        candidates = self.rreq_candidates.get(key, [])
+        if candidates:
+            _, _, flow_id = key
+            _, confidence = self.select_route_candidate(candidates, flow_id)
+            decision = self.flow_decisions.get(flow_id)
+            if decision is not None:
+                decision.confidence = confidence
+        super().finish_route_discovery(key)
+
+    def route_miss_recovery_ttl(self, flow_id: Optional[int] = None) -> int:
+        if not self.fallback_enabled:
+            return 0
+        if self.route_miss_fallback_ttl > 0:
+            return self.route_miss_fallback_ttl
+        return self.sim.max_hops
+
+    def send_data_on_path(self, src: int, dst: int, flow_id: int, entry: RouteEntry) -> None:
+        decision = self.flow_decisions.get(flow_id)
+        if decision is not None:
+            decision.confidence = max(
+                decision.confidence,
+                self.route_confidence(entry, self.route_age_penalty_for(flow_id)),
+            )
+        super().send_data_on_path(src, dst, flow_id, entry)
+
+    def retry_data_on_cached_path(self, decision: FlowDecision, flow_id: int) -> bool:
+        entry = self.get_route(decision.src, decision.dst)
+        if entry is None or len(entry.path) < 2:
+            return False
+        confidence = self.route_confidence(
+            entry,
+            self.route_age_penalty_for(flow_id),
+        )
+        packet = Packet(
+            kind="DATA",
+            flow_id=flow_id,
+            origin=decision.src,
+            final_dst=decision.dst,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.metrics.flows[flow_id].created_at,
+            protocol=self.name,
+            path=entry.path,
+            path_index=0,
+        )
+        decision.confidence = max(decision.confidence, confidence)
+        self.sim.metrics.record_path_confidence(confidence)
+        self.sim.transmit_later(decision.src, packet, delay_s=0.0)
+        return True
+
+    def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        super().on_ack(flow_id, receiver, now, packet)
+        decision = self.flow_decisions.get(flow_id)
+        if decision is None or decision.delivered:
+            return
+        decision.delivered = True
+        decision.delivered_at = now
+        self.learn_from_flow(decision, delivered=True, now=now)
+        self.flow_decisions.pop(flow_id, None)
+
+    def flow_confirmed(self, flow: FlowRecord) -> bool:
+        return flow.acked_at is not None
+
+    def on_flow_completion(self, flow_id: int, delivered: bool, now: float) -> None:
+        decision = self.flow_decisions.get(flow_id)
+        if decision is None or decision.delivered:
+            return
+        can_retry_timeout = (
+            not delivered
+            and decision.timeout_retries < self.max_timeout_retries
+            and (self.retry_after_fallback or decision.fallback_count == 0)
+        )
+        if can_retry_timeout:
+            decision.timeout_retries += 1
+            if not self.retry_data_on_cached_path(decision, flow_id):
+                if self.fallback_enabled:
+                    retry_ttl = max(
+                        self.fallback_ttl_for(flow_id),
+                        self.timeout_fallback_min_ttl,
+                    )
+                    self.start_fallback(
+                        decision.src,
+                        decision.dst,
+                        flow_id,
+                        ttl=retry_ttl,
+                        delay_s=0.0,
+                    )
+            self.sim.schedule(now + self.flow_timeout_s, "flow_timeout", flow_id)
+            return
+        self.learn_from_flow(decision, delivered=delivered, now=now)
+        self.flow_decisions.pop(flow_id, None)
+
+    def learn_from_flow(self, decision: FlowDecision, delivered: bool, now: float) -> None:
+        if not self.learning_enabled:
+            return
+        latency = max(0.0, (decision.delivered_at or now) - decision.created_at)
+        reward = (
+            (1.0 if delivered else -0.8)
+            - 0.02 * latency
+            - 0.08 * decision.route_miss
+            - 0.035 * decision.fallback_count
+            + (0.08 * decision.confidence if self.confidence_enabled else 0.0)
+        )
+        state = self.state_index_from_snapshot(self.sim.metrics.snapshot())
+        key = (decision.state_index, decision.action_index)
+        old_value = self.q_values.get(key, 0.0)
+        best_next = max(
+            self.q_values.get((state, action_index), 0.0)
+            for action_index in range(len(self.profiles))
+        )
+        self.q_values[key] = old_value + self.learning_rate * (
+            reward + self.discount * best_next - old_value
+        )
+        self.sim.metrics.policy_update_count += 1
+        self.sim.metrics.policy_reward_total += reward
 
 
 def generate_nodes(
@@ -803,11 +2193,88 @@ def schedule_traffic(
         t += rng.expovariate(1.0 / mean_interval)
 
 
-def build_protocol(name: str) -> RoutingProtocol:
+def independent_rng_streams_enabled(args: argparse.Namespace) -> bool:
+    """Read both spellings used by older callers and the CLI parser."""
+
+    return bool(
+        getattr(
+            args,
+            "independent_rng_streams",
+            getattr(args, "independent_random_streams", False),
+        )
+    )
+
+
+def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> RoutingProtocol:
     if name == "meshtastic":
         return MeshtasticLike()
     if name == "meshcore":
-        return MeshCoreLike()
+        if args is None:
+            return MeshCoreLike()
+        return MeshCoreLike(
+            route_ttl_s=getattr(
+                args,
+                "meshcore_route_ttl_s",
+                300.0,
+            ),
+        )
+    if name == "calm":
+        if args is None:
+            return CalmMesh()
+        return CalmMesh(
+            route_ttl_s=getattr(args, "calm_route_ttl_s", 600.0),
+            discovery_window_s=getattr(args, "calm_discovery_window_s", DEFAULT_CALM_DISCOVERY_WINDOW_S),
+            flood_base_delay_s=getattr(args, "calm_flood_base_delay_s", 0.45),
+            flood_jitter_s=getattr(args, "calm_flood_jitter_s", 0.65),
+            fallback_ttl=getattr(args, "calm_fallback_ttl", 2),
+            fallback_confidence_threshold=getattr(args, "calm_fallback_confidence_threshold", 0.0),
+            fallback_delay_margin_s=getattr(args, "calm_fallback_delay_margin_s", 0.6),
+            hop_penalty_per_hop=getattr(args, "calm_hop_penalty_per_hop", 0.025),
+            route_age_penalty=getattr(args, "calm_route_age_penalty", 0.1),
+            route_miss_recovery_enabled=not getattr(
+                args,
+                "calm_disable_route_miss_fallback",
+                False,
+            ),
+        )
+    if name in {
+        "smart-calm",
+        "smart-calm-static",
+        "smart-calm-no-fallback",
+        "smart-calm-no-confidence",
+    }:
+        if args is None:
+            args = argparse.Namespace()
+        profiles = SmartCalmMesh.profiles_from_base_parameters(
+            route_ttl_s=getattr(args, "calm_route_ttl_s", 600.0),
+            discovery_window_s=getattr(args, "calm_discovery_window_s", DEFAULT_CALM_DISCOVERY_WINDOW_S),
+            fallback_confidence_threshold=getattr(args, "calm_fallback_confidence_threshold", 0.0),
+            fallback_ttl=getattr(args, "calm_fallback_ttl", 2),
+            fallback_delay_margin_s=getattr(args, "calm_fallback_delay_margin_s", 0.6),
+            hop_penalty_per_hop=getattr(args, "calm_hop_penalty_per_hop", 0.025),
+            route_age_penalty=getattr(args, "calm_route_age_penalty", 0.1),
+        )
+        return SmartCalmMesh(
+            protocol_name=name,
+            update_interval_s=getattr(args, "smart_update_interval_s", 30.0),
+            learning_rate=getattr(args, "smart_learning_rate", 0.45),
+            exploration=getattr(args, "smart_exploration", 0.02),
+            flow_timeout_s=getattr(args, "smart_flow_timeout_s", 15.0),
+            max_timeout_retries=getattr(args, "smart_max_timeout_retries", 2),
+            retry_after_fallback=getattr(args, "smart_retry_after_fallback", False),
+            route_miss_fallback_ttl=getattr(args, "smart_route_miss_fallback_ttl", 0),
+            timeout_fallback_min_ttl=getattr(args, "smart_timeout_fallback_min_ttl", 1),
+            prior_q_values=SmartCalmMesh.load_prior_q_values(getattr(args, "smart_prior_json"))
+            if getattr(args, "smart_prior_json", None)
+            else None,
+            flood_base_delay_s=getattr(args, "calm_flood_base_delay_s", 0.45),
+            flood_jitter_s=getattr(args, "calm_flood_jitter_s", 0.65),
+            profiles=profiles,
+            learning_enabled=name != "smart-calm-static",
+            fallback_enabled=name != "smart-calm-no-fallback",
+            confidence_enabled=name != "smart-calm-no-confidence",
+            fixed_profile_index=1 if name == "smart-calm-static" else None,
+        )
     raise ValueError(f"unknown protocol: {name}")
 
 
@@ -820,12 +2287,22 @@ def run_one(args: argparse.Namespace, protocol_name: str, seed: int) -> Dict[str
         cr=args.cr,
         payload_bytes=args.payload_bytes,
         tx_power_dbm=args.tx_power_dbm,
+        tx_current_ma=getattr(args, "tx_current_ma", 120.0),
+        rx_current_ma=getattr(args, "rx_current_ma", 10.3),
+        supply_voltage_v=getattr(args, "supply_voltage_v", 3.3),
         path_loss_exp=args.path_loss_exp,
         shadow_sigma_db=args.shadow_sigma_db,
         capture_threshold_db=args.capture_threshold_db,
     )
-    protocol = build_protocol(protocol_name)
-    sim = Simulator(nodes, radio, protocol, seed=seed, max_hops=args.max_hops)
+    protocol = build_protocol(protocol_name, args)
+    sim = Simulator(
+        nodes,
+        radio,
+        protocol,
+        seed=seed,
+        max_hops=args.max_hops,
+        independent_random_streams=independent_rng_streams_enabled(args),
+    )
     traffic_rng = random.Random(seed + 10_000)
     schedule_traffic(
         sim,
@@ -847,18 +2324,35 @@ def print_table(rows: Sequence[Dict[str, Any]]) -> None:
         "seed",
         "flows",
         "unicast_pdr",
+        "destination_unicast_pdr",
         "broadcast_coverage",
         "avg_delay_s",
+        "mean_delivery_delay_s",
+        "p95_unicast_ack_delay_s",
         "tx_count",
         "data_tx",
         "control_tx",
+        "ack_tx",
         "total_airtime_s",
+        "channel_busy_ratio",
+        "total_energy_j",
+        "energy_per_delivery_j",
         "airtime_per_delivery_s",
+        "packet_reception_ratio",
         "collision_fail",
+        "collision_rate",
         "duplicate_rx",
         "suppressed_forwards",
         "route_cache_hits",
         "route_cache_misses",
+        "fallback_forward_count",
+        "route_repair_count",
+        "mean_path_confidence",
+        "control_overhead_ratio",
+        "policy_switch_count",
+        "policy_update_count",
+        "policy_reward_total",
+        "active_profile_index",
     ]
     widths = {
         col: max(len(col), *(len(str(row[col])) for row in rows))
@@ -876,14 +2370,34 @@ def write_csv(path: Path, rows: Sequence[Dict[str, Any]]) -> None:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(
+            f,
+            fieldnames=list(rows[0].keys()),
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="LoRa mesh routing simulator")
-    parser.add_argument("--protocol", choices=["meshtastic", "meshcore", "both"], default="both")
+    parser.add_argument(
+        "--protocol",
+        choices=[
+            "meshtastic",
+            "meshcore",
+            "calm",
+            "smart-calm",
+            "smart-calm-static",
+            "smart-calm-no-fallback",
+            "smart-calm-no-confidence",
+            "both",
+            "all",
+            "all4",
+            "icc",
+        ],
+        default="both",
+    )
     parser.add_argument("--nodes", type=int, default=40)
     parser.add_argument("--area-m", type=float, default=2500.0)
     parser.add_argument("--duration-s", type=float, default=1800.0)
@@ -905,16 +2419,97 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cr", type=int, default=1)
     parser.add_argument("--payload-bytes", type=int, default=32)
     parser.add_argument("--tx-power-dbm", type=float, default=17.0)
+    parser.add_argument(
+        "--tx-current-ma",
+        type=float,
+        default=120.0,
+        help="radio transmit current used for energy accounting",
+    )
+    parser.add_argument(
+        "--rx-current-ma",
+        type=float,
+        default=10.3,
+        help="radio receive/listen current used for energy accounting",
+    )
+    parser.add_argument(
+        "--supply-voltage-v",
+        type=float,
+        default=3.3,
+        help="radio supply voltage used for energy accounting",
+    )
     parser.add_argument("--path-loss-exp", type=float, default=2.7)
     parser.add_argument("--shadow-sigma-db", type=float, default=4.0)
     parser.add_argument("--capture-threshold-db", type=float, default=6.0)
+    parser.add_argument(
+        "--independent-rng-streams",
+        action="store_true",
+        help=(
+            "use a separate random stream for channel reception outcomes; "
+            "keeps protocol jitter and learning draws from consuming it"
+        ),
+    )
+    parser.add_argument("--calm-route-ttl-s", type=float, default=600.0)
+    parser.add_argument(
+        "--meshcore-route-ttl-s",
+        type=float,
+        default=DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
+        help="source-route cache lifetime for the MeshCore-like baseline",
+    )
+    parser.add_argument("--calm-discovery-window-s", type=float, default=2.0)
+    parser.add_argument("--calm-flood-base-delay-s", type=float, default=0.45)
+    parser.add_argument("--calm-flood-jitter-s", type=float, default=0.65)
+    parser.add_argument("--calm-fallback-ttl", type=int, default=2)
+    parser.add_argument("--calm-fallback-confidence-threshold", type=float, default=0.0)
+    parser.add_argument("--calm-fallback-delay-margin-s", type=float, default=0.6)
+    parser.add_argument("--calm-hop-penalty-per-hop", type=float, default=0.025)
+    parser.add_argument("--calm-route-age-penalty", type=float, default=0.1)
+    parser.add_argument(
+        "--calm-disable-route-miss-fallback",
+        action="store_true",
+        help=(
+            "disable CALM fallback after route-discovery failure; "
+            "used for recovery-budget sensitivity checks"
+        ),
+    )
+    parser.add_argument("--smart-update-interval-s", type=float, default=30.0)
+    parser.add_argument("--smart-learning-rate", type=float, default=0.45)
+    parser.add_argument("--smart-exploration", type=float, default=0.02)
+    parser.add_argument("--smart-flow-timeout-s", type=float, default=15.0)
+    parser.add_argument("--smart-max-timeout-retries", type=int, default=2)
+    parser.add_argument(
+        "--smart-route-miss-fallback-ttl",
+        type=int,
+        default=0,
+        help="limit route-miss fallback radius; 0 keeps the normal max-hops route-discovery recovery",
+    )
+    parser.add_argument(
+        "--smart-timeout-fallback-min-ttl",
+        type=int,
+        default=1,
+        help="minimum fallback radius after a timeout retry; use 2 to reproduce Smart-CALM v1.1",
+    )
+    parser.add_argument(
+        "--smart-retry-after-fallback",
+        action="store_true",
+        help="allow Smart-CALM to send a timeout retry even after the flow already used fallback",
+    )
+    parser.add_argument("--smart-prior-json", type=Path)
     parser.add_argument("--csv", type=Path)
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    protocols = ["meshtastic", "meshcore"] if args.protocol == "both" else [args.protocol]
+    if args.protocol == "both":
+        protocols = ["meshtastic", "meshcore"]
+    elif args.protocol == "all":
+        protocols = ["meshtastic", "meshcore", "calm"]
+    elif args.protocol == "all4":
+        protocols = ["meshtastic", "meshcore", "calm", "smart-calm"]
+    elif args.protocol == "icc":
+        protocols = list(ICC_PROTOCOLS)
+    else:
+        protocols = [args.protocol]
     rows = []
     for i in range(args.seeds):
         seed = args.seed0 + i
