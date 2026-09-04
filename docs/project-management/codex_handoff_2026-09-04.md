@@ -355,3 +355,21 @@ again, read this file first and continue from the publish gate.
 - Exact next actions: selectively stage the 2.1.13 files, commit and push
   `version/v2`, update PR 1, then verify the remote commit, PR metadata, and
   final PDF.
+
+## 2.1.13 Final Publish Verification - 2026-09-04
+
+- Commit `fe24d1d7133214f36f20b306677553720b75464d` is present on both local
+  `HEAD` and `origin/version/v2`.
+- Draft PR 1 is open at
+  `https://github.com/BH4ME/lora-mesh-routing-sim/pull/1` with title
+  `[codex] MeshEcho 2.1.13 fairness-focused evaluation`, base `main`, and head
+  `version/v2`.
+- `VERSION` is `2.1.13`; the final root manuscript is 9 pages, PDF 1.5, with
+  SHA-256
+  `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- The final validation suite passed: 49 tests, Python compilation, shell
+  syntax, diff whitespace, citation resolution, and rendered-page inspection.
+- Untracked build outputs, caches, temporary files, course materials, and
+  unrelated documents remain intentionally outside the published commit.
+- This fairness-focused revision is complete unless the user requests a new
+  experiment matrix or another manuscript revision.

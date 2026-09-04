@@ -155,3 +155,16 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   is `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
 - Final validation reports 49 passing tests, successful Python and shell
   checks, clean diff whitespace, and no unresolved citation warnings.
+
+## 2.1.13 Final Publish Verification
+
+- Commit `fe24d1d` is synchronized with `origin/version/v2`.
+- PR 1 is OPEN/DRAFT and now describes the 2.1.13 fairness-focused
+  evaluation.
+- The root PDF is 9 pages, PDF 1.5, and matches the verified Tectonic build
+  with SHA-256
+  `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- The fairness revision is complete. The evidence boundary remains:
+  fair shared harness, biased frozen workload, matched-TTL sensitivity,
+  non-dominant random-pair result, and bounded route-conflict mechanism
+  evidence.

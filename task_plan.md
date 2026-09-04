@@ -165,6 +165,16 @@ and publish the intended changes to GitHub.
 - Remaining actions are selective staging, commit, push, PR update, and
   remote verification.
 
+## 2.1.13 Final Publish Verification
+
+- Commit `fe24d1d` is pushed to `origin/version/v2`.
+- PR 1 is OPEN and DRAFT with the title
+  `[codex] MeshEcho 2.1.13 fairness-focused evaluation`.
+- The final root PDF is 9 pages, PDF 1.5, SHA-256
+  `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- The 2.1.13 fairness revision is complete; unrelated untracked worktree
+  artifacts remain excluded.
+
 ## Continuation Rule
 
 Before any context compression, append completed commands/results and the

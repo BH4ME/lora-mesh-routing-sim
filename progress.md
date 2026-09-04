@@ -154,3 +154,17 @@
   `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
 - Next: stage only the 2.1.13 files, commit, push `version/v2`, update PR 1,
   and verify the remote publication.
+
+## 2.1.13 Final Publish State - 2026-09-04
+
+- Committed the fairness-focused revision as `fe24d1d` and pushed it to
+  `origin/version/v2`.
+- Updated draft PR 1 to
+  `[codex] MeshEcho 2.1.13 fairness-focused evaluation`.
+- Verified PR 1 is OPEN/DRAFT with base `main` and head `version/v2`.
+- Verified `VERSION=2.1.13`, 49 passing tests, and a 9-page PDF 1.5 with
+  SHA-256
+  `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- The user's fairness concern is now reflected in both the simulation defaults
+  and manuscript claims; the work is complete pending any new experiment
+  request.
