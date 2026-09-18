@@ -229,6 +229,17 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   suite and versioned experiment artifacts are therefore explicitly recorded
   rather than presented as remote CI results.
 
+## ICC Submission-Readiness Boundary
+
+- Official ICC 2027 guidance confirms the six-page initial-submission hard
+  limit, English IEEE 10-point format, PDF-only EDAS upload, and exact EDAS
+  title/author-list match. It also states that accepted work must be
+  registered and presented for proceedings/Xplore publication.
+- The compiled 2.1.15 paper satisfies the format/page/evidence checks, but the
+  source intentionally contains `Anonymous Authors`. Actual author metadata
+  is user-specific and remains the only pre-EDAS task; the checklist makes
+  that boundary explicit instead of guessing names.
+
 ## 2.1.14 Final Publish Verification
 
 - Commit `b5de06b` is present locally and on `origin/version/v2`.

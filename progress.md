@@ -275,3 +275,16 @@
   versioned experiments, and the 3-page rendered ICC manuscript.
 - The 2.1.15 objective is complete. Temporary build/render files and old
   untracked 2.1.14 artifacts remain intentionally excluded from the commits.
+
+## 2026-09-18 - ICC Submission-Readiness Audit
+
+- Fetched the official ICC 2027 submission guidelines. Verified requirements:
+  English IEEE 10-point paper, maximum six printed pages for initial review,
+  PDF-only EDAS submission, exact EDAS/PDF title and author-list match, and
+  no double submission/plagiarism. Registration and author presentation are
+  required after acceptance for proceedings/Xplore publication.
+- Added `docs/icc2027_submission_checklist.md`; it marks repository checks
+  complete and leaves only the user-specific author metadata/EDAS actions
+  unchecked.
+- Pushed checklist commit `753a9b1786cb14bcd45b294c22ce83bd2b3bf4f0`.
+- Verified PR 1 is OPEN/DRAFT with head `version/v2` at `753a9b1`.

@@ -267,3 +267,13 @@ matrix and quality-gate artifacts now exist under the 2.1.15 prefix.
   `[codex] MeshEcho 2.1.15 ICC calibrated multi-hop evidence`.
 - [complete] No automated checks are configured for `version/v2`; local test,
   experiment, and PDF verification are the authoritative gates for this draft.
+
+### Submission Readiness Boundary
+
+- [complete] Add `docs/icc2027_submission_checklist.md` with the official
+  six-page, English, PDF/EDAS, originality, registration, and presentation
+  requirements.
+- [pending user metadata] Replace `Anonymous Authors` with the final EDAS
+  author list and affiliations before actual submission. This cannot be
+  inferred safely from the repository.
+- [complete] Checklist commit `753a9b1` is pushed and PR 1 points to it.
