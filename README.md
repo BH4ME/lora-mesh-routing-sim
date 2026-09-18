@@ -169,6 +169,9 @@ and 20 seeds. The MeshCore-like baseline uses the same 2 s discovery collection
 window as CALM for this fresh comparison. This is the primary mechanism check;
 the 18 km probe remains a route-discovery stress diagnostic.
 
+Before submitting, use the [ICC 2027 submission checklist](docs/icc2027_submission_checklist.md)
+to replace the anonymous author block and verify the EDAS title/author match.
+
 New ICC matrices use an isolated channel-reception stream by default, keeping
 it separate from forwarding jitter and learning exploration. To make that
 explicit, run:
