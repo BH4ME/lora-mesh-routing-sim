@@ -262,3 +262,16 @@
   remain pending an available network path.
 - Untracked files are limited to old 2.1.14 evidence, Tectonic build output,
   legacy paper figures, and `tmp/` renderings; none were staged.
+
+## 2026-09-18 - 2.1.15 Remote Publish Complete
+
+- Network access recovered and `git push origin version/v2` succeeded:
+  `origin/version/v2` now points to `2ebefd13b41fe196f0df9092fafd38714ed6b59c`.
+- PR 1 was updated and verified as OPEN/DRAFT, base `main`, head
+  `version/v2`, title `[codex] MeshEcho 2.1.15 ICC calibrated multi-hop
+  evidence`, head OID `2ebefd1`.
+- `gh pr checks 1` reports no configured checks; no remote CI result is being
+  implied. Local authoritative gates remain 53 passing tests, completed
+  versioned experiments, and the 3-page rendered ICC manuscript.
+- The 2.1.15 objective is complete. Temporary build/render files and old
+  untracked 2.1.14 artifacts remain intentionally excluded from the commits.

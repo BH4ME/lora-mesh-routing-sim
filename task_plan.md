@@ -244,7 +244,7 @@ matrix and quality-gate artifacts now exist under the 2.1.15 prefix.
   the 20-seed calibrated multi-hop matrix.
 - [complete] Replace the copied ICCT draft with an ICC 2027 initial-submission
   manuscript and verify the PDF page limit and rendering.
-- [in_progress] Run final automated checks, stage only release files, publish
+- [complete] Run final automated checks, stage only release files, publish
   `version/v2`, and verify the draft PR.
 
 ### 2.1.15 Verification Snapshot
@@ -258,9 +258,12 @@ matrix and quality-gate artifacts now exist under the 2.1.15 prefix.
   the ICC initial-submission maximum of 6 pages. Rendered pages 1--3 were
   inspected for clipping, overlap, table integrity, and stale ICCT text.
 
-### Publish Blocker
+### Final Publish Verification
 
 - [complete] Local release commit created as `fb133ba`.
-- [blocked] Push and GitHub verification are waiting on network reachability:
-  GitHub port 443 timed out for two push attempts and one read-only curl
-  check. The local branch is one commit ahead of `origin/version/v2`.
+- [complete] Follow-up status commit created as `2ebefd1`.
+- [complete] `origin/version/v2` matches `2ebefd1`.
+- [complete] PR 1 is OPEN/DRAFT with title
+  `[codex] MeshEcho 2.1.15 ICC calibrated multi-hop evidence`.
+- [complete] No automated checks are configured for `version/v2`; local test,
+  experiment, and PDF verification are the authoritative gates for this draft.

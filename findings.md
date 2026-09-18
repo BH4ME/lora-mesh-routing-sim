@@ -218,15 +218,16 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
 - The new ICC manuscript is 3 pages, uses ICC 2027 wording, and does not
   claim physical validation or topology-independent dominance.
 
-## 2.1.15 Publish Blocker
+## 2.1.15 Publish Verification
 
-- The complete release is locally committed at
-  `fb133ba6ede8c7eb0ef3a08d70e98b6fa18a334c`.
-- Remote access is currently unavailable: HTTPS connections to
-  `github.com:443` timed out during push, `git ls-remote`, and `curl`.
-- The branch therefore remains one commit ahead of `origin/version/v2`; no
-  remote commit or PR state can be truthfully reported until connectivity is
-  restored.
+- The complete release is published through commits `fb133ba` and `2ebefd1`;
+  `origin/version/v2` resolves to `2ebefd13b41fe196f0df9092fafd38714ed6b59c`.
+- PR 1 is OPEN/DRAFT at
+  `https://github.com/BH4ME/lora-mesh-routing-sim/pull/1` with the updated
+  2.1.15 title and evidence boundary.
+- GitHub reports no configured checks on `version/v2`; the local verification
+  suite and versioned experiment artifacts are therefore explicitly recorded
+  rather than presented as remote CI results.
 
 ## 2.1.14 Final Publish Verification
 
