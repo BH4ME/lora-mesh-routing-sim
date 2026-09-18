@@ -257,3 +257,10 @@ matrix and quality-gate artifacts now exist under the 2.1.15 prefix.
 - Tectonic compiled `paper/icc2027/icc2027_lora_mesh.tex` to 3 pages, below
   the ICC initial-submission maximum of 6 pages. Rendered pages 1--3 were
   inspected for clipping, overlap, table integrity, and stale ICCT text.
+
+### Publish Blocker
+
+- [complete] Local release commit created as `fb133ba`.
+- [blocked] Push and GitHub verification are waiting on network reachability:
+  GitHub port 443 timed out for two push attempts and one read-only curl
+  check. The local branch is one commit ahead of `origin/version/v2`.

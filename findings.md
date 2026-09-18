@@ -218,6 +218,16 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
 - The new ICC manuscript is 3 pages, uses ICC 2027 wording, and does not
   claim physical validation or topology-independent dominance.
 
+## 2.1.15 Publish Blocker
+
+- The complete release is locally committed at
+  `fb133ba6ede8c7eb0ef3a08d70e98b6fa18a334c`.
+- Remote access is currently unavailable: HTTPS connections to
+  `github.com:443` timed out during push, `git ls-remote`, and `curl`.
+- The branch therefore remains one commit ahead of `origin/version/v2`; no
+  remote commit or PR state can be truthfully reported until connectivity is
+  restored.
+
 ## 2.1.14 Final Publish Verification
 
 - Commit `b5de06b` is present locally and on `origin/version/v2`.

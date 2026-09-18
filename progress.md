@@ -248,3 +248,17 @@
   index, and changelog now point to 2.1.15 evidence.
 - Next: run tests/static checks and perform selective stage/commit/push plus
   remote PR verification. Do not stage `tmp/` or Tectonic build directories.
+
+## 2026-09-18 - 2.1.15 Local Publish Attempt
+
+- Final local validation completed: 53 tests passed, Python compilation,
+  `bash -n`, CLI help, `git diff --check`, and 3-page PDF page-count checks
+  passed.
+- Selective release commit `fb133ba6ede8c7eb0ef3a08d70e98b6fa18a334c` was
+  created on `version/v2`.
+- `git push origin version/v2` failed after 75 seconds with
+  `Failed to connect to github.com port 443`; a second read-only remote check
+  and `curl` to GitHub also timed out. Remote publication and PR verification
+  remain pending an available network path.
+- Untracked files are limited to old 2.1.14 evidence, Tectonic build output,
+  legacy paper figures, and `tmp/` renderings; none were staged.
