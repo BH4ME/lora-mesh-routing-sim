@@ -25,6 +25,7 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 BROADCAST_DST = -1
 DEFAULT_CALM_DISCOVERY_WINDOW_S = 2.0
+DEFAULT_MESHCORE_DISCOVERY_WINDOW_S = 0.0
 DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S = 600.0
 ICC_PROTOCOLS = (
     "meshtastic",
@@ -1030,19 +1031,25 @@ class MeshCoreLike(RoutingProtocol):
         route_ttl_s: float = 300.0,
         flood_base_delay_s: float = 0.5,
         flood_jitter_s: float = 0.7,
+        discovery_window_s: float = DEFAULT_MESHCORE_DISCOVERY_WINDOW_S,
     ) -> None:
         self.route_ttl_s = route_ttl_s
         self.flood_base_delay_s = flood_base_delay_s
         self.flood_jitter_s = flood_jitter_s
+        self.discovery_window_s = max(0.0, discovery_window_s)
         self.route_cache: Dict[int, Dict[int, Tuple[float, Tuple[int, ...]]]] = {}
         self.pending_data: Dict[Tuple[int, int], List[int]] = {}
         self.seen_rreq: Dict[int, Set[Tuple[int, int, int]]] = {}
+        self.rreq_candidates: Dict[Tuple[int, int, int], List[Tuple[int, ...]]] = {}
+        self.rreq_timers: Set[Tuple[int, int, int]] = set()
 
     def bind(self, sim: Simulator) -> None:
         super().bind(sim)
         self.route_cache = {node_id: {} for node_id in sim.nodes}
         self.pending_data = {}
         self.seen_rreq = {node_id: set() for node_id in sim.nodes}
+        self.rreq_candidates = {}
+        self.rreq_timers = set()
 
     def send_app(self, src: int, dst: int, flow_id: int) -> None:
         self.sim.metrics.register_flow(flow_id, src, dst, self.sim.now)
@@ -1100,6 +1107,41 @@ class MeshCoreLike(RoutingProtocol):
         )
         self.seen_rreq[src].add((src, dst, request_id))
         self.sim.transmit_later(src, packet, delay_s=0.0)
+        if self.discovery_window_s > 0.0:
+            key = (src, dst, request_id)
+            self.rreq_candidates[key] = []
+            self.rreq_timers.add(key)
+            self.sim.schedule(
+                self.sim.now + self.discovery_window_s,
+                "protocol_timer",
+                lambda key=key: self.finish_route_discovery(key),
+            )
+
+    def finish_route_discovery(self, key: Tuple[int, int, int]) -> None:
+        """Reply after a matched discovery window using the shortest candidate."""
+
+        self.rreq_timers.discard(key)
+        candidates = self.rreq_candidates.pop(key, [])
+        if not candidates:
+            return
+        src, dst, request_id = key
+        learned_path = min(candidates, key=lambda path: (len(path), path))
+        reverse_path = tuple(reversed(learned_path))
+        reply = Packet(
+            kind="RREP",
+            flow_id=request_id,
+            origin=dst,
+            final_dst=src,
+            ttl=self.sim.max_hops,
+            created_at=self.sim.now,
+            protocol=self.name,
+            request_id=request_id,
+            path=reverse_path,
+            path_index=0,
+            learned_path=learned_path,
+            app_payload=False,
+        )
+        self.sim.transmit_later(dst, reply, delay_s=0.0)
 
     def send_data_on_path(self, src: int, dst: int, flow_id: int, path: Tuple[int, ...]) -> None:
         if len(path) < 2:
@@ -1141,23 +1183,28 @@ class MeshCoreLike(RoutingProtocol):
 
         new_path = packet.path + (receiver,)
         if receiver == packet.final_dst:
-            # Reply from destination back to source on the reverse path.
-            reverse_path = tuple(reversed(new_path))
-            reply = Packet(
-                kind="RREP",
-                flow_id=packet.flow_id,
-                origin=receiver,
-                final_dst=packet.origin,
-                ttl=self.sim.max_hops,
-                created_at=self.sim.now,
-                protocol=self.name,
-                request_id=packet.request_id,
-                path=reverse_path,
-                path_index=0,
-                learned_path=new_path,
-                app_payload=False,
-            )
-            self.sim.transmit_later(receiver, reply, delay_s=0.0)
+            if self.discovery_window_s <= 0.0:
+                # Preserve the historical immediate-reply baseline when no
+                # matched discovery window is requested.
+                reverse_path = tuple(reversed(new_path))
+                reply = Packet(
+                    kind="RREP",
+                    flow_id=packet.flow_id,
+                    origin=receiver,
+                    final_dst=packet.origin,
+                    ttl=self.sim.max_hops,
+                    created_at=self.sim.now,
+                    protocol=self.name,
+                    request_id=packet.request_id,
+                    path=reverse_path,
+                    path_index=0,
+                    learned_path=new_path,
+                    app_payload=False,
+                )
+                self.sim.transmit_later(receiver, reply, delay_s=0.0)
+            else:
+                key = (packet.origin, packet.final_dst, packet.request_id)
+                self.rreq_candidates.setdefault(key, []).append(new_path)
             return
 
         node = self.sim.nodes[receiver]
@@ -2217,6 +2264,11 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
                 "meshcore_route_ttl_s",
                 300.0,
             ),
+            discovery_window_s=getattr(
+                args,
+                "meshcore_discovery_window_s",
+                DEFAULT_MESHCORE_DISCOVERY_WINDOW_S,
+            ),
         )
     if name == "calm":
         if args is None:
@@ -2454,6 +2506,15 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
         help="source-route cache lifetime for the MeshCore-like baseline",
+    )
+    parser.add_argument(
+        "--meshcore-discovery-window-s",
+        type=float,
+        default=DEFAULT_MESHCORE_DISCOVERY_WINDOW_S,
+        help=(
+            "optional route-discovery collection window for MeshCore-like; "
+            "set to the CALM window for a matched timing audit"
+        ),
     )
     parser.add_argument("--calm-discovery-window-s", type=float, default=2.0)
     parser.add_argument("--calm-flood-base-delay-s", type=float, default=0.45)

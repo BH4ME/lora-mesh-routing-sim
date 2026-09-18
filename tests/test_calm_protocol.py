@@ -8,6 +8,7 @@ from unittest.mock import patch
 from lora_mesh_sim import (
     CalmMesh,
     DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
+    DEFAULT_MESHCORE_DISCOVERY_WINDOW_S,
     ICC_PROTOCOLS,
     FlowDecision,
     MeshtasticLike,
@@ -238,6 +239,18 @@ class CalmProtocolTest(unittest.TestCase):
             args.meshcore_route_ttl_s,
             DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
         )
+
+    def test_meshcore_discovery_window_is_explicit_and_configurable(self) -> None:
+        with patch("sys.argv", ["lora_mesh_sim.py"]):
+            args = parse_args()
+        self.assertEqual(
+            args.meshcore_discovery_window_s,
+            DEFAULT_MESHCORE_DISCOVERY_WINDOW_S,
+        )
+
+        args.meshcore_discovery_window_s = 2.0
+        protocol = build_protocol("meshcore", args)
+        self.assertEqual(protocol.discovery_window_s, 2.0)
 
     def test_no_confidence_ablation_disables_confidence_behaviors(self) -> None:
         protocol = build_protocol("smart-calm-no-confidence")

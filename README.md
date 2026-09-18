@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.14` (paper/results package; firmware prototype
+Current repository release: `2.1.15` (paper/results package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -162,6 +162,12 @@ deviation, and 95% confidence intervals. See
 [ICC 2027 Experiment Plan](docs/icc2027_experiment_plan.md) for the table
 layout and reproducibility rules. The verified matrix is summarized in
 [ICC 2027 Comparison](docs/results/icc2027_comparison.md).
+
+The current ICC workflow also runs a calibrated connected-multihop matrix at
+8.25 km, SF7, 1 flow/min, analytical pair-edge PRR >= 0.90, 24 selected pairs,
+and 20 seeds. The MeshCore-like baseline uses the same 2 s discovery collection
+window as CALM for this fresh comparison. This is the primary mechanism check;
+the 18 km probe remains a route-discovery stress diagnostic.
 
 New ICC matrices use an isolated channel-reception stream by default, keeping
 it separate from forwarding jitter and learning exploration. To make that

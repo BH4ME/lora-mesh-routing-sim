@@ -36,6 +36,7 @@ BASE_ARGS=(
   --rx-current-ma 10.3
   --supply-voltage-v 3.3
   --meshcore-route-ttl-s "$MESHCORE_ROUTE_TTL_S"
+  --meshcore-discovery-window-s "${MESHCORE_DISCOVERY_WINDOW_S:-2}"
 )
 
 # Fresh ICC matrices use an isolated channel stream by default so protocol
@@ -110,6 +111,43 @@ if [[ "${ICC_RUN_QUALITY_PROBE:-1}" == "1" ]]; then
     --protocol meshcore \
     --csv "results/${QUALITY_PREFIX}.csv" \
     --report "docs/results/${QUALITY_PREFIX}.md"
+fi
+
+# This calibrated, non-saturated multi-hop matrix is the primary mechanism
+# check for ICC. It uses an 8.25 km square, analytical PRR>=0.90 pair edges,
+# 1 flow/min, and a matched 2 s MeshCore discovery window so the experiment is
+# multi-hop without intentionally collapsing route discovery.
+if [[ "${ICC_RUN_CALIBRATED_MULTIHOP:-1}" == "1" ]]; then
+  CALIBRATED_PREFIX="${OUT_PREFIX}_calibrated_multihop"
+  python3 tools/run_fair_multihop_probe.py \
+    --scenario "$CALIBRATED_PREFIX" \
+    --nodes "${ICC_CALIBRATED_NODES:-50}" \
+    --area-m "${ICC_CALIBRATED_AREA_M:-8250}" \
+    --duration-s "${ICC_CALIBRATED_DURATION_S:-600}" \
+    --rate-per-min "${ICC_CALIBRATED_RATE_PER_MIN:-1}" \
+    --traffic mixed \
+    --pair-mode connected-multihop \
+    --pair-count "${ICC_CALIBRATED_PAIR_COUNT:-24}" \
+    --edge-prr-threshold "${ICC_CALIBRATED_EDGE_PRR_THRESHOLD:-0.90}" \
+    --min-graph-hops 2 \
+    --max-graph-hops 4 \
+    --min-direct-prr-below-0-99 "${ICC_MIN_DIRECT_PRR_BELOW_0_99:-0.10}" \
+    --min-selected-pair-mean-graph-hops "${ICC_MIN_MEAN_GRAPH_HOPS:-2.0}" \
+    --meshcore-discovery-window-s "${MESHCORE_DISCOVERY_WINDOW_S:-2}" \
+    --sf 7 \
+    --bw-hz 125000 \
+    --cr 1 \
+    --payload-bytes 32 \
+    --tx-power-dbm 17 \
+    --path-loss-exp 2.75 \
+    --shadow-sigma-db 4 \
+    --capture-threshold-db 6 \
+    --max-hops 7 \
+    --smart-max-timeout-retries 0 \
+    --seeds "${ICC_CALIBRATED_SEEDS:-$SEEDS}" \
+    --seed0 "$SEED0" \
+    --csv "results/${CALIBRATED_PREFIX}.csv" \
+    --report "docs/results/${CALIBRATED_PREFIX}.md"
 fi
 
 printf '\nICC experiment outputs written under results/ with prefix %s\n' "$OUT_PREFIX"

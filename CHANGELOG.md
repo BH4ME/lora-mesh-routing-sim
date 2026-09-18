@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.1.15 - Matched route-discovery timing and calibrated ICC multi-hop matrix
+
+- Add an explicit MeshCore-like route-discovery collection-window parameter;
+  fresh ICC runs match the CALM 2 s window while legacy immediate-reply
+  behavior remains reproducible with `0 s`.
+- Add a 20-seed calibrated connected-multihop ICC matrix at 8.25 km/SF7 with
+  PRR-qualified pair selection and one flow per minute.
+- Preserve per-seed link-regime, graph-hop, route-discovery, ACK-PDR, airtime,
+  and ablation diagnostics for the paper's primary mechanism table.
+- Keep the 18 km connected probe as a clearly labeled route-discovery stress
+  test rather than a headline performance claim.
+- Replace the former 9-page ICCT draft with a 3-page ICC 2027 initial-
+  submission draft that is below the six-page hard limit and reports the
+  calibrated matrix as the primary evidence.
+
 ## 2.1.14 - ICC non-degenerate multi-hop quality gate
 
 - Add a per-seed connected-multihop quality gate that rejects direct-link PRR

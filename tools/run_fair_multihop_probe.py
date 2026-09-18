@@ -102,6 +102,12 @@ def make_args(args: argparse.Namespace) -> argparse.Namespace:
 
     return argparse.Namespace(
         calm_route_ttl_s=600.0,
+        meshcore_route_ttl_s=600.0,
+        meshcore_discovery_window_s=getattr(
+            args,
+            "meshcore_discovery_window_s",
+            2.0,
+        ),
         calm_discovery_window_s=2.0,
         calm_flood_base_delay_s=0.45,
         calm_flood_jitter_s=0.65,
@@ -453,6 +459,7 @@ def write_report(
             if args.pair_mode == "connected-multihop"
             else "- Source-destination pairs: random per flow"
         ),
+        f"- MeshCore-like discovery window: `{getattr(args, 'meshcore_discovery_window_s', 2.0):.2f} s`",
         "- Channel reception RNG: independent from protocol jitter/exploration",
         (
             "- Quality gate: PASSED for every seed; direct-link PRR below "
@@ -600,6 +607,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--min-graph-hops", type=int, default=2)
     parser.add_argument("--max-graph-hops", type=int, default=4)
+    parser.add_argument(
+        "--meshcore-discovery-window-s",
+        type=float,
+        default=2.0,
+        help="matched MeshCore-like route-discovery collection window",
+    )
     parser.add_argument(
         "--min-direct-prr-below-0-99",
         type=float,

@@ -3,10 +3,23 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.14`; the firmware prototype remains
+current repository release is `2.1.15`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.15`
+
+- Status: ICC multi-hop calibration revision on 2026-09-18.
+- Match the MeshCore-like route-discovery collection window to CALM for fresh
+  comparisons while retaining an explicit zero-window legacy mode.
+- Add the 20-seed 8.25 km/SF7 calibrated connected-multihop matrix and retain
+  per-seed quality and route-discovery diagnostics.
+- Add the 2.1.15 four-scenario rerun, with versioned raw CSVs and long-format
+  summaries under `results/meshecho_v2_1_15_icc2027_*`.
+- Replace the 9-page ICCT draft with the 3-page ICC 2027 initial-submission
+  draft at `paper/icc2027/icc2027_lora_mesh.tex`; the PDF is within ICC's
+  six-page initial-submission limit.
 
 ## `smart-calm-sim-v2.1.14`
 

@@ -215,3 +215,45 @@ resuming, read all three before taking further action.
   `[codex] MeshEcho 2.1.14 ICC evidence-quality gate`.
 - The task is complete; future work should start from a new versioned
   revision rather than modifying this release in place.
+
+## 2.1.15 ICC Revision - In Progress
+
+- [in_progress] Complete the full 2.1.15 ICC experiment workflow, including
+  the quality gate and calibrated multi-hop matrix.
+- [pending] Rename/copy calibrated evidence to the 2.1.15 release prefix and
+  update the manuscript to ICC 2027 with an initial-submission limit of six
+  pages.
+- [pending] Rebuild and inspect the paper, run all tests/static checks, and
+  selectively publish the release to `version/v2` and draft PR 1.
+
+### Errors Encountered
+
+| Error | Attempt | Resolution |
+|---|---|---|
+| `python: command not found` while running the planning session catch-up | 1 | Re-ran the helper with `python3`; no session data was lost. |
+
+### Current Evidence Gap
+
+The initial 2.1.15 run produced only `50n_unicast_pairs` and `50n_mixed`
+artifacts. This gap was closed by a full rerun: the calibrated multi-hop
+matrix and quality-gate artifacts now exist under the 2.1.15 prefix.
+
+### 2.1.15 Experiment and Paper Phase
+
+- [complete] Run all four ICC legacy scenarios, the 3-seed quality gate, and
+  the 20-seed calibrated multi-hop matrix.
+- [complete] Replace the copied ICCT draft with an ICC 2027 initial-submission
+  manuscript and verify the PDF page limit and rendering.
+- [in_progress] Run final automated checks, stage only release files, publish
+  `version/v2`, and verify the draft PR.
+
+### 2.1.15 Verification Snapshot
+
+- Quality gate passed for every seed: 24/24 pairs, mean graph distance 2.014
+  hops, direct-link PRR-below-0.99 fraction 0.641 in the 18 km diagnostic.
+- Calibrated 20-seed matrix passed: 24/24 pairs per seed, mean selected graph
+  distance 2.0 hops, direct-link PRR-below-0.99 fraction 0.160, and PRR-below-
+  0.50 fraction 0.046.
+- Tectonic compiled `paper/icc2027/icc2027_lora_mesh.tex` to 3 pages, below
+  the ICC initial-submission maximum of 6 pages. Rendered pages 1--3 were
+  inspected for clipping, overlap, table integrity, and stale ICCT text.

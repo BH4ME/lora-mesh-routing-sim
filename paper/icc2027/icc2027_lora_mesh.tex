@@ -1,0 +1,240 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{url}
+
+\begin{document}
+
+\title{MeshEcho: Confidence-Aware Routing for Airtime-Constrained LoRa Mesh IoT}
+
+\author{
+\IEEEauthorblockN{Anonymous Authors}
+\IEEEauthorblockA{Submitted to IEEE ICC 2027, Internet of Things and Sensor Networks}
+}
+
+\maketitle
+
+\begin{abstract}
+LoRa mesh IoT networks trade delivery reliability for scarce airtime. Flooding
+adds redundancy but creates collisions, whereas cached source routes are
+efficient but can select a weak multi-hop path. We present MeshEcho, a
+confidence-aware route-selection and bounded-recovery prototype, and evaluate
+it with a reproducible packet-level simulator. The ICC release (version
+2.1.15) uses a shared topology, traffic trace, independent reception stream,
+and matched 2-s route-discovery window. In a calibrated 50-node, 8.25-km
+multi-hop matrix over 20 seeds, MeshEcho obtains 0.720 ACK-confirmed PDR with
+28.1 s aggregate airtime, compared with 0.537 and 38.5 s for the matched
+source-route baseline. However, the Smart-CALM controller reaches 0.563 PDR,
+and its no-confidence control reaches 0.382; the paired improvement is
+separable from the controller's recovery behavior. A 3-seed topology gate
+confirms non-saturated direct links and at least two graph hops. A legacy
+contention case and an 18-km discovery stress test expose the limits of the
+claim. The evidence supports a bounded reliability--airtime tradeoff, not
+topology-independent dominance.
+\end{abstract}
+
+\begin{IEEEkeywords}
+LoRa mesh, Internet of Things, sensor networks, adaptive routing, airtime
+efficiency, packet delivery ratio
+\end{IEEEkeywords}
+
+\section{Introduction}
+LoRa is attractive for low-power IoT because it combines long link budget with
+small, inexpensive radios \cite{augustin2016study}. A single-hop star topology
+is insufficient for obstructed or infrastructure-poor deployments, motivating
+multi-hop and mesh extensions \cite{wong2024multihop,cotrim2020lorawanmesh,
+centelles2021beyond}. Multi-hop forwarding is nevertheless expensive: a low
+data rate makes every relay occupy the channel for a long time, while a flood
+multiplies collision opportunities. A cached source route reduces redundancy,
+but a route with one weak hop can fail even when another route exists.
+
+MeshEcho explores the middle of this design space. It records lightweight
+link-quality evidence during discovery, ranks candidate paths by confidence,
+and invokes bounded recovery forwarding when discovery or a cached path is
+uncertain. The implementation is intentionally modest: it is a simulation
+prototype, not a replacement for a production mesh stack. The central
+question is whether confidence can improve the reliability--airtime operating
+point without being mistaken for a universal routing advantage.
+
+This paper makes four contributions:
+\begin{itemize}
+\item a reproducible packet-level LoRa mesh harness with time-on-air,
+propagation, shadowing, half-duplex collision/capture, route discovery, and
+energy accounting;
+\item a pre-specified, non-saturated multi-hop ICC matrix with per-seed quality
+gates and matched discovery timing;
+\item paired ablations that separate confidence ranking from timeout and
+route-miss recovery; and
+\item an explicit evidence boundary covering fixed-pair contention, route
+discovery stress, and simulation-only limitations.
+\end{itemize}
+
+\section{Protocol and Model}
+\subsection{Network model}
+We simulate $N$ nodes uniformly placed in a square and sharing one half-duplex
+LoRa channel. Unless stated otherwise, packets have 32-byte payloads, 17 dBm
+transmit power, 125-kHz bandwidth, coding rate 4/5, capture threshold 6 dB,
+and spreading factor SF7 for the calibrated matrix. Time-on-air follows the
+standard LoRa symbol calculation \cite{semtech2013lora}; airtime is the sum of
+all transmitted packet durations. Log-distance path loss with log-normal
+shadowing produces received SNR. Reception probability is a logistic function
+of SNR margin, and overlapping packets are accepted only when the desired
+signal passes the capture rule. The simulator also records collision failures,
+route-cache events, discovery success, and energy from configured TX/RX
+currents.
+
+\subsection{Routing policies}
+Managed flooding (Meshtastic-like) rebroadcasts with duplicate suppression.
+The source-route baseline (MeshCore-like) floods a request, caches a returned
+path for a finite TTL, and forwards later data along that path. MeshCore-like
+uses an immediate reply in the historical mode; ICC experiments use an
+explicit 2-s candidate-collection window so reply timing is matched to CALM.
+\texttt{calm-mesh} is the static MeshEcho policy: it ranks discovered routes
+using path confidence and uses bounded route-miss fallback. \texttt{smart-calm}
+adds an online profile controller; \texttt{smart-calm-no-fallback} disables
+only route-miss fallback, and \texttt{smart-calm-no-confidence} disables
+confidence-dependent admission and rewards. These controls are necessary
+because a full-versus-baseline difference otherwise conflates mechanisms.
+
+\section{Experimental Design}
+\subsection{Calibrated ICC matrix}
+The primary matrix has 50 nodes in an $8250\,\mathrm{m}$ square, 600 s per
+run, mixed traffic at one application flow per minute, SF7, path-loss exponent
+2.75, 4-dB shadowing, and 20 seeds. For each seed, 24 source--destination
+pairs are selected from a shared analytical link-budget graph: retained edges
+have PRR at least 0.90 and selected graph distance is 2--4 hops. The quality
+gate rejects a seed unless all 24 pairs are present, mean selected distance is
+at least 2.0 hops, and at least 10\% of direct links have PRR below 0.99.
+Reception draws use an independent random stream from protocol jitter and
+exploration, preventing later protocols from inheriting a changed channel
+trace. Smart-CALM timeout retries are zero. Values below are means over 20
+seeds with two-sided 95\% confidence half-widths.
+
+\begin{table*}[t]
+\centering
+\caption{Primary calibrated multi-hop matrix (20 seeds). ACK PDR is
+ACK-confirmed unicast delivery; route fraction is among completed cached
+routes.}
+\label{tab:main}
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Protocol & ACK PDR & Dest. PDR & Airtime (s) & Discovery & Multi-hop route & Mean cached hops\\
+\midrule
+MeshCore-like & .537$\pm$.081 & .679$\pm$.093 & 38.5$\pm$5.3 & .741 & .775 & 1.80\\
+MeshEcho (CALM) & \textbf{.720$\pm$.115} & \textbf{.739$\pm$.115} & \textbf{28.1$\pm$4.7} & .891 & .989 & 2.03\\
+Smart-CALM & .563$\pm$.088 & .630$\pm$.100 & 28.6$\pm$4.7 & .801 & 1.000 & 2.13\\
+Smart-CALM, no fallback & .561$\pm$.081 & .607$\pm$.096 & 28.0$\pm$4.5 & .811 & 1.000 & 2.11\\
+Smart-CALM, no confidence & .382$\pm$.122 & .470$\pm$.133 & 27.8$\pm$4.6 & .589 & .730 & 1.61\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Controls and robustness cases}
+The same release reruns a legacy 3000-m repeated-pair matrix (50 nodes,
+1200 s, six flows/min, SF9) for traceability, plus a 6-dB shadowing case and
+a ten-flows/min load case. These are contention-oriented sensitivity cases,
+not substitutes for the calibrated matrix. A separate 18000-m, 3-seed probe
+uses the same connected-pair selector with a PRR threshold of 0.70. It is a
+topology and route-discovery quality gate, not a headline PDR comparison.
+
+\section{Results}
+\subsection{Calibrated multi-hop behavior}
+Table~\ref{tab:main} establishes that the primary comparison is genuinely
+multi-hop rather than a direct-link replay. Every seed passed the gate; the
+mean selected graph distance is exactly 2.0 hops, while 16.0\% of direct links
+are below 0.99 PRR and 4.6\% are below 0.50. MeshEcho improves over the
+matched source-route baseline by 0.183 ACK PDR and reduces airtime by 26.8\%.
+The result is a protocol-bundle comparison: CALM's bounded recovery and
+confidence ranking are both enabled.
+
+The ablations make this boundary measurable. Smart-CALM minus
+no-confidence is +0.181 ACK PDR with a paired 95\% interval
+$[+0.094,+0.268]$, showing a confidence-sensitive difference in this
+calibrated regime. Smart-CALM minus no-fallback is only +0.002 with interval
+$[-0.020,+0.024]$; its mean PDR gain is therefore not isolated from fallback
+in this replay. The no-confidence line also has lower discovery success and
+fewer multi-hop cached routes, so it is evidence about the complete disabled
+policy, not a controlled oracle with identical route candidates.
+
+\begin{table}[t]
+\centering
+\caption{2.1.15 legacy mixed-traffic sensitivity case (20 seeds). This table
+is retained for traceability; direct links are mostly easy and paths are not a
+neutral deployment benchmark.}
+\label{tab:legacy}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lrrr}
+\toprule
+Protocol & ACK PDR & Broadcast & Airtime (s)\\
+\midrule
+Managed flooding & .853 & .942 & 1177\\
+MeshCore-like & .650 & .958 & 898\\
+MeshEcho (CALM) & .728 & .970 & 847\\
+Smart-CALM & .936 & .962 & 827\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Legacy robustness and discovery stress}
+In the repeated-pair mixed case (Table~\ref{tab:legacy}), MeshEcho saves 5.7\%
+airtime versus MeshCore-like while raising ACK PDR by 0.078. The high-load
+case reduces all delivery ratios, while the 6-dB shadowing case preserves the
+same ordering within the uncertainty of the frozen workload. These cases are
+useful for regression and contention behavior, but repeated pairs favor route
+reuse and the direct-link PRR distribution is saturated.
+
+The 18-km quality probe passed all three seeds with mean graph distance 2.014,
+direct-link fractions below 0.99 and 0.50 of 0.641 and 0.445, and a complete
+24-pair pool. MeshCore-like discovery succeeded on only 0.178 of attempts in
+this deliberately harsh setting. We therefore report it as a route-discovery
+stress diagnostic; treating its low PDR as a general source-route result would
+confound discovery timing, connectivity, and data forwarding.
+
+\section{Fairness, Limitations, and Reproducibility}
+All protocols in a run share node placement, static shadowing, traffic pairs,
+PHY parameters, seed, and reception stream. The primary matrix also matches
+the MeshCore-like discovery window and route-cache lifetime. Nevertheless,
+the controls do not make every native budget identical: bounded fallback,
+profile switching, and route-repair semantics differ by design. The calibrated
+matrix is therefore a fair shared-harness protocol-bundle comparison, while
+the paired ablations provide narrower mechanism evidence.
+
+This is simulation-only evidence. The model omits waveform-level interference,
+duty-cycle enforcement, queue implementation details, time-varying fading,
+variable route-header size, and hardware sensitivity variation. The confidence
+estimate uses the same static link realization as forwarding, so stale-quality
+behavior is not tested. The 3-seed stress gate is a quality check, not a power
+analysis. Future work should preregister a larger pair-churn matrix, equalize
+retry and fallback budgets across baselines, model variable headers, and
+validate the policy on hardware or hardware-in-the-loop.
+
+All source, tests, experiment scripts, raw CSVs, reports, and this paper are
+released in version 2.1.15 at
+\url{https://github.com/BH4ME/lora-mesh-routing-sim}. The main workflow is
+\texttt{OUT\_PREFIX=meshecho\_v2\_1\_15\_icc2027 bash tools/run\_icc\_experiments.sh};
+the script runs the four legacy cases, the topology gate, and the calibrated
+matrix. No human participants or personal data were involved; there are no
+known conflicts of interest or external funding.
+
+\section{Conclusion}
+MeshEcho reaches a useful reliability--airtime operating point in a calibrated
+multi-hop LoRa simulation: 0.720 ACK PDR and 28.1 s airtime versus 0.537 and
+38.5 s for a matched source-route baseline. The result is reproducible and
+passes explicit topology/link-quality gates. However, paired controls show
+that Smart-CALM's confidence-sensitive difference and its recovery behavior
+must be reported separately, while the harsh discovery probe warns against
+using route-discovery failure as a universal protocol ranking. Version 2.1.15
+therefore supports a bounded mechanism and tradeoff claim, not a claim of
+general dominance or physical validation.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

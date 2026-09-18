@@ -43,6 +43,13 @@ below 0.99 static PRR. The diagnostic CSV and report are written with the
 `<OUT_PREFIX>_connected_multihop_quality` suffix. Set `ICC_RUN_QUALITY_PROBE=0`
 only to reproduce a pre-gate legacy run.
 
+The same script then runs the primary calibrated multi-hop matrix: 50 nodes in
+an 8.25 km square, SF7, mixed traffic at 1 flow/min, 24 graph-selected pairs,
+analytical edge PRR >= 0.90, 20 seeds, and a matched 2 s MeshCore-like
+discovery window. It is intended to test route selection in a connected,
+non-saturated regime; the 18 km probe is retained as a separate discovery
+stress diagnostic.
+
 The default setup is 50 nodes in a 3000 m square, 1200 s per run, eight fixed
 unicast pairs, SF9/BW125 kHz/CR 4/5, and 20 seeds. Environment variables
 `NODES`, `AREA_M`, `DURATION_S`, `PAIR_COUNT`, `SEEDS`, `SEED0`, and `OUT_PREFIX`
@@ -102,6 +109,10 @@ machine-readable long-format summary for table generation.
 11. Do not accept a connected-multihop probe based only on aggregate means:
     the quality gate checks pair-pool completeness, mean graph distance, and
     direct-link PRR regime separately for every seed.
+12. For fresh cross-protocol route-discovery comparisons, set the MeshCore-like
+    collection window to the same 2 s budget used by CALM. Use
+    `MESHCORE_DISCOVERY_WINDOW_S=0` only for an explicitly labeled immediate-
+    reply legacy reproduction.
 
 ## Suggested Paper Tables
 
@@ -116,23 +127,25 @@ trade-offs. The raw CSV files and long-format summary CSVs preserve the
 remaining metrics for supplementary analysis.
 
 See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
-four-scenario summary.
+2.1.15 calibrated-matrix and robustness summary. The raw versioned artifacts
+are `results/meshecho_v2_1_15_icc2027_*` and
+`docs/results/meshecho_v2_1_15_icc2027_*.md`.
 
-The current `2.1.13` audit concludes that the existing 3000 m matrix is fair as
+The current `2.1.15` audit concludes that the existing 3000 m matrix is fair as
 a shared-harness comparison, but too link-friendly and too asymmetric for a
 standalone claim about general multi-hop confidence-aware routing. Its legacy
 native rows also use a shorter MeshCore-like route-cache TTL than MeshEcho.
 See
 `docs/results/meshecho_fairness_audit.md` before using the frozen results.
 
-The ten-seed random-pair probe in
-`docs/results/meshecho_fair_multihop_probe.md` confirms this boundary:
-CALM/MeshEcho keeps an airtime advantage but does not beat the source-route
-baseline on ACK PDR in the non-saturated multi-hop setting. Smart-CALM's
-remaining PDR difference is not statistically established as a
-confidence-ranking gain after the one-shot timeout budget check. The connected
-pair diagnostics further show that some hard settings are route-discovery
-stress cases rather than neutral data-plane comparisons.
+The 2.1.15 calibrated probe confirms this boundary with a 20-seed, 8.25 km
+matrix: CALM/MeshEcho reaches 0.720 ACK PDR and 28.1 s airtime versus 0.537
+and 38.5 s for matched MeshCore-like. Smart-CALM minus no-confidence is
+`+0.181` ACK PDR with a paired 95% interval `[+0.094,+0.268]`, while the
+no-fallback difference is `+0.002` with `[-0.020,+0.024]`; recovery and
+confidence effects are therefore reported separately. The 18 km connected
+probe remains a route-discovery stress case rather than a neutral data-plane
+comparison.
 
 The pre-fix Smart-CALM ablation rows in the historical `2.1.3`/`2.1.7`
 artifacts must not be used as current evidence for the no-fallback variant.

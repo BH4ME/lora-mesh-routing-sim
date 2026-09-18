@@ -190,6 +190,34 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
 - The generated versioned CSV/Markdown evidence is intentionally included in
   this release; temporary smoke outputs were moved out of the repository.
 
+## 2.1.15 Continuation Audit
+
+- A completed 2.1.15 experiment session produced
+  `results/meshecho_v2_1_15_icc2027_50n_unicast_pairs*` and
+  `results/meshecho_v2_1_15_icc2027_50n_mixed*` only.
+- No `meshecho_v2_1_15_icc2027_connected_multihop_quality` or
+  `meshecho_v2_1_15_icc2027_calibrated_multihop` artifacts exist yet.
+- Because the ICC paper's main claim depends on the calibrated non-saturated
+  multi-hop matrix and the per-seed quality gate, the current version bump is
+  incomplete and must not be published as a finished release.
+
+## 2.1.15 Evidence and Paper Findings
+
+- The full 2.1.15 workflow completed with all expected versioned artifacts.
+- The calibrated matrix is non-degenerate by construction and measurement:
+  20 seeds, 24 selected pairs per seed, graph distance 2.0, direct-link
+  PRR-below-0.99 fraction 0.160, and PRR-below-0.50 fraction 0.046.
+- CALM/MeshEcho mean ACK PDR is 0.720 versus MeshCore-like 0.537, with mean
+  airtime 28.1 s versus 38.5 s. Smart-CALM minus no-confidence is +0.181
+  ACK PDR (paired 95% CI [+0.094,+0.268]); Smart-CALM minus no-fallback is
+  +0.002 ([-0.020,+0.024]).
+- The 18 km quality gate is deliberately harsher: it passes all three seeds
+  with mean graph distance 2.014 and direct-link PRR-below-0.99 fraction
+  0.641, but MeshCore-like discovery success is only 0.178. It remains a
+  discovery stress diagnostic rather than a main performance table.
+- The new ICC manuscript is 3 pages, uses ICC 2027 wording, and does not
+  claim physical validation or topology-independent dominance.
+
 ## 2.1.14 Final Publish Verification
 
 - Commit `b5de06b` is present locally and on `origin/version/v2`.

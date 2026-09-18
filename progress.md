@@ -215,3 +215,36 @@
   result, and the full ICC shell smoke result.
 - The 2.1.14 revision is complete. Future simulation/code changes must start
   from a new incremented version and repeat the test/simulation/publish cycle.
+
+## 2026-09-18 - 2.1.15 Continuation Audit
+
+- Resumed in clean clone `/tmp/lora_mesh_remote_current.iIrtPz` at the
+  uncommitted 2.1.15 revision; the damaged original worktree remains
+  untouched.
+- The prior long-running command has finished and produced only the
+  `50n_unicast_pairs` and `50n_mixed` 2.1.15 outputs. The shell script's
+  quality and calibrated sections were not executed in that invocation.
+- `python` is unavailable on this host; planning helpers and checks must use
+  `python3`.
+- Next action: run the missing 2.1.15 quality-gate and calibrated multi-hop
+  experiments, then audit the manuscript and release metadata before any
+  commit or push.
+
+## 2026-09-18 - 2.1.15 Evidence and ICC Manuscript
+
+- Re-ran `OUT_PREFIX=meshecho_v2_1_15_icc2027 bash tools/run_icc_experiments.sh`.
+  All four legacy scenarios, the 3-seed connected-multihop quality gate, and
+  the 20-seed calibrated matrix completed successfully.
+- Versioned evidence now includes raw CSVs, long-format summaries, and reports
+  for `50n_unicast_pairs`, `50n_mixed`, `50n_mixed_shadow6`,
+  `50n_mixed_rate10`, `connected_multihop_quality`, and `calibrated_multihop`.
+- Rewrote `paper/icc2027/icc2027_lora_mesh.tex` around the calibrated matrix;
+  it reports the paired Smart-CALM confidence/no-fallback intervals and keeps
+  the old 3000 m matrix as a declared sensitivity case.
+- Bundled Tectonic compiled the ICC source to 3 pages at
+  `paper/icc2027/build-2_1_15-tectonic-v2/icc2027_lora_mesh.pdf`; Poppler
+  rendered all three pages and visual inspection found no clipping or overlap.
+- Canonical `docs/results/icc2027_comparison.md`, the experiment plan, version
+  index, and changelog now point to 2.1.15 evidence.
+- Next: run tests/static checks and perform selective stage/commit/push plus
+  remote PR verification. Do not stage `tmp/` or Tectonic build directories.
