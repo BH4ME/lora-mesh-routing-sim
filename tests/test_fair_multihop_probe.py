@@ -1,10 +1,54 @@
 import unittest
 from argparse import Namespace
 
-from tools.run_fair_multihop_probe import run_one_probe
+from tools.run_fair_multihop_probe import (
+    ProbeRegimeError,
+    validate_non_degenerate_regime,
+    run_one_probe,
+)
 
 
 class FairMultihopProbeTest(unittest.TestCase):
+    def _quality_args(self) -> Namespace:
+        return Namespace(
+            pair_mode="connected-multihop",
+            pair_count=4,
+            min_graph_hops=2,
+            min_direct_prr_below_0_99=0.10,
+            min_selected_pair_mean_graph_hops=2.0,
+        )
+
+    def _row(self, **overrides: object) -> dict[str, object]:
+        row: dict[str, object] = {
+            "seed": 1,
+            "protocol": "smart-calm",
+            "candidate_pair_count": 4,
+            "selected_pair_mean_graph_hops": 2.25,
+            "direct_prr_below_0_99": 0.40,
+        }
+        row.update(overrides)
+        return row
+
+    def test_non_degenerate_regime_accepts_qualified_seed(self) -> None:
+        validate_non_degenerate_regime([self._row()], self._quality_args())
+
+    def test_non_degenerate_regime_rejects_saturated_links(self) -> None:
+        with self.assertRaisesRegex(ProbeRegimeError, "direct-link PRR"):
+            validate_non_degenerate_regime(
+                [self._row(direct_prr_below_0_99=0.01)], self._quality_args()
+            )
+
+    def test_non_degenerate_regime_rejects_short_or_incomplete_pair_pool(self) -> None:
+        args = self._quality_args()
+        with self.assertRaisesRegex(ProbeRegimeError, "pair pool"):
+            validate_non_degenerate_regime(
+                [self._row(candidate_pair_count=3)], args
+            )
+        with self.assertRaisesRegex(ProbeRegimeError, "graph hops"):
+            validate_non_degenerate_regime(
+                [self._row(selected_pair_mean_graph_hops=1.5)], args
+            )
+
     def test_probe_reports_route_discovery_health(self) -> None:
         args = Namespace(
             scenario="test",

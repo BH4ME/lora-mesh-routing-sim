@@ -34,6 +34,15 @@ hard to isolate.
 | `50n_mixed_shadow6` | Mixed unicast/broadcast | 6/min | Robustness under stronger shadowing |
 | `50n_mixed_rate10` | Mixed unicast/broadcast | 10/min | Offered-load stress test |
 
+After the four matrices, the script runs a short `connected-multihop` quality
+probe (three seeds by default) using the same simulator and independent
+channel-reception stream. This probe is a gate, not a fifth performance table:
+it fails the command if any seed has fewer than the requested connected pairs,
+mean selected graph distance below two hops, or fewer than 10% of direct links
+below 0.99 static PRR. The diagnostic CSV and report are written with the
+`<OUT_PREFIX>_connected_multihop_quality` suffix. Set `ICC_RUN_QUALITY_PROBE=0`
+only to reproduce a pre-gate legacy run.
+
 The default setup is 50 nodes in a 3000 m square, 1200 s per run, eight fixed
 unicast pairs, SF9/BW125 kHz/CR 4/5, and 20 seeds. Environment variables
 `NODES`, `AREA_M`, `DURATION_S`, `PAIR_COUNT`, `SEEDS`, `SEED0`, and `OUT_PREFIX`
@@ -90,6 +99,9 @@ machine-readable long-format summary for table generation.
     comparison. Runs using the default value `2` must be labeled as recovery
     evaluations, because the fixed baselines do not have the same timeout
     controller.
+11. Do not accept a connected-multihop probe based only on aggregate means:
+    the quality gate checks pair-pool completeness, mean graph distance, and
+    direct-link PRR regime separately for every seed.
 
 ## Suggested Paper Tables
 

@@ -180,3 +180,30 @@ and publish the intended changes to GitHub.
 Before any context compression, append completed commands/results and the
 exact next action to this file, `findings.md`, and `progress.md`. After
 resuming, read all three before taking further action.
+
+## 2.1.14 Revision - ICC Quality Gate
+
+- [completed] Add TDD coverage for saturated direct links, incomplete pair
+  pools, and insufficient graph-hop distance.
+- [completed] Implement a per-seed connected-multihop quality gate in the
+  fairness probe.
+- [completed] Integrate the gate into `tools/run_icc_experiments.sh` with
+  calibration and legacy-reproduction environment variables.
+- [completed] Bump release metadata and document the evidence contract.
+- [completed] Run the real three-seed quality probe and the full ICC shell
+  smoke flow.
+- [in progress] Commit only the 2.1.14 task files, push `version/v2`, and
+  verify the remote branch and draft PR.
+
+### 2.1.14 Verification Snapshot
+
+- Full unittest discovery: 52 passed.
+- `bash -n`, Python compilation, and `git diff --check` passed.
+- Three-seed connected-multihop probe passed: 24/24 pairs per seed, mean
+  selected graph distance `2.014` hops, and mean direct-link PRR-below-0.99
+  fraction `0.641`.
+- ICC shell smoke passed with four matrix scenarios followed by the quality
+  gate; smoke artifacts were moved to `/tmp` and are not release files.
+- Version is `2.1.14`; generated evidence is in
+  `docs/results/meshecho_v2_1_14_connected_multihop_quality.md` and
+  `results/meshecho_v2_1_14_connected_multihop_quality.csv`.

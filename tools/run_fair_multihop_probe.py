@@ -40,6 +40,63 @@ DEFAULT_OUT = Path("results/meshecho_fair_multihop_probe.csv")
 DEFAULT_REPORT = Path("docs/results/meshecho_fair_multihop_probe.md")
 
 
+class ProbeRegimeError(ValueError):
+    """Raised when a connected-multihop probe would produce degenerate evidence."""
+
+
+def validate_non_degenerate_regime(
+    rows: Sequence[Dict[str, Any]],
+    args: argparse.Namespace,
+) -> None:
+    """Reject saturated links or incomplete multi-hop pair pools per seed.
+
+    Diagnostics are duplicated for each protocol because every protocol uses
+    the same seed-specific topology and pair-selection procedure. Checking
+    each row still makes the quality gate robust to future protocol-specific
+    topology changes and prevents an aggregate mean from hiding a bad seed.
+    """
+
+    if getattr(args, "pair_mode", "random") != "connected-multihop":
+        return
+    if not rows:
+        raise ProbeRegimeError("connected-multihop probe produced no rows")
+
+    requested_pairs = int(getattr(args, "pair_count", 0))
+    if requested_pairs <= 0:
+        raise ProbeRegimeError(
+            "connected-multihop requires a positive requested pair pool"
+        )
+    minimum_subthreshold = float(
+        getattr(args, "min_direct_prr_below_0_99", 0.10)
+    )
+    minimum_mean_hops = float(
+        getattr(args, "min_selected_pair_mean_graph_hops", 2.0)
+    )
+
+    for row in rows:
+        seed = row.get("seed", "?")
+        protocol = row.get("protocol", "?")
+        candidate_count = int(row["candidate_pair_count"])
+        if candidate_count < requested_pairs:
+            raise ProbeRegimeError(
+                f"seed {seed} ({protocol}) pair pool has only "
+                f"{candidate_count} pairs; requested {requested_pairs}"
+            )
+        mean_hops = float(row["selected_pair_mean_graph_hops"])
+        if mean_hops < minimum_mean_hops:
+            raise ProbeRegimeError(
+                f"seed {seed} ({protocol}) selected pair graph hops "
+                f"{mean_hops:.3f} below required {minimum_mean_hops:.3f}"
+            )
+        subthreshold_fraction = float(row["direct_prr_below_0_99"])
+        if subthreshold_fraction < minimum_subthreshold:
+            raise ProbeRegimeError(
+                f"seed {seed} ({protocol}) direct-link PRR below 0.99 "
+                f"fraction {subthreshold_fraction:.3f} below required "
+                f"{minimum_subthreshold:.3f}"
+            )
+
+
 def make_args(args: argparse.Namespace) -> argparse.Namespace:
     """Build the Namespace expected by lora_mesh_sim.build_protocol()."""
 
@@ -397,6 +454,14 @@ def write_report(
             else "- Source-destination pairs: random per flow"
         ),
         "- Channel reception RNG: independent from protocol jitter/exploration",
+        (
+            "- Quality gate: PASSED for every seed; direct-link PRR below "
+            f"0.99 >= `{getattr(args, 'min_direct_prr_below_0_99', 0.10):.2f}`, "
+            f"pair pool complete, mean graph hops >= "
+            f"`{getattr(args, 'min_selected_pair_mean_graph_hops', 2.0):.2f}`"
+            if args.pair_mode == "connected-multihop"
+            else "- Quality gate: not required for random-pair mode"
+        ),
         "",
         "## Link Regime",
         "",
@@ -535,6 +600,24 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--min-graph-hops", type=int, default=2)
     parser.add_argument("--max-graph-hops", type=int, default=4)
+    parser.add_argument(
+        "--min-direct-prr-below-0-99",
+        type=float,
+        default=0.10,
+        help=(
+            "minimum fraction of direct links below 0.99 PRR for the "
+            "connected-multihop quality gate"
+        ),
+    )
+    parser.add_argument(
+        "--min-selected-pair-mean-graph-hops",
+        type=float,
+        default=2.0,
+        help=(
+            "minimum mean graph distance for the connected pair pool "
+            "quality gate"
+        ),
+    )
     parser.add_argument("--sf", type=int, default=7)
     parser.add_argument("--bw-hz", type=int, default=125_000)
     parser.add_argument("--cr", type=int, default=1)
@@ -577,6 +660,7 @@ def main() -> None:
         for offset in range(args.seeds)
         for protocol_name in protocols
     ]
+    validate_non_degenerate_regime(rows, args)
     write_csv(args.csv, rows)
     write_report(args.report, rows, args)
     print(f"Wrote {args.csv}")

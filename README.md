@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.13` (paper/results package; firmware prototype
+Current repository release: `2.1.14` (paper/results package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -205,6 +205,24 @@ success rate, and the RREP/RREQ transmission ratio. Connected-pair runs with
 very low discovery success are route-discovery stress checks, not neutral
 data-plane benchmarks.
 
+The ICC matrix script also runs a short connected-multihop quality gate by
+default. It checks every seed before accepting the probe output: at least 10%
+of direct links must have static PRR below 0.99, the requested connected pair
+pool must be fully constructible, and its mean graph distance must be at least
+2 hops. Override the probe with `ICC_QUALITY_*` variables, or set
+`ICC_RUN_QUALITY_PROBE=0` only when reproducing an older run without the gate.
+The generated diagnostic files use the matrix prefix plus
+`_connected_multihop_quality`.
+
+To run the gate directly:
+
+```bash
+python3 tools/run_fair_multihop_probe.py \
+  --pair-mode connected-multihop \
+  --min-direct-prr-below-0-99 0.10 \
+  --min-selected-pair-mean-graph-hops 2.0
+```
+
 Useful parameters:
 
 ```bash
@@ -227,6 +245,8 @@ Useful parameters:
 --shadow-sigma-db 4
 --max-hops 7
 --independent-rng-streams
+--min-direct-prr-below-0-99 0.10
+--min-selected-pair-mean-graph-hops 2.0
 ```
 
 Example scenarios:

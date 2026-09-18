@@ -168,3 +168,38 @@
 - The user's fairness concern is now reflected in both the simulation defaults
   and manuscript claims; the work is complete pending any new experiment
   request.
+
+## 2026-09-18 - 2.1.14 ICC Quality-Gate Revision
+
+- Continued in clean clone `/tmp/lora_mesh_remote_current.iIrtPz` at remote
+  `version/v2` commit `9c1562e`; the damaged original worktree was left
+  untouched.
+- Added per-seed `validate_non_degenerate_regime()` checks to the connected
+  multihop fairness probe. The gate requires a complete requested pair pool,
+  mean graph distance >= 2 hops, and at least 10% of direct links below 0.99
+  static PRR; saturated or effectively one-hop evidence now fails explicitly.
+- Added three regression tests covering acceptance, saturated direct links,
+  incomplete pair pools, and insufficient graph distance.
+- Added the automatic quality probe to `tools/run_icc_experiments.sh`; it is
+  enabled by default and can be calibrated with `ICC_QUALITY_*` variables or
+  disabled only for explicit legacy reproduction with
+  `ICC_RUN_QUALITY_PROBE=0`.
+- Bumped release metadata and documentation from `2.1.13` to `2.1.14`.
+- Full test discovery passed: 52 tests. Python compilation, `bash -n`, and
+  `git diff --check` passed.
+- Real three-seed quality probe passed. Per-seed pair counts were 24, mean
+  selected graph distance was `2.014` hops, mean direct-link PRR-below-0.99
+  fraction was `0.641`, and mean PRR-below-0.50 fraction was `0.445`.
+- Full ICC shell smoke passed with four matrix scenarios plus the new quality
+  gate. The initial smoke invocation exposed and then fixed the public CLI
+  protocol alias (`meshcore`, not internal `meshcore-like`).
+- Versioned quality evidence is present in
+  `docs/results/meshecho_v2_1_14_connected_multihop_quality.md` and
+  `results/meshecho_v2_1_14_connected_multihop_quality.csv`.
+
+## Next Actions
+
+1. Run final diff/status and consistency checks, then selectively stage the
+   2.1.14 implementation, tests, docs, generated quality evidence, and state
+   Markdown.
+2. Commit, push `version/v2`, and verify the remote commit and draft PR.

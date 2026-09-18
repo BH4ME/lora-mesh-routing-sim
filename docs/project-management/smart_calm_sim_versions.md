@@ -3,10 +3,21 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.13`; the firmware prototype remains
+current repository release is `2.1.14`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.14`
+
+- Status: ICC evidence-quality revision on 2026-09-18.
+- Add the per-seed connected-multihop quality gate for direct-link PRR regime,
+  complete pair pools, and genuine multi-hop graph distance.
+- Run the gate automatically after the four ICC matrix scenarios and preserve
+  the passing three-seed diagnostic CSV/Markdown artifacts.
+- Keep the 2.1.13 manuscript/PDF declaration unchanged because this release
+  changes the reproducibility harness and evidence checks, not the typeset
+  paper text.
 
 ## `smart-calm-sim-v2.1.13`
 

@@ -76,4 +76,40 @@ run_scenario "50n_mixed" "mixed" 6
 run_scenario "50n_mixed_shadow6" "mixed" 6 --shadow-sigma-db 6
 run_scenario "50n_mixed_rate10" "mixed" 10
 
+# A short connected-multihop probe is a hard quality gate for the ICC matrix.
+# It checks the topology/link regime itself, so a successful matrix run cannot
+# silently become a mostly one-hop, direct-PRR-saturated comparison.
+if [[ "${ICC_RUN_QUALITY_PROBE:-1}" == "1" ]]; then
+  QUALITY_PREFIX="${OUT_PREFIX}_connected_multihop_quality"
+  python3 tools/run_fair_multihop_probe.py \
+    --scenario "$QUALITY_PREFIX" \
+    --nodes "${ICC_QUALITY_NODES:-50}" \
+    --area-m "${ICC_QUALITY_AREA_M:-18000}" \
+    --duration-s "${ICC_QUALITY_DURATION_S:-180}" \
+    --rate-per-min "${ICC_QUALITY_RATE_PER_MIN:-4}" \
+    --traffic mixed \
+    --pair-mode connected-multihop \
+    --pair-count "${ICC_QUALITY_PAIR_COUNT:-24}" \
+    --edge-prr-threshold "${ICC_QUALITY_EDGE_PRR_THRESHOLD:-0.70}" \
+    --min-graph-hops "${ICC_QUALITY_MIN_GRAPH_HOPS:-2}" \
+    --max-graph-hops "${ICC_QUALITY_MAX_GRAPH_HOPS:-4}" \
+    --min-direct-prr-below-0-99 "${ICC_MIN_DIRECT_PRR_BELOW_0_99:-0.10}" \
+    --min-selected-pair-mean-graph-hops "${ICC_MIN_MEAN_GRAPH_HOPS:-2.0}" \
+    --sf 7 \
+    --bw-hz 125000 \
+    --cr 1 \
+    --payload-bytes 32 \
+    --tx-power-dbm 17 \
+    --path-loss-exp 2.75 \
+    --shadow-sigma-db 4 \
+    --capture-threshold-db 6 \
+    --max-hops 7 \
+    --smart-max-timeout-retries 0 \
+    --seeds "${ICC_QUALITY_SEEDS:-3}" \
+    --seed0 "$SEED0" \
+    --protocol meshcore \
+    --csv "results/${QUALITY_PREFIX}.csv" \
+    --report "docs/results/${QUALITY_PREFIX}.md"
+fi
+
 printf '\nICC experiment outputs written under results/ with prefix %s\n' "$OUT_PREFIX"

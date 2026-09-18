@@ -168,3 +168,30 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   fair shared harness, biased frozen workload, matched-TTL sensitivity,
   non-dominant random-pair result, and bounded route-conflict mechanism
   evidence.
+
+## 2.1.14 ICC Quality-Gate Result
+
+- Added `validate_non_degenerate_regime()` and `ProbeRegimeError` to enforce
+  connected-multihop evidence quality per seed rather than by aggregate mean.
+- The gate rejects any seed with direct-link PRR-below-0.99 fraction below
+  `0.10`, fewer selected pairs than requested, or mean selected graph distance
+  below `2.0` hops. Random-pair probes remain diagnostic and are not forced
+  through the connected-pool checks.
+- Added regression tests for one accepted seed and three rejection causes;
+  full discovery now reports 52 passing tests.
+- The ICC shell script runs a three-seed, 180 s, 50-node, 18 km connected
+  quality probe after the four matrix scenarios by default. Set
+  `ICC_RUN_QUALITY_PROBE=0` for explicit legacy reproduction.
+- The real 2.1.14 probe passed all seeds with 24/24 candidate pairs, mean
+  graph distance `2.014` hops, direct-link PRR-below-0.99 fraction `0.641`,
+  and PRR-below-0.50 fraction `0.445`.
+- The complete ICC shell smoke also passed after correcting the CLI alias from
+  internal `meshcore-like` to the public `meshcore` protocol choice.
+- The generated versioned CSV/Markdown evidence is intentionally included in
+  this release; temporary smoke outputs were moved out of the repository.
+
+## Next Action - 2.1.14
+
+- Review the staged diff, commit the seven code/documentation files plus the
+  two generated quality-gate artifacts and state Markdown, push `version/v2`,
+  and verify the remote commit and PR metadata.

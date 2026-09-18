@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.14 - ICC non-degenerate multi-hop quality gate
+
+- Add a per-seed connected-multihop quality gate that rejects direct-link PRR
+  saturation, incomplete pair pools, and effectively one-hop pair selections.
+- Run the quality gate automatically after the four ICC matrix scenarios, with
+  environment-variable overrides for calibration and legacy reproduction.
+- Add regression tests for accepted and rejected probe regimes and document the
+  gate as evidence-quality control rather than a performance claim.
+
 ## 2.1.13 - Fairness-focused paper revision
 
 - Reframe the ICCT manuscript so the frozen repeated-pair matrix is treated as
