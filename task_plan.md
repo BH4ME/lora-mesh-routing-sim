@@ -192,7 +192,7 @@ resuming, read all three before taking further action.
 - [completed] Bump release metadata and document the evidence contract.
 - [completed] Run the real three-seed quality probe and the full ICC shell
   smoke flow.
-- [in progress] Commit only the 2.1.14 task files, push `version/v2`, and
+- [completed] Commit only the 2.1.14 task files, push `version/v2`, and
   verify the remote branch and draft PR.
 
 ### 2.1.14 Verification Snapshot
@@ -207,3 +207,11 @@ resuming, read all three before taking further action.
 - Version is `2.1.14`; generated evidence is in
   `docs/results/meshecho_v2_1_14_connected_multihop_quality.md` and
   `results/meshecho_v2_1_14_connected_multihop_quality.csv`.
+
+### 2.1.14 Final Publish State
+
+- Commit `b5de06b` is pushed and matches `origin/version/v2`.
+- Draft PR 1 is OPEN with title
+  `[codex] MeshEcho 2.1.14 ICC evidence-quality gate`.
+- The task is complete; future work should start from a new versioned
+  revision rather than modifying this release in place.

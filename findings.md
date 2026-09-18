@@ -190,8 +190,11 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
 - The generated versioned CSV/Markdown evidence is intentionally included in
   this release; temporary smoke outputs were moved out of the repository.
 
-## Next Action - 2.1.14
+## 2.1.14 Final Publish Verification
 
-- Review the staged diff, commit the seven code/documentation files plus the
-  two generated quality-gate artifacts and state Markdown, push `version/v2`,
-  and verify the remote commit and PR metadata.
+- Commit `b5de06b` is present locally and on `origin/version/v2`.
+- PR 1 is OPEN/DRAFT with title
+  `[codex] MeshEcho 2.1.14 ICC evidence-quality gate`.
+- The code, evidence artifacts, version metadata, tests, documentation, and
+  resumable state files are published; no further action is pending for this
+  revision.

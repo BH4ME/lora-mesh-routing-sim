@@ -203,3 +203,15 @@
    2.1.14 implementation, tests, docs, generated quality evidence, and state
    Markdown.
 2. Commit, push `version/v2`, and verify the remote commit and draft PR.
+
+## 2.1.14 Final Publish State - 2026-09-18
+
+- Committed the quality-gate revision as `b5de06b` and pushed it to
+  `origin/version/v2`; local and remote refs match.
+- Updated draft PR 1 to
+  `[codex] MeshEcho 2.1.14 ICC evidence-quality gate`.
+- Verified PR 1 is OPEN/DRAFT with base `main` and head `version/v2`.
+- Verified `VERSION=2.1.14`, 52 passing tests, the real three-seed gate
+  result, and the full ICC shell smoke result.
+- The 2.1.14 revision is complete. Future simulation/code changes must start
+  from a new incremented version and repeat the test/simulation/publish cycle.
