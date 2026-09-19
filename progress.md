@@ -639,3 +639,19 @@ and one more evidence revision targeting the selection/generalization gap.
 
 Selectively stage 2.1.22 source/docs/tests/evidence/state files, commit, push,
 update draft PR 1, and verify remote `version/v2`.
+
+## 2026-09-19 - 2.1.22 GitHub Publication Check
+
+- Selectively committed and pushed the 2.1.22 ICC evidence package to
+  `origin/version/v2`.
+- Verified local `HEAD` and `origin/version/v2` both pointed to
+  `9ccd900cbd865264f0a80bc6ef6979e8f2327091` before the PR metadata update.
+- Updated draft PR 1 title to
+  `[codex] MeshEcho 2.1.22 ICC generalization evidence`.
+- Verified PR 1 remains open and draft, with head branch `version/v2`.
+
+### Next exact action
+
+If continuing toward submission, replace `Anonymous Authors` with final EDAS
+metadata, complete venue checklist items, and decide whether to add real-hardware
+validation or keep the claims explicitly simulation-only.
