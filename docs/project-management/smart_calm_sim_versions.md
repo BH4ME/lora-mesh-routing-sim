@@ -3,10 +3,18 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.15`; the firmware prototype remains
+current repository release is `2.1.16`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.16`
+
+- Status: five-page ICC manuscript and hardware-evidence audit on 2026-09-19.
+- Reuse the verified 2.1.15 calibrated simulation artifacts; no simulator
+  behavior changed in this paper-only revision.
+- Add the traceable prior-work hardware-evidence audit and state the
+  simulation-only external-validity boundary.
 
 ## `smart-calm-sim-v2.1.15`
 

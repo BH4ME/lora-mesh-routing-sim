@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.1.16 - Five-page ICC manuscript and prior-work hardware audit
+
+- Expand the ICC 2027 manuscript from three pages to five pages with related
+  work, explicit confidence/recovery equations, fixed parameters, metrics,
+  evidence strata, paired ablations, discussion, and a hardware-validation
+  boundary.
+- Add `docs/icc2027_prior-work_hardware-evidence.md`, documenting a traceable
+  sample of prior ICC LoRa/IoT papers that use analysis/simulation alone or
+  combine simulation with measurements.
+- Keep the 2.1.15 calibrated experiment data unchanged; this release updates
+  the paper and submission evidence rather than changing simulator behavior.
+
 ## 2.1.15 - Matched route-discovery timing and calibrated ICC multi-hop matrix
 
 - Add an explicit MeshCore-like route-discovery collection-window parameter;

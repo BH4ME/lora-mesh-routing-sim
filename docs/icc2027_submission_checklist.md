@@ -1,6 +1,6 @@
 # ICC 2027 Submission Checklist
 
-This checklist records the venue requirements checked against the 2.1.15
+This checklist records the venue requirements checked against the 2.1.16
 MeshEcho package. The official source is the [ICC 2027 submission
 guidelines](https://icc2027.ieee-icc.org/submission-guidelines).
 
@@ -9,12 +9,16 @@ guidelines](https://icc2027.ieee-icc.org/submission-guidelines).
 - [x] Initial manuscript is in English.
 - [x] Source uses the IEEE conference LaTeX class at 10-point conference
   format.
-- [x] Compiled initial-submission PDF is 3 printed pages, below the six-page
+- [x] Compiled initial-submission PDF is 5 printed pages, below the six-page
   hard limit. A submission longer than six pages is rejected without review.
 - [x] The paper reports the calibrated multi-hop matrix, per-seed quality
   gate, paired ablations, fairness boundary, and simulation limitations.
 - [x] Versioned code, tests, raw CSVs, summary CSVs, Markdown reports, and
-  reproduction command are published in release `2.1.15`.
+  reproduction command are published in release `2.1.16`; the paper-only
+  revision reuses the verified 2.1.15 simulation artifacts.
+- [x] Prior ICC practice evidence is recorded in
+  `docs/icc2027_prior-work_hardware-evidence.md`; no universal physical-testbed
+  requirement was found in the official guidelines or the sampled papers.
 - [x] No claim of physical validation or topology-independent dominance is
   made.
 

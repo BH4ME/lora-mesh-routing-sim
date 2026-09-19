@@ -1,9 +1,10 @@
-# ICC 2027 Comparison: MeshEcho 2.1.15
+# ICC 2027 Comparison: MeshEcho 2.1.16
 
 This is the current ICC-facing result summary. The primary claim uses the
 calibrated connected-multihop matrix, not the easier repeated-pair matrix. Raw
 CSV and long-format summaries are versioned under
-`results/meshecho_v2_1_15_icc2027_*`.
+`results/meshecho_v2_1_15_icc2027_*` (the verified simulation artifacts reused
+by the 2.1.16 paper-only revision).
 
 ## Primary calibrated matrix
 
@@ -55,7 +56,7 @@ an isolated data-plane ranking.
 ## Reproduction
 
 ```sh
-OUT_PREFIX=meshecho_v2_1_15_icc2027 bash tools/run_icc_experiments.sh
+OUT_PREFIX=meshecho_v2_1_16_icc2027 bash tools/run_icc_experiments.sh
 ```
 
 The script writes the four legacy matrices, the quality-gate CSV/Markdown

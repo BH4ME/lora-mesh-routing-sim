@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.15` (paper/results package; firmware prototype
+Current repository release: `2.1.16` (paper/results package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing

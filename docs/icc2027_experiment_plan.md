@@ -127,18 +127,20 @@ trade-offs. The raw CSV files and long-format summary CSVs preserve the
 remaining metrics for supplementary analysis.
 
 See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
-2.1.15 calibrated-matrix and robustness summary. The raw versioned artifacts
+2.1.16 calibrated-matrix and robustness summary. The paper-only 2.1.16
+revision reuses the verified 2.1.15 simulation artifacts; a fresh run can
+write a new prefix. The raw versioned artifacts
 are `results/meshecho_v2_1_15_icc2027_*` and
 `docs/results/meshecho_v2_1_15_icc2027_*.md`.
 
-The current `2.1.15` audit concludes that the existing 3000 m matrix is fair as
+The current `2.1.16` audit concludes that the existing 3000 m matrix is fair as
 a shared-harness comparison, but too link-friendly and too asymmetric for a
 standalone claim about general multi-hop confidence-aware routing. Its legacy
 native rows also use a shorter MeshCore-like route-cache TTL than MeshEcho.
 See
 `docs/results/meshecho_fairness_audit.md` before using the frozen results.
 
-The 2.1.15 calibrated probe confirms this boundary with a 20-seed, 8.25 km
+The 2.1.15 calibrated probe, reused by the 2.1.16 paper revision, confirms this boundary with a 20-seed, 8.25 km
 matrix: CALM/MeshEcho reaches 0.720 ACK PDR and 28.1 s airtime versus 0.537
 and 38.5 s for matched MeshCore-like. Smart-CALM minus no-confidence is
 `+0.181` ACK PDR with a paired 95% interval `[+0.094,+0.268]`, while the

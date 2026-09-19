@@ -24,7 +24,7 @@ adds redundancy but creates collisions, whereas cached source routes are
 efficient but can select a weak multi-hop path. We present MeshEcho, a
 confidence-aware route-selection and bounded-recovery prototype, and evaluate
 it with a reproducible packet-level simulator. The ICC release (version
-2.1.15) uses a shared topology, traffic trace, independent reception stream,
+2.1.16) uses a shared topology, traffic trace, independent reception stream,
 and matched 2-s route-discovery window. In a calibrated 50-node, 8.25-km
 multi-hop matrix over 20 seeds, MeshEcho obtains 0.720 ACK-confirmed PDR with
 28.1 s aggregate airtime, compared with 0.537 and 38.5 s for the matched
@@ -73,6 +73,34 @@ route-miss recovery; and
 discovery stress, and simulation-only limitations.
 \end{itemize}
 
+\section{Related Work}
+LoRa networking studies span physical-layer analysis, LPWAN capacity models,
+MAC improvements, and multihop routing. Closed-form coverage and area spectral
+efficiency models are commonly checked with Monte Carlo simulation
+\cite{tu2020coverage,georgiou2020coverage}, while spreading-factor allocation
+work uses numerical evaluation to expose imperfect orthogonality
+\cite{amichi2019sf,hamdi2020dynamic}. Frame-error analysis similarly separates
+an analytical channel model from Monte Carlo verification
+\cite{afisiadis2020fer}. These papers show that a communication contribution
+can be evaluated without a physical prototype when the model and validation
+protocol are explicit.
+
+Other ICC LoRa papers combine simulation with measurements. To and Duda
+validate their NS-3 LoRa model against a real-world testbed before studying
+CSMA \cite{to2018lorans3}; Rochester \emph{et al.} report real-world carrier-
+sensing measurements and then use a custom simulator for scalability
+\cite{rochester2020lsc}. MeshEcho follows the reproducible simulation path, but
+adopts their separation between model validation and protocol evaluation as a
+reporting principle: the present results are not hardware measurements.
+
+The multihop literature identifies a distinct tension between flooding
+redundancy and airtime cost \cite{wong2024multihop,centelles2021beyond}, and
+LoRa mesh implementations demonstrate that routing state and packet timing
+matter in practice \cite{sole2022implementation,pueyo2024minimalistic}. Our
+focus is narrower: quantify whether a lightweight confidence signal can select
+better cached paths under a shared packet-level channel model, while exposing
+the route-discovery and recovery budgets that can otherwise hide the mechanism.
+
 \section{Protocol and Model}
 \subsection{Network model}
 We simulate $N$ nodes uniformly placed in a square and sharing one half-duplex
@@ -100,6 +128,30 @@ only route-miss fallback, and \texttt{smart-calm-no-confidence} disables
 confidence-dependent admission and rewards. These controls are necessary
 because a full-versus-baseline difference otherwise conflates mechanisms.
 
+\subsection{Confidence and recovery mechanism}
+For a received discovery packet with SNR margin $m$ relative to the SF7
+sensitivity threshold, CALM assigns a bounded link score
+\begin{equation}
+ q(m,c) = \operatorname{clip}\!\left((1+e^{-0.7m})^{-1}-0.18c,\,0.05,\,0.98\right),
+\end{equation}
+where $c$ indicates a collision-marked reception. A candidate path carries the
+inbound score and incurs a $0.025$ penalty for each additional hop beyond the
+first edge. At discovery completion, the route with maximum confidence is
+selected, with path length used only as a tie-break. For a cached route, the
+score is reduced linearly by its normalized age (maximum penalty $0.1$ over the
+route lifetime). Stronger margins and fresh observations therefore increase
+admission confidence, while long or stale paths are discounted.
+
+If discovery returns no candidate, CALM can start a bounded fallback flood with
+the configured TTL. If a cached route later misses the confidence threshold,
+the fallback is delayed by at least one path airtime plus a fixed margin so the
+source route gets a first chance. The primary ICC matrix sets the threshold to
+zero and Smart-CALM timeout retries to zero; the fallback code path is retained
+as a separately measured mechanism. The no-confidence control keeps the same
+traffic and simulator but removes confidence-dependent candidate admission and
+reward updates. This decomposition prevents a recovery effect from being
+reported as a pure path-ranking effect.
+
 \section{Experimental Design}
 \subsection{Calibrated ICC matrix}
 The primary matrix has 50 nodes in an $8250\,\mathrm{m}$ square, 600 s per
@@ -113,6 +165,47 @@ Reception draws use an independent random stream from protocol jitter and
 exploration, preventing later protocols from inheriting a changed channel
 trace. Smart-CALM timeout retries are zero. Values below are means over 20
 seeds with two-sided 95\% confidence half-widths.
+
+\subsection{Parameters, metrics, and statistical protocol}
+Table~\ref{tab:params} lists the fixed parameters that define the calibrated
+case. Each seed first builds an analytical link-budget graph, selects the same
+24 connected pairs for every protocol, and then runs the packet simulator. A
+route is called multi-hop only when the cached path contains at least two
+forwarding edges; graph distance is computed before protocol execution and is
+not inferred from successful packets.
+
+ACK PDR is the fraction of application unicast flows for which an ACK reaches
+the source. Destination PDR counts delivery without requiring the ACK, while
+airtime sums every transmission, including discovery, ACK, and fallback
+packets. Discovery success is the fraction of route-discovery attempts that
+return a usable route; route fraction is measured over completed cached-route
+entries. For each protocol pair, seed-level differences are computed before
+the mean and a two-sided 95\% paired confidence interval. This keeps the
+topology and reception draw paired without claiming event-by-event common
+random numbers.
+
+\begin{table}[t]
+\centering
+\caption{Fixed parameters for the calibrated ICC matrix.}
+\label{tab:params}
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+Nodes / area & 50 / $8250\,\mathrm{m}\times8250\,\mathrm{m}$ \\
+Duration / offered load & 600 s / 1 flow min$^{-1}$ \\
+Payload / radio & 32 B / 17 dBm, 125 kHz, CR 4/5 \\
+Spreading factor / capture & SF7 / 6 dB \\
+Path loss / shadowing & $n=2.75$ / $\sigma=4$ dB \\
+Discovery / route TTL & 2 s / 600 s \\
+Pairs / graph edges & 24 / PRR $\geq0.90$ \\
+Graph distance / seeds & 2--4 hops / 20 \\
+Quality gate & mean hops $\geq2$, below-0.99 PRR $\geq10\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{table*}[t]
 \centering
@@ -134,6 +227,30 @@ Smart-CALM, no confidence & .382$\pm$.122 & .470$\pm$.133 & 27.8$\pm$4.6 & .589 
 \bottomrule
 \end{tabular}
 \end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Evidence strata retained in the ICC release. The stress probe is a
+quality diagnostic, not a neutral protocol ranking.}
+\label{tab:evidence}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrl}
+\toprule
+Stratum & Area (m) & Seeds & Pair rule & Mean graph hops & Below-0.99 PRR & Role \\
+\midrule
+Calibrated primary & 8250 & 20 & PRR $\geq$.90, 2--4 hops & 2.000 & .160 & Main comparison \\
+Legacy repeated pairs & 3000 & 20 & Fixed pair pool & not gated & saturated & Regression/contention \\
+Discovery stress & 18000 & 3 & PRR $\geq$.70, 2--4 hops & 2.014 & .641 & Route-discovery diagnostic \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The evidence strata are intentionally reported together. The primary case
+provides power for the paired comparison, the legacy case preserves continuity
+with earlier releases, and the stress case tests whether a connected graph can
+still be discovered under a much harsher broadcast regime. Combining their PDR
+values into one grand average would mix different estimands and is avoided.
 
 \subsection{Controls and robustness cases}
 The same release reruns a legacy 3000-m repeated-pair matrix (50 nodes,
@@ -164,7 +281,23 @@ policy, not a controlled oracle with identical route candidates.
 
 \begin{table}[t]
 \centering
-\caption{2.1.15 legacy mixed-traffic sensitivity case (20 seeds). This table
+\caption{Paired Smart-CALM ablations over the calibrated matrix.}
+\label{tab:ablations}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrr}
+\toprule
+Comparison & $\Delta$ ACK & 95\% CI & $\Delta$ airtime & Interpretation \\
+\midrule
+Smart vs. no-confidence & +.181 & $[+.094,+.268]$ & +.7 s & Confidence bundle \\
+Smart vs. no-fallback & +.002 & $[-.020,+.024]$ & +.5 s & Recovery sensitivity \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{2.1.16 legacy mixed-traffic sensitivity case (20 seeds). This table
 is retained for traceability; direct links are mostly easy and paths are not a
 neutral deployment benchmark.}
 \label{tab:legacy}
@@ -197,6 +330,35 @@ this deliberately harsh setting. We therefore report it as a route-discovery
 stress diagnostic; treating its low PDR as a general source-route result would
 confound discovery timing, connectivity, and data forwarding.
 
+\section{Discussion}
+The calibrated matrix supports three bounded observations. First, confidence-
+aware CALM reaches a better reliability--airtime point than the matched
+source-route baseline in this shared harness. Second, the Smart-CALM ablation
+is informative but not surgical: removing confidence changes route admission,
+discovery success, and the set of cached paths, so the +0.181 paired ACK-PDR
+difference is evidence for the complete policy bundle rather than a causal
+effect of one scalar score. Third, the discovery stress case demonstrates why
+graph connectivity alone is insufficient. A pair can have a 2-hop analytical
+path while broadcast contention prevents the source from learning it.
+
+This distinction also determines how the result should be compared with prior
+ICC work. Analytical and simulation papers can make strong claims about the
+modelled metric, but physical measurements are needed to establish radio-
+specific external validity. MeshEcho's packet simulator includes path loss,
+shadowing, capture, collision timing, route discovery, and energy accounting,
+yet it does not reproduce oscillator offset, modem implementation timing,
+waveform interference, or antenna effects. The calibrated result is therefore a
+protocol-level simulation claim, not a deployment-performance claim.
+
+The most useful next experiment is a paired hardware-in-the-loop study rather
+than an unstructured field trial. It should replay the same pair schedules on
+SX126x/SX127x-class nodes, log RSSI/SNR and modem busy time, and compare the
+same ACK-PDR, airtime, discovery, and fallback metrics. A small testbed would
+also allow route-confidence staleness and duty-cycle enforcement to be varied
+independently. Until that study is complete, the released simulator and raw
+seed-level CSVs are the reproducibility contribution, while the hardware claim
+remains explicitly out of scope.
+
 \section{Fairness, Limitations, and Reproducibility}
 All protocols in a run share node placement, static shadowing, traffic pairs,
 PHY parameters, seed, and reception stream. The primary matrix also matches
@@ -205,6 +367,24 @@ the controls do not make every native budget identical: bounded fallback,
 profile switching, and route-repair semantics differ by design. The calibrated
 matrix is therefore a fair shared-harness protocol-bundle comparison, while
 the paired ablations provide narrower mechanism evidence.
+
+\subsection{Reproduction manifest and threats}
+The release separates source, generated evidence, and interpretation. The
+simulator and unit tests define the packet and routing behavior; the ICC shell
+runner fixes the four legacy scenarios, the stress gate, and the calibrated
+matrix; raw CSVs retain one row per protocol and seed; and the Markdown reports
+retain the link-regime and pair-selection diagnostics that are easy to lose in
+an aggregate table. Re-running the workflow with a new output prefix should
+produce the same schema and the same quality-gate checks, although stochastic
+values are expected to vary only when seeds or code change.
+
+The main threats to validity are pair selection, static shadowing, and the
+small three-seed stress probe. Selecting pairs from a PRR-qualified graph
+ensures that the primary case is multi-hop, but it does not represent every
+deployment geometry. Static shadowing makes confidence observations unusually
+stable, while the stress probe is a diagnostic rather than a powered protocol
+comparison. We expose these choices so a later hardware-in-the-loop study can
+replace them one at a time instead of silently changing the estimand.
 
 This is simulation-only evidence. The model omits waveform-level interference,
 duty-cycle enforcement, queue implementation details, time-varying fading,
@@ -216,9 +396,9 @@ retry and fallback budgets across baselines, model variable headers, and
 validate the policy on hardware or hardware-in-the-loop.
 
 All source, tests, experiment scripts, raw CSVs, reports, and this paper are
-released in version 2.1.15 at
+released in version 2.1.16 at
 \url{https://github.com/BH4ME/lora-mesh-routing-sim}. The main workflow is
-\texttt{OUT\_PREFIX=meshecho\_v2\_1\_15\_icc2027 bash tools/run\_icc\_experiments.sh};
+\texttt{OUT\_PREFIX=meshecho\_v2\_1\_16\_icc2027 bash tools/run\_icc\_experiments.sh};
 the script runs the four legacy cases, the topology gate, and the calibrated
 matrix. No human participants or personal data were involved; there are no
 known conflicts of interest or external funding.
@@ -230,7 +410,7 @@ multi-hop LoRa simulation: 0.720 ACK PDR and 28.1 s airtime versus 0.537 and
 passes explicit topology/link-quality gates. However, paired controls show
 that Smart-CALM's confidence-sensitive difference and its recovery behavior
 must be reported separately, while the harsh discovery probe warns against
-using route-discovery failure as a universal protocol ranking. Version 2.1.15
+using route-discovery failure as a universal protocol ranking. Version 2.1.16
 therefore supports a bounded mechanism and tradeoff claim, not a claim of
 general dominance or physical validation.
 

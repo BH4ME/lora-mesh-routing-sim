@@ -240,6 +240,89 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   is user-specific and remains the only pre-EDAS task; the checklist makes
   that boundary explicit instead of guessing names.
 
+## 2026-09-19 - Historical ICC Hardware-Evidence Audit
+
+- The official ICC 2027 submission guidance specifies language, IEEE format,
+  page limit, EDAS/PDF handling, originality, registration, and presentation;
+  it does not state a universal requirement for a physical testbed or hardware
+  prototype.
+- A DOI/abstract audit of ten ICC papers found both simulation/analysis-only
+  evidence and simulation plus measurements. The sample is not a systematic
+  acceptance-rate study, so it supports a venue-practice conclusion rather
+  than a guarantee of acceptance.
+- Hardware/testbed-positive examples:
+  - To et al., ICC 2018, ``Simulation of LoRa in NS-3: Improving LoRa
+    Performance with CSMA'', DOI `10.1109/icc.2018.8422800`: an NS-3 module
+    is validated against measurements from a real-world testbed, then used for
+    the CSMA study.
+  - Rochester et al., ICC 2020, ``Lightweight Carrier Sensing in LoRa:
+    Implementation and Performance Evaluation'', DOI
+    `10.1109/icc40277.2020.9149103`: reports feasibility measurements in
+    real-world LoRa networks and also uses a custom simulator.
+- Analysis/simulation-positive examples:
+  - Georgiou et al., ICC 2020, ``Coverage Scalability Analysis of Multi-Cell
+    LoRa Networks'', DOI `10.1109/icc40277.2020.9149081`: stochastic-geometry
+    model and mathematical analysis; the abstract does not claim a testbed.
+  - Hamdi et al., ICC 2020, ``Dynamic Spreading Factor Assignment in LoRa
+    Wireless Networks'', DOI `10.1109/icc40277.2020.9149243`: evaluates the
+    proposed assignment using numerical SER simulations.
+  - Afisiadis et al., ICC 2020, ``Coded LoRa Frame Error Rate Analysis'', DOI
+    `10.1109/icc40277.2020.9148806`: validates analytical FER expressions with
+    Monte Carlo simulations.
+  - Tu et al., ICC 2020, ``A New Closed-Form Expression of the Coverage
+    Probability for Different QoS in LoRa Networks'', DOI
+    `10.1109/icc40277.2020.9148720`: provides closed-form analysis and Monte
+    Carlo verification.
+  - Benkhelifa et al., ICC 2019, ``Minimum Throughput Maximization in LoRa
+    Networks Powered by Ambient Energy Harvesting'', DOI
+    `10.1109/icc.2019.8761478`: derives collision/optimization results and
+    compares algorithmic allocations; no physical testbed is claimed in the
+    abstract.
+  - Amichi et al., ICC 2019, ``Spreading Factor Allocation Strategy for LoRa
+    Networks Under Imperfect Orthogonality'', DOI `10.1109/icc.2019.8761235`:
+    reports numerical results for a matching-based allocation algorithm.
+- Mixed application evidence also occurs: Shaafi et al., ICC 2022,
+  ``Wireless Body Sensor Networks for Sign Language Recognition with
+  Real-time Data Analysis'', DOI `10.1109/icc45855.2022.9838474`, reports
+  acquired inertial/muscular data and experimental classification results, but
+  this is an application/data experiment rather than a communications
+  testbed requirement.
+- Practical conclusion for MeshEcho: a simulation-only ICC submission is
+  defensible if the model, parameters, baselines, statistical protocol,
+  quality gates, code/data release, and limitations are explicit. Hardware
+  would strengthen external validity, especially for radio sensitivity,
+  interference, timing, and duty-cycle claims, but its absence is a stated
+  limitation rather than an automatic disqualifier.
+- The ICC manuscript should therefore say ``simulation-only evidence'' and
+  propose hardware or hardware-in-the-loop validation as future work. It must
+  not imply that the current results are measured on SX126x/SX127x devices.
+
+## 2.1.16 Manuscript Revision Findings
+
+- The ICC source now contains related work, an implementation-faithful CALM
+  confidence equation, a fixed-parameter table, metric/statistical definitions,
+  evidence strata, paired ablation table, discussion, artifact manifest, and
+  hardware external-validity boundary.
+- Fresh Tectonic compilation at
+  `paper/icc2027/build-2_1_16-tectonic-v3/icc2027_lora_mesh.pdf` produces
+  exactly 5 letter-size pages, within the ICC six-page initial-submission cap.
+- Rendered pages show no clipping or table overlap. References continue onto a
+  fifth page, but the manuscript remains readable and uses the requested five
+  printed pages rather than artificial spacing.
+- Version `2.1.16` is a paper/evidence revision: the calibrated 2.1.15 CSVs
+  remain the underlying simulation results and are explicitly identified as
+  reused. A fresh reproduction with `OUT_PREFIX=meshecho_v2_1_16_icc2027`
+  will create a new output prefix if desired.
+- A 600 s, one-seed calibrated connected-multihop smoke run passed the quality
+  gate and produced nonzero protocol results (CALM ACK PDR 0.667 versus
+  MeshCore-like 0.333 for seed 1). A separate 120 s gate-only smoke was not
+  used for quantitative interpretation.
+- A redundant full 2.1.16 runner was started but safely stopped during its
+  second legacy 20-seed scenario after confirming that the no-code-change
+  revision would only duplicate the verified 2.1.15 matrix. Its partial
+  untracked outputs are intentionally excluded from the release; the paper
+  cites the complete 2.1.15 matrix and the new smoke as the 2.1.16 validation.
+
 ## 2.1.14 Final Publish Verification
 
 - Commit `b5de06b` is present locally and on `origin/version/v2`.

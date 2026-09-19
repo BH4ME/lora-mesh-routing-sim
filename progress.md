@@ -288,3 +288,54 @@
   unchecked.
 - Pushed checklist commit `753a9b1786cb14bcd45b294c22ce83bd2b3bf4f0`.
 - Verified PR 1 is OPEN/DRAFT with head `version/v2` at `753a9b1`.
+
+## 2026-09-19 - 2.1.16 Five-Page ICC Revision Started
+
+- User requested an expansion from three pages to approximately five pages and
+  an evidence-based check of whether prior ICC papers require physical
+  validation.
+- Confirmed the clean working copy is `/tmp/lora_mesh_remote_current.iIrtPz`,
+  branch `version/v2`, at remote release `2.1.15`; the original workspace has
+  damaged Git tree objects and remains untouched.
+- Queried Crossref/OpenAlex metadata for ten ICC papers. The sample contains
+  simulation/analysis-only papers (coverage, dynamic SF, FER and closed-form
+  analysis) as well as papers that add real-world measurements or testbed
+  validation (NS-3 LoRa and lightweight carrier sensing).
+- Recorded the source-level evidence and conservative interpretation in
+  `findings.md`; the detailed citation table will be added as
+  `docs/icc2027_prior-work_hardware-evidence.md`.
+- A shell loop used for an exploratory metadata request emitted a zsh command
+  parsing error because a diagnostic string began with `===`; no repository
+  state changed. Subsequent OpenAlex requests used a corrected command.
+- Next: add the detailed prior-work evidence document, extend the LaTeX paper
+  with related work, algorithm details, experiment parameters, extra result
+  tables/figures, and discussion while keeping the PDF at five pages or less
+  than the ICC six-page hard limit; then bump the release to 2.1.16, rebuild,
+  test, commit, push, and update PR 1.
+
+## 2026-09-19 - 2.1.16 Manuscript and Audit Artifacts
+
+- Added `docs/icc2027_prior-work_hardware-evidence.md` with ten DOI-linked ICC
+  LoRa/IoT samples and conservative classifications of analytical, simulation,
+  measurement, and testbed evidence.
+- Expanded the ICC manuscript with related work, implementation-faithful
+  confidence/recovery equations, fixed parameters, metrics/statistics, three
+  evidence strata, paired ablation table, discussion, reproduction manifest,
+  and hardware-in-the-loop follow-up boundary.
+- Bumped release metadata and paper text to `2.1.16`; the paper explicitly
+  reuses the verified 2.1.15 simulation artifacts because simulator behavior
+  did not change.
+- Tectonic build `build-2_1_16-tectonic-v3` succeeds and reports exactly 5
+  pages. Rendered pages 1--5 were visually inspected; no clipping or table
+  overlap was found.
+- Updated the ICC checklist, experiment plan, comparison summary, version
+  index, README, and changelog to describe the 2.1.16 paper-only revision.
+- Full tests/static checks pass: 53 tests, Python compilation, shell syntax,
+  `git diff --check`, and a 5-page PDF check. A 600 s one-seed calibrated
+  smoke run passed the quality gate and produced nonzero protocol results.
+- A redundant full runner was stopped during its second legacy scenario after
+  confirming that it duplicated the complete 2.1.15 matrix without code
+  changes. Partial 2.1.16 outputs remain untracked and will not be staged.
+- Next: stage only the intended 2.1.16 source/docs, the new prior-work audit,
+  and the final paper build artifact policy; commit, push, update PR 1, and
+  verify the remote state.

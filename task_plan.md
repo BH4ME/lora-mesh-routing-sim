@@ -277,3 +277,39 @@ matrix and quality-gate artifacts now exist under the 2.1.15 prefix.
   author list and affiliations before actual submission. This cannot be
   inferred safely from the repository.
 - [complete] Checklist commit `753a9b1` is pushed and PR 1 points to it.
+
+## 2.1.16 Five-Page and Hardware-Evidence Revision
+
+- [in_progress] Add a traceable historical ICC paper sample and determine
+  whether physical validation is a hard requirement.
+- [pending] Expand `paper/icc2027/icc2027_lora_mesh.tex` from 3 pages to about
+  5 pages with substantive related work, method detail, parameter table,
+  evidence tables, and discussion; remain at or below 6 pages.
+- [pending] Bump release metadata to 2.1.16 and update the ICC checklist,
+  README/index references, and PR description.
+- [pending] Rebuild and inspect the PDF, run tests/static checks and a
+  reproduction smoke check, selectively commit/push, and verify PR 1.
+
+### Research Boundary
+
+- The historical audit uses DOI metadata and abstracts from Crossref/OpenAlex
+  plus the official ICC 2027 submission guidance. It is a practice sample,
+  not a systematic census of all ICC acceptances.
+- The defensible conclusion is that ICC accepts both simulation/analysis-only
+  and hardware/testbed-supported communications work; hardware increases
+  external validity but is not a universal submission gate.
+
+### 2.1.16 Completed Research and Drafting
+
+- [complete] Add ten DOI-linked prior ICC samples and the conservative
+  simulation-versus-hardware interpretation in `findings.md` and
+  `docs/icc2027_prior-work_hardware-evidence.md`.
+- [complete] Expand the manuscript to five printed pages with substantive
+  method, evidence, and discussion content; fresh Tectonic build passes and
+  stays below six pages.
+- [complete] Bump source/release metadata to 2.1.16 and state that the
+  verified 2.1.15 simulation artifacts are reused because no simulator code
+  changed.
+- [complete] Run the full local test/static/PDF gates and a 600 s one-seed
+  calibrated smoke. A redundant full matrix rerun was stopped after confirming
+  it only duplicated unchanged 2.1.15 data; partial outputs remain unstaged.
