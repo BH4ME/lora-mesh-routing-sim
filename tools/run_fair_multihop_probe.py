@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import math
 import random
 import statistics
 import sys
@@ -26,6 +27,7 @@ if str(ROOT) not in sys.path:
 from lora_mesh_sim import (  # noqa: E402
     BROADCAST_DST,
     ICC_PROTOCOLS,
+    MESHECHO_ABLATIONS,
     RadioConfig,
     RouteEntry,
     Simulator,
@@ -36,6 +38,7 @@ from lora_mesh_sim import (  # noqa: E402
 
 
 DEFAULT_PROTOCOLS = tuple(ICC_PROTOCOLS)
+FAIR_PROBE_PROTOCOLS = tuple(ICC_PROTOCOLS) + tuple(MESHECHO_ABLATIONS)
 DEFAULT_OUT = Path("results/meshecho_fair_multihop_probe.csv")
 DEFAULT_REPORT = Path("docs/results/meshecho_fair_multihop_probe.md")
 
@@ -100,17 +103,18 @@ def validate_non_degenerate_regime(
 def make_args(args: argparse.Namespace) -> argparse.Namespace:
     """Build the Namespace expected by lora_mesh_sim.build_protocol()."""
 
+    route_ttl_s = float(getattr(args, "route_ttl_s", 600.0))
     return argparse.Namespace(
-        calm_route_ttl_s=600.0,
-        meshcore_route_ttl_s=600.0,
+        calm_route_ttl_s=route_ttl_s,
+        meshcore_route_ttl_s=route_ttl_s,
         meshcore_discovery_window_s=getattr(
             args,
             "meshcore_discovery_window_s",
             2.0,
         ),
-        calm_discovery_window_s=2.0,
-        calm_flood_base_delay_s=0.45,
-        calm_flood_jitter_s=0.65,
+        calm_discovery_window_s=getattr(args, "calm_discovery_window_s", 2.0),
+        calm_flood_base_delay_s=getattr(args, "calm_flood_base_delay_s", 0.45),
+        calm_flood_jitter_s=getattr(args, "calm_flood_jitter_s", 0.65),
         calm_fallback_ttl=2,
         calm_fallback_confidence_threshold=0.0,
         calm_fallback_delay_margin_s=0.6,
@@ -139,6 +143,12 @@ def make_args(args: argparse.Namespace) -> argparse.Namespace:
         tx_power_dbm=args.tx_power_dbm,
         path_loss_exp=args.path_loss_exp,
         shadow_sigma_db=args.shadow_sigma_db,
+        temporal_fading_sigma_db=getattr(args, "temporal_fading_sigma_db", 0.0),
+        temporal_fading_interval_s=getattr(
+            args,
+            "temporal_fading_interval_s",
+            60.0,
+        ),
         capture_threshold_db=args.capture_threshold_db,
         max_hops=args.max_hops,
         tx_current_ma=120.0,
@@ -177,11 +187,50 @@ def make_radio(args: argparse.Namespace) -> RadioConfig:
         tx_power_dbm=args.tx_power_dbm,
         path_loss_exp=args.path_loss_exp,
         shadow_sigma_db=args.shadow_sigma_db,
+        temporal_fading_sigma_db=getattr(args, "temporal_fading_sigma_db", 0.0),
+        temporal_fading_interval_s=getattr(
+            args,
+            "temporal_fading_interval_s",
+            60.0,
+        ),
         capture_threshold_db=args.capture_threshold_db,
         tx_current_ma=120.0,
         rx_current_ma=10.3,
         supply_voltage_v=3.3,
     )
+
+
+def paired_mean_ci(values: Sequence[float]) -> Tuple[float, float, float]:
+    """Return a paired mean and two-sided 95% t interval."""
+
+    if not values:
+        return 0.0, 0.0, 0.0
+    mean_value = statistics.fmean(values)
+    if len(values) < 2:
+        return mean_value, mean_value, mean_value
+    critical = {
+        1: 12.706,
+        2: 4.303,
+        3: 3.182,
+        4: 2.776,
+        5: 2.571,
+        6: 2.447,
+        7: 2.365,
+        8: 2.306,
+        9: 2.262,
+        10: 2.228,
+        11: 2.201,
+        12: 2.179,
+        13: 2.160,
+        14: 2.145,
+        15: 2.131,
+        16: 2.120,
+        17: 2.110,
+        18: 2.101,
+        19: 2.093,
+    }.get(len(values) - 1, 1.96)
+    half = critical * statistics.stdev(values) / math.sqrt(len(values))
+    return mean_value, mean_value - half, mean_value + half
 
 
 def reliable_graph(
@@ -436,18 +485,37 @@ def write_report(
         float(row["direct_prr_below_0_50"])
         for row in direct_by_seed.values()
     ]
+    is_cache_reuse = bool(
+        getattr(args, "report_cache_reuse", hasattr(args, "route_ttl_s"))
+    )
+    if is_cache_reuse:
+        opening = (
+            "This versioned probe deliberately reuses a four-pair connected "
+            "unicast workload to measure route-cache reuse and route aging. "
+            "It is a secondary diagnostic, not the primary sparse-flow "
+            "multi-hop estimand."
+        )
+    else:
+        opening = (
+            "This versioned probe is a fairness diagnostic, not a replacement "
+            "for the original repeated-pair matrix. It removes fixed-pair "
+            "reuse, uses an independent channel-reception stream, and places "
+            "the network in a non-saturated multi-hop regime."
+        )
     lines = [
         "# MeshEcho Fair Multi-Hop Probe",
         "",
-        "This versioned probe is a fairness diagnostic, not a replacement for "
-        "the original repeated-pair matrix. It removes fixed-pair reuse, "
-        "uses an independent channel-reception stream, and places the "
-        "network in a non-saturated multi-hop regime.",
+        opening,
         "",
         f"- Seeds: `{args.seeds}`",
         f"- Nodes / area: `{args.nodes}` / `{args.area_m:.0f} m square`",
         f"- Traffic: `{args.traffic}`, `{args.rate_per_min:.1f} flows/min`",
-        f"- Smart-CALM timeout retries: `{timeout_retries}`",
+        f"- MeshEcho timeout-retry budget: `{timeout_retries}`",
+        (
+            f"- Route-cache TTL: `{args.route_ttl_s:.1f} s`"
+            if is_cache_reuse
+            else "- Route-cache TTL: `600.0 s` in the matched ICC matrix"
+        ),
         f"- PHY: `SF{args.sf}`, `{args.tx_power_dbm:.1f} dBm`, "
         f"`n={args.path_loss_exp:.2f}`, shadow sigma "
         f"`{args.shadow_sigma_db:.1f} dB`",
@@ -468,6 +536,12 @@ def write_report(
             f"`{getattr(args, 'min_selected_pair_mean_graph_hops', 2.0):.2f}`"
             if args.pair_mode == "connected-multihop"
             else "- Quality gate: not required for random-pair mode"
+        ),
+        (
+            f"- Temporal block fading: sigma `{args.temporal_fading_sigma_db:.1f} dB`, "
+            f"interval `{args.temporal_fading_interval_s:.1f} s`"
+            if getattr(args, "temporal_fading_sigma_db", 0.0) > 0.0
+            else "- Temporal block fading: disabled (static per-link shadowing)"
         ),
         "",
         "## Link Regime",
@@ -510,37 +584,109 @@ def write_report(
     by_seed: Dict[int, Dict[str, Dict[str, Any]]] = defaultdict(dict)
     for row in rows:
         by_seed[int(row["seed"])][str(row["protocol"])] = row
-    lines.extend(
-        [
-            "",
-            "## Paired Ablation Differences",
-            "",
-            "Differences are Smart-CALM minus the named ablation, paired by "
-            "seed. The interval is intentionally omitted here; the raw CSV "
-            "keeps the seed-level values for a separate statistical test.",
-            "",
-            "| Comparison | ACK PDR delta | Destination PDR delta | "
-            "Airtime delta (s) | Collision-failure delta |",
-            "| --- | ---: | ---: | ---: | ---: |",
-        ]
-    )
-    for other in ("smart-calm-no-confidence", "smart-calm-no-fallback"):
-        if not all(
-            "smart-calm" in values and other in values
-            for values in by_seed.values()
-        ):
-            continue
-        pairs = [
-            (values["smart-calm"], values[other])
-            for values in by_seed.values()
-        ]
-        lines.append(
-            f"| smart-calm vs {other} | "
-            f"{statistics.fmean(float(a['unicast_pdr']) - float(b['unicast_pdr']) for a, b in pairs):.3f} | "
-            f"{statistics.fmean(float(a['destination_unicast_pdr']) - float(b['destination_unicast_pdr']) for a, b in pairs):.3f} | "
-            f"{statistics.fmean(float(a['total_airtime_s']) - float(b['total_airtime_s']) for a, b in pairs):.1f} | "
-            f"{statistics.fmean(float(a['collision_fail']) - float(b['collision_fail']) for a, b in pairs):.1f} |"
+    if "meshecho" in next(iter(by_seed.values()), {}):
+        lines.extend(
+            [
+                "",
+                "## Paired MeshEcho Comparisons",
+                "",
+                "Differences are MeshEcho minus the named baseline, paired by "
+                "seed. Entries are mean deltas with two-sided 95% paired "
+                "confidence intervals.",
+                "",
+                "| Comparison | ACK PDR delta [95% CI] | Destination PDR delta [95% CI] | Airtime delta (s) [95% CI] |",
+                "| --- | ---: | ---: | ---: |",
+            ]
         )
+        for other in (
+            "meshcore-like",
+            "etx-mesh",
+            "ett-mesh",
+            "minhop-mesh",
+            "meshtastic-like",
+        ):
+            if not all(other in values for values in by_seed.values()):
+                continue
+            pairs = [
+                (values["meshecho"], values[other])
+                for values in by_seed.values()
+            ]
+            ack = paired_mean_ci(
+                [
+                    float(a["unicast_pdr"]) - float(b["unicast_pdr"])
+                    for a, b in pairs
+                ]
+            )
+            dest = paired_mean_ci(
+                [
+                    float(a["destination_unicast_pdr"])
+                    - float(b["destination_unicast_pdr"])
+                    for a, b in pairs
+                ]
+            )
+            airtime = paired_mean_ci(
+                [
+                    float(a["total_airtime_s"]) - float(b["total_airtime_s"])
+                    for a, b in pairs
+                ]
+            )
+            lines.append(
+                f"| MeshEcho vs {other} | "
+                f"{ack[0]:+.3f} [{ack[1]:+.3f},{ack[2]:+.3f}] | "
+                f"{dest[0]:+.3f} [{dest[1]:+.3f},{dest[2]:+.3f}] | "
+                f"{airtime[0]:+.1f} [{airtime[1]:+.1f},{airtime[2]:+.1f}] |"
+            )
+
+        if any(
+            all(variant in values for values in by_seed.values())
+            for variant in MESHECHO_ABLATIONS
+        ):
+            lines.extend(
+                [
+                    "",
+                    "## MeshEcho Component Ablations",
+                    "",
+                    "These paired rows isolate MeshEcho components while "
+                    "keeping the topology, traffic, discovery budget, and "
+                    "reception stream unchanged.",
+                    "",
+                    "| Ablation | ACK PDR delta [95% CI] | Destination PDR delta [95% CI] | Airtime delta (s) [95% CI] |",
+                    "| --- | ---: | ---: | ---: |",
+                ]
+            )
+            for other in MESHECHO_ABLATIONS:
+                if not all(other in values for values in by_seed.values()):
+                    continue
+                pairs = [
+                    (values["meshecho"], values[other])
+                    for values in by_seed.values()
+                ]
+                ack = paired_mean_ci(
+                    [
+                        float(a["unicast_pdr"]) - float(b["unicast_pdr"])
+                        for a, b in pairs
+                    ]
+                )
+                dest = paired_mean_ci(
+                    [
+                        float(a["destination_unicast_pdr"])
+                        - float(b["destination_unicast_pdr"])
+                        for a, b in pairs
+                    ]
+                )
+                airtime = paired_mean_ci(
+                    [
+                        float(a["total_airtime_s"])
+                        - float(b["total_airtime_s"])
+                        for a, b in pairs
+                    ]
+                )
+                lines.append(
+                    f"| MeshEcho vs {other} | "
+                    f"{ack[0]:+.3f} [{ack[1]:+.3f},{ack[2]:+.3f}] | "
+                    f"{dest[0]:+.3f} [{dest[1]:+.3f},{dest[2]:+.3f}] | "
+                    f"{airtime[0]:+.1f} [{airtime[1]:+.1f},{airtime[2]:+.1f}] |"
+                )
 
     lines.extend(
         [
@@ -550,17 +696,30 @@ def write_report(
             "- The link distribution is non-degenerate: a substantial fraction "
             "of direct links are below 0.99 PRR and below 0.50 PRR.",
             (
-                "- Random-pair traffic removes the main cache-reuse advantage "
-                "of the original eight-pair workload."
-                if args.pair_mode == "random"
-                else "- Connected-multihop traffic uses a shared pair pool "
-                "selected from the same static link-budget graph for every "
-                "protocol."
+                "- This workload intentionally cycles over four connected "
+                "pairs; route-cache hits and repairs are therefore part of "
+                "the estimand."
+                if is_cache_reuse
+                else (
+                    "- Random-pair traffic removes the main cache-reuse "
+                    "advantage of the original eight-pair workload."
+                    if args.pair_mode == "random"
+                    else "- Connected-multihop traffic uses a shared pair pool "
+                    "selected from the same static link-budget graph for every "
+                    "protocol."
+                )
             ),
-            "- The Smart-CALM/no-confidence line is a complete disabled-policy "
-            "comparison because confidence changes route admission and "
-            "discovery; the controlled route-conflict experiment is the "
-            "surgical candidate-selection test.",
+            (
+                "- MeshEcho is compared with managed flooding, matched "
+                "source routing, min-hop, and ETX/ETT quality-metric baselines "
+                "under the same pair pool and discovery budget."
+                if "meshecho" in next(iter(by_seed.values()), {})
+                else "- The controlled route-conflict experiment is the "
+                "surgical candidate-selection test."
+            ),
+            "- MeshEcho component variants are named `meshecho-*` and are "
+            "reported only as ablations; the separate adaptive firmware line "
+            "is not part of this ICC evidence.",
             "- The raw route-hop columns should be checked before calling this "
             "a multi-hop benchmark. A low multi-hop fraction means the "
             "parameter setting is still too easy.",
@@ -572,7 +731,11 @@ def write_report(
             "## Reproduction",
             "",
             "```sh",
-            "python3 tools/run_fair_multihop_probe.py",
+            (
+                "python3 tools/run_icc_cache_experiment.py"
+                if is_cache_reuse
+                else "python3 tools/run_fair_multihop_probe.py"
+            ),
             "```",
             "",
         ]
@@ -639,15 +802,30 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tx-power-dbm", type=float, default=17.0)
     parser.add_argument("--path-loss-exp", type=float, default=2.75)
     parser.add_argument("--shadow-sigma-db", type=float, default=4.0)
+    parser.add_argument(
+        "--temporal-fading-sigma-db",
+        type=float,
+        default=0.0,
+        help="paired block-fading standard deviation in dB",
+    )
+    parser.add_argument(
+        "--temporal-fading-interval-s",
+        type=float,
+        default=60.0,
+        help="paired block-fading interval in seconds",
+    )
     parser.add_argument("--capture-threshold-db", type=float, default=6.0)
     parser.add_argument("--max-hops", type=int, default=7)
     parser.add_argument(
+        "--max-timeout-retries",
         "--smart-max-timeout-retries",
+        dest="smart_max_timeout_retries",
         type=int,
         default=2,
+        metavar="N",
         help=(
-            "extra Smart-CALM timeout retries; use 0 for a one-shot, "
-            "budget-matched mechanism comparison"
+            "timeout-retry budget; use 0 for a one-shot, budget-matched "
+            "MeshEcho mechanism comparison"
         ),
     )
     parser.add_argument("--seeds", type=int, default=10)
@@ -655,8 +833,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--protocol",
         action="append",
-        choices=DEFAULT_PROTOCOLS,
-        help="repeat to select protocols; defaults to the four core configurations",
+        choices=FAIR_PROBE_PROTOCOLS,
+        help="repeat to select protocols; defaults to the five ICC configurations",
     )
     parser.add_argument("--csv", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
@@ -666,7 +844,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     protocols = tuple(args.protocol or DEFAULT_PROTOCOLS)
-    unknown = [name for name in protocols if name not in ICC_PROTOCOLS]
+    unknown = [name for name in protocols if name not in FAIR_PROBE_PROTOCOLS]
     if unknown:
         raise ValueError(f"unsupported protocol(s): {unknown}")
     rows = [

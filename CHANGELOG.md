@@ -1,5 +1,75 @@
 # Changelog
 
+## 2.1.22 - MeshEcho calibrated generalization correction
+
+- Correct the deep generalization calibration from 20 km to 21 km after the
+  per-seed gate caught an incomplete 3--5-hop pair pool for seed 12.
+- Preserve the 100-node, 24-pair, PRR-qualified, 3--5-hop contract and rerun
+  all 20 seeds rather than dropping the failed seed.
+- Version the corrected random-pair, deep-multihop, temporal-fading,
+  cache-aging, route-conflict, and MeshEcho component evidence under the
+  `2.1.22` prefix.
+- Keep the ICC contribution MeshEcho-only and simulation-only; Smart-CALM
+  remains a historical simulator/firmware namespace.
+
+## 2.1.21 - MeshEcho generalization and stale-route evidence
+
+- Keep MeshEcho as the only ICC method identity; the historical adaptive
+  firmware line is excluded from the ICC protocol matrix and conclusions.
+- Add a matched min-hop baseline so the paper compares MeshEcho with a
+  genuinely different path policy in addition to fixed-SF ETX/ETT.
+- Add unconditioned random-pair and 100-node, three-hop generalization cases.
+- Add deterministic paired temporal block fading and long-versus-short
+  route-cache diagnostics for stale-route behavior.
+- Re-run the ICC primary, sensitivity, component, generalization, and route
+  conflict evidence under the `2.1.21` release prefix.
+- Tighten the ICC manuscript to a five-page, simulation-only,
+  first-discovery route-admission claim with explicit external-validity limits.
+
+## 2.1.20 - MeshEcho route-conflict attribution correction
+
+- Correct the controlled route-conflict audit to instantiate the named
+  `MeshEcho` policy rather than the historical adaptive controller.
+- Preserve the confidence/no-confidence candidate-selection controls without
+  importing adaptive profile or timeout behavior.
+- Re-run the 20-seed route-conflict audit; both candidates appear in 90% of
+  seeds and the paired MeshEcho ACK-PDR difference is `+0.221` with a 95%
+  interval half-width of `0.096`.
+- Narrow the ICC manuscript title to route admission because airtime is an
+  evaluated operating-point metric, not a direct term in MeshEcho's score.
+
+## 2.1.19 - MeshEcho fairness and cache-reuse revision
+
+- Equalize matched source-route candidate exposure by collecting every
+  destination RREQ seen during the configured discovery window, as MeshEcho
+  and the metric baselines already do.
+- Preserve one-reply duplicate suppression in the legacy immediate-reply
+  source-route mode while leaving the matched-window collector unchanged.
+- Make MeshEcho route-miss fallback honor the configured `fallback_ttl` instead
+  of silently expanding to the simulator's maximum hop count.
+- Rerun the calibrated ICC matrix, SF/load sensitivities, and MeshEcho
+  component attribution after the fairness fix; the primary MeshEcho versus
+  source-route ACK-PDR delta is now `+0.218` with paired 95% CI
+  `[+0.041,+0.395]`.
+- Add a repeated-pair unicast cache-reuse diagnostic at 600 s and 30 s route
+  TTLs so route-cache hits and aging are measured separately from the sparse
+  first-discovery primary estimand.
+- Keep MeshEcho as the ICC method identity; Smart-CALM remains a separate
+  firmware/history line and is not part of the ICC matrix.
+
+## 2.1.18 - MeshEcho mechanism attribution revision
+
+- Make MeshEcho the explicit ICC method identity; Smart-CALM remains outside
+  the ICC protocol matrix as a separate firmware/history line.
+- Add matched ETX and fixed-SF ETT external baselines to the ICC experiment
+  contract and retain the conservative non-dominance interpretation.
+- Add four MeshEcho component controls for confidence ranking, route-miss
+  fallback, hop penalty, and route-age penalty.
+- Rerun the 20-seed calibrated primary matrix, SF/load sensitivity cases, and
+  component-ablation matrix under versioned `2.1.18` artifacts.
+- Extend the five-page ICC manuscript with component attribution and clarify
+  that ACK-confirmed completion is distinct from destination delivery.
+
 ## 2.1.17 - Reviewer-directed ICC evidence revision
 
 - Add managed flooding to the primary calibrated comparison instead of

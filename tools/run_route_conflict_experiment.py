@@ -32,10 +32,10 @@ if str(ROOT) not in sys.path:
 
 from lora_mesh_sim import (
     AdaptiveProfile,
+    MeshEcho,
     Node,
     RadioConfig,
     Simulator,
-    SmartCalmMesh,
 )
 
 
@@ -98,7 +98,7 @@ class RouteConflictSimulator(Simulator):
         self,
         nodes: Sequence[Node],
         radio: RadioConfig,
-        protocol: SmartCalmMesh,
+        protocol: MeshEcho,
         seed: int,
         max_hops: int,
         weak_link_shadowing_db: float,
@@ -121,12 +121,11 @@ class RouteConflictSimulator(Simulator):
         return super().try_receive(tx, receiver)
 
 
-class RecordingConflictMesh(SmartCalmMesh):
-    """Smart-CALM core with candidate traces for the controlled experiment."""
+class RecordingConflictMesh(MeshEcho):
+    """MeshEcho core with candidate traces for the controlled experiment."""
 
     def __init__(self, protocol_name: str, confidence_enabled: bool) -> None:
         super().__init__(
-            protocol_name=protocol_name,
             route_ttl_s=CONFLICT_PROFILE.route_ttl_s,
             discovery_window_s=CONFLICT_PROFILE.discovery_window_s,
             flood_base_delay_s=3.0,
@@ -136,15 +135,12 @@ class RecordingConflictMesh(SmartCalmMesh):
             fallback_delay_margin_s=CONFLICT_PROFILE.fallback_delay_margin_s,
             hop_penalty_per_hop=CONFLICT_PROFILE.hop_penalty_per_hop,
             route_age_penalty=CONFLICT_PROFILE.route_age_penalty,
-            update_interval_s=9999.0,
-            flow_timeout_s=60.0,
-            max_timeout_retries=0,
-            profiles=(CONFLICT_PROFILE,),
-            learning_enabled=False,
-            fallback_enabled=True,
-            confidence_enabled=confidence_enabled,
-            fixed_profile_index=0,
         )
+        self.name = protocol_name
+        self.confidence_enabled = confidence_enabled
+        # Preserve the harness's existing run horizon without importing an
+        # adaptive timeout controller.
+        self.flow_timeout_s = 60.0
         self.candidate_trace: List[Tuple[Tuple[int, ...], float]] = []
         self.first_selected_path: Tuple[int, ...] = ()
         self.first_selected_confidence = 0.0
@@ -164,6 +160,16 @@ class RecordingConflictMesh(SmartCalmMesh):
     def route_miss_recovery_ttl(self, flow_id: Optional[int] = None) -> int:
         # Keep route discovery failure from turning this into a fallback test.
         return 0
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        if self.confidence_enabled:
+            return super().select_route_candidate(candidates, flow_id)
+        del flow_id
+        return min(candidates, key=lambda item: (len(item[0]), -item[1], item[0]))
 
     def start_route_discovery(self, src: int, dst: int, flow_id: int) -> None:
         self.route_discovery_attempts += 1
@@ -285,11 +291,9 @@ def run_case(
     return row
 
 
-def ci95(rows: Sequence[Dict[str, object]], key: str) -> Tuple[float, float]:
-    values = [float(row[key]) for row in rows]
-    if len(values) < 2:
-        return (statistics.fmean(values) if values else 0.0, 0.0)
-    # Critical values are sufficient for the intended 20-100 seed runs.
+def critical_value(sample_size: int) -> float:
+    """Return the two-sided 95% t critical value for the seed count."""
+
     critical = {
         10: 2.262,
         20: 2.093,
@@ -297,8 +301,18 @@ def ci95(rows: Sequence[Dict[str, object]], key: str) -> Tuple[float, float]:
         50: 2.010,
         100: 1.984,
     }
-    nearest = min(critical, key=lambda size: abs(size - len(values)))
-    half_width = critical[nearest] * statistics.stdev(values) / math.sqrt(len(values))
+    return critical[min(critical, key=lambda size: abs(size - sample_size))]
+
+
+def ci95(rows: Sequence[Dict[str, object]], key: str) -> Tuple[float, float]:
+    values = [float(row[key]) for row in rows]
+    if len(values) < 2:
+        return (statistics.fmean(values) if values else 0.0, 0.0)
+    half_width = (
+        critical_value(len(values))
+        * statistics.stdev(values)
+        / math.sqrt(len(values))
+    )
     return statistics.fmean(values), half_width
 
 
@@ -411,7 +425,11 @@ def write_report(
             for confidence_row, no_confidence_row in paired_rows
         ]
         if len(differences) > 1:
-            half_width = 1.984 * statistics.stdev(differences) / math.sqrt(len(differences))
+            half_width = (
+                critical_value(len(differences))
+                * statistics.stdev(differences)
+                / math.sqrt(len(differences))
+            )
             delta = statistics.fmean(differences)
         else:
             delta = differences[0] if differences else 0.0
@@ -469,12 +487,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--csv",
         type=Path,
-        default=Path("results/meshecho_route_conflict.csv"),
+        default=Path("results/meshecho_v2_1_20_icc2027_route_conflict.csv"),
     )
     parser.add_argument(
         "--report",
         type=Path,
-        default=Path("docs/results/meshecho_route_conflict.md"),
+        default=Path("docs/results/meshecho_v2_1_20_icc2027_route_conflict.md"),
     )
     return parser.parse_args()
 

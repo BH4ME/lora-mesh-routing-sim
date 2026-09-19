@@ -424,3 +424,218 @@ the manuscript.
 Run the full 2.1.17 test/static/consistency gates, then selectively stage the
 new runner, tests, sensitivity CSV/report artifacts, paper/docs, and Markdown
 state files. Do not stage partial 2.1.16 outputs or build caches.
+
+## 2026-09-19 - 2.1.18 Metric Baseline Slice
+
+- Started a new reviewer-directed release in the clean remote clone; the
+  prior 2.1.17 release remains published and untouched.
+- Added a failing test for ETX/ETT registry, monotonic cost scoring, and matched
+  discovery configuration.
+- Implemented `MetricMesh`, `etx`/`ett` protocol registry entries, CLI choices,
+  and `icc`/`all` protocol expansion.
+- The new test passes and the full suite now reports 58 passing tests.
+- A one-seed, 600 s connected-multihop smoke passed the quality gate and
+  produced nonzero ETX/ETT route/discovery rows. Under fixed SF/packet size,
+  ETX and ETT are expected to select the same paths because ToA is constant.
+
+### Next Exact Action
+
+Run the full versioned 2.1.18 primary and sensitivity matrices, then revise the
+manuscript around the new baseline and the paired statistical/metric wording.
+
+## 2026-09-19 - 2.1.18 MeshEcho Identity and Component Attribution
+
+- Added test-first MeshEcho component variants and made
+  `MESHECHO_ABLATIONS` explicit:
+  `meshecho-no-confidence`, `meshecho-no-fallback`,
+  `meshecho-no-hop-penalty`, and `meshecho-no-age-penalty`.
+- Ran the 20-seed primary matrix, SF8 sensitivity, offered-load sensitivity,
+  and 20-seed component-ablation matrix. Every connected-multihop case passed
+  its per-seed quality gate.
+- Regenerated all 2.1.18 probe reports so the ICC evidence contains no
+  Smart-CALM rows or ablation section.
+- Rewrote the ICC comparison and experiment plan for MeshEcho, ETX/ETT, and
+  MeshEcho-only component attribution. Bumped `VERSION` and release metadata
+  to 2.1.18.
+- Added the component-attribution table to the ICC manuscript and removed the
+  redundant evidence-strata table to keep the PDF at five pages.
+- Tectonic build `paper/icc2027/build-2_1_18-tectonic/icc2027_lora_mesh.pdf`
+  succeeds with exactly five letter-size pages. All five rendered pages were
+  visually inspected; no clipping, overlap, or unreadable table was found.
+
+### Next Exact Action
+
+Run full tests/static/report-consistency checks, selectively stage the 2.1.18
+release (excluding old artifacts/build caches), commit and push `version/v2`,
+then update and verify draft PR 1.
+
+## 2026-09-19 - 2.1.18 Verification Checkpoint
+
+- Full suite: `61 passed`.
+- Python compilation, shell syntax, and `git diff --check` passed.
+- Primary and component summary CSV/TXT artifacts were generated with
+  `analyze_results.py`.
+- Report consistency checks confirm 100 rows each for primary/SF8/load,
+  180 rows for component attribution, complete pair pools, and no
+  Smart-CALM text in the four ICC probe reports.
+- The five-page PDF remains the inspected artifact after the final report and
+  CLI naming changes.
+
+## 2026-09-19 - 2.1.19 MeshEcho-Only Fairness Revision
+
+- Added failing tests for legacy immediate-reply duplicate suppression and
+  configured MeshEcho fallback TTL.
+- Implemented both fixes in `lora_mesh_sim.py`; targeted metric-baseline tests
+  now pass (`8 passed`).
+- Regenerated the 20-seed primary, component-ablation, SF8/load sensitivity,
+  and TTL600/TTL30 cache diagnostics after the code fixes.
+- Updated the five-page ICC manuscript, ICC comparison, sensitivity defaults,
+  project version index, and tests to target MeshEcho 2.1.19 only.
+- Tectonic compiled the manuscript to exactly 5 letter-size pages; all five
+  rendered pages were visually inspected with no clipping or overlap.
+
+## 2026-09-19 - 2.1.20 MeshEcho Route-Conflict Attribution Revision
+
+- Added a failing TDD identity test proving that the controlled route-conflict
+  audit must instantiate `MeshEcho`, not `SmartCalmMesh`.
+- Reworked `tools/run_route_conflict_experiment.py` to subclass `MeshEcho`,
+  preserve the confidence/no-confidence controls, and remove adaptive profile
+  and timeout-controller arguments.
+- The targeted regression tests now pass (`2 passed`).
+- Re-ran the controlled 20-seed route-conflict simulation. Both candidates were
+  observed in 18/20 seeds; MeshEcho ACK PDR is `1.000` versus `0.779` for the
+  shortest-candidate control, paired delta `+0.221 +/- 0.096`.
+- Updated the ICC title to `MeshEcho: Confidence-Aware Route Admission for
+  LoRa Mesh IoT` and synchronized the manuscript's route-conflict value and
+  reproduction command.
+- Next: bump the release and all versioned ICC evidence to 2.1.20, rebuild the
+  five-page PDF, run the complete validation suite, and publish the revision.
+
+## Next Actions
+
+1. Run the full test/static/report-consistency gates.
+2. Selectively stage only 2.1.19 source, tests, paper/docs, evidence, and
+   Markdown state files; exclude historical artifacts/build caches.
+3. Commit/push `version/v2`, update and verify the draft PR.
+
+### Next Exact Action
+
+Selectively stage the 2.1.18 source, tests, paper/docs, raw evidence, and
+planning Markdown; exclude old 2.1.14/2.1.16 outputs, build directories,
+figures, and `tmp/`. Then commit, push, update PR 1, and verify remote state.
+
+## 2026-09-19 - 2.1.18 Pre-submission Assessment
+
+- Independent methodology and venue reviews converge on **borderline ICC
+  candidate / not a safe accept**. The paper is format-compliant and
+  simulation-only evidence is defensible, but the main scientific risk is
+  generalization and estimand alignment rather than page count or hardware.
+- The primary CSV has 100 rows (5 protocols x 20 seeds); all 480 selected
+  pair instances are exactly 2 hops, and every primary row has zero
+  `route_cache_hits`. The current headline therefore measures sparse,
+  first-discovery route admission, not cache reuse or route aging.
+- The MeshEcho/no-confidence delta is an end-to-end policy-bundle difference
+  because discovery success and route length also change; the fixed-candidate
+  route-conflict audit is the only surgical confidence evidence.
+- A code-level baseline audit found a P0 fairness issue: the matched
+  source-route destination suppresses duplicate RREQs before candidate
+  collection, while MeshEcho/ETX/ETT collect candidates through the same
+  nominal two-second window. The +0.183 headline gap therefore needs a
+  rerun with equal candidate exposure (or a narrower first-arrival baseline
+  label).
+- ETX and fixed-SF ETT are identical by construction. A stronger distinct
+  baseline and an unconditioned random-pair/deeper-hop case are the highest
+  value additions.
+- The local 2.1.18 files remain staged only; remote `origin/version/v2` is
+  still 2.1.17. No claim that GitHub already contains 2.1.18 should be made
+  until the publish gate is complete.
+
+### Review-driven next actions
+
+1. Decide whether to submit the current bounded claim or make a 2.1.19
+   evidence revision.
+2. If revising, prioritize: repeated-pair/cache-aging experiment; unconditioned
+   random-pair and deeper 3--5-hop case; matched fixed-candidate ablation;
+   temporal fading/stale-route case; and one distinct standard baseline.
+3. Regardless of experiment scope, clarify that all table `\pm` values are
+   95% CIs, disclose the SF8 area calibration, narrow the fallback/age claims,
+   publish/tag 2.1.18, and replace anonymous EDAS metadata.
+
+## 2026-09-19 - 2.1.20 Pre-submission Review
+
+- Read the current 2.1.20 ICC source, primary/route-conflict reports,
+  submission checklist, and prior-work hardware audit.
+- Confirmed the local 2.1.20 manuscript is six pages; the official ICC
+  ceiling is six pages, while the project target is five pages.
+- Confirmed the current root PDF still contains `Anonymous Authors`; no final
+  EDAS submission should use this placeholder.
+- Ran the complete local gates: 67 tests passed; Python compilation, shell
+  syntax, `git diff --check`, and PDF text/metadata checks passed.
+- Reviewer decision: borderline ICC candidate / weak-reject risk. The paper is
+  technically reproducible and honest about limits, but the headline is
+  conditioned on a PRR-qualified two-hop pair pool with zero cache hits, and
+  no statistically separable advantage over ETX/ETT is shown.
+- Recommended next action before EDAS: add an unconditioned random-pair and
+  deeper-hop/scale case, add one distinct baseline, and test temporal fading
+  or remove aging/recovery from the central claim; then compress to five pages
+  and update author metadata/checklist.
+
+### Current exact next action
+
+Do not publish or submit the current 2.1.20 artifact yet. First choose between
+the bounded ICC submission path (with tightened claims and five-page cleanup)
+and one more evidence revision targeting the selection/generalization gap.
+
+## 2026-09-19 - 2.1.21 Continuation
+
+- Resumed from the preserved 2.1.21 state in the clean remote clone
+  `/tmp/lora_mesh_remote_current.iIrtPz`; the damaged old checkout remains
+  untouched.
+- Confirmed `VERSION=2.1.21`, branch `version/v2`, and remote head `6d2134b`;
+  the 2.1.21 work is not yet committed or pushed.
+- Confirmed the min-hop baseline and deterministic temporal-fading code are
+  present, and that the partially completed 2.1.21 runner produced the
+  primary/sensitivity raw CSVs but not all required summary/report artifacts.
+- Updated the persistent plan and findings before continuing.
+
+### Next exact actions
+
+1. Run the 20-seed generalization cases and complete missing 2.1.21 reports.
+2. Run component attribution, cache diagnostics, and route-conflict evidence.
+3. Update and compile the MeshEcho-only five-page ICC manuscript.
+4. Run full verification, selectively commit/push, and verify the remote.
+
+## 2026-09-19 - Deep-Multihop Calibration Correction
+
+- The first 2.1.21 generalization attempt stopped at the quality gate rather
+  than dropping a bad seed: at 20 km, PRR threshold 0.85, seed 12 had only
+  20 of the requested 24 3--5-hop pairs.
+- A deterministic scan over seeds 1--20 showed that a 21 km square yields
+  complete 24-pair pools for all seeds and retains `direct_prr_below_0_99`
+  above 0.67 for every seed.
+- Updated the deep case in
+  `tools/run_icc_generalization_experiment.py` to 21 km and started the
+  corrected generalization run under the `meshecho_v2_1_22` prefix.
+- The version bump to 2.1.22 will occur after this corrected simulation, in
+  accordance with the repository versioning rule.
+
+## 2026-09-19 - 2.1.22 Evidence Package Verification
+
+- Completed the corrected 2.1.22 generalization runner:
+  random pairs, 100-node 21 km 3--5-hop deep multihop, temporal fading with
+  600 s TTL, and temporal fading with 30 s TTL.
+- Re-ran the main ICC matrix, connected quality gate, calibrated multihop
+  matrix, SF8/load4 sensitivity, MeshEcho component ablation, cache TTL
+  diagnostics, and route-conflict audit under 2.1.22 prefixes.
+- Bumped `VERSION`, changelog, README, docs, and tool defaults to 2.1.22.
+- Rewrote the ICC manuscript around MeshEcho-only 2.1.22 evidence. Tectonic
+  compiled a 5-page letter-size PDF at
+  `paper/icc2027/build-2_1_22-tectonic/icc2027_lora_mesh.pdf`.
+- Verification passed: `71 passed`; Python compileall; shell syntax;
+  `git diff --check`; PDF metadata; key row-count checks; and no Smart-CALM
+  leakage in 2.1.22 ICC reports.
+
+### Next exact action
+
+Selectively stage 2.1.22 source/docs/tests/evidence/state files, commit, push,
+update draft PR 1, and verify remote `version/v2`.

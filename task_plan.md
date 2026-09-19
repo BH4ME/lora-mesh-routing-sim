@@ -68,6 +68,49 @@ and publish the intended changes to GitHub.
    `2.1.11`.
 4. Verify the remote commit, PR metadata, and final artifact checks.
 
+## Current Revision - 2.1.18 MeshEcho Identity and Attribution
+
+- [completed] Make MeshEcho the explicit ICC method identity and keep the
+  adaptive firmware/history line outside the ICC protocol matrix.
+- [completed] Add ETX/ETT baselines and four MeshEcho component ablations.
+- [completed] Run the 20-seed primary, SF/load sensitivity, and component
+  ablation matrices with shared connected-multihop gates.
+- [completed] Rewrite ICC reports, experiment plan, comparison summary, and
+  checklist around MeshEcho rather than Smart-CALM.
+- [completed] Extend the five-page ICC manuscript with component attribution
+  and ACK-vs-destination metric boundaries.
+- [in_progress] Run final tests/static checks, review the staged file set,
+  commit and push version 2.1.18, and verify the draft PR.
+
+### Current Exact Next Actions
+
+1. Run the complete test, Python, shell, whitespace, page-count, and
+   report-consistency checks.
+2. Selectively stage only 2.1.18 source/docs/evidence and Markdown state files;
+   exclude old artifacts, build directories, figures, and `tmp/`.
+3. Commit, push `version/v2`, update the draft PR, and verify the remote head.
+
+## 2.1.18 Pre-submission Decision Gate
+
+- [complete] Run an independent methodology/venue review of the five-page
+  ICC manuscript and the versioned evidence.
+- [complete] Record the primary evidence boundary: 20 seeds, 24 selected
+  pairs, all selected pairs exactly two hops, and zero primary route-cache
+  hits.
+- [in_progress] Decide whether to publish the current bounded ICC claim or
+  open a 2.1.19 evidence revision before publishing.
+
+### Decision criteria
+
+- Current version is a borderline ICC candidate, not a safe accept.
+- A stronger revision should prioritize an unconditioned random-pair case,
+  repeated-pair/cache-aging evidence, deeper multi-hop or larger-network
+  topologies, fixed-candidate confidence isolation, temporal fading/stale
+  routes, and one distinct standard baseline.
+- Regardless of decision, disclose the SF8 calibration, mark all table
+  `\pm` values as 95% CIs, narrow fallback/age claims, publish/tag 2.1.18,
+  and replace anonymous EDAS metadata.
+
 ## Publish Continuation - 2026-09-04
 
 - The final local `HEAD` is `251ba50`, version `2.1.11`, and matches
@@ -357,3 +400,190 @@ identified after the 2.1.16 assessment.
 | Local workspace Git tree contains missing objects | existing | Continue in clean remote clone `/tmp/lora_mesh_remote_current.iIrtPz`; do not reset the damaged checkout. |
 | Direct execution of sensitivity runner could not import root simulator | 1 | Added the repository root to `sys.path`, matching the existing probe. |
 | SF8 at 8.25 km failed the 0.10 PRR-below-0.99 gate for seed 1 | 1 | Calibrated only that sensitivity case to a 9 km area; smoke now passes with the same connected-pair contract. |
+
+## 2.1.18 ICC Reviewer-Directed Revision
+
+Goal: implement the reviewer-directed improvements for MeshEcho itself rather
+than turning the ICC paper into a Smart-CALM paper. The release must retain
+the five-page ICC limit, add fair quality-aware routing baselines, make the
+primary statistical claim explicit, and produce a layout-clean artifact.
+
+- [in_progress] Add test-first ETX/PRR and airtime-aware ETT route-selection
+  baselines that share the existing discovery, topology, and traffic harness;
+  expose MeshEcho as the primary protocol name.
+- [pending] Re-run the primary and SF/load matrices with the new baselines and
+  retain versioned raw CSV/summary/report evidence.
+- [pending] Revise the manuscript to report paired CIs, distinguish ACK
+  completion from destination delivery, treat Smart-CALM as an exploratory
+  negative result, and cite the new baselines.
+- [pending] Fix the Table IV two-column overflow, rebuild/render all pages, run
+  tests and static checks, bump metadata to 2.1.18, publish, and verify PR 1.
+
+### 2.1.18 Guardrails
+
+- Keep the existing managed-flooding and MeshCore-like rows; do not hide
+  negative or boundary cases.
+- Use matched 2 s discovery, 600 s route TTL, zero timeout retries, and the
+  same shared pair pool for the new metric baselines.
+- Do not claim hardware validation or topology-independent dominance.
+- Do not stage old build directories, partial 2.1.16 outputs, or `tmp/`.
+- Keep Smart-CALM code available for its separate firmware/history line, but
+  exclude it from the primary ICC protocol set and do not present it as the
+  MeshEcho contribution.
+
+## 2.1.19 MeshEcho-Only Fairness Revision
+
+Goal: continue the ICC revision as MeshEcho, not Smart-CALM. The release must
+use the corrected equal-candidate-exposure source-route baseline, make the
+fallback implementation match its configured TTL, regenerate every ICC-facing
+artifact, and synchronize the five-page manuscript to the corrected evidence.
+
+- [complete] Add TDD coverage for matched-window candidate exposure,
+  legacy immediate-reply duplicate suppression, and configured fallback TTL.
+- [complete] Implement the source-route candidate-pool fix and configured
+  MeshEcho fallback TTL.
+- [complete] Regenerate the 20-seed primary, component, SF/load sensitivity,
+  and cache-reuse diagnostics under the 2.1.19 prefix.
+- [complete] Rewrite all ICC manuscript tables, results, discussion, conclusion,
+  and reproduction metadata to remove stale 2.1.18 values.
+- [complete] Rebuild and inspect the five-page PDF.
+- [in_progress] Run full tests/static and consistency gates.
+- [pending] Selectively commit/push version 2.1.19 and verify the draft PR.
+
+### 2.1.19 Guardrails
+
+- MeshEcho is the named ICC method; Smart-CALM remains a separate historical
+  firmware/simulator line and must not appear in ICC method tables, ablations,
+  or primary claims.
+- The primary estimand is first-discovery route admission because its
+  `route_cache_hits` are zero; cache TTL results remain a secondary diagnostic.
+- `meshecho-no-confidence` is an end-to-end policy-bundle ablation, not a
+  fixed-candidate causal estimate.
+- All table `\pm` values must be labeled as two-sided 95% CI half-widths.
+- Do not claim topology-independent dominance, physical validation, or a
+  universal advantage over ETX/ETT.
+
+## 2.1.20 MeshEcho Route-Conflict Attribution Revision
+
+Goal: correct the controlled route-conflict audit so it exercises the named
+MeshEcho core, then version and republish the ICC evidence package.
+
+- [complete] Add a failing identity regression test for the route-conflict
+  harness.
+- [complete] Replace the Smart-CALM-derived harness with a MeshEcho-specific
+  harness while preserving the confidence/no-confidence controls.
+- [complete] Re-run the 20-seed route-conflict simulation and record the new
+  paired result.
+- [in_progress] Bump all release-facing metadata to 2.1.20, regenerate the
+  ICC evidence prefixes, and synchronize the five-page manuscript.
+- [pending] Run the full test/static/PDF gates, selectively commit, push, and
+  verify the draft PR.
+
+### 2.1.20 Guardrails
+
+- The ICC method and controlled audit are MeshEcho only.
+- Smart-CALM remains available only in its historical simulator/firmware
+  namespace and archived documents.
+- The route-conflict report must be reproducible from the versioned command and
+  must not inherit Smart-CALM timeout/profile behavior.
+- Preserve the simulation-only evidence boundary and do not imply hardware
+  validation.
+
+## 2.1.20 Pre-submission Assessment - 2026-09-19
+
+- [complete] Inspect the current six-page PDF, source, versioned reports, and
+  release state.
+- [complete] Run the reviewer-style quality gate: tests, static checks, metric
+  consistency, and venue-fit assessment.
+- [pending] Decide whether to publish 2.1.20 as an ICC candidate or make one
+  more evidence revision before submission.
+
+### Assessment decision
+
+- Current status: borderline ICC candidate / weak-reject risk, not a safe
+  accept.
+- The strongest supported claim is a bounded first-discovery ACK-completion
+  and airtime operating point versus the matched source-route baseline.
+- The result does not establish a statistically separable advantage over
+  ETX/ETT, a destination-delivery gain, topology-independent dominance, or
+  hardware validity.
+- The primary matrix is conditioned on a PRR-qualified pair pool; all selected
+  pairs are exactly two hops and route-cache hits are zero. This is the main
+  scientific risk.
+- The current root PDF is six pages. This meets the official ICC six-page
+  ceiling but does not meet the project's five-page target and leaves no
+  layout margin. The submission checklist still incorrectly says five pages.
+- The manuscript still contains `Anonymous Authors`; final EDAS metadata is
+  pending.
+
+### Highest-value next revisions
+
+1. Add an unconditioned random-pair case and a deeper 3--5-hop or larger-node
+   case, preserving shared seeds and reporting the selection rule.
+2. Add one distinct baseline beyond fixed-SF ETX/ETT (e.g. min-hop/RSSI-only,
+   RPL/ORPL-style, or a clearly defined oracle upper/lower bound).
+3. Add a temporal-fading/stale-route case, or remove/soften route-aging and
+   recovery claims from the central contribution.
+4. Reframe the headline around source-confirmed completion and keep destination
+   PDR as a co-primary negative/boundary result.
+5. Compress the paper to five pages, correct the checklist, replace author
+   placeholders, and rerun the full publish gate.
+
+## 2.1.21 MeshEcho Generalization and Temporal-Fading Revision
+
+Goal: close the highest-value ICC reviewer gaps while keeping MeshEcho as the
+only ICC method. Add a genuinely distinct min-hop baseline, unconditioned
+random-pair evidence, a deeper 3--5-hop case, and temporal-fading/cache-age
+diagnostics; keep Smart-CALM only in its historical simulator/firmware
+namespace and out of ICC methods, ablations, primary experiments, and claims.
+
+- [complete] Verify the partially generated 2.1.21 primary/sensitivity
+  artifacts and complete any missing summaries.
+- [complete] Run the 20-seed random-pair, deep-multihop, and long/short-TTL
+  temporal-fading generalization cases with per-seed quality gates.
+- [complete] Run MeshEcho component attribution, cache diagnostics, and
+  MeshEcho-only route-conflict evidence under the 2.1.21 prefix.
+- [complete] Rewrite the ICC manuscript and result docs around the new evidence,
+  narrow claims to source-confirmed completion/airtime operating points, and
+  compress the final PDF to exactly five pages.
+- [in_progress] Run full tests/static/report-consistency/PDF gates, selectively
+  stage 2.1.21 files, commit/push, update the draft PR, and verify remote OID.
+
+### 2.1.21 Guardrails
+
+- The ICC protocol matrix is MeshEcho, managed flooding, matched source route,
+  ETX, ETT, and min-hop; Smart-CALM is not an ICC protocol.
+- The primary estimand is first-discovery route admission. Cache-hit and
+  temporal-fading results are secondary diagnostics, not universal aging
+  claims.
+- Every `\pm` number in the paper is a two-sided 95% CI half-width.
+- Do not claim topology-independent dominance, hardware validation, or
+  universal superiority over ETX/ETT.
+- Do not stage old release artifacts, build caches, figures, or `tmp/`.
+- Before context compression, update `task_plan.md`, `findings.md`, and
+  `progress.md`; after resuming, read all three before action.
+
+### Calibration correction
+
+- The initial deep-multihop calibration at 20 km and PRR threshold 0.85
+  failed seed 12 with only 20 eligible pairs. This failure is retained as a
+  recorded design issue, not discarded.
+- The corrected calibration uses a 21 km square with the same 100 nodes,
+  3--5-hop range, PRR threshold, 24 requested pairs, and per-seed quality
+  gate. Because this changes the experiment code, the corrected evidence is
+  being generated under the next version prefix `2.1.22`.
+
+### 2.1.22 verification checkpoint
+
+- Completed all required 2.1.22 evidence strata: main ICC matrix, calibrated
+  multihop, quality gate, SF/load sensitivity, component attribution,
+  cache TTL 600/30, route-conflict, random-pair, deep-multihop, and temporal
+  fading TTL 600/30.
+- Tectonic compiled `paper/icc2027/icc2027_lora_mesh.tex` to a 5-page
+  letter-size PDF under `paper/icc2027/build-2_1_22-tectonic/`.
+- `python3 -m pytest -q`: 71 passed.
+- Python compileall, `bash -n tools/run_icc_experiments.sh`,
+  `git diff --check`, PDF metadata, key CSV row-count checks, and 2.1.22
+  report Smart-CALM leakage checks passed.
+- Remaining actions: selectively stage 2.1.22 source/docs/evidence/state
+  files, commit, push `version/v2`, update PR 1, and verify remote state.

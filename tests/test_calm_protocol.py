@@ -12,6 +12,7 @@ from lora_mesh_sim import (
     ICC_PROTOCOLS,
     FlowDecision,
     MeshtasticLike,
+    MeshEcho,
     Node,
     PendingSend,
     RadioConfig,
@@ -136,6 +137,31 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(first.rx_power_dbm(0, 1), first.rx_power_dbm(0, 1))
         self.assertEqual(first.rx_power_dbm(0, 1), second.rx_power_dbm(0, 1))
 
+    def test_temporal_fading_is_deterministic_but_changes_with_time(self) -> None:
+        nodes = [
+            Node(0, 0.0, 0.0),
+            Node(1, 1000.0, 0.0),
+        ]
+        radio = RadioConfig(
+            shadow_sigma_db=0.0,
+            temporal_fading_sigma_db=6.0,
+            temporal_fading_interval_s=30.0,
+        )
+        first = Simulator(nodes, radio, MeshtasticLike(), seed=17, max_hops=3)
+        second = Simulator(nodes, radio, MeshtasticLike(), seed=17, max_hops=3)
+        self.assertEqual(
+            first.rx_power_dbm(0, 1, when=10.0),
+            second.rx_power_dbm(0, 1, when=10.0),
+        )
+        self.assertEqual(
+            first.rx_power_dbm(0, 1, when=10.0),
+            first.rx_power_dbm(0, 1, when=20.0),
+        )
+        self.assertNotEqual(
+            first.rx_power_dbm(0, 1, when=10.0),
+            first.rx_power_dbm(0, 1, when=40.0),
+        )
+
     def test_smart_calm_runs_and_updates_policy_online(self) -> None:
         protocol = build_protocol("smart-calm")
         self.assertEqual(protocol.name, "smart-calm")
@@ -215,13 +241,13 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(sim.metrics.policy_switch_count, 1)
 
     def test_icc_protocol_variants_expose_explicit_ablation_controls(self) -> None:
-        self.assertEqual(len(ICC_PROTOCOLS), 7)
+        self.assertEqual(
+            set(ICC_PROTOCOLS),
+            {"meshtastic", "meshcore", "etx", "ett", "minhop", "meshecho"},
+        )
         for name in ICC_PROTOCOLS:
             protocol = build_protocol(name)
-            if name.startswith("smart-calm"):
-                self.assertIsInstance(protocol, SmartCalmMesh)
-            else:
-                self.assertNotIsInstance(protocol, SmartCalmMesh)
+            self.assertNotIsInstance(protocol, SmartCalmMesh)
 
         static = build_protocol("smart-calm-static")
         no_fallback = build_protocol("smart-calm-no-fallback")
@@ -230,6 +256,12 @@ class CalmProtocolTest(unittest.TestCase):
         self.assertEqual(static.fixed_profile_index, 1)
         self.assertFalse(no_fallback.fallback_enabled)
         self.assertFalse(no_confidence.confidence_enabled)
+
+    def test_meshecho_is_the_named_static_calml_policy(self) -> None:
+        protocol = build_protocol("meshecho")
+        self.assertIsInstance(protocol, MeshEcho)
+        self.assertIsInstance(protocol, CalmMesh)
+        self.assertEqual(protocol.name, "meshecho")
 
     def test_meshcore_cli_default_uses_matched_route_cache_ttl(self) -> None:
         with patch("sys.argv", ["lora_mesh_sim.py"]):

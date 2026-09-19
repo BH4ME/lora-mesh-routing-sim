@@ -21,9 +21,10 @@ keeps the main `README.md` as the entry point.
   commits, and per-version bar charts for Smart-CALM simulation baselines.
 - [Three Protocol Comparison](results/three_protocol_comparison.md): concise
   meeting view comparing Meshtastic-like, MeshCore-like, and Smart-CALM.
-- [ICC 2027 Comparison](results/icc2027_comparison.md): verified 2.1.17 ICC
-  calibrated multi-hop matrix, managed-flooding baseline, quality gate, and
-  SF/load sensitivity cases.
+- [ICC 2027 Comparison](results/icc2027_comparison.md): verified 2.1.22 ICC
+  calibrated multi-hop matrix, ETX/ETT/min-hop baselines, MeshEcho component
+-  ablations, candidate-exposure fairness fix, cache-reuse diagnostic, quality
+  gate, and SF/load sensitivity cases.
 - [ICC 2027 Prior-Work Hardware Audit](icc2027_prior-work_hardware-evidence.md):
   traceable sample of prior ICC LoRa/IoT papers and hardware-evidence practice.
 - [ICC 2027 Submission Checklist](icc2027_submission_checklist.md): official

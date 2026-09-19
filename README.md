@@ -7,22 +7,33 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.17` (ICC reviewer-directed paper/results package; firmware prototype
+Current repository release: `2.1.22` (MeshEcho-focused ICC generalization and stale-route evidence package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
 ideas under a fixed SX1262-style PHY profile.
 
-It currently implements two behavior-equivalent baselines and the CALM family:
+It currently implements two behavior-equivalent baselines, standard quality
+metric baselines, and MeshEcho:
 
 - `meshtastic-like`: managed flooding with delayed rebroadcast and suppression
   when another copy is heard.
 - `meshcore-like`: first unicast floods a route request, the destination replies
   on the reverse path, then later unicast packets use a cached source route.
-- `calm-mesh`: confidence-aware source routing with bounded fallback forwarding.
-- `smart-calm`: MCU-friendly profile-based online adaptation, plus explicit
-  `smart-calm-static`, `smart-calm-no-fallback`, and
-  `smart-calm-no-confidence` ablations.
+- `meshecho`: confidence-aware source routing with bounded fallback forwarding
+  (the legacy `calm` CLI name remains supported).
+- `etx-mesh`: source routing that selects candidates by accumulated ETX
+  (`1/PRR`) cost.
+- `ett-mesh`: source routing that selects candidates by accumulated ETT
+  (`ToA/PRR`) cost. In the fixed-SF ICC matrix, ETT is intentionally a sanity
+  baseline and coincides numerically with ETX.
+- `minhop-mesh`: matched-discovery shortest-path baseline that ignores link
+  quality after candidate exposure.
+- `meshecho-no-confidence`, `meshecho-no-fallback`,
+  `meshecho-no-hop-penalty`, and `meshecho-no-age-penalty`: MeshEcho
+  component ablations used only for mechanism attribution.
+- The historical adaptive firmware/simulator line is retained for traceability
+  but is not part of the ICC MeshEcho protocol matrix.
 
 The simulator is not a firmware clone. It is a research harness for comparing
 routing behavior under the same topology, traffic, propagation, collision, and
@@ -112,8 +123,9 @@ candidate selection from online learning and fallback recovery:
 python3 tools/run_route_conflict_experiment.py
 ```
 
-It writes raw per-seed rows to `results/meshecho_route_conflict.csv` and the
-paired summary to `docs/results/meshecho_route_conflict.md`.
+It writes raw per-seed rows to
+`results/meshecho_v2_1_22_icc2027_route_conflict.csv` and the paired summary to
+`docs/results/meshecho_v2_1_22_icc2027_route_conflict.md`.
 
 Run the fairness audit with null, moderate, and reverse weak-link controls:
 
@@ -131,9 +143,10 @@ Run the paired recovery-budget sensitivity audit:
 python3 tools/run_recovery_budget_audit.py
 ```
 
-It compares the current CALM route-miss fallback with the same CALM line after
-that fallback is disabled, using shared 20-seed main-scenario inputs. The
-result is a sensitivity check, not a fully budget-matched MeshCore comparison.
+It compares the current MeshEcho route-miss fallback with the same MeshEcho
+line after that fallback is disabled, using shared 20-seed main-scenario
+inputs. The result is a sensitivity check, not a fully budget-matched
+source-route comparison.
 
 Run the paired route-cache lifetime audit:
 
@@ -154,9 +167,9 @@ Fresh matrices from this script use a 600 s MeshCore-like route-cache TTL to
 match MeshEcho. Set `MESHCORE_ROUTE_TTL_S=300` only to reproduce the legacy
 native baseline.
 
-This runs seven configurations (`meshtastic`, `meshcore`, `calm`, full
-`smart-calm`, and three Smart-CALM ablations) over repeated-unicast, mixed
-traffic, stronger-shadowing, and higher-load scenarios. Each scenario writes a
+This runs six MeshEcho-facing configurations (`meshtastic`, `meshcore`, `etx`,
+`ett`, `minhop`, and `meshecho`) over repeated-unicast, mixed traffic,
+stronger-shadowing, and higher-load scenarios. Each scenario writes a
 raw CSV, a text summary, and a long-format summary CSV with mean, standard
 deviation, and 95% confidence intervals. See
 [ICC 2027 Experiment Plan](docs/icc2027_experiment_plan.md) for the table
@@ -166,10 +179,11 @@ layout and reproducibility rules. The verified matrix is summarized in
 The current ICC workflow also runs a calibrated connected-multihop matrix at
 8.25 km, SF7, 1 flow/min, analytical pair-edge PRR >= 0.90, 24 selected pairs,
 and 20 seeds. The MeshCore-like baseline uses the same 2 s discovery collection
-window as CALM for this fresh comparison. This is the primary mechanism check;
+window as MeshEcho for this fresh comparison. This is the primary mechanism
+check;
 the 18 km probe remains a route-discovery stress diagnostic.
 
-Run the 2.1.17 spreading-factor and offered-load sensitivity cases with the
+Run the 2.1.22 spreading-factor and offered-load sensitivity cases with the
 same connected-pair quality contract:
 
 ```bash
@@ -179,8 +193,32 @@ python3 tools/run_icc_sensitivity_experiments.py
 The runner produces 20-seed SF8 results in a calibrated 10 km square and
 20-seed SF7 results at four flows/min in the primary 8.25 km square. It writes
 raw CSVs, long-format confidence summaries, and Markdown reports under the
-`meshecho_v2_1_17_icc2027_sensitivity_*` prefix. The cases are robustness
+`meshecho_v2_1_22_icc2027_sensitivity_*` prefix. The cases are robustness
 evidence and are not pooled with the primary estimand.
+
+Run the repeated-pair cache-reuse and route-aging diagnostic:
+
+```bash
+python3 tools/run_icc_cache_experiment.py
+```
+
+This uses four connected pairs, unicast traffic at four flows/min, and
+compares 600 s and 30 s route-cache TTLs. It reports cache hits, discovery
+repairs, ACK/destination PDR, and airtime separately from the sparse primary
+matrix; it is not pooled with the primary estimand.
+
+Run the unconditioned, deep-hop, and temporal-fading generalization cases:
+
+```bash
+python3 tools/run_icc_generalization_experiment.py \
+  --out-prefix meshecho_v2_1_22_icc2027_generalization
+```
+
+The runner writes separate 20-seed reports for random pairs, a 100-node
+3--5-hop case, and repeated-pair temporal fading with 600 s and 30 s route
+TTLs. The deep case uses a 21 km square because the earlier 20 km calibration
+failed the per-seed 24-pair completeness gate for seed 12; that failed
+calibration is retained in the state log.
 
 Before submitting, use the [ICC 2027 submission checklist](docs/icc2027_submission_checklist.md)
 to replace the anonymous author block and verify the EDAS title/author match.
@@ -213,14 +251,18 @@ protocol metrics, and paired ablation values to
 `docs/results/meshecho_fair_multihop_probe.md`. Use this probe to check whether
 the conclusion survives outside the fixed-pair, link-friendly main matrix.
 
-For a one-shot mechanism check with Smart-CALM timeout retries disabled, add:
+For a one-shot MeshEcho mechanism check with the timeout-retry budget set to
+zero, add:
 
 ```bash
 python3 tools/run_fair_multihop_probe.py \
-  --smart-max-timeout-retries 0 \
+  --max-timeout-retries 0 \
   --csv results/meshecho_fair_budget_matched.csv \
   --report docs/results/meshecho_fair_budget_matched.md
 ```
+
+The historical `--smart-max-timeout-retries` spelling remains accepted for
+older scripts; the MeshEcho-facing name is `--max-timeout-retries`.
 
 The probe also reports route-discovery attempts, source-side route-discovery
 success rate, and the RREP/RREQ transmission ratio. Connected-pair runs with

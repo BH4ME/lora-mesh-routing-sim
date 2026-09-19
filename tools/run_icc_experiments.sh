@@ -105,7 +105,7 @@ if [[ "${ICC_RUN_QUALITY_PROBE:-1}" == "1" ]]; then
     --shadow-sigma-db 4 \
     --capture-threshold-db 6 \
     --max-hops 7 \
-    --smart-max-timeout-retries 0 \
+    --max-timeout-retries 0 \
     --seeds "${ICC_QUALITY_SEEDS:-3}" \
     --seed0 "$SEED0" \
     --protocol meshcore \
@@ -143,7 +143,7 @@ if [[ "${ICC_RUN_CALIBRATED_MULTIHOP:-1}" == "1" ]]; then
     --shadow-sigma-db 4 \
     --capture-threshold-db 6 \
     --max-hops 7 \
-    --smart-max-timeout-retries 0 \
+    --max-timeout-retries 0 \
     --seeds "${ICC_CALIBRATED_SEEDS:-$SEEDS}" \
     --seed0 "$SEED0" \
     --csv "results/${CALIBRATED_PREFIX}.csv" \
@@ -155,6 +155,13 @@ if [[ "${ICC_RUN_SENSITIVITY:-0}" == "1" ]]; then
     --seeds "${ICC_SENSITIVITY_SEEDS:-$SEEDS}" \
     --seed0 "$SEED0" \
     --out-prefix "${ICC_SENSITIVITY_PREFIX:-${OUT_PREFIX}_sensitivity}"
+fi
+
+if [[ "${ICC_RUN_GENERALIZATION:-0}" == "1" ]]; then
+  python3 tools/run_icc_generalization_experiment.py \
+    --seeds "${ICC_GENERALIZATION_SEEDS:-$SEEDS}" \
+    --seed0 "$SEED0" \
+    --out-prefix "${ICC_GENERALIZATION_PREFIX:-${OUT_PREFIX}_generalization}"
 fi
 
 printf '\nICC experiment outputs written under results/ with prefix %s\n' "$OUT_PREFIX"

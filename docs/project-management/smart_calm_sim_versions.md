@@ -3,10 +3,62 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.17`; the firmware prototype remains
+current repository release is `2.1.22`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `meshecho-sim-v2.1.22`
+
+- Status: MeshEcho calibrated generalization correction on 2026-09-19.
+- Correct the deep case to a 21 km square after the 20 km seed-level gate
+  exposed an incomplete 3--5-hop pair pool.
+- Preserve the matched min-hop baseline, unconditioned random pairs, deeper
+  connected-multihop cases, and paired temporal block fading.
+- Regenerate the ICC evidence under `meshecho_v2_1_22_icc2027_*`.
+
+## `meshecho-sim-v2.1.21`
+
+- Status: MeshEcho generalization and stale-route evidence on 2026-09-19.
+- Add a distinct matched min-hop baseline and paired temporal block fading.
+- The initial 20 km deep calibration is retained as a failed quality-gate
+  diagnostic; the corrected 21 km case is released as 2.1.22.
+
+## `meshecho-sim-v2.1.20`
+
+- Status: MeshEcho route-conflict attribution correction on 2026-09-19.
+- Replace the controlled audit's Smart-CALM-derived implementation with the
+  named MeshEcho core and retain explicit confidence/no-confidence controls.
+- Re-run the 20-seed route-conflict simulation; both candidates appear in 90%
+  of seeds and the paired ACK-PDR difference is `+0.221 +/- 0.096`.
+- Narrow the ICC title to confidence-aware route admission and keep airtime as
+  an evaluated operating-point metric rather than an algorithm-name claim.
+- Publish the regenerated ICC evidence under
+  `meshecho_v2_1_20_icc2027_*`.
+
+## `meshecho-sim-v2.1.19`
+
+- Status: MeshEcho-focused ICC fairness and cache-reuse revision on 2026-09-19.
+- Make MeshEcho the explicit ICC method identity; the adaptive firmware/history
+  line is not part of the ICC protocol matrix.
+- Equalize source-route candidate exposure during the matched discovery window,
+  preserve legacy immediate-reply duplicate suppression, and make MeshEcho's
+  configured fallback TTL effective.
+- Rerun the calibrated primary, SF/load sensitivity, component-ablation, and
+  cache-reuse diagnostics under versioned `meshecho_v2_1_19_icc2027_*`
+  artifacts.
+- Keep the five-page ICC manuscript and simulation-only external-validity
+  boundary.
+
+## `meshecho-sim-v2.1.18`
+
+- Status: MeshEcho-focused ICC mechanism-attribution revision on 2026-09-19.
+- Add matched ETX/ETT baselines and four MeshEcho component controls for
+  confidence ranking, route-miss fallback, hop penalty, and route-age penalty.
+- Rerun the calibrated primary, SF/load sensitivity, and component-ablation
+  matrices under versioned `meshecho_v2_1_18_icc2027_*` artifacts.
+- Keep the five-page ICC manuscript and simulation-only external-validity
+  boundary.
 
 ## `smart-calm-sim-v2.1.17`
 

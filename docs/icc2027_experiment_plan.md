@@ -5,23 +5,26 @@ targeting the IoT and sensor-network communication scope.
 
 ## Protocol Matrix
 
-The `--protocol icc` group runs the following seven configurations on the same
+The `--protocol icc` group runs the following six MeshEcho-facing
+configurations on the same
 topology, traffic trace, PHY parameters, and random seed:
 
 | Configuration | Role in the paper |
 | --- | --- |
 | `meshtastic` | Managed-flooding baseline |
 | `meshcore` | Route-discovery and source-route baseline |
-| `calm` | Confidence-aware bounded-fallback method without learning |
-| `smart-calm` | Full method: profile selection plus bounded fallback |
-| `smart-calm-static` | Learning ablation: fixed balanced profile |
-| `smart-calm-no-fallback` | Fallback ablation |
-| `smart-calm-no-confidence` | Confidence-ranking ablation |
+| `etx` | Standard expected-transmission-count path metric |
+| `ett` | Airtime-weighted expected-transmission-time path metric |
+| `minhop` | Matched-discovery shortest-path baseline |
+| `meshecho` | MeshEcho confidence-aware admission and bounded recovery |
 
-The ablations are intended to answer whether the gain comes from online
-adaptation, bounded redundancy, or confidence-aware route selection. They must
-remain in the same table as the full method; otherwise the contribution is
-hard to isolate.
+The ETX/ETT rows are the mechanism-relevant external baselines: they test
+whether MeshEcho adds value beyond standard PRR and airtime-weighted routing
+metrics under the same discovery and route-cache budgets.
+
+MeshEcho component controls are selected explicitly with the
+`meshecho-*` protocol names. They are within-policy ablations, not additional
+ICC competitors.
 
 ## Scenarios
 
@@ -54,6 +57,12 @@ Set `ICC_RUN_SENSITIVITY=1` to append the 20-seed SF8 and offered-load
 connected-multihop cases from `tools/run_icc_sensitivity_experiments.py` to the
 same release run. The default is off so the primary reproduction command
 remains short; the sensitivity runner can also be invoked directly.
+
+Run `python3 tools/run_icc_generalization_experiment.py` for separate
+generalization strata: unconditioned random source-destination pairs, a
+100-node three-hop case, and repeated-pair temporal-fading cases with 600 s
+and 30 s route-cache lifetimes. These results are reported separately from the
+conditioned first-discovery matrix.
 
 The default setup is 50 nodes in a 3000 m square, 1200 s per run, eight fixed
 unicast pairs, SF9/BW125 kHz/CR 4/5, and 20 seeds. Environment variables
@@ -88,8 +97,9 @@ machine-readable long-format summary for table generation.
 2. Do not mix CSV files produced before and after the ACK-aware metric update.
 3. Use the same current and voltage assumptions for every configuration when
    comparing energy.
-4. Treat `smart-calm-static` as the no-learning control, not as a second full
-   method.
+4. Treat `meshecho-no-confidence`, `meshecho-no-fallback`,
+   `meshecho-no-hop-penalty`, and `meshecho-no-age-penalty` as within-policy
+   component controls, not as separate proposed methods.
 5. Include the shadowing and offered-load scenarios in the robustness section,
    even if the full method does not win every individual metric.
 6. State that this is a packet-level channel model rather than a waveform-level
@@ -106,60 +116,47 @@ machine-readable long-format summary for table generation.
    budgets across the
    confidence and no-confidence variants and state whether fixed baselines have
    an equivalent recovery controller.
-10. The fairness probe accepts
-    `--smart-max-timeout-retries 0` for a one-shot, budget-matched mechanism
-    comparison. Runs using the default value `2` must be labeled as recovery
-    evaluations, because the fixed baselines do not have the same timeout
-    controller.
+10. The fairness probe uses `--max-timeout-retries 0` for a one-shot,
+    budget-matched MeshEcho comparison. The historical
+    `--smart-max-timeout-retries` alias remains accepted for old scripts.
+    Runs using a nonzero value must be labeled as timeout-recovery
+    evaluations.
 11. Do not accept a connected-multihop probe based only on aggregate means:
     the quality gate checks pair-pool completeness, mean graph distance, and
     direct-link PRR regime separately for every seed.
 12. For fresh cross-protocol route-discovery comparisons, set the MeshCore-like
-    collection window to the same 2 s budget used by CALM. Use
+    collection window to the same 2 s budget used by MeshEcho. Use
     `MESHCORE_DISCOVERY_WINDOW_S=0` only for an explicitly labeled immediate-
     reply legacy reproduction.
+13. Temporal-fading cases use deterministic paired block offsets keyed by seed,
+    link, and time block. Report the fading sigma and block interval, and do
+    not pool them with static-channel estimates.
 
 ## Suggested Paper Tables
 
-* **Table I:** Main unicast and mixed-traffic comparison across all baselines and
-  Smart-CALM.
-* **Table II:** Smart-CALM ablations for PDR, P95 ACK delay, airtime, energy,
-  collision rate, and fallback count.
-* **Table III:** Robustness under shadowing and high offered load.
+* **Table I:** Main comparison across managed flooding, matched source routing,
+  min-hop, ETX, ETT, and MeshEcho.
+* **Table II:** MeshEcho component ablations for ACK PDR, destination PDR,
+  airtime, and fallback behavior.
+* **Table III:** Robustness under spreading-factor and offered-load changes.
 
-A six-page conference paper should use figures for only the most important
+A five-page conference paper should use figures for only the most important
 trade-offs. The raw CSV files and long-format summary CSVs preserve the
 remaining metrics for supplementary analysis.
 
 See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
-2.1.17 calibrated-matrix and robustness summary. The 2.1.17 revision adds a
-20-seed SF8 case and a 20-seed offered-load case through
-`tools/run_icc_sensitivity_experiments.py`; each case reuses the connected-pair
-quality contract and writes raw CSV, summary CSV, and Markdown evidence.
-The primary simulation artifacts remain the verified
-`results/meshecho_v2_1_15_icc2027_*` files, while the new sensitivity artifacts
-use the `meshecho_v2_1_17_icc2027_sensitivity_*` prefix.
+2.1.22 calibrated-matrix, component-ablation, cache-reuse, generalization,
+and robustness summary. The primary artifacts use the
+`results/meshecho_v2_1_22_icc2027_calibrated_multihop.csv` prefix, while the
+SF/load sensitivity artifacts use
+`meshecho_v2_1_22_icc2027_sensitivity_*`.
 
-The current `2.1.17` audit concludes that the existing 3000 m matrix is fair as
-a shared-harness comparison, but too link-friendly and too asymmetric for a
-standalone claim about general multi-hop confidence-aware routing. Its legacy
-native rows also use a shorter MeshCore-like route-cache TTL than MeshEcho.
-See
-`docs/results/meshecho_fairness_audit.md` before using the frozen results.
-
-The 2.1.15 calibrated probe, reused by the 2.1.17 paper revision, confirms this boundary with a 20-seed, 8.25 km
-matrix: managed flooding reaches 0.371 ACK PDR at 12.0 s airtime,
-CALM/MeshEcho reaches 0.720 ACK PDR and 28.1 s airtime versus 0.537
-and 38.5 s for matched MeshCore-like. Smart-CALM minus no-confidence is
-`+0.181` ACK PDR with a paired 95% interval `[+0.094,+0.268]`, while the
-no-fallback difference is `+0.002` with `[-0.020,+0.024]`; recovery and
-confidence effects are therefore reported as a policy-bundle result plus a
-separate controlled route-conflict mechanism check. The 18 km connected probe
-remains a route-discovery stress case rather than a neutral data-plane
-comparison.
-
-The pre-fix Smart-CALM ablation rows in the historical `2.1.3`/`2.1.7`
-artifacts must not be used as current evidence for the no-fallback variant.
-The no-fallback implementation and its regression test were corrected in
-`2.1.8`; a new ablation matrix must be generated before making quantitative
-claims about those rows.
+The component artifact
+`results/meshecho_v2_1_22_icc2027_component_ablation.csv` is generated with
+the same 20 seeds and connected-pair quality contract. It isolates confidence
+ranking, route-miss fallback, hop penalty, and route-age penalty. The primary
+matrix produces exactly two-hop selected pairs; deeper pair churn and
+hardware-in-the-loop validation remain future work rather than hidden
+assumptions. The repeated-pair cache diagnostic is stored under
+`results/meshecho_v2_1_22_icc2027_cache_ttl{600,30}.*`; its estimand is
+route-cache reuse/aging and it is not pooled with the sparse primary matrix.

@@ -30,11 +30,20 @@ DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S = 600.0
 ICC_PROTOCOLS = (
     "meshtastic",
     "meshcore",
-    "calm",
-    "smart-calm",
-    "smart-calm-static",
-    "smart-calm-no-fallback",
-    "smart-calm-no-confidence",
+    "etx",
+    "ett",
+    "minhop",
+    "meshecho",
+)
+
+# MeshEcho is the ICC method.  These variants are deliberately kept outside
+# the default ICC matrix so that component evidence cannot be mistaken for
+# additional competing protocols.
+MESHECHO_ABLATIONS = (
+    "meshecho-no-confidence",
+    "meshecho-no-fallback",
+    "meshecho-no-hop-penalty",
+    "meshecho-no-age-penalty",
 )
 
 
@@ -95,6 +104,8 @@ class RadioConfig:
     noise_figure_db: float = 6.0
     path_loss_exp: float = 2.7
     shadow_sigma_db: float = 4.0
+    temporal_fading_sigma_db: float = 0.0
+    temporal_fading_interval_s: float = 60.0
     capture_threshold_db: float = 6.0
     prr_slope: float = 1.15
     tx_current_ma: float = 120.0
@@ -663,13 +674,46 @@ class Simulator:
         )
         return pl0 + 10.0 * self.radio.path_loss_exp * math.log10(distance_m) + shadow
 
-    def rx_power_dbm(self, sender: int, receiver: int) -> float:
+    def temporal_fading_db(
+        self,
+        sender: int,
+        receiver: int,
+        when: Optional[float],
+    ) -> float:
+        """Return a paired, deterministic block-fading offset.
+
+        The offset is keyed by seed, unordered link, and time block.  It is
+        therefore identical for all protocols in a paired run, independent of
+        event-order random draws, while still allowing a cached route to become
+        stale after the channel block changes.
+        """
+
+        sigma = self.radio.temporal_fading_sigma_db
+        if sigma <= 0.0 or when is None:
+            return 0.0
+        interval = max(self.radio.temporal_fading_interval_s, 1e-9)
+        block = math.floor(max(0.0, when) / interval)
+        first, second = sorted((sender, receiver))
+        mixed = (
+            (self.seed * 0x9E3779B1)
+            ^ (first * 0x85EBCA6B)
+            ^ (second * 0xC2B2AE35)
+            ^ (block * 0x27D4EB2D)
+        ) & 0xFFFFFFFFFFFFFFFF
+        return random.Random(mixed).gauss(0.0, sigma)
+
+    def rx_power_dbm(
+        self,
+        sender: int,
+        receiver: int,
+        when: Optional[float] = None,
+    ) -> float:
         key = tuple(sorted((sender, receiver)))
         shadowing_db = self.link_shadowing_db.get(key, 0.0)
         return self.radio.tx_power_dbm - self.path_loss_db(
             self.distance_m(sender, receiver),
             shadowing_db=shadowing_db,
-        )
+        ) + self.temporal_fading_db(sender, receiver, when)
 
     def snr_from_power(self, rx_power_dbm: float) -> float:
         return rx_power_dbm - self.radio.noise_floor_dbm
@@ -752,12 +796,14 @@ class Simulator:
             self.metrics.rx_fail += 1
             return None
 
-        signal_dbm = self.rx_power_dbm(tx.sender, receiver)
+        signal_dbm = self.rx_power_dbm(tx.sender, receiver, when=tx.start)
         interference_dbm: List[float] = []
         for other in self.transmissions_overlapping(tx.start, tx.end):
             if other.tx_id == tx.tx_id or other.sender == receiver:
                 continue
-            interference_dbm.append(self.rx_power_dbm(other.sender, receiver))
+            interference_dbm.append(
+                self.rx_power_dbm(other.sender, receiver, when=other.start)
+            )
 
         snr_db = self.snr_from_power(signal_dbm)
         collided = False
@@ -1176,16 +1222,19 @@ class MeshCoreLike(RoutingProtocol):
         if receiver in packet.path:
             return
         key = (packet.origin, packet.final_dst, packet.request_id)
-        if key in self.seen_rreq[receiver]:
-            self.sim.metrics.duplicate_rx += 1
-            return
-        self.seen_rreq[receiver].add(key)
-
         new_path = packet.path + (receiver,)
         if receiver == packet.final_dst:
             if self.discovery_window_s <= 0.0:
                 # Preserve the historical immediate-reply baseline when no
-                # matched discovery window is requested.
+                # matched discovery window is requested.  In this mode the
+                # destination answers only the first copy of a request;
+                # duplicate suppression is intentionally scoped to this
+                # legacy branch because the matched-window branch below must
+                # expose every candidate path.
+                if key in self.seen_rreq[receiver]:
+                    self.sim.metrics.duplicate_rx += 1
+                    return
+                self.seen_rreq[receiver].add(key)
                 reverse_path = tuple(reversed(new_path))
                 reply = Packet(
                     kind="RREP",
@@ -1205,7 +1254,18 @@ class MeshCoreLike(RoutingProtocol):
             else:
                 key = (packet.origin, packet.final_dst, packet.request_id)
                 self.rreq_candidates.setdefault(key, []).append(new_path)
+                # The destination is the candidate collector in the matched
+                # window.  It must observe every arriving path, just as
+                # MeshEcho and the metric baselines do; suppressing duplicate
+                # RREQs before this branch makes the source-route baseline
+                # incomparable by shrinking its candidate pool.
+                self.seen_rreq[receiver].add(key)
             return
+
+        if key in self.seen_rreq[receiver]:
+            self.sim.metrics.duplicate_rx += 1
+            return
+        self.seen_rreq[receiver].add(key)
 
         node = self.sim.nodes[receiver]
         if packet.ttl <= 1 or not node.can_relay:
@@ -1486,7 +1546,7 @@ class CalmMesh(RoutingProtocol):
     def route_miss_recovery_ttl(self, flow_id: Optional[int] = None) -> int:
         if not self.route_miss_recovery_enabled:
             return 0
-        return self.sim.max_hops
+        return self.fallback_ttl_for(flow_id if flow_id is not None else 0)
 
     def send_data_on_path(
         self,
@@ -1687,6 +1747,223 @@ class CalmMesh(RoutingProtocol):
         forwarded = packet_at_receiver.with_ttl(packet.ttl - 1)
         pending = self.sim.transmit_later(receiver, forwarded, delay_s=self.flood_delay(receiver, rx))
         self.pending_fallback[pending_key] = pending
+
+
+class MeshEcho(CalmMesh):
+    """The named MeshEcho policy used by the ICC evaluation.
+
+    ``CalmMesh`` remains available as a legacy CLI alias, but this class is
+    the protocol identity used by the paper and all ICC-facing artifacts.
+    """
+
+    name = "meshecho"
+
+
+class MeshEchoNoConfidence(MeshEcho):
+    """MeshEcho with confidence ranking removed.
+
+    The discovery budget and forwarding/recovery machinery stay unchanged;
+    candidates are selected by shortest path, making this a route-admission
+    ablation rather than a different protocol family.
+    """
+
+    name = "meshecho-no-confidence"
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        del flow_id
+        return min(candidates, key=lambda item: (len(item[0]), -item[1], item[0]))
+
+
+class MeshEchoNoFallback(MeshEcho):
+    """MeshEcho with route-miss recovery disabled."""
+
+    name = "meshecho-no-fallback"
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        kwargs["route_miss_recovery_enabled"] = False
+        super().__init__(*args, **kwargs)
+
+
+class MeshEchoNoHopPenalty(MeshEcho):
+    """MeshEcho without the explicit per-hop confidence penalty."""
+
+    name = "meshecho-no-hop-penalty"
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        kwargs["hop_penalty_per_hop"] = 0.0
+        super().__init__(*args, **kwargs)
+
+
+class MeshEchoNoAgePenalty(MeshEcho):
+    """MeshEcho without route-cache age decay."""
+
+    name = "meshecho-no-age-penalty"
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        kwargs["route_age_penalty"] = 0.0
+        super().__init__(*args, **kwargs)
+
+
+class MetricMesh(CalmMesh):
+    """Matched-discovery source routing with a standard path metric.
+
+    The metric baselines deliberately share MeshEcho's packet/routing machinery
+    but disable route-miss fallback and profile learning.  They differ only
+    in how a received RREQ candidate is scored:
+
+    * ``etx`` minimizes the sum of expected transmissions, ``1 / PRR``.
+    * ``ett`` minimizes airtime-weighted expected transmissions,
+      ``ToA / PRR``.
+
+    Scores are represented as ``1 / (1 + cost)`` so the existing route-cache
+    and RREP data structures can carry a bounded higher-is-better value.
+    """
+
+    def __init__(
+        self,
+        metric_kind: str,
+        route_ttl_s: float = DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
+        discovery_window_s: float = DEFAULT_CALM_DISCOVERY_WINDOW_S,
+        flood_base_delay_s: float = 0.5,
+        flood_jitter_s: float = 0.7,
+    ) -> None:
+        if metric_kind not in {"etx", "ett"}:
+            raise ValueError(f"unknown metric kind: {metric_kind}")
+        super().__init__(
+            route_ttl_s=route_ttl_s,
+            discovery_window_s=discovery_window_s,
+            flood_base_delay_s=flood_base_delay_s,
+            flood_jitter_s=flood_jitter_s,
+            fallback_confidence_threshold=0.0,
+            route_miss_recovery_enabled=False,
+        )
+        self.metric_kind = metric_kind
+        self.name = f"{metric_kind}-mesh"
+
+    def flood_delay(
+        self,
+        receiver: Optional[int] = None,
+        rx: Optional[RxInfo] = None,
+    ) -> float:
+        """Use the source-route flood timing, without confidence bias."""
+
+        del receiver, rx
+        return self.flood_base_delay_s + self.sim.random.random() * self.flood_jitter_s
+
+    def cost_from_link(self, prr: float, toa_s: float) -> float:
+        """Return the per-hop ETX or ETT cost for a measured PRR."""
+
+        bounded_prr = clamp(prr, 0.05, 1.0)
+        if self.metric_kind == "etx":
+            return 1.0 / bounded_prr
+        return toa_s / bounded_prr
+
+    @staticmethod
+    def score_from_cost(cost: float) -> float:
+        """Convert a non-negative path cost to a bounded higher-is-better score."""
+
+        return 1.0 / (1.0 + max(0.0, cost))
+
+    def extend_metric(self, previous_score: float, rx: RxInfo) -> float:
+        """Append one received hop to an accumulated path score."""
+
+        previous_cost = (
+            1.0 / max(previous_score, 1e-9) - 1.0
+            if previous_score > 0.0
+            else 0.0
+        )
+        hop_prr = self.sim.prr_from_snr(rx.sinr_db)
+        total_cost = previous_cost + self.cost_from_link(
+            hop_prr,
+            self.sim.radio.toa_s,
+        )
+        return self.score_from_cost(total_cost)
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        del flow_id
+        return max(candidates, key=lambda item: (item[1], -len(item[0]), item[0]))
+
+    def on_rreq(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
+        if receiver in packet.path:
+            return
+        key = packet.flood_key
+        new_path = packet.path + (receiver,)
+        previous_score = packet.path_confidence or 1.0
+        score = self.extend_metric(previous_score, rx)
+
+        if receiver == packet.final_dst:
+            request_key = (packet.origin, packet.final_dst, packet.request_id)
+            self.rreq_candidates.setdefault(request_key, []).append((new_path, score))
+            self.seen_floods[receiver].add(key)
+            return
+
+        if key in self.seen_floods[receiver]:
+            self.sim.metrics.duplicate_rx += 1
+            return
+        self.seen_floods[receiver].add(key)
+
+        node = self.sim.nodes[receiver]
+        if packet.ttl <= 1 or not node.can_relay:
+            return
+        forwarded = Packet(
+            kind="RREQ",
+            flow_id=packet.flow_id,
+            origin=packet.origin,
+            final_dst=packet.final_dst,
+            ttl=packet.ttl - 1,
+            created_at=packet.created_at,
+            protocol=self.name,
+            request_id=packet.request_id,
+            path=new_path,
+            path_confidence=score,
+            app_payload=False,
+        )
+        self.sim.transmit_later(receiver, forwarded, delay_s=self.flood_delay())
+
+
+class MinHopMesh(CalmMesh):
+    """Matched-discovery shortest-path baseline.
+
+    This baseline shares MeshEcho's candidate-collection window and packet
+    model, but selects the fewest-hop candidate and disables route-miss
+    fallback.  It is intentionally distinct from ETX/ETT: it ignores link
+    quality after candidate exposure and represents a common hop-count
+    routing policy.
+    """
+
+    name = "minhop-mesh"
+
+    def __init__(
+        self,
+        route_ttl_s: float = DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
+        discovery_window_s: float = DEFAULT_CALM_DISCOVERY_WINDOW_S,
+        flood_base_delay_s: float = 0.5,
+        flood_jitter_s: float = 0.7,
+    ) -> None:
+        super().__init__(
+            route_ttl_s=route_ttl_s,
+            discovery_window_s=discovery_window_s,
+            flood_base_delay_s=flood_base_delay_s,
+            flood_jitter_s=flood_jitter_s,
+            fallback_confidence_threshold=0.0,
+            route_miss_recovery_enabled=False,
+        )
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        del flow_id
+        return min(candidates, key=lambda item: (len(item[0]), -item[1], item[0]))
 
 
 class SmartCalmMesh(CalmMesh):
@@ -2270,10 +2547,82 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
                 DEFAULT_MESHCORE_DISCOVERY_WINDOW_S,
             ),
         )
-    if name == "calm":
+    if name in {"etx", "ett"}:
         if args is None:
-            return CalmMesh()
-        return CalmMesh(
+            args = argparse.Namespace()
+        return MetricMesh(
+            metric_kind=name,
+            route_ttl_s=getattr(
+                args,
+                "metric_route_ttl_s",
+                getattr(
+                    args,
+                    "calm_route_ttl_s",
+                    getattr(args, "meshcore_route_ttl_s", DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S),
+                ),
+            ),
+            discovery_window_s=getattr(
+                args,
+                "metric_discovery_window_s",
+                getattr(
+                    args,
+                    "calm_discovery_window_s",
+                    getattr(args, "meshcore_discovery_window_s", DEFAULT_CALM_DISCOVERY_WINDOW_S),
+                ),
+            ),
+        )
+    if name == "minhop":
+        if args is None:
+            return MinHopMesh()
+        return MinHopMesh(
+            route_ttl_s=getattr(
+                args,
+                "minhop_route_ttl_s",
+                getattr(
+                    args,
+                    "calm_route_ttl_s",
+                    getattr(
+                        args,
+                        "meshcore_route_ttl_s",
+                        DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S,
+                    ),
+                ),
+            ),
+            discovery_window_s=getattr(
+                args,
+                "minhop_discovery_window_s",
+                getattr(
+                    args,
+                    "calm_discovery_window_s",
+                    getattr(
+                        args,
+                        "meshcore_discovery_window_s",
+                        DEFAULT_CALM_DISCOVERY_WINDOW_S,
+                    ),
+                ),
+            ),
+        )
+    if name in {"calm", "meshecho", *MESHECHO_ABLATIONS}:
+        if args is None:
+            if name == "calm":
+                return CalmMesh()
+            if name == "meshecho":
+                return MeshEcho()
+            return {
+                "meshecho-no-confidence": MeshEchoNoConfidence,
+                "meshecho-no-fallback": MeshEchoNoFallback,
+                "meshecho-no-hop-penalty": MeshEchoNoHopPenalty,
+                "meshecho-no-age-penalty": MeshEchoNoAgePenalty,
+            }[name]()
+        meshecho_classes = {
+            "meshecho": MeshEcho,
+            "meshecho-no-confidence": MeshEchoNoConfidence,
+            "meshecho-no-fallback": MeshEchoNoFallback,
+            "meshecho-no-hop-penalty": MeshEchoNoHopPenalty,
+            "meshecho-no-age-penalty": MeshEchoNoAgePenalty,
+        }
+        protocol_class = CalmMesh if name == "calm" else meshecho_classes[name]
+        protocol = protocol_class(
             route_ttl_s=getattr(args, "calm_route_ttl_s", 600.0),
             discovery_window_s=getattr(args, "calm_discovery_window_s", DEFAULT_CALM_DISCOVERY_WINDOW_S),
             flood_base_delay_s=getattr(args, "calm_flood_base_delay_s", 0.45),
@@ -2289,6 +2638,7 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
                 False,
             ),
         )
+        return protocol
     if name in {
         "smart-calm",
         "smart-calm-static",
@@ -2344,6 +2694,12 @@ def run_one(args: argparse.Namespace, protocol_name: str, seed: int) -> Dict[str
         supply_voltage_v=getattr(args, "supply_voltage_v", 3.3),
         path_loss_exp=args.path_loss_exp,
         shadow_sigma_db=args.shadow_sigma_db,
+        temporal_fading_sigma_db=getattr(args, "temporal_fading_sigma_db", 0.0),
+        temporal_fading_interval_s=getattr(
+            args,
+            "temporal_fading_interval_s",
+            60.0,
+        ),
         capture_threshold_db=args.capture_threshold_db,
     )
     protocol = build_protocol(protocol_name, args)
@@ -2438,7 +2794,12 @@ def parse_args() -> argparse.Namespace:
         choices=[
             "meshtastic",
             "meshcore",
+            "etx",
+            "ett",
+            "minhop",
             "calm",
+            "meshecho",
+            *MESHECHO_ABLATIONS,
             "smart-calm",
             "smart-calm-static",
             "smart-calm-no-fallback",
@@ -2491,6 +2852,18 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--path-loss-exp", type=float, default=2.7)
     parser.add_argument("--shadow-sigma-db", type=float, default=4.0)
+    parser.add_argument(
+        "--temporal-fading-sigma-db",
+        type=float,
+        default=0.0,
+        help="block-fading standard deviation in dB; zero keeps static shadowing",
+    )
+    parser.add_argument(
+        "--temporal-fading-interval-s",
+        type=float,
+        default=60.0,
+        help="duration of each paired block-fading interval",
+    )
     parser.add_argument("--capture-threshold-db", type=float, default=6.0)
     parser.add_argument(
         "--independent-rng-streams",
@@ -2564,9 +2937,17 @@ def main() -> None:
     if args.protocol == "both":
         protocols = ["meshtastic", "meshcore"]
     elif args.protocol == "all":
-        protocols = ["meshtastic", "meshcore", "calm"]
+        protocols = ["meshtastic", "meshcore", "etx", "ett", "minhop", "meshecho"]
     elif args.protocol == "all4":
-        protocols = ["meshtastic", "meshcore", "calm", "smart-calm"]
+        protocols = [
+            "meshtastic",
+            "meshcore",
+            "etx",
+            "ett",
+            "minhop",
+            "meshecho",
+            "smart-calm",
+        ]
     elif args.protocol == "icc":
         protocols = list(ICC_PROTOCOLS)
     else:
