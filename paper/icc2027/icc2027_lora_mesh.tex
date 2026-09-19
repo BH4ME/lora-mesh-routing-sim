@@ -6,7 +6,10 @@
 \usepackage{cite}
 \usepackage{fontspec}
 \usepackage{graphicx}
+\usepackage{tikz}
 \usepackage{url}
+
+\usetikzlibrary{calc}
 
 \newfontfamily\cjkfont{Heiti SC}
 \newcommand{\cnname}[1]{{\cjkfont #1}}
@@ -202,6 +205,17 @@ completion under the simulator's reverse-path ACK model. MeshEcho versus
 ETX/ETT is +0.059 ACK PDR ($[-0.108,+0.226]$), and versus min-hop is
 +0.301 ($[+0.161,+0.441]$); the latter is a distinct shortest-path
 baseline, not an oracle.
+
+\begin{figure}[t]
+\centering
+\input{figures/fig_primary_comparison.tex}
+\caption{Primary calibrated matrix. Bars are seed-level means and whiskers
+are two-sided 95\% confidence intervals. The left-to-right policy order is
+managed flooding, matched source-route (Src), ETX/ETT, min-hop (Min), and
+MeshEcho (Echo). ETX and fixed-SF ETT coincide under the shared packet-time
+model and are shown as one metric bar.}
+\label{fig:primary}
+\end{figure}
 
 \begin{table}[t]
 \centering

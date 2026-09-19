@@ -665,3 +665,14 @@ validation or keep the claims explicitly simulation-only.
   Tectonic PDF while keeping EDAS-friendly Latin spellings.
 - Updated the ICC checklist, README, plan, and findings; EDAS registration and
   exact title/author matching remain pending.
+
+## 2026-09-20 - ICC Primary Comparison Figure Added
+
+- Added `paper/icc2027/figures/fig_primary_comparison.tex`, a compact
+  two-panel bar chart for primary ACK PDR and total airtime.
+- Used the existing 2.1.22 Table II means and seed-level 95% CI half-widths;
+  no simulation or reported number changed, so the release remains 2.1.22.
+- Integrated the figure near the primary Results subsection and verified the
+  author-updated manuscript still compiles to exactly five letter-size pages.
+- Visual inspection of the rendered page found readable axes, separated
+  panels, and no clipping or overlap.

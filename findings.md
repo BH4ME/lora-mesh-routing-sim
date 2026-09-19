@@ -571,6 +571,19 @@ author list/title.
 - The exact same title and author order still need to be entered in EDAS before
   submission.
 
+## 2.1.22 Presentation Refinement
+
+- Added one compact two-panel bar figure to the ICC manuscript: ACK-confirmed
+  PDR and total airtime for the primary calibrated matrix.
+- Bars use the existing Table II means and whiskers use the existing
+  seed-level two-sided 95% CI half-widths; no new experiment or estimate was
+  introduced.
+- ETX and fixed-SF ETT are shown as one bar because they coincide under the
+  shared packet-time model. The figure improves scanability without turning
+  the paper into a collection of disconnected plots.
+- Tectonic compilation remains at five letter-size pages with no figure
+  clipping or label overlap in the inspected page.
+
 ## 2.1.21 Continuation State
 
 - The active clean worktree is `/tmp/lora_mesh_remote_current.iIrtPz` on

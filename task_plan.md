@@ -588,5 +588,8 @@ namespace and out of ICC methods, ablations, primary experiments, and claims.
 - Author metadata is now populated as `Gao Zu (高足)` and `Quan Zhi (全智)`,
   both at Shenzhen University; EDAS registration and exact metadata matching
   remain pending.
+- Added a compact two-panel primary-result bar figure with existing means and
+  95% CIs; the figure is presentation-only and does not require a version
+  bump.
 - Remaining submission action: register the exact title and author order in
   EDAS, then complete venue registration/presentation checks.

@@ -11,6 +11,9 @@
   `2.1.22` prefix.
 - Keep the ICC contribution MeshEcho-only and simulation-only; Smart-CALM
   remains a historical simulator/firmware namespace.
+- Add a compact primary-matrix bar figure with seed-level 95% confidence
+  intervals; this is a presentation-only refinement and does not change the
+  simulation version or reported estimates.
 
 ## 2.1.21 - MeshEcho generalization and stale-route evidence
 
