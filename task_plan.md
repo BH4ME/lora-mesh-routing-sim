@@ -585,5 +585,8 @@ namespace and out of ICC methods, ablations, primary experiments, and claims.
 - Python compileall, `bash -n tools/run_icc_experiments.sh`,
   `git diff --check`, PDF metadata, key CSV row-count checks, and 2.1.22
   report Smart-CALM leakage checks passed.
-- Remaining actions: selectively stage 2.1.22 source/docs/evidence/state
-  files, commit, push `version/v2`, update PR 1, and verify remote state.
+- Author metadata is now populated as `Gao Zu (高足)` and `Quan Zhi (全智)`,
+  both at Shenzhen University; EDAS registration and exact metadata matching
+  remain pending.
+- Remaining submission action: register the exact title and author order in
+  EDAS, then complete venue registration/presentation checks.

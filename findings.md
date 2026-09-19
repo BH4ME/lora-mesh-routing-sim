@@ -235,10 +235,9 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   limit, English IEEE 10-point format, PDF-only EDAS upload, and exact EDAS
   title/author-list match. It also states that accepted work must be
   registered and presented for proceedings/Xplore publication.
-- The compiled 2.1.15 paper satisfies the format/page/evidence checks, but the
-  source intentionally contains `Anonymous Authors`. Actual author metadata
-  is user-specific and remains the only pre-EDAS task; the checklist makes
-  that boundary explicit instead of guessing names.
+- The compiled paper satisfies the format/page/evidence checks, and the source
+  now contains the user-provided author metadata. Exact EDAS title/author
+  registration and venue actions remain the pre-submission boundary.
 
 ## 2026-09-19 - Historical ICC Hardware-Evidence Audit
 
@@ -562,6 +561,15 @@ The current local `2.1.18` worktree is staged but not published:
 `origin/version/v2` still reports `2.1.17`. Before any EDAS submission, push a
 tagged 2.1.18 artifact and replace `Anonymous Authors` with the exact EDAS
 author list/title.
+
+## 2.1.22 Author Metadata Update
+
+- The ICC manuscript now lists `Gao Zu (高足)` and `Quan Zhi (全智)` in that
+  order, both affiliated with Shenzhen University, Shenzhen, China.
+- The paper remains simulation-only; adding author metadata does not change the
+  2.1.22 simulation evidence or require a release-version bump.
+- The exact same title and author order still need to be entered in EDAS before
+  submission.
 
 ## 2.1.21 Continuation State
 

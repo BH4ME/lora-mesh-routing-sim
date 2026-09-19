@@ -26,9 +26,9 @@ guidelines](https://icc2027.ieee-icc.org/submission-guidelines).
 
 ## Must Be Completed In EDAS
 
-- [ ] Replace `Anonymous Authors` in
-  `paper/icc2027/icc2027_lora_mesh.tex` with the final author list and
-  affiliations.
+- [x] Replace `Anonymous Authors` in
+  `paper/icc2027/icc2027_lora_mesh.tex` with `Gao Zu (高足)` and
+  `Quan Zhi (全智)`, both affiliated with Shenzhen University.
 - [ ] Register the exact final title and the exact same author order in EDAS;
   ICC states that a mismatch can withdraw the paper from review.
 - [ ] Upload only the compiled PDF through EDAS, not the `.tex` source.

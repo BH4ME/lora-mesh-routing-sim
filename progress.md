@@ -652,6 +652,16 @@ update draft PR 1, and verify remote `version/v2`.
 
 ### Next exact action
 
-If continuing toward submission, replace `Anonymous Authors` with final EDAS
-metadata, complete venue checklist items, and decide whether to add real-hardware
+If continuing toward submission, verify the exact author order and title in EDAS,
+complete venue checklist items, and decide whether to add real-hardware
 validation or keep the claims explicitly simulation-only.
+
+## 2026-09-20 - ICC Author Metadata Added
+
+- Replaced the anonymous author block in the ICC manuscript with
+  `Gao Zu (高足)` and `Quan Zhi (全智)`, in that order.
+- Added the shared affiliation `Shenzhen University, Shenzhen, China`.
+- Added the CJK font declaration needed to render the Chinese names in the
+  Tectonic PDF while keeping EDAS-friendly Latin spellings.
+- Updated the ICC checklist, README, plan, and findings; EDAS registration and
+  exact title/author matching remain pending.

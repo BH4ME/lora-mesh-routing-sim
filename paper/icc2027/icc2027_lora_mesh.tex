@@ -4,8 +4,12 @@
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{cite}
+\usepackage{fontspec}
 \usepackage{graphicx}
 \usepackage{url}
+
+\newfontfamily\cjkfont{Heiti SC}
+\newcommand{\cnname}[1]{{\cjkfont #1}}
 
 \setlength{\textfloatsep}{4pt}
 \setlength{\floatsep}{3pt}
@@ -17,8 +21,8 @@
 \title{MeshEcho: Confidence-Aware Route Admission for LoRa Mesh IoT}
 
 \author{
-\IEEEauthorblockN{Anonymous Authors}
-\IEEEauthorblockA{Submitted to IEEE ICC 2027, Internet of Things and Sensor Networks}
+\IEEEauthorblockN{Gao Zu (\cnname{高足}) \quad Quan Zhi (\cnname{全智})}
+\IEEEauthorblockA{Shenzhen University, Shenzhen, China}
 }
 
 \maketitle
