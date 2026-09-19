@@ -150,4 +150,11 @@ if [[ "${ICC_RUN_CALIBRATED_MULTIHOP:-1}" == "1" ]]; then
     --report "docs/results/${CALIBRATED_PREFIX}.md"
 fi
 
+if [[ "${ICC_RUN_SENSITIVITY:-0}" == "1" ]]; then
+  python3 tools/run_icc_sensitivity_experiments.py \
+    --seeds "${ICC_SENSITIVITY_SEEDS:-$SEEDS}" \
+    --seed0 "$SEED0" \
+    --out-prefix "${ICC_SENSITIVITY_PREFIX:-${OUT_PREFIX}_sensitivity}"
+fi
+
 printf '\nICC experiment outputs written under results/ with prefix %s\n' "$OUT_PREFIX"

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.1.17 - Reviewer-directed ICC evidence revision
+
+- Add managed flooding to the primary calibrated comparison instead of
+  omitting a raw protocol row.
+- Add a reproducible 20-seed SF8 sensitivity case and a 20-seed offered-load
+  case, both using the connected-pair quality gate and matched discovery budget.
+- Narrow the Smart-CALM/no-confidence interpretation to a complete
+  policy-bundle effect and cite the controlled route-conflict experiment as the
+  surgical candidate-selection evidence.
+- Keep the five-page ICC manuscript, prior-work hardware audit, and
+  simulation-only external-validity boundary.
+
 ## 2.1.16 - Five-page ICC manuscript and prior-work hardware audit
 
 - Expand the ICC 2027 manuscript from three pages to five pages with related

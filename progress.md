@@ -351,3 +351,76 @@
   gates remain authoritative.
 - The remaining pre-submission item is still user-specific author metadata in
   EDAS and the LaTeX author block; no names were inferred.
+
+## 2026-09-19 - 2.1.17 Reviewer-Directed Revision Started
+
+- Re-read the current clean remote clone, release metadata, ICC manuscript,
+  fairness probe, experiment runner, and planning files.
+- Confirmed the next requested change is implementation of the prior
+  assessment, not a new venue search.
+- Chosen vertical slices:
+  1. add a regression test for sensitivity-run configuration and implement
+     the runner;
+  2. run the SF/load cases and write their versioned reports;
+  3. revise the ICC manuscript to include flooding, controlled-mechanism
+     evidence, and conservative causal language;
+  4. bump to 2.1.17, compile/test, publish, and verify.
+- The local checkout remains unusable for Git operations because of missing
+  tree objects; all changes stay in `/tmp/lora_mesh_remote_current.iIrtPz`.
+
+### Next Exact Action
+
+Inspect the public CLI/test conventions and add the first failing test for the
+new sensitivity workflow before editing implementation code.
+
+## 2026-09-19 - 2.1.17 Sensitivity Workflow Vertical Slice
+
+- Added the first failing test for a sensitivity-case configuration, then
+  implemented `tools/run_icc_sensitivity_experiments.py`.
+- The runner exposes two cases: `sf8` (SF8 at 1 flow/min in a calibrated
+  10 km square) and `load4` (SF7 at 4 flows/min in the primary 8.25 km
+  square).
+- Both cases retain 24 shared graph-selected pairs, PRR threshold `0.90`,
+  graph distance 2--4 hops, direct-link PRR-below-0.99 gate `0.10`, matched
+  2 s discovery, independent channel RNG, and zero Smart-CALM timeout retries.
+- `tests/test_icc_sensitivity.py` passes (2 tests).
+- Initial direct smoke exposed an import-path issue and an SF8 link-regime
+  gate failure at 8.25 km; the first 20-seed calibration also rejected 9 km
+  at seeds 10 and 14. The case is now 10 km, which passed a 20-seed
+  meshcore-only quality calibration; the one-seed two-case smoke writes both
+  CSV and Markdown reports successfully.
+
+### Next Exact Action
+
+Run the two sensitivity cases with 20 seeds and all seven ICC configurations,
+then inspect the generated link-regime and protocol summaries before editing
+the manuscript.
+
+## 2026-09-19 - 2.1.17 Sensitivity Matrix and Manuscript Revision
+
+- Completed the real two-case run with 20 seeds and all seven ICC
+  configurations:
+  `results/meshecho_v2_1_17_icc2027_sensitivity_sf8.csv` and
+  `results/meshecho_v2_1_17_icc2027_sensitivity_load4.csv`, plus summary CSVs
+  and Markdown reports.
+- Both cases passed the per-seed connected-multihop quality gate. SF8 uses a
+  10000 m square; SF7/load4 uses the primary 8250 m square.
+- Added managed flooding to the primary manuscript table and comparison summary.
+- Replaced the old legacy table in the five-page paper with a compact
+  primary/SF8/load sensitivity table.
+- Reworded Smart-CALM/no-confidence evidence as a complete policy-bundle
+  difference; the controlled route-conflict experiment is now the surgical
+  candidate-selection evidence.
+- Added the optional `ICC_RUN_SENSITIVITY=1` hook to
+  `tools/run_icc_experiments.sh`, the direct sensitivity command to README and
+  experiment-plan docs, and bumped metadata to 2.1.17.
+- Tectonic compiled
+  `paper/icc2027/build-2_1_17-tectonic/icc2027_lora_mesh.pdf` successfully.
+  `pdfinfo` reports exactly 5 letter-size pages; rendered pages 1, 3, 4, and 5
+  were visually inspected with no clipping, overlap, or unreadable table.
+
+### Next Exact Action
+
+Run the full 2.1.17 test/static/consistency gates, then selectively stage the
+new runner, tests, sensitivity CSV/report artifacts, paper/docs, and Markdown
+state files. Do not stage partial 2.1.16 outputs or build caches.

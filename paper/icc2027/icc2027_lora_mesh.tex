@@ -24,13 +24,15 @@ adds redundancy but creates collisions, whereas cached source routes are
 efficient but can select a weak multi-hop path. We present MeshEcho, a
 confidence-aware route-selection and bounded-recovery prototype, and evaluate
 it with a reproducible packet-level simulator. The ICC release (version
-2.1.16) uses a shared topology, traffic trace, independent reception stream,
+2.1.17) uses a shared topology, traffic trace, independent reception stream,
 and matched 2-s route-discovery window. In a calibrated 50-node, 8.25-km
 multi-hop matrix over 20 seeds, MeshEcho obtains 0.720 ACK-confirmed PDR with
 28.1 s aggregate airtime, compared with 0.537 and 38.5 s for the matched
 source-route baseline. However, the Smart-CALM controller reaches 0.563 PDR,
-and its no-confidence control reaches 0.382; the paired improvement is
-separable from the controller's recovery behavior. A 3-seed topology gate
+and its no-confidence control reaches 0.382; this is a complete policy-bundle
+difference because the control also changes route admission and discovery.
+A controlled route-conflict audit supplies the narrower candidate-selection
+evidence. A 3-seed topology gate
 confirms non-saturated direct links and at least two graph hops. A legacy
 contention case and an 18-km discovery stress test expose the limits of the
 claim. The evidence supports a bounded reliability--airtime tradeoff, not
@@ -55,10 +57,13 @@ but a route with one weak hop can fail even when another route exists.
 MeshEcho explores the middle of this design space. It records lightweight
 link-quality evidence during discovery, ranks candidate paths by confidence,
 and invokes bounded recovery forwarding when discovery or a cached path is
-uncertain. The implementation is intentionally modest: it is a simulation
+uncertain. This is not a claim to invent link-quality routing: the novelty is
+the explicit coupling of confidence-based candidate admission, a matched
+discovery budget, and bounded recovery, with each budget exposed in the
+comparison. The implementation is intentionally modest: it is a simulation
 prototype, not a replacement for a production mesh stack. The central
-question is whether confidence can improve the reliability--airtime operating
-point without being mistaken for a universal routing advantage.
+question is whether this policy bundle can improve the reliability--airtime
+operating point without being mistaken for a universal routing advantage.
 
 This paper makes four contributions:
 \begin{itemize}
@@ -67,8 +72,8 @@ propagation, shadowing, half-duplex collision/capture, route discovery, and
 energy accounting;
 \item a pre-specified, non-saturated multi-hop ICC matrix with per-seed quality
 gates and matched discovery timing;
-\item paired ablations that separate confidence ranking from timeout and
-route-miss recovery; and
+\item paired ablations that expose the complete policy-bundle effect, plus a
+controlled route-conflict audit that isolates candidate admission; and
 \item an explicit evidence boundary covering fixed-pair contention, route
 discovery stress, and simulation-only limitations.
 \end{itemize}
@@ -97,9 +102,11 @@ The multihop literature identifies a distinct tension between flooding
 redundancy and airtime cost \cite{wong2024multihop,centelles2021beyond}, and
 LoRa mesh implementations demonstrate that routing state and packet timing
 matter in practice \cite{sole2022implementation,pueyo2024minimalistic}. Our
-focus is narrower: quantify whether a lightweight confidence signal can select
-better cached paths under a shared packet-level channel model, while exposing
-the route-discovery and recovery budgets that can otherwise hide the mechanism.
+focus is narrower: quantify whether a lightweight confidence signal, coupled
+to explicit discovery and recovery budgets, can select better cached paths
+under a shared packet-level channel model, while exposing the budgets that can
+otherwise hide the mechanism. MeshEcho therefore targets a reproducibility and
+mechanism gap rather than claiming a new family of link-quality metrics.
 
 \section{Protocol and Model}
 \subsection{Network model}
@@ -129,8 +136,8 @@ confidence-dependent admission and rewards. These controls are necessary
 because a full-versus-baseline difference otherwise conflates mechanisms.
 
 \subsection{Confidence and recovery mechanism}
-For a received discovery packet with SNR margin $m$ relative to the SF7
-sensitivity threshold, CALM assigns a bounded link score
+For a received discovery packet with SNR margin $m$ relative to the configured
+spreading-factor sensitivity threshold, CALM assigns a bounded link score
 \begin{equation}
  q(m,c) = \operatorname{clip}\!\left((1+e^{-0.7m})^{-1}-0.18c,\,0.05,\,0.98\right),
 \end{equation}
@@ -149,8 +156,12 @@ source route gets a first chance. The primary ICC matrix sets the threshold to
 zero and Smart-CALM timeout retries to zero; the fallback code path is retained
 as a separately measured mechanism. The no-confidence control keeps the same
 traffic and simulator but removes confidence-dependent candidate admission and
-reward updates. This decomposition prevents a recovery effect from being
-reported as a pure path-ranking effect.
+reward updates. Its route set and discovery success can therefore change, so
+the end-to-end ablation is interpreted as a complete policy-bundle effect.
+The controlled route-conflict experiment is the surgical test for candidate
+selection. The constants in (1) and the hop/age penalties are engineering
+parameters fixed from earlier low-cost tuning runs, not fit to the reported
+20-seed primary matrix.
 
 \section{Experimental Design}
 \subsection{Calibrated ICC matrix}
@@ -164,7 +175,9 @@ at least 2.0 hops, and at least 10\% of direct links have PRR below 0.99.
 Reception draws use an independent random stream from protocol jitter and
 exploration, preventing later protocols from inheriting a changed channel
 trace. Smart-CALM timeout retries are zero. Values below are means over 20
-seeds with two-sided 95\% confidence half-widths.
+seeds with two-sided 95\% confidence half-widths. Two additional 20-seed cases
+vary spreading factor or offered load while retaining the same pair-selection
+and quality-gate contract.
 
 \subsection{Parameters, metrics, and statistical protocol}
 Table~\ref{tab:params} lists the fixed parameters that define the calibrated
@@ -219,6 +232,7 @@ routes.}
 \toprule
 Protocol & ACK PDR & Dest. PDR & Airtime (s) & Discovery & Multi-hop route & Mean cached hops\\
 \midrule
+Managed flooding & .371$\pm$.124 & 1.000$\pm$.000 & 12.0$\pm$1.8 & 0 & 0 & 0.00\\
 MeshCore-like & .537$\pm$.081 & .679$\pm$.093 & 38.5$\pm$5.3 & .741 & .775 & 1.80\\
 MeshEcho (CALM) & \textbf{.720$\pm$.115} & \textbf{.739$\pm$.115} & \textbf{28.1$\pm$4.7} & .891 & .989 & 2.03\\
 Smart-CALM & .563$\pm$.088 & .630$\pm$.100 & 28.6$\pm$4.7 & .801 & 1.000 & 2.13\\
@@ -254,11 +268,15 @@ values into one grand average would mix different estimands and is avoided.
 
 \subsection{Controls and robustness cases}
 The same release reruns a legacy 3000-m repeated-pair matrix (50 nodes,
-1200 s, six flows/min, SF9) for traceability, plus a 6-dB shadowing case and
-a ten-flows/min load case. These are contention-oriented sensitivity cases,
-not substitutes for the calibrated matrix. A separate 18000-m, 3-seed probe
-uses the same connected-pair selector with a PRR threshold of 0.70. It is a
-topology and route-discovery quality gate, not a headline PDR comparison.
+1200 s, six flows/min, SF9) for traceability, plus two connected-multihop
+20-seed sensitivity cases. The SF8 case uses a 10000-m square at one flow per
+minute; the offered-load case uses SF7 in the primary 8250-m square at four
+flows per minute. Both reuse the 24-pair, PRR $\geq0.90$, 2--4-hop selector,
+matched 2-s discovery window, independent reception stream, and zero timeout
+retries. Their PDR values are not pooled with the primary estimand. A separate
+18000-m, 3-seed probe uses the same connected-pair selector with a PRR
+threshold of 0.70. It is a topology and route-discovery quality gate, not a
+headline PDR comparison.
 
 \section{Results}
 \subsection{Calibrated multi-hop behavior}
@@ -272,12 +290,15 @@ confidence ranking are both enabled.
 
 The ablations make this boundary measurable. Smart-CALM minus
 no-confidence is +0.181 ACK PDR with a paired 95\% interval
-$[+0.094,+0.268]$, showing a confidence-sensitive difference in this
-calibrated regime. Smart-CALM minus no-fallback is only +0.002 with interval
+$[+0.094,+0.268]$, but this is a complete disabled-policy difference:
+no-confidence changes route admission, discovery success, and the set of
+cached paths. Smart-CALM minus no-fallback is only +0.002 with interval
 $[-0.020,+0.024]$; its mean PDR gain is therefore not isolated from fallback
-in this replay. The no-confidence line also has lower discovery success and
-fewer multi-hop cached routes, so it is evidence about the complete disabled
-policy, not a controlled oracle with identical route candidates.
+in this replay. In the separate fixed seven-node route-conflict audit, both
+candidate paths were observed in 88\% of seeds; with a 7.5-dB weakened short
+branch, confidence selected the longer path in every such seed and improved
+ACK PDR by $+0.215\pm0.044$, while null, moderate, and reverse controls were
+zero. That is the narrower candidate-selection evidence.
 
 \begin{table}[t]
 \centering
@@ -289,7 +310,7 @@ policy, not a controlled oracle with identical route candidates.
 \toprule
 Comparison & $\Delta$ ACK & 95\% CI & $\Delta$ airtime & Interpretation \\
 \midrule
-Smart vs. no-confidence & +.181 & $[+.094,+.268]$ & +.7 s & Confidence bundle \\
+Smart vs. no-confidence & +.181 & $[+.094,+.268]$ & +.7 s & Policy bundle \\
 Smart vs. no-fallback & +.002 & $[-.020,+.024]$ & +.5 s & Recovery sensitivity \\
 \bottomrule
 \end{tabular}
@@ -297,31 +318,31 @@ Smart vs. no-fallback & +.002 & $[-.020,+.024]$ & +.5 s & Recovery sensitivity \
 
 \begin{table}[t]
 \centering
-\caption{2.1.16 legacy mixed-traffic sensitivity case (20 seeds). This table
-is retained for traceability; direct links are mostly easy and paths are not a
-neutral deployment benchmark.}
-\label{tab:legacy}
+\caption{Robustness cases (20 seeds). Entries are ACK PDR/airtime means;
+the underlying CSVs retain 95\% intervals and all seven configurations.}
+\label{tab:robustness}
 \scriptsize
-\setlength{\tabcolsep}{2.5pt}
-\begin{tabular}{lrrr}
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabular}{lccc}
 \toprule
-Protocol & ACK PDR & Broadcast & Airtime (s)\\
+Case & Managed flood & MeshCore & CALM\\
 \midrule
-Managed flooding & .853 & .942 & 1177\\
-MeshCore-like & .650 & .958 & 898\\
-MeshEcho (CALM) & .728 & .970 & 847\\
-Smart-CALM & .936 & .962 & 827\\
+Primary SF7/1 min & .371/12.0 & .537/38.5 & .720/28.1\\
+SF8/1 min & .434/39.2 & .160/70.4 & .435/61.7\\
+SF7/4 min & .409/50.5 & .411/151.5 & .652/111.3\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Legacy robustness and discovery stress}
-In the repeated-pair mixed case (Table~\ref{tab:legacy}), MeshEcho saves 5.7\%
-airtime versus MeshCore-like while raising ACK PDR by 0.078. The high-load
-case reduces all delivery ratios, while the 6-dB shadowing case preserves the
-same ordering within the uncertainty of the frozen workload. These cases are
-useful for regression and contention behavior, but repeated pairs favor route
-reuse and the direct-link PRR distribution is saturated.
+\subsection{Robustness and discovery stress}
+Table~\ref{tab:robustness} shows why the claim is a tradeoff rather than a
+dominance claim. At SF8, managed flooding and CALM have nearly identical ACK
+PDR, while flooding uses less airtime; at four flows per minute, CALM retains
+a clear ACK-PDR advantage over both fixed baselines but still spends more
+airtime than flooding. The legacy repeated-pair matrix and its 6-dB shadowing
+and ten-flows/minute checks remain regression artifacts in the release; they
+are not neutral deployment benchmarks because direct links are saturated and
+pairs repeat.
 
 The 18-km quality probe passed all three seeds with mean graph distance 2.014,
 direct-link fractions below 0.99 and 0.50 of 0.641 and 0.445, and a complete
@@ -331,13 +352,17 @@ stress diagnostic; treating its low PDR as a general source-route result would
 confound discovery timing, connectivity, and data forwarding.
 
 \section{Discussion}
-The calibrated matrix supports three bounded observations. First, confidence-
+The calibrated matrix supports four bounded observations. First, confidence-
 aware CALM reaches a better reliability--airtime point than the matched
-source-route baseline in this shared harness. Second, the Smart-CALM ablation
-is informative but not surgical: removing confidence changes route admission,
+source-route baseline in this shared harness, but managed flooding remains
+the lower-airtime reference. Second, the sensitivity cases show that the
+operating point moves with spreading factor and offered load: CALM is not
+uniformly best on both PDR and airtime. Third, the Smart-CALM ablation is
+informative but not surgical: removing confidence changes route admission,
 discovery success, and the set of cached paths, so the +0.181 paired ACK-PDR
 difference is evidence for the complete policy bundle rather than a causal
-effect of one scalar score. Third, the discovery stress case demonstrates why
+effect of one scalar score. The controlled route-conflict audit supplies the
+narrower candidate-selection result. Fourth, the discovery stress case demonstrates why
 graph connectivity alone is insufficient. A pair can have a 2-hop analytical
 path while broadcast contention prevents the source from learning it.
 
@@ -372,9 +397,10 @@ the paired ablations provide narrower mechanism evidence.
 The release separates source, generated evidence, and interpretation. The
 simulator and unit tests define the packet and routing behavior; the ICC shell
 runner fixes the four legacy scenarios, the stress gate, and the calibrated
-matrix; raw CSVs retain one row per protocol and seed; and the Markdown reports
-retain the link-regime and pair-selection diagnostics that are easy to lose in
-an aggregate table. Re-running the workflow with a new output prefix should
+matrix; the sensitivity runner fixes the SF8 and offered-load cases; raw CSVs
+retain one row per protocol and seed; and the Markdown reports retain the
+link-regime and pair-selection diagnostics that are easy to lose in an
+aggregate table. Re-running the workflow with a new output prefix should
 produce the same schema and the same quality-gate checks, although stochastic
 values are expected to vary only when seeds or code change.
 
@@ -396,23 +422,27 @@ retry and fallback budgets across baselines, model variable headers, and
 validate the policy on hardware or hardware-in-the-loop.
 
 All source, tests, experiment scripts, raw CSVs, reports, and this paper are
-released in version 2.1.16 at
+released in version 2.1.17 at
 \url{https://github.com/BH4ME/lora-mesh-routing-sim}. The main workflow is
-\texttt{OUT\_PREFIX=meshecho\_v2\_1\_16\_icc2027 bash tools/run\_icc\_experiments.sh};
+\texttt{OUT\_PREFIX=meshecho\_v2\_1\_17\_icc2027 bash tools/run\_icc\_experiments.sh};
 the script runs the four legacy cases, the topology gate, and the calibrated
-matrix. No human participants or personal data were involved; there are no
-known conflicts of interest or external funding.
+matrix. The sensitivity command is
+\texttt{python3 tools/run\_icc\_sensitivity\_experiments.py}. No human
+participants or personal data were involved; there are no known conflicts of
+interest or external funding.
 
 \section{Conclusion}
 MeshEcho reaches a useful reliability--airtime operating point in a calibrated
 multi-hop LoRa simulation: 0.720 ACK PDR and 28.1 s airtime versus 0.537 and
 38.5 s for a matched source-route baseline. The result is reproducible and
-passes explicit topology/link-quality gates. However, paired controls show
-that Smart-CALM's confidence-sensitive difference and its recovery behavior
-must be reported separately, while the harsh discovery probe warns against
-using route-discovery failure as a universal protocol ranking. Version 2.1.16
-therefore supports a bounded mechanism and tradeoff claim, not a claim of
-general dominance or physical validation.
+passes explicit topology/link-quality gates. Sensitivity cases show that the
+tradeoff changes with SF and offered load, and the controlled route-conflict
+audit provides narrower candidate-selection evidence. The Smart-CALM
+ablation and recovery behavior must still be reported separately, while the
+harsh discovery probe warns against using route-discovery failure as a
+universal protocol ranking. Version 2.1.17 therefore supports a bounded
+mechanism and tradeoff claim, not a claim of general dominance or physical
+validation.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

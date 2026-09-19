@@ -3,10 +3,20 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.16`; the firmware prototype remains
+current repository release is `2.1.17`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `smart-calm-sim-v2.1.17`
+
+- Status: reviewer-directed ICC revision on 2026-09-19.
+- Add managed flooding to the primary comparison and narrow the
+  Smart-CALM/no-confidence interpretation to a complete policy-bundle effect.
+- Add a controlled route-conflict mechanism citation and two 20-seed
+  connected-multihop sensitivity cases: SF8 and offered load.
+- Keep the prior-work hardware audit and simulation-only external-validity
+  boundary from 2.1.16.
 
 ## `smart-calm-sim-v2.1.16`
 

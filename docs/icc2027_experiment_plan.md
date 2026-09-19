@@ -50,6 +50,11 @@ discovery window. It is intended to test route selection in a connected,
 non-saturated regime; the 18 km probe is retained as a separate discovery
 stress diagnostic.
 
+Set `ICC_RUN_SENSITIVITY=1` to append the 20-seed SF8 and offered-load
+connected-multihop cases from `tools/run_icc_sensitivity_experiments.py` to the
+same release run. The default is off so the primary reproduction command
+remains short; the sensitivity runner can also be invoked directly.
+
 The default setup is 50 nodes in a 3000 m square, 1200 s per run, eight fixed
 unicast pairs, SF9/BW125 kHz/CR 4/5, and 20 seeds. Environment variables
 `NODES`, `AREA_M`, `DURATION_S`, `PAIR_COUNT`, `SEEDS`, `SEED0`, and `OUT_PREFIX`
@@ -127,26 +132,30 @@ trade-offs. The raw CSV files and long-format summary CSVs preserve the
 remaining metrics for supplementary analysis.
 
 See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
-2.1.16 calibrated-matrix and robustness summary. The paper-only 2.1.16
-revision reuses the verified 2.1.15 simulation artifacts; a fresh run can
-write a new prefix. The raw versioned artifacts
-are `results/meshecho_v2_1_15_icc2027_*` and
-`docs/results/meshecho_v2_1_15_icc2027_*.md`.
+2.1.17 calibrated-matrix and robustness summary. The 2.1.17 revision adds a
+20-seed SF8 case and a 20-seed offered-load case through
+`tools/run_icc_sensitivity_experiments.py`; each case reuses the connected-pair
+quality contract and writes raw CSV, summary CSV, and Markdown evidence.
+The primary simulation artifacts remain the verified
+`results/meshecho_v2_1_15_icc2027_*` files, while the new sensitivity artifacts
+use the `meshecho_v2_1_17_icc2027_sensitivity_*` prefix.
 
-The current `2.1.16` audit concludes that the existing 3000 m matrix is fair as
+The current `2.1.17` audit concludes that the existing 3000 m matrix is fair as
 a shared-harness comparison, but too link-friendly and too asymmetric for a
 standalone claim about general multi-hop confidence-aware routing. Its legacy
 native rows also use a shorter MeshCore-like route-cache TTL than MeshEcho.
 See
 `docs/results/meshecho_fairness_audit.md` before using the frozen results.
 
-The 2.1.15 calibrated probe, reused by the 2.1.16 paper revision, confirms this boundary with a 20-seed, 8.25 km
-matrix: CALM/MeshEcho reaches 0.720 ACK PDR and 28.1 s airtime versus 0.537
+The 2.1.15 calibrated probe, reused by the 2.1.17 paper revision, confirms this boundary with a 20-seed, 8.25 km
+matrix: managed flooding reaches 0.371 ACK PDR at 12.0 s airtime,
+CALM/MeshEcho reaches 0.720 ACK PDR and 28.1 s airtime versus 0.537
 and 38.5 s for matched MeshCore-like. Smart-CALM minus no-confidence is
 `+0.181` ACK PDR with a paired 95% interval `[+0.094,+0.268]`, while the
 no-fallback difference is `+0.002` with `[-0.020,+0.024]`; recovery and
-confidence effects are therefore reported separately. The 18 km connected
-probe remains a route-discovery stress case rather than a neutral data-plane
+confidence effects are therefore reported as a policy-bundle result plus a
+separate controlled route-conflict mechanism check. The 18 km connected probe
+remains a route-discovery stress case rather than a neutral data-plane
 comparison.
 
 The pre-fix Smart-CALM ablation rows in the historical `2.1.3`/`2.1.7`

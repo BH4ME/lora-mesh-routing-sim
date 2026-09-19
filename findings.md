@@ -297,6 +297,55 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   propose hardware or hardware-in-the-loop validation as future work. It must
   not imply that the current results are measured on SX126x/SX127x devices.
 
+## 2.1.17 Reviewer-Directed Findings
+
+- The current primary ICC table omits `meshtastic-like` even though the
+  connected-multihop raw report contains it. The omission makes the comparison
+  look selective; the revised primary table should include managed flooding
+  with the same shared topology and traffic trace.
+- The Smart-CALM/no-confidence ablation changes candidate admission and route
+  discovery success (`0.801` versus `0.589` in the reused calibrated report),
+  so the end-to-end `+0.181` ACK-PDR difference cannot be called a confidence-
+  only causal effect. It should be labeled a complete policy-bundle effect.
+- The controlled route-conflict experiment is the appropriate surgical
+  evidence: it holds the candidate set fixed and shows confidence selecting
+  a longer reliable path only when the shorter path is artificially weakened.
+  The manuscript should point to that experiment and keep it distinct from the
+  full-network ablation.
+- The current paper has one powered non-saturated regime. A versioned
+  sensitivity runner should add at least SF variation and offered-load
+  variation under the same connected-pair selection and quality gate.
+- New sensitivity outputs must be inspected for gate failures and reported as
+  robustness evidence, not silently pooled with the primary estimand.
+
+## 2.1.17 Implementation Findings
+
+- `tools/run_icc_sensitivity_experiments.py` now reuses
+  `run_one_probe()`, `validate_non_degenerate_regime()`, `write_csv()`, and
+  `write_report()` instead of duplicating simulator logic.
+- The SF8 case initially used 8.25 km and then 9 km, but the 20-seed gate
+  rejected seed 10 and seed 14 at those settings. A 10 km area passes all 20
+  seeds while preserving the connected-pair and graph-hop contract; this
+  calibration choice is recorded in the runner, not hidden in the paper.
+- A one-seed smoke produced both sensitivity reports with all seven protocol
+  configurations. No quantitative paper claim is based on that smoke.
+
+## 2.1.17 Sensitivity Results
+
+- The 20-seed SF8/10-km case passed all per-seed gates. Means:
+  managed flooding `0.434` ACK PDR / `39.2 s` airtime, MeshCore-like
+  `0.160` / `70.4 s`, CALM `0.435` / `61.7 s`, Smart-CALM `0.402` /
+  `61.4 s`, and no-confidence `0.299` / `59.8 s`.
+- The 20-seed SF7/4-flows-per-minute case passed all per-seed gates. Means:
+  managed flooding `0.409` / `50.5 s`, MeshCore-like `0.411` /
+  `151.5 s`, CALM `0.652` / `111.3 s`, Smart-CALM `0.605` /
+  `110.9 s`, and no-confidence `0.443` / `109.1 s`.
+- The SF8 case is a boundary case: flooding and CALM have nearly equal PDR,
+  but flooding uses less airtime. The load case preserves a CALM PDR
+  advantage while flooding remains the lower-airtime reference.
+- The compiled 2.1.17 paper is still exactly five letter-size pages; the new
+  robustness table fits without overfull-box or unresolved-reference warnings.
+
 ## 2.1.16 Manuscript Revision Findings
 
 - The ICC source now contains related work, an implementation-faithful CALM

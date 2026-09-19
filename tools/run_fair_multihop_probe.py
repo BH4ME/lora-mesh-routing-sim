@@ -557,9 +557,10 @@ def write_report(
                 "selected from the same static link-budget graph for every "
                 "protocol."
             ),
-            "- A positive Smart-CALM result cannot be attributed to confidence "
-            "ranking alone when it differs from `smart-calm-no-fallback`; "
-            "timeout recovery must be reported as a separate mechanism.",
+            "- The Smart-CALM/no-confidence line is a complete disabled-policy "
+            "comparison because confidence changes route admission and "
+            "discovery; the controlled route-conflict experiment is the "
+            "surgical candidate-selection test.",
             "- The raw route-hop columns should be checked before calling this "
             "a multi-hop benchmark. A low multi-hop fraction means the "
             "parameter setting is still too easy.",

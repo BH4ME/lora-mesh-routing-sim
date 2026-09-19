@@ -7,7 +7,7 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.16` (paper/results package; firmware prototype
+Current repository release: `2.1.17` (ICC reviewer-directed paper/results package; firmware prototype
 remains `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -168,6 +168,19 @@ The current ICC workflow also runs a calibrated connected-multihop matrix at
 and 20 seeds. The MeshCore-like baseline uses the same 2 s discovery collection
 window as CALM for this fresh comparison. This is the primary mechanism check;
 the 18 km probe remains a route-discovery stress diagnostic.
+
+Run the 2.1.17 spreading-factor and offered-load sensitivity cases with the
+same connected-pair quality contract:
+
+```bash
+python3 tools/run_icc_sensitivity_experiments.py
+```
+
+The runner produces 20-seed SF8 results in a calibrated 10 km square and
+20-seed SF7 results at four flows/min in the primary 8.25 km square. It writes
+raw CSVs, long-format confidence summaries, and Markdown reports under the
+`meshecho_v2_1_17_icc2027_sensitivity_*` prefix. The cases are robustness
+evidence and are not pooled with the primary estimand.
 
 Before submitting, use the [ICC 2027 submission checklist](docs/icc2027_submission_checklist.md)
 to replace the anonymous author block and verify the EDAS title/author match.
