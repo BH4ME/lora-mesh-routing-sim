@@ -313,3 +313,11 @@ matrix and quality-gate artifacts now exist under the 2.1.15 prefix.
 - [complete] Run the full local test/static/PDF gates and a 600 s one-seed
   calibrated smoke. A redundant full matrix rerun was stopped after confirming
   it only duplicated unchanged 2.1.15 data; partial outputs remain unstaged.
+- [complete] Commit `859686a`, push `version/v2`, update PR 1 to the 2.1.16
+  five-page/hardware-audit title and body, and verify the remote head.
+
+### Final 2.1.16 Boundary
+
+- The paper and evidence revision is complete and published.
+- The LaTeX source still uses `Anonymous Authors`; replacing it with the final
+  EDAS author list is intentionally pending user metadata and is not inferred.

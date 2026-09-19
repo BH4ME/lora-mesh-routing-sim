@@ -339,3 +339,15 @@
 - Next: stage only the intended 2.1.16 source/docs, the new prior-work audit,
   and the final paper build artifact policy; commit, push, update PR 1, and
   verify the remote state.
+
+## 2026-09-19 - 2.1.16 Published
+
+- Committed the intended source/docs as `859686a` and pushed
+  `origin/version/v2` successfully.
+- Updated PR 1 to `[codex] MeshEcho 2.1.16 five-page ICC manuscript and
+  hardware audit`; it remains OPEN/DRAFT.
+- Verified the remote head OID, PR title/body, and validation summary. No
+  automated GitHub checks are configured, so local tests and PDF/experiment
+  gates remain authoritative.
+- The remaining pre-submission item is still user-specific author metadata in
+  EDAS and the LaTeX author block; no names were inferred.

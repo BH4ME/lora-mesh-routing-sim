@@ -323,6 +323,16 @@ local sessions, caches, and unrelated deliverables should remain unstaged.
   untracked outputs are intentionally excluded from the release; the paper
   cites the complete 2.1.15 matrix and the new smoke as the 2.1.16 validation.
 
+## 2.1.16 Publish Verification
+
+- Commit `859686a` is pushed to `origin/version/v2`.
+- PR 1 is OPEN/DRAFT with title `[codex] MeshEcho 2.1.16 five-page ICC
+  manuscript and hardware audit` and head OID `859686a08f6f47a606851ff309f3b8fbb621516c`.
+- The PR body records 53 passing tests, the five-page PDF, the one-seed smoke,
+  the hardware-evidence conclusion, and the simulation-only boundary.
+- Unrelated old build/render outputs, old 2.1.14 artifacts, partial 2.1.16
+  runner outputs, and `tmp/` remain untracked and were not published.
+
 ## 2.1.14 Final Publish Verification
 
 - Commit `b5de06b` is present locally and on `origin/version/v2`.
