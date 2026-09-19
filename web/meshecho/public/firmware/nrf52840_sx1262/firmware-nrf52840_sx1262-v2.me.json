@@ -1,0 +1,14 @@
+{
+  "project": "MeshEcho",
+  "schema": "meshecho-target-manifest-v1",
+  "version": "v2.0.0",
+  "target": "nrf52840_sx1262",
+  "chip": "nRF52840",
+  "radio": "SX1262",
+  "flash_mode": "uf2-dfu",
+  "support": "planned",
+  "files": [],
+  "notes": [
+    "This target is intentionally marked planned until a concrete board and bootloader are selected."
+  ]
+}

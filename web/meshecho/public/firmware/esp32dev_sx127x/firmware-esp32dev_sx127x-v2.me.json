@@ -1,0 +1,43 @@
+{
+  "project": "MeshEcho",
+  "schema": "meshecho-target-manifest-v1",
+  "version": "v2.0.0",
+  "target": "esp32dev_sx127x",
+  "platformio_target": "esp32dev_sx127x",
+  "chip": "ESP32",
+  "radio": "SX127x/RFM9x",
+  "flash_mode": "esptool-js",
+  "files": [
+    {
+      "name": "bootloader",
+      "offset": "0x1000",
+      "url": "/firmware/esp32dev_sx127x/bootloader.bin",
+      "sha256": "3d234a7471f67b013686dabd4dee7c1fa915c9928463616a94bc9297acf1abf8",
+      "bytes": 17536
+    },
+    {
+      "name": "partitions",
+      "offset": "0x8000",
+      "url": "/firmware/esp32dev_sx127x/partitions.bin",
+      "sha256": "148b959cbff1c38aa8e1d5c0ba9d612c54997b945e56a63f41223eef650653a1",
+      "bytes": 3072
+    },
+    {
+      "name": "firmware",
+      "offset": "0x10000",
+      "url": "/firmware/esp32dev_sx127x/firmware.bin",
+      "sha256": "2632f37287026bfb61aa2fcaab675fea1057f603bb737427cd6f0603c97c78e6",
+      "bytes": 341872
+    }
+  ],
+  "partitions": [
+    {
+      "name": "app0",
+      "type": "app",
+      "subtype": "factory",
+      "offset": "0x10000",
+      "size": "0x140000"
+    }
+  ],
+  "generated_at": "2026-06-08T06:12:30.967Z"
+}

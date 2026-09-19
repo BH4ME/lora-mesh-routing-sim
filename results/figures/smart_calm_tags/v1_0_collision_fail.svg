@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
+<style>
+text{font-family:Georgia,'Times New Roman',serif;fill:#17212b}
+.title{font-size:28px;font-weight:700}
+.subtitle{font-size:14px;fill:#5c6873}
+.axis{stroke:#26323d;stroke-width:1.3}
+.grid{stroke:#d9e0e6;stroke-width:1}
+.tick{font-size:12px;fill:#64717d}
+.label{font-size:14px;font-weight:600}
+.value{font-size:13px;fill:#17212b}
+.note{font-size:13px;fill:#5c6873}
+</style>
+<rect width="100%" height="100%" fill="#fbf8ef"/>
+<rect x="22" y="22" width="936" height="516" rx="22" fill="#fffdf8" stroke="#e1d7c2"/>
+<text x="110" y="54" class="title">v1.0 Collision Failures</text>
+<text x="110" y="77" class="subtitle">smart-calm-sim-v1.0 · 50 nodes, 3000 m, 1200 s, 20 seeds</text>
+<line x1="110" y1="448.0" x2="924" y2="448.0" class="grid"/>
+<text x="98" y="452.0" text-anchor="end" class="tick">0</text>
+<line x1="110" y1="375.6" x2="924" y2="375.6" class="grid"/>
+<text x="98" y="379.6" text-anchor="end" class="tick">31383</text>
+<line x1="110" y1="303.2" x2="924" y2="303.2" class="grid"/>
+<text x="98" y="307.2" text-anchor="end" class="tick">62766</text>
+<line x1="110" y1="230.8" x2="924" y2="230.8" class="grid"/>
+<text x="98" y="234.8" text-anchor="end" class="tick">94149</text>
+<line x1="110" y1="158.4" x2="924" y2="158.4" class="grid"/>
+<text x="98" y="162.4" text-anchor="end" class="tick">125531</text>
+<line x1="110" y1="86.0" x2="924" y2="86.0" class="grid"/>
+<text x="98" y="90.0" text-anchor="end" class="tick">156914</text>
+<line x1="110" y1="86" x2="110" y2="448" class="axis"/>
+<line x1="110" y1="448" x2="924" y2="448" class="axis"/>
+<rect x="188.7" y="255.4" width="114.0" height="192.6" rx="7" fill="#8a5a44"/>
+<text x="245.7" y="247.4" text-anchor="middle" class="value">83492</text>
+<text x="245.7" y="490" text-anchor="middle" class="label">Mixed traffic</text>
+<rect x="460.0" y="258.7" width="114.0" height="189.3" rx="7" fill="#8a5a44"/>
+<text x="517.0" y="250.7" text-anchor="middle" class="value">82047</text>
+<text x="517.0" y="490" text-anchor="middle" class="label">High shadowing</text>
+<rect x="731.4" y="124.8" width="114.0" height="323.2" rx="7" fill="#8a5a44"/>
+<text x="788.3" y="116.8" text-anchor="middle" class="value">140102</text>
+<text x="788.3" y="490" text-anchor="middle" class="label">High offered load</text>
+<text x="110" y="524" class="note">Frozen Smart-CALM simulator baseline.</text>
+</svg>
