@@ -221,7 +221,8 @@ failed the per-seed 24-pair completeness gate for seed 12; that failed
 calibration is retained in the state log.
 
 Before submitting, use the [ICC 2027 submission checklist](docs/icc2027_submission_checklist.md)
-to verify that the EDAS title and author order match the manuscript.
+to verify that the EDAS title and author order match the
+[compiled manuscript](paper/icc2027/icc2027_lora_mesh.pdf).
 
 New ICC matrices use an isolated channel-reception stream by default, keeping
 it separate from forwarding jitter and learning exploration. To make that

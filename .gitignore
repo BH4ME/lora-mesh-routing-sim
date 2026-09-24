@@ -18,3 +18,4 @@ results/*
 *.pdf
 !paper/full2026/figures/fig_smart_calm_architecture.pdf
 !paper/full2026/smart_calm_full_paper.pdf
+!paper/icc2027/icc2027_lora_mesh.pdf

@@ -564,8 +564,8 @@ author list/title.
 
 ## 2.1.22 Author Metadata Update
 
-- The ICC manuscript now lists `Gao Zu (高足)` and `Quan Zhi (全智)` in that
-  order, both affiliated with Shenzhen University, Shenzhen, China.
+- The ICC manuscript now lists `Gao Zu` and `Quan Zhi` in that order, in
+  English only, both affiliated with Shenzhen University, Shenzhen, China.
 - The paper remains simulation-only; adding author metadata does not change the
   2.1.22 simulation evidence or require a release-version bump.
 - The exact same title and author order still need to be entered in EDAS before

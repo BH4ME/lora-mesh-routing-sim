@@ -585,7 +585,7 @@ namespace and out of ICC methods, ablations, primary experiments, and claims.
 - Python compileall, `bash -n tools/run_icc_experiments.sh`,
   `git diff --check`, PDF metadata, key CSV row-count checks, and 2.1.22
   report Smart-CALM leakage checks passed.
-- Author metadata is now populated as `Gao Zu (高足)` and `Quan Zhi (全智)`,
+- Author metadata is populated as `Gao Zu` and `Quan Zhi` in English only,
   both at Shenzhen University; EDAS registration and exact metadata matching
   remain pending.
 - Added a compact two-panel primary-result bar figure with existing means and

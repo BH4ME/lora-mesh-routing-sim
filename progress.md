@@ -659,10 +659,10 @@ validation or keep the claims explicitly simulation-only.
 ## 2026-09-20 - ICC Author Metadata Added
 
 - Replaced the anonymous author block in the ICC manuscript with
-  `Gao Zu (高足)` and `Quan Zhi (全智)`, in that order.
+  `Gao Zu` and `Quan Zhi`, in that order.
 - Added the shared affiliation `Shenzhen University, Shenzhen, China`.
-- Added the CJK font declaration needed to render the Chinese names in the
-  Tectonic PDF while keeping EDAS-friendly Latin spellings.
+- Initially added CJK name annotations; these were removed from the ICC
+  submission PDF in the later English-only author correction.
 - Updated the ICC checklist, README, plan, and findings; EDAS registration and
   exact title/author matching remain pending.
 
@@ -689,11 +689,22 @@ validation or keep the claims explicitly simulation-only.
   `paper/icc2027/build-icc-format/icc2027_lora_mesh.pdf`: 5 pages, letter
   paper, no visual clipping, no page numbers, no table overflow, and no figure
   overlap in rendered-page inspection.
-- Kept the user-requested Chinese names in the author line. The PDF renders
-  them correctly, though text extraction still shows a ToUnicode warning for
-  the Chinese glyphs; use English-only author names later if EDAS/PDF eXpress
-  requires stricter text extraction.
+- The author line still contained CJK annotations at this checkpoint; the
+  English-only correction and rebuilt PDF are recorded below.
 - Fixed a clean-clone verification issue in
   `tests/test_metric_routing_baselines.py`: the route-conflict CI test now
   reads the current `VERSION` report instead of an old 2.1.20 report that had
   only existed as an untracked local artifact in earlier working directories.
+
+## 2026-09-24 - ICC English-Only Author Correction
+
+- Removed the CJK author annotations, font declaration, and now-unused
+  `fontspec` package from the ICC LaTeX source. The printed names are
+  `Gao Zu` and `Quan Zhi`, both at Shenzhen University.
+- Updated the submission checklist and stored the final PDF at
+  `paper/icc2027/icc2027_lora_mesh.pdf` for GitHub review.
+- Recompiled and inspected all five Letter-size pages. Page-one text
+  extraction yields both English names; the embedded-font list contains no
+  Chinese font, and no clipping or overlap was visible.
+- This is a paper-format correction. No simulation code or results changed,
+  so the simulation release remains 2.1.22.
