@@ -9,6 +9,9 @@ guidelines](https://icc2027.ieee-icc.org/submission-guidelines).
 - [x] Initial manuscript is in English.
 - [x] Source uses the IEEE conference LaTeX class at 10-point conference
   format.
+- [x] Manuscript source avoids manual page-margin, column-width, global
+  float-spacing, and global row-spacing compression; the final build uses
+  `IEEEtran` conference mode with letter paper and 10-point text.
 - [x] Compiled initial-submission PDF is at or below 5 printed pages, below the six-page
   hard limit. A submission longer than six pages is rejected without review.
 - [x] The paper reports the calibrated multi-hop matrix, managed-flooding,

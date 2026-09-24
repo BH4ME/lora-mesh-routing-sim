@@ -584,6 +584,19 @@ author list/title.
 - Tectonic compilation remains at five letter-size pages with no figure
   clipping or label overlap in the inspected page.
 
+## 2.1.22 ICC Formatting Cleanup
+
+- Tightened the ICC LaTeX source toward the official IEEE conference template:
+  explicit `conference,letterpaper,10pt` document class; no manual page-margin,
+  column-width, global float-spacing, or global table-row compression.
+- Removed the unnecessary `IEEEoverridecommandlockouts` directive and the
+  forced `\clearpage` before references, allowing the bibliography to flow
+  naturally in the IEEE two-column layout.
+- Reduced keywords to five IEEE-style terms and adjusted Table I locally to
+  remove the remaining overfull table warning without changing margins.
+- Final Tectonic build remains five letter-size pages. Visual page inspection
+  found no clipped text, page numbers, table overflow, or figure overlap.
+
 ## 2.1.21 Continuation State
 
 - The active clean worktree is `/tmp/lora_mesh_remote_current.iIrtPz` on

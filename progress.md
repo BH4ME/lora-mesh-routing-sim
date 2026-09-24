@@ -676,3 +676,24 @@ validation or keep the claims explicitly simulation-only.
   author-updated manuscript still compiles to exactly five letter-size pages.
 - Visual inspection of the rendered page found readable axes, separated
   panels, and no clipping or overlap.
+
+## 2026-09-24 - ICC/IEEE Formatting Cleanup
+
+- Updated `paper/icc2027/icc2027_lora_mesh.tex` to use explicit
+  `conference,letterpaper,10pt` `IEEEtran` options.
+- Removed manual global float spacing, table row compression, unnecessary
+  `IEEEoverridecommandlockouts`, and the forced `\clearpage` before references.
+- Reduced the keyword list to five IEEE-style terms and tightened Table I's
+  local tabular padding to eliminate the only overfull table warning.
+- Rebuilt the manuscript at
+  `paper/icc2027/build-icc-format/icc2027_lora_mesh.pdf`: 5 pages, letter
+  paper, no visual clipping, no page numbers, no table overflow, and no figure
+  overlap in rendered-page inspection.
+- Kept the user-requested Chinese names in the author line. The PDF renders
+  them correctly, though text extraction still shows a ToUnicode warning for
+  the Chinese glyphs; use English-only author names later if EDAS/PDF eXpress
+  requires stricter text extraction.
+- Fixed a clean-clone verification issue in
+  `tests/test_metric_routing_baselines.py`: the route-conflict CI test now
+  reads the current `VERSION` report instead of an old 2.1.20 report that had
+  only existed as an untracked local artifact in earlier working directories.

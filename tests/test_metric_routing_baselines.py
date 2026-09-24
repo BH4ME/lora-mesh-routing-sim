@@ -259,9 +259,11 @@ class MetricRoutingBaselineTest(unittest.TestCase):
         """The versioned 20-seed audit must use the 20-df t critical value."""
 
         root = Path(__file__).resolve().parents[1]
+        version = (root / "VERSION").read_text(encoding="utf-8").strip()
+        prefix = f"meshecho_v{version.replace('.', '_')}_icc2027"
         report = (
             root
-            / "docs/results/meshecho_v2_1_20_icc2027_route_conflict.md"
+            / f"docs/results/{prefix}_route_conflict.md"
         ).read_text(encoding="utf-8")
         self.assertIn("| ACK PDR | 0.221 | +/- 0.096 |", report)
 

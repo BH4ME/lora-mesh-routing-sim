@@ -1,5 +1,4 @@
-\documentclass[conference]{IEEEtran}
-\IEEEoverridecommandlockouts
+\documentclass[conference,letterpaper,10pt]{IEEEtran}
 
 \usepackage{amsmath}
 \usepackage{booktabs}
@@ -13,11 +12,6 @@
 
 \newfontfamily\cjkfont{Heiti SC}
 \newcommand{\cnname}[1]{{\cjkfont #1}}
-
-\setlength{\textfloatsep}{4pt}
-\setlength{\floatsep}{3pt}
-\setlength{\intextsep}{3pt}
-\renewcommand{\arraystretch}{0.92}
 
 \begin{document}
 
@@ -52,8 +46,8 @@ simulation, not topology-independent dominance or hardware validity.
 \end{abstract}
 
 \begin{IEEEkeywords}
-LoRa mesh, Internet of Things, sensor networks, route admission, airtime,
-packet delivery ratio
+LoRa mesh, Internet of Things, route admission, packet delivery ratio,
+airtime
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -150,7 +144,7 @@ two-sided 95\% paired CIs computed from seed-level differences.
 \caption{Calibrated ICC parameters.}
 \label{tab:params}
 \scriptsize
-\begin{tabular}{ll}
+\begin{tabular}{@{}ll@{}}
 \toprule
 Nodes / area & 50 / $8250\,\mathrm{m}\times8250\,\mathrm{m}$\\
 Duration / load & 600 s / 1 flow min$^{-1}$\\
@@ -440,7 +434,6 @@ main effect in this workload. Version 2.1.22 therefore supports a
 reproducible, bounded MeshEcho simulation claim, not topology-independent
 dominance or physical validation.
 
-\clearpage
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 

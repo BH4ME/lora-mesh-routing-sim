@@ -591,5 +591,8 @@ namespace and out of ICC methods, ablations, primary experiments, and claims.
 - Added a compact two-panel primary-result bar figure with existing means and
   95% CIs; the figure is presentation-only and does not require a version
   bump.
+- Restored stricter IEEE conference formatting: explicit 10-point letterpaper
+  `IEEEtran`, no manual global spacing compression, natural bibliography flow,
+  and no overfull table boxes in the final format build.
 - Remaining submission action: register the exact title and author order in
   EDAS, then complete venue registration/presentation checks.

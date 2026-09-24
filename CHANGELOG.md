@@ -14,6 +14,9 @@
 - Add a compact primary-matrix bar figure with seed-level 95% confidence
   intervals; this is a presentation-only refinement and does not change the
   simulation version or reported estimates.
+- Restore stricter IEEE conference formatting in the ICC manuscript by using
+  explicit 10-point letterpaper `IEEEtran`, removing manual float/row-spacing
+  compression, and allowing references to flow without a forced page break.
 
 ## 2.1.21 - MeshEcho generalization and stale-route evidence
 
