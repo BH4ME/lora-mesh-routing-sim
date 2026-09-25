@@ -708,3 +708,134 @@ validation or keep the claims explicitly simulation-only.
   Chinese font, and no clipping or overlap was visible.
 - This is a paper-format correction. No simulation code or results changed,
   so the simulation release remains 2.1.22.
+
+## 2026-09-25 - ICC 2.1.23 Revision Started
+
+- Started a new algorithm-plus-experiment revision from clean commit
+  `dd06d46` on `version/v2`; current `VERSION` is 2.1.22.
+- Read the academic-paper revision, PDF, TDD, and file-based planning
+  instructions and recovered the existing plan files.
+- Established the acceptance checks in `task_plan.md` from the latest
+  evidence-based ICC review. No 2.1.23 simulation result exists yet.
+- Independent read-only design audits are checking discovery fairness,
+  primary traffic coverage, and five-page manuscript structure.
+
+## 2026-09-25 - English Author Verification and Experiment Continuation
+
+- Inspected the stable ICC LaTeX, BibTeX, figure, all three current PDF
+  copies, extracted text, embedded fonts, and a rendered first page. No
+  Chinese author name or Han glyph remains; current printed names are
+  `Gao Zu` and `Quan Zhi`.
+- The prior `/tmp/lora_mesh_remote_current.iIrtPz` PDF location is gone.
+  Opened the stable ICC PDF in Codex and asked whether the user wants an
+  English given-name-first order instead.
+- Fair-discovery infrastructure is complete with four dedicated passing
+  tests. The traffic runner is being finished by a separate agent. Next local
+  action: test and correct repeated cumulative hop-penalty subtraction.
+- The user specified author names in English given-name-first order. Changed
+  the ICC LaTeX author line and submission checklist to `Zu Gao` and
+  `Zhi Quan`; PDF rebuild and visual/text verification follow.
+
+## 2026-09-25 - Author PDF and Algorithm Pilot Verified
+
+- Rebuilt the ICC PDF from the edited LaTeX. It remains five Letter-size
+  pages; page-one visual inspection and whole-PDF text extraction show
+  `Zu Gao` and `Zhi Quan` with no Han characters. The root PDF is byte-identical
+  to the checked build output (SHA-256 `ebb045978dedce3e6a39e8cbd44995b4318f1b99bd3888ae2dfccabb6b2e616e`).
+- Test-first corrected repeated hop-penalty subtraction in `MeshEcho` only;
+  the new test first failed on the old third-hop result and then passed. The
+  historical `CalmMesh` behavior remains unchanged.
+- Completed a 3-seed fixed-once/matched-RREQ-timing pilot with seven policies
+  at `/tmp/meshecho_v2_1_23_pilot.{csv,md}`. Each protocol handled 72 actual
+  unicasts, 24 per seed; quality gate passed. Pilot MeshEcho minus ETX ACK
+  delta +0.069 has paired 95% CI [-0.191,+0.330], so no superiority claim.
+- Focused routing/discovery/probe tests: 30 passed. A separate controlled
+  first-discovery test and optional budgeted-admission variant are in progress.
+
+## 2026-09-25 - Holdout Simulation Launched
+
+- Added exact per-discovery candidate and selected paths to the fixed-once
+  CSV; the new assertion first failed on the missing field and then passed.
+- The optional one-hop/0.10-confidence-gain strategy passed its focused
+  tests and ran on development seeds 1--3. It gave 40/72 ACKs and 91.8 s
+  mean airtime, versus corrected MeshEcho 47/72 and 93.7 s; do not promote
+  it as a reliability improvement.
+- A one-seed isolated-first-discovery smoke recorded 24/24 identical
+  candidate sets across MeshEcho, ETX, min-hop, and matched source-route.
+- Launched the 20-seed (21--40) isolated-first-discovery and matched-timing
+  fixed-once full matrix; wait for both processes before interpreting or
+  modifying the manuscript. Output prefixes are `meshecho_v2_1_23_icc2027_*`.
+
+## 2026-09-25 - Holdout Matrices and Boundary Result
+
+- Completed `results/meshecho_v2_1_23_icc2027_matched_fixed_once.csv` (220
+  protocol-seed rows) and its report/summary CSV. All 11 policies handled
+  480 actual unicasts. MeshEcho vs ETX ACK difference +0.137 [0.090,0.185]
+  with +1.9 s [1.6,2.3] airtime; budgeted variant 275/480 ACK vs MeshEcho
+  332/480. Candidate sets match for only 148/480 MeshEcho-ETX discoveries.
+- Completed `results/meshecho_v2_1_23_icc2027_isolated_first_discovery.csv`
+  (1920 pair-policy rows). Regenerated its report after adding seed-paired CIs
+  and selected-path checks; raw CSV SHA-256 matches the first run exactly.
+  All 480 candidate sets match; MeshEcho-ETX ACK delta +0.163
+  [0.121,0.204], airtime +0.094 s per pair [0.078,0.110].
+- Native-timing random-pair generalization finished under the 2.1.23 prefix.
+  MeshEcho beats ETX on ACK but managed flooding beats MeshEcho decisively
+  (0.736 vs 0.430 ACK; 39.7 vs 103.2 s). Deep and fading cases remain
+  running in the same session.
+
+## 2026-09-25 - 2.1.23 Release Assembly
+
+- Confirmed both remaining simulation sessions exited with status 0. All
+  random-pair, deep-multihop, long/short-TTL fading, and native fixed-once
+  artifacts were written under the 2.1.23 prefix.
+- Independent audit checked raw row counts, 20-seed paired intervals, actual
+  24/24 fixed-once unicast attempts, equal-candidate isolation, and adverse
+  flooding/fading boundaries. It found report-template wording errors, which
+  are being fixed without rerunning or altering source CSVs.
+- Added a release-default regression test: it failed on 2.1.22, then passed
+  after bumping `VERSION` and current runner output defaults to 2.1.23.
+- Updated README, CHANGELOG, experiment plan, and checklist to distinguish
+  2.1.23 from historical 2.1.22 evidence. Changed the existing LaTeX bar
+  chart's five means and seed-level confidence whiskers to 2.1.23 values.
+- The paper agent recovered a transiently missing TeX source from HEAD,
+  preserving the confirmed author order `Zu Gao`, `Zhi Quan`, and is rewriting
+  the manuscript. Remaining gates are paper/report review, final PDF, full
+  tests, selective publication, and remote verification.
+
+## 2026-09-25 - Final PDF and Test Gate
+
+- The manuscript was expanded with exact confidence/age equations and a
+  seed-paired methodology description. It compiles naturally to five Letter
+  pages without overfull boxes or undefined references. All five page PNGs
+  were visually inspected, including the updated bar figure, author block,
+  tables, and flowing references. The checked root PDF SHA-256 is
+  `8743be24223c2837f72947006df28f83cad121a056a8aeb0bce702f51162c670`.
+- Full suite initially reported two stale 2.1.22 report expectations.
+  Updated them to assert the current report set and recompute the route-
+  conflict seed-paired interval from the current raw CSV. Final suite:
+  `111 passed`. `compileall`, `bash -n`, PDF page/font/name checks,
+  candidate-audit regeneration equality, and `git diff --check` passed.
+- Next: stage only the 2.1.23 release and Markdown state; exclude the
+  untracked TeX build directory. Commit/push `version/v2`, update draft
+  PR 1, and verify remote metadata and head.
+
+## 2026-09-25 - Publish Checkpoint
+
+- Staged 49 intended 2.1.23 files; the untracked Tectonic build directory
+  remains outside the commit.
+- The staged whitespace gate failed on all 1921 lines of the isolated
+  first-discovery CSV because the CSV writer emitted CRLF line endings.
+- Next: test LF output, fix only the CSV writer and existing CSV line endings,
+  confirm data/report equivalence, then run the final gates and publish.
+- Added LF-output assertion to the existing CLI regression test; it failed on
+  the original CRLF writer and passed after setting `lineterminator="\n"`.
+- Mechanically converted the existing CSV from CRLF to LF. It has no CR bytes;
+  its 1920 parsed rows, canonical row hash, 330/252 MeshEcho/ETX ACK counts,
+  and regenerated Markdown report are unchanged. No simulation was rerun.
+- Independent read-only preflight confirms 49 intended staged files, no build
+  cache in the index, and current local/remote/PR head all at `dd06d46`.
+- Final local checks: 111 tests passed; Python compileall, ICC shell syntax,
+  staged and unstaged whitespace checks passed. Final PDF SHA-256 remains
+  `8743be24223c2837f72947006df28f83cad121a056a8aeb0bce702f51162c670`.
+- Old PR 1 metadata still names 2.1.22 and includes Chinese author names;
+  update the existing draft after pushing the 2.1.23 release commit.

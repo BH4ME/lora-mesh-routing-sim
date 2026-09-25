@@ -7,8 +7,9 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.22` (MeshEcho-focused ICC generalization and stale-route evidence package; firmware prototype
-remains `meshecho-firmware-v2.1.2`).
+Current repository release: `2.1.23` (MeshEcho candidate-exposure and
+fixed-once ICC evidence; firmware prototype remains
+`meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
 ideas under a fixed SX1262-style PHY profile.
@@ -32,6 +33,8 @@ metric baselines, and MeshEcho:
 - `meshecho-no-confidence`, `meshecho-no-fallback`,
   `meshecho-no-hop-penalty`, and `meshecho-no-age-penalty`: MeshEcho
   component ablations used only for mechanism attribution.
+- `meshecho-budgeted`: an optional one-extra-hop admission rule used as a
+  reliability--airtime trade-off control, not a reliability improvement.
 - The historical adaptive firmware/simulator line is retained for traceability
   but is not part of the ICC MeshEcho protocol matrix.
 
@@ -124,8 +127,8 @@ python3 tools/run_route_conflict_experiment.py
 ```
 
 It writes raw per-seed rows to
-`results/meshecho_v2_1_22_icc2027_route_conflict.csv` and the paired summary to
-`docs/results/meshecho_v2_1_22_icc2027_route_conflict.md`.
+`results/meshecho_v2_1_23_icc2027_route_conflict.csv` and the paired summary to
+`docs/results/meshecho_v2_1_23_icc2027_route_conflict.md`.
 
 Run the fairness audit with null, moderate, and reverse weak-link controls:
 
@@ -176,12 +179,27 @@ deviation, and 95% confidence intervals. See
 layout and reproducibility rules. The verified matrix is summarized in
 [ICC 2027 Comparison](docs/results/icc2027_comparison.md).
 
-The current ICC workflow also runs a calibrated connected-multihop matrix at
-8.25 km, SF7, 1 flow/min, analytical pair-edge PRR >= 0.90, 24 selected pairs,
-and 20 seeds. The MeshCore-like baseline uses the same 2 s discovery collection
-window as MeshEcho for this fresh comparison. This is the primary mechanism
-check;
-the 18 km probe remains a route-discovery stress diagnostic.
+The 2.1.23 ICC primary matrix uses 50 nodes in an 8.25 km square, SF7,
+analytical pair-edge PRR >= 0.90, and 24 distinct directed pairs per seed.
+It schedules exactly one unicast per pair over 600 s for each policy, using
+holdout seeds 21--40 and a shared 2 s RREQ relay schedule. All 480 attempted
+unicasts are reported, rather than describing the 24-pair pool as if it were
+24 observed flows in a sparse Poisson workload. MeshEcho has 332/480
+ACK-confirmed completions versus 266/480 for ETX; the paired seed-level
+difference is +0.137 (95% CI [+0.090,+0.185]) with +1.9 s
+[+1.6,+2.3] mean airtime per run. Candidate sets still match in only
+148/480 sequential discoveries, so this is a system-level comparison, not
+an isolated route-ranking estimate.
+
+The separate isolated-first-discovery audit uses fresh simulator state for
+each pair/policy. Candidate sets match in all 480 comparisons, and MeshEcho
+minus ETX ACK completion is +0.163 [+0.121,+0.204] across the 20 topology
+seeds. Under unconditioned random pairs, managed flooding outperforms
+MeshEcho on ACK completion (0.736 versus 0.430) and airtime (39.7 versus
+103.2 s); the paper retains this negative boundary. See the
+[fixed-once report](docs/results/meshecho_v2_1_23_icc2027_matched_fixed_once.md),
+[isolation report](docs/results/meshecho_v2_1_23_icc2027_isolated_first_discovery.md),
+and [candidate-set audit](docs/results/meshecho_v2_1_23_icc2027_candidate_set_audit.md).
 
 Run the 2.1.22 spreading-factor and offered-load sensitivity cases with the
 same connected-pair quality contract:
@@ -211,7 +229,8 @@ Run the unconditioned, deep-hop, and temporal-fading generalization cases:
 
 ```bash
 python3 tools/run_icc_generalization_experiment.py \
-  --out-prefix meshecho_v2_1_22_icc2027_generalization
+  --seed0 21 --seeds 20 \
+  --out-prefix meshecho_v2_1_23_icc2027_generalization
 ```
 
 The runner writes separate 20-seed reports for random pairs, a 100-node

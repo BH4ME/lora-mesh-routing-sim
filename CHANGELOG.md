@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.1.23 - MeshEcho fixed-once and candidate-exposure audit
+
+- Correct MeshEcho's cumulative hop-penalty accounting while leaving the
+  historical CALM implementation and 2.1.22 outputs unchanged.
+- Add shared RREQ relay timing, per-discovery candidate-path records, and a
+  24-distinct-pair fixed-once unicast schedule with an explicit quality gate.
+- Run 20 held-out topology seeds (21--40). In the fixed-once matrix, MeshEcho
+  reaches 332/480 ACKs versus ETX's 266/480; seed-paired ACK-PDR difference
+  is +0.137 (95% CI [+0.090,+0.185]) at +1.9 s [+1.6,+2.3] airtime.
+- Isolate first discovery with fresh simulator state per pair/policy. All
+  480 candidate sets match; MeshEcho versus ETX has a seed-paired ACK-PDR
+  difference of +0.163 [+0.121,+0.204] and +0.094 s
+  [+0.078,+0.110] airtime per pair.
+- Preserve adverse comparisons: the budgeted rule reduces airtime but loses
+  ACKs, and managed flooding beats MeshEcho on ACKs and airtime in the
+  unconditioned random-pair case. Report native-timing, deep-hop, and
+  temporal-fading cases separately from the fixed-candidate test.
+- Set ICC paper author names to `Zu Gao` and `Zhi Quan`, both at Shenzhen
+  University, with an English-only five-page IEEE conference manuscript.
+
 ## 2.1.22 - MeshEcho calibrated generalization correction
 
 - Correct the deep generalization calibration from 20 km to 21 km after the

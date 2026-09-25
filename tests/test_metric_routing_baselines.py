@@ -1,9 +1,13 @@
 import argparse
+import csv
+import math
+import statistics
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
 from lora_mesh_sim import (
+    CalmMesh,
     ICC_PROTOCOLS,
     MESHECHO_ABLATIONS,
     MeshCoreLike,
@@ -224,20 +228,41 @@ class MetricRoutingBaselineTest(unittest.TestCase):
         protocol.bind(FakeSimulator())
         self.assertEqual(protocol.route_miss_recovery_ttl(flow_id=1), 2)
 
+    def test_meshecho_hop_penalty_is_charged_once_per_added_hop(self) -> None:
+        protocol = MeshEcho(hop_penalty_per_hop=0.025)
+        first = protocol.path_confidence((0, 1), 0.8)
+        second = protocol.path_confidence((0, 1, 2), first)
+        third = protocol.path_confidence((0, 1, 2, 3), second)
+
+        self.assertAlmostEqual(first, 0.8)
+        self.assertAlmostEqual(second, 0.775)
+        self.assertAlmostEqual(third, 0.75)
+
+        legacy = CalmMesh(hop_penalty_per_hop=0.025)
+        legacy_second = legacy.path_confidence((0, 1, 2), 0.8)
+        self.assertAlmostEqual(
+            legacy.path_confidence((0, 1, 2, 3), legacy_second), 0.725
+        )
+
     def test_icc_probe_reports_do_not_use_smart_calm_as_a_method(self) -> None:
         root = Path(__file__).resolve().parents[1]
         version = (root / "VERSION").read_text(encoding="utf-8").strip().replace(
             ".", "_"
         )
         prefix = f"meshecho_v{version}_icc2027"
-        report_paths = (
-            root / f"docs/results/{prefix}_calibrated_multihop.md",
-            root / f"docs/results/{prefix}_sensitivity_sf8.md",
-            root / f"docs/results/{prefix}_sensitivity_load4.md",
-            root / f"docs/results/{prefix}_component_ablation.md",
-            root / f"docs/results/{prefix}_cache_ttl600.md",
-            root / f"docs/results/{prefix}_cache_ttl30.md",
-            root / f"docs/results/{prefix}_route_conflict.md",
+        report_paths = tuple(
+            root / f"docs/results/{prefix}_{suffix}.md"
+            for suffix in (
+                "matched_fixed_once",
+                "native_fixed_once",
+                "isolated_first_discovery",
+                "candidate_set_audit",
+                "generalization_random_pairs",
+                "generalization_deep_multihop",
+                "generalization_stale_fading",
+                "generalization_stale_fading_short_ttl",
+                "route_conflict",
+            )
         )
         for path in report_paths:
             text = path.read_text(encoding="utf-8").lower()
@@ -256,16 +281,33 @@ class MetricRoutingBaselineTest(unittest.TestCase):
         self.assertNotEqual(type(protocol).__name__, "SmartCalmMesh")
 
     def test_route_conflict_report_uses_twenty_seed_paired_ci(self) -> None:
-        """The versioned 20-seed audit must use the 20-df t critical value."""
+        """The versioned audit must report the paired seed-level interval."""
 
         root = Path(__file__).resolve().parents[1]
         version = (root / "VERSION").read_text(encoding="utf-8").strip()
         prefix = f"meshecho_v{version.replace('.', '_')}_icc2027"
+        with (root / f"results/{prefix}_route_conflict.csv").open(
+            newline="", encoding="utf-8"
+        ) as handle:
+            rows = list(csv.DictReader(handle))
+        by_seed = {}
+        for row in rows:
+            by_seed.setdefault(int(row["seed"]), {})[row["protocol"]] = row
+        self.assertEqual(len(by_seed), 20)
+        deltas = [
+            float(variants["meshecho-confidence"]["unicast_pdr"])
+            - float(variants["meshecho-no-confidence"]["unicast_pdr"])
+            for variants in by_seed.values()
+        ]
+        half_width = 2.093 * statistics.stdev(deltas) / math.sqrt(len(deltas))
         report = (
             root
             / f"docs/results/{prefix}_route_conflict.md"
         ).read_text(encoding="utf-8")
-        self.assertIn("| ACK PDR | 0.221 | +/- 0.096 |", report)
+        self.assertIn(
+            f"| ACK PDR | {statistics.fmean(deltas):.3f} | +/- {half_width:.3f} |",
+            report,
+        )
 
 
 if __name__ == "__main__":

@@ -12,8 +12,11 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
+import json
 import math
 import random
+import shlex
 import statistics
 import sys
 from collections import defaultdict
@@ -38,7 +41,9 @@ from lora_mesh_sim import (  # noqa: E402
 
 
 DEFAULT_PROTOCOLS = tuple(ICC_PROTOCOLS)
-FAIR_PROBE_PROTOCOLS = tuple(ICC_PROTOCOLS) + tuple(MESHECHO_ABLATIONS)
+FAIR_PROBE_PROTOCOLS = (
+    tuple(ICC_PROTOCOLS) + tuple(MESHECHO_ABLATIONS) + ("meshecho-budgeted",)
+)
 DEFAULT_OUT = Path("results/meshecho_fair_multihop_probe.csv")
 DEFAULT_REPORT = Path("docs/results/meshecho_fair_multihop_probe.md")
 
@@ -75,6 +80,7 @@ def validate_non_degenerate_regime(
     minimum_mean_hops = float(
         getattr(args, "min_selected_pair_mean_graph_hops", 2.0)
     )
+    traffic_trace_by_seed: Dict[Any, str] = {}
 
     for row in rows:
         seed = row.get("seed", "?")
@@ -85,6 +91,31 @@ def validate_non_degenerate_regime(
                 f"seed {seed} ({protocol}) pair pool has only "
                 f"{candidate_count} pairs; requested {requested_pairs}"
             )
+        if getattr(args, "pair_schedule", "poisson") == "fixed-once":
+            expected_counts = {
+                "scheduled_unicast_flows": requested_pairs,
+                "scheduled_distinct_unicast_pairs": requested_pairs,
+                "unicast_flows": requested_pairs,
+                "observed_distinct_unicast_pairs": requested_pairs,
+                "scheduled_broadcast_flows": 0,
+                "broadcast_flows": 0,
+            }
+            mismatches = [
+                f"{key}={row.get(key, 'missing')} (expected {expected})"
+                for key, expected in expected_counts.items()
+                if int(row.get(key, -1)) != expected
+            ]
+            if mismatches:
+                raise ProbeRegimeError(
+                    f"seed {seed} ({protocol}) fixed-once workload incomplete: "
+                    + ", ".join(mismatches)
+                )
+            trace = str(row.get("scheduled_trace_sha256", ""))
+            previous_trace = traffic_trace_by_seed.setdefault(seed, trace)
+            if not trace or trace != previous_trace:
+                raise ProbeRegimeError(
+                    f"seed {seed} ({protocol}) traffic trace differs across protocols"
+                )
         mean_hops = float(row["selected_pair_mean_graph_hops"])
         if mean_hops < minimum_mean_hops:
             raise ProbeRegimeError(
@@ -298,8 +329,19 @@ def schedule_probe_traffic(
     traffic: str,
     rng: random.Random,
     pairs: Sequence[Tuple[int, int]],
+    pair_schedule: str = "poisson",
 ) -> None:
     """Schedule one deterministic application trace shared by all protocols."""
+
+    if pair_schedule == "fixed-once":
+        if traffic != "unicast" or not pairs:
+            raise ValueError("fixed-once requires unicast traffic and selected pairs")
+        interval_s = duration_s / len(pairs)
+        jitter_s = min(interval_s * 0.1, 5.0)
+        for flow_id, (src, dst) in enumerate(pairs, start=1):
+            when = (flow_id - 0.5) * interval_s + rng.uniform(-jitter_s, jitter_s)
+            sim.schedule(when, "app_send", (src, dst, flow_id))
+        return
 
     node_ids = list(sim.nodes)
     pair_index = 0
@@ -343,6 +385,7 @@ def run_one_probe(
         seed=seed,
         max_hops=config.max_hops,
         independent_random_streams=True,
+        matched_rreq_timing=bool(getattr(args, "matched_rreq_timing", False)),
     )
     pair_rng = random.Random(seed + 20_000)
     if args.pair_mode == "connected-multihop":
@@ -364,9 +407,35 @@ def run_one_probe(
         config.traffic,
         random.Random(seed + 10_000),
         pairs,
+        getattr(args, "pair_schedule", "poisson"),
     )
+    scheduled_events = sorted(
+        (when, *data)
+        for when, _, kind, data in sim.events
+        if kind == "app_send"
+    )
+    scheduled = [(src, dst, flow_id) for _, src, dst, flow_id in scheduled_events]
+    scheduled_unicast_pairs = [
+        (src, dst) for src, dst, _ in scheduled if dst != BROADCAST_DST
+    ]
     metrics = sim.run(config.duration_s)
     row = metrics.summarize(protocol.name, seed, config.duration_s)
+    discovery_records = sorted(protocol.discovery_records, key=lambda record: record.key)
+    discovery_fingerprints = [
+        {
+            "key": list(record.key),
+            "candidate_count": len(record.candidate_paths),
+            "sha256": hashlib.sha256(
+                json.dumps(record.candidate_paths, separators=(",", ":")).encode("ascii")
+            ).hexdigest(),
+        }
+        for record in discovery_records
+    ]
+    observed_unicast_pairs = {
+        (flow.src, flow.dst)
+        for flow in metrics.flows.values()
+        if flow.dst != BROADCAST_DST
+    }
 
     paths = route_paths(protocol)
     direct = direct_prrs(sim)
@@ -377,6 +446,39 @@ def run_one_probe(
             "area_m": config.area_m,
             "rate_per_min": config.rate_per_min,
             "traffic": config.traffic,
+            "pair_schedule": getattr(args, "pair_schedule", "poisson"),
+            "matched_rreq_timing": int(sim.matched_rreq_timing),
+            "discovery_record_count": len(discovery_records),
+            "discovery_candidate_path_total": sum(
+                len(record.candidate_paths) for record in discovery_records
+            ),
+            "discovery_multi_candidate_count": sum(
+                len(record.candidate_paths) >= 2 for record in discovery_records
+            ),
+            "discovery_candidate_fingerprints_json": json.dumps(
+                discovery_fingerprints, separators=(",", ":")
+            ),
+            "discovery_records_json": json.dumps(
+                [
+                    {
+                        "key": record.key,
+                        "started_at": record.started_at,
+                        "closed_at": record.closed_at,
+                        "candidate_paths": record.candidate_paths,
+                        "selected_path": record.selected_path,
+                    }
+                    for record in discovery_records
+                ],
+                separators=(",", ":"),
+            ),
+            "scheduled_unicast_flows": len(scheduled_unicast_pairs),
+            "scheduled_broadcast_flows": len(scheduled) - len(scheduled_unicast_pairs),
+            "scheduled_distinct_unicast_pairs": len(set(scheduled_unicast_pairs)),
+            "observed_distinct_unicast_pairs": len(observed_unicast_pairs),
+            "scheduled_rate_per_min": len(scheduled) * 60.0 / config.duration_s,
+            "scheduled_trace_sha256": hashlib.sha256(
+                json.dumps(scheduled_events, separators=(",", ":")).encode("ascii")
+            ).hexdigest(),
             "sf": config.sf,
             "path_loss_exp": config.path_loss_exp,
             "random_pairs": int(args.pair_mode == "random"),
@@ -488,20 +590,40 @@ def write_report(
     is_cache_reuse = bool(
         getattr(args, "report_cache_reuse", hasattr(args, "route_ttl_s"))
     )
-    if is_cache_reuse:
+    fixed_once = getattr(args, "pair_schedule", "poisson") == "fixed-once"
+    if fixed_once:
         opening = (
-            "This versioned probe deliberately reuses a four-pair connected "
+            "This one-shot multihop workload sends one unicast for each "
+            "selected directed pair. It measures first-discovery behavior "
+            "with no repeated source-destination pair."
+        )
+    elif is_cache_reuse:
+        opening = (
+            f"This versioned probe deliberately reuses a {args.pair_count}-pair connected "
             "unicast workload to measure route-cache reuse and route aging. "
             "It is a secondary diagnostic, not the primary sparse-flow "
             "multi-hop estimand."
         )
+    elif args.pair_mode == "connected-multihop":
+        opening = (
+            "This probe cycles through a selected connected-pair pool on a "
+            "Poisson application schedule. Pairs may repeat, and some selected "
+            "pairs may not be observed. Channel reception uses an independent "
+            "random stream."
+        )
     else:
         opening = (
-            "This versioned probe is a fairness diagnostic, not a replacement "
-            "for the original repeated-pair matrix. It removes fixed-pair "
-            "reuse, uses an independent channel-reception stream, and places "
-            "the network in a non-saturated multi-hop regime."
+            "This probe samples source-destination pairs per flow instead of "
+            "cycling through a selected pool. Channel reception uses an "
+            "independent random stream."
         )
+    traffic_summary = (
+        f"- Traffic: `{args.traffic}`, "
+        f"`{mean(rows, 'scheduled_rate_per_min'):.1f} scheduled flows/min` "
+        "(`fixed-once`)"
+        if fixed_once
+        else f"- Traffic: `{args.traffic}`, `{args.rate_per_min:.1f} flows/min`"
+    )
     lines = [
         "# MeshEcho Fair Multi-Hop Probe",
         "",
@@ -509,7 +631,7 @@ def write_report(
         "",
         f"- Seeds: `{args.seeds}`",
         f"- Nodes / area: `{args.nodes}` / `{args.area_m:.0f} m square`",
-        f"- Traffic: `{args.traffic}`, `{args.rate_per_min:.1f} flows/min`",
+        traffic_summary,
         f"- MeshEcho timeout-retry budget: `{timeout_retries}`",
         (
             f"- Route-cache TTL: `{args.route_ttl_s:.1f} s`"
@@ -528,6 +650,7 @@ def write_report(
             else "- Source-destination pairs: random per flow"
         ),
         f"- MeshCore-like discovery window: `{getattr(args, 'meshcore_discovery_window_s', 2.0):.2f} s`",
+        f"- Matched RREQ relay timing: `{bool(getattr(args, 'matched_rreq_timing', False))}`",
         "- Channel reception RNG: independent from protocol jitter/exploration",
         (
             "- Quality gate: PASSED for every seed; direct-link PRR below "
@@ -579,6 +702,68 @@ def write_report(
             f"{mean(protocol_rows, 'mean_cached_hops'):.2f} | "
             f"{mean(protocol_rows, 'route_discovery_success_rate'):.3f} | "
             f"{mean(protocol_rows, 'rrep_rreq_tx_ratio'):.3f} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Application Denominators",
+            "",
+            "Counts are totals across seeds; pair ranges are per-seed minima "
+            "and maxima. ACK and destination counts use observed unicasts "
+            "as their denominator. In the protocol-results means, each seed "
+            "has equal weight; pooled flow counts below can imply a different "
+            "overall ratio when seed-level flow counts vary. The CSV preserves "
+            "every seed's counts.",
+            "",
+            "| Protocol | Scheduled unicast | Observed unicast | "
+            "Scheduled distinct pairs/seed | Observed distinct pairs/seed | "
+            "ACKs / observed unicast | Destinations / observed unicast | "
+            "Scheduled broadcast |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for protocol_name, protocol_rows in grouped.items():
+        scheduled = sum(int(row["scheduled_unicast_flows"]) for row in protocol_rows)
+        observed = sum(int(row["unicast_flows"]) for row in protocol_rows)
+        scheduled_pairs = [
+            int(row["scheduled_distinct_unicast_pairs"]) for row in protocol_rows
+        ]
+        observed_pairs = [
+            int(row["observed_distinct_unicast_pairs"]) for row in protocol_rows
+        ]
+        acks = sum(int(row["unicast_acks"]) for row in protocol_rows)
+        destinations = sum(int(row["unicast_deliveries"]) for row in protocol_rows)
+        broadcasts = sum(int(row["scheduled_broadcast_flows"]) for row in protocol_rows)
+        lines.append(
+            f"| {protocol_name} | {scheduled} | {observed} | "
+            f"{min(scheduled_pairs)}-{max(scheduled_pairs)} | "
+            f"{min(observed_pairs)}-{max(observed_pairs)} | "
+            f"{acks}/{observed} | {destinations}/{observed} | {broadcasts} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Discovery Candidate Audit",
+            "",
+            "Counts are totals across seeds. Each protocol/seed CSV row has "
+            "`discovery_record_count`, `discovery_candidate_path_total`, "
+            "`discovery_multi_candidate_count`, `discovery_records_json`, and "
+            "`discovery_candidate_fingerprints_json`. The JSON record field "
+            "contains the observed candidate and selected paths for each "
+            "discovery; fingerprints support paired set comparisons.",
+            "",
+            "| Protocol | Discoveries | Candidate paths | Multi-candidate discoveries |",
+            "| --- | ---: | ---: | ---: |",
+        ]
+    )
+    for protocol_name, protocol_rows in grouped.items():
+        lines.append(
+            f"| {protocol_name} | "
+            f"{sum(int(row['discovery_record_count']) for row in protocol_rows)} | "
+            f"{sum(int(row['discovery_candidate_path_total']) for row in protocol_rows)} | "
+            f"{sum(int(row['discovery_multi_candidate_count']) for row in protocol_rows)} |"
         )
 
     by_seed: Dict[int, Dict[str, Dict[str, Any]]] = defaultdict(dict)
@@ -688,13 +873,117 @@ def write_report(
                     f"{airtime[0]:+.1f} [{airtime[1]:+.1f},{airtime[2]:+.1f}] |"
                 )
 
+    baseline_labels = {
+        "meshtastic-like": "managed flooding",
+        "meshcore-like": "matched source routing",
+        "etx-mesh": "ETX",
+        "ett-mesh": "ETT",
+        "minhop-mesh": "min-hop",
+    }
+    available_baselines = [
+        label for name, label in baseline_labels.items() if name in grouped
+    ]
+    comparison_note = (
+        "- MeshEcho is compared with " + ", ".join(available_baselines)
+        + " under shared application traffic. Routed policies use the stated "
+        "discovery window and timeout-retry budget."
+        if "meshecho" in grouped and available_baselines
+        else "- This run contains MeshEcho and its listed variants."
+        if "meshecho" in grouped
+        else "- The controlled route-conflict experiment is the surgical "
+        "candidate-selection test."
+    )
+    if "meshecho-budgeted" in grouped:
+        variant_note = (
+            "- The budgeted variant is an optional comparator; "
+            "meshecho-no-* variants are component ablations."
+        )
+    elif any(name in grouped for name in MESHECHO_ABLATIONS):
+        variant_note = "- The meshecho-no-* variants are component ablations."
+    else:
+        variant_note = "- No MeshEcho component variants were run in this case."
+    scenario = str(getattr(args, "scenario", ""))
+    generalization_prefix = "icc2027_generalization_"
+    if scenario.startswith(generalization_prefix):
+        case = scenario[len(generalization_prefix):]
+        if path.stem.endswith(f"_{case}"):
+            out_prefix = path.stem[: -(len(case) + 1)]
+            protocol_cli_names = {
+                "meshtastic-like": "meshtastic",
+                "meshcore-like": "meshcore",
+                "etx-mesh": "etx",
+                "ett-mesh": "ett",
+                "minhop-mesh": "minhop",
+            }
+            reproduction = " \\\n  ".join(
+                [
+                    "python3 tools/run_icc_generalization_experiment.py",
+                    f"--case {case}",
+                    f"--seeds {len(by_seed)} --seed0 {min(by_seed)}",
+                    f"--out-prefix {out_prefix}",
+                    *(
+                        f"--protocol {protocol_cli_names.get(name, name)}"
+                        for name in grouped
+                    ),
+                ]
+            )
+        else:
+            reproduction = "python3 tools/run_icc_generalization_experiment.py"
+    else:
+        protocol_cli_names = {
+            "meshtastic-like": "meshtastic",
+            "meshcore-like": "meshcore",
+            "etx-mesh": "etx",
+            "ett-mesh": "ett",
+            "minhop-mesh": "minhop",
+        }
+        options = [
+            ("--scenario", scenario),
+            ("--nodes", args.nodes),
+            ("--area-m", args.area_m),
+            ("--duration-s", args.duration_s),
+            ("--rate-per-min", args.rate_per_min),
+            ("--traffic", args.traffic),
+            ("--pair-mode", args.pair_mode),
+            ("--pair-count", args.pair_count),
+            ("--pair-schedule", getattr(args, "pair_schedule", "poisson")),
+            ("--edge-prr-threshold", args.edge_prr_threshold),
+            ("--min-graph-hops", args.min_graph_hops),
+            ("--max-graph-hops", args.max_graph_hops),
+            ("--meshcore-discovery-window-s", getattr(args, "meshcore_discovery_window_s", 2.0)),
+            ("--min-selected-pair-mean-graph-hops", getattr(args, "min_selected_pair_mean_graph_hops", 2.0)),
+            ("--min-direct-prr-below-0-99", getattr(args, "min_direct_prr_below_0_99", 0.10)),
+            ("--sf", args.sf),
+            ("--tx-power-dbm", args.tx_power_dbm),
+            ("--path-loss-exp", args.path_loss_exp),
+            ("--shadow-sigma-db", args.shadow_sigma_db),
+            ("--max-hops", getattr(args, "max_hops", 7)),
+            ("--max-timeout-retries", timeout_retries),
+            ("--seeds", len(by_seed)),
+            ("--seed0", min(by_seed)),
+        ]
+        command_parts = ["python3 tools/run_fair_multihop_probe.py"]
+        command_parts.extend(
+            f"{flag} {shlex.quote(str(value))}" for flag, value in options
+        )
+        if getattr(args, "matched_rreq_timing", False):
+            command_parts.append("--matched-rreq-timing")
+        command_parts.extend(
+            f"--protocol {protocol_cli_names.get(name, name)}" for name in grouped
+        )
+        command_parts.append(
+            f"--csv {shlex.quote(str(getattr(args, 'csv', DEFAULT_OUT)))}"
+        )
+        command_parts.append(f"--report {shlex.quote(str(path))}")
+        reproduction = " \\\n  ".join(command_parts)
     lines.extend(
         [
             "",
             "## Reading the Result",
             "",
-            "- The link distribution is non-degenerate: a substantial fraction "
-            "of direct links are below 0.99 PRR and below 0.50 PRR.",
+            f"- Direct-link fractions below 0.99 PRR: "
+            f"{statistics.fmean(direct_below_099):.3f}; below 0.50 PRR: "
+            f"{statistics.fmean(direct_below_050):.3f}.",
             (
                 "- This workload intentionally cycles over four connected "
                 "pairs; route-cache hits and repairs are therefore part of "
@@ -709,17 +998,8 @@ def write_report(
                     "protocol."
                 )
             ),
-            (
-                "- MeshEcho is compared with managed flooding, matched "
-                "source routing, min-hop, and ETX/ETT quality-metric baselines "
-                "under the same pair pool and discovery budget."
-                if "meshecho" in next(iter(by_seed.values()), {})
-                else "- The controlled route-conflict experiment is the "
-                "surgical candidate-selection test."
-            ),
-            "- MeshEcho component variants are named `meshecho-*` and are "
-            "reported only as ablations; the separate adaptive firmware line "
-            "is not part of this ICC evidence.",
+            comparison_note,
+            variant_note,
             "- The raw route-hop columns should be checked before calling this "
             "a multi-hop benchmark. A low multi-hop fraction means the "
             "parameter setting is still too easy.",
@@ -731,11 +1011,7 @@ def write_report(
             "## Reproduction",
             "",
             "```sh",
-            (
-                "python3 tools/run_icc_cache_experiment.py"
-                if is_cache_reuse
-                else "python3 tools/run_fair_multihop_probe.py"
-            ),
+            reproduction,
             "```",
             "",
         ]
@@ -764,6 +1040,12 @@ def parse_args() -> argparse.Namespace:
         help="pair pool size for connected-multihop mode",
     )
     parser.add_argument(
+        "--pair-schedule",
+        choices=["poisson", "fixed-once"],
+        default="poisson",
+        help="Poisson traffic or one evenly spaced unicast per selected pair",
+    )
+    parser.add_argument(
         "--edge-prr-threshold",
         type=float,
         default=0.70,
@@ -776,6 +1058,11 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=2.0,
         help="matched MeshCore-like route-discovery collection window",
+    )
+    parser.add_argument(
+        "--matched-rreq-timing",
+        action="store_true",
+        help="use the same deterministic RREQ relay delay across routing policies",
     )
     parser.add_argument(
         "--min-direct-prr-below-0-99",

@@ -14,7 +14,7 @@
 \title{MeshEcho: Confidence-Aware Route Admission for LoRa Mesh IoT}
 
 \author{
-\IEEEauthorblockN{Gao Zu \quad Quan Zhi}
+\IEEEauthorblockN{Zu Gao \quad Zhi Quan}
 \IEEEauthorblockA{Shenzhen University, Shenzhen, China}
 }
 
@@ -24,21 +24,19 @@
 LoRa mesh IoT networks trade source-confirmed reliability against scarce
 airtime. Flooding adds redundancy but creates collisions, whereas a cached
 source route can select a weak multi-hop path. We present MeshEcho, a
-confidence-aware route-admission policy with bounded recovery, and evaluate
-it with a reproducible packet-level simulator. Version 2.1.22 uses matched
-candidate exposure, independent reception streams, a distinct min-hop
-baseline, and explicit generalization cases. In the calibrated 50-node,
-8.25-km matrix over 20 seeds, MeshEcho reaches 0.720 ACK-confirmed
-completion at 28.1 s airtime, versus 0.502/38.5 s for matched source
-routing and 0.661/27.6 s for ETX and fixed-SF ETT. The paired MeshEcho
-minus source-route ACK-PDR difference is +0.218
-(95\% CI [+0.041,+0.395]); the destination-PDR interval includes zero.
-Unconditioned random pairs and a 100-node, 3--5-hop case retain an ACK-PDR
-advantage over ETX, but at a small airtime cost. Temporal block fading with
-short route TTL moves MeshEcho to 0.324 ACK PDR and 71.3 s airtime, so route
-aging is a boundary diagnostic rather than a universal claim. The evidence
-supports a bounded source-confirmed-reliability--airtime operating point in
-simulation, not topology-independent dominance or hardware validity.
+confidence-ranked source-routing policy with bounded route-miss recovery,
+evaluated in a packet-level simulator. In 480 first-discovery unicasts over
+20 held-out seeds, MeshEcho reaches 0.692 ACK completion at 93.3 s airtime,
+versus 0.554/91.4 s for ETX. The seed-paired ACK difference is +0.137
+(95\% CI [+0.090,+0.185]), at +1.9 s airtime. The primary policies do not
+always observe the same routes: only 148/480 MeshEcho--ETX candidate sets
+match. An isolated experiment with identical candidate sets on all 480
+pairs retains a +0.163 ACK advantage [+0.121,+0.204], at +0.094 s per
+pair. On unconditioned random pairs, flooding instead achieves 0.736 ACK
+PDR/39.7 s against MeshEcho's 0.430/103.2 s. Short route TTL under block
+fading also degrades MeshEcho to 0.341/71.1 s. These results support a
+conditional route-selection benefit in simulation, not universal dominance
+or hardware validity.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -56,25 +54,25 @@ occupies the channel for a long time, while a flood multiplies collision
 opportunities. A cached source route reduces redundancy, but one weak hop can
 invalidate an otherwise useful path.
 
-MeshEcho records lightweight link-quality evidence during discovery, ranks
-candidate paths by confidence, and invokes bounded recovery only when a
-route is uncertain. The contribution is not a new link metric; it is an
-explicit policy that couples confidence-based admission, a matched
-discovery budget, and bounded recovery, then tests that policy against
-shortest-candidate, ETX, ETT, and flooding baselines. The implementation is
-a simulation prototype, not a production mesh stack.
+MeshEcho records lightweight link-quality evidence during discovery and
+ranks candidate paths by confidence. The default confidence threshold is
+zero, so an admitted route does not trigger confidence-based flooding;
+bounded TTL-2 recovery occurs only when discovery finds no candidate. The
+contribution is a route-selection policy evaluated against
+shortest-candidate, ETX, ETT, min-hop, and flooding baselines. The
+implementation is a simulation prototype, not a production mesh stack.
 
 This paper makes four contributions:
 \begin{itemize}
 \item a reproducible packet-level LoRa mesh harness with time-on-air,
 propagation, shadowing, half-duplex collision/capture, route discovery, and
 energy accounting;
-\item a per-seed quality-gated, non-saturated ICC matrix with matched
-candidate exposure and paired confidence intervals;
-\item MeshEcho-only component attribution, a distinct min-hop baseline, and
-random-pair, deep-multihop, and temporal-fading generalization evidence; and
-\item an explicit boundary separating source-confirmed completion from
-destination delivery, cache-aging diagnostics, and simulation-only validity.
+\item a quality-gated, 480-unicast first-discovery matrix over 20 held-out
+seeds, with paired confidence intervals and candidate-set auditing;
+\item an isolated single-flow comparison with identical observed candidate
+sets, plus component and controlled route-conflict evidence; and
+\item random-pair, three-hop, and fading diagnostics that expose limits of
+the simulated reliability--airtime tradeoff.
 \end{itemize}
 
 \section{Related Work}
@@ -105,59 +103,97 @@ route-cache events, discovery success, and configured TX/RX energy.
 
 \subsection{Routing policies}
 Managed flooding rebroadcasts with duplicate suppression. Matched
-source-routing floods a request, collects all destination replies arriving in
-a 2-s window, and selects the shortest returned candidate. ETX and ETT use
+source-routing floods a request, collects candidates arriving in a 2-s
+window, and selects the shortest returned candidate. ETX and ETT use
 the same discovery and forwarding machinery but minimize
 \[
 C_{\rm ETX}=\sum_i p_i^{-1},\qquad
 C_{\rm ETT}=\sum_i {\rm ToA}_i p_i^{-1},
 \]
 where $p_i$ is the observed per-hop PRR. The min-hop baseline ignores link
-quality after equal candidate exposure. MeshEcho selects the candidate with
-the highest confidence, using path length only as a tie-break; a 0.025
-per-hop penalty and a linear age penalty (maximum 0.1) are applied to the
-confidence score. If no usable route is admitted, a bounded two-hop fallback
-is allowed. The ICC runs disable adaptive timeout retries. The historical
+quality after the same discovery-window configuration. MeshEcho selects the
+candidate with the highest confidence, using path length only as a
+tie-break. Its default low-confidence fallback
+threshold is zero; only discovery with no candidate invokes TTL-2 recovery.
+The ICC runs disable adaptive timeout retries. The historical
 Smart-CALM firmware/simulator namespace remains in the repository but is not
 an ICC protocol, ablation, or conclusion.
+
+\subsection{Confidence update and recovery}
+For each received route request, let $m_i$ be the received SNR minus the
+SF-specific demodulation threshold on hop $i$, and let $I_i$ indicate a
+reception marked as collided. The link score and MeshEcho's accumulated
+candidate score are
+\begin{align}
+\ell_i &= \operatorname{clip}_{.05}^{.98}
+  \left(\frac{1}{1+e^{-.7m_i}}-.18I_i\right), \\
+c_1 &= \ell_1,\qquad
+c_i=\operatorname{clip}_{.05}^{.98}
+  \left(\min(c_{i-1},\ell_i)-.025\right),\quad i\geq2.
+\end{align}
+Here $\operatorname{clip}_a^b(x)=\min(b,\max(a,x))$. Thus the score
+retains the weakest observed hop and charges 0.025 for each additional
+hop beyond the first. It is a heuristic admission score, not an independently
+calibrated end-to-end delivery probability. The destination retains every
+candidate arriving before the two-second window closes; the highest score
+wins, with shorter paths breaking equal-score ties. A route reply follows
+the reverse selected path, and data are sent only after the source receives
+that reply. Consequently, route-discovery success and ACK completion are
+distinct events, both included in the reported denominator.
+
+For a cached route created at $t_0$ and expiring at $t_e$, forwarding uses
+\begin{equation}
+\hat c(t)=\operatorname{clip}_0^1\!\left[
+c_i-.1\operatorname{clip}_0^1\!\left(
+\frac{t-t_0}{\max(1,t_e-t_0)}\right)\right].
+\end{equation}
+The default fallback threshold is zero,
+so this age reduction never launches a low-confidence duplicate for an
+admitted route. If discovery observes no candidate, the pending unicast
+instead invokes a TTL-2 recovery flood. ACK-triggered cancellation applies
+to delayed fallbacks, but the evaluated configuration disables timeout
+retry. This precise scope matters when interpreting the near-zero
+no-fallback ablation difference.
 
 \section{Experimental Design}
 \subsection{Primary matrix and metrics}
 The primary matrix has 50 nodes in an $8250\,\mathrm{m}$ square, 600-s runs,
-mixed traffic at one flow/min, SF7, 4-dB shadowing, and 20 seeds. For each
-seed, 24 source--destination pairs are selected from a shared analytical
-graph with edge PRR $\geq0.90$ and graph distance 2--4 hops. The quality gate
-requires a complete pair pool, mean graph distance at least 2, and at least
-10\% of direct links below 0.99 PRR. In this calibrated graph every selected
-pair is exactly two hops and all primary route-cache-hit counts are zero.
-Thus the headline estimand is first-discovery route admission, not general
-cache reuse. All protocols share node placement, traffic, shadowing,
-reception streams, discovery window, and route TTL. Reported intervals are
-two-sided 95\% paired CIs computed from seed-level differences.
+one unicast per selected directed pair (24 per seed), SF7, 4-dB shadowing,
+and held-out seeds 21--40. Pairs are selected from a shared analytical graph
+with edge PRR $\geq0.90$ and graph distance 2--4 hops; every selected pair
+is two hops in these runs. The quality gate requires a complete pair pool,
+mean graph distance at least 2, and at least 10\% of direct links below
+0.99 PRR. Each pair appears once, so the estimand is first discovery rather
+than repeated-pair cache reuse. Policies share node placement, flow schedule,
+shadowing, reception-stream construction, discovery window, route TTL, and
+RREQ relay timing. Distinct forwarding decisions still alter collision
+histories and observed candidate sets. Reported paired intervals use 20
+seed-level differences, not 480 independent flows.
 
 \begin{table}[t]
 \centering
 \caption{Calibrated ICC parameters.}
 \label{tab:params}
 \scriptsize
-\begin{tabular}{@{}ll@{}}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}p{.30\columnwidth}p{.64\columnwidth}@{}}
 \toprule
 Nodes / area & 50 / $8250\,\mathrm{m}\times8250\,\mathrm{m}$\\
-Duration / load & 600 s / 1 flow min$^{-1}$\\
+Duration / load & 600 s / 24 one-shot unicasts per seed\\
 Radio & 32 B, 17 dBm, 125 kHz, CR 4/5, SF7\\
 Path loss / shadowing & $n=2.75$ / $\sigma=4$ dB\\
 Discovery / route TTL & 2 s / 600 s\\
 Pairs / graph & 24 / PRR $\geq0.90$, 2--4 hops\\
-Seeds / quality gate & 20 / mean hops $\geq2$, below-0.99 PRR $\geq10\%$\\
+Seeds / quality gate & 21--40 / mean hops $\geq2$, below-0.99 PRR $\geq10\%$\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table*}[t]
 \centering
-\caption{Primary calibrated matrix (20 seeds). Values are means; $\pm$
-denotes the two-sided 95\% CI half-width. ACK PDR requires a reverse-path
-ACK, while destination PDR does not.}
+\caption{One-shot first-discovery matrix (20 seeds, 480 unicasts).
+Values are seed means; $\pm$ denotes 95\% CI half-width. ACK PDR requires
+a reverse-path ACK, while destination PDR does not.}
 \label{tab:main}
 \scriptsize
 \setlength{\tabcolsep}{3.5pt}
@@ -165,42 +201,73 @@ ACK, while destination PDR does not.}
 \toprule
 Protocol & ACK PDR & Dest. PDR & Airtime (s) & Discovery & Multi-hop route & Mean hops\\
 \midrule
-Managed flooding & .371$\pm$.124 & 1.000$\pm$.000 & 12.0$\pm$1.8 & n/a & n/a & n/a\\
-Matched source-route & .502$\pm$.103 & .636$\pm$.110 & 38.5$\pm$5.3 & .720 & .803 & 1.82\\
-ETX metric & .661$\pm$.119 & .741$\pm$.098 & 27.6$\pm$4.6 & .861 & .843 & 1.91\\
-Fixed-SF ETT metric & .661$\pm$.119 & .741$\pm$.098 & 27.6$\pm$4.6 & .861 & .843 & 1.91\\
-Min-hop & .419$\pm$.118 & .435$\pm$.113 & 26.9$\pm$4.3 & .637 & .716 & 1.67\\
-\textbf{MeshEcho} & \textbf{.720$\pm$.115} & \textbf{.739$\pm$.115} & \textbf{28.1$\pm$4.7} & .891 & .989 & 2.03\\
+Managed flooding & .444$\pm$.049 & .992$\pm$.010 & 27.8$\pm$0.8 & n/a & n/a & n/a\\
+Matched source-route & .425$\pm$.061 & .494$\pm$.058 & 90.5$\pm$0.4 & .633 & .678 & 1.73\\
+ETX metric & .554$\pm$.051 & .604$\pm$.048 & 91.4$\pm$0.4 & .767 & .717 & 1.76\\
+Fixed-SF ETT metric & .554$\pm$.051 & .604$\pm$.048 & 91.4$\pm$0.4 & .767 & .717 & 1.76\\
+Min-hop & .475$\pm$.062 & .537$\pm$.063 & 90.8$\pm$0.4 & .696 & .653 & 1.69\\
+\textbf{MeshEcho} & \textbf{.692$\pm$.053} & \textbf{.708$\pm$.057} & \textbf{93.3$\pm$0.4} & .829 & .997 & 2.06\\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 \subsection{Generalization strata}
-Three separate 20-seed strata avoid pooling different estimands. Random pairs
-use 50 nodes in an 18-km square with mixed traffic at 4 flows/min. Deep
-multihop uses 100 nodes in a 21-km square, unicast at 2 flows/min, and
-24 pairs selected at graph distance 3--5; the 21-km calibration was chosen
-before the final run because the 20-km setting failed the complete-pool gate
-for seed 12. Temporal-fading cases reuse four connected pairs in the
-8.25-km square with 6-dB block fading every 60 s, comparing 600-s and 30-s
-route TTLs. These cases report limits and are not pooled with Table~\ref{tab:main}.
+Separate 20-seed strata avoid pooling different estimands. Random pairs use
+50 nodes in an 18-km square and mixed traffic at 4 flows/min. Deep multihop
+uses 100 nodes in a 21-km square and unicast at 2 flows/min; the selection
+rule permits graph distance 3--5, but all selected paths in these seeds are
+three hops. Temporal-fading cases reuse four connected pairs in the 8.25-km
+square with 6-dB block fading every 60 s, comparing 600-s and 30-s route
+TTLs. These cases are not pooled with Table~\ref{tab:main}.
+
+\subsection{Comparison and uncertainty procedure}
+The primary comparison puts all 24 selected flows into one 600-s run for
+each policy and seed. The application schedule and topology are identical
+within a seed, and matched relay timing removes a known request-timing
+asymmetry. Nevertheless, path choice changes reply, data, and ACK
+transmissions; later discoveries can therefore see different interference
+and candidate sets. This matrix estimates complete-policy behavior under
+sequential operation. An audit pairs discoveries by seed, source,
+destination, and request identifier, then compares exact candidate-path
+sets rather than their counts alone.
+
+To separate candidate ranking from this feedback, the isolation experiment
+runs each of the same 24 directed pairs alone in a fresh 12-s simulator for
+each of four policies: MeshEcho, ETX, min-hop, and matched source routing.
+All runs reuse their seed's node geometry, radio settings, and reception
+stream, begin the unicast at 0.1 s, share matched request relay timing,
+and disable MeshEcho's route-miss fallback. No previous flow can alter a
+route cache or the collision history. Candidate-set equality is verified
+for each pair before interpreting selection differences. The pair pool
+comes from an analytical connectivity graph, but no policy sees that graph
+when discovering a route.
+
+For a baseline $B$, let $d_s$ be MeshEcho's metric minus $B$'s metric in
+topology seed $s$. In the matrix, a PDR metric is the fraction of 24
+observed unicasts; in isolation it is the mean of 24 paired binary outcomes
+within that seed. We report $\bar d$ and the two-sided interval
+$\bar d\pm t_{.975,19}s_d/\sqrt{20}$, where $s_d$ is the sample standard
+deviation of the 20 seed differences. Airtime is per 600-s run in the
+matrix and per isolated pair in the ranking test. Treating 480 flows as
+independent replicates would give unjustifiably narrow intervals because
+pairs in one seed share geometry and shadowing.
 
 \section{Results}
 \subsection{Primary and mechanism evidence}
-MeshEcho improves over matched source routing by +0.218 ACK PDR
-(95\% CI $[+0.041,+0.395]$) and reduces airtime by 10.3 s
-($[-12.6,-8.1]$). Destination PDR changes by +0.103
-($[-0.086,+0.292]$), so the strongest claim concerns source-confirmed
-completion under the simulator's reverse-path ACK model. MeshEcho versus
-ETX/ETT is +0.059 ACK PDR ($[-0.108,+0.226]$), and versus min-hop is
-+0.301 ($[+0.161,+0.441]$); the latter is a distinct shortest-path
-baseline, not an oracle.
+MeshEcho exceeds ETX/ETT by +0.137 ACK PDR (95\% paired CI
+$[+0.090,+0.185]$), with +1.9 s airtime ($[+1.6,+2.3]$). Against
+matched source routing it gains +0.267 ACK PDR
+($[+0.208,+0.325]$) at +2.8 s airtime ($[+2.4,+3.2]$).
+Destination-PDR gains also remain positive against ETX (+0.104,
+$[+0.051,+0.157]$). Flooding is much cheaper in airtime (27.8 s), but
+its ACK PDR is 0.444 in this conditioned matrix; its destination PDR is
+0.992, underscoring the reverse-ACK distinction.
 
 \begin{figure}[t]
 \centering
 \input{figures/fig_primary_comparison.tex}
-\caption{Primary calibrated matrix. Bars are seed-level means and whiskers
-are two-sided 95\% confidence intervals. The left-to-right policy order is
+\caption{One-shot matrix over $n=20$ topology seeds. Bars are seed-level
+means and whiskers are two-sided 95\% confidence intervals. The policy order is
 managed flooding, matched source-route (Src), ETX/ETT, min-hop (Min), and
 MeshEcho (Echo). ETX and fixed-SF ETT coincide under the shared packet-time
 model and are shown as one metric bar.}
@@ -209,7 +276,7 @@ model and are shown as one metric bar.}
 
 \begin{table}[t]
 \centering
-\caption{MeshEcho component attribution in the primary matrix. Deltas are
+\caption{MeshEcho component attribution in the one-shot matrix. Deltas are
 MeshEcho minus the named variant; intervals are paired 95\% CIs.}
 \label{tab:abl}
 \scriptsize
@@ -218,26 +285,52 @@ MeshEcho minus the named variant; intervals are paired 95\% CIs.}
 \toprule
 Variant & $\Delta$ ACK & 95\% CI & $\Delta$ airtime\\
 \midrule
-No confidence & +.148 & $[+.052,+.244]$ & +.4 s\\
-No fallback & +.000 & $[+.000,+.000]$ & +.1 s\\
-No hop penalty & +.050 & $[-.029,+.130]$ & $-0.2$ s\\
+No confidence & +.212 & $[+.160,+.265]$ & +2.4 s\\
+No fallback & +.002 & $[-.002,+.006]$ & +0.0 s\\
+No hop penalty & +.010 & $[-.037,+.058]$ & $-1.1$ s\\
 No age penalty & +.000 & $[+.000,+.000]$ & +0.0 s\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The no-confidence row is an end-to-end policy-bundle comparison: discovery
-success, candidate count, and route length also change. The controlled
-seven-node route-conflict audit supplies narrower evidence. With a 7.5-dB
-weakened short branch, both candidates appear in 90\% of seeds; MeshEcho
-selects the longer branch in every observed conflict and improves ACK PDR by
-$+0.221\pm0.096$ over shortest-candidate selection. This supports candidate
-admission in that controlled topology, not a universal confidence advantage.
+The no-confidence row is an end-to-end bundle comparison: candidate sets,
+discovery success, and route length can all change. In the main matrix,
+MeshEcho and ETX observe identical candidate sets on only 148/480 paired
+flows, despite matched RREQ timing. Thus Table~\ref{tab:main} alone cannot
+attribute the gain to route ranking. A separate isolated first-discovery
+experiment restarts the simulator for each pair, disables route-miss
+fallback, and obtains identical candidate sets for all 480 pairs; 447 pairs
+have at least two candidates. MeshEcho gains +0.163 ACK PDR over ETX
+($[+0.121,+0.204]$), at +0.094 s per pair ($[+0.078,+0.110]$).
+When both select the same path (169 pairs), ACK, destination, and airtime
+outcomes match. This conditional result supports a route-choice mechanism
+under the static model. A controlled seven-node route-conflict audit also
+finds a +0.192 ACK gain ($\pm0.100$) for the longer selected branch at
++14.3 s airtime; it is not evidence of universal superiority.
+
+\begin{table}[t]
+\centering
+\caption{Isolated first discovery: means over 480 pairs, with identical
+candidate sets for all four policies. Airtime is per pair.}
+\label{tab:isolated}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrr}
+\toprule
+Policy & ACK PDR & Dest. PDR & Airtime (s)\\
+\midrule
+Matched source-route & .433 & .496 & 3.762\\
+Min-hop & .458 & .517 & 3.769\\
+ETX & .525 & .573 & 3.791\\
+\textbf{MeshEcho} & \textbf{.688} & \textbf{.706} & \textbf{3.884}\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Generalization and temporal fading}
 \begin{table}[t]
 \centering
-\caption{MeshEcho ACK-PDR/airtime means in separate generalization strata.}
+\caption{ACK-PDR/airtime means in separate 20-seed strata.}
 \label{tab:gen}
 \scriptsize
 \setlength{\tabcolsep}{2.2pt}
@@ -245,44 +338,36 @@ admission in that controlled topology, not a universal confidence advantage.
 \toprule
 Case & MeshEcho & ETX & $\Delta$ ACK & $\Delta$ airtime\\
 \midrule
-Random pairs & .404/99.5 & .308/98.1 & +.096 & +1.3 s\\
-3--5-hop, 100 nodes & .696/160.4 & .531/156.6 & +.165 & +3.9 s\\
-Fading, TTL 600 s & .526/21.2 & .450/20.2 & +.076 & +0.9 s\\
-Fading, TTL 30 s & .324/71.3 & .256/63.3 & +.067 & +8.0 s\\
+Random pairs & .430/103.2 & .293/103.0 & +.137 & +0.2 s\\
+Three-hop, 100 nodes & .724/154.9 & .551/151.6 & +.172 & +3.3 s\\
+Fading, TTL 600 s & .581/21.8 & .483/20.8 & +.098 & +1.1 s\\
+Fading, TTL 30 s & .341/71.1 & .235/54.8 & +.106 & +16.3 s\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Random pairs retain an ACK-PDR advantage over ETX while removing fixed-pair
-reuse; the difference is accompanied by a small airtime increase. The deeper
-case shows the same direction at 3--5 hops, but MeshEcho is not the
-lowest-airtime policy. Under temporal fading, shortening the TTL increases
-repair and airtime for every routing policy and reduces MeshEcho to 0.324
-ACK PDR. The fading results therefore define a stale-route boundary rather
-than proving that confidence aging solves time-varying channels.
-
-\subsection{Sensitivity and stress cases}
-At SF8, MeshEcho reaches 0.405 ACK PDR/61.7 s, while managed flooding reaches
-0.434/39.2 s. At four flows/min, MeshEcho reaches 0.660/111.0 s versus
-0.450/107.6 s for ETX and 0.409/50.5 s for flooding. These are operating
-points, not universal rankings. The 18-km, 3-seed quality probe passes its
-pair and link gates but has only 0.178 MeshCore-like discovery success; it is
-reported as a route-discovery stress diagnostic, not a neutral data-plane
-comparison.
+Random pairs retain a +0.137 ACK advantage over ETX
+($[+0.097,+0.178]$), but managed flooding instead reaches 0.736 ACK PDR at
+39.7 s, against MeshEcho's 0.430 at 103.2 s. The deeper case admits a
+3--5-hop selection rule, yet all selected graph paths are three hops in the
+observed seeds; MeshEcho gains ACK PDR over ETX at +3.3 s airtime.
+Under temporal fading, shortening TTL from 600 to 30 s increases MeshEcho's
+mean route repairs from 0 to 14.5 per run, reduces ACK PDR from 0.581 to
+0.341, and increases airtime from 21.8 to 71.1 s. Flooding reaches
+0.561/44.7 s in the short-TTL workload. These are operating-point
+boundaries, not evidence that confidence aging solves fading.
 
 \subsection{Fairness and metric boundaries}
-The matched source-route baseline collects every destination reply arriving
-within the same discovery window as MeshEcho, so the primary contrast is not
-an immediate-reply versus delayed-reply artifact. The protocols nevertheless
-retain different forwarding and recovery semantics by design. We therefore
-report both ACK PDR and destination PDR: an ACK confirms source-side
-completion, whereas destination PDR can remain high when the reverse path
-fails. Airtime includes discovery, data, ACK, and recovery transmissions, so
-the reported operating point does not hide control cost.
+The matched source-route baseline uses the same discovery window and RREQ
+relay timing as MeshEcho, but differing transmissions still change candidate
+exposure. The isolated experiment is the stronger fixed-candidate check.
+We report ACK and destination PDR separately: an ACK confirms source-side
+completion, whereas destination delivery can remain high when the reverse
+path fails. Airtime includes discovery, data, ACK, and recovery traffic.
 
 \begin{table}[t]
 \centering
-\caption{Secondary cache-aging diagnostic (20 seeds).}
+\caption{Secondary temporal-fading diagnostic (20 seeds).}
 \label{tab:cache}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -290,31 +375,27 @@ the reported operating point does not hide control cost.
 \toprule
 TTL & ACK PDR & Dest. PDR & Airtime (s) & Repairs\\
 \midrule
-600 s & .786 & .806 & 25.7 & 0.25\\
-30 s & .472 & .490 & 88.5 & 18.5\\
+600 s & .581 & .619 & 21.8 & 0.0\\
+30 s & .341 & .356 & 71.1 & 14.5\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The cache table is intentionally not a replacement for the primary matrix:
-it reuses four pairs and measures route-cache reuse under fading. Likewise,
-the deep case was calibrated to satisfy a complete pair pool before the final
-20-seed run; its 21-km setting is disclosed rather than presented as an
-untouched robustness point. These choices make the estimand explicit and
-allow future work to replace pair conditioning, static shadowing, or the
-reverse-path ACK model independently.
+The fading table is not a replacement for the one-shot primary matrix: it
+reuses four pairs and measures route-cache aging. Pair conditioning, static
+shadowing, and the reverse-path ACK model remain separate validity limits.
 
 \section{Discussion and Limitations}
-The evidence supports a bounded claim: in the calibrated shared harness,
-MeshEcho improves the source-confirmed reliability--airtime operating point
-over matched source routing, while ETX/ETT remain statistically
-indistinguishable in the primary comparison. Managed flooding remains the
-low-airtime reference, and the min-hop/deep/random strata show that the
-confidence policy is not an automatic dominance result. Cache reuse and
-temporal fading are secondary diagnostics: the 600-s versus 30-s cache
-experiment moves MeshEcho from 0.786/25.7 s to 0.472/88.5 s, with route
-repairs rising from 0.25 to 18.5 per run. These values are not pooled with
-the zero-hit primary estimand.
+The primary matrix shows higher ACK completion for MeshEcho than ETX at a
+small airtime cost, but not a clean route-ranking effect: only 148/480
+MeshEcho--ETX candidate sets match. The isolated experiment, with all
+candidate sets matched, supports a conditional route-choice interpretation.
+The budgeted variant falls to 0.573 ACK PDR, below default MeshEcho's
+0.692; it is an unsuccessful tradeoff here, not an improvement. The
+no-fallback ablation differs by only +0.002 ACK PDR in the matched matrix,
+consistent with fallback having little effect in this workload. Random-pair
+flooding and short-TTL fading reverse the attractive operating point, so
+the result is not topology-independent dominance.
 
 All results are packet-level simulation. The model includes path loss,
 shadowing, collision timing, capture, route discovery, and energy accounting,
@@ -326,60 +407,68 @@ hardware validation. A hardware or hardware-in-the-loop study remains
 necessary for radio-specific external validity.
 
 \subsection{Threats to interpretation}
-The quality gate is deliberately a measurement contract, not a guarantee of
-deployment realism. Pair selection from an analytical PRR graph removes
-degenerate disconnected samples, but it conditions the primary estimate on
-links that are usable in the static model. The random-pair stratum removes
-that conditioning at the cost of lower route completion, and the deep stratum
-tests a different scale and hop distribution. We report all three rather than
-averaging them into a single ranking.
+The quality gate is a measurement contract, not a guarantee of deployment
+realism. Analytical-graph pair selection removes disconnected samples but
+conditions the primary estimate on usable static links. Random pairing
+removes that conditioning and markedly changes the ranking; the deep stratum
+tests a different scale, with actual selected graph paths all three hops.
+These strata must not be averaged into one ranking.
 
-The paired design shares topology, traffic, and reception streams, but it is
-not event-by-event common-random-number coupling: protocols transmit
-different numbers of packets and therefore encounter different collision
-histories. Confidence intervals are computed from independent seed-level
-differences, not from individual packets or flows. This avoids overstating
-precision while preserving the topology pairing. The no-confidence ablation
-also changes discovery success and route length, so it is a policy-bundle
-contrast, not a fixed-candidate causal estimate. Finally, the route-conflict
-audit has only seven nodes and is intentionally surgical; it cannot replace a
-random-topology comparison.
+The paired design shares topology, traffic, and reception-stream
+construction, but it is not event-by-event common-random-number coupling:
+different transmissions cause different collision histories. Confidence
+intervals use independent seed-level differences, not individual flows.
+The no-confidence ablation changes discovery as well as route selection,
+and the seven-node route-conflict audit is deliberately surgical. Neither
+replaces the isolated same-candidate comparison.
 
-These boundaries determine what a future hardware study must preserve:
-the same pair schedule, discovery window, source-confirmed and destination
-metrics, airtime accounting, and route-TTL perturbation. A small SX126x or
-SX127x testbed with RSSI/SNR logs would test whether the simulated confidence
-ordering survives oscillator, antenna, modem-timing, and duty-cycle effects.
+\subsection{Deployment boundary}
+The simulated link score uses an SNR margin from successful request
+receptions. It does not explicitly estimate packet loss from censored
+requests, nor does it calibrate confidence against measured end-to-end
+delivery. Static shadowing lets discovery and forwarding sample the same
+link realization. A moving node, changing antenna orientation, or external
+interferer could invalidate the ordering before the 600-s route TTL expires.
+The short-TTL fading case probes one such failure mode, but its 60-s block
+process is not a measured channel trace. The lower ACK rate and higher
+airtime in that case show that merely rediscovering more often is not a
+complete mobility solution.
+
+A radio study should keep the selected pair schedule and two-second
+discovery window fixed while logging every request candidate, chosen path,
+per-hop RSSI/SNR, data arrival, reverse ACK, retry, and transmit airtime.
+Repeating the isolated same-candidate test on a small SX126x or SX127x
+testbed would test whether the score ordering persists under real oscillator
+offset, antenna variation, modem timing, and interference. A second phase
+should impose an enforceable duty-cycle budget and vary route TTL, then
+report both ACK and destination PDR. Without those measurements, the present
+numbers should guide simulator comparisons rather than deployment claims.
 
 \section{Reproducibility}
-Version 2.1.22 releases source, tests, raw seed-level CSVs, summary CSVs, and
-Markdown reports. The main workflow is
-\texttt{OUT\_PREFIX=meshecho\_v2\_1\_22\_icc2027 bash
-tools/run\_icc\_experiments.sh}. The sensitivity, generalization, cache, and
-route-conflict commands are versioned in
-\texttt{tools/run\_icc\_sensitivity\_experiments.py},
-\texttt{tools/run\_icc\_generalization\_experiment.py},
-\texttt{tools/run\_icc\_cache\_experiment.py}, and
-\texttt{tools/run\_route\_conflict\_experiment.py}. No human participants or
-personal data were involved; there are no known conflicts of interest or
-external funding.
+Version 2.1.23 includes source, tests, seed-level CSVs, summary CSVs,
+candidate-path records, and reports. The matrix, isolation, and candidate
+audit utilities live in the released \texttt{tools/} directory; their exact
+arguments and output prefixes are recorded alongside the raw results.
+Generalization, fading, and route-conflict runners are versioned separately.
+The 20 held-out seeds are 21--40; raw CSVs preserve per-seed denominators
+and selected paths.
+No human participants or personal data were involved, and the authors
+report no external funding or conflicts of interest.
 
 \subsection{Evidence manifest}
-The released artifacts keep raw observations separate from interpretation.
-The primary and sensitivity CSVs contain one row per protocol and seed; the
-generalization runner writes one file per estimand; and the Markdown reports
-record link quantiles, pair-selection rules, route-hop diagnostics, discovery
-success, and paired comparisons. The versioned component file contains only
-the MeshEcho policy variants, so a historical adaptive-firmware result cannot
-silently enter the ICC table. The quality gate is run before a connected
-multihop CSV is accepted, and its failure messages identify the seed and the
-violated condition. This separation makes it possible to reproduce the
-headline matrix while independently auditing selection, cache reuse, and
-temporal fading.
+Raw observations are separate from interpretation. The primary CSV contains
+one row per policy and seed and records 24 scheduled and observed distinct
+unicasts in each row. Discovery records preserve observed candidate paths
+and selected routes, allowing the 148/480 live candidate-set match to be
+recomputed. The isolated CSV records each policy's result for every pair;
+the report checks all 480 candidate sets and same-path outcomes. Generalization
+reports keep the random-pair, deep, and fading estimands separate. Historical
+2.1.22 sensitivity artifacts remain labeled as historical and are not pooled
+with this holdout.
 
 \begin{table}[t]
 \centering
-\caption{Version 2.1.22 evidence strata and estimands.}
+\caption{Version 2.1.23 evidence strata and estimands.}
 \label{tab:manifest}
 \scriptsize
 \setlength{\tabcolsep}{2.6pt}
@@ -387,48 +476,37 @@ temporal fading.
 \toprule
 Artifact & Main perturbation & Estimand\\
 \midrule
-Calibrated & PRR-qualified, 2-hop pairs & First discovery\\
+One-shot & PRR-qualified, 2-hop pairs & System comparison\\
+Isolated & Identical candidate sets & Route ranking\\
 Random pairs & Unconditioned source/destination & Generalization\\
-Deep multihop & 100 nodes, 3--5 hops & Scale/hop depth\\
+Deep multihop & 100 nodes, observed 3 hops & Scale/hop depth\\
 Fading & 6-dB blocks, TTL 600/30 s & Staleness boundary\\
-Cache & Four repeated pairs & Cache reuse/aging\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Audit checklist}
-Before interpretation, the release checks the protocol registry, the
-candidate-exposure window, the route-TTL setting, and the independent channel
-stream. The calibrated and sensitivity runners reject incomplete connected
-pair pools before writing reports. The generalization runner records the
-selection rule for every stratum and reruns all protocols on the same seed
-and topology. The temporal-fading implementation derives its perturbation
-from the unordered link, seed, and time block, so protocol event ordering
-cannot change the fading realization. The cache diagnostic reports both
-route-cache hits and route repairs; the route-conflict audit records the
-selected path and both candidate confidence values. These checks are useful
-because a high aggregate PDR can otherwise hide a mostly one-hop or
-route-discovery-limited experiment.
+Before interpretation, the release checks protocol coverage, paired traffic
+traces, candidate exposure, route TTL, and independent reception streams.
+Connected-pool runners reject incomplete pair sets and degenerate link
+regimes. Temporal fading is a deterministic function of link, seed, and time
+block. Reports include selection rules, route-hop diagnostics, discovery
+success, and paired intervals, so high aggregate PDR cannot hide a
+single-hop or discovery-limited experiment.
 
-The raw CSV schema also preserves negative and boundary cases. Managed
-flooding can have high destination PDR but low ACK PDR; ETX and ETT can
-coincide under fixed SF; min-hop can select a shorter but less reliable
-candidate; and MeshEcho can spend more airtime when confidence admission
-chooses a longer path. We retain these rows in the released summaries rather
-than replacing them with a single rank score. The paper's numerical claims
-are generated from the Markdown reports, while the CSVs remain the authority
-for seed-level recomputation and alternative confidence intervals.
+The raw files retain negative cases: flooding dominates MeshEcho on random
+pairs, a short TTL is costly under fading, and the budgeted variant loses ACK
+PDR. Fixed-SF ETT and ETX coincide because the packet airtime multiplier is
+constant. CSVs, not rounded table entries, are authoritative for
+recomputing intervals.
 
 \section{Conclusion}
-MeshEcho reaches 0.720 ACK PDR at 28.1 s in the calibrated multi-hop
-simulation, compared with 0.502/38.5 s for matched source routing and
-0.661/27.6 s for ETX/ETT. Random-pair and deeper-hop cases preserve the
-direction of the ACK-PDR result with a small airtime cost, while temporal
-fading and short TTLs expose a clear stale-route boundary. Component and
-route-conflict evidence implicate confidence-aware candidate admission as the
-main effect in this workload. Version 2.1.22 therefore supports a
-reproducible, bounded MeshEcho simulation claim, not topology-independent
-dominance or physical validation.
+Across 480 one-shot unicasts, MeshEcho attains 0.692 ACK PDR/93.3 s versus
+ETX's 0.554/91.4 s. The isolated same-candidate experiment supports a
+route-ranking benefit, while the live matrix also changes candidate
+exposure. Random-pair flooding outperforms MeshEcho, and short-TTL fading
+substantially degrades it. Version 2.1.23 therefore supports a bounded
+simulation result, not universal dominance or physical validation.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

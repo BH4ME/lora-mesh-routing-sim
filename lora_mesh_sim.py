@@ -27,6 +27,8 @@ BROADCAST_DST = -1
 DEFAULT_CALM_DISCOVERY_WINDOW_S = 2.0
 DEFAULT_MESHCORE_DISCOVERY_WINDOW_S = 0.0
 DEFAULT_MATCHED_MESHCORE_ROUTE_TTL_S = 600.0
+MATCHED_RREQ_BASE_DELAY_S = 0.5
+MATCHED_RREQ_JITTER_S = 0.7
 ICC_PROTOCOLS = (
     "meshtastic",
     "meshcore",
@@ -296,6 +298,15 @@ class RouteEntry:
     expires_at: float
     path: Tuple[int, ...]
     confidence: float
+
+
+@dataclass(frozen=True)
+class DiscoveryRecord:
+    key: Tuple[int, int, int]
+    started_at: float
+    closed_at: float
+    candidate_paths: Tuple[Tuple[int, ...], ...]
+    selected_path: Optional[Tuple[int, ...]]
 
 
 @dataclass(frozen=True)
@@ -619,12 +630,14 @@ class Simulator:
         seed: int,
         max_hops: int,
         independent_random_streams: bool = False,
+        matched_rreq_timing: bool = False,
     ) -> None:
         self.nodes = {node.node_id: node for node in nodes}
         self.radio = radio
         self.protocol = protocol
         self.seed = seed
         self.random = random.Random(seed)
+        self.matched_rreq_timing = matched_rreq_timing
         # Keep legacy output reproducible by default. The split mode prevents
         # protocol-specific jitter/exploration draws from moving channel draws.
         self.channel_random = (
@@ -649,6 +662,17 @@ class Simulator:
                 )
         self.metrics = Metrics(len(nodes))
         self.protocol.bind(self)
+
+    def rreq_forward_delay(self, packet: Packet, relay: int) -> float:
+        """Return a stable relay delay shared by matched discovery policies."""
+
+        key = (
+            f"rreq:{self.seed}:{packet.origin}:{packet.final_dst}:"
+            f"{packet.request_id}:{relay}"
+        )
+        return MATCHED_RREQ_BASE_DELAY_S + (
+            random.Random(key).random() * MATCHED_RREQ_JITTER_S
+        )
 
     def schedule(self, when: float, event_type: str, data: Any) -> None:
         self._event_counter += 1
@@ -886,6 +910,26 @@ class RoutingProtocol:
 
     def bind(self, sim: Simulator) -> None:
         self.sim = sim
+        self.discovery_records: List[DiscoveryRecord] = []
+        self.discovery_started_at: Dict[Tuple[int, int, int], float] = {}
+        self.closed_discovery_keys: Set[Tuple[int, int, int]] = set()
+
+    def record_discovery(
+        self,
+        key: Tuple[int, int, int],
+        candidate_paths: Iterable[Tuple[int, ...]],
+        selected_path: Optional[Tuple[int, ...]],
+    ) -> None:
+        self.closed_discovery_keys.add(key)
+        self.discovery_records.append(
+            DiscoveryRecord(
+                key=key,
+                started_at=self.discovery_started_at.pop(key),
+                closed_at=self.sim.now,
+                candidate_paths=tuple(sorted(set(candidate_paths))),
+                selected_path=selected_path,
+            )
+        )
 
     def send_app(self, src: int, dst: int, flow_id: int) -> None:
         raise NotImplementedError
@@ -1157,6 +1201,7 @@ class MeshCoreLike(RoutingProtocol):
             key = (src, dst, request_id)
             self.rreq_candidates[key] = []
             self.rreq_timers.add(key)
+            self.discovery_started_at[key] = self.sim.now
             self.sim.schedule(
                 self.sim.now + self.discovery_window_s,
                 "protocol_timer",
@@ -1169,9 +1214,11 @@ class MeshCoreLike(RoutingProtocol):
         self.rreq_timers.discard(key)
         candidates = self.rreq_candidates.pop(key, [])
         if not candidates:
+            self.record_discovery(key, [], None)
             return
         src, dst, request_id = key
         learned_path = min(candidates, key=lambda path: (len(path), path))
+        self.record_discovery(key, candidates, learned_path)
         reverse_path = tuple(reversed(learned_path))
         reply = Packet(
             kind="RREP",
@@ -1252,7 +1299,8 @@ class MeshCoreLike(RoutingProtocol):
                 )
                 self.sim.transmit_later(receiver, reply, delay_s=0.0)
             else:
-                key = (packet.origin, packet.final_dst, packet.request_id)
+                if key in self.closed_discovery_keys:
+                    return
                 self.rreq_candidates.setdefault(key, []).append(new_path)
                 # The destination is the candidate collector in the matched
                 # window.  It must observe every arriving path, just as
@@ -1282,7 +1330,12 @@ class MeshCoreLike(RoutingProtocol):
             path=new_path,
             app_payload=False,
         )
-        self.sim.transmit_later(receiver, forwarded, delay_s=self.flood_delay())
+        delay = (
+            self.sim.rreq_forward_delay(packet, receiver)
+            if self.sim.matched_rreq_timing
+            else self.flood_delay()
+        )
+        self.sim.transmit_later(receiver, forwarded, delay_s=delay)
 
     def path_next_hop_matches(self, receiver: int, packet: Packet) -> bool:
         next_index = packet.path_index + 1
@@ -1494,6 +1547,7 @@ class CalmMesh(RoutingProtocol):
         self.sim.transmit_later(src, packet, delay_s=0.0)
         if key not in self.rreq_timers:
             self.rreq_timers.add(key)
+            self.discovery_started_at[key] = self.sim.now
             self.sim.schedule(
                 self.sim.now + self.discovery_window_for(flow_id),
                 "protocol_timer",
@@ -1504,10 +1558,12 @@ class CalmMesh(RoutingProtocol):
         self.rreq_timers.discard(key)
         candidates = self.rreq_candidates.pop(key, [])
         if not candidates:
+            self.record_discovery(key, [], None)
             self.finish_failed_route_discovery(key)
             return
         src, dst, request_id = key
         path, confidence = self.select_route_candidate(candidates, request_id)
+        self.record_discovery(key, (path for path, _ in candidates), path)
         reverse_path = tuple(reversed(path))
         reply = Packet(
             kind="RREP",
@@ -1636,6 +1692,8 @@ class CalmMesh(RoutingProtocol):
         )
         if receiver == packet.final_dst:
             request_key = (packet.origin, packet.final_dst, packet.request_id)
+            if request_key in self.closed_discovery_keys:
+                return
             self.rreq_candidates.setdefault(request_key, []).append((new_path, confidence))
             self.seen_floods[receiver].add(key)
             return
@@ -1661,7 +1719,12 @@ class CalmMesh(RoutingProtocol):
             path_confidence=confidence,
             app_payload=False,
         )
-        self.sim.transmit_later(receiver, forwarded, delay_s=self.flood_delay(receiver, rx))
+        delay = (
+            self.sim.rreq_forward_delay(packet, receiver)
+            if self.sim.matched_rreq_timing
+            else self.flood_delay(receiver, rx)
+        )
+        self.sim.transmit_later(receiver, forwarded, delay_s=delay)
 
     def on_rrep(self, receiver: int, packet: Packet) -> None:
         if not self.path_next_hop_matches(receiver, packet):
@@ -1757,6 +1820,30 @@ class MeshEcho(CalmMesh):
     """
 
     name = "meshecho"
+
+    def path_confidence(self, path: Tuple[int, ...], inbound_confidence: float) -> float:
+        if len(path) < 2:
+            return clamp(inbound_confidence, 0.0, 1.0)
+        hop_penalty = self.hop_penalty_per_hop if len(path) > 2 else 0.0
+        return clamp(inbound_confidence - hop_penalty, 0.05, 0.98)
+
+
+class MeshEchoBudgeted(MeshEcho):
+    """Prefer a short route unless a near-shortest candidate is clearly better."""
+
+    name = "meshecho-budgeted"
+
+    def select_route_candidate(
+        self,
+        candidates: Sequence[Tuple[Tuple[int, ...], float]],
+        flow_id: int,
+    ) -> Tuple[Tuple[int, ...], float]:
+        del flow_id
+        shortest = min(candidates, key=lambda item: (len(item[0]), item[0]))
+        eligible = (item for item in candidates if len(item[0]) <= len(shortest[0]) + 1)
+        best = min(eligible, key=lambda item: (-item[1], len(item[0]), item[0]))
+        gain = best[1] - shortest[1]
+        return best if gain > 0.10 or math.isclose(gain, 0.10, rel_tol=0.0, abs_tol=1e-12) else shortest
 
 
 class MeshEchoNoConfidence(MeshEcho):
@@ -1901,6 +1988,8 @@ class MetricMesh(CalmMesh):
 
         if receiver == packet.final_dst:
             request_key = (packet.origin, packet.final_dst, packet.request_id)
+            if request_key in self.closed_discovery_keys:
+                return
             self.rreq_candidates.setdefault(request_key, []).append((new_path, score))
             self.seen_floods[receiver].add(key)
             return
@@ -1926,7 +2015,12 @@ class MetricMesh(CalmMesh):
             path_confidence=score,
             app_payload=False,
         )
-        self.sim.transmit_later(receiver, forwarded, delay_s=self.flood_delay())
+        delay = (
+            self.sim.rreq_forward_delay(packet, receiver)
+            if self.sim.matched_rreq_timing
+            else self.flood_delay()
+        )
+        self.sim.transmit_later(receiver, forwarded, delay_s=delay)
 
 
 class MinHopMesh(CalmMesh):
@@ -2602,13 +2696,14 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
                 ),
             ),
         )
-    if name in {"calm", "meshecho", *MESHECHO_ABLATIONS}:
+    if name in {"calm", "meshecho", "meshecho-budgeted", *MESHECHO_ABLATIONS}:
         if args is None:
             if name == "calm":
                 return CalmMesh()
             if name == "meshecho":
                 return MeshEcho()
             return {
+                "meshecho-budgeted": MeshEchoBudgeted,
                 "meshecho-no-confidence": MeshEchoNoConfidence,
                 "meshecho-no-fallback": MeshEchoNoFallback,
                 "meshecho-no-hop-penalty": MeshEchoNoHopPenalty,
@@ -2616,6 +2711,7 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             }[name]()
         meshecho_classes = {
             "meshecho": MeshEcho,
+            "meshecho-budgeted": MeshEchoBudgeted,
             "meshecho-no-confidence": MeshEchoNoConfidence,
             "meshecho-no-fallback": MeshEchoNoFallback,
             "meshecho-no-hop-penalty": MeshEchoNoHopPenalty,
@@ -2799,6 +2895,7 @@ def parse_args() -> argparse.Namespace:
             "minhop",
             "calm",
             "meshecho",
+            "meshecho-budgeted",
             *MESHECHO_ABLATIONS,
             "smart-calm",
             "smart-calm-static",

@@ -46,23 +46,34 @@ below 0.99 static PRR. The diagnostic CSV and report are written with the
 `<OUT_PREFIX>_connected_multihop_quality` suffix. Set `ICC_RUN_QUALITY_PROBE=0`
 only to reproduce a pre-gate legacy run.
 
-The same script then runs the primary calibrated multi-hop matrix: 50 nodes in
-an 8.25 km square, SF7, mixed traffic at 1 flow/min, 24 graph-selected pairs,
-analytical edge PRR >= 0.90, 20 seeds, and a matched 2 s MeshCore-like
-discovery window. It is intended to test route selection in a connected,
-non-saturated regime; the 18 km probe is retained as a separate discovery
-stress diagnostic.
+The same script also reproduces the historical 2.1.22 calibrated matrix:
+50 nodes in an 8.25 km square, SF7, mixed traffic at 1 flow/min, 24
+graph-selected pairs, analytical edge PRR >= 0.90, and a matched 2 s
+discovery window. Its 24 pairs form a selection pool; the 20-seed output
+contains only 102 observed unicasts. It is not the 2.1.23 primary estimand.
+
+The 2.1.23 primary workload schedules one unicast for every selected pair,
+with 24 distinct attempts per seed and holdout seeds 21--40. Matched RREQ
+relay timing and a two-second collection window reduce discovery-scheduling
+differences, but candidate sets still vary after policies alter collision
+history. The separate isolated-first-discovery experiment resets simulator
+state for each pair and policy; use it for equal-candidate route-ranking
+claims. The candidate-set audit compares the recorded paths, rather than
+inferring exposure from the shared pair-selection graph.
 
 Set `ICC_RUN_SENSITIVITY=1` to append the 20-seed SF8 and offered-load
 connected-multihop cases from `tools/run_icc_sensitivity_experiments.py` to the
 same release run. The default is off so the primary reproduction command
 remains short; the sensitivity runner can also be invoked directly.
 
-Run `python3 tools/run_icc_generalization_experiment.py` for separate
-generalization strata: unconditioned random source-destination pairs, a
-100-node three-hop case, and repeated-pair temporal-fading cases with 600 s
-and 30 s route-cache lifetimes. These results are reported separately from the
-conditioned first-discovery matrix.
+Run `python3 tools/run_icc_generalization_experiment.py --seed0 21 --seeds 20`
+for separate 2.1.23 generalization strata: unconditioned random
+source-destination pairs, a 100-node case eligible for 3--5 graph hops, and
+repeated-pair temporal-fading cases with 600 s and 30 s route-cache
+lifetimes. The observed selected pairs in this deep case average exactly
+three graph hops in every seed; do not describe it as demonstrated four- or
+five-hop performance. These results are not pooled with the primary or
+isolated first-discovery estimands.
 
 The default setup is 50 nodes in a 3000 m square, 1200 s per run, eight fixed
 unicast pairs, SF9/BW125 kHz/CR 4/5, and 20 seeds. Environment variables
@@ -131,6 +142,11 @@ machine-readable long-format summary for table generation.
 13. Temporal-fading cases use deterministic paired block offsets keyed by seed,
     link, and time block. Report the fading sigma and block interval, and do
     not pool them with static-channel estimates.
+14. Treat the 20 topology seeds, not 480 flows, as the independent units for
+    paired confidence intervals. Report actual scheduled and observed unicast
+    counts, and disclose which candidate sets match in any ranking claim.
+15. Retain the managed-flooding result even when it is adverse to MeshEcho;
+    ACK completion and destination arrival answer different questions.
 
 ## Suggested Paper Tables
 
@@ -144,14 +160,17 @@ A five-page conference paper should use figures for only the most important
 trade-offs. The raw CSV files and long-format summary CSVs preserve the
 remaining metrics for supplementary analysis.
 
-See [ICC 2027 Comparison](results/icc2027_comparison.md) for the verified
-2.1.22 calibrated-matrix, component-ablation, cache-reuse, generalization,
-and robustness summary. The primary artifacts use the
-`results/meshecho_v2_1_22_icc2027_calibrated_multihop.csv` prefix, while the
-SF/load sensitivity artifacts use
-`meshecho_v2_1_22_icc2027_sensitivity_*`.
+The historical [ICC 2027 Comparison](results/icc2027_comparison.md) covers
+2.1.22's calibrated matrix and sensitivity cases. The 2.1.23 primary raw
+matrix is `results/meshecho_v2_1_23_icc2027_matched_fixed_once.csv`, with
+the interpretation in
+[the fixed-once report](results/meshecho_v2_1_23_icc2027_matched_fixed_once.md).
+The equal-candidate mechanism result is in
+[the isolated-first-discovery report](results/meshecho_v2_1_23_icc2027_isolated_first_discovery.md),
+and [the candidate-set audit](results/meshecho_v2_1_23_icc2027_candidate_set_audit.md)
+quantifies where sequential runs see different choices.
 
-The component artifact
+The historical 2.1.22 component artifact
 `results/meshecho_v2_1_22_icc2027_component_ablation.csv` is generated with
 the same 20 seeds and connected-pair quality contract. It isolates confidence
 ranking, route-miss fallback, hop penalty, and route-age penalty. The primary

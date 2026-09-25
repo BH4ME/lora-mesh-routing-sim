@@ -596,3 +596,140 @@ namespace and out of ICC methods, ablations, primary experiments, and claims.
   and no overfull table boxes in the final format build.
 - Remaining submission action: register the exact title and author order in
   EDAS, then complete venue registration/presentation checks.
+
+## 2.1.23 ICC Algorithm and Manuscript Revision
+
+Goal: strengthen MeshEcho against the identified ICC reviewer objections,
+rerun the affected simulations, and deliver a new five-page paper using only
+verified 2.1.23 outputs. Preserve 2.1.22 as a historical baseline.
+
+- [complete] Audit current implementation, runner, raw evidence, and
+  manuscript claims; select a controlled experimental design before coding.
+- [complete] Add tests and implement comparable route-discovery scheduling and
+  per-discovery candidate-path evidence.
+- [complete] Add tests and implement a primary workload that actually exercises
+  all selected source-destination pairs, with explicit unicast denominators.
+- [complete] Run pilot and full versioned simulations; audit raw CSVs, paired
+  intervals, negative cases, and whether the algorithm helps under control.
+- [complete] Revise the ICC LaTeX paper, figure/tables, and related work around
+  supported claims; retain the English-only authors and IEEE format.
+- [in_progress] Verify tests, reproducibility, five-page PDF layout, versioned
+  outputs, GitHub branch/PR, and clean final status.
+
+Guardrails: no invented data; no post-hoc claim of an ETX advantage if the
+controlled result does not show one; report flooding and recovery negatives;
+keep the previous 2.1.22 outputs untouched. Before compaction, update this
+plan, `findings.md`, and `progress.md`; reread all three after resuming.
+
+### 2026-09-25 Author-name check
+
+- [complete] Inspect the stable ICC LaTeX source, figure, BibTeX, three PDF
+  copies, extracted text, fonts, and rendered first page for Chinese names.
+- [complete] Confirm all current ICC author lines are English-only:
+  `Gao Zu`, `Quan Zhi`, and `Shenzhen University, Shenzhen, China`.
+- [complete] The user confirmed the English given-name-first order
+  `Zu Gao` / `Zhi Quan`. Update the source, checklist, and final PDF to match.
+  The old temporary PDF path no longer exists.
+
+### 2.1.23 Experiment checkpoint
+
+- [complete] Add optional shared RREQ forwarding timing and per-discovery
+  candidate-path records, with dedicated regression tests.
+- [in_progress] Finish fixed-once 24-pair traffic and expose the discovery
+  audit through the probe runner.
+- [in_progress] Correct the repeated per-hop confidence penalty using a
+  test-first behavioral check; retain old 2.1.22 evidence unchanged.
+- [complete] Correct MeshEcho's repeated hop-penalty subtraction without
+  changing the historical CALM implementation; targeted tests pass.
+- [complete] Run a three-seed fixed-once/matched-timing pilot with 24 actual
+  unicasts per seed and seven policies; the pipeline passes its quality gate.
+- [in_progress] Test an optional bounded-confidence admission variant on
+  development seeds before choosing the final policy. Do not present pilot
+  means as a 20-seed result.
+- [complete] Development seeds 1--3 showed the optional one-hop/0.10-gain
+  budgeted variant saved about 1.9 s mean airtime but lost 7/72 ACKs versus
+  MeshEcho. Keep it as an explicit negative comparator, not the headline.
+- [in_progress] Run a frozen 20-seed holdout (seeds 21--40) for both the
+  matched-timing, fixed-once workload and an isolated-first-discovery study.
+  Count seeds, not 480 flows, as independent statistical units.
+- [complete] Both 20-seed holdout workloads finished with complete raw CSVs,
+  quality gates, and seed-paired reports. The isolated report was regenerated
+  with paired CIs and same-selected-path checks; the raw CSV matched its
+  pre-report-generation hash exactly.
+- [in_progress] Run 20-seed native-timing random-pair, 100-node/deep-hop, and
+  temporal-fading generalization cases before rewriting the five-page paper.
+- [complete] Finish all four 2.1.23 generalization cases and native-timing
+  fixed-once run; all processes exited successfully and raw/reports exist.
+- [complete] Audit 480/480 fixed-once attempts and 480/480 equal-candidate
+  isolated first discoveries; distinguish these two estimands in the paper.
+- [complete] Confirm the final English author order `Zu Gao`, `Zhi Quan` in
+  the ICC source, checklist, and pre-revision five-page PDF.
+- [in_progress] Update the five-page manuscript and primary bar chart using
+  only 2.1.23 holdout values. The TeX file was transiently missing during
+  handoff; it has been recovered from HEAD with the confirmed author order.
+- [in_progress] Correct report boilerplate and exact reproduction commands,
+  then verify all generated Markdown against the immutable raw CSVs.
+- [in_progress] Complete release metadata, full tests, PDF layout, selective
+  commit/push, and GitHub draft-PR verification.
+
+### 2.1.23 Exact Next Actions
+
+1. Receive the revised TeX and report-generator corrections from their
+   owners; check all claims against the 20-seed reports and adverse cases.
+2. Rebuild the final ICC PDF, render and inspect five pages, check author
+   order, no Han glyphs, page size, fonts, figure values, and LaTeX warnings.
+3. Run all tests and static checks; stage only task files and versioned
+   evidence, commit/push `version/v2`, update draft PR 1, and verify remote.
+
+### 2.1.23 Final Local Verification
+
+- [complete] Rebuild the revised paper: five Letter-size IEEEtran pages,
+  Zu Gao and Zhi Quan in English only, no Han characters, embedded fonts,
+  no overfull boxes or undefined references. All five rendered pages were
+  inspected; the final root PDF matches the checked build PDF by SHA-256.
+- [complete] Correct the 2.1.23 report template and regenerate six Markdown
+  reports from unchanged raw CSVs. Candidate audit output has a portable
+  repository-relative source path and unchanged source SHA-256.
+- [complete] Full test suite: 111 passed. Python compilation, shell syntax,
+  PDF metadata/text/font checks, and `git diff --check` passed.
+- [in_progress] Selective commit/push, draft PR metadata, remote verification.
+
+### 2.1.23 Verification Errors Resolved
+
+- First expanded manuscript built to four pages; adding exact score
+  recurrence and evaluation procedure produced five pages without forced
+  page breaks or global spacing changes.
+- Initial parameter table overran its column by 8.5 pt; local table width
+  adjustment removed all overfull warnings.
+- Two old tests assumed that every new version generated the 2.1.22 report
+  family and retained its 0.221 route-conflict gain. Current tests instead
+  verify the 2.1.23 report set and recompute the paired interval from the
+  current route-conflict CSV.
+- The first PDF build did not retain a log; a final Tectonic run with
+  `--keep-logs` supplied warning verification.
+
+Next exact action: stage only listed 2.1.23 release files, excluding
+`paper/icc2027/build-2_1_23-tectonic/`; inspect staged diff, commit, push,
+update draft PR 1, and compare local/remote commit IDs.
+
+### 2.1.23 Publication Checkpoint - 2026-09-25
+
+- All 49 intended release files are staged; the untracked Tectonic build
+  directory remains excluded.
+- `git diff --cached --check` found CRLF line endings in the 1921-line
+  isolated-first-discovery CSV. The CSV writer uses Python's default CRLF.
+- [complete] Add a regression check for LF-only CSV output, change the
+  writer's line terminator, and mechanically normalize the existing CSV.
+- [complete] Confirm parsed CSV rows and statistical report are unchanged.
+- [in_progress] Rerun tests and staged-diff checks, then commit/push and
+  verify PR 1.
+- Do not rerun the completed 20-seed simulations for this formatting fix.
+
+### 2.1.23 Final Pre-publish Gate
+
+- `python3 -m pytest -q`: 111 passed. Python compilation, shell syntax,
+  staged/unstaged whitespace checks, PDF SHA-256, and 49-file scope check pass.
+- Staged ICC manuscript, checklist, and release notes contain `Zu Gao` and
+  `Zhi Quan`; no old name order or Han author characters were found there.
+- PR 1 is still draft on 2.1.22 and its old body mentions Chinese names.
+  Replace its title and body after the new commit is pushed.

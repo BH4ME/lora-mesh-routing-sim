@@ -1,6 +1,6 @@
 # ICC 2027 Submission Checklist
 
-This checklist records the venue requirements checked against the 2.1.22
+This checklist records the venue requirements checked against the 2.1.23
 MeshEcho package. The official source is the [ICC 2027 submission
 guidelines](https://icc2027.ieee-icc.org/submission-guidelines).
 
@@ -20,7 +20,7 @@ guidelines](https://icc2027.ieee-icc.org/submission-guidelines).
   stale-route diagnostics, MeshEcho component ablations, controlled
   route-selection evidence, fairness boundary, and simulation limitations.
 - [x] Versioned code, tests, raw CSVs, summary CSVs, Markdown reports, and
-  reproduction commands are prepared under the `2.1.22` release prefix.
+  reproduction commands are prepared under the `2.1.23` release prefix.
 - [x] Prior ICC practice evidence is recorded in
   `docs/icc2027_prior-work_hardware-evidence.md`; no universal physical-testbed
   requirement was found in the official guidelines or the sampled papers.
@@ -31,7 +31,7 @@ guidelines](https://icc2027.ieee-icc.org/submission-guidelines).
 
 - [x] Replace `Anonymous Authors` in
   `paper/icc2027/icc2027_lora_mesh.tex` with the English-only names
-  `Gao Zu` and `Quan Zhi`, both affiliated with Shenzhen University.
+  `Zu Gao` and `Zhi Quan`, both affiliated with Shenzhen University.
 - [x] Rebuild `paper/icc2027/icc2027_lora_mesh.pdf` from the corrected
   source; verify its first-page text extraction and embedded fonts.
 - [ ] Register the exact final title and the exact same author order in EDAS;

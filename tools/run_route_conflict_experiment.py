@@ -487,12 +487,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--csv",
         type=Path,
-        default=Path("results/meshecho_v2_1_20_icc2027_route_conflict.csv"),
+        default=Path("results/meshecho_v2_1_23_icc2027_route_conflict.csv"),
     )
     parser.add_argument(
         "--report",
         type=Path,
-        default=Path("docs/results/meshecho_v2_1_20_icc2027_route_conflict.md"),
+        default=Path("docs/results/meshecho_v2_1_23_icc2027_route_conflict.md"),
     )
     return parser.parse_args()
 

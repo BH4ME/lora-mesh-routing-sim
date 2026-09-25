@@ -639,3 +639,154 @@ author list/title.
   claim that age scoring universally solves fading.
 - The rewritten ICC paper now makes a bounded simulation claim, stays
   MeshEcho-only, keeps `Anonymous Authors`, and compiles to 5 pages.
+
+## 2.1.23 Revision Starting Evidence
+
+- The 2.1.22 primary CSV has 20 seeds but only 102 actual unicast flows in
+  total (1--11 per seed); its 24 selected pairs per seed form a pool, not
+  24 observed transmissions. All selected primary pairs are two hops and
+  route-cache hits are zero.
+- A shared two-second discovery window does not guarantee the same candidate
+  path set: MeshEcho adjusts RREQ forwarding delay using SNR and relay role,
+  while source-route and ETX/ETT use another delay rule.
+- In the primary matrix MeshEcho minus ETX ACK PDR is +0.059 with paired 95%
+  CI [-0.108,+0.226], while airtime increases by +0.5 s [+0.2,+0.9].
+- In unconditioned random pairs, managed flooding reaches 0.696 ACK PDR at
+  38.8 s versus MeshEcho 0.404 at 99.5 s. The previous generalization table
+  omitted this comparison.
+- With the default threshold of zero, low-confidence-path fallback cannot
+  trigger; failed-discovery route-miss fallback may still occur. The primary
+  no-fallback and no-age-penalty ACK ablations both show zero effect.
+- The new paper must distinguish fixed-candidate ranking, discovery timing,
+  route-miss recovery, and system-level outcomes; claims depend on new runs.
+
+## 2026-09-25 ICC Author Audit
+
+- Current `paper/icc2027/icc2027_lora_mesh.tex` has `Gao Zu` and `Quan Zhi`
+  on the author line and an English Shenzhen University affiliation. The
+  source, bibliography, and figure contain no Han characters.
+- All three current ICC PDF copies extract English-only author names and no
+  Han characters, use no CJK font, and are byte-identical. The rendered first
+  page visibly shows only the English names. The prior `/tmp` PDF path no
+  longer exists, so a stale preview or old path can explain the complaint.
+- Do not change the legal author order without confirmation because EDAS and
+  the PDF must match exactly.
+- The user confirmed `Zu Gao` and `Zhi Quan` as the intended English author
+  order; the previous `Gao Zu` / `Quan Zhi` form is no longer the target.
+
+## 2.1.23 Controlled Pilot
+
+- The new fixed-once schedule observed all 24 selected unicast pairs per
+  seed for each protocol; its rate is 2.4 flows/min over a 600-s run.
+- A three-seed pilot (`/tmp/meshecho_v2_1_23_pilot.csv`) gives MeshEcho
+  47/72 ACKs, ETX 42/72, shortest source route 40/72, and flooding 32/72.
+  MeshEcho versus ETX seed-paired ACK-PDR delta is +0.069 with 95% CI
+  [-0.191,+0.330]; this pilot is too small for a superiority claim.
+- Pilot MeshEcho airtime is 93.7 s versus ETX 91.6 s and flooding 26.9 s.
+  Flooding reaches 71/72 destinations despite only 32/72 source ACKs,
+  emphasizing the reverse-path metric distinction.
+- Under matched RREQ relay timing, live candidate sets still diverge:
+  the one-seed smoke found only 8/24 identical sets for MeshEcho versus ETX.
+  The pilot totals also differ (301 vs 298 candidate paths). Later protocol
+  transmissions change collision histories; shared timing is not strict
+  fixed-candidate exposure.
+- The MeshEcho-specific hop-penalty correction deducts 0.025 once per
+  additional hop, instead of repeatedly deducting the entire path-length
+  penalty. Legacy CALM retains its old behavior for historical reproduction.
+- A predeclared optional admission variant allows at most one extra hop and
+  requires at least +0.10 observed confidence over the shortest candidate.
+  On development seeds 1--3 it gives 40/72 ACKs and 91.8 s mean airtime,
+  versus corrected MeshEcho 47/72 and 93.7 s. It is a reliability--airtime
+  tradeoff, not a demonstrated improvement.
+- The fixed-once CSV now includes the exact candidate and selected paths in
+  `discovery_records_json`, not only fingerprints, so set comparisons are
+  independently auditable.
+- An isolated per-pair smoke using a fresh simulator for each policy and pair
+  observed equal candidate sets for all 24 seed-1 pairs. This removes the
+  sequential collision-history confound for a narrower ranking test, but
+  one seed is descriptive only. The 20-seed holdout is running.
+
+## 2.1.23 Holdout Results (Seeds 21--40)
+
+- Matched-timing fixed-once main matrix: every policy scheduled and observed
+  24 distinct unicasts per seed (480 total). MeshEcho ACK is 332/480 (0.692),
+  ETX/ETT 266/480 (0.554), matched source route 204/480 (0.425), flooding
+  213/480 (0.444), and budgeted MeshEcho 275/480 (0.573). MeshEcho minus ETX
+  paired ACK delta is +0.137 [0.090,0.185], with +1.9 s [1.6,2.3] mean
+  airtime per 600-s run. Flooding reaches 476/480 destinations, illustrating
+  the ACK/destination metric boundary.
+- Live sequential candidate sets remain nonidentical under matched relay
+  delays: MeshEcho versus ETX matches on 148/480 discoveries, versus
+  no-fallback MeshEcho on 469/480. Thus the main matrix is a system-level
+  strategy comparison, not a pure ranking experiment.
+- Isolated first-discovery holdout reruns each pair/policy in a fresh simulator
+  with route-miss fallback disabled. All 480/480 candidate sets match across
+  MeshEcho, ETX, min-hop, and source route; 447/480 expose at least two
+  choices. MeshEcho ACK 0.688 vs ETX 0.525 gives seed-paired +0.163
+  [0.121,0.204], at +0.094 s [0.078,0.110] airtime per pair. When MeshEcho
+  and ETX choose the same path (169/480), ACK, destination, and airtime all
+  agree; 311/480 selections differ. This supports a ranking-mechanism effect
+  within the isolated simulation, not hardware or topology-independent gain.
+- Native-timing random-pair case on seeds 21--40: MeshEcho ACK 0.430 versus
+  ETX 0.293, paired +0.137 [0.097,0.178] at +0.2 s [-0.9,1.2]. Managed
+  flooding dominates this particular random-pair case: ACK 0.736, 39.7 s,
+  versus MeshEcho 0.430, 103.2 s. This negative result must be in the paper.
+
+## 2.1.23 Independent Evidence and Metadata Audit
+
+- Independent CSV recomputation confirms 20 holdout topology seeds. The
+  fixed-once matrix has 220 rows across 11 policies, 480 actual unicasts per
+  policy, and MeshEcho minus ETX seed-paired ACK delta +0.1375
+  [0.0901,0.1849] with +1.931 [1.558,2.305] s airtime per run.
+- Native-timing fixed-once runs show MeshEcho 361/480 ACKs versus ETX
+  259/480, but candidate sets are not equal; do not replace controlled
+  ranking evidence with this more favorable sequential result.
+- Deep-case eligibility is 3--5 graph hops, but selected-pair mean graph
+  distance is exactly 3.0 for every holdout seed. MeshEcho mean ACK 0.724
+  versus ETX 0.551, seed-paired +0.172 [+0.124,+0.220] at +3.3
+  [+2.3,+4.3] s airtime. Do not claim observed 4--5-hop performance.
+- In fading, MeshEcho ACK is 0.581 at TTL 600 s and 0.341 at TTL 30 s;
+  managed flooding is 0.561 and 0.561, respectively. The short-TTL case
+  is an adverse boundary, not a general aging benefit.
+- The raw report template previously claimed every case had managed
+  flooding/ETT and every connected-pool case had no pair reuse; these are
+  false for the native fixed-once and deep Poisson outputs. The report owner
+  is correcting conditional wording and exact reproduction commands.
+- `VERSION` and current runner default output prefixes now target 2.1.23.
+  Historical 2.1.22 result files and sensitivity references remain labeled
+  as historical, not silently rebranded.
+
+## 2.1.23 Final Artifact Audit
+
+- The final manuscript compiles to exactly five 612-by-792-point Letter
+  pages, with IEEEtran conference/10-point options, all fonts embedded, no
+  overfull boxes and no undefined citations/references. Two underfull box
+  warnings have no visible clipping or overlap in the rendered five pages.
+- Printed authors are `Zu Gao` and `Zhi Quan`, followed by `Shenzhen
+  University, Shenzhen, China`. Full PDF extraction finds no Han glyph and
+  neither old English name order. Root and checked build PDF SHA-256 are
+  `8743be24223c2837f72947006df28f83cad121a056a8aeb0bce702f51162c670`.
+- The updated two-panel bar chart uses 2.1.23 fixed-once seed means and
+  seed-level 95% confidence whiskers. Visual inspection found no text,
+  figure, table, or reference overlap on any page.
+- Current methodology boundary remains explicit: sequential candidate sets
+  differ for 332/480 MeshEcho--ETX discoveries, while the isolated
+  first-discovery matrix matches all 480/480. Flooding outperforms MeshEcho
+  in the random-pair case; the paper does not claim general superiority or
+  physical verification.
+
+## 2.1.23 Publication Formatting Finding
+
+- The isolated first-discovery runner uses `csv.DictWriter` with its default
+  CRLF line terminator. Its 1921-line versioned CSV is parseable, but Git's
+  staged whitespace check treats every added CRLF line as trailing whitespace.
+- This is an output-format issue, not a simulation-data discrepancy. Normalize
+  only that CSV to LF and retain its parsed rows and report statistics.
+- Before and after normalization, parsed rows had the same SHA-256
+  `c1bb2e874eb0dbe740a26b5e978afc600227d9a94a2d15412e765709a414a2d9`;
+  1920 data rows, MeshEcho/ETX ACK counts 330/252, and regenerated report
+  equality were unchanged. The normalized CSV SHA-256 is
+  `9a8715e1fbc7eda9fb2dd41ee0e0fc5588c1192dd7418f932f34825fa26700f5`.
+- The old GitHub draft PR body still describes 2.1.22 and names the authors
+  in Chinese; repository source and PDF have already moved to English-only
+  `Zu Gao` / `Zhi Quan`. PR metadata must be synchronized on publication.
