@@ -1072,3 +1072,13 @@ validation or keep the claims explicitly simulation-only.
 - `python3 -m pytest -q`: 139 passed. `bash -n` and `git diff --check` pass.
   Next: stage only versioned 2.1.24 source/tests/evidence/paper/checkpoints,
   commit, push, update draft PR 1, and verify the remote head.
+- Staged only 61 task files, excluding both untracked LaTeX build directories;
+  staged whitespace check passed. Committed the release as `76b40429ed1b6511246c885001317c63fa9d3729` and pushed over SSH.
+- Verified GitHub branch and OPEN/DRAFT PR 1 at that SHA, updated its title
+  and body for the 2.1.24 evidence boundary, and confirmed the remote PDF
+  Git blob matches the local file. A content API query without the branch
+  reference returned 404 because the default branch differs; specifying
+  `ref=version/v2` resolved it.
+- The 2.1.24 repository release is complete. The only untracked paths are
+  local PDF build intermediates. EDAS submission, funding/conflict statements,
+  and any later Python-rendered figure require separate author decisions.

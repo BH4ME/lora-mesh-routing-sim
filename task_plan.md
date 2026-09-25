@@ -998,7 +998,24 @@ pilot in the manuscript as a released experiment.
 - [complete] Replace the root PDF with the rebuilt five-page artifact;
   source and root PDF print `Zu Gao`, `Zhi Quan`, and root/build SHA-256 match:
   `42df9f02cf7c6306c32566fb18017a31d6906da89d984f7fc72c45084d6b6f72`.
-- [in_progress] Selectively commit/push 2.1.24 and verify the remote PR.
+- [complete] Selectively commit/push 2.1.24 and verify the remote PR.
 - A new Python-rendered plot is paused because `matplotlib` is unavailable
   and the earlier installation question has not been answered. Do not insert
   the unused 2.1.23 TikZ figure as 2.1.24 evidence.
+
+### 2.1.24 Final Publication - 2026-09-25
+
+- The source, tests, frozen CSVs/reports, five-page PDF, and Markdown state
+  were committed as `76b40429ed1b6511246c885001317c63fa9d3729` and
+  pushed to GitHub `version/v2`. The remote branch and draft PR 1 head were
+  independently verified at that exact SHA.
+- PR 1 remains OPEN/DRAFT with title
+  `[codex] MeshEcho 2.1.24 ICC fading holdout and score audit`.
+- GitHub's PDF blob SHA matches the local tracked PDF blob; the reviewed PDF
+  is five 10-pt Letter IEEEtran pages, English-only, with `Zu Gao` and
+  `Zhi Quan` in the requested order.
+- Author confirmation of funding/conflict declarations, final EDAS metadata,
+  registration, and submission remain outside this repository release.
+- A default-branch GitHub content lookup returned 404 for the PDF; repeating
+  it with `ref=version/v2` found the exact matching blob. The first lookup
+  did not indicate a failed push.

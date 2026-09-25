@@ -1055,3 +1055,6 @@ author list/title.
   are balanced at [10]; no overfull boxes or unresolved references remain.
 - Root and build PDFs have identical SHA-256
   `42df9f02cf7c6306c32566fb18017a31d6906da89d984f7fc72c45084d6b6f72`.
+- The 2.1.24 release commit `76b40429ed1b6511246c885001317c63fa9d3729`
+  is on GitHub `version/v2` and is the head of OPEN/DRAFT PR 1. The remote
+  PDF Git blob equals local blob `453b48f9247a79ea35864f1aaeb102059426624a`.
