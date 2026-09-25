@@ -839,3 +839,15 @@ validation or keep the claims explicitly simulation-only.
   `8743be24223c2837f72947006df28f83cad121a056a8aeb0bce702f51162c670`.
 - Old PR 1 metadata still names 2.1.22 and includes Chinese author names;
   update the existing draft after pushing the 2.1.23 release commit.
+
+## 2026-09-25 - 2.1.23 GitHub Publication
+
+- Committed 49 release files as `87a6184c8cf95a91769a9533462706693f3108bd`.
+- Two HTTPS push attempts timed out; GitHub's API confirmed the remote ref
+  stayed at the old `dd06d46` during both failures. Authenticated SSH push
+  succeeded without changing the configured origin URL.
+- GitHub `version/v2` and draft PR 1 head both then matched `87a6184`.
+  Updated PR title/body to 2.1.23 and removed the old Chinese/English author
+  name forms. PR remains OPEN/DRAFT, base `main`, head `version/v2`.
+- Final artifact remains the checked five-page English-only PDF. Only the
+  untracked Tectonic build directory is left outside the release.

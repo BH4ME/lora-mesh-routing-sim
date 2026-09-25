@@ -790,3 +790,6 @@ author list/title.
 - The old GitHub draft PR body still describes 2.1.22 and names the authors
   in Chinese; repository source and PDF have already moved to English-only
   `Zu Gao` / `Zhi Quan`. PR metadata must be synchronized on publication.
+- PR 1 was synchronized after SSH publication: it remains OPEN/DRAFT on
+  `version/v2`, is titled for 2.1.23, and its body contains the new English
+  author order with neither the old English order nor Chinese names.

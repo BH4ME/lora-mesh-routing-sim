@@ -613,7 +613,7 @@ verified 2.1.23 outputs. Preserve 2.1.22 as a historical baseline.
   intervals, negative cases, and whether the algorithm helps under control.
 - [complete] Revise the ICC LaTeX paper, figure/tables, and related work around
   supported claims; retain the English-only authors and IEEE format.
-- [in_progress] Verify tests, reproducibility, five-page PDF layout, versioned
+- [complete] Verify tests, reproducibility, five-page PDF layout, versioned
   outputs, GitHub branch/PR, and clean final status.
 
 Guardrails: no invented data; no post-hoc claim of an ETX advantage if the
@@ -721,7 +721,7 @@ update draft PR 1, and compare local/remote commit IDs.
 - [complete] Add a regression check for LF-only CSV output, change the
   writer's line terminator, and mechanically normalize the existing CSV.
 - [complete] Confirm parsed CSV rows and statistical report are unchanged.
-- [in_progress] Rerun tests and staged-diff checks, then commit/push and
+- [complete] Rerun tests and staged-diff checks, then commit/push and
   verify PR 1.
 - Do not rerun the completed 20-seed simulations for this formatting fix.
 
@@ -733,3 +733,15 @@ update draft PR 1, and compare local/remote commit IDs.
   `Zhi Quan`; no old name order or Han author characters were found there.
 - PR 1 is still draft on 2.1.22 and its old body mentions Chinese names.
   Replace its title and body after the new commit is pushed.
+
+### 2.1.23 Published State
+
+- Release commit `87a6184c8cf95a91769a9533462706693f3108bd` reached
+  GitHub `version/v2`; the draft PR head matched this commit on verification.
+- PR 1 title/body now describe 2.1.23 and use only `Zu Gao` / `Zhi Quan`.
+- Two HTTPS push attempts timed out before remote update. An authenticated
+  SSH push to the same repository succeeded; the permanent origin URL was
+  not changed.
+- The only remaining untracked path is the intentionally excluded Tectonic
+  build directory. EDAS registration and author/title matching remain with
+  the submitting authors.
