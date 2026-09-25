@@ -41,6 +41,12 @@ class FairMultihopProbeTest(unittest.TestCase):
 
         self.assertEqual(args.protocol, ["meshecho-budgeted"])
 
+    def test_prr_product_is_available_as_an_explicit_fair_comparator(self) -> None:
+        with patch("sys.argv", ["probe", "--protocol", "prr-product"]):
+            args = parse_args()
+
+        self.assertEqual(args.protocol, ["prr-product"])
+
     def _fixed_once_args(self) -> Namespace:
         case = next(case for case in DEFAULT_SENSITIVITY_CASES if case.key == "load4")
         args = build_probe_namespace(case, seeds=1, seed0=1)
@@ -263,6 +269,28 @@ class FairMultihopProbeTest(unittest.TestCase):
         self.assertNotIn("ETX/ETT quality-metric baselines", content)
         self.assertNotIn("shared traffic and discovery budget", content)
 
+    def test_prr_product_probe_reports_model_assumptions_and_pairing(self) -> None:
+        args = self._fixed_once_args()
+        args.matched_rreq_timing = True
+        echo = run_one_probe(args, "meshecho", seed=1)
+        product = run_one_probe(args, "prr-product", seed=1)
+
+        self.assertEqual(product["protocol"], "prr-product-mesh")
+        self.assertEqual(product["matched_rreq_timing"], 1)
+        self.assertEqual(product["fallback_forward_count"], 0)
+        self.assertEqual(
+            echo["scheduled_trace_sha256"], product["scheduled_trace_sha256"]
+        )
+        with TemporaryDirectory() as directory:
+            report_path = Path(directory) / "probe.md"
+            write_report(report_path, [echo, product], args)
+            content = report_path.read_text(encoding="utf-8")
+
+        self.assertIn("MeshEcho vs prr-product-mesh", content)
+        self.assertIn("--protocol prr-product", content)
+        self.assertIn("model-derived PRR", content)
+        self.assertIn("no retry or fallback", content)
+
     def test_poisson_connected_report_discloses_pair_reuse_and_link_fraction(self) -> None:
         args = self._fixed_once_args()
         args.pair_schedule = "poisson"
@@ -333,6 +361,20 @@ class FairMultihopProbeTest(unittest.TestCase):
 
         self.assertIn("budgeted variant is an optional comparator", content)
         self.assertNotIn("reported only as ablations", content)
+
+    def test_report_identifies_ack_eviction_variant_when_run(self) -> None:
+        args = self._fixed_once_args()
+        rows = [
+            run_one_probe(args, protocol, seed=1)
+            for protocol in ("meshecho", "meshecho-ack-evict")
+        ]
+        with TemporaryDirectory() as directory:
+            report = Path(directory) / "report.md"
+            write_report(report, rows, args)
+            content = report.read_text(encoding="utf-8")
+
+        self.assertIn("ACK-timeout route-invalidation variant", content)
+        self.assertNotIn("No MeshEcho component variants were run", content)
 
 
 if __name__ == "__main__":

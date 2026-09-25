@@ -851,3 +851,224 @@ validation or keep the claims explicitly simulation-only.
   name forms. PR remains OPEN/DRAFT, base `main`, head `version/v2`.
 - Final artifact remains the checked five-page English-only PDF. Only the
   untracked Tectonic build directory is left outside the release.
+
+## 2026-09-25 - Active Goal Completion Audit Started
+
+- Classified the prior goal turn as progress because 2.1.23 code, evidence,
+  paper, and GitHub PR state changed and were verified.
+- Recovered the three Markdown state files and confirmed current HEAD
+  `0dc54c0`, version `2.1.23`, and a five-page Letter ICC PDF.
+- Began independent read-only algorithm, evidence, and submission audits.
+  Next: recompute key numbers from raw CSVs, check the implementation and
+  full manuscript, then resolve any material gap before marking the goal
+  complete.
+- Compared the 2.1.23 simulator diff and current manuscript/reports. The
+  behavioral algorithm change is the corrected per-hop confidence penalty;
+  matched discovery timing and candidate logging support fairer measurement.
+  The no-hop-penalty result does not establish a significant ACK benefit.
+- Independently recomputed primary, isolated, random-pair, and fading
+  statistics from raw CSVs; key rounded manuscript values match.
+- Independent audits identified a stronger PRR-product comparator missing
+  from versioned evidence, two manuscript terminology inaccuracies, a
+  Tectonic Times-to-Latin-Modern font fallback, and author-only funding and
+  conflict declarations. A read-only in-memory comparator pilot found no
+  clear MeshEcho ACK superiority over PRR-product; no result was added to
+  the paper. Next: design and version the fair comparator and any justified
+  algorithm change, then rebuild the manuscript from those results.
+- Current 111-test suite passes before 2.1.24 edits. Independent reviewers
+  confirmed all checked 2.1.23 headline numbers match raw data, but the
+  current title/PRR/min-hop wording and missing stronger baseline need work.
+- Preregistered a 2.1.24 PRR-product baseline and optional ACK-feedback
+  stale-route eviction study. Development seeds are 41--50; untouched
+  validation seeds will be 51--70. Seeds 21--40 are already exposed.
+
+## 2026-09-25 - Resume and Author Order Confirmed
+
+- The user confirmed given-name-first `Zu Gao`, `Zhi Quan`. The current ICC
+  LaTeX, submission checklist, GitHub release, and five-page PDF already use
+  that order; PDF text extraction verifies the printed names and affiliation.
+- The prior 2.1.23 result remains published. The active algorithm/paper goal
+  continues at the preregistered 2.1.24 work; no new result is claimed yet.
+- Started parallel PRR-product implementation, evidence-based manuscript
+  wording corrections, and read-only repeated-pair fading study design.
+- Inspected the simulator's transmission event path to design a guard that
+  starts at actual source DATA transmission and evicts only the matching
+  route entry after an unacknowledged guard period.
+- Lookup note: `tests/test_meshecho_protocol.py` does not exist; applicable
+  tests are `tests/test_calm_protocol.py` and the metric/experiment test files.
+- Existing `stale_fading` traffic already cycles four fixed source/destination
+  pairs; use it for the development/validation ACK-eviction comparison.
+- `pdflatex` and `bibtex` are installed. Final PDF build can move from the
+  previous Tectonic fallback to a standard IEEEtran-compatible font setup.
+- Lookup note: a `zsh` wildcard for nonexistent `run_icc2027*` produced
+  `no matches found`; read the exact `tools/run_icc_experiments.sh` path.
+
+## 2026-09-25 - 2.1.24 Comparator and ACK Eviction Implementation
+
+- PRR-product comparator was added test-first to the main CLI, fair probe,
+  and isolated first-discovery runner; related 42 tests passed. Seed-1 smoke
+  gave identical candidate exposure for 24/24 pairs across five policies.
+- Manuscript terminology/factual-method corrections are staged in the TeX
+  source, preserving `Zu Gao` and `Zhi Quan`; performance claims still use
+  2.1.23 data pending new versioned matrices.
+- Added `meshecho-ack-evict` and `prr-product-ack-evict` optional variants.
+  A red test first showed the missing variant, then a green test verified
+  actual-TX-timed eviction. A second red test exposed missing counters;
+  `Metrics.summarize` now reports invalidations and false invalidations.
+  Focused tests also cover ACK preservation, replacement-route identity,
+  one-shot behavior, and destination-delivered/ACK-lost diagnosis.
+- Focused simulator/baseline suite: 55 passed; `git diff --check` passed.
+  The generalization runner quality gate and feedback cases are in progress.
+- Asked the authors to confirm funding and conflict declarations; neither
+  statement may be treated as verified until they answer.
+
+## 2026-09-25 - Development Evidence and Negative Decision
+
+- Version default was raised test-first to 2.1.24, including ICC runner
+  output prefixes; the corresponding release metadata test passed.
+- Ran and completed the 41--50 development `feedback_fading`,
+  `feedback_static`, and `feedback_fading_short_ttl` matrices with explicit
+  2x2 feedback controls. Raw CSVs, summary CSVs, and reports are versioned
+  under the `feedback_dev41_50` prefix; no 51--70 seed has been run.
+- Development fading ACK PDR: MeshEcho 0.535, MeshEcho+ACK eviction 0.426,
+  PRR-product 0.686, PRR-product+ACK eviction 0.607. Static ACK PDR:
+  0.662, 0.573, 0.688, 0.571 respectively. Short TTL control further
+  harms fading ACK completion. Do not promote the ACK-eviction variant.
+- Independent review caught a custom-guard pass-through mismatch; a failing
+  test reproduced it and the PRR-product branch was corrected. Default
+  15-s development runs were unaffected.
+- A report test first failed on overclaimed `false positives` and DATA-block
+  wording; the report now says destination-delivered/ACK-unconfirmed and
+  scheduled application blocks. Three reports were regenerated from the
+  existing CSVs; no simulation was rerun for the wording change.
+- A development-only alternate ranking hypothesis is under read-only
+  scrutiny. Do not inspect or run untouched seeds 51--70 before freezing
+  the algorithm/claim boundary.
+
+## 2026-09-25 - ACK Guard Race Reproduction
+
+- Read the current 2.1.24 plan, findings, and progress before resuming.
+- The first targeted pytest node used an incorrect class name and collected
+  no tests; retry with `MeshEchoAckEvictionTest` failed as expected because
+  a later same-route ACK does not stop an older guard from deleting the route.
+- Traced the failure through `on_ack` (clears only its own flow) and
+  `expire_unacknowledged_route` (checks only its own ACK and entry identity).
+  Next: record actual DATA start per guard and cancel only older same-entry
+  guards upon a later confirmed flow.
+- Implemented the actual-start ordering rule and added the reverse case in
+  which an older delayed ACK must not cancel a newer unconfirmed flow.
+  `python3 -m pytest -q tests/test_meshecho_ack_eviction.py`: 9 passed;
+  `git diff --check` passed. Existing development CSVs remain untouched.
+- Full suite: 131 passed, 2 failed because two historical report tests
+  constructed 2.1.24 artifact paths that do not exist; a separate scoped
+  test correction is in progress. No simulation result was altered.
+- Independent read-only reviews found a score-driven direct-route bias,
+  identified the calibrated max-min PRR candidate above, and flagged the
+  current paper's missing PRR-product evidence and ambiguous route-repair
+  wording. The 41--50 hypothesis and rejection rules are now frozen in the
+  plan before implementation or new runs.
+- Added optional `meshecho-calibrated` with model-derived RREQ SINR PRR,
+  zero hop penalty, and no 0.98 saturation; wired dynamic and isolated
+  runners. Related focused tests and a one-seed smoke passed.
+- Completed new 41--50 fading and static matrices, plus 1440 isolated
+  single-flow simulations. Original pre-fix CSVs were not overwritten.
+  Fading candidate ACK improved from 0.535 to 0.689 at +4.1 s airtime;
+  static candidate ACK was 0.694 versus 0.662 with interval crossing zero.
+  Isolated candidate sets match 240/240, but its +0.013 ACK difference over
+  old MeshEcho has interval crossing zero. Short-TTL process remains live.
+- A separate scoped fix pinned historical report tests to 2.1.23 files;
+  report wording now labels ACK-eviction variants accurately. The focused
+  tests for both changes pass. A full suite is still required after all code
+  edits and simulations.
+- The short-TTL 41--50 matrix completed under a new prefix; calibrated ACK
+  PDR was 0.272, old MeshEcho 0.251, PRR-product 0.272, with no convincing
+  paired improvement and higher calibrated airtime. No 51--70 run has begun.
+- Full suite after the calibrated variant and report edits: 138 passed;
+  Python compilation and whitespace checks passed. A later comparator edit
+  requires a fresh suite before holdout.
+- Added test-first PRR-product-fallback control with identical PRR-product
+  score and MeshEcho TTL-2 route-miss recovery budget/timing. Corrected an
+  initial mistaken test expectation that FALLBACK would not count as DATA;
+  the targeted behavior and registry tests pass. Fading/static 41--50
+  control runs are currently live under a separate new prefix.
+- Completed the 41--50 matched-fallback PRR-product controls: rounded fading
+  ACK 0.689 and static ACK 0.694, matching calibrated MeshEcho's rounded
+  values; old MeshEcho remains 0.535/0.662. This prevents a strong-baseline
+  superiority claim. The candidate remains frozen with no parameter tuning.
+- Pre-holdout final gate: 139 tests passed, Python compilation and
+  `git diff --check` passed, and no holdout-prefix files existed. Recorded
+  exact frozen code hashes and fixed 51--70 protocol/case list in
+  `task_plan.md`; next action is the one-time holdout run.
+
+## 2026-09-25 - Holdout Fading Completion and Author Confirmation
+
+- Resumed from the three Markdown state files and verified the authoritative
+  `version/v2` checkout. The older `lora_mesh` checkout has an unreadable Git
+  tree; it was not modified.
+- The user explicitly confirmed the English given-name-first author order
+  `Zu Gao`, `Zhi Quan`. The current ICC TeX and existing five-page PDF already
+  contain that exact order, with Shenzhen University affiliation.
+- Polled the already-running seeds 51--70 `feedback_fading` session once; it
+  exited 0 and wrote raw, summary, and report files. No rerun was started and
+  no holdout result has yet been promoted into the manuscript.
+- Next: complete the frozen static/short-TTL/isolated controls, audit raw
+  evidence, revise and verify the PDF, then release to GitHub.
+- Launched the three remaining frozen controls concurrently under unique
+  suffixes with explicit `--case` and six `--protocol` selections where
+  applicable. Live session IDs are static `90316`, short TTL `11946`, and
+  isolated first discovery `53033`. The generalization runner overwrites
+  outputs on rerun, so do not repeat a case without checking these sessions.
+- Static and isolated sessions finished successfully; short-TTL is still
+  running. A separate read-only agent independently recomputed fading
+  holdout counts, matched application traces, candidate exposure, and paired
+  confidence intervals from the raw CSV. The candidate improves over the
+  old heuristic but is statistically indistinguishable from the matched
+  PRR-product comparator. No paper edit has used these results yet.
+- Asked the authors to confirm funding and conflicts of interest because
+  the existing paper asserts none without verified author input.
+- Independent static and isolated raw-CSV checks completed. Both support a
+  null/uncertain calibrated ACK difference from the old method in those
+  settings, and the isolated 480/480 candidate sets match. The short-TTL
+  process completed after this check; none of the holdout cases should rerun.
+- Selected Python for the paper figure under the user's earlier discretion,
+  then found `matplotlib` missing in both local and bundled runtimes. Asked
+  whether to install it in a project-specific virtual environment; figure
+  work pauses until the answer. Paper-text analysis can continue.
+- Updated the ICC Introduction, method scoring, and experimental-design
+  sections to describe the frozen 2.1.24 policy split and exact holdout
+  estimands. The first larger TeX patch failed an exact-context match without
+  modifying source; a narrower patch succeeded. Results and abstract still
+  carry 2.1.23 text and must be replaced before building or releasing.
+- Short-TTL 51--70 control exited 0 and produced its raw CSV, summary and
+  report; independent seed-paired audit is now in progress.
+- Independent short-TTL raw-CSV audit passed: calibrated 30-s versus 600-s
+  ACK difference -0.3043 [-0.3932,-0.2154], airtime +41.05 s
+  [31.40,50.70], with matching traces and 793 unicasts per policy.
+- Rewrote the ICC results, discussion, reproducibility, conclusion, and
+  abstract around audited 2.1.24 evidence. The first pdfLaTeX build failed
+  on missing Courier `pcrr7t.tfm` at one `\texttt` phrase; confirmed the
+  cause and removed that optional formatting. The subsequent BibTeX build
+  succeeded at five 10-pt Letter IEEEtran pages. PDF text and font checks
+  passed, but visual QA found a sparse references-only fifth page; final
+  layout and any new figure remain to be resolved.
+
+## 2026-09-25 - Author Order and Final Layout Continuation
+
+- The user confirmed the final given-name-first order `Zu Gao`, `Zhi Quan`.
+  Source and rebuilt PDF already had that order; no name mutation was made.
+- Corrected ETT wording (identical ranking, not identical numerical cost)
+  and replaced an overstrong preregistration claim with `prespecified`.
+- Used IEEEtran's reference trigger at [11] to balance final-page columns.
+  Rebuilt with pdfLaTeX/BibTeX; all five pages were visually reviewed.
+- A read-only audit recomputed the main manuscript numbers from frozen raw
+  CSVs. Final full test suite: 139 passed; `git diff --check` and shell syntax
+  pass. The root PDF is still stale 2.1.23 pending final content/layout.
+- Next: add a compact secondary-metrics table from the existing 51--70 CSV,
+  rebuild/review the PDF, then replace the root artifact and publish 2.1.24.
+- Added Table V of descriptive fading diagnostics from the frozen CSV;
+  independently checked row means and caveats. The final manuscript is five
+  pages, with no overfull boxes or missing references, and the root PDF now
+  matches the reviewed build (SHA-256 `42df9f02cf7c6306c32566fb18017a31d6906da89d984f7fc72c45084d6b6f72`).
+- `python3 -m pytest -q`: 139 passed. `bash -n` and `git diff --check` pass.
+  Next: stage only versioned 2.1.24 source/tests/evidence/paper/checkpoints,
+  commit, push, update draft PR 1, and verify the remote head.

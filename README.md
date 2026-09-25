@@ -7,8 +7,8 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current repository release: `2.1.23` (MeshEcho candidate-exposure and
-fixed-once ICC evidence; firmware prototype remains
+Current simulator version: `2.1.24` (model-informed route-score controls and
+frozen repeated-pair ICC holdout; firmware prototype remains
 `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -23,13 +23,22 @@ metric baselines, and MeshEcho:
   on the reverse path, then later unicast packets use a cached source route.
 - `meshecho`: confidence-aware source routing with bounded fallback forwarding
   (the legacy `calm` CLI name remains supported).
+- `meshecho-calibrated`: optional MeshEcho variant that ranks a route by its
+  weakest model-inferred per-hop PRR, without an extra hop penalty.
 - `etx-mesh`: source routing that selects candidates by accumulated ETX
   (`1/PRR`) cost.
 - `ett-mesh`: source routing that selects candidates by accumulated ETT
   (`ToA/PRR`) cost. In the fixed-SF ICC matrix, ETT is intentionally a sanity
   baseline and coincides numerically with ETX.
+- `prr-product-mesh`: model-informed comparator that multiplies the per-hop
+  PRRs inferred from received route requests; it has no route-miss fallback.
+- `prr-product-fallback-mesh`: the same PRR-product score with MeshEcho's
+  matched TTL-2 route-miss fallback budget.
 - `minhop-mesh`: matched-discovery shortest-path baseline that ignores link
   quality after candidate exposure.
+- `meshecho-ack-evict` and `prr-product-ack-evict-mesh`: optional ACK-timeout
+  route-invalidation controls. They reduced ACK completion in the 2.1.24
+  fading holdout and are not promoted as the default policy.
 - `meshecho-no-confidence`, `meshecho-no-fallback`,
   `meshecho-no-hop-penalty`, and `meshecho-no-age-penalty`: MeshEcho
   component ablations used only for mechanism attribution.
@@ -126,9 +135,10 @@ candidate selection from online learning and fallback recovery:
 python3 tools/run_route_conflict_experiment.py
 ```
 
-It writes raw per-seed rows to
-`results/meshecho_v2_1_23_icc2027_route_conflict.csv` and the paired summary to
-`docs/results/meshecho_v2_1_23_icc2027_route_conflict.md`.
+The historical 2.1.23 raw rows and paired summary are archived at
+`results/meshecho_v2_1_23_icc2027_route_conflict.csv` and
+`docs/results/meshecho_v2_1_23_icc2027_route_conflict.md`. The current
+runner uses a 2.1.24 output prefix by default.
 
 Run the fairness audit with null, moderate, and reverse weak-link controls:
 
@@ -179,7 +189,35 @@ deviation, and 95% confidence intervals. See
 layout and reproducibility rules. The verified matrix is summarized in
 [ICC 2027 Comparison](docs/results/icc2027_comparison.md).
 
-The 2.1.23 ICC primary matrix uses 50 nodes in an 8.25 km square, SF7,
+The frozen 2.1.24 study uses seeds 41--50 only for development and untouched
+seeds 51--70 for its holdout. Its primary holdout cycles four connected pairs
+over 793 observed unicasts across 20 topology seeds, with matched RREQ timing,
+6 dB temporal fading every 60 s, and a 600 s route TTL. The optional
+`meshecho-calibrated` variant reaches 0.624 ACK PDR at 23.7 s airtime versus
+0.509/21.2 s for the original `meshecho`. Its paired ACK gain is +0.1154
+(95% CI [+0.0307,+0.2001]) at +2.467 s airtime. Against PRR-product with
+matched fallback, the ACK difference is only +0.0026
+[-0.0055,+0.0107]; no strong-baseline superiority follows. In the matching
+static control, the calibrated-minus-original ACK difference is +0.0004
+[-0.0741,+0.0748]. An isolated first-discovery check exposes identical
+candidate sets for all 480 pairs: calibrated-minus-original is +0.0208
+[-0.0129,+0.0546], and calibrated-minus-PRR-product is +0.0021
+[-0.0056,+0.0098]. Both isolated intervals include zero. ACK-timeout route
+eviction is adverse in the fading holdout (0.471 ACK PDR and 41.1 s airtime
+for the MeshEcho variant). In the independently audited 30 s route-TTL
+control on the same 793-unicast trace, calibrated MeshEcho falls to 0.320
+ACK PDR and rises to 64.8 s airtime, versus 0.624/23.7 s at 600 s TTL.
+The seed-paired 30-minus-600 s differences are -0.3043 ACK PDR
+(95% CI [-0.3932,-0.2154]) and +41.05 s airtime
+([31.40,50.70]). At 30 s TTL, its ACK difference from original MeshEcho
+is +0.0215 [-0.0227,+0.0657], with no clear gain. See the
+[short-TTL holdout](docs/results/meshecho_v2_1_24_icc2027_holdout51_70_feedback_fading_short_ttl.md),
+[fading holdout](docs/results/meshecho_v2_1_24_icc2027_holdout51_70_feedback_fading.md),
+[static control](docs/results/meshecho_v2_1_24_icc2027_holdout51_70_feedback_static.md),
+and [isolated comparison](docs/results/meshecho_v2_1_24_icc2027_holdout51_70_isolated_first_discovery.md).
+
+The historical 2.1.23 ICC primary matrix uses 50 nodes in an 8.25 km square,
+SF7,
 analytical pair-edge PRR >= 0.90, and 24 distinct directed pairs per seed.
 It schedules exactly one unicast per pair over 600 s for each policy, using
 holdout seeds 21--40 and a shared 2 s RREQ relay schedule. All 480 attempted
@@ -191,8 +229,8 @@ difference is +0.137 (95% CI [+0.090,+0.185]) with +1.9 s
 148/480 sequential discoveries, so this is a system-level comparison, not
 an isolated route-ranking estimate.
 
-The separate isolated-first-discovery audit uses fresh simulator state for
-each pair/policy. Candidate sets match in all 480 comparisons, and MeshEcho
+That release's separate isolated-first-discovery audit uses fresh simulator
+state for each pair/policy. Candidate sets match in all 480 comparisons, and MeshEcho
 minus ETX ACK completion is +0.163 [+0.121,+0.204] across the 20 topology
 seeds. Under unconditioned random pairs, managed flooding outperforms
 MeshEcho on ACK completion (0.736 versus 0.430) and airtime (39.7 versus
@@ -201,18 +239,17 @@ MeshEcho on ACK completion (0.736 versus 0.430) and airtime (39.7 versus
 [isolation report](docs/results/meshecho_v2_1_23_icc2027_isolated_first_discovery.md),
 and [candidate-set audit](docs/results/meshecho_v2_1_23_icc2027_candidate_set_audit.md).
 
-Run the 2.1.22 spreading-factor and offered-load sensitivity cases with the
+Run the current spreading-factor and offered-load sensitivity cases with the
 same connected-pair quality contract:
 
 ```bash
 python3 tools/run_icc_sensitivity_experiments.py
 ```
 
-The runner produces 20-seed SF8 results in a calibrated 10 km square and
-20-seed SF7 results at four flows/min in the primary 8.25 km square. It writes
-raw CSVs, long-format confidence summaries, and Markdown reports under the
+The runner uses a 2.1.24 output prefix by default. Historical 2.1.22
+20-seed SF8 and higher-load results are archived under the
 `meshecho_v2_1_22_icc2027_sensitivity_*` prefix. The cases are robustness
-evidence and are not pooled with the primary estimand.
+evidence and are not pooled with the fading holdout.
 
 Run the repeated-pair cache-reuse and route-aging diagnostic:
 
@@ -225,7 +262,8 @@ compares 600 s and 30 s route-cache TTLs. It reports cache hits, discovery
 repairs, ACK/destination PDR, and airtime separately from the sparse primary
 matrix; it is not pooled with the primary estimand.
 
-Run the unconditioned, deep-hop, and temporal-fading generalization cases:
+At the 2.1.23 source revision, the unconditioned, deep-hop, and
+temporal-fading generalization cases were run with:
 
 ```bash
 python3 tools/run_icc_generalization_experiment.py \
@@ -233,7 +271,9 @@ python3 tools/run_icc_generalization_experiment.py \
   --out-prefix meshecho_v2_1_23_icc2027_generalization
 ```
 
-The runner writes separate 20-seed reports for random pairs, a 100-node
+Do not use that historical output prefix from the current 2.1.24 checkout;
+it would overwrite the archived 2.1.23 artifacts. The old runner wrote
+separate 20-seed reports for random pairs, a 100-node
 3--5-hop case, and repeated-pair temporal fading with 600 s and 30 s route
 TTLs. The deep case uses a 21 km square because the earlier 20 km calibration
 failed the per-seed 24-pair completeness gate for seed 12; that failed

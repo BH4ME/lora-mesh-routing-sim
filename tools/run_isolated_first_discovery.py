@@ -21,6 +21,7 @@ if str(ROOT) not in sys.path:
 from lora_mesh_sim import (  # noqa: E402
     MeshCoreLike,
     MeshEcho,
+    MeshEchoCalibrated,
     MetricMesh,
     MinHopMesh,
     Node,
@@ -35,7 +36,14 @@ from tools.run_fair_multihop_probe import (  # noqa: E402
 )
 
 
-PROTOCOLS = ("meshecho", "etx-mesh", "minhop-mesh", "meshcore-like")
+PROTOCOLS = (
+    "meshecho",
+    "meshecho-calibrated",
+    "etx-mesh",
+    "prr-product-mesh",
+    "minhop-mesh",
+    "meshcore-like",
+)
 
 
 @dataclass(frozen=True)
@@ -61,8 +69,15 @@ def make_protocol(name: str, discovery_window_s: float) -> RoutingProtocol:
             discovery_window_s=discovery_window_s,
             route_miss_recovery_enabled=False,
         )
+    if name == "meshecho-calibrated":
+        return MeshEchoCalibrated(
+            discovery_window_s=discovery_window_s,
+            route_miss_recovery_enabled=False,
+        )
     if name == "etx-mesh":
         return MetricMesh("etx", discovery_window_s=discovery_window_s)
+    if name == "prr-product-mesh":
+        return MetricMesh("prr-product", discovery_window_s=discovery_window_s)
     if name == "minhop-mesh":
         return MinHopMesh(discovery_window_s=discovery_window_s)
     if name == "meshcore-like":
@@ -196,8 +211,10 @@ def render_report(rows: List[Dict[str, Any]], config: ExperimentConfig) -> str:
         f"- Seeds: {len({seed for seed, _ in groups})}",
         f"- Selected pairs per seed: {config.pair_count}",
         f"- Simulations: {len(rows)}; one unicast and a fresh simulator per row",
-        "- RREQ relay timing: matched across the four policies",
+        f"- RREQ relay timing: matched across all {len(PROTOCOLS)} policies",
         "- MeshEcho route-miss fallback: disabled for this isolation test",
+        "- PRR-product: product of model-derived PRR from received RREQ "
+        "SINR, with no retry or fallback",
         "- `meshcore-like` is the matched-window shortest-candidate "
         "source-route comparator",
         "- Pair selection uses an analytical PRR graph only to choose shared "
@@ -206,7 +223,7 @@ def render_report(rows: List[Dict[str, Any]], config: ExperimentConfig) -> str:
         "## Candidate Exposure",
         "",
         f"{matched}/{len(groups)} pairs had identical candidate sets across "
-        "all four policies.",
+        f"all {len(PROTOCOLS)} policies.",
         f"{multi_candidate} matched pairs exposed at least two candidates.",
         "",
     ]

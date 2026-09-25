@@ -14,12 +14,62 @@ from lora_mesh_sim import (
     MeshEcho,
     MinHopMesh,
     MetricMesh,
+    Node,
     Packet,
+    RadioConfig,
+    RxInfo,
+    Simulator,
     build_protocol,
+    required_snr_db,
 )
+from tools.run_fair_multihop_probe import FAIR_PROBE_PROTOCOLS
+
+
+# These audits belong to the published 2.1.23 release, not the current VERSION.
+PUBLISHED_ICC_AUDIT_PREFIX = "meshecho_v2_1_23_icc2027"
 
 
 class MetricRoutingBaselineTest(unittest.TestCase):
+    def test_prr_product_uses_the_etx_model_prr_without_fallback(self) -> None:
+        baseline = build_protocol("prr-product")
+        sim = Simulator(
+            [Node(0, 0.0, 0.0), Node(1, 100.0, 0.0)],
+            RadioConfig(sf=7),
+            baseline,
+            seed=3,
+            max_hops=3,
+            matched_rreq_timing=True,
+        )
+        threshold = required_snr_db(sim.radio.sf)
+        rx = RxInfo(0, -100.0, threshold, threshold, False)
+
+        self.assertEqual(baseline.name, "prr-product-mesh")
+        self.assertFalse(baseline.route_miss_recovery_enabled)
+        self.assertEqual(baseline.fallback_confidence_threshold, 0.0)
+        self.assertAlmostEqual(baseline.extend_metric(1.0, rx), 0.5)
+        self.assertAlmostEqual(baseline.extend_metric(0.5, rx), 0.25)
+
+    def test_prr_product_can_match_meshecho_route_miss_fallback_budget(self) -> None:
+        self.assertIn("prr-product-fallback", FAIR_PROBE_PROTOCOLS)
+        baseline = build_protocol("prr-product-fallback")
+        sim = Simulator(
+            [Node(0, 0.0, 0.0), Node(1, 4000.0, 0.0)],
+            RadioConfig(tx_power_dbm=0.0, path_loss_exp=4.0, shadow_sigma_db=0.0),
+            baseline,
+            seed=3,
+            max_hops=3,
+            matched_rreq_timing=True,
+        )
+        sim.schedule(0.0, "app_send", (0, 1, 1))
+        sim.run(5.0)
+
+        self.assertEqual(baseline.name, "prr-product-fallback-mesh")
+        self.assertEqual(baseline.metric_kind, "prr-product")
+        self.assertTrue(baseline.route_miss_recovery_enabled)
+        self.assertEqual(baseline.route_miss_recovery_ttl(), 2)
+        self.assertGreater(sim.metrics.fallback_forward_count, 0)
+        self.assertEqual(sim.metrics.data_tx, sim.metrics.fallback_forward_count)
+
     def test_meshecho_is_primary_and_has_explicit_component_ablations(self) -> None:
         self.assertIn("meshecho", ICC_PROTOCOLS)
         self.assertNotIn("smart-calm", ICC_PROTOCOLS)
@@ -246,12 +296,8 @@ class MetricRoutingBaselineTest(unittest.TestCase):
 
     def test_icc_probe_reports_do_not_use_smart_calm_as_a_method(self) -> None:
         root = Path(__file__).resolve().parents[1]
-        version = (root / "VERSION").read_text(encoding="utf-8").strip().replace(
-            ".", "_"
-        )
-        prefix = f"meshecho_v{version}_icc2027"
         report_paths = tuple(
-            root / f"docs/results/{prefix}_{suffix}.md"
+            root / f"docs/results/{PUBLISHED_ICC_AUDIT_PREFIX}_{suffix}.md"
             for suffix in (
                 "matched_fixed_once",
                 "native_fixed_once",
@@ -284,9 +330,7 @@ class MetricRoutingBaselineTest(unittest.TestCase):
         """The versioned audit must report the paired seed-level interval."""
 
         root = Path(__file__).resolve().parents[1]
-        version = (root / "VERSION").read_text(encoding="utf-8").strip()
-        prefix = f"meshecho_v{version.replace('.', '_')}_icc2027"
-        with (root / f"results/{prefix}_route_conflict.csv").open(
+        with (root / f"results/{PUBLISHED_ICC_AUDIT_PREFIX}_route_conflict.csv").open(
             newline="", encoding="utf-8"
         ) as handle:
             rows = list(csv.DictReader(handle))
@@ -302,7 +346,7 @@ class MetricRoutingBaselineTest(unittest.TestCase):
         half_width = 2.093 * statistics.stdev(deltas) / math.sqrt(len(deltas))
         report = (
             root
-            / f"docs/results/{prefix}_route_conflict.md"
+            / f"docs/results/{PUBLISHED_ICC_AUDIT_PREFIX}_route_conflict.md"
         ).read_text(encoding="utf-8")
         self.assertIn(
             f"| ACK PDR | {statistics.fmean(deltas):.3f} | +/- {half_width:.3f} |",

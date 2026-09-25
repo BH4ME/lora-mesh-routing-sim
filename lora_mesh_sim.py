@@ -394,6 +394,8 @@ class Metrics:
         self.route_cache_misses = 0
         self.fallback_forward_count = 0
         self.route_repair_count = 0
+        self.ack_timeout_invalidations = 0
+        self.timeout_invalidations_after_destination_delivery = 0
         self.path_confidence_total = 0.0
         self.path_confidence_samples = 0
         self.policy_switch_count = 0
@@ -609,6 +611,10 @@ class Metrics:
             "route_cache_misses": self.route_cache_misses,
             "fallback_forward_count": self.fallback_forward_count,
             "route_repair_count": self.route_repair_count,
+            "ack_timeout_invalidations": self.ack_timeout_invalidations,
+            "timeout_invalidations_after_destination_delivery": (
+                self.timeout_invalidations_after_destination_delivery
+            ),
             "mean_path_confidence": round(mean_path_confidence, 6),
             "control_overhead_ratio": round(control_overhead_ratio, 6),
             "policy_switch_count": self.policy_switch_count,
@@ -791,6 +797,7 @@ class Simulator:
         if packet.kind == "FALLBACK":
             self.metrics.fallback_forward_count += 1
         self.schedule(end, "tx_end", tx)
+        self.protocol.on_transmit(sender, packet, start, end)
 
     def transmissions_overlapping(self, start: float, end: float) -> Iterable[Transmission]:
         for tx in self.transmissions:
@@ -941,6 +948,9 @@ class RoutingProtocol:
         return None
 
     def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        return None
+
+    def on_transmit(self, sender: int, packet: Packet, start: float, end: float) -> None:
         return None
 
     def on_flow_completion(self, flow_id: int, delivered: bool, now: float) -> None:
@@ -1828,6 +1838,23 @@ class MeshEcho(CalmMesh):
         return clamp(inbound_confidence - hop_penalty, 0.05, 0.98)
 
 
+class MeshEchoCalibrated(MeshEcho):
+    """Rank RREQ paths by their weakest model-inferred hop PRR."""
+
+    name = "meshecho-calibrated"
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        kwargs["hop_penalty_per_hop"] = 0.0
+        super().__init__(*args, **kwargs)
+
+    def link_confidence(self, rx: RxInfo) -> float:
+        return self.sim.prr_from_snr(rx.sinr_db)
+
+    def path_confidence(self, path: Tuple[int, ...], inbound_confidence: float) -> float:
+        del path
+        return clamp(inbound_confidence, 0.0, 1.0)
+
+
 class MeshEchoBudgeted(MeshEcho):
     """Prefer a short route unless a near-shortest candidate is clearly better."""
 
@@ -1905,9 +1932,10 @@ class MetricMesh(CalmMesh):
     * ``etx`` minimizes the sum of expected transmissions, ``1 / PRR``.
     * ``ett`` minimizes airtime-weighted expected transmissions,
       ``ToA / PRR``.
+    * ``prr-product`` maximizes the product of modeled per-hop PRRs.
 
-    Scores are represented as ``1 / (1 + cost)`` so the existing route-cache
-    and RREP data structures can carry a bounded higher-is-better value.
+    ETX and ETT scores use ``1 / (1 + cost)``; PRR-product is already a
+    bounded higher-is-better value. All use the same RREQ SINR observation.
     """
 
     def __init__(
@@ -1917,8 +1945,9 @@ class MetricMesh(CalmMesh):
         discovery_window_s: float = DEFAULT_CALM_DISCOVERY_WINDOW_S,
         flood_base_delay_s: float = 0.5,
         flood_jitter_s: float = 0.7,
+        route_miss_recovery_enabled: bool = False,
     ) -> None:
-        if metric_kind not in {"etx", "ett"}:
+        if metric_kind not in {"etx", "ett", "prr-product"}:
             raise ValueError(f"unknown metric kind: {metric_kind}")
         super().__init__(
             route_ttl_s=route_ttl_s,
@@ -1926,7 +1955,7 @@ class MetricMesh(CalmMesh):
             flood_base_delay_s=flood_base_delay_s,
             flood_jitter_s=flood_jitter_s,
             fallback_confidence_threshold=0.0,
-            route_miss_recovery_enabled=False,
+            route_miss_recovery_enabled=route_miss_recovery_enabled,
         )
         self.metric_kind = metric_kind
         self.name = f"{metric_kind}-mesh"
@@ -1958,12 +1987,14 @@ class MetricMesh(CalmMesh):
     def extend_metric(self, previous_score: float, rx: RxInfo) -> float:
         """Append one received hop to an accumulated path score."""
 
+        hop_prr = self.sim.prr_from_snr(rx.sinr_db)
+        if self.metric_kind == "prr-product":
+            return previous_score * hop_prr
         previous_cost = (
             1.0 / max(previous_score, 1e-9) - 1.0
             if previous_score > 0.0
             else 0.0
         )
-        hop_prr = self.sim.prr_from_snr(rx.sinr_db)
         total_cost = previous_cost + self.cost_from_link(
             hop_prr,
             self.sim.radio.toa_s,
@@ -2021,6 +2052,120 @@ class MetricMesh(CalmMesh):
             else self.flood_delay()
         )
         self.sim.transmit_later(receiver, forwarded, delay_s=delay)
+
+
+class PRRProductFallback(MetricMesh):
+    """PRR-product with MeshEcho's route-miss recovery budget and timing."""
+
+    name = "prr-product-fallback-mesh"
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(
+            metric_kind="prr-product",
+            flood_base_delay_s=0.45,
+            flood_jitter_s=0.65,
+            route_miss_recovery_enabled=True,
+            **kwargs,
+        )
+        self.name = "prr-product-fallback-mesh"
+
+    def flood_delay(
+        self,
+        receiver: Optional[int] = None,
+        rx: Optional[RxInfo] = None,
+    ) -> float:
+        return CalmMesh.flood_delay(self, receiver, rx)
+
+
+class AckRouteEviction:
+    """Discard only a still-cached route used by an unacknowledged DATA flow."""
+
+    def __init__(self, *args: Any, ack_guard_s: float = 15.0, **kwargs: Any) -> None:
+        if ack_guard_s <= 0.0:
+            raise ValueError("ACK guard must be positive")
+        super().__init__(*args, **kwargs)
+        self.ack_guard_s = ack_guard_s
+        self.pending_ack_routes: Dict[
+            int, Tuple[int, int, RouteEntry, Optional[float]]
+        ] = {}
+
+    def bind(self, sim: Simulator) -> None:
+        super().bind(sim)
+        self.pending_ack_routes = {}
+
+    def send_data_on_path(
+        self, src: int, dst: int, flow_id: int, entry: RouteEntry
+    ) -> None:
+        self.pending_ack_routes[flow_id] = (src, dst, entry, None)
+        super().send_data_on_path(src, dst, flow_id, entry)
+
+    def on_transmit(self, sender: int, packet: Packet, start: float, end: float) -> None:
+        super().on_transmit(sender, packet, start, end)
+        route = self.pending_ack_routes.get(packet.flow_id)
+        if (
+            packet.kind != "DATA"
+            or packet.origin != sender
+            or route is None
+            or route[0] != sender
+            or route[1] != packet.final_dst
+            or route[2].path != packet.path
+        ):
+            return
+        src, dst, entry, _ = route
+        self.pending_ack_routes[packet.flow_id] = (src, dst, entry, start)
+        self.sim.schedule(
+            start + self.ack_guard_s,
+            "protocol_timer",
+            lambda: self.expire_unacknowledged_route(packet.flow_id, src, dst, entry),
+        )
+
+    def expire_unacknowledged_route(
+        self, flow_id: int, src: int, dst: int, entry: RouteEntry
+    ) -> None:
+        route = self.pending_ack_routes.get(flow_id)
+        if route is None or route[2] is not entry:
+            return
+        del self.pending_ack_routes[flow_id]
+        flow = self.sim.metrics.flows.get(flow_id)
+        if flow is None or flow.acked_at is not None:
+            return
+        if self.route_cache[src].get(dst) is entry:
+            del self.route_cache[src][dst]
+            self.sim.metrics.ack_timeout_invalidations += 1
+            if flow.delivered_at is not None:
+                self.sim.metrics.timeout_invalidations_after_destination_delivery += 1
+
+    def on_ack(self, flow_id: int, receiver: int, now: float, packet: Packet) -> None:
+        confirmed = self.pending_ack_routes.pop(flow_id, None)
+        if confirmed is not None and confirmed[3] is not None:
+            src, dst, entry, confirmed_start = confirmed
+            for pending_flow_id, pending in list(self.pending_ack_routes.items()):
+                pending_src, pending_dst, pending_entry, pending_start = pending
+                if (
+                    pending_src == src
+                    and pending_dst == dst
+                    and pending_entry is entry
+                    and pending_start is not None
+                    and pending_start <= confirmed_start
+                ):
+                    del self.pending_ack_routes[pending_flow_id]
+        super().on_ack(flow_id, receiver, now, packet)
+
+
+class MeshEchoAckEvict(AckRouteEviction, MeshEcho):
+    """Optional ACK-feedback stale-cache experiment; never retries the flow."""
+
+    name = "meshecho-ack-evict"
+
+
+class PRRProductAckEvict(AckRouteEviction, MetricMesh):
+    """Give the PRR-product comparator the same ACK-feedback budget."""
+
+    name = "prr-product-ack-evict-mesh"
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(metric_kind="prr-product", **kwargs)
+        self.name = "prr-product-ack-evict-mesh"
 
 
 class MinHopMesh(CalmMesh):
@@ -2641,11 +2786,10 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
                 DEFAULT_MESHCORE_DISCOVERY_WINDOW_S,
             ),
         )
-    if name in {"etx", "ett"}:
+    if name in {"etx", "ett", "prr-product", "prr-product-fallback", "prr-product-ack-evict"}:
         if args is None:
             args = argparse.Namespace()
-        return MetricMesh(
-            metric_kind=name,
+        metric_kwargs = dict(
             route_ttl_s=getattr(
                 args,
                 "metric_route_ttl_s",
@@ -2665,6 +2809,12 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
                 ),
             ),
         )
+        if name == "prr-product-ack-evict":
+            metric_kwargs["ack_guard_s"] = getattr(args, "ack_guard_s", 15.0)
+            return PRRProductAckEvict(**metric_kwargs)
+        if name == "prr-product-fallback":
+            return PRRProductFallback(**metric_kwargs)
+        return MetricMesh(metric_kind=name, **metric_kwargs)
     if name == "minhop":
         if args is None:
             return MinHopMesh()
@@ -2696,13 +2846,15 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
                 ),
             ),
         )
-    if name in {"calm", "meshecho", "meshecho-budgeted", *MESHECHO_ABLATIONS}:
+    if name in {"calm", "meshecho", "meshecho-calibrated", "meshecho-ack-evict", "meshecho-budgeted", *MESHECHO_ABLATIONS}:
         if args is None:
             if name == "calm":
                 return CalmMesh()
             if name == "meshecho":
                 return MeshEcho()
             return {
+                "meshecho-calibrated": MeshEchoCalibrated,
+                "meshecho-ack-evict": MeshEchoAckEvict,
                 "meshecho-budgeted": MeshEchoBudgeted,
                 "meshecho-no-confidence": MeshEchoNoConfidence,
                 "meshecho-no-fallback": MeshEchoNoFallback,
@@ -2711,6 +2863,8 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             }[name]()
         meshecho_classes = {
             "meshecho": MeshEcho,
+            "meshecho-calibrated": MeshEchoCalibrated,
+            "meshecho-ack-evict": MeshEchoAckEvict,
             "meshecho-budgeted": MeshEchoBudgeted,
             "meshecho-no-confidence": MeshEchoNoConfidence,
             "meshecho-no-fallback": MeshEchoNoFallback,
@@ -2718,7 +2872,7 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
             "meshecho-no-age-penalty": MeshEchoNoAgePenalty,
         }
         protocol_class = CalmMesh if name == "calm" else meshecho_classes[name]
-        protocol = protocol_class(
+        protocol_kwargs = dict(
             route_ttl_s=getattr(args, "calm_route_ttl_s", 600.0),
             discovery_window_s=getattr(args, "calm_discovery_window_s", DEFAULT_CALM_DISCOVERY_WINDOW_S),
             flood_base_delay_s=getattr(args, "calm_flood_base_delay_s", 0.45),
@@ -2734,6 +2888,9 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
                 False,
             ),
         )
+        if name == "meshecho-ack-evict":
+            protocol_kwargs["ack_guard_s"] = getattr(args, "ack_guard_s", 15.0)
+        protocol = protocol_class(**protocol_kwargs)
         return protocol
     if name in {
         "smart-calm",
@@ -2892,9 +3049,14 @@ def parse_args() -> argparse.Namespace:
             "meshcore",
             "etx",
             "ett",
+            "prr-product",
+            "prr-product-fallback",
+            "prr-product-ack-evict",
             "minhop",
             "calm",
             "meshecho",
+            "meshecho-calibrated",
+            "meshecho-ack-evict",
             "meshecho-budgeted",
             *MESHECHO_ABLATIONS,
             "smart-calm",

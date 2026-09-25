@@ -143,7 +143,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed0", type=int, default=1)
     parser.add_argument(
         "--out-prefix",
-        default="meshecho_v2_1_23_icc2027_sensitivity",
+        default="meshecho_v2_1_24_icc2027_sensitivity",
     )
     parser.add_argument(
         "--protocol",

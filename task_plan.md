@@ -745,3 +745,260 @@ update draft PR 1, and compare local/remote commit IDs.
 - The only remaining untracked path is the intentionally excluded Tectonic
   build directory. EDAS registration and author/title matching remain with
   the submitting authors.
+
+## Active Goal Completion Audit - 2026-09-25
+
+Objective: verify that the 2.1.23 algorithm revision and rewritten ICC paper
+actually satisfy the original request to improve the identified weaknesses
+without inventing results. Do not treat publication alone as proof.
+
+- [in_progress] Compare MeshEcho implementation and tests with the prior
+  release; determine whether the algorithm change is real and correctly
+  represented in the manuscript.
+- [in_progress] Recompute the main, isolated, and adverse-case evidence from
+  raw versioned CSVs; check manuscript claims and confidence intervals.
+- [in_progress] Audit the PDF, citations, limitations, and remaining external
+  submission obligations.
+- [pending] Add and version a fair per-hop PRR-product comparator, rerun the
+  affected isolated and system comparisons under a new version, and rewrite
+  the claim boundary if its result remains close to MeshEcho.
+- [pending] Repair manuscript terminology (`route admission` versus actual
+  selection, and model-inferred versus observed PRR) and resolve the font
+  fallback in the final PDF if a standard IEEE build is available.
+- [pending] Repair any other material mismatch with test-first changes and
+  rerun only affected simulations under a new version if behavior changes.
+- [pending] Decide completion from source, raw data, compiled paper, and
+  remote state; keep this goal active if any required evidence remains weak.
+
+The previous goal turn made progress: it published the 2.1.23 release and
+corrected author metadata. Resume from this plan, `findings.md`, and
+`progress.md` after any context compression.
+
+### Audit Issues Discovered
+
+- A read-only in-memory PRR-product route comparator on the current isolated
+  20-seed pairs reached 322/480 ACKs against MeshEcho's 330/480, with a paired
+  difference whose 95% CI crosses zero. This exploratory result is not a
+  versioned artifact or paper evidence; it exposes a stronger-baseline gap.
+- The PDF is five-page Letter and visually clean, but the Tectonic log shows
+  Times font-shape fallback to Latin Modern. Standard pdfLaTeX is installed;
+  verify a template-faithful build before final publication.
+- Paper funding/conflict assertions require author confirmation; an optional
+  non-blocking question has been sent. Initial nested question-tool call
+  failed because that tool is direct-only; the direct call succeeded.
+
+## 2.1.24 Preregistered Revision
+
+The current paper's numbers are reproducible, but the default algorithm's
+advantage over a model-informed no-retry PRR-product comparator is unproven.
+The next revision must not reuse exposed seeds 21--40 as a fresh holdout.
+
+1. Add `prr-product` as a matched RREQ, no-fallback, no-retry comparator using
+   the same RREQ SINR-to-PRR model as ETX; test route scoring and CLI wiring.
+2. Test an optional ACK-feedback stale-route eviction policy. It may only
+   invalidate the exact cached path after an ACK guard expires; no same-flow
+   retransmission, no future-channel oracle, and no eviction of a replacement
+   route. Preserve one-shot behavior.
+3. Use development seeds 41--50 for mechanism checks, freeze the policy and
+   comparator, then run untouched seeds 51--70 for the repeated-pair fading
+   primary check plus matching controls. Keep 21--40 as historical evidence.
+4. Report ACK/destination PDR, airtime, energy, collisions, route repairs,
+   discovery count, delay, and paired seed-level CIs. Include adverse and null
+   findings. Do not promote the optional policy without evidence.
+5. Revise the ICC title/text to route selection, explain model-inferred PRR,
+   correct min-hop tie-breaking, state the random-pair denominators and deep
+   stratum confounding, and rebuild with an IEEE-compatible font stack.
+6. Run all tests and consistency/PDF gates, update release metadata, and
+   publish only verified versioned artifacts to the existing draft PR.
+
+No 2.1.24 simulation result exists yet. Do not cite the in-memory comparator
+pilot in the manuscript as a released experiment.
+
+### 2.1.24 Resume Checkpoint
+
+- [complete] Verify `Zu Gao` and `Zhi Quan` in source and current five-page PDF.
+- [in_progress] Add PRR-product comparator with test-first implementation.
+- [in_progress] Correct manuscript terminology and method descriptions without
+  touching result claims until versioned simulations are audited.
+- [in_progress] Specify repeated-pair fading workload and observable metrics.
+- [pending] Implement and test actual-transmission-timed, route-identity-safe
+  ACK stale-route eviction as an optional MeshEcho variant.
+- [pending] Run development seeds 41--50, freeze a justified policy, then
+  validate on untouched seeds 51--70 and revise/rebuild/publish the paper.
+
+### 2.1.24 Implementation Checkpoint
+
+- [complete] PRR-product explicit comparator and isolated/fair runner wiring;
+  42 related tests and one-seed equal-candidate smoke passed.
+- [complete] ACK-eviction 2-by-2 protocol variants and simulator metrics;
+  first failing tests were observed, and 55 focused tests now pass.
+- [in_progress] Add matched-timing fading/static/short-TTL runner cases and
+  repeated-pair/trace quality gate; retain all selected seeds.
+- [pending] Bump current release defaults to 2.1.24 before versioned runs.
+- [pending] Run 41--50 development matrix, document decision, then freeze
+  and run untouched 51--70 validation plus isolated PRR-product comparator.
+- [pending] Reconcile every new claim and figure with raw CSVs, build/review
+  five-page ICC PDF, run full gates, and publish verified release to GitHub.
+
+### 2.1.24 Development Decision
+
+- [complete] Run seeds 41--50 for fading, static, and short-TTL controls with
+  identical application traces and repeated-pair quality gates.
+- [complete] Reject single-failure 15-s ACK eviction as the proposed default:
+  it reduces development ACK completion and raises airtime even in static
+  control. Preserve the optional policy and negative result transparently.
+- [in_progress] Examine one mechanistic ranking alternative using only
+  41--50; do not implement it without evidence that its decision rule
+  addresses the observed failure mode. No additional parameter fishing.
+- [pending] Freeze a truthful 2.1.24 protocol/claim set, then perform a
+  one-time untouched 51--70 validation and isolated PRR-product comparison.
+
+### 2.1.24 ACK Feedback Race Check
+
+- [complete] Fix the same-route old-guard race test-first: a later
+  acknowledged DATA transmission must cancel earlier unacknowledged guards
+  for that exact cached route, without canceling a newer transmission's guard.
+- [complete] Re-run focused tests: 9 ACK-eviction tests pass, including the
+  new reverse-timing boundary; `git diff --check` passes.
+- [pending] Re-run affected development variants under new result prefixes;
+  preserve the existing CSVs unchanged. The pre-fix ACK-eviction rows are
+  historical diagnostics, not evidence about the fixed implementation.
+
+### 2.1.24 Frozen Development Hypothesis
+
+- Test exactly one new candidate on 41--50: calibrated max-min per-hop PRR
+  from observed RREQ SINR, with no arbitrary hop penalty. Keep MeshEcho's
+  RREQ timing, TTL, fallback, traffic, and no-retry budget unchanged; do not
+  enable ACK eviction in this candidate.
+- Compare against original MeshEcho and PRR-product in fading and static
+  repeated-pair development cases, then inspect same-candidate route choices.
+  The prior 41--50 results justify this test, not a claim of improvement.
+- Reject the candidate if it does not reduce direct-route bias on matched
+  candidate sets, does not show a convincing fading ACK gain, or raises
+  airtime/energy substantially without commensurate delivery. Do not tune
+  slope/threshold/hop penalty after seeing these development outcomes.
+- Full suite currently has 131 passes and two missing-artifact failures:
+  historical report tests derive their prefix from the bumped `VERSION`.
+  Correct those tests to reference 2.1.23 artifacts explicitly; never
+  relabel old CSVs as 2.1.24 evidence.
+
+### 2.1.24 Development Results So Far
+
+- [complete] Implement calibrated max-min PRR as an optional variant, with
+  uncapped model-derived RREQ SINR score, zero hop penalty, and no change to
+  MeshEcho's discovery, fallback, or retry budget. Focused score/runner/
+  isolated/report tests pass; one-seed smoke is non-inferential.
+- [complete] Run 41--50 fading and static repeated-pair matrices under the
+  new `calibrated_dev41_50` prefix, preserving all pre-fix raw CSVs.
+- [complete] Run 41--50 isolated first-discovery matrix: 240/240 candidate
+  sets match across six policies, 225 expose multiple candidates.
+- [in_progress] Short-TTL development control is computing; do not infer its
+  result before the process completes.
+- [pending] Audit seed-paired contrasts and same-candidate route choices,
+  then freeze or reject the candidate once. Only then run 51--70 untouched
+  validation and rebuild the manuscript.
+- [in_progress] Add a PRR-product comparator with the same TTL-2 route-miss
+  fallback budget and timing, leaving its PRR-product score unchanged. This
+  control addresses the dynamic fallback mismatch; it is not a second
+  candidate algorithm. Run it on 41--50 fading and static before the holdout.
+- The first behavior test assumed FALLBACK was not counted in `data_tx`;
+  source inspection showed every non-control packet, including FALLBACK, is
+  counted. Corrected the assertion to detect extra plain DATA transmission;
+  focused control tests now pass.
+
+### 2.1.24 Holdout Freeze - 2026-09-25
+
+- [complete] Freeze calibrated max-min PRR as the only new candidate. Its
+  41--50 fading gain over old MeshEcho is paired +0.154 ACK PDR at +4.09 s
+  airtime; equal-candidate direct selections fall from 11 to 1 in 21
+  both-selected fading discoveries. Static and isolated ACK intervals cross
+  zero; short-TTL control remains adverse. PRR-product with matched fallback
+  reaches the same rounded fading/static ACK as the candidate. Do not claim
+  strong-baseline superiority or tune the candidate further.
+- [complete] Pre-holdout gate: 139 tests pass, Python compile and
+  `git diff --check` pass. No 51--70 result prefix exists yet.
+- Frozen code SHA-256: `lora_mesh_sim.py`
+  `ac2b74f2f3b28cb029e39a883bdf313b1a9f000c4d76cbc6dd1054f80b55bf21`;
+  fair runner `4e51ad137c0f3174803c62e052abffe78aa10979594975681e37608619e9d612`;
+  generalization runner `83c19208dc32cdae2adc401e8cfb85c5cfbdf1f761efc5707272c5fd84f831ac`;
+  isolated runner `577886627907e39872812765c86f553b671c7fcdda1a608b8b06c91bf79d9318`.
+- [in_progress] Run the untouched 51--70 holdout once under prefix
+  `meshecho_v2_1_24_icc2027_holdout51_70`: fading (primary), static and
+  short-TTL controls, and isolated first discovery. Dynamic protocol list:
+  old MeshEcho, calibrated variant, PRR-product without/with matched
+  route-miss fallback, and both ACK-eviction negative variants. Preserve
+  failed or null findings. If a post-holdout implementation bug requires a
+  change, do not reuse 51--70 as an independent holdout.
+- [pending] Independently recompute all holdout seed-level intervals and
+  candidate-set evidence, rewrite the ICC paper honestly, rebuild/inspect a
+  five-page PDF, run final tests, then publish only verified versioned files.
+- The first targeted pytest command used a stale class name and collected no
+  tests. The corrected node reproduced the expected `KeyError` at the cached
+  route assertion; this is an implementation failure, not a data result.
+
+### 2.1.24 Holdout Resume - 2026-09-25
+
+- [complete] Confirm the current ICC TeX author block and five-page PDF print
+  `Zu Gao` and `Zhi Quan` in that order, both at Shenzhen University. The
+  latest user clarification confirms this given-name-first spelling.
+- [complete] The one-time seeds 51--70 `feedback_fading` process exited 0 and
+  wrote the raw CSV, summary CSV, and report under
+  `meshecho_v2_1_24_icc2027_holdout51_70_feedback_fading`; do not rerun or
+  overwrite this primary holdout stratum.
+- [in_progress] Run the preregistered static, short-TTL, and isolated-first-
+  discovery 51--70 controls with unique output paths, then independently
+  audit all seed-level estimates and candidate-set evidence.
+- [in_progress] The three controls were launched once with explicit case and
+  protocol selections: static session `90316`, short-TTL session `11946`,
+  isolated session `53033`. Their paths were absent before launch and do not
+  overlap the completed fading files. Poll these sessions before any retry.
+- [complete] Static session `90316`, isolated session `53033`, and short-TTL
+  session `11946` all exited 0 with their respective raw results and reports.
+  Do not rerun or overwrite these frozen holdout files.
+- [complete] Independent fading raw-CSV audit verified 20 seeds x 6 policies,
+  shared scheduled traces, and seed-paired intervals. Calibrated minus old
+  MeshEcho ACK is +0.1154 [0.0307,0.2001]; calibrated minus matched-fallback
+  PRR-product is +0.0026 [-0.0055,0.0107]. This does not show strong-baseline
+  superiority.
+- [complete] Independent static and isolated audits found no clear calibrated
+  ACK advantage over the old heuristic or PRR-product. Static calibrated minus
+  old is +0.0004 [-0.0741,+0.0748]; isolated is +0.0208
+  [-0.0129,+0.0546], with 480/480 equal candidate sets. These are holdout
+  controls, not tunable development results.
+- The first ICC TeX patch failed its exact context check at the Related Work
+  paragraph; no source bytes changed. Re-read the current lines and retry
+  narrower hunks rather than repeating the same patch.
+- [in_progress] Revise the ICC source around the now-audited 2.1.24 primary,
+  static and isolated evidence. The short-TTL report is present, but its
+  paired interpretation still needs independent raw-CSV verification.
+- The first pdfLaTeX build failed on missing `pcrr7t.tfm` at the manuscript's
+  sole `\texttt{}` usage. `kpsewhich` confirmed the Courier metric is absent
+  while standard `cmtt10` exists. Replaced the optional monospaced prefix
+  with prose; rerun the exact build to verify the isolated hypothesis.
+- [complete] pdfLaTeX/BibTeX now compile with IEEEtran 10-pt Letter to five
+  pages, all fonts Type 1 embedded, English-only authors `Zu Gao` and
+  `Zhi Quan`, and no unresolved citations/references or overfull boxes.
+- [in_progress] Visual page QA found the fifth page contains only the latter
+  bibliography entries with excessive blank space. Improve content/float
+  balance before copying the new PDF to the repository root or publishing.
+- [pending] Revise/rebuild the ICC paper from audited evidence, run final
+  gates, and publish the verified versioned release.
+
+### 2.1.24 Final Layout Gate - 2026-09-25
+
+- [complete] Confirm the manuscript and rebuilt PDF print `Zu Gao` and
+  `Zhi Quan` in the requested order; no author-name edit was needed.
+- [complete] Correct the ETX/ETT wording and replace `preregistered` with
+  `prespecified`, consistent with the recorded pre-holdout freeze.
+- [complete] Rebuild a five-page IEEEtran 10-pt Letter PDF with Type 1 embedded
+  fonts and balanced final-page reference columns; the repository PDF still
+  needs replacement after final content and visual checks.
+- [complete] Add a compact, traceable secondary-metrics table using the
+  already frozen 51--70 fading CSV, then recheck page balance and citations.
+- [complete] Replace the root PDF with the rebuilt five-page artifact;
+  source and root PDF print `Zu Gao`, `Zhi Quan`, and root/build SHA-256 match:
+  `42df9f02cf7c6306c32566fb18017a31d6906da89d984f7fc72c45084d6b6f72`.
+- [in_progress] Selectively commit/push 2.1.24 and verify the remote PR.
+- A new Python-rendered plot is paused because `matplotlib` is unavailable
+  and the earlier installation question has not been answered. Do not insert
+  the unused 2.1.23 TikZ figure as 2.1.24 evidence.

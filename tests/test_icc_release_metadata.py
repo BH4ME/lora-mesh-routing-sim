@@ -9,26 +9,26 @@ from tools.run_route_conflict_experiment import parse_args as conflict_args
 
 
 class IccReleaseMetadataTest(unittest.TestCase):
-    def test_current_release_defaults_use_version_2_1_23(self) -> None:
+    def test_current_release_defaults_use_version_2_1_24(self) -> None:
         root = Path(__file__).resolve().parents[1]
-        self.assertEqual((root / "VERSION").read_text(encoding="utf-8").strip(), "2.1.23")
+        self.assertEqual((root / "VERSION").read_text(encoding="utf-8").strip(), "2.1.24")
 
         with patch("sys.argv", ["runner"]):
             self.assertEqual(
                 sensitivity_args().out_prefix,
-                "meshecho_v2_1_23_icc2027_sensitivity",
+                "meshecho_v2_1_24_icc2027_sensitivity",
             )
             self.assertEqual(
                 cache_args().out_prefix,
-                "meshecho_v2_1_23_icc2027_cache",
+                "meshecho_v2_1_24_icc2027_cache",
             )
             self.assertEqual(
                 generalization_args().out_prefix,
-                "meshecho_v2_1_23_icc2027_generalization",
+                "meshecho_v2_1_24_icc2027_generalization",
             )
             self.assertEqual(
                 conflict_args().csv,
-                Path("results/meshecho_v2_1_23_icc2027_route_conflict.csv"),
+                Path("results/meshecho_v2_1_24_icc2027_route_conflict.csv"),
             )
 
 

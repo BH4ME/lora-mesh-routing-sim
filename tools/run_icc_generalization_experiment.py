@@ -30,6 +30,7 @@ if str(ROOT) not in sys.path:
 from analyze_results import aggregate
 from lora_mesh_sim import ICC_PROTOCOLS
 from tools.run_fair_multihop_probe import (
+    FAIR_PROBE_PROTOCOLS,
     run_one_probe,
     validate_non_degenerate_regime,
     write_csv,
@@ -57,6 +58,9 @@ class GeneralizationCase:
     temporal_fading_sigma_db: float = 0.0
     temporal_fading_interval_s: float = 60.0
     report_cache_reuse: bool = False
+    pair_schedule: str = "poisson"
+    matched_rreq_timing: bool = False
+    require_repeated_pairs: bool = False
 
 
 GENERALIZATION_CASES = (
@@ -135,6 +139,69 @@ GENERALIZATION_CASES = (
         temporal_fading_interval_s=60.0,
         report_cache_reuse=True,
     ),
+    GeneralizationCase(
+        key="feedback_fading",
+        label="matched-discovery repeated pairs with temporal fading",
+        nodes=50,
+        area_m=8_250.0,
+        duration_s=600.0,
+        rate_per_min=4.0,
+        traffic="unicast",
+        pair_mode="connected-multihop",
+        pair_count=4,
+        edge_prr_threshold=0.90,
+        min_graph_hops=2,
+        max_graph_hops=4,
+        sf=7,
+        route_ttl_s=600.0,
+        temporal_fading_sigma_db=6.0,
+        temporal_fading_interval_s=60.0,
+        report_cache_reuse=True,
+        matched_rreq_timing=True,
+        require_repeated_pairs=True,
+    ),
+    GeneralizationCase(
+        key="feedback_static",
+        label="matched-discovery repeated pairs with a static channel",
+        nodes=50,
+        area_m=8_250.0,
+        duration_s=600.0,
+        rate_per_min=4.0,
+        traffic="unicast",
+        pair_mode="connected-multihop",
+        pair_count=4,
+        edge_prr_threshold=0.90,
+        min_graph_hops=2,
+        max_graph_hops=4,
+        sf=7,
+        route_ttl_s=600.0,
+        temporal_fading_sigma_db=0.0,
+        temporal_fading_interval_s=60.0,
+        report_cache_reuse=True,
+        matched_rreq_timing=True,
+        require_repeated_pairs=True,
+    ),
+    GeneralizationCase(
+        key="feedback_fading_short_ttl",
+        label="matched-discovery repeated pairs with short cache TTL",
+        nodes=50,
+        area_m=8_250.0,
+        duration_s=600.0,
+        rate_per_min=4.0,
+        traffic="unicast",
+        pair_mode="connected-multihop",
+        pair_count=4,
+        edge_prr_threshold=0.90,
+        min_graph_hops=2,
+        max_graph_hops=4,
+        sf=7,
+        route_ttl_s=30.0,
+        temporal_fading_sigma_db=6.0,
+        temporal_fading_interval_s=60.0,
+        report_cache_reuse=True,
+        matched_rreq_timing=True,
+        require_repeated_pairs=True,
+    ),
 )
 
 
@@ -154,6 +221,7 @@ def build_generalization_namespace(
         traffic=case.traffic,
         pair_mode=case.pair_mode,
         pair_count=case.pair_count,
+        pair_schedule=case.pair_schedule,
         edge_prr_threshold=case.edge_prr_threshold,
         min_graph_hops=case.min_graph_hops,
         max_graph_hops=case.max_graph_hops,
@@ -170,6 +238,8 @@ def build_generalization_namespace(
         shadow_sigma_db=4.0,
         temporal_fading_sigma_db=case.temporal_fading_sigma_db,
         temporal_fading_interval_s=case.temporal_fading_interval_s,
+        matched_rreq_timing=case.matched_rreq_timing,
+        require_repeated_pairs=case.require_repeated_pairs,
         capture_threshold_db=6.0,
         max_hops=8,
         route_ttl_s=case.route_ttl_s,
@@ -232,7 +302,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed0", type=int, default=1)
     parser.add_argument(
         "--out-prefix",
-        default="meshecho_v2_1_23_icc2027_generalization",
+        default="meshecho_v2_1_24_icc2027_generalization",
     )
     parser.add_argument(
         "--case",
@@ -243,7 +313,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--protocol",
         action="append",
-        choices=ICC_PROTOCOLS,
+        choices=FAIR_PROBE_PROTOCOLS,
         help="repeat to select protocols; defaults to all ICC configurations",
     )
     return parser.parse_args()

@@ -1,5 +1,35 @@
 # Changelog
 
+## 2.1.24 - Model-informed route scores and frozen fading holdout
+
+- Add optional `meshecho-calibrated` (maximum weakest modeled hop PRR), a
+  PRR-product comparator with and without matched TTL-2 route-miss fallback,
+  and optional ACK-timeout route-invalidation controls. Keep the original
+  `meshecho` behavior distinct from the experimental calibrated variant.
+- Freeze the scoring decision using only development seeds 41--50, then run
+  untouched seeds 51--70 for repeated-pair fading and static controls. The
+  2.1.23 seeds 21--40 remain historical evidence, not a fresh 2.1.24 holdout.
+- In the 20-seed fading holdout (793 observed unicasts), calibrated MeshEcho
+  reaches 0.624 ACK PDR/23.7 s versus original MeshEcho's 0.509/21.2 s:
+  seed-paired ACK difference +0.1154, 95% CI [+0.0307,+0.2001], at +2.467 s
+  airtime. Its ACK difference from PRR-product with matched fallback is only
+  +0.0026 [-0.0055,+0.0107].
+- Preserve null and adverse checks: static calibrated-minus-original ACK
+  difference +0.0004 [-0.0741,+0.0748]; isolated first discovery has 480/480
+  equal candidate sets and differences +0.0208 [-0.0129,+0.0546] against
+  original MeshEcho and +0.0021 [-0.0056,+0.0098] against PRR-product.
+  ACK-timeout eviction lowers fading ACK completion and raises airtime.
+- Independently audit the 51--70 short-TTL control (793 observed unicasts
+  per policy). At 30 s TTL, calibrated MeshEcho reaches 0.320 ACK PDR and
+  64.8 s airtime versus 0.624/23.7 s at 600 s TTL. Seed-paired
+  30-minus-600 s differences are -0.3043 ACK PDR
+  (95% CI [-0.3932,-0.2154]) and +41.05 s airtime ([31.40,50.70]).
+  Its 30 s ACK advantage over original MeshEcho is uncertain:
+  +0.0215 [-0.0227,+0.0657].
+- Rebuild the five-page ICC draft with `Zu Gao`, `Zhi Quan`, the 2.1.24
+  holdout tables, and a descriptive fading-diagnostics table. Keep the
+  unused 2.1.23 figure out of the manuscript.
+
 ## 2.1.23 - MeshEcho fixed-once and candidate-exposure audit
 
 - Correct MeshEcho's cumulative hop-penalty accounting while leaving the

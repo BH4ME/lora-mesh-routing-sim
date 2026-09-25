@@ -13,10 +13,10 @@ from tools.run_isolated_first_discovery import (
 
 
 class IsolatedFirstDiscoveryTest(unittest.TestCase):
-    def test_each_selected_pair_gets_four_isolated_first_discoveries(self) -> None:
+    def test_each_selected_pair_gets_six_isolated_first_discoveries(self) -> None:
         rows = run_seed(1, ExperimentConfig(pair_count=2))
 
-        self.assertEqual(len(rows), 8)
+        self.assertEqual(len(rows), 12)
         by_pair = {}
         for row in rows:
             by_pair.setdefault(row["pair_index"], []).append(row)
@@ -32,7 +32,14 @@ class IsolatedFirstDiscoveryTest(unittest.TestCase):
         for pair_rows in by_pair.values():
             self.assertEqual(
                 {row["protocol"] for row in pair_rows},
-                {"meshecho", "etx-mesh", "minhop-mesh", "meshcore-like"},
+                {
+                    "meshecho",
+                    "meshecho-calibrated",
+                    "etx-mesh",
+                    "prr-product-mesh",
+                    "minhop-mesh",
+                    "meshcore-like",
+                },
             )
             self.assertEqual(len({row["source"] for row in pair_rows}), 1)
             self.assertEqual(len({row["destination"] for row in pair_rows}), 1)
@@ -72,7 +79,7 @@ class IsolatedFirstDiscoveryTest(unittest.TestCase):
 
             with csv_path.open(newline="", encoding="utf-8") as stream:
                 rows = list(csv.DictReader(stream))
-            self.assertEqual(len(rows), 24 * 4)
+            self.assertEqual(len(rows), 24 * 6)
             self.assertEqual(len({row["pair_index"] for row in rows}), 24)
             self.assertEqual(csv_path.read_bytes().count(b"\r"), 0)
             self.assertIn("24 pairs", report_path.read_text(encoding="utf-8"))
