@@ -1,0 +1,1133 @@
+# Findings
+
+## Current Evidence
+
+- The original 50-node, 3000 m, SF9 matrix is link-quality saturated: direct
+  PRR is essentially one and almost all cached routes are one hop.
+- Fixed repeated source-destination pairs favor route-cache reuse, so that
+  matrix is useful as a cache-efficiency/contestion case, not a neutral
+  multi-hop benchmark.
+- The ten-seed random-pair probe uses an 18 km square, SF7, random pairs,
+  mixed traffic at 4 flows/min, and independent channel-reception randomness.
+- In that probe, MeshEcho/CALM has ACK PDR `0.413` and airtime `97.5 s`, while
+  source-route caching has ACK PDR `0.456` and airtime `139.5 s`.
+- The controlled route-conflict experiment supports a narrower mechanism claim:
+  confidence helps when the shorter route has a materially weaker hop, but not
+  under null, moderate, or reverse controls.
+- Smart-CALM has extra timeout retry/fallback behavior, so its gains cannot be
+  attributed to confidence ranking alone.
+- The connected-pair diagnostic shows that a shared graph-level path does not
+  guarantee successful route discovery under broadcast contention. In the
+  50-node/15 km/0.5 flows-min case, MeshCore route-discovery success was only
+  `0.063`; a 20-seed single-flow check was still only `0.050`.
+- The fairness probe now reports route-discovery success and RREP/RREQ
+  transmission ratios, and supports `--smart-max-timeout-retries 0` for a
+  one-shot budget-matched comparison.
+- `--independent-rng-streams` is now passed through `run_one()` and the ICC
+  script defaults to it for fresh matrices. It reduces random-stream coupling,
+  but is not event-by-event common random numbers.
+- An exploratory, unregistered area scan found that 12 km and 14 km settings
+  produce non-degenerate direct-link PRR distributions, but random-pair
+  traffic still yields only about 6% and 4% MeshCore multi-hop cached routes,
+  respectively. These scans are calibration evidence only and are not used as
+  headline paper results.
+- A 12 km connected-pair run makes the multi-hop fraction clearer, but MeshCore
+  route-discovery success falls to about 0.21 while MeshEcho/Smart-CALM remains
+  above about 0.61. This confirms that pair selection and route discovery must
+  be treated as separate fairness dimensions; the result is not suitable as a
+  neutral headline comparison.
+- The connected-pair stress runs also contain a route-reply timing asymmetry:
+  MeshCore-like replies immediately when the destination first receives an
+  RREQ, while MeshEcho waits for candidate collection before sending its RREP.
+  This is useful to disclose because it can affect route-discovery success in
+  collision-limited floods.
+
+## Paper Positioning
+
+The defensible conclusion is a preliminary reliability-airtime tradeoff under
+explicitly stated workload and recovery budgets. The paper must not claim
+universal superiority, calibrated deployment performance, or an average
+confidence-ranking benefit in arbitrary topologies.
+
+## Publish Scope Candidate
+
+Related files include the ICCT LaTeX/PDF, version metadata, fairness reports,
+the random-pair probe script and CSV, the simulator RNG fix, its regression
+test, and the ICC experiment documentation. Generated auxiliary LaTeX files,
+local sessions, caches, and unrelated deliverables should remain unstaged.
+
+## Release State
+
+- The prior fairness revision was repository version `2.1.11`; the current
+  recovery-budget revision is repository version `2.1.12`;
+  firmware identity remains `meshecho-firmware-v2.1.2`.
+- The paper source and release metadata are already updated in the worktree.
+- The PDF has now been compiled and visually inspected successfully. It is
+  8 pages, PDF 1.5, with no unresolved reference warnings.
+- Final validation passed: 45 Python tests, Python compilation, shell syntax,
+  and `git diff --check`.
+- The remaining gates are selective staging, commit/push, and remote PR
+  verification.
+
+## Verification Checkpoint - 2026-09-04
+
+- Final root PDF SHA-256:
+  `b822940c36b13a084538691b526a2b72c0d32463c67ff4772e76937fa4ab9b9a`.
+- The root PDF is byte-identical to the `build-2_1_11` output.
+- The existing draft PR is still titled for `2.1.9`; after pushing the
+  `2.1.11` commit, update its title and body.
+- Do not stage generated LaTeX auxiliaries, rendered page images, `.venv-fig`,
+  `.playwright-cli`, `tmp`, course artifacts, or unrelated documents.
+
+## 2.1.12 Audit Questions
+
+- Formalize the `calm-mesh` route-miss fallback setting so the recovery
+  contribution can be measured without temporary monkey-patching.
+- Use paired seeds and the same main-scene topology/traffic to estimate the
+  effect of disabling only route-miss fallback.
+- Keep the result separate from the confidence-only route-conflict experiment:
+  fallback is a recovery mechanism, not evidence of confidence ranking.
+- Keep the original frozen matrix unchanged; the new audit is a sensitivity
+  result for the 2.1.12 revision.
+
+## 2.1.12 Audit Result
+
+- The recovery-budget script now reports route-discovery success rate as
+  `route_discovery_successes / route_discovery_attempts` and includes the
+  attempt count in the Markdown table.
+- In the paired 20-seed main-scene replay, mean route-discovery success rates
+  were `0.834` for MeshCore-like, `0.798` for CALM with route-miss fallback,
+  and `0.805` for CALM without route-miss fallback.
+- The corrected rate metric does not change the PDR or airtime results:
+  fallback versus no fallback is `+0.009 +/- 0.018` ACK PDR and
+  `+0.023 +/- 0.023` destination PDR, with `+15.9 s` airtime.
+- This supports the narrower conclusion that MeshEcho was not favored by an
+  easier route-discovery process in this replay, while the comparison remains
+  a sensitivity audit rather than a fully budget-matched baseline study.
+
+## 2.1.12 Route-TTL Audit Result
+
+- The native main matrix uses a `300 s` MeshCore-like route-cache TTL and a
+  `600 s` CALM/MeshEcho TTL. Because the workload reuses eight fixed pairs,
+  this is a real favorable bias toward MeshEcho.
+- After matching MeshCore-like to `600 s`, its ACK PDR rose from `0.381` to
+  `0.519`, destination PDR from `0.652` to `0.722`, and airtime fell from
+  `970.9 s` to `905.5 s`.
+- The paired TTL effect was `+0.138 +/- 0.031` ACK PDR and
+  `-65.4 +/- 14.1 s` airtime. The remaining matched-TTL MeshEcho difference
+  was `+0.209 +/- 0.071` ACK PDR and `-58.2 +/- 19.2 s` airtime.
+- Therefore the native `+0.347` ACK-PDR gap overstates the more comparable
+  matched-TTL bundle difference by `0.138` in this replay. The current paper
+  now reports the matched audit and does not present the native gap as a
+  strategy-only effect.
+
+## 2.1.12 Final Verification
+
+- The updated manuscript compiles to 9 pages after adding the TTL fairness
+  audit. The root PDF is PDF 1.5 with SHA-256
+  `97a5fc593a60ea1295697d0e90df09940ade0c158c54f290c611308598b70920`.
+- The latest rendered pages were visually inspected; no clipping, overlap, or
+  unreadable table/figure was found.
+- Final checks report `47 passed`; Python compilation, shell syntax, CLI help,
+  and `git diff --check` passed.
+
+## 2.1.13 Fairness Recheck
+
+- The user's concern is justified for the original headline setup: the
+  3 km/SF9/fixed-pair matrix is favorable to route caching and too easy to
+  expose link-quality conflicts. It should remain labeled as a
+  contention-oriented operating point.
+- The favorable TTL bias is quantified rather than hidden: matching
+  MeshCore-like from 300 s to 600 s raises its ACK PDR from 0.381 to 0.519,
+  leaving a matched protocol-bundle difference of 0.209 rather than the native
+  0.347.
+- The random-pair non-saturated probe removes pair reuse and retains an
+  airtime advantage for MeshEcho, but its ACK PDR is 0.413 versus 0.456 for
+  source-route caching. The one-shot Smart-CALM versus no-confidence delta is
+  +0.001 with a 95% interval containing zero.
+- The controlled route-conflict experiment supports only a bounded mechanism
+  claim: confidence helps when the shorter candidate contains a materially
+  weaker hop, not as a general topology-independent advantage.
+- The revised conclusion is therefore fairer: shared-harness comparison is
+  valid, but the scenario is not a neutral deployment benchmark and the
+  evidence does not establish universal confidence-ranking superiority.
+- The 2.1.13 paper compiles to 9 pages with bundled Tectonic; root PDF SHA-256
+  is `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- Final validation reports 49 passing tests, successful Python and shell
+  checks, clean diff whitespace, and no unresolved citation warnings.
+
+## 2.1.13 Final Publish Verification
+
+- Commit `fe24d1d` is synchronized with `origin/version/v2`.
+- PR 1 is OPEN/DRAFT and now describes the 2.1.13 fairness-focused
+  evaluation.
+- The root PDF is 9 pages, PDF 1.5, and matches the verified Tectonic build
+  with SHA-256
+  `aa2c2e5e171595256938be222a2cca7757dbbdc8bb516e4cc640dc2f2d300cbe`.
+- The fairness revision is complete. The evidence boundary remains:
+  fair shared harness, biased frozen workload, matched-TTL sensitivity,
+  non-dominant random-pair result, and bounded route-conflict mechanism
+  evidence.
+
+## 2.1.14 ICC Quality-Gate Result
+
+- Added `validate_non_degenerate_regime()` and `ProbeRegimeError` to enforce
+  connected-multihop evidence quality per seed rather than by aggregate mean.
+- The gate rejects any seed with direct-link PRR-below-0.99 fraction below
+  `0.10`, fewer selected pairs than requested, or mean selected graph distance
+  below `2.0` hops. Random-pair probes remain diagnostic and are not forced
+  through the connected-pool checks.
+- Added regression tests for one accepted seed and three rejection causes;
+  full discovery now reports 52 passing tests.
+- The ICC shell script runs a three-seed, 180 s, 50-node, 18 km connected
+  quality probe after the four matrix scenarios by default. Set
+  `ICC_RUN_QUALITY_PROBE=0` for explicit legacy reproduction.
+- The real 2.1.14 probe passed all seeds with 24/24 candidate pairs, mean
+  graph distance `2.014` hops, direct-link PRR-below-0.99 fraction `0.641`,
+  and PRR-below-0.50 fraction `0.445`.
+- The complete ICC shell smoke also passed after correcting the CLI alias from
+  internal `meshcore-like` to the public `meshcore` protocol choice.
+- The generated versioned CSV/Markdown evidence is intentionally included in
+  this release; temporary smoke outputs were moved out of the repository.
+
+## 2.1.15 Continuation Audit
+
+- A completed 2.1.15 experiment session produced
+  `results/meshecho_v2_1_15_icc2027_50n_unicast_pairs*` and
+  `results/meshecho_v2_1_15_icc2027_50n_mixed*` only.
+- No `meshecho_v2_1_15_icc2027_connected_multihop_quality` or
+  `meshecho_v2_1_15_icc2027_calibrated_multihop` artifacts exist yet.
+- Because the ICC paper's main claim depends on the calibrated non-saturated
+  multi-hop matrix and the per-seed quality gate, the current version bump is
+  incomplete and must not be published as a finished release.
+
+## 2.1.15 Evidence and Paper Findings
+
+- The full 2.1.15 workflow completed with all expected versioned artifacts.
+- The calibrated matrix is non-degenerate by construction and measurement:
+  20 seeds, 24 selected pairs per seed, graph distance 2.0, direct-link
+  PRR-below-0.99 fraction 0.160, and PRR-below-0.50 fraction 0.046.
+- CALM/MeshEcho mean ACK PDR is 0.720 versus MeshCore-like 0.537, with mean
+  airtime 28.1 s versus 38.5 s. Smart-CALM minus no-confidence is +0.181
+  ACK PDR (paired 95% CI [+0.094,+0.268]); Smart-CALM minus no-fallback is
+  +0.002 ([-0.020,+0.024]).
+- The 18 km quality gate is deliberately harsher: it passes all three seeds
+  with mean graph distance 2.014 and direct-link PRR-below-0.99 fraction
+  0.641, but MeshCore-like discovery success is only 0.178. It remains a
+  discovery stress diagnostic rather than a main performance table.
+- The new ICC manuscript is 3 pages, uses ICC 2027 wording, and does not
+  claim physical validation or topology-independent dominance.
+
+## 2.1.15 Publish Verification
+
+- The complete release is published through commits `fb133ba` and `2ebefd1`;
+  `origin/version/v2` resolves to `2ebefd13b41fe196f0df9092fafd38714ed6b59c`.
+- PR 1 is OPEN/DRAFT at
+  `https://github.com/BH4ME/lora-mesh-routing-sim/pull/1` with the updated
+  2.1.15 title and evidence boundary.
+- GitHub reports no configured checks on `version/v2`; the local verification
+  suite and versioned experiment artifacts are therefore explicitly recorded
+  rather than presented as remote CI results.
+
+## ICC Submission-Readiness Boundary
+
+- Official ICC 2027 guidance confirms the six-page initial-submission hard
+  limit, English IEEE 10-point format, PDF-only EDAS upload, and exact EDAS
+  title/author-list match. It also states that accepted work must be
+  registered and presented for proceedings/Xplore publication.
+- The compiled paper satisfies the format/page/evidence checks, and the source
+  now contains the user-provided author metadata. Exact EDAS title/author
+  registration and venue actions remain the pre-submission boundary.
+
+## 2026-09-19 - Historical ICC Hardware-Evidence Audit
+
+- The official ICC 2027 submission guidance specifies language, IEEE format,
+  page limit, EDAS/PDF handling, originality, registration, and presentation;
+  it does not state a universal requirement for a physical testbed or hardware
+  prototype.
+- A DOI/abstract audit of ten ICC papers found both simulation/analysis-only
+  evidence and simulation plus measurements. The sample is not a systematic
+  acceptance-rate study, so it supports a venue-practice conclusion rather
+  than a guarantee of acceptance.
+- Hardware/testbed-positive examples:
+  - To et al., ICC 2018, ``Simulation of LoRa in NS-3: Improving LoRa
+    Performance with CSMA'', DOI `10.1109/icc.2018.8422800`: an NS-3 module
+    is validated against measurements from a real-world testbed, then used for
+    the CSMA study.
+  - Rochester et al., ICC 2020, ``Lightweight Carrier Sensing in LoRa:
+    Implementation and Performance Evaluation'', DOI
+    `10.1109/icc40277.2020.9149103`: reports feasibility measurements in
+    real-world LoRa networks and also uses a custom simulator.
+- Analysis/simulation-positive examples:
+  - Georgiou et al., ICC 2020, ``Coverage Scalability Analysis of Multi-Cell
+    LoRa Networks'', DOI `10.1109/icc40277.2020.9149081`: stochastic-geometry
+    model and mathematical analysis; the abstract does not claim a testbed.
+  - Hamdi et al., ICC 2020, ``Dynamic Spreading Factor Assignment in LoRa
+    Wireless Networks'', DOI `10.1109/icc40277.2020.9149243`: evaluates the
+    proposed assignment using numerical SER simulations.
+  - Afisiadis et al., ICC 2020, ``Coded LoRa Frame Error Rate Analysis'', DOI
+    `10.1109/icc40277.2020.9148806`: validates analytical FER expressions with
+    Monte Carlo simulations.
+  - Tu et al., ICC 2020, ``A New Closed-Form Expression of the Coverage
+    Probability for Different QoS in LoRa Networks'', DOI
+    `10.1109/icc40277.2020.9148720`: provides closed-form analysis and Monte
+    Carlo verification.
+  - Benkhelifa et al., ICC 2019, ``Minimum Throughput Maximization in LoRa
+    Networks Powered by Ambient Energy Harvesting'', DOI
+    `10.1109/icc.2019.8761478`: derives collision/optimization results and
+    compares algorithmic allocations; no physical testbed is claimed in the
+    abstract.
+  - Amichi et al., ICC 2019, ``Spreading Factor Allocation Strategy for LoRa
+    Networks Under Imperfect Orthogonality'', DOI `10.1109/icc.2019.8761235`:
+    reports numerical results for a matching-based allocation algorithm.
+- Mixed application evidence also occurs: Shaafi et al., ICC 2022,
+  ``Wireless Body Sensor Networks for Sign Language Recognition with
+  Real-time Data Analysis'', DOI `10.1109/icc45855.2022.9838474`, reports
+  acquired inertial/muscular data and experimental classification results, but
+  this is an application/data experiment rather than a communications
+  testbed requirement.
+- Practical conclusion for MeshEcho: a simulation-only ICC submission is
+  defensible if the model, parameters, baselines, statistical protocol,
+  quality gates, code/data release, and limitations are explicit. Hardware
+  would strengthen external validity, especially for radio sensitivity,
+  interference, timing, and duty-cycle claims, but its absence is a stated
+  limitation rather than an automatic disqualifier.
+- The ICC manuscript should therefore say ``simulation-only evidence'' and
+  propose hardware or hardware-in-the-loop validation as future work. It must
+  not imply that the current results are measured on SX126x/SX127x devices.
+
+## 2.1.17 Reviewer-Directed Findings
+
+- The current primary ICC table omits `meshtastic-like` even though the
+  connected-multihop raw report contains it. The omission makes the comparison
+  look selective; the revised primary table should include managed flooding
+  with the same shared topology and traffic trace.
+- The Smart-CALM/no-confidence ablation changes candidate admission and route
+  discovery success (`0.801` versus `0.589` in the reused calibrated report),
+  so the end-to-end `+0.181` ACK-PDR difference cannot be called a confidence-
+  only causal effect. It should be labeled a complete policy-bundle effect.
+- The controlled route-conflict experiment is the appropriate surgical
+  evidence: it holds the candidate set fixed and shows confidence selecting
+  a longer reliable path only when the shorter path is artificially weakened.
+  The manuscript should point to that experiment and keep it distinct from the
+  full-network ablation.
+- The current paper has one powered non-saturated regime. A versioned
+  sensitivity runner should add at least SF variation and offered-load
+  variation under the same connected-pair selection and quality gate.
+- New sensitivity outputs must be inspected for gate failures and reported as
+  robustness evidence, not silently pooled with the primary estimand.
+
+## 2.1.17 Implementation Findings
+
+- `tools/run_icc_sensitivity_experiments.py` now reuses
+  `run_one_probe()`, `validate_non_degenerate_regime()`, `write_csv()`, and
+  `write_report()` instead of duplicating simulator logic.
+- The SF8 case initially used 8.25 km and then 9 km, but the 20-seed gate
+  rejected seed 10 and seed 14 at those settings. A 10 km area passes all 20
+  seeds while preserving the connected-pair and graph-hop contract; this
+  calibration choice is recorded in the runner, not hidden in the paper.
+- A one-seed smoke produced both sensitivity reports with all seven protocol
+  configurations. No quantitative paper claim is based on that smoke.
+
+## 2.1.17 Sensitivity Results
+
+- The 20-seed SF8/10-km case passed all per-seed gates. Means:
+  managed flooding `0.434` ACK PDR / `39.2 s` airtime, MeshCore-like
+  `0.160` / `70.4 s`, CALM `0.435` / `61.7 s`, Smart-CALM `0.402` /
+  `61.4 s`, and no-confidence `0.299` / `59.8 s`.
+- The 20-seed SF7/4-flows-per-minute case passed all per-seed gates. Means:
+  managed flooding `0.409` / `50.5 s`, MeshCore-like `0.411` /
+  `151.5 s`, CALM `0.652` / `111.3 s`, Smart-CALM `0.605` /
+  `110.9 s`, and no-confidence `0.443` / `109.1 s`.
+- The SF8 case is a boundary case: flooding and CALM have nearly equal PDR,
+  but flooding uses less airtime. The load case preserves a CALM PDR
+  advantage while flooding remains the lower-airtime reference.
+- The compiled 2.1.17 paper is still exactly five letter-size pages; the new
+  robustness table fits without overfull-box or unresolved-reference warnings.
+
+## 2.1.18 Metric-Baseline Revision
+
+- Added two external quality-aware route-selection baselines to the simulator:
+  `etx-mesh` minimizes the sum of `1/PRR` hop costs and `ett-mesh` minimizes
+  `ToA/PRR` costs. Both use the same 2-s discovery window, 600 s route TTL,
+  shared packet model, and no route-miss fallback.
+- The baselines carry a bounded higher-is-better route score through the
+  existing RREQ/RREP path field; no simulator channel or delivery semantics
+  were changed.
+- Test-first coverage is in `tests/test_metric_routing_baselines.py`; the
+  first red run failed because `MetricMesh` was not yet implemented, and the
+  implementation now passes the new tests and the existing suite.
+- A one-seed 600 s connected-multihop smoke produced nonzero ETX/ETT rows and
+  confirmed that the fixed-SF configuration makes ETX and ETT numerically
+  equivalent, as expected because every packet has the same ToA. The paper
+  should report this as a fixed-SF sanity baseline rather than imply an
+  independent ToA advantage.
+
+## 2.1.16 Manuscript Revision Findings
+
+- The ICC source now contains related work, an implementation-faithful CALM
+  confidence equation, a fixed-parameter table, metric/statistical definitions,
+  evidence strata, paired ablation table, discussion, artifact manifest, and
+  hardware external-validity boundary.
+- Fresh Tectonic compilation at
+  `paper/icc2027/build-2_1_16-tectonic-v3/icc2027_lora_mesh.pdf` produces
+  exactly 5 letter-size pages, within the ICC six-page initial-submission cap.
+- Rendered pages show no clipping or table overlap. References continue onto a
+  fifth page, but the manuscript remains readable and uses the requested five
+  printed pages rather than artificial spacing.
+- Version `2.1.16` is a paper/evidence revision: the calibrated 2.1.15 CSVs
+  remain the underlying simulation results and are explicitly identified as
+  reused. A fresh reproduction with `OUT_PREFIX=meshecho_v2_1_16_icc2027`
+  will create a new output prefix if desired.
+- A 600 s, one-seed calibrated connected-multihop smoke run passed the quality
+  gate and produced nonzero protocol results (CALM ACK PDR 0.667 versus
+  MeshCore-like 0.333 for seed 1). A separate 120 s gate-only smoke was not
+  used for quantitative interpretation.
+- A redundant full 2.1.16 runner was started but safely stopped during its
+  second legacy 20-seed scenario after confirming that the no-code-change
+  revision would only duplicate the verified 2.1.15 matrix. Its partial
+  untracked outputs are intentionally excluded from the release; the paper
+  cites the complete 2.1.15 matrix and the new smoke as the 2.1.16 validation.
+
+## 2.1.16 Publish Verification
+
+- Commit `859686a` is pushed to `origin/version/v2`.
+- PR 1 is OPEN/DRAFT with title `[codex] MeshEcho 2.1.16 five-page ICC
+  manuscript and hardware audit` and head OID `859686a08f6f47a606851ff309f3b8fbb621516c`.
+- The PR body records 53 passing tests, the five-page PDF, the one-seed smoke,
+  the hardware-evidence conclusion, and the simulation-only boundary.
+- Unrelated old build/render outputs, old 2.1.14 artifacts, partial 2.1.16
+  runner outputs, and `tmp/` remain untracked and were not published.
+
+## 2.1.14 Final Publish Verification
+
+- Commit `b5de06b` is present locally and on `origin/version/v2`.
+- PR 1 is OPEN/DRAFT with title
+  `[codex] MeshEcho 2.1.14 ICC evidence-quality gate`.
+- The code, evidence artifacts, version metadata, tests, documentation, and
+  resumable state files are published; no further action is pending for this
+  revision.
+
+## 2.1.18 MeshEcho Identity and Attribution Findings
+
+- The ICC method is now explicitly `meshecho`; the default ICC protocol tuple
+  contains only managed flooding, matched source routing, ETX, ETT, and
+  MeshEcho. The adaptive firmware/history line is not part of the ICC matrix.
+- Added `MESHECHO_ABLATIONS` with four within-policy controls:
+  `meshecho-no-confidence`, `meshecho-no-fallback`,
+  `meshecho-no-hop-penalty`, and `meshecho-no-age-penalty`.
+- Completed a 20-seed component matrix under the same 50-node/8250-m/SF7
+  connected-multihop contract. MeshEcho minus no-confidence is `+0.148`
+  ACK PDR with paired 95% CI `[+0.052,+0.244]`; minus no-hop-penalty is
+  `+0.050` with `[-0.029,+0.130]`; no-fallback and no-age-penalty are
+  `0.000` in this workload.
+- The no-fallback and no-age results are reported as workload-specific
+  evidence boundaries, not universal component conclusions.
+- Regenerated the primary and SF/load reports with no adaptive-firmware
+  protocol rows. Added a report regression test that rejects Smart-CALM
+  leakage into the 2.1.18 ICC evidence reports.
+- Extended the ICC manuscript with the component-attribution result while
+  keeping it at exactly five letter-size pages. The final render was checked
+  page-by-page; tables and references are readable with only underfull-box
+  warnings.
+- `VERSION` and ICC-facing docs now target `2.1.18`; the final remote publish
+  is still pending.
+
+## 2.1.19 MeshEcho-Only Fairness Revision Findings
+
+- The legacy source-route immediate-reply branch had a regression after the
+  matched-window candidate-exposure fix: duplicate destination RREQs could
+  emit multiple RREPs. A test now locks the historical one-reply behavior.
+- `CalmMesh.route_miss_recovery_ttl()` previously returned `sim.max_hops`
+  despite a configured `fallback_ttl`; it now delegates to
+  `fallback_ttl_for(flow_id)`, and a test verifies the configured value.
+- Targeted regression status after the red-green cycle: `8 passed`.
+- All subsequent 2.1.19 evidence must be regenerated after this code change;
+  existing 2.1.19 CSVs are not yet authoritative until rerun.
+- The corrected reruns completed for the primary, component, SF8/load, and
+  cache TTL cases. Primary means are MeshEcho `0.719719` ACK PDR /
+  `28.141 s` airtime, matched source-route `0.501558` / `38.461 s`, and
+  ETX/ETT `0.660888` / `27.627 s`; the paired MeshEcho-source-route ACK
+  delta remains `+0.218` with CI `[+0.041,+0.395]`.
+- The corrected fallback TTL changes the cache diagnostic: MeshEcho at TTL600
+  is `0.786` ACK PDR / `0.806` destination PDR / `25.7 s`, while TTL30 is
+  `0.472` / `0.490` / `88.5 s`, with `18.5` route repairs. These are
+  descriptive secondary results, not a causal age-penalty claim.
+- The ICC source now compiles to exactly five pages after a concise related-work
+  rewrite; rendered pages 1--5 were inspected and are layout-clean.
+
+## 2.1.20 MeshEcho Route-Conflict Attribution Findings
+
+- The controlled route-conflict harness was still subclassing
+  `SmartCalmMesh`, despite the ICC manuscript naming MeshEcho as the method.
+  This was a semantic evidence mismatch, not merely a label issue.
+- Added a regression test that requires `RecordingConflictMesh` to be a
+  `MeshEcho` instance and rejects `SmartCalmMesh` as its implementation.
+- Replaced the harness base class with `MeshEcho`, retained the explicit
+  confidence/no-confidence selector, and removed adaptive profile/timeout
+  constructor arguments.
+- A fresh 20-seed route-conflict run reports both candidates in 90% of seeds;
+  MeshEcho selects the longer path in all observed conflicts and improves ACK
+  PDR by `+0.221 +/- 0.096` over the shortest-candidate control.
+- The new result is stored in
+  `results/meshecho_v2_1_19_icc2027_route_conflict.csv` and
+  `docs/results/meshecho_v2_1_19_icc2027_route_conflict.md` pending the
+  version-2.1.20 evidence regeneration.
+- The manuscript title is being narrowed from “Airtime-Aware” to
+  “Confidence-Aware Route Admission” because MeshEcho reports airtime as an
+  operating-point metric but does not directly optimize ToA in its score.
+
+## 2026-09-19 - 2.1.20 Acceptance Assessment
+
+- Validation is technically clean: `python3 -m pytest -q` reports 67 passed;
+  Python compilation, shell syntax, and `git diff --check` pass.
+- The current ICC PDF has six letter-size pages. Six pages is within the
+  official ICC initial-submission ceiling, but the project requirement remains
+  five pages and the repository checklist is stale because it claims the PDF
+  is already five pages.
+- The paper is a credible ICC submission candidate but should be scored as
+  borderline/weak-reject risk rather than safe accept. The strongest evidence
+  is the paired MeshEcho versus matched source-route ACK-PDR/airtime result:
+  `+0.218` ACK PDR with 95% CI `[+0.041,+0.395]` and `-10.3 s` airtime.
+- The strongest limitation is estimand/generalization: the 20-seed primary
+  matrix is conditioned on a PRR-qualified pair pool, every selected pair is
+  exactly two hops, and every protocol has zero route-cache hits. It therefore
+  measures first-discovery route admission, not general cache reuse or route
+  aging.
+- MeshEcho versus ETX/ETT is not statistically separated
+  (`+0.059`, 95% CI `[-0.108,+0.226]`), and destination-PDR differences also
+  include zero. The paper must not imply general reliability dominance.
+- The route-conflict audit is useful surgical evidence (`+0.221 +/- 0.096`)
+  but is a seven-node controlled topology; it cannot substitute for
+  unconditioned random-pair or deeper-hop evidence.
+- Hardware is not the main blocker. The ICC practice sample includes
+  analytical and simulation-only work, but the paper must keep the
+  simulation-only boundary explicit.
+- Before submission, prioritize: unconditioned random pairs; 3--5-hop or
+  100/200-node scale; one distinct routing baseline; temporal fading/stale
+  routes; five-page compression; and final EDAS title/author metadata.
+
+## 2026-09-19 - 2.1.18 Pre-submission Review
+
+The current five-page manuscript is a credible ICC submission candidate, but
+it is borderline rather than a safe accept. The strongest evidence is the
+matched-harness ACK-completion/airtime tradeoff against the source-route
+baseline; the evidence does not establish a statistically separable advantage
+over ETX/ETT or a general destination-delivery gain.
+
+The most important reviewer risks are:
+
+1. The calibrated matrix selects 24 graph pairs per seed and all 480 selected
+   pair observations are exactly two hops. Each run has only about 5.1
+   unicast flows and `route_cache_hits` is zero for every primary row, so the
+   experiment estimates first-discovery/route-admission behavior rather than
+   route-cache reuse or route-aging behavior. The paper should either add a
+   repeated-pair/cache-aging estimand or remove cache/age claims from the main
+   contribution.
+2. The `meshecho-no-confidence` delta is not a fixed-candidate causal effect:
+   discovery success, cached-route count, and selected route length also
+   change. It must be described as an end-to-end policy-bundle effect unless a
+   fixed-candidate replay/control is added.
+3. ETX and ETT are mathematically identical under fixed SF and fixed payload
+   time-on-air. They are a sanity check, not two independent strong baselines;
+   a min-hop/shortest-path or online ETX/RPL-style baseline would make the
+   comparison more convincing.
+4. The selected-pair quality gate is useful for a controlled non-degenerate
+   case, but it conditions the headline result on a PRR-qualified graph and
+   provides only a two-hop topology. A 20-seed unconditioned random-pair
+   matrix and a deeper 3--5-hop or larger-network case would address
+   generalization and selection bias.
+5. Static shadowing makes discovery-time confidence closely aligned with the
+   forwarding channel. A temporal fading/stale-route case is more important
+   for this mechanism than a generic extra plot; hardware/HIL would strengthen
+   external validity but is not an ICC hard requirement.
+6. The SF8 robustness case was post-hoc calibrated from 8.25 km/9 km to
+   10 km after quality-gate failures. This is acceptable as a calibration
+   diagnostic only if the selection process is disclosed and the case is not
+   presented as an untouched robustness test.
+7. A code-level fairness audit finds that the matched source-route baseline
+   still suppresses duplicate RREQs at the destination before adding
+   candidates, whereas MeshEcho/ETX/ETT collect candidates during the
+   two-second window. Thus the `+0.183` MeshEcho--source-route difference can
+   mix confidence selection with a larger candidate pool. The baseline should
+   be changed to collect the same candidate set (then choose first/shortest),
+   or the comparison must be explicitly downgraded to a first-arrival
+   behavior baseline and rerun.
+8. In the primary configuration, route-miss fallback adds transmissions but
+   has zero ACK-PDR effect; the paper should either show a workload where the
+   recovery mechanism matters or remove it from the central contribution.
+
+The current local `2.1.18` worktree is staged but not published:
+`origin/version/v2` still reports `2.1.17`. Before any EDAS submission, push a
+tagged 2.1.18 artifact and replace `Anonymous Authors` with the exact EDAS
+author list/title.
+
+## 2.1.22 Author Metadata Update
+
+- The ICC manuscript now lists `Gao Zu` and `Quan Zhi` in that order, in
+  English only, both affiliated with Shenzhen University, Shenzhen, China.
+- The paper remains simulation-only; adding author metadata does not change the
+  2.1.22 simulation evidence or require a release-version bump.
+- The exact same title and author order still need to be entered in EDAS before
+  submission.
+
+## 2.1.22 Presentation Refinement
+
+- Added one compact two-panel bar figure to the ICC manuscript: ACK-confirmed
+  PDR and total airtime for the primary calibrated matrix.
+- Bars use the existing Table II means and whiskers use the existing
+  seed-level two-sided 95% CI half-widths; no new experiment or estimate was
+  introduced.
+- ETX and fixed-SF ETT are shown as one bar because they coincide under the
+  shared packet-time model. The figure improves scanability without turning
+  the paper into a collection of disconnected plots.
+- Tectonic compilation remains at five letter-size pages with no figure
+  clipping or label overlap in the inspected page.
+
+## 2.1.22 ICC Formatting Cleanup
+
+- Tightened the ICC LaTeX source toward the official IEEE conference template:
+  explicit `conference,letterpaper,10pt` document class; no manual page-margin,
+  column-width, global float-spacing, or global table-row compression.
+- Removed the unnecessary `IEEEoverridecommandlockouts` directive and the
+  forced `\clearpage` before references, allowing the bibliography to flow
+  naturally in the IEEE two-column layout.
+- Reduced keywords to five IEEE-style terms and adjusted Table I locally to
+  remove the remaining overfull table warning without changing margins.
+- Final Tectonic build remains five letter-size pages. Visual page inspection
+  found no clipped text, page numbers, table overflow, or figure overlap.
+
+## 2.1.21 Continuation State
+
+- The active clean worktree is `/tmp/lora_mesh_remote_current.iIrtPz` on
+  branch `version/v2`, with local and remote currently at `6d2134b`
+  (published 2.1.17 state); the local worktree contains unpublished 2.1.21
+  changes.
+- `VERSION` is `2.1.21`.
+- The 2.1.21 primary/sensitivity raw CSVs exist for the legacy matrix, but
+  calibrated multihop and connected-quality outputs do not yet have complete
+  summary artifacts.
+- `minhop-mesh` is registered as a distinct shortest-candidate baseline and
+  is present in the 2.1.21 probe reports.
+- Temporal block fading is deterministic by seed, unordered link, and time
+  block; protocol runs share the same fading realization for a given seed.
+- The 2.1.21 generalization runner defines unconditioned random pairs,
+  100-node 3--5-hop deep multihop, and long/short route-TTL temporal-fading
+  cases; these are not yet formally completed.
+- The first deep-multihop run exposed a valid per-seed failure at 20 km:
+  seed 12 had only 20 eligible 3--5-hop pairs. A 21 km calibration scan
+  produced complete 24-pair pools for all 20 seeds while retaining a
+  strongly non-degenerate direct-link regime, so the corrected run is being
+  versioned as 2.1.22.
+
+## 2.1.22 Evidence Findings
+
+- Primary calibrated matrix remains: MeshEcho 0.720 ACK PDR / 0.739
+  destination PDR / 28.1 s airtime; matched source-route 0.502 / 0.636 /
+  38.5 s; ETX/ETT 0.661 / 0.741 / 27.6 s; min-hop 0.419 / 0.435 / 26.9 s.
+- Paired MeshEcho deltas: +0.218 ACK PDR over matched source-route
+  `[+0.041,+0.395]`; +0.059 over ETX/ETT `[-0.108,+0.226]`; +0.301 over
+  min-hop `[+0.161,+0.441]`.
+- Component attribution: removing confidence changes ACK PDR by +0.148
+  `[+0.052,+0.244]`; fallback and age are zero-effect in the sparse primary
+  workload; hop penalty is +0.050 with a CI crossing zero.
+- Generalization: unconditioned random pairs give MeshEcho 0.404 ACK PDR /
+  99.5 s and ETX 0.308 / 98.1 s; 100-node 3--5-hop gives MeshEcho
+  0.696 / 160.4 s and ETX 0.531 / 156.6 s.
+- Temporal fading: long TTL gives MeshEcho 0.526 / 21.2 s, short TTL gives
+  0.324 / 71.3 s. This supports a stale-route boundary diagnostic, not a
+  claim that age scoring universally solves fading.
+- The rewritten ICC paper now makes a bounded simulation claim, stays
+  MeshEcho-only, keeps `Anonymous Authors`, and compiles to 5 pages.
+
+## 2.1.23 Revision Starting Evidence
+
+- The 2.1.22 primary CSV has 20 seeds but only 102 actual unicast flows in
+  total (1--11 per seed); its 24 selected pairs per seed form a pool, not
+  24 observed transmissions. All selected primary pairs are two hops and
+  route-cache hits are zero.
+- A shared two-second discovery window does not guarantee the same candidate
+  path set: MeshEcho adjusts RREQ forwarding delay using SNR and relay role,
+  while source-route and ETX/ETT use another delay rule.
+- In the primary matrix MeshEcho minus ETX ACK PDR is +0.059 with paired 95%
+  CI [-0.108,+0.226], while airtime increases by +0.5 s [+0.2,+0.9].
+- In unconditioned random pairs, managed flooding reaches 0.696 ACK PDR at
+  38.8 s versus MeshEcho 0.404 at 99.5 s. The previous generalization table
+  omitted this comparison.
+- With the default threshold of zero, low-confidence-path fallback cannot
+  trigger; failed-discovery route-miss fallback may still occur. The primary
+  no-fallback and no-age-penalty ACK ablations both show zero effect.
+- The new paper must distinguish fixed-candidate ranking, discovery timing,
+  route-miss recovery, and system-level outcomes; claims depend on new runs.
+
+## 2026-09-25 ICC Author Audit
+
+- Current `paper/icc2027/icc2027_lora_mesh.tex` has `Gao Zu` and `Quan Zhi`
+  on the author line and an English Shenzhen University affiliation. The
+  source, bibliography, and figure contain no Han characters.
+- All three current ICC PDF copies extract English-only author names and no
+  Han characters, use no CJK font, and are byte-identical. The rendered first
+  page visibly shows only the English names. The prior `/tmp` PDF path no
+  longer exists, so a stale preview or old path can explain the complaint.
+- Do not change the legal author order without confirmation because EDAS and
+  the PDF must match exactly.
+- The user confirmed `Zu Gao` and `Zhi Quan` as the intended English author
+  order; the previous `Gao Zu` / `Quan Zhi` form is no longer the target.
+
+## 2.1.23 Controlled Pilot
+
+- The new fixed-once schedule observed all 24 selected unicast pairs per
+  seed for each protocol; its rate is 2.4 flows/min over a 600-s run.
+- A three-seed pilot (`/tmp/meshecho_v2_1_23_pilot.csv`) gives MeshEcho
+  47/72 ACKs, ETX 42/72, shortest source route 40/72, and flooding 32/72.
+  MeshEcho versus ETX seed-paired ACK-PDR delta is +0.069 with 95% CI
+  [-0.191,+0.330]; this pilot is too small for a superiority claim.
+- Pilot MeshEcho airtime is 93.7 s versus ETX 91.6 s and flooding 26.9 s.
+  Flooding reaches 71/72 destinations despite only 32/72 source ACKs,
+  emphasizing the reverse-path metric distinction.
+- Under matched RREQ relay timing, live candidate sets still diverge:
+  the one-seed smoke found only 8/24 identical sets for MeshEcho versus ETX.
+  The pilot totals also differ (301 vs 298 candidate paths). Later protocol
+  transmissions change collision histories; shared timing is not strict
+  fixed-candidate exposure.
+- The MeshEcho-specific hop-penalty correction deducts 0.025 once per
+  additional hop, instead of repeatedly deducting the entire path-length
+  penalty. Legacy CALM retains its old behavior for historical reproduction.
+- A predeclared optional admission variant allows at most one extra hop and
+  requires at least +0.10 observed confidence over the shortest candidate.
+  On development seeds 1--3 it gives 40/72 ACKs and 91.8 s mean airtime,
+  versus corrected MeshEcho 47/72 and 93.7 s. It is a reliability--airtime
+  tradeoff, not a demonstrated improvement.
+- The fixed-once CSV now includes the exact candidate and selected paths in
+  `discovery_records_json`, not only fingerprints, so set comparisons are
+  independently auditable.
+- An isolated per-pair smoke using a fresh simulator for each policy and pair
+  observed equal candidate sets for all 24 seed-1 pairs. This removes the
+  sequential collision-history confound for a narrower ranking test, but
+  one seed is descriptive only. The 20-seed holdout is running.
+
+## 2.1.23 Holdout Results (Seeds 21--40)
+
+- Matched-timing fixed-once main matrix: every policy scheduled and observed
+  24 distinct unicasts per seed (480 total). MeshEcho ACK is 332/480 (0.692),
+  ETX/ETT 266/480 (0.554), matched source route 204/480 (0.425), flooding
+  213/480 (0.444), and budgeted MeshEcho 275/480 (0.573). MeshEcho minus ETX
+  paired ACK delta is +0.137 [0.090,0.185], with +1.9 s [1.6,2.3] mean
+  airtime per 600-s run. Flooding reaches 476/480 destinations, illustrating
+  the ACK/destination metric boundary.
+- Live sequential candidate sets remain nonidentical under matched relay
+  delays: MeshEcho versus ETX matches on 148/480 discoveries, versus
+  no-fallback MeshEcho on 469/480. Thus the main matrix is a system-level
+  strategy comparison, not a pure ranking experiment.
+- Isolated first-discovery holdout reruns each pair/policy in a fresh simulator
+  with route-miss fallback disabled. All 480/480 candidate sets match across
+  MeshEcho, ETX, min-hop, and source route; 447/480 expose at least two
+  choices. MeshEcho ACK 0.688 vs ETX 0.525 gives seed-paired +0.163
+  [0.121,0.204], at +0.094 s [0.078,0.110] airtime per pair. When MeshEcho
+  and ETX choose the same path (169/480), ACK, destination, and airtime all
+  agree; 311/480 selections differ. This supports a ranking-mechanism effect
+  within the isolated simulation, not hardware or topology-independent gain.
+- Native-timing random-pair case on seeds 21--40: MeshEcho ACK 0.430 versus
+  ETX 0.293, paired +0.137 [0.097,0.178] at +0.2 s [-0.9,1.2]. Managed
+  flooding dominates this particular random-pair case: ACK 0.736, 39.7 s,
+  versus MeshEcho 0.430, 103.2 s. This negative result must be in the paper.
+
+## 2.1.23 Independent Evidence and Metadata Audit
+
+- Independent CSV recomputation confirms 20 holdout topology seeds. The
+  fixed-once matrix has 220 rows across 11 policies, 480 actual unicasts per
+  policy, and MeshEcho minus ETX seed-paired ACK delta +0.1375
+  [0.0901,0.1849] with +1.931 [1.558,2.305] s airtime per run.
+- Native-timing fixed-once runs show MeshEcho 361/480 ACKs versus ETX
+  259/480, but candidate sets are not equal; do not replace controlled
+  ranking evidence with this more favorable sequential result.
+- Deep-case eligibility is 3--5 graph hops, but selected-pair mean graph
+  distance is exactly 3.0 for every holdout seed. MeshEcho mean ACK 0.724
+  versus ETX 0.551, seed-paired +0.172 [+0.124,+0.220] at +3.3
+  [+2.3,+4.3] s airtime. Do not claim observed 4--5-hop performance.
+- In fading, MeshEcho ACK is 0.581 at TTL 600 s and 0.341 at TTL 30 s;
+  managed flooding is 0.561 and 0.561, respectively. The short-TTL case
+  is an adverse boundary, not a general aging benefit.
+- The raw report template previously claimed every case had managed
+  flooding/ETT and every connected-pool case had no pair reuse; these are
+  false for the native fixed-once and deep Poisson outputs. The report owner
+  is correcting conditional wording and exact reproduction commands.
+- `VERSION` and current runner default output prefixes now target 2.1.23.
+  Historical 2.1.22 result files and sensitivity references remain labeled
+  as historical, not silently rebranded.
+
+## 2.1.23 Final Artifact Audit
+
+- The final manuscript compiles to exactly five 612-by-792-point Letter
+  pages, with IEEEtran conference/10-point options, all fonts embedded, no
+  overfull boxes and no undefined citations/references. Two underfull box
+  warnings have no visible clipping or overlap in the rendered five pages.
+- Printed authors are `Zu Gao` and `Zhi Quan`, followed by `Shenzhen
+  University, Shenzhen, China`. Full PDF extraction finds no Han glyph and
+  neither old English name order. Root and checked build PDF SHA-256 are
+  `8743be24223c2837f72947006df28f83cad121a056a8aeb0bce702f51162c670`.
+- The updated two-panel bar chart uses 2.1.23 fixed-once seed means and
+  seed-level 95% confidence whiskers. Visual inspection found no text,
+  figure, table, or reference overlap on any page.
+- Current methodology boundary remains explicit: sequential candidate sets
+  differ for 332/480 MeshEcho--ETX discoveries, while the isolated
+  first-discovery matrix matches all 480/480. Flooding outperforms MeshEcho
+  in the random-pair case; the paper does not claim general superiority or
+  physical verification.
+
+## 2.1.23 Publication Formatting Finding
+
+- The isolated first-discovery runner uses `csv.DictWriter` with its default
+  CRLF line terminator. Its 1921-line versioned CSV is parseable, but Git's
+  staged whitespace check treats every added CRLF line as trailing whitespace.
+- This is an output-format issue, not a simulation-data discrepancy. Normalize
+  only that CSV to LF and retain its parsed rows and report statistics.
+- Before and after normalization, parsed rows had the same SHA-256
+  `c1bb2e874eb0dbe740a26b5e978afc600227d9a94a2d15412e765709a414a2d9`;
+  1920 data rows, MeshEcho/ETX ACK counts 330/252, and regenerated report
+  equality were unchanged. The normalized CSV SHA-256 is
+  `9a8715e1fbc7eda9fb2dd41ee0e0fc5588c1192dd7418f932f34825fa26700f5`.
+- The old GitHub draft PR body still describes 2.1.22 and names the authors
+  in Chinese; repository source and PDF have already moved to English-only
+  `Zu Gao` / `Zhi Quan`. PR metadata must be synchronized on publication.
+- PR 1 was synchronized after SSH publication: it remains OPEN/DRAFT on
+  `version/v2`, is titled for 2.1.23, and its body contains the new English
+  author order with neither the old English order nor Chinese names.
+
+## Active Goal Audit - Initial Evidence
+
+- Current authoritative checkout is `version/v2` at `0dc54c0`, version
+  `2.1.23`; the only untracked path is an excluded LaTeX build directory.
+- The current five-page ICC manuscript explicitly separates the 480-flow
+  sequential system comparison from 480 isolated equal-candidate tests and
+  reports adverse flooding and short-TTL outcomes. Raw-data recomputation
+  and implementation-to-text checks are still in progress.
+- Source diff from the prior release confirms MeshEcho now charges a 0.025
+  confidence penalty once for each added hop, with a regression test; matched
+  RREQ timing and candidate-path records are controlled-evaluation support,
+  not a demonstrated algorithmic performance gain by themselves.
+- The primary report's no-hop-penalty ACK delta is +0.010 with 95% CI
+  [-0.037,+0.058]. Do not describe the corrected penalty as empirically
+  improving ACK completion on this evidence alone.
+- Independent parsing of the versioned CSVs reproduces primary MeshEcho
+  332/480 ACKs, ETX delta +0.1375 [0.0901,0.1849], isolated equal candidate
+  sets 480/480 and ACK delta +0.1625 [0.1206,0.2044], random-pair flooding
+  0.7355/39.66 s versus MeshEcho 0.4302/103.17 s, and short-TTL MeshEcho
+  0.3414/71.13 s. These support the rounded paper numbers.
+- The paper calls the default policy `route admission`, although it selects
+  the highest-scoring candidate and the default fallback threshold is zero.
+  `Route selection` or `candidate ranking` is the literal behavior. ETX PRR
+  is inferred from a successful RREQ's SINR via the simulator model, not
+  directly observed as empirical per-hop PRR.
+- A read-only, ephemeral 20-seed isolated experiment with a PRR-product
+  comparator produced 322/480 ACKs versus MeshEcho 330/480; the paired
+  MeshEcho difference was +0.0167 [-0.0199,+0.0532]. This cannot enter the
+  paper until the comparator, test, raw CSV, and report are versioned and
+  independently audited. It materially weakens an ETX-only novelty claim.
+- Current PDF embeds Latin Modern text after Tectonic's missing Times-shape
+  warnings. Standard pdfLaTeX and `times.sty` are available locally, so a
+  more template-faithful build can be tested. Funding/conflict assertions
+  need confirmation from the authors.
+- The source has no ACK-timeout invalidation for an unexpired MeshEcho route.
+  Under repeated-pair fading, a path can remain cached after an unconfirmed
+  DATA send; the default zero fallback threshold means age decay alone cannot
+  trigger a duplicate. An optional path-identity-checked ACK guard is a
+  principled bounded mechanism to test, not yet a proven improvement.
+- Any ACK guard must start after the actual source DATA transmission, not
+  when `send_data_on_path` merely queues it, and must not delete a newer
+  cache entry or retransmit the same flow implicitly.
+
+## 2.1.24 Resume - ACK Guard Interface
+
+- `Simulator.begin_transmission` computes the actual `start` after respecting
+  `node.tx_available_at`; `send_data_on_path` only queues a `tx_request`.
+  A source-DATA transmission hook at this boundary can start a guard at
+  `start + 15 s` without mistiming busy-node sends.
+- `RouteEntry` is an immutable object in `CalmMesh.route_cache[src][dst]`.
+  An ACK timeout must compare the current cache entry by identity with the
+  entry used for the flow, so a newer route is never evicted by an old timer.
+- `FlowRecord` exposes both `delivered_at` and `acked_at`. An unconfirmed
+  destination delivery is observable as a false eviction in simulation and
+  should be counted rather than silently treated as a failed DATA delivery.
+- The existing `stale_fading` generalization case already reuses four
+  directed multihop pairs per seed under 6-dB/60-s block fading for 600 s.
+  With TTL 600 s it recorded only four discoveries per seed, so the new
+  variant can be tested against a meaningful stale-cache baseline without
+  replacing the topology or traffic generator.
+- `pdflatex`, `bibtex`, `IEEEtran.cls`, and `times.sty` are available in
+  TinyTeX. The final build should use that toolchain to avoid Tectonic's
+  unsupported `TU/ptm` fallback found in the previous log.
+- A PRR-product comparator now uses the same RREQ SINR-to-PRR model as ETX
+  and has no retry/fallback. A 24-pair seed-1 smoke retained identical
+  candidate sets across all five isolated policies. This smoke is not a
+  manuscript result; only versioned full matrices may be cited.
+- A test-first optional ACK-eviction implementation starts its 15-s guard at
+  actual source DATA transmission. It evicts only the same `RouteEntry` if
+  ACK is still absent, never retransmits that flow, and records both total
+  invalidations and the simulated false-invalidation diagnostic when DATA
+  reached the destination but ACK did not return. The same rule is available
+  for both MeshEcho and PRR-product, enabling a 2-by-2 comparison.
+- Read-only schedule preflight of seeds 41--70 found all four selected pairs
+  recur at least twice across at least two 60-s fading blocks; the existing
+  Poisson repeated-pair trace can be retained with a stronger runner gate.
+
+## 2.1.24 Development Matrix (Seeds 41--50 Only)
+
+- Three versioned development strata now exist under
+  `meshecho_v2_1_24_icc2027_feedback_dev41_50`: 600-s TTL/6-dB fading,
+  600-s TTL/static, and 30-s TTL/6-dB fading. Each seed schedules/observes
+  the same 4-pair application trace across protocols; all selected pairs
+  recur in multiple scheduled time blocks. The gate checks scheduled
+  application times, not actual source DATA transmission times.
+- In fading, MeshEcho ACK PDR is 0.535 versus PRR-product 0.686; the paired
+  PRR-product minus MeshEcho delta is +0.1510, 95% CI [+0.0471,+0.2549].
+  MeshEcho+ACK-evict falls to 0.426 and adds 18.52 s airtime per seed
+  relative to MeshEcho (paired ACK delta -0.1092
+  [-0.2139,-0.0045]). PRR-product+ACK-evict falls to 0.607 and adds
+  12.57 s airtime; its paired ACK delta is -0.0787 [-0.1806,+0.0233].
+- In static control, MeshEcho ACK PDR is 0.662, PRR-product 0.688,
+  MeshEcho+ACK-evict 0.573, and PRR-product+ACK-evict 0.571. ACK-evict
+  worsens both protocols without temporal fading; this is not merely a
+  stale-cache recovery opportunity. The 30-s TTL fading control is adverse:
+  MeshEcho 0.251 ACK PDR/59.3 s airtime, PRR-product 0.272/61.1 s.
+- Development outcomes reject promoting 15-s single-failure ACK eviction.
+  It remains a negative optional ablation. Because PRR-product has no
+  route-miss fallback while MeshEcho does, dynamic cross-policy differences
+  are complete-protocol comparisons, not pure ranking effects. The new
+  isolated first-discovery matrix will handle same-candidate ranking.
+- Independent review found the ACK guard timing, route-identity protection,
+  ACK cancellation, and no-oracle decision path sound. A custom guard
+  forwarding asymmetry was fixed test-first. Reports were regenerated from
+  unchanged raw CSVs to label scheduled application blocks precisely and
+  avoid calling destination-delivered/ACK-unconfirmed invalidations proven
+  false positives.
+
+## 2.1.24 ACK Guard Race Finding
+
+- A two-flow regression test reproduces an old-guard race: flow 1 loses its
+  ACK, flow 2 later receives an ACK on the same `RouteEntry`, yet flow 1's
+  timer still evicts that route at 15 s. The failure is a missing cross-flow
+  acknowledgment check in `AckRouteEviction`, not an RF-model effect.
+- A confirming ACK should cancel only pending guards for the same entry whose
+  source DATA transmission started no later than the confirmed DATA; an older
+  delayed ACK must not cancel a newer flow's guard. Route identity and actual
+  source-transmission time must remain the comparison boundary.
+- The fix records actual source DATA start on the pending guard and cancels
+  older same-entry guards when a later DATA flow is ACKed. Both the original
+  race and delayed-older-ACK reverse case pass. Because the old development
+  ACK-eviction simulations predate this change, their affected rows require
+  reruns before any publication claim.
+
+## 2.1.24 Scoring Hypothesis Before New Runs
+
+- In 41 common fading discovery events, only 22 candidate sets match between
+  MeshEcho and PRR-product. Among 21 both-selected equal-candidate events,
+  MeshEcho selected a direct path 12 times versus PRR-product once. This
+  implicates ranking but is not a per-flow causal explanation of the ACK gap.
+- The single frozen candidate uses `sim.prr_from_snr(rx.sinr_db)` from a
+  successfully received RREQ and the minimum modeled hop PRR across the path,
+  with zero additional hop penalty. It keeps one scalar score and adds no
+  packet. This may over-select long paths; success must be tested against
+  both delivery and airtime/energy, not asserted from route choices alone.
+- The current ICC manuscript is still ETX-centered. It must explicitly
+  include the stronger PRR-product comparison and mark 41--50 as development
+  data; 51--70 remains untouched until policy freeze.
+
+## 2.1.24 Calibrated Development Evidence (Partial)
+
+- In 41--50 fading repeated-pair runs, calibrated max-min PRR has mean ACK
+  PDR 0.689 versus old MeshEcho 0.535 and PRR-product 0.686. The paired
+  calibrated-minus-old ACK difference is +0.154 with 95% CI [+0.052,+0.256],
+  at +4.1 s airtime per seed (95% CI [+2.1,+6.1]). The candidate is close
+  to PRR-product; no stronger-baseline superiority follows from the means.
+- In 41--50 static control, candidate ACK is 0.694 versus old 0.662 and
+  PRR-product 0.688. Candidate-minus-old is +0.032 with interval
+  [-0.052,+0.115], at +1.7 s airtime. This is not a clear static gain.
+- In 41--50 isolated first discovery, all 240 candidate sets match across
+  six policies, and 225 have multiple candidates. Candidate ACK is 0.696
+  versus old 0.683 and PRR-product 0.692; old-minus-candidate paired
+  interval is -0.013 [-0.050,+0.025]. Same-path outcomes never differ,
+  supporting a route-choice mechanism but not a reliable isolated ACK gain.
+- ACK eviction remains adverse after the old-guard race fix: fading ACK is
+  0.437 versus old MeshEcho 0.535, with airtime 40.4 versus 21.4 s. Static
+  ACK is 0.573 versus 0.662. These remain development findings only.
+- Independent raw-CSV audit found that 41--50 fading used 8 TTL-2 fallback
+  transmissions each for old and calibrated MeshEcho, but zero for standard
+  PRR-product. Static calibrated MeshEcho used 27 while standard PRR-product
+  used zero. A matched-fallback PRR-product control is necessary before any
+  dynamic comparison can be interpreted as scoring evidence; even then,
+  candidate-set exposure is not guaranteed identical.
+- The short-TTL development control is adverse for all route policies:
+  calibrated ACK is 0.272 versus old 0.251 and PRR-product 0.272, with
+  calibrated airtime 62.6 s versus old 59.3 s. Its paired old-versus-
+  calibrated ACK interval crosses zero; do not claim a robust TTL benefit.
+
+## 2.1.24 Frozen Interpretation Boundary
+
+- The matched TTL-2 fallback PRR-product control yields fading ACK 0.689,
+  calibrated MeshEcho 0.689, old MeshEcho 0.535; static ACK 0.694, 0.694,
+  and 0.662 respectively on 41--50. It uses the same score as standard
+  PRR-product and a matched route-miss recovery budget, but dynamic candidate
+  histories still need not match; the isolated test is the stronger scoring
+  check.
+- The new candidate is a model-calibrated max-min route score, a familiar
+  bottleneck metric. The paper must not present it as a novel proof of
+  superiority over PRR-product. The defensible contribution is an honest,
+  reproducible protocol comparison, calibrated score correction relative
+  to the old heuristic, and explicit limits under fading and short TTL.
+- The 51--70 holdout has not been read or run as of this freeze. Its outcome
+  will determine whether the development improvement generalizes; it will
+  not trigger score/threshold tuning on the same seeds.
+
+## 2.1.24 Holdout Execution Note
+
+- The first frozen 51--70 case, `feedback_fading`, has completed with process
+  exit code 0 and produced its raw CSV, summary CSV, and Markdown report.
+  Numerical results are not accepted until an independent raw-CSV audit.
+- Current ICC TeX and the existing five-page PDF already print `Zu Gao` and
+  `Zhi Quan` in the user-confirmed order; historical mentions of `Gao Zu`
+  and `Quan Zhi` in development notes are not current author metadata.
+- Independent fading audit checked 120 unique seed-policy rows (51--70,
+  six protocols), identical per-seed application traces and 793 observed
+  unicasts per policy. Calibrated minus old MeshEcho seed-mean ACK PDR is
+  +0.11539465 [0.03067250,0.20011680], destination PDR +0.09827080
+  [0.01550016,0.18104144], airtime +2.4674048 s [1.2321439,3.7026657],
+  and energy +5.0890247 J [2.5455696,7.6324798].
+- Versus matched-fallback PRR-product on that same fading holdout,
+  calibrated ACK PDR is +0.00257160 [-0.00553051,0.01067371], destination
+  PDR +0.00026510 [-0.00674963,0.00727983], airtime -0.1330816 s
+  [-0.3564747,0.0903115], and energy -0.2733710 J
+  [-0.7319269,0.1851849]. Candidate sets match 81/83 discoveries and
+  chosen paths match 78/80 both-selected events; no strong-baseline win.
+- Static and isolated control files completed, but their numerical
+  interpretation awaits independent raw-CSV verification. Short-TTL remains
+  live. The paper's current no-funding/no-conflict assertion lacks author
+  confirmation and must not be carried into the revised submission PDF.
+- Independent static audit verified matching 20 seed-level application
+  traces, 793 scheduled/observed unicasts per policy, and count-derived PDRs.
+  Calibrated minus old ACK is +0.00036760 [-0.07410402,+0.07483922],
+  destination -0.00967265 [-0.08582691,+0.06648161], airtime +1.2157184 s
+  [+0.0891793,+2.3422575], energy +2.5034038 J
+  [+0.1875352,+4.8192724]. Against matched-fallback PRR-product, ACK is
+  -0.01025640 [-0.03172305,+0.01121025].
+- The independent isolated-first-discovery audit verified 2880 rows: 20 seeds
+  x 24 pairs x six policies. All 480 pairs expose identical candidate sets;
+  458 have multiple candidates. Calibrated minus old ACK is +0.02083
+  [-0.01294,+0.05461], destination +0.01042 [-0.02114,+0.04197], airtime
+  per pair +0.03387 s [+0.02158,+0.04616]. Calibrated minus PRR-product
+  ACK is +0.00208 [-0.00560,+0.00977]. When two policies select the same
+  path, their simulated ACK, destination, and airtime outcomes match.
+- The Python figure backend is selected because the user previously asked
+  the assistant to choose; system and bundled Python runtimes both lack
+  `matplotlib`. A non-blocking question asks whether installation into an
+  isolated environment is acceptable. Figure rendering is paused pending
+  that answer; no backend substitution is allowed by the figure workflow.
+- The first 2.1.24 pdfLaTeX build failed because IEEEtran mapped the sole
+  `\texttt` phrase to missing Courier `pcrr7t.tfm`. Removing that optional
+  monospace phrase resolved the failure; no class/font override was needed.
+  A full BibTeX build now yields five Letter pages with embedded Type 1
+  Nimbus Roman and Computer Modern fonts, no unresolved citations or
+  references, and the confirmed English author order on page 1.
+- Visual QA of all five rendered pages found no clipped text or overlapping
+  table cells, but page 5 holds only references [7]--[15] in the left column,
+  leaving most of the page blank. This is a presentation defect to resolve
+  before final artifact replacement. The current PDF still lacks a 2.1.24
+  figure because the chosen Python plotting backend is unavailable.
+
+## 2.1.24 Final PDF and Secondary Metrics
+
+- The rebuilt pdfLaTeX manuscript already prints `Zu Gao` then `Zhi Quan`;
+  the top-level repository PDF remains the older 2.1.23 artifact until copied.
+- `\IEEEtriggeratref{11}` balances the fifth-page references into two columns,
+  but that page is still sparse. All five pages are legible with no overlap;
+  the paper remains five-page Letter, 10-pt IEEEtran with embedded Type 1 fonts.
+- A read-only audit independently reproduced the main 51--70 raw-CSV means,
+  paired intervals, candidate-set counts, and isolated path agreements.
+- The existing holdout report and summary CSV provide seed-mean ACK delay,
+  P95 ACK delay, collision rate, route discoveries, cache hits, and ACK-guard
+  invalidations. ACK delays condition on ACKed flows, collision rate divides
+  receiver collision failures by reception attempts, and the legacy repair
+  count mixes expiry with failed discovery; these definitions matter in any
+  compact secondary-metrics table.
+- The final descriptive diagnostics table is sourced from all 120 fading
+  rows (six policies x seeds 51--70). The two discovery numbers are separate
+  per-seed means, not a pooled success fraction. The last-page references
+  are balanced at [10]; no overfull boxes or unresolved references remain.
+- Root and build PDFs have identical SHA-256
+  `42df9f02cf7c6306c32566fb18017a31d6906da89d984f7fc72c45084d6b6f72`.
+- The 2.1.24 release commit `76b40429ed1b6511246c885001317c63fa9d3729`
+  is on GitHub `version/v2` and is the head of OPEN/DRAFT PR 1. The remote
+  PDF Git blob equals local blob `453b48f9247a79ea35864f1aaeb102059426624a`.
+
+## ICC 2027 Planning Intake - 2026-09-26
+
+- The authoritative local branch is `version/v2` at `bc6b502`; only two
+  untracked LaTeX build directories appear in `git status`.
+- The five-page 2.1.24 manuscript is format-eligible for ICC 2027, but its
+  calibrated-minus-matched-fallback PRR-product ACK interval includes zero.
+  The planning target is stronger independent evidence or a narrower claim,
+  not retuning the frozen 51--70 holdout.
+- The official ICC 2027 symposium deadline is 2 October 2026. The IoT &
+  Sensor Networks CFP explicitly includes LPWAN/LoRa and IoT protocol/design
+  evaluation. Confirm the exact EDAS closing time before scheduling runs.
+- Official ICC 2024 and 2025 presenter pages each state that fewer than 40%
+  of Technical Symposia submissions were accepted for presentation; neither
+  provides an exact fraction or predicts this paper's result.
+- `tools/run_fair_multihop_probe.py` already accepts `meshecho-calibrated`,
+  `prr-product-fallback`, original MeshEcho, and flooding/ETX comparators.
+  It can specify unconditioned random pairs, matched RREQ timing, fading,
+  zero timeout retries, and fresh seed/output paths via the CLI. Its random
+  mode intentionally has no graph-conditioned quality gate.
+- `tools/run_icc_generalization_experiment.py` exposes a preexisting
+  `random_pairs` case, but that case is 18 km, mixed traffic, static channel,
+  and unmatched RREQ timing, unlike the 2.1.24 fading primary workload.
+  Compare it as a separate stress stratum, not as a one-variable ablation.
+- `tools/run_icc_sensitivity_experiments.py` accepts only `ICC_PROTOCOLS`;
+  it does not include `meshecho-calibrated` or PRR-product. Fresh SF/load
+  evidence for the 2.1.24 candidate requires another runner/configuration.
+- The generic probe's report calculates old MeshEcho minus its comparators,
+  not calibrated minus matched-fallback PRR-product. A primary new-score
+  contrast needs an independent seed-paired raw-CSV calculation.
+- Existing ICC artifacts use seeds 1--70; other recorded studies extend to
+  100 or 1401. No use of seeds 2001--2020 or the reserved new output prefix
+  was found in the inspected artifacts. No tracked wall-clock benchmark
+  exists, so an actual-hour estimate would be invented; report simulation
+  cell counts and time an already exposed one-seed pilot at execution.
+- ICCT source says "Paper submitted to ICCT 2026", but that statement alone
+  does not prove actual submission or publication. The submitting authors
+  must verify status and overlap before ICC EDAS upload.
+- Independent plan review identified an exposure problem with an 8.25-km
+  random-pair P1: the frozen 51--70 link regime has only 0.158 of direct
+  links below 0.99 model PRR. The historical 18-km random case has 0.641
+  below 0.99; the plan now chooses that non-saturated geometry before new
+  seeds. It changes geometry and pair reuse relative to the primary case,
+  so it is a separate whole-policy robustness stratum, not a causal
+  pair-selection-only or stale-cache test.
+- The revised plan uses calibrated minus matched-fallback PRR-product ACK
+  PDR as its single primary new contrast. Old-score and flooding contrasts
+  are exploratory; zero-crossing, positive, and negative primary intervals
+  lead to different manuscript language. Low multihop/multi-candidate
+  exposure limits mechanism inference even when whole-policy PDR is valid.
+- The current manuscript's "statistically indistinguishable" phrasing can
+  imply equivalence without an equivalence margin. The plan requires the
+  next manuscript revision to report the exact delta/CI and "no demonstrated
+  advantage" instead. No manuscript change was made in this planning turn.
+
+## Plan Completion Re-audit - 2026-09-26
+
+- The reviewed 2.1.24 PDF is five Letter pages in IEEE conference 10-point
+  format, and the official ICC 2027 symposium deadline remains 2026-10-02.
+  The IoT & Sensor Networks scope fits LoRa mesh; simulation-only work is
+  eligible, though hardware would strengthen external validity.
+- Official ICC 2024 and 2025 presenter instructions each say fewer than 40%
+  of Technical Symposia submissions were accepted for presentation:
+  https://icc2024.ieee-icc.org/authors/instructions-presenters and
+  https://icc2025.ieee-icc.org/authors/instructions-presenters. This is not
+  an exact rate, an ICC 2027 rate, or this paper's acceptance probability.
+- The current scientific risk is novelty/generalization: calibrated versus
+  old MeshEcho ACK PDR is +0.1154 on the frozen fading holdout, but versus
+  matched-fallback PRR-product it is +0.0026 with a 95% CI crossing zero.
+  The repeated-pair primary workload is graph-qualified; current main-table
+  network-level evidence does not compare flooding or ETX on that same
+  stratum. The plan's five-policy unconditioned check addresses this gap,
+  but it has not run and cannot by itself isolate cache-aging effects.

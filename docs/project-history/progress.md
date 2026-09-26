@@ -1,0 +1,52 @@
+# Progress Log
+
+## 2026-05-10
+
+- Reviewed repository structure.
+- Confirmed that the project contains a LoRa Mesh packet-level simulator, example CSV results, docs, old PPT outputs, and report-generation tools.
+- Read existing docs and confirmed the prior optimization idea: use the two existing protocols as baselines to motivate a confidence-aware adaptive routing mechanism.
+- Ran existing result aggregation for `results/exp_50n_unicast_pairs.csv` and `results/exp_50n_mixed.csv`.
+- Started persistent planning files for the conference-ready work.
+- Created `docs/research/conference-research-plan.md` and reframed the work as confidence-aware routing optimization.
+- Moved old reports, previews, conflict copies, and reference PDFs into `archive/`.
+- Implemented `calm-mesh` in `lora_mesh_sim.py`.
+- Added CALM metrics: fallback forwards, route repairs, mean path confidence, and control overhead ratio.
+- Added tests in `tests/test_calm_protocol.py`.
+- Added `tools/tune_calm_parameters.py` for reproducible parameter search.
+- Tuned CALM defaults to route TTL `600 s`, discovery window `2.0 s`, fallback threshold `0.0`, fallback TTL `2`, fallback delay margin `0.6 s`, hop penalty `0.025`, route age penalty `0.1`.
+- Ran formal 50-node repeated-unicast and mixed-traffic simulations with 20 seeds.
+- Added `smart-calm`, an MCU-friendly online adaptive routing variant that learns among lean, balanced, and rescue profiles.
+- Added learning metrics: policy switches, policy updates, cumulative policy reward, and active profile index.
+- Ran a 30-node mixed-traffic smoke comparison showing Smart-CALM performs online policy updates and switches without manual parameter tuning.
+- Fixed Smart-CALM learning-context capture so per-flow route miss, fallback, and confidence signals are recorded before CALM send logic runs.
+- Rebuilt Smart-CALM profiles from CLI CALM baseline parameters so command-line tuning affects the online-learning profile set.
+- Re-ran formal 50-node repeated-unicast and mixed-traffic Smart-CALM comparisons after the learning fix.
+- Started continuation stress simulations focused on Smart-CALM versus MeshCore/Meshtastic under high shadowing and other harsher scenarios.
+- Ran high-shadowing mixed traffic stress test: `shadow-sigma-db 6`, 50 nodes, 20 seeds, all4 protocols.
+- Ran high-offered-load mixed traffic stress test: `rate-per-min 10`, 50 nodes, 20 seeds, all4 protocols.
+- Updated findings and experiment notes with the two new stress summaries.
+- Optimized Smart-CALM defaults to conservative exploration `0.02`, fast update interval `30 s`, and learning rate `0.45`.
+- Added cancellation of delayed fallback packets after successful source-route delivery to avoid redundant airtime.
+- Added per-flow Smart-CALM policy selection so each unicast flow can use the current learned profile.
+- Re-ran formal 50-node mixed, high-shadowing, and high-offered-load comparisons with 20 seeds.
+- Regenerated `docs/results/three_protocol_comparison.md` and SVG charts for the three-protocol meeting view.
+- Added `tools/train_smart_calm_prior.py` for offline Smart-CALM prior training experiments.
+- Trained a small Smart-CALM prior and found that unconstrained Q-table transfer overfits to rescue/fallback choices.
+- Added learned timeout-triggered bounded fallback retry as the high-reliability training outcome.
+- Re-ran three formal 50-node mixed/stress comparisons with the high-reliability training mode and regenerated summaries/charts.
+- Started the ESP32 firmware prototype phase and clarified that the protocol is a self-written control layer rather than a Meshtastic/MeshCore fork.
+- Reworked the ESP32 firmware packet layer into explicit Smart-CALM wire encoding with magic/version/type, sequence number, payload length, and CRC-16.
+- Added PlatformIO build environments for `esp32dev_sx1262` and `esp32dev_sx127x`.
+- Verified the firmware packet/controller smoke test with host C++ compilation.
+- Verified both ESP32 firmware environments compile successfully with PlatformIO.
+- Added `SmartCalmMesh`, a firmware data-plane module with Smart-CALM-owned `RREQ`, `RREP`, `DATA`, and `ACK` behavior inspired by source-route discovery and managed fallback rather than copied from MeshCore/Meshtastic.
+- Added a host C++ smoke test that exercises a three-hop `RREQ -> RREP -> DATA -> ACK` path.
+- Connected the ESP32 firmware loop to `SmartCalmMesh` and added a serial command `send <dst> <text>` for hardware smoke testing.
+- Re-verified both `esp32dev_sx1262` and `esp32dev_sx127x` PlatformIO builds after adding the mesh data plane.
+- Confirmed `smart-calm-sim-v1.0` as the frozen Smart-CALM simulator baseline and `codex/smart-calm-sim-optimization` as the branch for future optimization work.
+- Added Smart-CALM v1.1 timeout recovery: retry cached source-route DATA before fallback flooding, and avoid timeout retry after a flow has already used fallback.
+- Re-ran v1.1 formal mixed, high-shadowing, and high-offered-load comparisons with 20 seeds, preserving v1.0 CSVs for rollback/comparison.
+- Regenerated the three-protocol meeting table and SVG charts from v1.1 result CSVs.
+- Updated `docs/project-management/smart_calm_sim_versions.md` with v1.1 deltas and recovery-design notes.
+- Tested a v1.2 piggybacked-RREQ candidate and rejected it because the small PDR gain required much higher airtime and collision pressure.
+- Archived the rejected v1.2 CSVs under `archive/experiments/smart_calm_v1_2_rejected/` for rollback and future design traceability.

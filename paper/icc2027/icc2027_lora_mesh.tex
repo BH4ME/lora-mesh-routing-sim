@@ -1,0 +1,481 @@
+\documentclass[conference,letterpaper,10pt]{IEEEtran}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{url}
+
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\title{MeshEcho: Confidence-Aware Route Selection for LoRa Mesh IoT}
+
+\author{
+\IEEEauthorblockN{Zu Gao \quad Zhi Quan}
+\IEEEauthorblockA{Shenzhen University, Shenzhen, China}
+}
+
+\maketitle
+
+\begin{abstract}
+LoRa mesh IoT networks trade source-confirmed reliability against scarce
+airtime. A cached source route can remain weak when the channel changes.
+We compare MeshEcho's original SNR-margin heuristic with one frozen
+correction that ranks paths by their weakest model-inferred hop PRR, without
+an extra hop penalty. In a packet-level simulator, 20 held-out topology
+seeds (51--70) yield 793 repeated-pair unicasts per policy under 6-dB
+block fading. The calibrated variant attains 0.624 ACK PDR versus 0.509
+for old MeshEcho: a seed-paired +0.115 (95\% CI [+0.031,+0.200]) at
++2.47 s airtime and +5.09 J modeled energy per run. A PRR-product
+comparator with matched route-miss fallback attains 0.621 ACK PDR; the
+calibrated-minus-comparator interval crosses zero. Static-channel and
+isolated-first-discovery ACK gains over old MeshEcho are also uncertain;
+the latter has identical candidate sets for all 480 pairs. Reducing route
+TTL from 600 to 30 s under fading lowers calibrated ACK PDR by 0.304
+and adds 41.05 s airtime. The result supports a bounded simulation
+correction, not strong-baseline superiority or hardware validity.
+\end{abstract}
+
+\begin{IEEEkeywords}
+LoRa mesh, Internet of Things, route selection, fading, packet delivery ratio,
+airtime
+\end{IEEEkeywords}
+
+\section{Introduction}
+LoRa is attractive for low-power IoT because it combines long link budget
+with inexpensive radios \cite{augustin2016study}. A star topology is
+insufficient for obstructed or infrastructure-poor deployments, motivating
+multi-hop extensions \cite{wong2024multihop,cotrim2020lorawanmesh,
+centelles2021beyond}. Multi-hop forwarding is expensive: a low data rate
+occupies the channel for a long time, while a flood multiplies collision
+opportunities. A cached source route reduces redundancy, but one weak hop can
+invalidate an otherwise useful path.
+
+MeshEcho records link observations during discovery and ranks candidate
+source routes. Its original score clips an SNR-margin heuristic and penalizes
+each additional hop. That combination can over-select a direct path that is
+temporarily favorable when the route remains cached across channel changes.
+We test one frozen correction: rank by the weakest model-inferred hop PRR
+from a received route request (RREQ), without a separate hop penalty. The
+default confidence threshold is zero, so a selected route does not trigger
+confidence-based flooding; bounded TTL-2 recovery occurs only when
+discovery finds no candidate. This is a simulation policy study, not a
+production mesh stack or an experimentally calibrated radio model.
+
+This paper makes four contributions:
+\begin{itemize}
+\item a reproducible packet-level LoRa mesh harness with time-on-air,
+propagation, shadowing, half-duplex collision/capture, route discovery, and
+energy accounting;
+\item a prespecified 20-seed repeated-pair fading holdout, with matched
+PRR-product and route-miss-recovery controls and seed-paired intervals;
+\item an isolated 480-pair first-discovery comparison that fixes candidate
+exposure, plus a static-channel control; and
+\item short-TTL and ACK-feedback diagnostics that expose the airtime and
+energy costs of attempted stale-route recovery.
+\end{itemize}
+
+\section{Related Work}
+Prior ICC LoRa studies include analytical and simulation work on coverage,
+spreading-factor allocation, and frame error rates
+\cite{tu2020coverage,georgiou2020coverage,amichi2019sf,hamdi2020dynamic,
+afisiadis2020fer}, as well as testbed validation
+\cite{to2018lorans3,rochester2020lsc}. Multihop studies expose the
+flooding--airtime tradeoff \cite{wong2024multihop,centelles2021beyond} and
+show that routing state and packet timing matter
+\cite{sole2022implementation,pueyo2024minimalistic}. ETX is a standard
+expected-transmission metric \cite{decouto2003etx}; in our fixed-SF setting
+ETT ranks paths identically to ETX because packet time-on-air is constant.
+The stronger comparator here is the product of model-inferred hop PRRs, with
+a matched route-miss fallback control. We ask whether correcting MeshEcho's
+heuristic improves ACK-confirmed delivery under fading without claiming
+superiority over that PRR-product baseline.
+
+\section{Protocol and Model}
+\subsection{Network model}
+Nodes are uniformly placed in a square and share one half-duplex LoRa
+channel. Unless noted, packets have 32-byte payloads, 17 dBm transmit power,
+125-kHz bandwidth, coding rate 4/5, capture threshold 6 dB, and SF7. Airtime
+follows the standard LoRa symbol calculation \cite{semtech2013lora}.
+Log-distance path loss with log-normal shadowing produces SNR; reception is a
+logistic function of SNR margin, and overlapping packets are accepted only
+when the desired signal passes capture. The simulator records collisions,
+route-cache events, discovery success, and configured TX/RX energy.
+
+\subsection{Routing policies}
+Managed flooding rebroadcasts with duplicate suppression. Matched
+source-routing floods a request, collects candidates arriving in a 2-s
+window, and selects the shortest returned candidate. ETX and ETT minimize
+\[
+C_{\rm ETX}=\sum_i p_i^{-1},\qquad
+C_{\rm ETT}=\sum_i {\rm ToA}_i p_i^{-1},
+\]
+where $p_i$ is the simulator-predicted PRR from the SINR of a successfully
+received RREQ on hop $i$, not a PRR measured from repeated packets. The
+min-hop baseline first minimizes hop count, then breaks ties by higher
+confidence score and lexicographic path order. Original MeshEcho selects
+the candidate with highest heuristic confidence; its calibrated variant
+maximizes the weakest modeled hop PRR. PRR-product maximizes the product
+of those same modeled PRRs. A matched PRR-product control also enables
+MeshEcho's TTL-2 route-miss fallback; the plain PRR-product control does
+not. All routed policies use the same 2-s discovery window, 600-s route
+TTL unless stated, and no adaptive timeout retry. The historical
+Smart-CALM firmware/simulator namespace remains in the repository but is not
+an ICC protocol, ablation, or conclusion.
+
+\subsection{Confidence update and recovery}
+For each received route request, let $m_i$ be the received SNR minus the
+SF-specific demodulation threshold on hop $i$, and let $I_i$ indicate a
+reception marked as collided. The link score and MeshEcho's accumulated
+candidate score are
+\begin{align}
+\ell_i &= \operatorname{clip}_{.05}^{.98}
+  \left(\frac{1}{1+e^{-.7m_i}}-.18I_i\right), \\
+c_1 &= \ell_1,\qquad
+c_i=\operatorname{clip}_{.05}^{.98}
+  \left(\min(c_{i-1},\ell_i)-.025\right),\quad i\geq2.
+\end{align}
+Here $\operatorname{clip}_a^b(x)=\min(b,\max(a,x))$. The old score retains
+the weakest observed hop and charges 0.025 for each additional hop beyond
+the first. It is a heuristic, not an independently calibrated delivery
+probability. The frozen new variant uses the simulator's same RREQ SINR-to-PRR
+mapping as ETX, but no 0.98 saturation or additional hop penalty:
+\begin{equation}
+\hat p_i=f_{\rm sim}(\mathrm{SINR}_i),\quad
+C_{\rm cal}=\min_i\hat p_i,\quad
+C_{\rm prod}=\prod_i\hat p_i.
+\end{equation}
+Both scores use only successfully received RREQs; failed or censored
+requests do not supply an empirical PRR estimate. The destination retains every
+candidate arriving before the two-second window closes; the highest score
+wins, with shorter paths breaking equal-score ties. A route reply follows
+the reverse selected path, and data are sent only after the source receives
+that reply. Consequently, route-discovery success and ACK completion are
+distinct events, both included in the reported denominator.
+
+For a cached route created at $t_0$ and expiring at $t_e$, forwarding uses
+\begin{equation}
+\hat c(t)=\operatorname{clip}_0^1\!\left[
+c_i-.1\operatorname{clip}_0^1\!\left(
+\frac{t-t_0}{\max(1,t_e-t_0)}\right)\right].
+\end{equation}
+The default fallback threshold is zero,
+so this age reduction never launches a low-confidence duplicate for a
+selected route. If discovery observes no candidate, the pending unicast
+instead invokes a TTL-2 recovery flood. ACK-triggered cancellation applies
+to delayed fallbacks, but the evaluated configuration disables timeout
+retry. An optional ACK-guard variant evicts the same cached route after an
+unconfirmed source DATA transmission; it never retransmits that flow and
+cannot use future-channel knowledge. It is a diagnostic, not the proposed
+default.
+
+\section{Experimental Design}
+\subsection{Frozen split and repeated-pair workload}
+Seeds 41--50 were a development set for one score correction. After fixing
+the score, fallback controls, code, and comparisons, we ran untouched seeds
+51--70 once as the holdout. The primary workload has 50 nodes in an
+$8250\,\mathrm{m}$ square, 600-s runs, four repeatedly selected directed
+pairs, SF7, 4-dB static shadowing, and 6-dB block fading every 60 s.
+Application unicasts follow a shared 4-flows/min Poisson trace; there are
+793 scheduled and observed unicasts per policy across the 20 holdout seeds.
+No broadcast flows are scheduled. A shared analytical graph selects four
+pairs per seed with edge PRR $\geq0.90$ and graph distance 2--4 hops; the
+graph is never supplied to a routing policy. Every pair recurs in at least
+two fading blocks. The quality gate requires a complete pair pool, mean
+graph distance at least two, and at least 10\% of direct links below 0.99
+static PRR. These are conditioned repeated-pair estimates, not general
+random-pair performance.
+
+\begin{table}[t]
+\centering
+\caption{Frozen 2.1.24 repeated-pair holdout parameters.}
+\label{tab:params}
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}p{.30\columnwidth}p{.64\columnwidth}@{}}
+\toprule
+Nodes / area & 50 / $8250\,\mathrm{m}\times8250\,\mathrm{m}$\\
+Duration / load & 600 s / 4 flows/min, 4 recurring pairs\\
+Radio & 32 B, 17 dBm, 125 kHz, CR 4/5, SF7\\
+Path loss / shadowing & $n=2.75$ / $\sigma=4$ dB static\\
+Fading / route TTL & 6 dB per 60 s / 600 s (30 s control)\\
+Discovery / pairs & 2 s / 4, PRR $\geq0.90$, 2--4 hops\\
+Seeds / unicasts & 51--70 / 793 observed per policy\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Controls, candidate exposure, and uncertainty}
+The static control retains the same seeds, pairs, and application traces but
+sets temporal fading to zero. The short-TTL control retains 6-dB fading and
+reduces route TTL from 600 to 30 s. An optional 15-s ACK-guard variant is
+tested under the same traces; a later confirmed ACK cancels older guards for
+that exact route. All policies share the same topology, flow schedule,
+reception-stream construction, discovery window, and matched RREQ relay
+timing. Different forwarding decisions still change interference, so live
+candidate sets need not match. We compare their recorded path sets exactly.
+
+The isolation check uses a fresh 12-s simulator for each of 24 directed
+pairs in each holdout seed and each of six policies: old MeshEcho, calibrated
+MeshEcho, ETX, PRR-product, min-hop, and matched source routing. It starts
+one unicast at 0.1 s, disables route-miss fallback, and uses the same node
+geometry and reception-stream construction. No preceding flow can alter a
+cache or collision history. The pair pool is graph-conditioned, but no
+policy receives that graph. The 2.1.23 one-shot seeds 21--40 are historical
+evidence and are not reused as a fresh holdout.
+
+ACK PDR requires a source-received reverse-path ACK; destination PDR only
+requires DATA arrival. Each protocol's seed-level PDR divides its ACK or
+destination count by that seed's observed unicasts; the reported mean gives
+each of the 20 seeds equal weight. For a policy difference $d_s$, we report
+$\bar d\pm t_{.975,19}s_d/\sqrt{20}$, pairing by seed. Isolation first
+averages the 24 pair outcomes within each seed. Airtime and modeled TX/RX
+energy are per 600-s run, except isolation airtime, which is per pair.
+Flows within a seed are not independent statistical replicates.
+
+\section{Results}
+\subsection{Repeated-pair holdout}
+Table~\ref{tab:main} reports seed means on the frozen 51--70 split. Under
+fading, the calibrated score increases ACK PDR from 0.509 to 0.624 relative
+to old MeshEcho, while consuming 2.5 s more airtime and 5.1 J more modeled
+energy per seed. It does not separate from the matched-fallback PRR-product
+control, which reaches 0.621 ACK PDR at 23.8 s airtime. The plain
+PRR-product row reaches 0.627/23.8 s but has a different route-miss
+recovery budget. Thus the old-score correction is supported; a new
+strong-baseline advantage is not.
+
+\begin{table*}[t]
+\centering
+\caption{Frozen 51--70 repeated-pair holdout (20 seeds, 793 unicasts per
+policy). Entries are seed means. ``Cal.'' is model-derived bottleneck PRR;
+``PRR+fb'' matches the TTL-2 route-miss fallback. Energy is modeled TX/RX
+consumption per 600-s run. The final two columns use the same seeds and
+application traces under static channel and 30-s TTL fading controls.}
+\label{tab:main}
+\scriptsize
+\setlength{\tabcolsep}{3.0pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Policy & Fading ACK & Fading dest. & Airtime (s) & Energy (J) & Static ACK & TTL30 ACK\\
+\midrule
+Old MeshEcho & .509 & .535 & 21.2 & 42.1 & .716 & .298\\
+Cal. MeshEcho & .624 & .633 & 23.7 & 47.2 & .717 & .320\\
+PRR-product & .627 & .638 & 23.8 & 47.3 & .715 & .308\\
+PRR+fb & .621 & .633 & 23.8 & 47.5 & .727 & .317\\
+MeshEcho+ACK evict & .471 & .495 & 41.1 & 80.7 & .690 & .290\\
+PRR+ACK evict & .526 & .538 & 33.7 & 66.6 & .714 & .300\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table}[t]
+\centering
+\caption{ACK-PDR differences from the frozen holdout, paired by seed
+($n=20$). Intervals are two-sided 95\% $t$ CIs. ``fb'' denotes matched
+TTL-2 route-miss fallback.}
+\label{tab:paired}
+\scriptsize
+\setlength{\tabcolsep}{2.8pt}
+\begin{tabular}{lrrr}
+\toprule
+Contrast & Channel/TTL & $\Delta$ ACK & 95\% CI\\
+\midrule
+Cal. $-$ old & Fading/600 s & +.115 & $[+.031,+.200]$\\
+Cal. $-$ old & Static/600 s & +.000 & $[-.074,+.075]$\\
+Cal. $-$ old & Fading/30 s & +.022 & $[-.023,+.066]$\\
+Cal. $-$ PRR+fb & Fading/600 s & +.003 & $[-.006,+.011]$\\
+Cal. $-$ PRR+fb & Static/600 s & $-.010$ & $[-.032,+.011]$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The calibrated-minus-old fading ACK difference is +0.115 (paired 95\% CI
+$[+0.031,+0.200]$), accompanied by +2.47 s airtime
+($[+1.23,+3.70]$) and +5.09 J modeled energy
+($[+2.55,+7.63]$). Its difference from PRR+fb is +0.003 ACK PDR
+($[-0.006,+0.011]$). The latter uses the same fallback budget but remains
+a complete-policy comparison: among 83 paired discovery keys, candidate
+sets match in 81, and selected paths match in 78 of 80 both-selected
+events. Old and calibrated MeshEcho share only 51/83 candidate sets;
+within 48 equal-set/both-selected events, old MeshEcho chose a direct path
+16 times and the calibrated variant zero times. Changed ranking is plausible,
+but different later interference prevents a per-flow causal attribution.
+
+\subsection{Candidate-controlled first discovery}
+The isolated experiment has exactly matching candidate sets for all 480
+pairs across six policies; 458 pairs expose multiple routes. Table~\ref{tab:isolated}
+reports descriptive means. Calibrated minus old MeshEcho is +0.021 ACK PDR
+($[-0.013,+0.055]$) at +0.034 s per pair
+($[+0.022,+0.046]$). Calibrated minus PRR-product is +0.002 ACK PDR
+($[-0.006,+0.010]$). Neither ACK interval excludes zero. Of 480 pairs,
+calibrated and PRR-product select the same path in 453; for all same-path
+policy pairs, ACK, destination, and airtime outcomes match. This supports
+route-choice attribution within the simulator, not a distinct calibrated
+advantage over PRR-product.
+
+\begin{table}[t]
+\centering
+\caption{51--70 isolated first discovery: means over 480 pairs, with
+identical candidate sets for all six policies. Airtime is per pair.}
+\label{tab:isolated}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrr}
+\toprule
+Policy & ACK PDR & Dest. PDR & Airtime (s)\\
+\midrule
+Matched source-route & .429 & .498 & 3.766\\
+Min-hop & .452 & .512 & 3.772\\
+ETX & .546 & .594 & 3.803\\
+Old MeshEcho & .681 & .708 & 3.886\\
+Cal. MeshEcho & .702 & .719 & 3.920\\
+PRR-product & .700 & .715 & 3.923\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Controls and adverse results}
+Under the static control, calibrated and old MeshEcho reach 0.717 and 0.716
+ACK PDR, a paired +0.000 difference ($[-0.074,+0.075]$). Calibrated
+airtime rises +1.22 s ($[+0.09,+2.34]$), and modeled energy rises
++2.50 J ($[+0.19,+4.82]$). The fading improvement therefore does not
+generalize as a clear static gain. Under the 30-s TTL fading control,
+calibrated reaches 0.320 ACK PDR at 64.8 s airtime and 126.4 J energy.
+Against its own 600-s TTL result on identical seed-level traces, the paired
+ACK change is $-0.304$ ($[-0.393,-0.215]$), airtime changes by +41.05 s
+($[+31.40,+50.70]$), and energy by +79.25 J
+($[+60.50,+98.01]$). Route discoveries rise by 12.45 per seed. This is a
+system-level TTL comparison, not an isolated cache mechanism effect.
+
+ACK-guard eviction also fails as a recovery strategy: in the fading holdout,
+old MeshEcho's ACK PDR falls from 0.509 to 0.471 while airtime rises from
+21.2 to 41.1 s; PRR-product falls from 0.627 to 0.526 while airtime rises
+from 23.8 to 33.7 s. The fixed implementation cancels older pending guards
+when a later flow on the same route is acknowledged. It cannot infer from
+an absent ACK whether the DATA failed, the reverse ACK failed, or the path
+later recovered. These rows are negative diagnostics, not a proposed default.
+
+Table~\ref{tab:diagnostics} reports descriptive fading diagnostics omitted
+from the delivery table. Calibrated MeshEcho and PRR+fb both attempt 4.15
+discoveries per seed; their mean ACK delays are 0.540 and 0.541 s among
+ACKed flows. ACK eviction raises discovery attempts, collision rate, and
+conditional delay while reducing cache hits. The legacy repair counter is
+0.15 per seed for each non-eviction policy, but mixes cache expiry and failed
+discovery; it does not count successful route repairs.
+
+\begin{table*}[t]
+\centering
+\caption{Secondary fading diagnostics on seeds 51--70 (descriptive means
+over 20 seeds, per 600-s run). Mean ACK delay and within-seed P95 ACK delay
+condition on acknowledged flows; collision rate is failed collision-marked
+receptions divided by all reception attempts. ``Disc.'' lists route-discovery
+attempts/successes as separate seed means, not a pooled fraction. ``ACK
+invalid.'' counts ACK-guard route invalidations. No paired inference is
+implied by these marginal means.}
+\label{tab:diagnostics}
+\scriptsize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Policy & Mean ACK (s) & P95 ACK (s) & Collision rate & Disc. att./succ. & Cache hits & ACK invalid.\\
+\midrule
+Old MeshEcho & .460 & 1.488 & .526 & 4.15/3.05 & 27.30 & 0\\
+Cal. MeshEcho & .540 & 1.798 & .473 & 4.15/2.95 & 26.25 & 0\\
+PRR-product & .521 & 1.729 & .471 & 4.15/2.90 & 25.80 & 0\\
+PRR+fb & .541 & 1.736 & .470 & 4.15/2.95 & 26.25 & 0\\
+MeshEcho+ACK evict & .837 & 2.408 & .629 & 9.80/7.60 & 17.05 & 5.80\\
+PRR+ACK evict & .744 & 2.443 & .562 & 7.30/5.15 & 18.70 & 3.15\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The previous 2.1.23 one-shot and generalization results are distinct from
+this holdout. In an unconditioned random-pair case, managed flooding reached
+0.736 ACK PDR/39.7 s versus old MeshEcho's 0.430/103.2 s. A 100-node
+historical case selected only three-hop shortest graph distances and changed
+other settings; neither result validates the new score across arbitrary
+topologies. All airtime totals include discovery, DATA, ACK, and recovery
+transmissions. Destination delivery without a returned ACK is reported
+separately from ACK-confirmed completion.
+
+\section{Discussion and Limitations}
+The calibrated score corrects a fading weakness of the original heuristic
+in the frozen repeated-pair workload, but it is a familiar bottleneck PRR
+metric, not evidence of a new routing optimum. Its ACK result is
+statistically indistinguishable from matched-fallback PRR-product, and its
+static and fixed-candidate ACK gains over old MeshEcho are uncertain. The
+fading cost is positive in airtime and modeled energy. The negative ACK-guard
+and short-TTL results rule out a simple stale-route repair claim.
+
+All results are packet-level simulation. The model includes path loss,
+shadowing, collision timing, capture, route discovery, and energy accounting,
+but omits waveform interference, oscillator offset, modem implementation
+timing, duty-cycle enforcement, variable route headers, and antenna effects.
+The confidence estimate and forwarding channel share the same realization in
+static runs; temporal block fading is a deterministic stress model, not
+hardware validation. A hardware or hardware-in-the-loop study remains
+necessary for radio-specific external validity.
+
+\subsection{Threats to interpretation}
+The quality gate is a measurement contract, not a guarantee of deployment
+realism. Graph-qualified pair selection excludes disconnected sources and
+conditions the estimate on usable static links; the four-pair trace also
+favors cache reuse. The old-score random-pair result shows why these strata
+must not be pooled. Candidate exposure is identical in isolation, but
+live repeated-pair policies diverge after their transmissions change later
+collisions. Shared seeds and reception-stream construction are not
+event-by-event common random numbers. All intervals use 20 topology seeds,
+not 793 or 480 independent packets. The 30-s TTL comparison changes the
+whole subsequent discovery and interference history, so it does not isolate
+one cache-event mechanism.
+
+\subsection{Deployment boundary}
+The modeled hop PRR comes from the SINR of a successful RREQ. It does not
+account for censored requests or calibrate itself against measured packet
+loss. Static shadowing lets discovery and forwarding share a link
+realization; the 60-s block-fading process is a synthetic stressor, not a
+measured channel trace. Moving nodes, antenna changes, duty-cycle limits,
+and external interferers may reorder routes before a 600-s TTL expires.
+The higher rediscovery cost with 30-s TTL shows that more frequent route
+selection alone is not a mobility solution.
+
+A radio or hardware-in-the-loop study should preserve the pair schedule and
+two-second discovery window while logging each request candidate, selected
+path, per-hop RSSI/SNR, DATA arrival, reverse ACK, and airtime. An SX126x or
+SX127x testbed with enforceable duty-cycle limits could determine whether
+the score ordering persists under real timing and interference. Until then,
+the results are simulator comparisons, not deployment guarantees.
+
+\section{Reproducibility}
+Version 2.1.24 includes source, tests, seed-level CSVs, summary CSVs,
+candidate-path records, and reproduction commands in the holdout 51--70
+result group. The
+repeated-pair cases use 51--70; isolated rows use the same topology seeds
+with 24 fresh pairs per seed. Raw CSVs preserve each seed's denominator,
+application-trace hash, discovery candidate paths, and selected routes.
+The 30-s TTL is specified by the case configuration and report header;
+the raw CSV identifies the case but has no separate numeric TTL column.
+Earlier 21--40 data remain versioned as 2.1.23 history and are not pooled
+with the holdout. No human participants or personal data are involved.
+AI-assisted drafting and code review were used; the numerical claims here
+were independently recomputed from raw CSVs. Final disclosure and author
+metadata remain the submitting authors' responsibility.
+
+\section{Conclusion}
+Across 20 frozen fading seeds and 793 repeated-pair unicasts per policy,
+calibrated MeshEcho improves ACK PDR over the old score by +0.115
+($[+0.031,+0.200]$) at +2.47 s airtime, but does not outperform a
+matched-fallback PRR-product baseline. Static and isolated ACK intervals
+cross zero; shortening TTL sharply reduces reliability and raises cost.
+The supported contribution is a reproducible, bounded score correction and
+honest comparison under a packet-level model, not universal routing
+superiority or physical validation.
+
+\bibliographystyle{IEEEtran}
+\IEEEtriggeratref{10}
+\bibliography{references}
+
+\end{document}
