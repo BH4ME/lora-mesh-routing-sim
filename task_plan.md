@@ -1019,3 +1019,48 @@ pilot in the manuscript as a released experiment.
 - A default-branch GitHub content lookup returned 404 for the PDF; repeating
   it with `ref=version/v2` found the exact matching blob. The first lookup
   did not indicate a failed push.
+
+## ICC 2027 Pre-submission Strengthening Plan - 2026-09-26
+
+- [complete] Audit the current 2.1.24 manuscript, experiment runners,
+  result coverage, and the live ICC 2027 deadline/format requirements.
+- [complete] Create a deadline-ordered strengthening plan with exact evidence
+  gaps, feasible commands or required implementation work, runtime estimates,
+  independent seed rules, decision thresholds, and fallback manuscript claims.
+- [complete] Verify the plan against frozen holdout integrity and current
+  repository state; record the final handoff in `findings.md` and `progress.md`.
+
+Draft deliverable: `docs/icc2027_pre_submission_strengthening_plan.md`.
+Runtime is specified as simulation-cell counts because no measured wall-clock
+benchmark exists; the future execution protocol requires a timing pilot.
+
+Verification edit note: the first large plan-revision patch failed an exact
+context match and changed no files. Continue with narrow patches against the
+read-back document; do not repeat that failed patch.
+
+Final planning result: the documented P1 is a 20-seed, five-policy,
+non-saturated 18-km random-per-flow stress check with a unique 2.1.25
+future output prefix, explicit interpretation limits, and author-only
+submission gates. Scientific and CLI audits of the revised plan are complete.
+No new simulation or manuscript/code edit was performed; 2.1.24 remains
+the released evidence baseline. The plan and checkpoints are local Markdown
+changes, not a new GitHub release.
+
+Scope: planning and read-only checks only. Do not edit the algorithm, rerun
+seeds 51--70, overwrite versioned results, or treat the overall ICC acceptance
+rate as this manuscript's probability of acceptance. Preserve the unrelated
+untracked LaTeX build directories. Before context compression, update all
+three root checkpoint Markdown files; after resuming, read them first.
+
+### 2026-09-26 Plan Completion Re-audit
+
+- [complete] Re-read the three root checkpoints and the full strengthening
+  plan after context recovery; `git diff --check` passes. The plan covers
+  evidence limits, prioritized experiments, frozen seeds/outputs, inference,
+  manuscript branches, deadline, compliance, and versioned release gates.
+- [complete] Verify that ICC 2024 and 2025 official presenter pages say
+  Technical Symposia acceptance was less than 40%; no ICC 2027 acceptance
+  rate or paper-specific probability exists yet.
+- [pending execution, outside the planning deliverable] The proposed P1
+  random-pair cohort has not run; author checks of ICCT status and EDAS
+  closing time remain open. Do not represent the plan as new evidence.

@@ -1058,3 +1058,76 @@ author list/title.
 - The 2.1.24 release commit `76b40429ed1b6511246c885001317c63fa9d3729`
   is on GitHub `version/v2` and is the head of OPEN/DRAFT PR 1. The remote
   PDF Git blob equals local blob `453b48f9247a79ea35864f1aaeb102059426624a`.
+
+## ICC 2027 Planning Intake - 2026-09-26
+
+- The authoritative local branch is `version/v2` at `bc6b502`; only two
+  untracked LaTeX build directories appear in `git status`.
+- The five-page 2.1.24 manuscript is format-eligible for ICC 2027, but its
+  calibrated-minus-matched-fallback PRR-product ACK interval includes zero.
+  The planning target is stronger independent evidence or a narrower claim,
+  not retuning the frozen 51--70 holdout.
+- The official ICC 2027 symposium deadline is 2 October 2026. The IoT &
+  Sensor Networks CFP explicitly includes LPWAN/LoRa and IoT protocol/design
+  evaluation. Confirm the exact EDAS closing time before scheduling runs.
+- Official ICC 2024 and 2025 presenter pages each state that fewer than 40%
+  of Technical Symposia submissions were accepted for presentation; neither
+  provides an exact fraction or predicts this paper's result.
+- `tools/run_fair_multihop_probe.py` already accepts `meshecho-calibrated`,
+  `prr-product-fallback`, original MeshEcho, and flooding/ETX comparators.
+  It can specify unconditioned random pairs, matched RREQ timing, fading,
+  zero timeout retries, and fresh seed/output paths via the CLI. Its random
+  mode intentionally has no graph-conditioned quality gate.
+- `tools/run_icc_generalization_experiment.py` exposes a preexisting
+  `random_pairs` case, but that case is 18 km, mixed traffic, static channel,
+  and unmatched RREQ timing, unlike the 2.1.24 fading primary workload.
+  Compare it as a separate stress stratum, not as a one-variable ablation.
+- `tools/run_icc_sensitivity_experiments.py` accepts only `ICC_PROTOCOLS`;
+  it does not include `meshecho-calibrated` or PRR-product. Fresh SF/load
+  evidence for the 2.1.24 candidate requires another runner/configuration.
+- The generic probe's report calculates old MeshEcho minus its comparators,
+  not calibrated minus matched-fallback PRR-product. A primary new-score
+  contrast needs an independent seed-paired raw-CSV calculation.
+- Existing ICC artifacts use seeds 1--70; other recorded studies extend to
+  100 or 1401. No use of seeds 2001--2020 or the reserved new output prefix
+  was found in the inspected artifacts. No tracked wall-clock benchmark
+  exists, so an actual-hour estimate would be invented; report simulation
+  cell counts and time an already exposed one-seed pilot at execution.
+- ICCT source says "Paper submitted to ICCT 2026", but that statement alone
+  does not prove actual submission or publication. The submitting authors
+  must verify status and overlap before ICC EDAS upload.
+- Independent plan review identified an exposure problem with an 8.25-km
+  random-pair P1: the frozen 51--70 link regime has only 0.158 of direct
+  links below 0.99 model PRR. The historical 18-km random case has 0.641
+  below 0.99; the plan now chooses that non-saturated geometry before new
+  seeds. It changes geometry and pair reuse relative to the primary case,
+  so it is a separate whole-policy robustness stratum, not a causal
+  pair-selection-only or stale-cache test.
+- The revised plan uses calibrated minus matched-fallback PRR-product ACK
+  PDR as its single primary new contrast. Old-score and flooding contrasts
+  are exploratory; zero-crossing, positive, and negative primary intervals
+  lead to different manuscript language. Low multihop/multi-candidate
+  exposure limits mechanism inference even when whole-policy PDR is valid.
+- The current manuscript's "statistically indistinguishable" phrasing can
+  imply equivalence without an equivalence margin. The plan requires the
+  next manuscript revision to report the exact delta/CI and "no demonstrated
+  advantage" instead. No manuscript change was made in this planning turn.
+
+## Plan Completion Re-audit - 2026-09-26
+
+- The reviewed 2.1.24 PDF is five Letter pages in IEEE conference 10-point
+  format, and the official ICC 2027 symposium deadline remains 2026-10-02.
+  The IoT & Sensor Networks scope fits LoRa mesh; simulation-only work is
+  eligible, though hardware would strengthen external validity.
+- Official ICC 2024 and 2025 presenter instructions each say fewer than 40%
+  of Technical Symposia submissions were accepted for presentation:
+  https://icc2024.ieee-icc.org/authors/instructions-presenters and
+  https://icc2025.ieee-icc.org/authors/instructions-presenters. This is not
+  an exact rate, an ICC 2027 rate, or this paper's acceptance probability.
+- The current scientific risk is novelty/generalization: calibrated versus
+  old MeshEcho ACK PDR is +0.1154 on the frozen fading holdout, but versus
+  matched-fallback PRR-product it is +0.0026 with a 95% CI crossing zero.
+  The repeated-pair primary workload is graph-qualified; current main-table
+  network-level evidence does not compare flooding or ETX on that same
+  stratum. The plan's five-policy unconditioned check addresses this gap,
+  but it has not run and cannot by itself isolate cache-aging effects.

@@ -1082,3 +1082,60 @@ validation or keep the claims explicitly simulation-only.
 - The 2.1.24 repository release is complete. The only untracked paths are
   local PDF build intermediates. EDAS submission, funding/conflict statements,
   and any later Python-rendered figure require separate author decisions.
+
+## 2026-09-26 - ICC Pre-submission Plan
+
+- Resumed from the authoritative `lora_mesh_current_version_v2` checkout and
+  read the existing plan/findings/progress checkpoints. `version/v2` is at
+  `bc6b502`, matching `origin/version/v2`; no tracked edits were present.
+- Read the planning-with-files and academic-paper plan-mode instructions.
+- Started read-only parallel audits of experiment feasibility, manuscript
+  evidence gaps, and official submission/overlap gates. No algorithm change,
+  simulation rerun, or manuscript revision is authorized in this phase.
+- Next: inspect runner options and existing results, then write and verify a
+  deadline-ordered strengthening plan in repository Markdown.
+- Inspected `docs/icc2027_experiment_plan.md`, the generic fairness probe,
+  generalization and sensitivity runners, the prior random-pair report, and
+  the ICC submission checklist. Found a no-algorithm-change CLI path for
+  fresh random-pair comparisons, but not a directly comparable 2.1.24 SF
+  sensitivity matrix from the existing sensitivity runner.
+- Completed three read-only audits of experiment feasibility, paper evidence,
+  and official submission gates. Prepared
+  `docs/icc2027_pre_submission_strengthening_plan.md` with a frozen
+  independent-seed random-pair contract, simulation-cell costs, result-based
+  manuscript branches, deadline calendar, author-only gates, and recovery
+  instructions. No simulation was launched and no manuscript/source code was
+  modified in this planning phase.
+- Independent scientific/CLI review found the first 8.25-km random-pair
+  scene would mostly exercise saturated direct links and eliminate cache
+  reuse. Revised P1 to a previously documented 18-km non-saturated
+  random-per-flow stress stratum, explicitly not a one-factor cache test;
+  separated null from adverse strong-baseline results and marked secondary
+  contrasts exploratory. The repeated-pair generalization need is recorded
+  as optional scoped implementation work, not implied by P1.
+- Final plan review passed: the proposed CLI flags are supported, the
+  2001--2020 cohort and output prefix are absent from inspected results,
+  `git diff --check` passes, and the existing ICC PDF remains five Letter
+  pages. Only this planning document and the three checkpoint Markdown
+  files changed; unrelated untracked LaTeX builds remain untouched.
+- Next execution phase, only after a new user request: confirm ICCT status
+  and EDAS closing time with the authors, freeze the experiment contract,
+  time a separate exposed-seed pilot, then run new seeds once if feasible.
+  The plan is complete; no simulation, version bump, manuscript edit, commit,
+  push, or EDAS action occurred in this planning turn.
+
+## 2026-09-26 - Plan Completion Re-audit
+
+- Ran the planning skill's session catchup, re-read the three root checkpoint
+  files and full strengthening plan, and confirmed the authoritative
+  `version/v2` worktree. `git diff --check` passed before this checkpoint.
+- Independently verified ICC 2024/2025 official Technical Symposia language
+  as "less than 40%" and rechecked the 2.1.24 manuscript's strong-baseline
+  risk. The existing P1 contract includes ETX and flooding and is still
+  explicitly future work, not a completed experiment.
+- Only checkpoint Markdown was updated in this continuation. No paper,
+  algorithm, simulation, version, GitHub, or EDAS action was taken.
+- An independent completion audit confirmed the plan-only deliverable and
+  identified overlapping P2 result branches; the plan now explicitly says
+  to report simultaneous outcomes together. P1 execution and author-only
+  submission checks remain future work.
