@@ -7,14 +7,15 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current simulator version: `2.1.24` (model-informed route-score controls and
-frozen repeated-pair ICC holdout; firmware prototype remains
+Current simulator version: `2.1.25` (current MeshEcho versus stylized
+Meshtastic-like and MeshCore-like baselines in two fading workloads; firmware
+prototype remains
 `meshecho-firmware-v2.1.2`).
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
 ideas under a fixed SX1262-style PHY profile.
 
-It currently implements two behavior-equivalent baselines, standard quality
+It currently implements two stylized protocol-inspired baselines, standard quality
 metric baselines, and MeshEcho:
 
 - `meshtastic-like`: managed flooding with delayed rebroadcast and suppression
@@ -138,7 +139,7 @@ python3 tools/run_route_conflict_experiment.py
 The historical 2.1.23 raw rows and paired summary are archived at
 `results/meshecho_v2_1_23_icc2027_route_conflict.csv` and
 `docs/results/meshecho_v2_1_23_icc2027_route_conflict.md`. The current
-runner uses a 2.1.24 output prefix by default.
+runner uses a 2.1.25 output prefix by default.
 
 Run the fairness audit with null, moderate, and reverse weak-link controls:
 
@@ -189,7 +190,20 @@ deviation, and 95% confidence intervals. See
 layout and reproducibility rules. The verified matrix is summarized in
 [ICC 2027 Comparison](docs/results/icc2027_comparison.md).
 
-The frozen 2.1.24 study uses seeds 41--50 only for development and untouched
+The current 2.1.25 ICC comparison is [summarized here](docs/results/icc2027_comparison.md).
+It compares calibrated MeshEcho with two stylized protocol-family models:
+Meshtastic-like managed flooding and MeshCore-like cached source routing.
+PRR-product with matched route-miss fallback is an internal score control,
+not a fourth product protocol. On recurring pairs, seed-mean ACK/destination
+PDR and aggregate TX airtime are 0.624/0.633/23.7 s for MeshEcho,
+0.505/0.989/42.4 s for Meshtastic-like, and 0.410/0.448/19.5 s for
+MeshCore-like. On unconditioned random pairs, Meshtastic-like dominates
+MeshEcho: 0.708/0.995/38.9 s versus 0.486/0.515/152.8 s. These are
+simulated behavior-model results, not official firmware performance. See the
+[recurring-pair report](docs/results/meshecho_v2_1_25_icc2027_baseline_feedback_fading.md)
+and [random-pair report](docs/results/meshecho_v2_1_25_icc2027_random_sparse_fading_2001_2020.md).
+
+The historical 2.1.24 score-development study uses seeds 41--50 only for development and untouched
 seeds 51--70 for its holdout. Its primary holdout cycles four connected pairs
 over 793 observed unicasts across 20 topology seeds, with matched RREQ timing,
 6 dB temporal fading every 60 s, and a 600 s route TTL. The optional
@@ -246,7 +260,7 @@ same connected-pair quality contract:
 python3 tools/run_icc_sensitivity_experiments.py
 ```
 
-The runner uses a 2.1.24 output prefix by default. Historical 2.1.22
+The runner uses a 2.1.25 output prefix by default. Historical 2.1.22
 20-seed SF8 and higher-load results are archived under the
 `meshecho_v2_1_22_icc2027_sensitivity_*` prefix. The cases are robustness
 evidence and are not pooled with the fading holdout.
@@ -271,7 +285,7 @@ python3 tools/run_icc_generalization_experiment.py \
   --out-prefix meshecho_v2_1_23_icc2027_generalization
 ```
 
-Do not use that historical output prefix from the current 2.1.24 checkout;
+Do not use that historical output prefix from the current 2.1.25 checkout;
 it would overwrite the archived 2.1.23 artifacts. The old runner wrote
 separate 20-seed reports for random pairs, a 100-node
 3--5-hop case, and repeated-pair temporal fading with 600 s and 30 s route
@@ -474,5 +488,8 @@ routing policy can make forwarding decisions.
 
 This is a packet-level simulator, not a physical waveform simulator and not a
 line-by-line clone of Meshtastic or MeshCore firmware. The included baselines
-are behavior-equivalent research models designed for fair comparison under the
-same PHY/channel/traffic assumptions.
+are stylized protocol-inspired research models under shared PHY/channel/traffic
+assumptions. Meshtastic-like omits current direct-message next-hop learning;
+MeshCore-like uses a separate RREQ/RREP rather than flooding the first DATA
+message and learning from a delivery report. The results do not estimate
+real-firmware performance.

@@ -1,9 +1,12 @@
 # ICC 2027 Submission Checklist
 
-This checklist tracks the 2.1.24 MeshEcho revision for ICC 2027. The official
+This checklist tracks the 2.1.25 MeshEcho revision for ICC 2027. The official
 sources are the [submission guidelines](https://icc2027.ieee-icc.org/submission-guidelines)
-and [symposium-paper dates](https://icc2027.ieee-icc.org/authors), which list
-2 October 2026 as the paper deadline. Confirm the exact closing time in EDAS.
+and [symposium-paper dates](https://icc2027.ieee-icc.org/authors). On
+2 October 2026, the live author pages list 16 October, while the older
+official CFP PDFs still say 2 October. The logged-in EDAS IoT submission form
+is currently open; confirm its exact closing time rather than relying on
+either published date alone.
 
 ## Verified In Repository
 
@@ -16,12 +19,20 @@ and [symposium-paper dates](https://icc2027.ieee-icc.org/authors), which list
 - [x] The paper source names `Zu Gao` and `Zhi Quan` in that order, both at
   Shenzhen University. Keep the same spelling and order in the final PDF
   and EDAS record.
-- [x] The 2.1.24 development seeds are 41--50; the once-frozen 51--70
-  fading/static holdout and isolated comparison have versioned raw CSVs and
-  reports. Fading calibrated-minus-original ACK is +0.1154
-  [+0.0307,+0.2001] at +2.467 s airtime, while calibrated-minus-matched-
-  fallback PRR-product is +0.0026 [-0.0055,+0.0107]. Static and isolated
-  intervals include zero; ACK-timeout eviction is an adverse control.
+- [x] The 2.1.25 ICC comparison uses current calibrated MeshEcho,
+  Meshtastic-like and MeshCore-like behavior models, plus PRR-product with
+  matched fallback as an internal score control. The recurring-pair case
+  has 20 seeds and 793 unicasts per policy; MeshEcho/Meshtastic-like/
+  MeshCore-like ACK PDR is 0.624/0.505/0.410, destination PDR is
+  0.633/0.989/0.448, and aggregate TX airtime is 23.7/42.4/19.5 s.
+  These baseline additions to previously seen 51--70 seeds are exploratory.
+- [x] The separate 20-seed, 813-unicast random-pair case reports the
+  adverse result: Meshtastic-like exceeds MeshEcho in ACK PDR
+  (0.708 versus 0.486) and destination PDR (0.995 versus 0.515) while
+  using much less aggregate TX airtime (38.9 versus 152.8 s). The
+  scenario was designed after the earlier holdout and is not a
+  preregistered confirmatory test. MeshEcho has no demonstrated ACK
+  advantage over matched-recovery PRR-product in either case.
 - [x] The 51--70 short-TTL control was independently audited with 793
   observed unicasts per policy. Calibrated MeshEcho at 30 s TTL has 0.320
   ACK PDR/64.8 s airtime versus 0.624/23.7 s at 600 s; the seed-paired
@@ -36,23 +47,24 @@ and [symposium-paper dates](https://icc2027.ieee-icc.org/authors), which list
 ## Release And Manuscript Checks
 
 - [x] Revise the manuscript's abstract, methods, tables, discussion,
-  and conclusion around the 2.1.24 holdout. Distinguish the optional
-  `meshecho-calibrated` variant from original `meshecho`; include PRR-product
-  with and without matched fallback, the static null result, equal-candidate
-  isolated result, and adverse ACK-eviction control without claiming physical
-  validation or strong-baseline superiority.
-- [x] Rebuild and inspect the 2.1.24 PDF. Verify English text, exact
+  and conclusion around the three protocol families and one score control.
+  Present ACK and destination delivery separately, include the adverse
+  random-pair result, and identify deviations from official firmware.
+- [x] Rebuild and inspect the 2.1.25 PDF. Verify English text, exact
   `Zu Gao` / `Zhi Quan` order, embedded fonts, legible tables, and
   at most six printed pages in 10-point IEEE conference format. The final
   manuscript is five pages; the unused 2.1.23 figure is not part of it.
 - [x] Run final repository checks and confirm the versioned source, tests,
-  raw CSVs, summaries, reports, and reproduction commands in the 2.1.24
-  release package. The full suite has 139 passing tests.
+  raw CSVs, summaries, reports, and reproduction commands in the 2.1.25
+  release package. The full suite has 140 passing tests.
 
 ## Must Be Completed In EDAS
 
-- [ ] Register the exact final title and the exact same author order in EDAS;
-  ICC states that a mismatch can withdraw the paper from review.
+- [x] Register the exact title in EDAS. Paper `1571361802` lists Zu Gao
+  as the first author and is currently `Pending (no manuscript)`.
+- [ ] Add Zhi Quan as second author in EDAS and verify that both names
+  match the final PDF exactly; ICC warns about author-list mismatches.
+- [ ] Update the EDAS abstract to match the revised, baseline-centered PDF.
 - [ ] Upload only the compiled PDF through EDAS, not the `.tex` source.
 - [ ] Confirm the paper is not simultaneously submitted elsewhere and that
   all text/figures satisfy IEEE originality and plagiarism requirements.
@@ -63,5 +75,6 @@ and [symposium-paper dates](https://icc2027.ieee-icc.org/authors), which list
   conference presentation; these are conditions for proceedings/Xplore
   publication after acceptance.
 
-The repository PDF is the 2.1.24 preparation artifact. EDAS registration and
-PDF upload remain pending.
+The repository PDF is the 2.1.25 preparation artifact. EDAS registration is
+partial: Zhi Quan and the manuscript PDF are not yet present, so the paper
+is not submitted for review.

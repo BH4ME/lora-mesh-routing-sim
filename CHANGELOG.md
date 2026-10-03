@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.1.25 - Protocol-family comparison and adverse random-pair result
+
+- Compare current calibrated MeshEcho with stylized Meshtastic-like managed
+  flooding and MeshCore-like cached source routing on 20 matching seeds in
+  each of two fading workloads. Keep PRR-product with matched fallback as a
+  route-score control, not a fourth independent product protocol.
+- On the post-hoc extension of recurring-pair seeds 51--70, MeshEcho reaches
+  ACK/destination PDR 0.624/0.633 at 23.7 s aggregate TX airtime, versus
+  0.505/0.989 at 42.4 s for Meshtastic-like and 0.410/0.448 at 19.5 s for
+  MeshCore-like. Baseline additions to previously seen seeds are exploratory.
+- On separate unconditioned random-pair seeds 2001--2020, Meshtastic-like
+  dominates MeshEcho: ACK/destination PDR 0.708/0.995 versus 0.486/0.515,
+  with 38.9 versus 152.8 s aggregate TX airtime. The scenario was designed
+  after inspecting the earlier holdout and is not a prespecified validation.
+- Preserve the adverse result and the near-tie with PRR-product plus matched
+  fallback in the ICC manuscript. Document differences from both actual
+  firmware protocols and distinguish destination delivery, source ACK,
+  aggregate TX airtime, and modeled always-listening energy.
+- Correct the fair-probe report's reproduction command to include temporal
+  fading sigma and interval; add a regression test.
+
 ## 2.1.24 - Model-informed route scores and frozen fading holdout
 
 - Add optional `meshecho-calibrated` (maximum weakest modeled hop PRR), a

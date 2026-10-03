@@ -348,6 +348,19 @@ class FairMultihopProbeTest(unittest.TestCase):
         self.assertIn("--csv", content)
         self.assertIn("--report", content)
 
+    def test_report_reproduces_temporal_fading_configuration(self) -> None:
+        args = self._fixed_once_args()
+        args.temporal_fading_sigma_db = 6.0
+        args.temporal_fading_interval_s = 60.0
+        row = run_one_probe(args, "meshecho", seed=1)
+        with TemporaryDirectory() as directory:
+            report = Path(directory) / "fading.md"
+            write_report(report, [row], args)
+            content = report.read_text(encoding="utf-8")
+
+        self.assertIn("--temporal-fading-sigma-db 6.0", content)
+        self.assertIn("--temporal-fading-interval-s 60.0", content)
+
     def test_report_distinguishes_budgeted_variant_from_component_ablation(self) -> None:
         args = self._fixed_once_args()
         rows = [

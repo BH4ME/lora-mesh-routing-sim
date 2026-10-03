@@ -1,6 +1,44 @@
-# ICC 2027 Comparison: MeshEcho 2.1.22
+# ICC 2027 Comparison: Current MeshEcho 2.1.25
 
-This is the ICC-facing result summary for MeshEcho. Smart-CALM remains a
+The current comparison uses calibrated MeshEcho, two stylized
+protocol-inspired models, and one matched-recovery score control. The
+Meshtastic-like and MeshCore-like rows are **not official firmware runs**.
+PRR-product with matched fallback is not a fourth independent product
+protocol. All values below are seed means from the same packet-level harness;
+TX airtime is the sum of packet durations, not channel-busy time.
+
+| Workload | Policy | Source ACK PDR | Destination PDR | TX airtime (s) | Modeled energy (J) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Recurring connected pairs, 793 flows | MeshEcho | 0.624 | 0.633 | 23.7 | 47.2 |
+| | Meshtastic-like | 0.505 | 0.989 | 42.4 | 85.3 |
+| | MeshCore-like | 0.410 | 0.448 | 19.5 | 38.6 |
+| | PRR-product + matched fallback | 0.621 | 0.633 | 23.8 | 47.5 |
+| Unconditioned random pairs, 813 flows | MeshEcho | 0.486 | 0.515 | 152.8 | 303.4 |
+| | Meshtastic-like | 0.708 | 0.995 | 38.9 | 79.4 |
+| | MeshCore-like | 0.381 | 0.408 | 148.4 | 294.6 |
+| | PRR-product + matched fallback | 0.486 | 0.514 | 153.0 | 303.8 |
+
+Both workloads have 20 seeds, 50 nodes, SF7, 600-s runs, 4 flows/min,
+and synthetic 6-dB fading every 60 s. The recurring case uses four
+graph-qualified directed pairs per seed in an 8.25-km square and reuses
+previously inspected seeds 51--70; the new baseline additions are post-hoc.
+The random case uses seeds 2001--2020 in an 18-km square without a pair
+feasibility gate; its design also followed the earlier holdout inspection.
+Do not pool the cases or treat their contrast as an isolated pair-scheduling
+effect. In the random case, Meshtastic-like dominates MeshEcho on both
+delivery metrics and both modeled cost metrics. MeshEcho has no demonstrated
+ACK advantage over the matched PRR-product control in either workload.
+
+The [recurring-pair report](meshecho_v2_1_25_icc2027_baseline_feedback_fading.md)
+and [random-pair report](meshecho_v2_1_25_icc2027_random_sparse_fading_2001_2020.md)
+contain per-policy denominators and reproduction commands. Raw seed rows
+are in `results/meshecho_v2_1_25_icc2027_baseline_feedback_fading.csv` and
+`results/meshecho_v2_1_25_icc2027_random_sparse_fading_2001_2020.csv`.
+
+## Historical 2.1.22 Matrix
+
+The remainder of this file archives the superseded 2.1.22 matrix and must
+not be read as the current ICC comparison. Smart-CALM remains a
 historical simulator/firmware namespace and is not an ICC protocol, ablation,
 primary experiment, or conclusion. The primary estimand is first-discovery
 route admission; cache reuse and temporal fading are reported separately.

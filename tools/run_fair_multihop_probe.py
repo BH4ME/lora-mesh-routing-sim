@@ -1131,6 +1131,8 @@ def write_report(
             ("--tx-power-dbm", args.tx_power_dbm),
             ("--path-loss-exp", args.path_loss_exp),
             ("--shadow-sigma-db", args.shadow_sigma_db),
+            ("--temporal-fading-sigma-db", getattr(args, "temporal_fading_sigma_db", 0.0)),
+            ("--temporal-fading-interval-s", getattr(args, "temporal_fading_interval_s", 60.0)),
             ("--max-hops", getattr(args, "max_hops", 7)),
             ("--max-timeout-retries", timeout_retries),
             ("--seeds", len(by_seed)),
