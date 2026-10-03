@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.26 - Baseline presentation and calibrated-policy identity
+
+- Clarify that the ICC paper's evaluated MeshEcho row is the optional
+  `meshecho-calibrated` variant, not the default `meshecho` CLI policy.
+- Add a two-panel source-ACK/destination-delivery figure for the three
+  protocol-family models, calculated from the frozen 2.1.25 per-seed CSVs.
+  PRR-product with matched fallback remains a table-only score control.
+- Keep the 2.1.25 full experimental data unchanged. Add figure-data and
+  vector-export tests; advance new-run default prefixes to 2.1.26.
+
 ## 2.1.25 - Protocol-family comparison and adverse random-pair result
 
 - Compare current calibrated MeshEcho with stylized Meshtastic-like managed

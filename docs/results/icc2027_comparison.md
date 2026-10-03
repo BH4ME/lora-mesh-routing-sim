@@ -1,19 +1,20 @@
-# ICC 2027 Comparison: Current MeshEcho 2.1.25
+# ICC 2027 Comparison: 2.1.25 Data in the 2.1.26 Manuscript
 
-The current comparison uses calibrated MeshEcho, two stylized
+The current comparison uses the optional `meshecho-calibrated` policy
+(called MeshEcho in the manuscript), two stylized
 protocol-inspired models, and one matched-recovery score control. The
 Meshtastic-like and MeshCore-like rows are **not official firmware runs**.
-PRR-product with matched fallback is not a fourth independent product
-protocol. All values below are seed means from the same packet-level harness;
+PRR-product with matched fallback is not a fourth independent protocol
+model. All values below are seed means from the same packet-level harness;
 TX airtime is the sum of packet durations, not channel-busy time.
 
 | Workload | Policy | Source ACK PDR | Destination PDR | TX airtime (s) | Modeled energy (J) |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Recurring connected pairs, 793 flows | MeshEcho | 0.624 | 0.633 | 23.7 | 47.2 |
+| Recurring connected pairs, 793 flows | MeshEcho (calibrated) | 0.624 | 0.633 | 23.7 | 47.2 |
 | | Meshtastic-like | 0.505 | 0.989 | 42.4 | 85.3 |
 | | MeshCore-like | 0.410 | 0.448 | 19.5 | 38.6 |
 | | PRR-product + matched fallback | 0.621 | 0.633 | 23.8 | 47.5 |
-| Unconditioned random pairs, 813 flows | MeshEcho | 0.486 | 0.515 | 152.8 | 303.4 |
+| Unconditioned random pairs, 813 flows | MeshEcho (calibrated) | 0.486 | 0.515 | 152.8 | 303.4 |
 | | Meshtastic-like | 0.708 | 0.995 | 38.9 | 79.4 |
 | | MeshCore-like | 0.381 | 0.408 | 148.4 | 294.6 |
 | | PRR-product + matched fallback | 0.486 | 0.514 | 153.0 | 303.8 |
@@ -34,6 +35,9 @@ and [random-pair report](meshecho_v2_1_25_icc2027_random_sparse_fading_2001_2020
 contain per-policy denominators and reproduction commands. Raw seed rows
 are in `results/meshecho_v2_1_25_icc2027_baseline_feedback_fading.csv` and
 `results/meshecho_v2_1_25_icc2027_random_sparse_fading_2001_2020.csv`.
+The two-panel delivery figure in the manuscript uses only the three
+protocol-family models; its six-row source data are in
+`paper/icc2027/figures/fig_baseline_delivery_source.csv`.
 
 ## Historical 2.1.22 Matrix
 

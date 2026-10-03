@@ -21,7 +21,7 @@
 \maketitle
 
 \begin{abstract}
-We compare the current MeshEcho route-selection policy with stylized
+We compare the optional calibrated MeshEcho route-selection variant with stylized
 Meshtastic-like managed flooding and MeshCore-like cached source routing
 under a shared packet-level LoRa simulation. These are protocol-inspired
 models, not runs of either project's firmware. On 20 repeated-pair fading
@@ -125,7 +125,10 @@ not a firmware implementation. Both routed models use matched RREQ relay
 timing when they have a request, but their later transmissions can change
 interference and candidate exposure.
 
-Current MeshEcho uses the same RREQ collection window and cache lifetime.
+Hereafter, MeshEcho denotes the simulator's optional
+``meshecho-calibrated'' variant, not its default ``meshecho''
+CLI policy. This evaluated variant uses the same RREQ collection window
+and cache lifetime.
 For each successfully received RREQ hop $i$, its score maps observed SINR
 to the simulator's predicted PRR $\hat p_i$. It selects the path maximizing
 the weakest modeled hop PRR, with shorter paths breaking ties:
@@ -157,7 +160,7 @@ Policy & First unicast & Later unicast & Source ACK & No route candidate\\
 \midrule
 Meshtastic-like & Managed DATA flood & Managed DATA flood & Reverse realized DATA path & Not applicable\\
 MeshCore-like & Separate RREQ/RREP, then DATA & Cached shortest source route & Reverse selected route & DATA not sent\\
-MeshEcho & Separate RREQ/RREP, then DATA & Cached max-min-PRR route & Reverse selected route & TTL-2 recovery flood\\
+MeshEcho (cal.) & Separate RREQ/RREP, then DATA & Cached max-min-PRR route & Reverse selected route & TTL-2 recovery flood\\
 PRR+fb control & Same as MeshEcho; product score & Cached PRR-product route & Reverse selected route & Same TTL-2 fallback\\
 \bottomrule
 \end{tabular}
@@ -224,10 +227,12 @@ diverge after earlier forwarding decisions change interference.
 Table~\ref{tab:main} reports seed means and Table~\ref{tab:paired} reports
 paired policy differences. The two scenarios deliberately answer different
 questions: recurring connected conversations versus unconstrained traffic.
+Fig.~\ref{fig:baseline-delivery} visualizes the three protocol-family
+models; the PRR+fb score control remains in the tables.
 
 \begin{table*}[t]
 \centering
-\caption{Current MeshEcho versus stylized protocol-family models and a
+\caption{Evaluated calibrated MeshEcho versus stylized protocol-family models and a
 matched-recovery score control. Entries are means of 20 seed-level ratios
 or per-600-s totals; each policy has the same traffic trace within a seed.
 ``PRR+fb'' changes only the route score to PRR-product while matching
@@ -239,12 +244,12 @@ MeshEcho's TTL-2 route-miss fallback. Energy is modeled, not measured.}
 \toprule
 Workload & Policy & ACK PDR & Dest. PDR & TX airtime (s) & Energy (J)\\
 \midrule
-Recurring (793 flows) & MeshEcho & .624 & .633 & 23.7 & 47.2\\
+Recurring (793 flows) & MeshEcho (cal.) & .624 & .633 & 23.7 & 47.2\\
  & Meshtastic-like & .505 & .989 & 42.4 & 85.3\\
  & MeshCore-like & .410 & .448 & 19.5 & 38.6\\
  & PRR+fb & .621 & .633 & 23.8 & 47.5\\
 \midrule
-Random (813 flows) & MeshEcho & .486 & .515 & 152.8 & 303.4\\
+Random (813 flows) & MeshEcho (cal.) & .486 & .515 & 152.8 & 303.4\\
  & Meshtastic-like & .708 & .995 & 38.9 & 79.4\\
  & MeshCore-like & .381 & .408 & 148.4 & 294.6\\
  & PRR+fb & .486 & .514 & 153.0 & 303.8\\
@@ -254,7 +259,7 @@ Random (813 flows) & MeshEcho & .486 & .515 & 152.8 & 303.4\\
 
 \begin{table*}[t]
 \centering
-\caption{MeshEcho minus comparator, paired by topology seed ($n=20$ in
+\caption{Calibrated MeshEcho minus comparator, paired by topology seed ($n=20$ in
 each workload). Entries are mean differences [nominal two-sided 95\%
 $t$ CI]; airtime is aggregate TX seconds per run. Exploratory contrasts
 are not multiplicity-adjusted.}
@@ -340,18 +345,31 @@ diagnostic and are not used as independent statistical replicates.}
 \toprule
 Workload & Policy & Destination only & Discovery successes/attempts & Route-cache hits\\
 \midrule
-Recurring & MeshEcho & 8 & 59/83 & 525\\
+Recurring & MeshEcho (cal.) & 8 & 59/83 & 525\\
  & Meshtastic-like & 384 & -- & --\\
  & MeshCore-like & 29 & 55/80 & 497\\
  & PRR+fb & 10 & 59/83 & 525\\
 \midrule
-Random & MeshEcho & 22 & 551/807 & 5\\
+Random & MeshEcho (cal.) & 22 & 551/807 & 5\\
  & Meshtastic-like & 236 & -- & --\\
  & MeshCore-like & 22 & 494/807 & 5\\
  & PRR+fb & 21 & 549/807 & 5\\
 \bottomrule
 \end{tabular}
 \end{table*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_baseline_delivery.pdf}
+\caption{Delivery ranking for the three protocol-family models. Bars are
+means of 20 topology-seed source-ACK (a) and destination-DATA (b) PDRs;
+whiskers are nominal 95\% $t$ intervals for each mean, truncated to
+$[0,1]$. Workloads differ in pair selection and area. PRR+fb is an
+internal score control in Tables~\ref{tab:main} and \ref{tab:paired},
+not a fourth independent protocol model. The two named baselines are stylized
+models, not firmware measurements.}
+\label{fig:baseline-delivery}
+\end{figure*}
 
 In the recurring workload, MeshEcho-minus-Meshtastic-like modeled energy
 is $-38.08$ J per run (paired 95\% CI $[-44.33,-31.83]$), while
@@ -428,7 +446,7 @@ deployment claims. A separate, prospectively frozen scenario and a
 fixed-candidate score test would be needed for stronger causal claims.
 
 \section{Reproducibility}
-Version 2.1.25 provides source, tests, per-seed CSVs, a recurring-pair
+Version 2.1.26 provides source, tests, per-seed CSVs, a recurring-pair
 summary CSV, and reproduction commands for both four-policy experiments.
 The raw CSVs contain application denominators and trace hashes plus
 recorded discovery candidates for routed policies. The 51--70 calibrated

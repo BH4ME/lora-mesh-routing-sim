@@ -302,7 +302,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed0", type=int, default=1)
     parser.add_argument(
         "--out-prefix",
-        default="meshecho_v2_1_25_icc2027_generalization",
+        default="meshecho_v2_1_26_icc2027_generalization",
     )
     parser.add_argument(
         "--case",

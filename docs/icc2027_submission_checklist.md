@@ -1,6 +1,7 @@
 # ICC 2027 Submission Checklist
 
-This checklist tracks the 2.1.25 MeshEcho revision for ICC 2027. The official
+This checklist tracks the 2.1.26 MeshEcho manuscript revision for ICC 2027,
+which uses frozen 2.1.25 experiment data. The official
 sources are the [submission guidelines](https://icc2027.ieee-icc.org/submission-guidelines)
 and [symposium-paper dates](https://icc2027.ieee-icc.org/authors). On
 2 October 2026, the live author pages list 16 October, while the older
@@ -19,7 +20,8 @@ either published date alone.
 - [x] The paper source names `Zu Gao` and `Zhi Quan` in that order, both at
   Shenzhen University. Keep the same spelling and order in the final PDF
   and EDAS record.
-- [x] The 2.1.25 ICC comparison uses current calibrated MeshEcho,
+- [x] The 2.1.25 ICC comparison uses the optional
+  `meshecho-calibrated` variant (labeled MeshEcho in the manuscript),
   Meshtastic-like and MeshCore-like behavior models, plus PRR-product with
   matched fallback as an internal score control. The recurring-pair case
   has 20 seeds and 793 unicasts per policy; MeshEcho/Meshtastic-like/
@@ -50,13 +52,17 @@ either published date alone.
   and conclusion around the three protocol families and one score control.
   Present ACK and destination delivery separately, include the adverse
   random-pair result, and identify deviations from official firmware.
-- [x] Rebuild and inspect the 2.1.25 PDF. Verify English text, exact
+- [x] Rebuild and inspect the 2.1.26 PDF. Verify English text, exact
   `Zu Gao` / `Zhi Quan` order, embedded fonts, legible tables, and
   at most six printed pages in 10-point IEEE conference format. The final
-  manuscript is five pages; the unused 2.1.23 figure is not part of it.
+  manuscript is five pages and includes a new three-model delivery figure;
+  the unused 2.1.23 figure is not part of it.
 - [x] Run final repository checks and confirm the versioned source, tests,
-  raw CSVs, summaries, reports, and reproduction commands in the 2.1.25
-  release package. The full suite has 140 passing tests.
+  raw CSVs, summaries, reports, and reproduction commands in the 2.1.26
+  release package. The frozen full experiments remain 2.1.25 artifacts;
+  a 2.1.26 seed-51 smoke reproduced all four policies field-for-field.
+  The standard suite has 142 passes and one Matplotlib-dependent skip;
+  all three figure tests pass in an isolated Matplotlib environment.
 
 ## Must Be Completed In EDAS
 
@@ -75,6 +81,6 @@ either published date alone.
   conference presentation; these are conditions for proceedings/Xplore
   publication after acceptance.
 
-The repository PDF is the 2.1.25 preparation artifact. EDAS registration is
+The repository PDF is the 2.1.26 preparation artifact. EDAS registration is
 partial: Zhi Quan and the manuscript PDF are not yet present, so the paper
 is not submitted for review.
