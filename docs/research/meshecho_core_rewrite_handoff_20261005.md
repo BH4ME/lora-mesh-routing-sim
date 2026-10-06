@@ -1,5 +1,16 @@
 # MeshEcho Core Rewrite Handoff
 
+## 2026-10-06 authoritative completion state
+
+- The MeshEcho-SR-to-CPR algorithm rewrite, ICC paper revision, formal
+  development/holdout simulation and independent audits are complete.
+- The verified release is `version/v2` at local/remote commit `e9a9f35`.
+- Canonical PDF is five-page Letter with `Zu Gao` and `Zhi Quan`; SHA-256 is
+  `a780eb61cd75b6c3fb830439275d8e2c808d00da491962a0101803beae9eedc5`.
+- Before any future context compression, append new work to this handoff and
+  the three root planning files. After compression, read all four before
+  taking action. The older sections below are historical checkpoints.
+
 ## 2026-10-06 final verification continuation
 
 - CPR development and holdout audits both pass after re-audit; the complete

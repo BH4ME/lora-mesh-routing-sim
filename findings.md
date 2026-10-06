@@ -1,5 +1,19 @@
 # Findings
 
+## 2026-10-06 authoritative completion state
+
+- Objective status: complete. CPR is the rewritten source/recovery/relay
+  algorithm; the preserved substrate is explicitly limited to physical-model
+  and accounting components required for matched controls.
+- Canonical PDF SHA-256: `a780eb61cd75b6c3fb830439275d8e2c808d00da491962a0101803beae9eedc5`.
+- Formal manifests use `sim_version=2.1.27`, `seed_split` values
+  `development`/`holdout`, and clean source revision `a013067...`.
+- GitHub `origin/version/v2` and local `HEAD` are `e9a9f35`; no required tracked
+  changes remain. Untracked exploratory files are intentionally outside the
+  release package.
+- The four planning/handoff Markdown files are the recovery source after a
+  future context compression; read them before any further work.
+
 ## 2026-10-06 GitHub publication
 
 - `version/v2` was pushed successfully to `origin` at `ad24baa`.

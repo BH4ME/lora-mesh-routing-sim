@@ -1,19 +1,35 @@
 # Task Plan: MeshEcho Core Rewrite and ICC Evidence
 
-## 2026-10-06 GitHub publication complete
+## 2026-10-06 authoritative completion state
 
-- [complete] Pushed `version/v2` to GitHub; remote HEAD is `ad24baa` and the
-  branch is synchronized. GitHub emitted only the recommended-size warning for
-  the two large RX-attempt ledgers; both were accepted.
+- [complete] Rewrote the MeshEcho-SR source/recovery/relay-feedback core as
+  MeshEcho-CPR while preserving only the shared PHY/channel/ledger substrate
+  needed for fair controls.
+- [complete] Rebuilt the ICC manuscript, figures, tables and canonical
+  five-page PDF from the CPR holdout artifacts.
+- [complete] Re-ran and independently audited development `92200..92219` and
+  untouched holdout `92300..92319` on clean source revision `a013067`.
+- [complete] Full regression: `1182 passed, 1 skipped`; PDF, Unicode, compile,
+  metadata and whitespace checks passed.
+- [complete] Pushed `version/v2` to GitHub; local and remote HEAD are
+  `e9a9f35`. GitHub accepted the two large RX-attempt ledgers with a size
+  recommendation warning.
+- [complete] `task_plan.md`, `findings.md`, `progress.md`, and the CPR handoff
+  contain resumable checkpoints for future automatic context compression.
+
+The historical sections below document prior NO-GO trials and are not the
+current release state. No further algorithm rewrite, holdout rerun, VERSION
+bump, or EDAS action is required for this objective.
 
 ## 2026-10-06 algorithm-boundary continuation
 
 - [complete] Confirmed from `meshecho_cpr.py` and `lora_mesh_sim.py` that CPR
   uses an independent recovery selector and independent source/relay lifecycle;
   it does not call the DRC source decision selector.
-- [in_progress] Complete release closure and decide whether the remaining
-  inheritance from `MeshEchoDRC` is only a substrate-reuse concern or requires
-  a code refactor before publication.
+- [complete] Reviewed the remaining `MeshEchoDRC` inheritance: it supplies
+  shared physical forwarding and route bookkeeping only; CPR uses its own
+  source/recovery selector and lifecycle. A neutral-substrate refactor is an
+  optional future code-organization improvement, not a missing algorithm.
 - [error logged] The first planning catch-up command used `python`, which is
   unavailable in this macOS environment; use `python3` for the bundled script.
 - [complete] Read-only PDF inspection found `build-2_1_27-cpr-final` clean on
@@ -27,9 +43,8 @@
   audits passed and both manifests record that clean revision.
 - [complete] Full regression passed with `1182 passed, 1 skipped`; py_compile,
   diff checks, PDF metadata and Unicode scans also passed.
-- [in_progress] Stage only the formal CPR artifacts and commit/push the final
-  package; leave exploratory, smoke, historical, and intermediate build files
-  untracked and out of the release.
+- [complete] Staged only formal CPR artifacts and pushed the release; exploratory,
+  smoke, historical, and intermediate build files were excluded.
 
 ## 2026-10-06 release closure checkpoint
 

@@ -1,5 +1,17 @@
 # Progress Log
 
+## 2026-10-06 authoritative completion state
+
+- MeshEcho-CPR core rewrite, CPR ICC manuscript/PDF, paired development and
+  holdout simulation, independent audits, full regression and GitHub push are
+  complete.
+- Final local/remote branch: `version/v2` at `e9a9f35`.
+- Final canonical PDF: five-page Letter, authors `Zu Gao` and `Zhi Quan`, no
+  CJK glyphs; SHA-256 `a780eb61cd75b6c3fb830439275d8e2c808d00da491962a0101803beae9eedc5`.
+- No required next action remains for the stated objective. Preserve the
+  historical logs below for recovery context; do not treat their old pending
+  entries as current state.
+
 ## 2026-10-06 GitHub publication complete
 
 - Formal CPR package was pushed to `origin/version/v2`; remote and local HEAD
