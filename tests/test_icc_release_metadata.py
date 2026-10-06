@@ -9,11 +9,13 @@ from tools.run_route_conflict_experiment import parse_args as conflict_args
 
 
 class IccReleaseMetadataTest(unittest.TestCase):
-    def test_current_release_defaults_use_version_2_1_26(self) -> None:
+    def test_release_version_and_historical_runner_defaults(self) -> None:
         root = Path(__file__).resolve().parents[1]
-        self.assertEqual((root / "VERSION").read_text(encoding="utf-8").strip(), "2.1.26")
+        self.assertEqual((root / "VERSION").read_text(encoding="utf-8").strip(), "2.1.27")
 
         with patch("sys.argv", ["runner"]):
+            # These runners reproduce the archived 2.1.26 protocol-family
+            # matrix; CPR has its own contract and artifact prefix.
             self.assertEqual(
                 sensitivity_args().out_prefix,
                 "meshecho_v2_1_26_icc2027_sensitivity",

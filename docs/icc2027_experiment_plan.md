@@ -1,7 +1,34 @@
 # ICC 2027 Experiment Plan
 
-This repository provides a reproducible comparison plan for a LoRa mesh paper
-targeting the IoT and sensor-network communication scope.
+This repository provides a reproducible comparison plan for the ICC 2027
+IoT and sensor-network communication paper. The current release is
+MeshEcho-CPR (`2.1.27`); the older protocol-family matrices below are retained
+as historical comparison plans and must not be mixed with CPR holdout claims.
+
+## Current CPR Release
+
+MeshEcho-CPR is a new source/recovery and relay-feedback core on the shared
+packet-level LoRa substrate. It orders an initial routed attempt, one
+physically started same-path repeat, and at most one deadline-feasible recovery
+flood. Relays cancel only an uncommitted pending flood after a physically
+decoded, identity-matching ACK. DRC is retained as a sealed control.
+
+The frozen CPR contract uses 20 nodes, four cyclic directed pairs, SF7, 6-dB
+block fading, a 30-s application deadline, and four paired arms. Development
+seeds are `92200..92219`; the untouched holdout is `92300..92319`. The raw
+streams, manifests, and independent gate reports are under `results/` with
+the `meshecho_cpr_*_20261006` prefix. Re-run the audit with:
+
+```bash
+python3 tools/audit_cpr_population.py \
+  --manifest results/meshecho_cpr_holdout_92300_92319_20261006.manifest.json \
+  --stage holdout \
+  --development-report results/meshecho_cpr_development_92200_92219_20261006.gate.json
+```
+
+The untouched holdout result is ACK PDR `0.9829`, destination PDR `0.9984`,
+and mean complete-network TX airtime `6.290 s`. These numbers are conditional
+on the declared packet-level workload and are not hardware measurements.
 
 ## Protocol Matrix
 

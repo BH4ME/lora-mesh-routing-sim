@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.1.27 - MeshEcho-CPR core rewrite and audited ICC package
+
+- Replace the old source/recovery decision core for the ICC study with
+  MeshEcho-CPR: a physical-start, deadline-gated repeat-before-recovery
+  controller with ACK-terminated cancellation of uncommitted relay floods.
+- Add paired development (`92200..92219`) and untouched holdout
+  (`92300..92319`) artifacts with independent evidence-v2 audits, seed-level
+  intervals, and complete network TX accounting.
+- Rebuild the five-page ICC manuscript and canonical PDF from the holdout
+  artifacts; retain DRC as a sealed negative control and preserve the older
+  2.1.25/2.1.26 MeshEcho comparison history.
+
 ## 2.1.26 - Baseline presentation and calibrated-policy identity
 
 - Clarify that the ICC paper's evaluated MeshEcho row is the optional

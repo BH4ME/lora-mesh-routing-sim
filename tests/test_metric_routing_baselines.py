@@ -61,7 +61,7 @@ class MetricRoutingBaselineTest(unittest.TestCase):
             matched_rreq_timing=True,
         )
         sim.schedule(0.0, "app_send", (0, 1, 1))
-        sim.run(5.0)
+        sim.run(15.0)
 
         self.assertEqual(baseline.name, "prr-product-fallback-mesh")
         self.assertEqual(baseline.metric_kind, "prr-product")
@@ -169,20 +169,12 @@ class MetricRoutingBaselineTest(unittest.TestCase):
     def test_meshcore_collects_all_destination_candidates_in_matched_window(self) -> None:
         """Matched source routing must expose the same candidate pool as MeshEcho."""
 
-        class FakeMetrics:
-            duplicate_rx = 0
-
-        class FakeSimulator:
-            max_hops = 8
-            now = 0.0
-            metrics = FakeMetrics()
-            nodes = {
-                node_id: SimpleNamespace(can_relay=True)
-                for node_id in range(4)
-            }
-
         protocol = MeshCoreLike(discovery_window_s=2.0)
-        protocol.bind(FakeSimulator())
+        Simulator(
+            [Node(node_id, node_id * 10.0, 0.0) for node_id in range(4)],
+            RadioConfig(shadow_sigma_db=0.0), protocol,
+            seed=31, max_hops=8,
+        )
         first = Packet(
             kind="RREQ",
             flow_id=9,

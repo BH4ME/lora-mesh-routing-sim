@@ -532,7 +532,7 @@ class CalmProtocolTest(unittest.TestCase):
         protocol = SmartCalmMesh(
             update_interval_s=999.0,
             exploration=0.0,
-            flow_timeout_s=5.0,
+            flow_timeout_s=999.0,
             route_miss_fallback_ttl=1,
         )
         nodes = [
@@ -550,16 +550,16 @@ class CalmProtocolTest(unittest.TestCase):
         )
 
         protocol.send_app(0, 3, flow_id=1)
-        sim.run(until_s=3.0)
+        sim.run(until_s=30.0)
 
-        summary = sim.metrics.summarize(protocol.name, seed=9, duration_s=3.0)
+        summary = sim.metrics.summarize(protocol.name, seed=9, duration_s=30.0)
         self.assertEqual(summary["fallback_forward_count"], 1)
 
     def test_smart_calm_uses_full_route_miss_recovery_by_default(self) -> None:
         protocol = SmartCalmMesh(
             update_interval_s=999.0,
             exploration=0.0,
-            flow_timeout_s=5.0,
+            flow_timeout_s=999.0,
         )
         nodes = [
             Node(0, 0.0, 0.0),
@@ -576,9 +576,9 @@ class CalmProtocolTest(unittest.TestCase):
         )
 
         protocol.send_app(0, 3, flow_id=1)
-        sim.run(until_s=5.0)
+        sim.run(until_s=30.0)
 
-        summary = sim.metrics.summarize(protocol.name, seed=9, duration_s=3.0)
+        summary = sim.metrics.summarize(protocol.name, seed=9, duration_s=30.0)
         self.assertGreater(summary["fallback_forward_count"], 1)
 
     def test_smart_calm_profiles_are_built_from_run_args(self) -> None:

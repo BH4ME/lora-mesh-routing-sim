@@ -55,11 +55,12 @@ made after seeing old results and is not a new pristine preregistration.
    the generic probe and generalization runner write their output paths on
    execution; neither is a safe overwrite-proof archive.
 4. Pair comparisons by topology seed, not by packet. Keep scheduled and
-   observed unicast denominators, shared application-trace hashes, direct
-   PRR quantiles, discovery success, cached-route hop distributions,
-   candidate-set agreement, ACK PDR, destination PDR, airtime, and modeled
-   energy. Do not discard disconnected random pairs or apply the
-   graph-qualified pair gate to the random-pair denominator.
+   observed unicast denominators, shared application-trace hashes, static
+   direct-link PRR quantiles (the probe excludes temporal fading from this
+   diagnostic), discovery success, cached-route hop distributions,
+   candidate-set agreement, comparable chosen-path disagreement, ACK PDR,
+   destination PDR, airtime, and modeled energy. Do not discard disconnected
+   random pairs or apply the graph-qualified pair gate to their denominator.
 5. Do not call a confidence interval crossing zero evidence of equivalence.
    Do not call model-predicted PRR a measured radio PRR. Hardware is useful
    future validation, not a six-day submission prerequisite.
@@ -162,14 +163,25 @@ from the raw CSV with the repository's `paired_mean_ci()` and independently
 recompute the published numbers. `analyze_results.py` gives per-policy CIs,
 which cannot substitute for paired-difference CIs.
 
-Report the observed direct-link PRR distribution, cached-route multihop
-fraction, discovery success, and multi-candidate discovery count before
+Report the static link-budget direct-link PRR distribution, cached-route
+multihop fraction, discovery success, multi-candidate discovery count, and
+chosen-path disagreement against matched PRR+fallback before
 interpreting score behavior. This random-per-flow mode is expected to have
 little cache reuse. If candidate competition is rare, a null effect is low
 mechanism exposure, not proof that the score fails on stale routes. Do not
 switch geometry, drop seeds, or filter random pairs after seeing ACK results.
 The 2.1.23 random-pair output used static channel, mixed traffic, unmatched
 RREQ timing, and the old score; do not pool its numbers with this stratum.
+
+For score-attribution diagnostics, match discovery keys and require identical
+candidate sets with both policies selecting a route. Before opening P1
+outcomes, require at least 100 such comparisons and 30 different selected
+paths across 20 seeds to discuss a route-score mechanism; otherwise report
+whole-policy results only. These exposure thresholds are diagnostic, not a
+statistical significance or submission rule. Dynamic interference and
+different RREQ SINR inputs can still prevent score-level causal attribution
+even above the thresholds. Isolated first-discovery or fixed-candidate replay
+with identical per-candidate score inputs is needed for that stronger claim.
 
 ## P2 Manuscript Decision Tree
 

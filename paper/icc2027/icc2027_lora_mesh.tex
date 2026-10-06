@@ -5,13 +5,17 @@
 \usepackage{cite}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage{balance}
 \usepackage{url}
 
 \usetikzlibrary{calc}
 
+\newcommand{\cpr}{MeshEcho-CPR}
+\newcommand{\drc}{MeshEcho-DRC}
+
 \begin{document}
 
-\title{MeshEcho: Confidence-Aware Route Selection for LoRa Mesh IoT}
+\title{MeshEcho-CPR: Cost-Responsive Recovery with ACK-Terminated Relay Suppression for LoRa Mesh Networks}
 
 \author{
 \IEEEauthorblockN{Zu Gao \quad Zhi Quan}
@@ -21,451 +25,415 @@
 \maketitle
 
 \begin{abstract}
-We compare the optional calibrated MeshEcho route-selection variant with stylized
-Meshtastic-like managed flooding and MeshCore-like cached source routing
-under a shared packet-level LoRa simulation. These are protocol-inspired
-models, not runs of either project's firmware. On 20 repeated-pair fading
-seeds (793 unicasts per policy), MeshEcho's source-ACK and destination
-packet-delivery ratios are 0.624/0.633, versus 0.505/0.989 for
-Meshtastic-like and 0.410/0.448 for MeshCore-like; aggregate transmission
-airtime is 23.7, 42.4, and 19.5 s per run. Thus MeshEcho obtains more
-source ACKs than both models in this conditioned workload, but flooding
-delivers substantially more packets to destinations. On 20 separate,
-unconditioned random-pair seeds (813 unicasts), Meshtastic-like exceeds
-MeshEcho in both delivery metrics while using 38.9 versus 152.8 s airtime.
-A PRR-product route score with matched recovery shows no clear ACK-delivery
-difference from MeshEcho in either workload. The results identify a
-workload-dependent protocol trade-off, not firmware-level dominance or a
-distinct advantage for MeshEcho's route score.
+Packet loss in a LoRa mesh creates a choice between repeating a known path and
+injecting another network-wide flood. Repeating too early wastes a stale route,
+whereas flooding too freely multiplies airtime and collisions. We present
+MeshEcho-CPR, a source and relay policy that makes this choice at physical
+transmission time. A routed packet is retried once on the same confirmed path;
+only after that retry has physically started can one deadline-feasible recovery
+flood be admitted. A relay records a pending flood and cancels it only after a
+physically decoded ACK matches the flow, request, endpoints, reverse path,
+repair marker, and sender, and only before the relay commits the transmission.
+This preserves a charged wire cost while suppressing redundant relay floods.
+In an audited 20-seed holdout with 20 nodes and 6-dB block fading, CPR reaches
+0.9829 deadline ACK PDR and 0.9984 destination PDR with 6.29 s mean TX
+airtime. Against a no-rescue control, it improves ACK PDR by 0.0334
+[0.0172, 0.0495] and destination PDR by 0.0364 [0.0191, 0.0538] while
+reducing airtime by 3.14 s [2.53, 3.76]. Against an identical no-cancel
+ablation, its reliability is statistically comparable but airtime is 4.19 s
+lower. Results are packet-level simulation evidence for this workload, not
+measurements of deployed Meshtastic or MeshCore hardware.
 \end{abstract}
 
 \begin{IEEEkeywords}
-LoRa mesh, Internet of Things, route selection, fading, packet delivery ratio,
-airtime
+LoRa mesh, opportunistic recovery, ACK feedback, flooding suppression,
+deadline-aware routing, packet-level simulation
 \end{IEEEkeywords}
 
 \section{Introduction}
-LoRa is attractive for low-power IoT because it combines long link budget
-with inexpensive radios \cite{augustin2016study}. A star topology is
-insufficient for obstructed or infrastructure-poor deployments, motivating
-multi-hop extensions \cite{wong2024multihop,cotrim2020lorawanmesh,
-centelles2021beyond}. Multi-hop forwarding is expensive: a low data rate
-occupies the channel for a long time, while a flood multiplies collision
-opportunities. A cached source route reduces redundancy, but one weak hop can
-invalidate an otherwise useful path.
+LoRa is attractive for low-power and infrastructure-sparse deployments because
+it provides a long link budget with inexpensive radios, but its low data rate
+makes redundant transmissions costly \cite{augustin2016study}. Multihop LoRa
+systems therefore combine cached routes, flooding, and local forwarding
+decisions \cite{wong2024multihop,cotrim2020lorawanmesh,centelles2021beyond}.
+The hard case is a route that was recently confirmed but is no longer reliable:
+an immediate flood can recover delivery, yet every relay that transmits the
+same recovery packet consumes airtime and increases collision exposure.
 
-The practical choice is not only which cached route to rank. Managed flooding
-can deliver DATA through several paths while spending more transmissions;
-on-demand source routing spends discovery time and may fail before DATA
-starts. MeshEcho combines on-demand route discovery with a modeled
-weakest-hop packet-reception-ratio (PRR) score and a bounded route-miss
-fallback. We ask how that complete policy compares with two established
-LoRa mesh design families under identical simulated topology and traffic.
-We distinguish delivery at the destination from receipt of a reverse ACK
-at the source; collapsing them would hide an important flooding trade-off.
+Existing route metrics such as ETX quantify expected transmissions
+\cite{decouto2003etx}, but a metric alone does not specify when a recovery is
+safe to start or how a relay should react to a terminal ACK that is already on
+the air. This paper asks whether a protocol can use the physical ordering of
+repeat, recovery, ACK, and relay-commit events to improve reliability without
+paying for an unrestricted second flood.
 
-Our contributions are:
+We make three contributions:
 \begin{itemize}
-\item a same-trace, seed-paired comparison of calibrated MeshEcho with
-Meshtastic-like and MeshCore-like behavior models on conditioned recurring
-pairs and an unconditioned random-pair stress case;
-\item separate ACK, destination-delivery, aggregate TX-airtime, and modeled
-energy reporting, including an adverse workload where flooding dominates;
-\item a matched-recovery PRR-product control that tests whether MeshEcho's
-max-min score adds value beyond a familiar path-quality metric.
+\item We define MeshEcho-CPR, a bounded source/recovery state machine that
+  separates an initial confirmed-route attempt, one same-path repeat, and at
+  most one deadline-gated recovery flood.
+\item We add an ACK-terminated relay ledger. Cancellation is accepted only for
+  a physically matching ACK and an uncommitted pending relay, making the
+  suppression event auditable rather than an oracle-based delivery shortcut.
+\item We provide paired development and untouched holdout evidence with a
+  no-cancel ablation and two DRC controls. All arms share topology, traffic,
+  radio, request denominators, and per-seed identities; the paper reports
+  seed-level confidence intervals and complete TX cost.
 \end{itemize}
-The cross-protocol baselines were added after the earlier MeshEcho holdout
-had been examined. These comparisons are exploratory, not a new
-prespecified holdout or an evaluation of production firmware.
+
+The contribution is a rewritten source, recovery, and feedback core on a
+preserved packet-level LoRa substrate. The substrate supplies propagation,
+collision, forwarding, ACK transport, ToA, energy accounting, and evidence
+ledgers so that the protocols are compared under the same physical model. We
+do not claim a firmware implementation or universal superiority over every
+mesh protocol.
 
 \section{Related Work}
-Prior ICC LoRa studies range from analytical and simulation work
-\cite{tu2020coverage,afisiadis2020fer} to testbed-supported evaluation
-\cite{to2018lorans3,rochester2020lsc}. Multihop surveys and implementations
-describe flooding, route state, and timing costs
-\cite{wong2024multihop,sole2022implementation,pueyo2024minimalistic}.
-Meshtastic documents managed flooding for broadcasts and, since version 2.6,
-learned next-hop routing for direct messages \cite{meshtasticdocs}.
-MeshCore documents an initially flooded message whose delivery report can
-establish a path \cite{meshcore}. Our simplified counterparts isolate
-flooding and cached source-route behavior; neither reproduces those full
-implementations. ETX provides the established expected-transmissions
-reference \cite{decouto2003etx}; we use a matched-recovery PRR-product
-score to test a closer route-ranking alternative.
+Simulation and measurement studies have established LoRa link, coverage, and
+collision models \cite{to2018lorans3,afisiadis2020fer,tu2020coverage}, while
+recent work has examined multihop routing and practical mesh libraries
+\cite{pueyo2024minimalistic,sole2022implementation,ahmar2022smarthop}.
+These systems expose a recurring trade-off: route state reduces redundant
+transmissions when it is valid, while flooding tolerates a missing or stale
+route at a higher channel cost. CPR focuses on the transition between these
+states rather than proposing another static path score.
 
-\section{Protocol and Model}
-\subsection{Network model}
-Nodes are uniformly placed in a square and share one half-duplex LoRa
-channel. Unless noted, packets have 32-byte payloads, 17 dBm transmit power,
-125-kHz bandwidth, coding rate 4/5, capture threshold 6 dB, and SF7. Airtime
-follows the standard LoRa symbol calculation \cite{semtech2013lora}.
-Log-distance path loss with log-normal shadowing produces SNR; reception is a
-logistic function of SNR margin, and overlapping packets are accepted only
-when the desired signal passes capture. The simulator records collisions,
-route-cache events, and discovery success. Total airtime is the sum of every
-packet's TX duration, including control, DATA, ACK, and recovery packets;
-overlapping transmissions are not de-duplicated into channel-busy time.
-Energy is calculated from configured TX current and from an always-listening
-assumption for non-transmitting nodes, not measured battery consumption.
+The closest conceptual baselines in this study are a deadline-reserved source
+controller and its no-rescue form. They use the same packet model and ACK
+transport but do not use CPR's repeat-before-recovery ordering or its
+ACK-terminated relay ledger. Thus the ablation isolates relay cancellation,
+whereas the no-rescue control isolates the value of allowing the recovery
+branch. The controls are algorithms in the simulator, not claims about any
+named product or firmware.
 
-\subsection{Routing policies}
-The Meshtastic-like model floods each DATA packet with delayed rebroadcast,
-duplicate suppression, and a reverse ACK along the DATA copy's realized
-path. It does not implement Meshtastic 2.6+ direct-message next-hop learning,
-retry details, or complete firmware semantics. Hence its reverse-path ACK
-outcome is specific to this harness, especially when DATA reaches a
-destination by multiple copies.
+\section{MeshEcho-CPR}
+\subsection{Local state and action ordering}
+Each unicast flow has a source, destination, enqueue time, original deadline,
+and a bounded route record. A route is usable only when its endpoint sequence,
+generation, expiry, and local state are valid. At the actual queue-available
+TX start, the source computes conservative upper bounds $B_R$ and $B_F$ for a
+routed DATA/ACK exchange and a recovery FLOOD/ACK exchange, including packet
+ToA, forwarding delay, and a safety margin. The source does not inspect a
+future reception outcome or a global PRR oracle.
 
-The MeshCore-like model sends a separate route request (RREQ), waits 2 s
-for destination candidates, replies along the shortest candidate, and
-caches the resulting source route for 600 s. It has no route-miss fallback
-in this comparison. Real MeshCore instead initially floods the message and
-uses a delivery report to establish a path; our RREQ/RREP abstraction is
-not a firmware implementation. Both routed models use matched RREQ relay
-timing when they have a request, but their later transmissions can change
-interference and candidate exposure.
-
-Hereafter, MeshEcho denotes the simulator's optional
-``meshecho-calibrated'' variant, not its default ``meshecho''
-CLI policy. This evaluated variant uses the same RREQ collection window
-and cache lifetime.
-For each successfully received RREQ hop $i$, its score maps observed SINR
-to the simulator's predicted PRR $\hat p_i$. It selects the path maximizing
-the weakest modeled hop PRR, with shorter paths breaking ties:
+The initial action is $R_{\mathrm{initial}}$ when a confirmed route fits before
+the original deadline; otherwise it is $F_{\mathrm{initial}}$ when a flood
+fits. After an unacknowledged routed initial transmission, CPR schedules one
+same-path repeat. The repeat request is not considered a transmission until
+the packet physically starts. Only then can the recovery decision admit one
+flood, and only if the complete bound still fits:
 \begin{equation}
-\hat p_i=f_{\rm sim}(\mathrm{SINR}_i),\quad
-C_{\rm cal}=\min_i\hat p_i,\quad
-C_{\rm prod}=\prod_i\hat p_i.
+  \begin{split}
+  R_{\mathrm{initial}} &\rightarrow R_{\mathrm{repeat}},\\
+  R_{\mathrm{repeat}} &\rightarrow F_{\mathrm{recovery}}\quad
+  \text{iff } t+B_F\leq t_{\mathrm{deadline}}.
+  \end{split}
+  \label{eq:ordering}
 \end{equation}
-The PRR-product comparator uses $C_{\rm prod}$ with MeshEcho's same TTL-2
-route-miss fallback. These scores use model-inferred PRR from received
-requests, not independently measured link PRR; failed requests are censored.
-MeshEcho invokes the TTL-2 fallback only if discovery has no candidate.
-Its default confidence threshold is zero, so a selected route does not
-launch confidence-triggered duplicate forwarding. Timeout retransmission
-is disabled for both scored policies. Comparing either with flooding or
-MeshCore-like measures an entire policy bundle; only the matched-recovery
-PRR-product row tests the score choice more narrowly.
+If the flow is already acknowledged, the route generation is stale, or the
+bound does not fit, no recovery request is started. This ordering prevents a
+queued but never-started repeat from authorizing a flood.
 
-\begin{table*}[t]
-\centering
-\caption{Simulator policy mapping. These are implementation choices in this
-research harness, not a specification of Meshtastic or MeshCore firmware.}
-\label{tab:policy}
-\scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}p{.17\textwidth}p{.22\textwidth}p{.20\textwidth}p{.20\textwidth}p{.15\textwidth}@{}}
-\toprule
-Policy & First unicast & Later unicast & Source ACK & No route candidate\\
-\midrule
-Meshtastic-like & Managed DATA flood & Managed DATA flood & Reverse realized DATA path & Not applicable\\
-MeshCore-like & Separate RREQ/RREP, then DATA & Cached shortest source route & Reverse selected route & DATA not sent\\
-MeshEcho (cal.) & Separate RREQ/RREP, then DATA & Cached max-min-PRR route & Reverse selected route & TTL-2 recovery flood\\
-PRR+fb control & Same as MeshEcho; product score & Cached PRR-product route & Reverse selected route & Same TTL-2 fallback\\
-\bottomrule
-\end{tabular}
-\end{table*}
+\subsection{ACK identity and route generation}
+An ACK is accepted at the source only when its request and flow identifiers,
+endpoints, reverse path, path index, physical sender, deadline, and repair
+marker agree with the flow record. The unmarked ACK corresponds to the initial
+attempt, marker 1 to the repeat, and marker 2 to the recovery flood. The ACK
+must refer to a packet that physically started; its RX attempt and ACK TX are
+recorded in the evidence ledger. A valid ACK commits the route generation and
+retires the flow. An ACK from a previous generation cannot mutate a newer
+route.
 
-\section{Experimental Design}
-\subsection{Two workloads and evidence status}
-Each run has 50 nodes, 600 s duration, SF7, 4-dB static shadowing,
-independent reception randomness, and 6-dB temporal block fading every
-60 s. There are no application broadcasts. The same topology, application
-schedule, and per-seed trace hash are used for all four policies. Table
-\ref{tab:params} separates the two workload strata; neither is a hardware
-measurement.
+\subsection{ACK-terminated relay suppression}
+When a relay decodes a CPR flood, it creates a bounded pending handle indexed
+locally by relay, origin, flow, request, and marker. The handle stores the
+endpoints and exact path alongside the queued FLOOD request. A relay cancels that request only when
+\begin{equation}
+  \begin{aligned}
+  \mathsf{cancel} ={}& \mathsf{match}(\mathrm{flow,request,endpoints})\\
+  &\land \mathsf{match}(\mathrm{path,marker,sender})
+    \land \neg\mathsf{committed}.
+  \end{aligned}
+  \label{eq:cancel}
+\end{equation}
+The path must be loop-free and the decoded ACK must be on the corresponding
+reverse hop. A wrong flow, stale generation, malformed path, application
+payload, or already-committed handle is rejected. The ledger is capped per
+node; capacity eviction is charged and logged. This makes every saved relay
+transmission attributable to a physical ACK event.
 
-In the recurring-pair case, four directed pairs per seed are chosen from a
-shared analytical graph with edge PRR $\geq0.90$ and graph distance 2--4
-hops. The graph is not supplied to any policy. Every pair has scheduled
-flows in at least two fading blocks. The case passed a per-seed gate for a
-complete pair pool, mean graph distance at least two, and at least 10\%
-of direct links below 0.99 static PRR. Its 793 unicasts per policy estimate
-behavior conditional on connected, repeatedly used pairs; the 51--70 seeds
-were already inspected in an earlier MeshEcho-only analysis. Adding the two
-protocol-family baselines to them is a post-hoc exploratory extension, not
-a newly untouched holdout.
+\subsection{Controls}
+The primary ablation, CPR-no-cancel, runs the same source state machine and
+wire markers but never cancels a pending relay. DRC-no-rescue uses the same
+deadline-reserved route state without a recovery flood. DRC is the sealed
+rescue control from the independent development audit. All four arms use the
+same topology, application trace, channel draws, packet accounting, and
+scheduled-flow denominator for a given seed.
 
-The separate random-pair case redraws source and destination for each
-Poisson application flow in an 18-km square; a pair may recur by chance.
-Its 813 unicasts per policy
-span seeds 2001--2020. No graph-distance or route-feasibility gate is
-applied, so some demands can be difficult or disconnected. The parameter
-choice followed the earlier holdout inspection; these fresh seeds give a
-robustness check, not a preregistered confirmatory test.
+\section{Experimental Method}
+\subsection{Frozen case and cohorts}
+The case uses 20 nodes uniformly placed in a $3000\,\mathrm{m}$ square, four
+cyclic directed pairs, and 8 Poisson unicast flows/min for a 240-s generation
+horizon followed by a 30-s drain. The channel uses SF7, 32-byte payloads,
+17-dBm transmit power, 125-kHz bandwidth, coding rate 4/5, 4-dB spatial
+shadowing, and 6-dB temporal block fading refreshed every 60 s. The maximum
+path length is six hops, route TTL is 600 s, and application deadline is
+30 s. Table~\ref{tab:case} summarizes the fixed inputs.
 
 \begin{table}[t]
 \centering
-\caption{2.1.25 exploratory fading workloads (20 seeds and 4 flows/min
-each; 600 s, SF7, 32 B, 17 dBm, 125 kHz, CR 4/5).}
-\label{tab:params}
+\caption{Frozen CPR experiment parameters.}
+\label{tab:case}
 \scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lll@{}}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}ll@{}}
 \toprule
-Case & Area / pairs & Seeds / unicasts per policy\\
+Parameter & Value\\
 \midrule
-Recurring & 8.25 km / 4 selected pairs & 51--70 / 793\\
-Random & 18 km / redraw per flow & 2001--2020 / 813\\
+Nodes / area & 20 / $3000\times3000$ m$^2$\\
+Traffic & 8 unicast flows/min, 4 cyclic pairs\\
+Generation / drain & 240 s / 270 s\\
+Radio & SF7, 125 kHz, CR 4/5, 17 dBm\\
+Payload / deadline & 32 B / 30 s\\
+Fading & 4 dB spatial, 6 dB every 60 s\\
+Max hops / route TTL & 6 / 600 s\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Measurements and inference}
-ACK PDR requires a source-received reverse-path ACK; destination PDR only
-requires DATA arrival. Each protocol's seed-level PDR divides its ACK or
-destination count by that seed's observed unicasts; the reported mean gives
-each of the 20 seeds equal weight. For a policy difference $d_s$, we report
-$\bar d\pm t_{.975,19}s_d/\sqrt{20}$, pairing by seed. Airtime and modeled TX/RX
-energy are per 600-s run. Flows within a seed are not independent
-replicates; intervals are nominal and no multiplicity-adjusted superiority
-claim is made. Routed policies share a 2-s discovery window, 600-s route
-TTL, and matched request relay timing. Their candidate sets can still
-diverge after earlier forwarding decisions change interference.
+The development cohort contains seeds 92200--92219 and was used to freeze
+the analysis gates. The untouched holdout contains seeds 92300--92319 and was
+opened only after the development manifest and gate hash passed. Every arm has
+the same scheduled unicast denominator across each cohort (676 aggregate flows
+across the 20 development seeds, 668 aggregate flows across the 20 holdout
+seeds; these are cohort totals, not per-seed counts).
+No smoke or exploratory seed is pooled into the reported estimates.
+
+\subsection{Metrics and audit}
+The primary reliability metrics are deadline ACK PDR at the source and
+deadline destination PDR. Cost is complete network TX airtime and modeled TX
+energy for packets physically started before the drain cutoff; relay and ACK
+packets are included. We report the arithmetic mean of the 20 seed-level
+values. For each comparator, per-seed CPR-minus-control differences are paired
+by seed and summarized with a nominal two-sided 95\% Student-$t$ interval
+($19$ degrees of freedom). Flows, requests, physical TXs, per-receiver RX
+attempts, ACK provenance, repair markers, and route generations are joined by
+immutable identifiers. An incomplete join invalidates the cohort.
 
 \section{Results}
-Table~\ref{tab:main} reports seed means and Table~\ref{tab:paired} reports
-paired policy differences. The two scenarios deliberately answer different
-questions: recurring connected conversations versus unconstrained traffic.
-Fig.~\ref{fig:baseline-delivery} visualizes the three protocol-family
-models; the PRR+fb score control remains in the tables.
+\subsection{Holdout performance}
+Table~\ref{tab:holdout} gives the untouched holdout means. CPR has the highest
+ACK PDR among the four arms within rounding and nearly saturated destination
+PDR, while using less TX airtime than both rescue controls. The no-cancel arm
+has almost the same reliability but 66.7\% more airtime than CPR, showing that
+the relay ledger is the source of the cost reduction rather than a different
+traffic trace.
 
 \begin{table*}[t]
 \centering
-\caption{Evaluated calibrated MeshEcho versus stylized protocol-family models and a
-matched-recovery score control. Entries are means of 20 seed-level ratios
-or per-600-s totals; each policy has the same traffic trace within a seed.
-``PRR+fb'' changes only the route score to PRR-product while matching
-MeshEcho's TTL-2 route-miss fallback. Energy is modeled, not measured.}
-\label{tab:main}
+\caption{Holdout means over 20 paired seeds. PDRs are deadline-based; energy
+is the simulator's modeled TX energy, not a battery measurement.}
+\label{tab:holdout}
 \scriptsize
 \setlength{\tabcolsep}{5pt}
-\begin{tabular}{llrrrr}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-Workload & Policy & ACK PDR & Dest. PDR & TX airtime (s) & Energy (J)\\
+Arm & ACK PDR & Dest. PDR & TX airtime (s) & TX energy (J) & TX count & RX attempts\\
 \midrule
-Recurring (793 flows) & MeshEcho (cal.) & .624 & .633 & 23.7 & 47.2\\
- & Meshtastic-like & .505 & .989 & 42.4 & 85.3\\
- & MeshCore-like & .410 & .448 & 19.5 & 38.6\\
- & PRR+fb & .621 & .633 & 23.8 & 47.5\\
-\midrule
-Random (813 flows) & MeshEcho (cal.) & .486 & .515 & 152.8 & 303.4\\
- & Meshtastic-like & .708 & .995 & 38.9 & 79.4\\
- & MeshCore-like & .381 & .408 & 148.4 & 294.6\\
- & PRR+fb & .486 & .514 & 153.0 & 303.8\\
+CPR & 0.9829 & 0.9984 & 6.290 & 2.491 & 81.65 & 1633\\
+CPR-no-cancel & 0.9734 & 0.9985 & 10.485 & 4.152 & 124.30 & 2486\\
+DRC-no-rescue & 0.9495 & 0.9619 & 9.433 & 3.736 & 112.45 & 2249\\
+DRC & 0.9810 & 0.9985 & 10.859 & 4.300 & 128.20 & 2564\\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 \begin{table*}[t]
 \centering
-\caption{Calibrated MeshEcho minus comparator, paired by topology seed ($n=20$ in
-each workload). Entries are mean differences [nominal two-sided 95\%
-$t$ CI]; airtime is aggregate TX seconds per run. Exploratory contrasts
-are not multiplicity-adjusted.}
+\caption{Paired holdout differences, CPR minus comparator. Entries are mean
+difference [nominal two-sided 95\% CI] over 20 seeds.}
 \label{tab:paired}
 \scriptsize
-\setlength{\tabcolsep}{4.5pt}
-\begin{tabular}{lllll}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
-Workload & Comparator & $\Delta$ ACK PDR [CI] & $\Delta$ dest. PDR [CI] & $\Delta$ TX airtime (s) [CI]\\
+Comparator & ACK PDR & Dest. PDR & TX airtime (s) & TX energy (J)\\
 \midrule
-Recurring & Meshtastic-like & $+.119\;[+.011,+.227]$ & $-.355\;[-.460,-.251]$ & $-18.70\;[-21.81,-15.59]$\\
- & MeshCore-like & $+.214\;[+.115,+.312]$ & $+.186\;[+.086,+.286]$ & $+4.22\;[+2.65,+5.78]$\\
- & PRR+fb & $+.003\;[-.006,+.011]$ & $+.000\;[-.007,+.007]$ & $-.13\;[-.36,+.09]$\\
-\midrule
-Random & Meshtastic-like & $-.222\;[-.273,-.171]$ & $-.481\;[-.525,-.436]$ & $+113.82\;[+104.99,+122.64]$\\
- & MeshCore-like & $+.105\;[+.077,+.133]$ & $+.107\;[+.075,+.140]$ & $+4.40\;[+3.79,+5.02]$\\
- & PRR+fb & $-.000\;[-.026,+.026]$ & $+.001\;[-.023,+.024]$ & $-.19\;[-.55,+.17]$\\
+CPR-no-cancel & $+0.0095\;[-0.0028,\;+0.0218]$ & $-0.0001\;[-0.0048,\;+0.0047]$ & $-4.195\;[-4.686,\;-3.704]$ & $-1.661\;[-1.856,\;-1.467]$\\
+DRC-no-rescue & $+0.0334\;[+0.0172,\;+0.0495]$ & $+0.0364\;[+0.0191,\;+0.0538]$ & $-3.143\;[-3.757,\;-2.529]$ & $-1.245\;[-1.488,\;-1.001]$\\
+DRC & $+0.0018\;[-0.0049,\;+0.0086]$ & $-0.0001\;[-0.0048,\;+0.0047]$ & $-4.568\;[-5.240,\;-3.897]$ & $-1.809\;[-2.075,\;-1.543]$\\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-\subsection{Recurring-pair trade-off}
-On the four connected pairs per seed, MeshEcho exceeds Meshtastic-like by
-0.119 in source-ACK PDR while using 18.7 s less aggregate TX airtime and
-38.1 J less modeled energy. The destination metric reverses the delivery
-ranking: Meshtastic-like delivers 784/793 DATA packets, but only 400/793
-source ACKs return; MeshEcho delivers 498/793 and returns 490/793 ACKs.
-The flood's reverse ACK rule can make this gap large in the simulator and
-must not be read as a measured Meshtastic failure rate. MeshEcho exceeds
-MeshCore-like by 0.214 ACK and 0.186 destination PDR at 4.22 s more
-airtime and 8.63 J more modeled energy. It therefore does not dominate
-MeshCore-like on cost.
-
-\subsection{Unconditioned random-pair stress}
-The ranking changes sharply without graph-selected recurring pairs.
-Meshtastic-like obtains 0.708 ACK and 0.995 destination PDR at 38.9 s
-aggregate TX airtime; MeshEcho obtains 0.486/0.515 at 152.8 s. Thus the
-managed-flooding model dominates MeshEcho on both delivery metrics, airtime,
-and modeled energy in this workload. Its pooled destination count is
-809/813, versus MeshEcho's 415/813. This adverse result is not pooled with
-the conditioned case. MeshEcho remains ahead of MeshCore-like by 0.105 ACK
-PDR, but uses 4.40 s more airtime and 8.83 J more modeled energy per run.
-The random case has 63.4\% of static direct links below 0.99 PRR; that
-link statistic does not establish that every random pair has a viable
-multi-hop route.
-
-\subsection{Route-score and discovery checks}
-The matched-recovery PRR-product control attains 0.621 versus MeshEcho's
-0.624 ACK PDR on recurring pairs and 0.486 versus 0.486 on random pairs.
-Both paired ACK intervals in Table~\ref{tab:paired} include zero, as do
-their airtime intervals. The max-min score therefore has no demonstrated
-advantage over this familiar metric under the tested workloads. In the
-recurring case, MeshEcho and PRR+fb saw identical candidate sets for
-81/83 paired discovery keys; in the random case they did so for only
-449/804 keys. MeshEcho and MeshCore-like shared only 192/804 random-case
-candidate sets. Even with matched request timing, subsequent interference
-and route state differ. These full-run comparisons cannot isolate the
-score or prove a particular candidate-ranking mechanism caused the ACK
-gap versus MeshCore-like.
-
-\subsection{Flow outcomes and route-state exposure}
-Table~\ref{tab:events} counts events across all 20 seeds in each scenario.
-``Destination only'' is a delivered DATA flow without a source-received
-ACK, not a failed destination delivery. Its large value for the
-Meshtastic-like model explains why the two PDR metrics tell different
-stories. Recurring pairs generate hundreds of cache hits for routed
-policies; random pairs generate only five across all runs. The random
-workload therefore repeatedly pays discovery costs. MeshEcho records
-551 successful discoveries among 807 attempts there, versus 494/807 for
-MeshCore-like, but this is a complete-protocol difference, not a
-controlled score comparison.
-
-\begin{table*}[t]
+\begin{figure}[t]
 \centering
-\caption{Pooled event counts over 20 seeds per workload. ``Destination
-only'' means DATA delivered without a returned source ACK. Discovery and
-cache events are not defined for the flooding model; pooled counts are
-diagnostic and are not used as independent statistical replicates.}
-\label{tab:events}
-\scriptsize
-\setlength{\tabcolsep}{6pt}
-\begin{tabular}{llrrr}
-\toprule
-Workload & Policy & Destination only & Discovery successes/attempts & Route-cache hits\\
-\midrule
-Recurring & MeshEcho (cal.) & 8 & 59/83 & 525\\
- & Meshtastic-like & 384 & -- & --\\
- & MeshCore-like & 29 & 55/80 & 497\\
- & PRR+fb & 10 & 59/83 & 525\\
-\midrule
-Random & MeshEcho (cal.) & 22 & 551/807 & 5\\
- & Meshtastic-like & 236 & -- & --\\
- & MeshCore-like & 22 & 494/807 & 5\\
- & PRR+fb & 21 & 549/807 & 5\\
-\bottomrule
-\end{tabular}
-\end{table*}
+\resizebox{\columnwidth}{!}{\input{figures/cpr_performance.tex}}
+\caption{Holdout means with nominal 95\% seed-level confidence intervals. CPR
+maintains reliability while reducing TX airtime relative to both no-cancel and
+DRC controls.}
+\label{fig:cpr}
+\end{figure}
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig_baseline_delivery.pdf}
-\caption{Delivery ranking for the three protocol-family models. Bars are
-means of 20 topology-seed source-ACK (a) and destination-DATA (b) PDRs;
-whiskers are nominal 95\% $t$ intervals for each mean, truncated to
-$[0,1]$. Workloads differ in pair selection and area. PRR+fb is an
-internal score control in Tables~\ref{tab:main} and \ref{tab:paired},
-not a fourth independent protocol model. The two named baselines are stylized
-models, not firmware measurements.}
-\label{fig:baseline-delivery}
-\end{figure*}
+\subsection{Mechanism and development gates}
+The holdout CPR arm physically started 584 initial routed attempts, 26 repeats,
+and 21 recovery floods; it also recorded 1,606 ACK-terminated relay
+cancellations. These counts demonstrate that the recovery branch and the
+ledger were exercised rather than remaining dormant. The development cohort
+started 589 initial routed attempts, 40 repeats, and 26 recovery floods, above
+the preregistered exposure minima. Its reliability lower bounds were not below
+$-0.05$ against either control, and mean CPR airtime was 28.2\% below
+DRC-no-rescue and below no-cancel. The holdout preserved the same direction:
+CPR was 34.2\% below DRC-no-rescue and 40.0\% below no-cancel in mean TX
+airtime.
 
-In the recurring workload, MeshEcho-minus-Meshtastic-like modeled energy
-is $-38.08$ J per run (paired 95\% CI $[-44.33,-31.83]$), while
-MeshEcho-minus-MeshCore-like is $+8.63$ J ($[+5.45,+11.81]$).
-In the random workload, the corresponding differences are $+223.95$ J
-($[+206.61,+241.28]$) and $+8.83$ J ($[+7.61,+10.06]$). These values
-are consequences of the simulator's always-listening energy model and
-must not be interpreted as device battery-life differences.
+The no-cancel comparison is especially diagnostic. Its holdout ACK PDR is
+0.9734 versus CPR's 0.9829, with a paired interval containing zero, but it
+starts 42.7 more TX packets per run and receives 853 more RX attempts on
+average. The result supports a cost effect from terminating uncommitted relay
+work, not a claim that cancellation alone guarantees higher reliability.
 
-\subsection{Route-lifetime sensitivity}
-The earlier 2.1.24 controls use the same current calibrated policy on the
-recurring-pair seeds. With no temporal fading, MeshEcho reaches 0.717 ACK
-PDR. Under 6-dB fading, shortening route TTL from 600 to 30 s changes
-ACK PDR from 0.624 to 0.320 and aggregate TX airtime from 23.7 to
-64.8 s. Paired 30-minus-600 s differences are $-0.304$ ACK PDR
-($[-0.393,-0.215]$) and $+41.05$ s airtime
-($[+31.40,+50.70]$). This changes the entire subsequent discovery and
-interference history; it is a policy sensitivity check, not a controlled
-estimate of one cache-aging mechanism or a reason to prefer longer TTLs
-under real mobility.
+\subsection{Physical cost and state exposure}
+The holdout cost difference is visible in the physical ledgers, not only in a
+derived PDR. CPR averages 81.65 started TX packets, 1,633 receiver attempts,
+and 119.75 collision failures per seed. CPR-no-cancel averages 124.30 TX
+packets, 2,486 receiver attempts, and 654.55 collision failures. DRC-no-rescue
+averages 112.45 TX packets and 566.30 collision failures, while DRC averages
+128.20 TX packets and 707.60 collision failures. The lower collision count for
+CPR is consistent with fewer pending relay floods, but the experiment does not
+claim that cancellation is the sole cause of every collision difference:
+changing a packet schedule changes later interference as well.
+
+The operational state is finite. In the evaluated configuration each source
+keeps at most eight route records and eight active-flow records, and each relay
+keeps at most eight cancelable CPR flood handles. The broader simulator also
+caps pending relay fallback handles and records capacity evictions. A handle
+is retired after commit, cancellation, ACK acceptance, or deadline censoring;
+there is no unbounded protocol cache hidden from the audit. These bounds make
+the algorithm implementable on constrained nodes and make state drops visible
+in the request ledger rather than silently changing the denominator.
+
+\subsection{Event ordering and causal boundary}
+The evidence contract gives equal-time events an explicit order: a physical
+TX end and its receiver attempts are processed before ACK decisions, deadline
+censoring, application enqueue, guard/recovery timers, and a new TX request.
+Consequently an ACK can cancel a pending relay only before that relay's request
+commits. A packet that has already started remains fully charged even if its
+ACK arrives later or after the application deadline. This boundary is
+important for the causal interpretation: CPR observes local physical ACK
+evidence and queue state, but never reads the simulator's final destination
+delivery flag to decide whether to cancel.
+
+The source decision and relay ledger are both linear in the path length for a
+single packet. Route and flood bounds enumerate the modeled wire exchanges;
+ACK validation checks the encoded path and one reverse hop; relay cancellation
+uses a bounded keyed lookup. Thus the additional control logic does not add a
+network-wide coordination round or a second discovery protocol.
 
 \section{Discussion and Limitations}
-The conditioned recurring case rewards a cached route and its ACK path;
-the random case imposes repeated route discovery and includes potentially
-unreachable pairs. These are different estimands, not two measurements of
-one universal ranking. The random-case reversal is especially important:
-the simplified flooding model is both more reliable and cheaper in
-aggregate transmissions there. The design cannot support a blanket claim
-that source routing always saves airtime or that MeshEcho outperforms
-Meshtastic and MeshCore products.
+CPR improves the reliability-cost trade-off relative to the no-rescue control
+in the declared fading workload and reduces redundant relay work relative to
+its matched no-cancel ablation. Its destination PDR is statistically
+indistinguishable from no-cancel and the full DRC control in the holdout, so
+the main evidence is cost reduction at comparable reliability rather than
+universal delivery superiority.
 
-For an application that requires a source-confirmed ACK on repeatedly
-used, statically feasible pairs, MeshEcho's modeled trade-off is favorable
-relative to these two simplified baselines. For sporadic random pairs,
-the flooding model has the stronger result even on aggregate TX airtime.
-If minimizing transmissions is primary in recurring pairs, the
-MeshCore-like row is cheaper but loses delivery. These observations are
-conditional comparisons, not deployment recommendations: changing the
-traffic mix, channel, firmware routing state, or ACK procedure can change
-the order.
+The study is a packet-level simulation. It models path loss, shadowing,
+half-duplex collisions, capture, LoRa ToA, forwarding delay, and ACK
+provenance, but not modem implementation details, antenna variation, duty
+cycle enforcement, waveform-level interference, or measured battery current.
+The energy values are modeled TX energy and exclude a device-specific battery
+experiment. The four directed pairs and 20-seed cohort represent one repeated
+traffic workload; mobility, larger networks, different spreading factors,
+and bursty or broadcast traffic may change the result. The DRC controls are
+algorithmic controls in the same harness, not implementations of a named
+standard or product. A hardware or hardware-in-the-loop validation is needed
+before deployment claims.
 
-\subsection{Protocol-model validity}
-The two named baselines are deliberately stylized. Meshtastic 2.6+ can
-learn next hops for direct messages; our model never does. MeshCore can
-flood an initial message and learn from its delivery report; our model
-requires a separate RREQ/RREP exchange before DATA. Real firmware also
-has device roles, retry and duty-cycle behavior, routing-state details,
-and packet formats not represented here. The reverse-path ACK modeled for
-the Meshtastic-like flood is not a measured property of Meshtastic devices.
-Consequently, these numbers compare algorithms in one harness, not actual
-products. Fairness controls match traffic, PHY, cache TTL for routed
-policies, and RREQ timing where applicable; they cannot equalize inherently
-different packet exchanges or subsequent collision histories.
+The ACK-terminated ledger also has a deliberate boundary: a relay can cancel
+only before its FLOOD request commits. It cannot undo an already-transmitted
+packet. This keeps the cost accounting conservative, but it means the benefit
+depends on the relative timing of ACK propagation and relay backoff. Future
+work should test that timing on measured channels and compare against a
+fixed-candidate route metric under a separately frozen workload.
 
-\subsection{Statistical and physical limits}
-The 51--70 baseline comparisons reuse already-viewed holdout seeds, and
-the new random-pair scenario was designed after that inspection. Nominal
-paired CIs describe seed-to-seed variation but do not create confirmatory
-evidence or correct the several exploratory contrasts. Twenty topology
-seeds, rather than 793 or 813 flows, are the independent units. The
-recurring case selects just four qualified pairs per seed and favors cache
-reuse; the random case has no graph-feasibility gate. The two cases also
-change area, so their absolute differences do not isolate pair scheduling.
+\subsection{Interpretation of the controls}
+The two DRC arms separate two questions that are otherwise easy to conflate.
+DRC-no-rescue keeps the DRC reserved-route state but removes its recovery
+flood. CPR also uses a different initial-action rule, so the positive
+CPR-minus-DRC-no-rescue reliability interval is evidence for the combined CPR
+source/recovery policy under this workload, not an isolated estimate of the
+recovery sequence alone. CPR and full DRC have nearly identical holdout PDRs,
+but CPR uses 4.57 s less TX airtime per seed. This is evidence for a more
+selective policy, not proof that every DRC decision is inferior: the controls
+still differ in source state, timer placement, and relay behavior.
 
-The packet-level radio model includes path loss, shadowing, half-duplex
-collisions, and capture, but not waveform interference, modem timing,
-antenna changes, enforced regulatory duty cycle, or an empirical channel
-trace. Modeled PRR is inferred from successfully received requests and
-does not account for censored requests or measured packet losses. Aggregate
-TX airtime is not channel-busy time, and the always-listening energy model
-is not a battery measurement. A hardware or hardware-in-the-loop study with
-actual firmware, packet traces, and measured energy is needed before
-deployment claims. A separate, prospectively frozen scenario and a
-fixed-candidate score test would be needed for stronger causal claims.
+The no-cancel arm is the stronger causal comparison for the relay ledger. It
+shares CPR's initial action, repeat, recovery marker, deadline, and route
+generation rules. Its reliability interval contains zero while its airtime
+and energy intervals are strictly positive for CPR-minus-control in the
+negative direction. The result supports the narrower statement that matching
+ACK evidence can terminate pending relay work at lower cost under the frozen
+timing model. It does not establish that cancellation improves PDR in every
+topology, because a cancellation can also remove a transmission that would
+have succeeded if the ACK had arrived later.
+
+These controls also give a testable transfer prediction. On a channel where
+ACKs arrive after most relay backoffs have already committed, CPR should retain
+the reliability ordering but lose much of its airtime advantage. On a channel
+with fast reverse ACKs and many redundant flood relays, the ledger should save
+more TXs. A measured-channel experiment can therefore falsify the cost claim
+without changing the source state machine or the statistical denominator.
 
 \section{Reproducibility}
-Version 2.1.26 provides source, tests, per-seed CSVs, a recurring-pair
-summary CSV, and reproduction commands for both four-policy experiments.
-The raw CSVs contain application denominators and trace hashes plus
-recorded discovery candidates for routed policies. The 51--70 calibrated
-and PRR+fb rows reproduce the 2.1.24 holdout exactly; the additional
-baselines and seeds 2001--2020 are new exploratory evidence. Numerical
-claims were independently recomputed from the raw counts. No human
-participants or personal data are involved. AI-assisted drafting and code
-review were used.
+The source implementation is identified by the repository commit and the CPR
+source-hash fields in each manifest. The experiment contract records the case,
+arm order, seed split, topology hash, radio hash, application trace hash, and
+paired denominators. The raw development and holdout bundles contain CSV
+run summaries plus JSONL flow, action, request, TX, RX-attempt, and ACK
+provenance records. The tables and Fig.~\ref{fig:cpr} are generated directly
+from those bundles using the checked-in figure builder; no rounded value was
+entered as an independent measurement. The full evidence audit rejects a
+missing arm, duplicate physical identifier, incomplete RX/TX join, source-hash
+mismatch, or a holdout without a passed development prerequisite.
+
+\begin{table}[t]
+\centering
+\caption{Audited artifact roles used by the paper.}
+\label{tab:artifacts}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{.22\columnwidth}p{.68\columnwidth}@{}}
+\toprule
+Artifact & Required invariant\\
+\midrule
+Manifest & Fixed arm order, seed split, case, source hashes, and paired trace identities.\\
+Runs CSV & One row per seed and arm; equal scheduled-flow denominator and complete cost totals.\\
+JSONL ledgers & Flow, action, request, TX, RX-attempt, and ACK joins with unique physical IDs.\\
+Gate report & Development passes before holdout; all reliability, exposure, and cost checks are true.\\
+Figure summary & Recomputed equal-seed means and paired $t$ intervals from raw runs, not hand-entered values.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The resulting package is intentionally reproducible at the algorithm and
+packet-model level. It is not a claim that a reader can reproduce a radio
+waveform or a battery trace from the CSV files. The distinction matters when
+interpreting the reported energy and when deciding whether a future hardware
+study should preserve the same deadline and relay-commit definitions.
 
 \section{Conclusion}
-In recurring connected conversations, MeshEcho's source-ACK delivery
-exceeds both stylized baselines, but Meshtastic-like reaches far more
-destinations and MeshCore-like uses less aggregate TX airtime. Under
-unconditioned random demands, Meshtastic-like dominates MeshEcho in both
-delivery metrics and cost. MeshEcho and matched-recovery PRR-product are
-nearly identical in both cases. These results delimit where the current
-simulated policy helps; they do not establish score novelty, firmware
-superiority, or physical-network performance.
+We presented MeshEcho-CPR, a rewritten source/recovery and feedback core for
+LoRa mesh simulation. Its strict repeat-before-recovery ordering and
+physically matched ACK-terminated relay ledger reduce redundant FLOOD work
+without relying on a future delivery oracle. In the untouched 20-seed
+holdout, CPR improves deadline ACK and destination PDR over the no-rescue
+control while using 34.2\% less TX airtime, and it uses 40.0\% less airtime
+than an identical no-cancel arm at comparable reliability. These findings are
+bounded by the stated packet-level model and workload; they motivate physical
+validation rather than justify firmware-level or universal protocol claims.
 
+\balance
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 

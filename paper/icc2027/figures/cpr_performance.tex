@@ -1,0 +1,103 @@
+\begin{tikzpicture}[font=\sffamily\scriptsize, line join=round]
+\definecolor{CPRblue}{HTML}{0077BB}
+\definecolor{CPRorange}{HTML}{EE7733}
+\definecolor{CPRteal}{HTML}{009988}
+\definecolor{CPRred}{HTML}{CC3311}
+\definecolor{CPRgrid}{HTML}{D9D9D9}
+\begin{scope}[xshift=0.00cm]
+\draw[draw=black!55, line width=0.35pt] (0,0) rectangle (2.72,2.05);
+\draw[CPRgrid, line width=0.25pt] (0,0.0000) -- (2.72,0.0000);
+\node[anchor=east, font=\tiny] at (-0.05,0.0000) {0.85};
+\draw[CPRgrid, line width=0.25pt] (0,0.6406) -- (2.72,0.6406);
+\node[anchor=east, font=\tiny] at (-0.05,0.6406) {0.90};
+\draw[CPRgrid, line width=0.25pt] (0,1.2812) -- (2.72,1.2812);
+\node[anchor=east, font=\tiny] at (-0.05,1.2812) {0.95};
+\draw[CPRgrid, line width=0.25pt] (0,1.9219) -- (2.72,1.9219);
+\node[anchor=east, font=\tiny] at (-0.05,1.9219) {1.00};
+\node[anchor=south west, font=\scriptsize\bfseries] at (0,2.13) {(a) Deadline ACK PDR};
+\fill[CPRblue] (0.18,0.0000) rectangle (0.56,1.7027);
+\draw[black, line width=0.3pt] (0.37,1.5339) -- (0.37,1.8714);
+\draw[black, line width=0.3pt] (0.30,1.5339) -- (0.44,1.5339);
+\draw[black, line width=0.3pt] (0.30,1.8714) -- (0.44,1.8714);
+\node[anchor=north, align=center, font=\tiny] at (0.37,-0.08) {CPR};
+\fill[CPRorange] (0.78,0.0000) rectangle (1.16,1.5813);
+\draw[black, line width=0.3pt] (0.97,1.3788) -- (0.97,1.7837);
+\draw[black, line width=0.3pt] (0.90,1.3788) -- (1.04,1.3788);
+\draw[black, line width=0.3pt] (0.90,1.7837) -- (1.04,1.7837);
+\node[anchor=north, align=center, font=\tiny] at (0.97,-0.08) {CPR\\no cancel};
+\fill[CPRteal] (1.38,0.0000) rectangle (1.76,1.2751);
+\draw[black, line width=0.3pt] (1.57,0.9886) -- (1.57,1.5615);
+\draw[black, line width=0.3pt] (1.50,0.9886) -- (1.64,0.9886);
+\draw[black, line width=0.3pt] (1.50,1.5615) -- (1.64,1.5615);
+\node[anchor=north, align=center, font=\tiny] at (1.57,-0.08) {DRC\\no rescue};
+\fill[CPRred] (1.98,0.0000) rectangle (2.36,1.6791);
+\draw[black, line width=0.3pt] (2.17,1.4971) -- (2.17,1.8610);
+\draw[black, line width=0.3pt] (2.10,1.4971) -- (2.24,1.4971);
+\draw[black, line width=0.3pt] (2.10,1.8610) -- (2.24,1.8610);
+\node[anchor=north, align=center, font=\tiny] at (2.17,-0.08) {DRC};
+\end{scope}
+\begin{scope}[xshift=3.05cm]
+\draw[draw=black!55, line width=0.35pt] (0,0) rectangle (2.72,2.05);
+\draw[CPRgrid, line width=0.25pt] (0,0.0000) -- (2.72,0.0000);
+\node[anchor=east, font=\tiny] at (-0.05,0.0000) {0.85};
+\draw[CPRgrid, line width=0.25pt] (0,0.6406) -- (2.72,0.6406);
+\node[anchor=east, font=\tiny] at (-0.05,0.6406) {0.90};
+\draw[CPRgrid, line width=0.25pt] (0,1.2812) -- (2.72,1.2812);
+\node[anchor=east, font=\tiny] at (-0.05,1.2812) {0.95};
+\draw[CPRgrid, line width=0.25pt] (0,1.9219) -- (2.72,1.9219);
+\node[anchor=east, font=\tiny] at (-0.05,1.9219) {1.00};
+\node[anchor=south west, font=\scriptsize\bfseries] at (0,2.13) {(b) Destination PDR};
+\fill[CPRblue] (0.18,0.0000) rectangle (0.56,1.9012);
+\draw[black, line width=0.3pt] (0.37,1.8580) -- (0.37,1.9445);
+\draw[black, line width=0.3pt] (0.30,1.8580) -- (0.44,1.8580);
+\draw[black, line width=0.3pt] (0.30,1.9445) -- (0.44,1.9445);
+\node[anchor=north, align=center, font=\tiny] at (0.37,-0.08) {CPR};
+\fill[CPRorange] (0.78,0.0000) rectangle (1.16,1.9025);
+\draw[black, line width=0.3pt] (0.97,1.8618) -- (0.97,1.9431);
+\draw[black, line width=0.3pt] (0.90,1.8618) -- (1.04,1.8618);
+\draw[black, line width=0.3pt] (0.90,1.9431) -- (1.04,1.9431);
+\node[anchor=north, align=center, font=\tiny] at (0.97,-0.08) {CPR\\no cancel};
+\fill[CPRteal] (1.38,0.0000) rectangle (1.76,1.4343);
+\draw[black, line width=0.3pt] (1.57,1.2087) -- (1.57,1.6600);
+\draw[black, line width=0.3pt] (1.50,1.2087) -- (1.64,1.2087);
+\draw[black, line width=0.3pt] (1.50,1.6600) -- (1.64,1.6600);
+\node[anchor=north, align=center, font=\tiny] at (1.57,-0.08) {DRC\\no rescue};
+\fill[CPRred] (1.98,0.0000) rectangle (2.36,1.9025);
+\draw[black, line width=0.3pt] (2.17,1.8618) -- (2.17,1.9431);
+\draw[black, line width=0.3pt] (2.10,1.8618) -- (2.24,1.8618);
+\draw[black, line width=0.3pt] (2.10,1.9431) -- (2.24,1.9431);
+\node[anchor=north, align=center, font=\tiny] at (2.17,-0.08) {DRC};
+\end{scope}
+\begin{scope}[xshift=6.10cm]
+\draw[draw=black!55, line width=0.35pt] (0,0) rectangle (2.72,2.05);
+\draw[CPRgrid, line width=0.25pt] (0,0.0000) -- (2.72,0.0000);
+\node[anchor=east, font=\tiny] at (-0.05,0.0000) {0};
+\draw[CPRgrid, line width=0.25pt] (0,0.6308) -- (2.72,0.6308);
+\node[anchor=east, font=\tiny] at (-0.05,0.6308) {4};
+\draw[CPRgrid, line width=0.25pt] (0,1.2615) -- (2.72,1.2615);
+\node[anchor=east, font=\tiny] at (-0.05,1.2615) {8};
+\draw[CPRgrid, line width=0.25pt] (0,1.8923) -- (2.72,1.8923);
+\node[anchor=east, font=\tiny] at (-0.05,1.8923) {12};
+\node[anchor=south west, font=\scriptsize\bfseries] at (0,2.13) {(c) TX airtime (s)};
+\fill[CPRblue] (0.18,0.0000) rectangle (0.56,0.9919);
+\draw[black, line width=0.3pt] (0.37,0.8262) -- (0.37,1.1577);
+\draw[black, line width=0.3pt] (0.30,0.8262) -- (0.44,0.8262);
+\draw[black, line width=0.3pt] (0.30,1.1577) -- (0.44,1.1577);
+\node[anchor=north, align=center, font=\tiny] at (0.37,-0.08) {CPR};
+\fill[CPRorange] (0.78,0.0000) rectangle (1.16,1.6534);
+\draw[black, line width=0.3pt] (0.97,1.4478) -- (0.97,1.8590);
+\draw[black, line width=0.3pt] (0.90,1.4478) -- (1.04,1.4478);
+\draw[black, line width=0.3pt] (0.90,1.8590) -- (1.04,1.8590);
+\node[anchor=north, align=center, font=\tiny] at (0.97,-0.08) {CPR\\no cancel};
+\fill[CPRteal] (1.38,0.0000) rectangle (1.76,1.4876);
+\draw[black, line width=0.3pt] (1.57,1.3415) -- (1.57,1.6337);
+\draw[black, line width=0.3pt] (1.50,1.3415) -- (1.64,1.3415);
+\draw[black, line width=0.3pt] (1.50,1.6337) -- (1.64,1.6337);
+\node[anchor=north, align=center, font=\tiny] at (1.57,-0.08) {DRC\\no rescue};
+\fill[CPRred] (1.98,0.0000) rectangle (2.36,1.7123);
+\draw[black, line width=0.3pt] (2.17,1.4750) -- (2.17,1.9497);
+\draw[black, line width=0.3pt] (2.10,1.4750) -- (2.24,1.4750);
+\draw[black, line width=0.3pt] (2.10,1.9497) -- (2.24,1.9497);
+\node[anchor=north, align=center, font=\tiny] at (2.17,-0.08) {DRC};
+\end{scope}
+\end{tikzpicture}

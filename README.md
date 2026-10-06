@@ -7,9 +7,10 @@ protocols for comparison.
 
 Licensed under MIT.
 
-Current simulator version: `2.1.26` (ICC presentation of the optional calibrated
-MeshEcho variant versus stylized Meshtastic-like and MeshCore-like baselines;
-the frozen comparison data are from 2.1.25). The firmware prototype remains
+Current simulator version: `2.1.27` (ICC presentation of the MeshEcho-CPR
+source/recovery core with paired development and untouched holdout artifacts;
+the older calibrated MeshEcho comparison remains in the release history). The
+firmware prototype remains
 `meshecho-firmware-v2.1.2`.
 
 This is a compact packet-level Python simulator for comparing LoRa mesh routing
@@ -139,7 +140,7 @@ python3 tools/run_route_conflict_experiment.py
 The historical 2.1.23 raw rows and paired summary are archived at
 `results/meshecho_v2_1_23_icc2027_route_conflict.csv` and
 `docs/results/meshecho_v2_1_23_icc2027_route_conflict.md`. The current
-runner uses a 2.1.26 output prefix by default.
+historical runner uses a 2.1.26 output prefix by default.
 
 Run the fairness audit with null, moderate, and reverse weak-link controls:
 
@@ -190,22 +191,38 @@ deviation, and 95% confidence intervals. See
 layout and reproducibility rules. The verified matrix is summarized in
 [ICC 2027 Comparison](docs/results/icc2027_comparison.md).
 
-The current 2.1.26 ICC manuscript uses the frozen 2.1.25 comparison
-[summarized here](docs/results/icc2027_comparison.md). Its MeshEcho row is
-the optional `meshecho-calibrated` policy, not the default `meshecho` CLI mode.
-It compares that variant with two stylized protocol-family models:
-Meshtastic-like managed flooding and MeshCore-like cached source routing.
-PRR-product with matched route-miss fallback is an internal score control,
-not a fourth independent protocol model. On recurring pairs, seed-mean ACK/destination
-PDR and aggregate TX airtime are 0.624/0.633/23.7 s for MeshEcho,
-0.505/0.989/42.4 s for Meshtastic-like, and 0.410/0.448/19.5 s for
-MeshCore-like. On unconditioned random pairs, Meshtastic-like dominates
-MeshEcho: 0.708/0.995/38.9 s versus 0.486/0.515/152.8 s. These are
-simulated behavior-model results, not official firmware performance. See the
-[recurring-pair report](docs/results/meshecho_v2_1_25_icc2027_baseline_feedback_fading.md)
-and [random-pair report](docs/results/meshecho_v2_1_25_icc2027_random_sparse_fading_2001_2020.md).
-The paper's three-model delivery figure is generated directly from those
-CSV files with Python/Matplotlib:
+The current ICC manuscript is the five-page
+[MeshEcho-CPR paper](paper/icc2027/icc2027_lora_mesh.pdf), rebuilt from the
+audited CPR holdout. The candidate reaches `0.9829` deadline ACK PDR,
+`0.9984` destination PDR, and `6.290 s` mean complete-network TX airtime on
+the untouched 20-seed holdout. The paired controls are CPR-no-cancel,
+DRC-no-rescue, and the sealed DRC candidate. These are packet-level
+simulation results for the declared workload, not measurements of deployed
+Meshtastic or MeshCore hardware.
+
+The CPR development and holdout contracts, manifests, gate reports, and
+reproduction commands are documented in
+[`docs/research/meshecho_cpr_population_contract_20261006.md`](docs/research/meshecho_cpr_population_contract_20261006.md).
+Run the audit without rerunning the simulations:
+
+```bash
+python3 tools/audit_cpr_population.py \
+  --manifest results/meshecho_cpr_development_92200_92219_20261006.manifest.json \
+  --stage development \
+  --report /tmp/meshecho_cpr_development_audit.json
+
+python3 tools/audit_cpr_population.py \
+  --manifest results/meshecho_cpr_holdout_92300_92319_20261006.manifest.json \
+  --stage holdout \
+  --development-report results/meshecho_cpr_development_92200_92219_20261006.gate.json \
+  --report /tmp/meshecho_cpr_holdout_audit.json
+```
+
+The older calibrated MeshEcho, Meshtastic-like, and MeshCore-like matrices
+remain available as historical comparison artifacts and are not the evidence
+behind the CPR paper.
+
+### Historical 2.1.25/2.1.26 comparison artifacts
 
 ```bash
 uv run --python 3.12 --no-project --with matplotlib==3.11.2 python \
@@ -272,7 +289,7 @@ same connected-pair quality contract:
 python3 tools/run_icc_sensitivity_experiments.py
 ```
 
-The runner uses a 2.1.26 output prefix by default. Historical 2.1.22
+The historical runner uses a 2.1.26 output prefix by default. Historical 2.1.22
 20-seed SF8 and higher-load results are archived under the
 `meshecho_v2_1_22_icc2027_sensitivity_*` prefix. The cases are robustness
 evidence and are not pooled with the fading holdout.
@@ -297,7 +314,7 @@ python3 tools/run_icc_generalization_experiment.py \
   --out-prefix meshecho_v2_1_23_icc2027_generalization
 ```
 
-Do not use that historical output prefix from the current 2.1.26 checkout;
+Do not use that historical output prefix as a CPR result prefix;
 it would overwrite the archived 2.1.23 artifacts. The old runner wrote
 separate 20-seed reports for random pairs, a 100-node
 3--5-hop case, and repeated-pair temporal fading with 600 s and 30 s route
