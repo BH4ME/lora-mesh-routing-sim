@@ -9,12 +9,15 @@
   need to invent a second algorithm.
 - Read-only PDF inspection recommends `build-2_1_27-cpr-final`; no layout or
   author-glyph defect was found.
+- Full regression attempt via bare `pytest -q` stopped at collection with
+  environment-only `ModuleNotFoundError` errors; `python3 -m pytest` collected
+  CPR tests correctly, so the regression is being rerun through that launcher.
 
 ## 2026-10-06 final verification continuation
 
 - Re-ran both CPR population audits; development and untouched holdout remain
   valid and passed.
-- Full `pytest` regression completed: `1181 passed, 1 skipped` in 434.18 s.
+- Earlier checkpoint regression completed: `1181 passed, 1 skipped` in 434.18 s.
 - Built `paper/icc2027/build-cpr-balanced-5/icc2027_lora_mesh.pdf` with the
   final ledger wording and two-column reference balancing; PDF metadata reports
   five Letter pages.
@@ -23,6 +26,15 @@
   Quan`.
 - Next action is release packaging only: canonical PDF copy, version/metadata
   consistency, final diff checks, and the requested GitHub update.
+
+## 2026-10-06 clean formal rerun complete
+
+- Re-generated formal development and holdout after source commit
+  `a013067ebf5d7ba7031d38634f7caf3bfda99dbb`; both population gate reports
+  passed and raw manifests bind to that clean revision.
+- Full regression through `python3 -m pytest`: `1182 passed, 1 skipped`.
+- Final PDF metadata/render/CJK checks, py_compile, and diff checks passed.
+- Package staging remains: formal artifacts only, then commit and push.
 
 ## 2026-10-06 CPR manuscript and PDF checkpoint
 

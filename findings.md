@@ -21,6 +21,24 @@
   begins references at the bottom of page 4; it is not the preferred visual
   artifact.
 
+## 2026-10-06 regression launcher diagnosis
+
+- Bare `/Users/bh4me_macair/Library/Python/3.9/bin/pytest` failed at test
+  collection because its launcher did not expose the repository root.
+- `/usr/bin/python3 -m pytest` collected `tests/test_meshecho_cpr.py` normally;
+  rerun the full regression through the module launcher.
+
+## 2026-10-06 clean formal rerun
+
+- Development and holdout manifests both record clean revision
+  `a013067ebf5d7ba7031d38634f7caf3bfda99dbb`, version `2.1.27`, and the
+  expected split/stage. Independent audits pass all checks.
+- Full regression is `1182 passed, 1 skipped`. The final PDF is five-page
+  Letter with embedded fonts, `HAS_CJK=False`, and authors `Zu Gao`/`Zhi Quan`.
+- Only formal development/holdout artifacts and gate reports belong in the
+  release commit; exploratory/smoke artifacts and intermediate PDF builds are
+  excluded.
+
 ## 2026-10-06 release closure checkpoint
 
 - The current release metadata is now `2.1.27`; the previous 2.1.25/2.1.26

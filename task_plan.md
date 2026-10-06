@@ -13,6 +13,17 @@
 - [complete] Read-only PDF inspection found `build-2_1_27-cpr-final` clean on
   all five pages; it is preferred over `build-cpr-balanced-5` because all
   references stay on page 5.
+- [error logged] Bare `pytest -q` failed during collection because the user
+  site pytest launcher did not put the repository root on `sys.path`; the same
+  interpreter collected CPR tests successfully with `python3 -m pytest`.
+- [complete] Re-generated development and holdout artifacts after clean commit
+  `a013067ebf5d7ba7031d38634f7caf3bfda99dbb`; both independent population
+  audits passed and both manifests record that clean revision.
+- [complete] Full regression passed with `1182 passed, 1 skipped`; py_compile,
+  diff checks, PDF metadata and Unicode scans also passed.
+- [in_progress] Stage only the formal CPR artifacts and commit/push the final
+  package; leave exploratory, smoke, historical, and intermediate build files
+  untracked and out of the release.
 
 ## 2026-10-06 release closure checkpoint
 

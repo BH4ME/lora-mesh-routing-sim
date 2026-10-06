@@ -144,3 +144,9 @@ successor algorithm; only the physical simulation substrate is shared with DRC
 for fair controls. `MeshEchoCPR` still inherits the DRC implementation class,
 so release review must distinguish policy independence from implementation
 reuse and decide whether to refactor that base before committing.
+
+The release decision is to retain the CPR core and shared physical substrate;
+no second algorithm rewrite is justified by the audited evidence. Clean formal
+development/holdout reruns completed on commit `a013067` with all population
+gates and the full test suite passing. Final packaging should include only the
+CPR source, contract, paper, formal artifacts, and gate reports.
