@@ -4,7 +4,7 @@
 
 - The MeshEcho-SR-to-CPR algorithm rewrite, ICC paper revision, formal
   development/holdout simulation and independent audits are complete.
-- The verified release is `version/v2` at local/remote commit `e9a9f35`.
+- The verified release is `version/v2` at local/remote commit `6a050c3`.
 - Canonical PDF is five-page Letter with `Zu Gao` and `Zhi Quan`; SHA-256 is
   `a780eb61cd75b6c3fb830439275d8e2c808d00da491962a0101803beae9eedc5`.
 - Before any future context compression, append new work to this handoff and

@@ -5,7 +5,7 @@
 - MeshEcho-CPR core rewrite, CPR ICC manuscript/PDF, paired development and
   holdout simulation, independent audits, full regression and GitHub push are
   complete.
-- Final local/remote branch: `version/v2` at `e9a9f35`.
+- Final local/remote branch: `version/v2` at `6a050c3`.
 - Final canonical PDF: five-page Letter, authors `Zu Gao` and `Zhi Quan`, no
   CJK glyphs; SHA-256 `a780eb61cd75b6c3fb830439275d8e2c808d00da491962a0101803beae9eedc5`.
 - No required next action remains for the stated objective. Preserve the

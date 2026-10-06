@@ -12,7 +12,7 @@
 - [complete] Full regression: `1182 passed, 1 skipped`; PDF, Unicode, compile,
   metadata and whitespace checks passed.
 - [complete] Pushed `version/v2` to GitHub; local and remote HEAD are
-  `e9a9f35`. GitHub accepted the two large RX-attempt ledgers with a size
+  `6a050c3`. GitHub accepted the two large RX-attempt ledgers with a size
   recommendation warning.
 - [complete] `task_plan.md`, `findings.md`, `progress.md`, and the CPR handoff
   contain resumable checkpoints for future automatic context compression.
