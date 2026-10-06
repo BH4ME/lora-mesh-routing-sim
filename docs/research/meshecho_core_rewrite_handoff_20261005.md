@@ -150,3 +150,7 @@ no second algorithm rewrite is justified by the audited evidence. Clean formal
 development/holdout reruns completed on commit `a013067` with all population
 gates and the full test suite passing. Final packaging should include only the
 CPR source, contract, paper, formal artifacts, and gate reports.
+
+The package was subsequently committed as `7d2753c` plus verification commit
+`ad24baa` and pushed to `origin/version/v2`. The two large RX-attempt ledgers
+were accepted by GitHub with a recommended-size warning.

@@ -1,5 +1,11 @@
 # Task Plan: MeshEcho Core Rewrite and ICC Evidence
 
+## 2026-10-06 GitHub publication complete
+
+- [complete] Pushed `version/v2` to GitHub; remote HEAD is `ad24baa` and the
+  branch is synchronized. GitHub emitted only the recommended-size warning for
+  the two large RX-attempt ledgers; both were accepted.
+
 ## 2026-10-06 algorithm-boundary continuation
 
 - [complete] Confirmed from `meshecho_cpr.py` and `lora_mesh_sim.py` that CPR

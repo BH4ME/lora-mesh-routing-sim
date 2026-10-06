@@ -1,5 +1,13 @@
 # Progress Log
 
+## 2026-10-06 GitHub publication complete
+
+- Formal CPR package was pushed to `origin/version/v2`; remote and local HEAD
+  are `ad24baa`.
+- The release contains the CPR source, ICC LaTeX/PDF, contract, formal
+  development/holdout raw ledgers, and passed gate reports. Exploratory and
+  intermediate files remain untracked locally and were not pushed.
+
 ## 2026-10-06 algorithm-boundary continuation
 
 - Read the persisted CPR plan and source boundary after context handoff.

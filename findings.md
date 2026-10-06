@@ -1,5 +1,12 @@
 # Findings
 
+## 2026-10-06 GitHub publication
+
+- `version/v2` was pushed successfully to `origin` at `ad24baa`.
+- GitHub warned that the two RX-attempt JSONL files are above the recommended
+  50 MB size (about 93 MB and 89 MB), but accepted the push. This is a storage
+  warning, not a failed upload.
+
 ## 2026-10-06 algorithm-boundary review
 
 - `meshecho_cpr.py:199` exposes `choose_recovery_action`, whose strict order is
