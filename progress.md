@@ -5,12 +5,15 @@
 - MeshEcho-CPR core rewrite, CPR ICC manuscript/PDF, paired development and
   holdout simulation, independent audits, full regression and GitHub push are
   complete.
-- Final local/remote branch: `version/v2` at `6a050c3`.
+- Final published branch: `origin/version/v2` at `6a050c3`; local HEAD is
+  metadata-only handoff commit `e83a970`, pending a future network retry.
 - Final canonical PDF: five-page Letter, authors `Zu Gao` and `Zhi Quan`, no
   CJK glyphs; SHA-256 `a780eb61cd75b6c3fb830439275d8e2c808d00da491962a0101803beae9eedc5`.
 - No required next action remains for the stated objective. Preserve the
   historical logs below for recovery context; do not treat their old pending
   entries as current state.
+- The complete release is already on GitHub; only the latest Markdown pointer
+  commit is not synchronized because GitHub was unreachable during retries.
 
 ## 2026-10-06 GitHub publication complete
 

@@ -4,12 +4,17 @@
 
 - The MeshEcho-SR-to-CPR algorithm rewrite, ICC paper revision, formal
   development/holdout simulation and independent audits are complete.
-- The verified release is `version/v2` at local/remote commit `6a050c3`.
+- The verified published release is `origin/version/v2` at `6a050c3`. Local
+  HEAD additionally has metadata-only handoff commit `e83a970`; it is pending
+  push because GitHub is currently unreachable.
 - Canonical PDF is five-page Letter with `Zu Gao` and `Zhi Quan`; SHA-256 is
   `a780eb61cd75b6c3fb830439275d8e2c808d00da491962a0101803beae9eedc5`.
 - Before any future context compression, append new work to this handoff and
   the three root planning files. After compression, read all four before
   taking action. The older sections below are historical checkpoints.
+
+Three retries of the metadata-only push failed at the network layer. Do not
+rerun simulations or alter the algorithm for this external failure.
 
 ## 2026-10-06 final verification continuation
 

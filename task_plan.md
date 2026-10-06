@@ -11,15 +11,19 @@
   untouched holdout `92300..92319` on clean source revision `a013067`.
 - [complete] Full regression: `1182 passed, 1 skipped`; PDF, Unicode, compile,
   metadata and whitespace checks passed.
-- [complete] Pushed `version/v2` to GitHub; local and remote HEAD are
-  `6a050c3`. GitHub accepted the two large RX-attempt ledgers with a size
-  recommendation warning.
+- [complete] Pushed the complete CPR release package to GitHub at remote
+  `6a050c3`; GitHub accepted the two large RX-attempt ledgers with a size
+  recommendation warning. A later metadata-only handoff commit is local at
+  `e83a970` and remains pending only because GitHub is currently unreachable.
 - [complete] `task_plan.md`, `findings.md`, `progress.md`, and the CPR handoff
   contain resumable checkpoints for future automatic context compression.
 
 The historical sections below document prior NO-GO trials and are not the
 current release state. No further algorithm rewrite, holdout rerun, VERSION
 bump, or EDAS action is required for this objective.
+
+The last three push retries failed at the network layer (connection timeout,
+HTTP/2 framing error). This does not invalidate the already published release.
 
 ## 2026-10-06 algorithm-boundary continuation
 
