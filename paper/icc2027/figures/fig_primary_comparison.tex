@@ -1,0 +1,110 @@
+\begin{tikzpicture}[
+    font=\sffamily\tiny,
+    axis/.style={draw=ink, line width=0.55pt},
+    gridline/.style={draw=grid, line width=0.3pt},
+    tick/.style={font=\sffamily\tiny, text=muted},
+    value/.style={font=\sffamily\tiny, text=ink, anchor=south},
+    whisker/.style={draw=ink, line width=0.45pt},
+    bar/.style={draw=ink, line width=0.25pt}
+]
+\definecolor{ink}{HTML}{1F2937}
+\definecolor{muted}{HTML}{64748B}
+\definecolor{grid}{HTML}{D4DEE9}
+\definecolor{flood}{HTML}{94A3B8}
+\definecolor{source}{HTML}{E58B2A}
+\definecolor{metric}{HTML}{2F6FA7}
+\definecolor{minhop}{HTML}{8B7DB3}
+\definecolor{meshecho}{HTML}{2E8B57}
+
+\def\H{2.25}
+\def\W{3.18}
+\def\gap{0.52}
+\def\panelshift{3.70}
+\def\barw{0.34}
+\def\xone{0.38}
+\def\xtwo{0.98}
+\def\xthree{1.58}
+\def\xfour{2.18}
+\def\xfive{2.78}
+
+% (a) ACK-confirmed PDR, y range 0--0.8.
+\begin{scope}
+  \foreach \y/\lab in {0/0.0,0.5625/0.2,1.125/0.4,1.6875/0.6,2.25/0.8} {
+    \draw[gridline] (0,\y) -- (\W,\y);
+    \draw[axis] (0,\y) -- ++(-0.035,0);
+    \node[tick, anchor=east] at (-0.08,\y) {\lab};
+  }
+  \draw[axis] (0,0) -- (0,\H);
+  \draw[axis] (0,0) -- (\W,0);
+  \node[font=\sffamily\scriptsize\bfseries, text=ink, anchor=south west]
+    at (0,\H+0.10) {(a) ACK PDR};
+
+  % Version 2.1.23 fixed-once matrix: seed means and seed-level 95% CIs.
+  \fill[bar, fill=flood] (\xone,0) rectangle ++(\barw,1.2480);
+  \fill[bar, fill=source] (\xtwo,0) rectangle ++(\barw,1.1953);
+  \fill[bar, fill=metric] (\xthree,0) rectangle ++(\barw,1.5586);
+  \fill[bar, fill=minhop] (\xfour,0) rectangle ++(\barw,1.3359);
+  \fill[bar, fill=meshecho] (\xfive,0) rectangle ++(\barw,1.9453);
+
+  \foreach \x/\m/\lo/\hi in {
+      \xone/1.2480/1.1111/1.3850,
+      \xtwo/1.1953/1.0241/1.3665,
+      \xthree/1.5586/1.4150/1.7022,
+      \xfour/1.3359/1.1612/1.5106,
+      \xfive/1.9453/1.7960/2.0946} {
+    \draw[whisker] (\x+0.17,\lo) -- (\x+0.17,\hi);
+    \draw[whisker] (\x+0.10,\lo) -- (\x+0.24,\lo);
+    \draw[whisker] (\x+0.10,\hi) -- (\x+0.24,\hi);
+  }
+
+  \foreach \x/\lab in {
+      \xone/Flood,
+      \xtwo/Src,
+      \xthree/ETX,
+      \xfour/Min,
+      \xfive/Echo} {
+    \node[tick, anchor=north, rotate=38] at (\x+0.17,-0.08) {\lab};
+  }
+  \node[tick, anchor=north] at (\W/2,-0.60) {Routing policy};
+\end{scope}
+
+% (b) Total airtime, y range 0--100 s.
+\begin{scope}[xshift=\panelshift cm]
+  \foreach \y/\lab in {0/0,0.5625/25,1.125/50,1.6875/75,2.25/100} {
+    \draw[gridline] (0,\y) -- (\W,\y);
+    \draw[axis] (0,\y) -- ++(-0.035,0);
+    \node[tick, anchor=east] at (-0.08,\y) {\lab};
+  }
+  \draw[axis] (0,0) -- (0,\H);
+  \draw[axis] (0,0) -- (\W,0);
+  \node[font=\sffamily\scriptsize\bfseries, text=ink, anchor=south west]
+    at (0,\H+0.10) {(b) Airtime (s)};
+
+  \fill[bar, fill=flood] (\xone,0) rectangle ++(\barw,0.6265);
+  \fill[bar, fill=source] (\xtwo,0) rectangle ++(\barw,2.0358);
+  \fill[bar, fill=metric] (\xthree,0) rectangle ++(\barw,2.0557);
+  \fill[bar, fill=minhop] (\xfour,0) rectangle ++(\barw,2.0421);
+  \fill[bar, fill=meshecho] (\xfive,0) rectangle ++(\barw,2.0992);
+
+  \foreach \x/\m/\lo/\hi in {
+      \xone/0.6265/0.6079/0.6450,
+      \xtwo/2.0358/2.0270/2.0446,
+      \xthree/2.0557/2.0473/2.0642,
+      \xfour/2.0421/2.0336/2.0505,
+      \xfive/2.0992/2.0902/2.1081} {
+    \draw[whisker] (\x+0.17,\lo) -- (\x+0.17,\hi);
+    \draw[whisker] (\x+0.10,\lo) -- (\x+0.24,\lo);
+    \draw[whisker] (\x+0.10,\hi) -- (\x+0.24,\hi);
+  }
+
+  \foreach \x/\lab in {
+      \xone/Flood,
+      \xtwo/Src,
+      \xthree/ETX,
+      \xfour/Min,
+      \xfive/Echo} {
+    \node[tick, anchor=north, rotate=38] at (\x+0.17,-0.08) {\lab};
+  }
+  \node[tick, anchor=north] at (\W/2,-0.60) {Routing policy};
+\end{scope}
+\end{tikzpicture}

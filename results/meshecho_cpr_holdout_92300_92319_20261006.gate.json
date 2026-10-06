@@ -1,0 +1,68 @@
+{
+  "airtime_means": {
+    "meshecho-cpr": 6.2903423999999175,
+    "meshecho-cpr-nocancel": 10.4850687999999,
+    "meshecho-drc-no-rescue": 9.433459199999907
+  },
+  "audit_tool_sha256": "a41166de2b8a689db40776c9cb73bbd33ba6ed62abff9632bd7a7012b6f3214b",
+  "checks": {
+    "ack_lower_bounds": true,
+    "airtime_vs_no_cancel": true,
+    "airtime_vs_no_rescue": true,
+    "artifact_audit": true,
+    "delivery_lower_bounds": true,
+    "incomplete_rx_tx_zero": true,
+    "recovery_exposure": true,
+    "repeat_exposure": true,
+    "scheduled_flow_denominator": true
+  },
+  "development_prerequisite": {
+    "manifest_sha256": "d37d0fc48c5f61a802a5427e5d77c65b0dd0d28c4f02e7e52e3e7691535ba891",
+    "report": "results/meshecho_cpr_development_92200_92219_20261006.gate.json",
+    "report_sha256": "8c36a74af5b7fdd21f5ed948670065a350b403380bd0d2f8b26d3d5c713d1917"
+  },
+  "exposure": {
+    "F_RECOVERY": 21,
+    "R_INITIAL": 584,
+    "R_REPEAT": 26
+  },
+  "manifest": "results/meshecho_cpr_holdout_92300_92319_20261006.manifest.json",
+  "manifest_sha256": "e862f093f26c6ec0fa42d190a10b6beff40f0a7348aac3a6f2a01d163be02068",
+  "paired_statistics": [
+    {
+      "ack_pdr_ci_high": 0.02175839757843049,
+      "ack_pdr_ci_low": -0.0028098023140457618,
+      "ack_pdr_mean": 0.009474297632192364,
+      "airtime_ci_high": -3.7036317594389616,
+      "airtime_ci_low": -4.685821040561002,
+      "airtime_mean": -4.194726399999982,
+      "comparator": "meshecho-cpr-nocancel",
+      "delivery_pdr_ci_high": 0.004654041587887851,
+      "delivery_pdr_ci_low": -0.004849545009197723,
+      "delivery_pdr_mean": -9.775171065493638e-05,
+      "relative_airtime_ci_high": -0.37012158191665406,
+      "relative_airtime_ci_low": -0.44882019711976656,
+      "relative_airtime_mean": -0.4094708895182103,
+      "seed_count": 20
+    },
+    {
+      "ack_pdr_ci_high": 0.04953826639945929,
+      "ack_pdr_ci_low": 0.017203776039390974,
+      "ack_pdr_mean": 0.03337102121942513,
+      "airtime_ci_high": -2.529047365705483,
+      "airtime_ci_low": -3.7571862342944984,
+      "airtime_mean": -3.1431167999999907,
+      "comparator": "meshecho-drc-no-rescue",
+      "delivery_pdr_ci_high": 0.05381385977215587,
+      "delivery_pdr_ci_low": 0.019066548358835814,
+      "delivery_pdr_mean": 0.03644020406549584,
+      "relative_airtime_ci_high": -0.27306627800058764,
+      "relative_airtime_ci_low": -0.4106460025660739,
+      "relative_airtime_mean": -0.3418561402833308,
+      "seed_count": 20
+    }
+  ],
+  "passed": true,
+  "schema": "meshecho-cpr-population-audit-v1",
+  "stage": "holdout"
+}

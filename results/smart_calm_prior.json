@@ -1,0 +1,57 @@
+{
+  "duration_s": 360.0,
+  "exploration": 0.12,
+  "flow_timeout_s": 35.0,
+  "learning_rate": 0.45,
+  "q_values": [
+    {
+      "action": 0,
+      "state": 0,
+      "value": -0.5396808381225883
+    },
+    {
+      "action": 1,
+      "state": 0,
+      "value": 4.275074615141261
+    },
+    {
+      "action": 0,
+      "state": 1,
+      "value": 2.2942857716096827
+    },
+    {
+      "action": 1,
+      "state": 1,
+      "value": 2.2902391274545835
+    },
+    {
+      "action": 2,
+      "state": 1,
+      "value": 1.315810342574369
+    },
+    {
+      "action": 0,
+      "state": 3,
+      "value": 4.00389341132817
+    },
+    {
+      "action": 1,
+      "state": 3,
+      "value": 3.7657652641422814
+    },
+    {
+      "action": 2,
+      "state": 3,
+      "value": 4.9773566053220595
+    },
+    {
+      "action": 0,
+      "state": 5,
+      "value": 2.967579840631477
+    }
+  ],
+  "rounds": 2,
+  "seeds": 2,
+  "update_interval_s": 30.0,
+  "version": 1
+}

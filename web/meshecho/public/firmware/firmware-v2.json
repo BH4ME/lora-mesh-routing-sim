@@ -1,0 +1,30 @@
+{
+  "project": "MeshEcho",
+  "version": "v2.0.0",
+  "released_at": "2026-06-05",
+  "schema": "meshecho-release-manifest-v1",
+  "targets": [
+    {
+      "id": "esp32dev_sx1262",
+      "chip": "ESP32",
+      "radio": "SX1262",
+      "display_name": "ESP32 DevKit + SX1262",
+      "manifest_url": "/firmware/esp32dev_sx1262/firmware-esp32dev_sx1262-v2.me.json"
+    },
+    {
+      "id": "esp32dev_sx127x",
+      "chip": "ESP32",
+      "radio": "SX127x/RFM9x",
+      "display_name": "ESP32 DevKit + SX127x/RFM9x",
+      "manifest_url": "/firmware/esp32dev_sx127x/firmware-esp32dev_sx127x-v2.me.json"
+    },
+    {
+      "id": "nrf52840_sx1262",
+      "chip": "nRF52840",
+      "radio": "SX1262",
+      "display_name": "nRF52840 + SX1262",
+      "manifest_url": "/firmware/nrf52840_sx1262/firmware-nrf52840_sx1262-v2.me.json",
+      "support": "planned"
+    }
+  ]
+}
