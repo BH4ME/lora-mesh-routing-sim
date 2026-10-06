@@ -1,0 +1,131 @@
+{
+  "application_trace_schema": "time+ordinal+src+dst+flow_id",
+  "artifacts": {
+    "acks": {
+      "records": 2700,
+      "sha256": "729ea4bdcf7a0b78f6d1cd19cab33fa9b6ab5fe85f430f76e90dd52a6877d008"
+    },
+    "actions": {
+      "records": 7302,
+      "sha256": "a3190cd2fdcecdf7839c3c6762d755fe5b0d3e01081af40fcf5afe7da3ade2dc"
+    },
+    "flows": {
+      "records": 2672,
+      "sha256": "6feb99a009d6fcef91b83b1cb13eadda692db191ce7b3a12aa1d0003f9d0467f"
+    },
+    "paired": {
+      "records": 60,
+      "sha256": "089602ea648cb77e215a2a0ca60bfb61a5f906669d6138861a3a3309500af40d"
+    },
+    "requests": {
+      "records": 13889,
+      "sha256": "901204062c41b788a010154fb591b98ad43dab00ce3ccdf5526b0d563d5befa9"
+    },
+    "runs": {
+      "records": 80,
+      "sha256": "0acd8afde6f54be9ab1d51828afebc4203fa9fef59641a8b66a5d031d7cb311e"
+    },
+    "rx_attempts": {
+      "records": 178640,
+      "sha256": "e31121c405032d739b87e99d9c95cdd46233fc8a2e698d484009beb942580742"
+    },
+    "tx": {
+      "records": 8932,
+      "sha256": "35d11bd2650a04a73287c97a235821511f428937c6cee60407a8758077852a2b"
+    }
+  },
+  "case": {
+    "area_m": 3000.0,
+    "bw_hz": 125000,
+    "capture_threshold_db": 6.0,
+    "cr": 1,
+    "duration_s": 240.0,
+    "fixed_guard_s": 15.0,
+    "flood_base_delay_s": 0.45,
+    "flood_jitter_s": 0.65,
+    "key": "cpr_exposure",
+    "max_hops": 6,
+    "nodes": 20,
+    "pair_count": 4,
+    "pair_schedule": "poisson",
+    "path_loss_exp": 2.75,
+    "payload_bytes": 32,
+    "rate_per_min": 8.0,
+    "route_ttl_s": 600.0,
+    "safety_margin_s": 0.25,
+    "sf": 7,
+    "shadow_sigma_db": 4.0,
+    "temporal_fading_interval_s": 60.0,
+    "temporal_fading_sigma_db": 6.0,
+    "traffic": "unicast",
+    "tx_power_dbm": 17.0
+  },
+  "case_sha256": "db52d1ff308daccbab84ff710e5f350032402a1f2e5907eacfff28797fed6de8",
+  "contract_path": "docs/research/meshecho_cpr_smoke_contract_20261006.md",
+  "contract_sha256": "361e1f039371bf7cdba539c051688a2423e675be06df04d35c2d57604aed5f2b",
+  "counts": {
+    "accepted_acks": 2592,
+    "incomplete_rx_tx": 0,
+    "requests": 13889,
+    "runs": 80,
+    "rx_attempts": 178640,
+    "scheduled_flows": 2672,
+    "transmissions": 8932
+  },
+  "deadline_s": 30.0,
+  "event_priority": {
+    "app_send": 1,
+    "flow_timeout": 1,
+    "protocol_timer": 1,
+    "tx_end": 0,
+    "tx_request": 2
+  },
+  "experiment_stage": "holdout",
+  "gates": {
+    "development": false,
+    "holdout": false,
+    "mechanical_smoke": false
+  },
+  "git_revision": "a013067ebf5d7ba7031d38634f7caf3bfda99dbb",
+  "protocols": [
+    "meshecho-cpr",
+    "meshecho-cpr-nocancel",
+    "meshecho-drc-no-rescue",
+    "meshecho-drc"
+  ],
+  "python_version": "3.9.6",
+  "schema": "meshecho-cpr-evidence-v2",
+  "seed_split": "holdout",
+  "seeds": [
+    92300,
+    92301,
+    92302,
+    92303,
+    92304,
+    92305,
+    92306,
+    92307,
+    92308,
+    92309,
+    92310,
+    92311,
+    92312,
+    92313,
+    92314,
+    92315,
+    92316,
+    92317,
+    92318,
+    92319
+  ],
+  "sim_version": "2.1.27",
+  "source_sha256": {
+    "VERSION": "6515d63d1330ec32cd613bdf921572b4356342fa4b3f7acbd3c1fdd7f090a77c",
+    "docs/research/meshecho_cpr_smoke_contract_20261006.md": "361e1f039371bf7cdba539c051688a2423e675be06df04d35c2d57604aed5f2b",
+    "lora_mesh_sim.py": "9c9a43aae097d91ea7652c18f06bb76e098707ebd3815e138403d296a674869a",
+    "meshecho_cpr.py": "16a937ecb3a0cb7b4eb80c6534e0f024dc56867b8f71c41a617db60c9ecd5648",
+    "meshecho_drc.py": "4b6bdf43be1f4d544f8733f41779cf19e521894240d7ec71f3bec8777f3b897b",
+    "meshecho_utility.py": "d82ab28c339b5ccd7de92316c16e142b1646fbd9ec2988c4b6c932bd6771ea62",
+    "tools/run_cpr_experiment.py": "1dd73b7b402bf69afccacaf620bdbfb452e239033bf3996eb686783bd787d27e"
+  }
+}
