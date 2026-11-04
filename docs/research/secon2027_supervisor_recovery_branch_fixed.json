@@ -1,0 +1,121 @@
+{
+  "source_root": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo",
+  "expected": "fixed",
+  "existing_fixture_seed": 23,
+  "simulator_run_calls": 0,
+  "sha256": {
+    "lora_mesh_sim.py": "e80beb763e3f63bccfc13d15a27275de432138f6774e56d3649c9f8bc43f4d01",
+    "meshecho_cpr.py": "c7e24fdfdbbdf5b27d2da5dba7ced73ba6d8c2a3178d3197bb202b5409067d8e",
+    "meshecho_drc.py": "db1fca8012eb1225c7a77385d2b121be5c04c4bf99264e4ceec4b0acc907019e"
+  },
+  "script_sha256": "ded4534b90a60f4a4b995fa7c6e9d38f68541700726a8e69fcea8b9e42aa63f7",
+  "results": [
+    {
+      "case": "missing",
+      "exception": null,
+      "request_status": "protocol-no-start",
+      "request_retained": true,
+      "tx_id": null,
+      "physical_tx_count": 2,
+      "total_airtime_s": 0.195072,
+      "recovery_started_at": null,
+      "metric_flow_retained": true,
+      "last_action": {
+        "event": "timeout",
+        "time": 31.0,
+        "flow_id": 1,
+        "src": 0,
+        "dst": 4,
+        "reason": "deadline-censor",
+        "cache_timeout_effect": "no-matching-ready-route",
+        "route_confirmation_revision_at_start": 1,
+        "route_confirmation_revision_at_timeout": null
+      }
+    },
+    {
+      "case": "quarantined",
+      "exception": null,
+      "request_status": "protocol-no-start",
+      "request_retained": true,
+      "tx_id": null,
+      "physical_tx_count": 2,
+      "total_airtime_s": 0.195072,
+      "recovery_started_at": null,
+      "metric_flow_retained": true,
+      "last_action": {
+        "event": "timeout",
+        "time": 31.0,
+        "flow_id": 1,
+        "src": 0,
+        "dst": 4,
+        "reason": "deadline-censor",
+        "cache_timeout_effect": "no-matching-ready-route",
+        "route_confirmation_revision_at_start": 1,
+        "route_confirmation_revision_at_timeout": 1
+      }
+    },
+    {
+      "case": "new-generation",
+      "exception": null,
+      "request_status": "protocol-no-start",
+      "request_retained": true,
+      "tx_id": null,
+      "physical_tx_count": 2,
+      "total_airtime_s": 0.195072,
+      "recovery_started_at": null,
+      "metric_flow_retained": true,
+      "last_action": {
+        "event": "timeout",
+        "time": 31.0,
+        "flow_id": 1,
+        "src": 0,
+        "dst": 4,
+        "reason": "deadline-censor",
+        "cache_timeout_effect": "no-matching-ready-route",
+        "route_confirmation_revision_at_start": 1,
+        "route_confirmation_revision_at_timeout": 1
+      }
+    },
+    {
+      "case": "expired",
+      "exception": null,
+      "request_status": "protocol-no-start",
+      "request_retained": true,
+      "tx_id": null,
+      "physical_tx_count": 2,
+      "total_airtime_s": 0.195072,
+      "recovery_started_at": null,
+      "metric_flow_retained": true,
+      "last_action": {
+        "event": "timeout",
+        "time": 31.0,
+        "flow_id": 1,
+        "src": 0,
+        "dst": 4,
+        "reason": "deadline-censor",
+        "cache_timeout_effect": "no-matching-ready-route",
+        "route_confirmation_revision_at_start": 1,
+        "route_confirmation_revision_at_timeout": 1
+      }
+    },
+    {
+      "case": "ready",
+      "exception": null,
+      "request_status": "started",
+      "request_retained": true,
+      "tx_id": 3,
+      "physical_tx_count": 3,
+      "total_airtime_s": 0.28748799999999997,
+      "recovery_started_at": 3.0,
+      "metric_flow_retained": true,
+      "last_action": {
+        "event": "recovery-tx",
+        "time": 3.0,
+        "flow_id": 1,
+        "src": 0,
+        "repair_index": 2
+      }
+    }
+  ],
+  "status": "passed"
+}

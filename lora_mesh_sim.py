@@ -30,6 +30,7 @@ from meshecho_utility import UtilityObservation, choose_action
 from meshecho_cpr import (
     CprAckObservation,
     CprAction,
+    CprDecision,
     CprFlowRecord,
     CprObservation,
     CprPendingRelay,

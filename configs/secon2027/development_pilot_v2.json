@@ -1,0 +1,446 @@
+{
+  "schema": "secon2027-matrix-v1",
+  "experiment_id": "secon-development-pilot-v2-import-fix",
+  "stage": "development",
+  "cohort_id": "secon2027-development-v1",
+  "seeds": [
+    2027000,
+    2027001,
+    2027002
+  ],
+  "contract_path": "docs/research/secon2027_experiment_contract.md",
+  "cases": [
+    {
+      "id": "S1-default",
+      "scenario": "S1",
+      "configuration": "default",
+      "case": {
+        "key": "S1-default",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": []
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr",
+        "meshecho",
+        "meshtastic",
+        "meshcore"
+      ]
+    },
+    {
+      "id": "S1-matched",
+      "scenario": "S1",
+      "configuration": "matched",
+      "case": {
+        "key": "S1-matched",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": []
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr-matched",
+        "meshecho-matched",
+        "meshtastic-matched",
+        "meshcore-matched"
+      ]
+    },
+    {
+      "id": "S2-default",
+      "scenario": "S2",
+      "configuration": "default",
+      "case": {
+        "key": "S2-default",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": [
+          {
+            "start_s": 80.0,
+            "end_s": 160.0,
+            "edges": [
+              [
+                7,
+                8
+              ],
+              [
+                12,
+                13
+              ]
+            ],
+            "attenuation_db": 80.0
+          }
+        ]
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr",
+        "meshecho",
+        "meshtastic",
+        "meshcore"
+      ]
+    },
+    {
+      "id": "S2-matched",
+      "scenario": "S2",
+      "configuration": "matched",
+      "case": {
+        "key": "S2-matched",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": [
+          {
+            "start_s": 80.0,
+            "end_s": 160.0,
+            "edges": [
+              [
+                7,
+                8
+              ],
+              [
+                12,
+                13
+              ]
+            ],
+            "attenuation_db": 80.0
+          }
+        ]
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr-matched",
+        "meshecho-matched",
+        "meshtastic-matched",
+        "meshcore-matched"
+      ]
+    },
+    {
+      "id": "S3-default",
+      "scenario": "S3",
+      "configuration": "default",
+      "case": {
+        "key": "S3-default",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 40.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": []
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr",
+        "meshecho",
+        "meshtastic",
+        "meshcore"
+      ]
+    },
+    {
+      "id": "S3-matched",
+      "scenario": "S3",
+      "configuration": "matched",
+      "case": {
+        "key": "S3-matched",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 40.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": []
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr-matched",
+        "meshecho-matched",
+        "meshtastic-matched",
+        "meshcore-matched"
+      ]
+    }
+  ],
+  "arms": [
+    {
+      "id": "meshecho-cpr",
+      "protocol": "meshecho-cpr",
+      "parameters": {}
+    },
+    {
+      "id": "meshecho-cpr-matched",
+      "protocol": "meshecho-cpr",
+      "parameters": {
+        "route_ttl_s": 600.0,
+        "flood_base_delay_s": 0.45,
+        "flood_jitter_s": 0.65
+      }
+    },
+    {
+      "id": "meshecho",
+      "protocol": "meshecho",
+      "parameters": {}
+    },
+    {
+      "id": "meshecho-matched",
+      "protocol": "meshecho",
+      "parameters": {
+        "route_ttl_s": 600.0,
+        "flood_base_delay_s": 0.45,
+        "flood_jitter_s": 0.65
+      }
+    },
+    {
+      "id": "meshtastic",
+      "protocol": "meshtastic",
+      "parameters": {}
+    },
+    {
+      "id": "meshtastic-matched",
+      "protocol": "meshtastic",
+      "parameters": {
+        "base_delay_s": 0.45,
+        "jitter_s": 0.65
+      }
+    },
+    {
+      "id": "meshcore",
+      "protocol": "meshcore",
+      "parameters": {}
+    },
+    {
+      "id": "meshcore-matched",
+      "protocol": "meshcore",
+      "parameters": {
+        "route_ttl_s": 600.0,
+        "flood_base_delay_s": 0.45,
+        "flood_jitter_s": 0.65
+      }
+    }
+  ],
+  "statistics": {
+    "unit": "seed",
+    "bootstrap_resamples": 10000,
+    "analysis_seed": 20271104,
+    "interval": "paired-percentile-bootstrap-95-unadjusted-descriptive",
+    "intent": "development diagnosis; n=3 cannot support stable confirmatory intervals"
+  },
+  "budget": {
+    "runs": 72,
+    "parallelism": 1,
+    "initial_smoke_seconds_per_run": 0.4428954484285714,
+    "memory_smoke_peak_bytes": 43466752,
+    "policy": "Measure actual pilot time/storage/RSS before freezing main matrix; abort only on evidence/correctness failure, retain all performance outcomes"
+  },
+  "failure_policy": {
+    "max_attempts": 2,
+    "retry": "infrastructure-only-explicit",
+    "missing": "report-incomplete"
+  }
+}

@@ -200,6 +200,59 @@ def test_cpr_timeout_quarantines_failed_route_and_next_flow_does_not_reuse_it():
     assert flow3_decisions[0]["action"] == "F_INITIAL"
 
 
+def test_cpr_recovery_rejects_route_quarantined_after_concurrent_repeat():
+    class DropPostWarmupPayloads(RecordingSimulator):
+        def try_receive(self, tx, receiver):
+            if tx.packet.flow_id in {2, 3} and tx.packet.kind in {"DATA", "FLOOD"}:
+                return None
+            return super().try_receive(tx, receiver)
+
+    protocol = build_protocol("meshecho-cpr")
+    sim = DropPostWarmupPayloads(
+        [Node(0, 0.0, 0.0), Node(1, 10.0, 0.0)],
+        RadioConfig(sf=7, shadow_sigma_db=0.0), protocol,
+        seed=92000, max_hops=3, independent_random_streams=True,
+    )
+    # Learn the route through a real DATA/ACK exchange, then leave flow 2
+    # unconfirmed. Only the channel fixture drops payloads; the controller,
+    # timers, request admission, and physical starts are unmodified.
+    sim.schedule(0.1, "app_send", (0, 1, 1))
+    sim.schedule(1.0, "app_send", (0, 1, 2))
+    sim.run(2.0)
+    assert sim.metrics.flows[1].acked_at is not None
+    older_starts = {
+        tx.packet.repair_index: tx.start for tx in sim.tx_history
+        if tx.sender == 0 and tx.packet.flow_id == 2
+    }
+    assert None in older_starts and 1 in older_starts
+    repeat_interval = older_starts[1] - older_starts[None]
+    old_deadline = 1.0 + protocol.app_deadline_s
+    # Flow 3 repeats before the older timeout, but reaches its recovery
+    # opportunity after that timeout quarantines their shared route.
+    sim.schedule(old_deadline - 1.5 * repeat_interval, "app_send", (0, 1, 3))
+    sim.run(old_deadline + 2.0 * repeat_interval)
+
+    timeout = next(e for e in protocol.action_events
+                   if e["event"] == "timeout" and e["flow_id"] == 2)
+    assert timeout["cache_timeout_effect"] == "quarantined"
+    newer_starts = [tx for tx in sim.tx_history
+                    if tx.sender == 0 and tx.packet.flow_id == 3]
+    assert [(tx.packet.kind, tx.packet.repair_index) for tx in newer_starts] == [
+        ("DATA", None), ("DATA", 1),
+    ]
+    assert newer_starts[-1].start < timeout["time"]
+    requested = next(e for e in protocol.action_events
+                     if e["event"] == "recovery-request" and e["flow_id"] == 3)
+    rejected = next(e for e in protocol.action_events
+                    if e["event"] == "decision" and e["flow_id"] == 3
+                    and e["reason"] == "stale-route-generation")
+    assert requested["time"] > timeout["time"]
+    assert rejected["time"] == requested["time"]
+    assert rejected["action"] == CprAction.DROP_DEADLINE_INFEASIBLE.value
+    assert len(sim.metrics.flows) == 3
+    assert sim.metrics.flows[3].acked_at is None
+
+
 def test_cpr_recovery_ack_accepts_same_path_refreshed_by_concurrent_flow():
     protocol = build_protocol("meshecho-cpr")
     sim = Simulator(

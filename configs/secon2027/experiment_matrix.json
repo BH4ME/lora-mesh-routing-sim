@@ -1,0 +1,650 @@
+{
+  "schema": "secon2027-matrix-v1",
+  "experiment_id": "secon-formal-v1",
+  "stage": "validation",
+  "cohort_id": "secon2027-validation-v1",
+  "seeds": [
+    2027100,
+    2027101,
+    2027102,
+    2027103,
+    2027104,
+    2027105,
+    2027106,
+    2027107,
+    2027108,
+    2027109,
+    2027110,
+    2027111,
+    2027112,
+    2027113,
+    2027114,
+    2027115,
+    2027116,
+    2027117,
+    2027118,
+    2027119
+  ],
+  "contract_path": "docs/research/secon2027_experiment_contract.md",
+  "cases": [
+    {
+      "id": "S1-default",
+      "scenario": "S1",
+      "configuration": "default",
+      "case": {
+        "key": "S1-default",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": []
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr",
+        "meshecho",
+        "meshtastic",
+        "meshcore"
+      ]
+    },
+    {
+      "id": "S1-matched",
+      "scenario": "S1",
+      "configuration": "matched",
+      "case": {
+        "key": "S1-matched",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": []
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr-matched",
+        "meshecho-matched",
+        "meshtastic-matched",
+        "meshcore-matched"
+      ]
+    },
+    {
+      "id": "S2-default",
+      "scenario": "S2",
+      "configuration": "default",
+      "case": {
+        "key": "S2-default",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": [
+          {
+            "start_s": 80.0,
+            "end_s": 160.0,
+            "edges": [
+              [
+                7,
+                8
+              ],
+              [
+                12,
+                13
+              ]
+            ],
+            "attenuation_db": 80.0
+          }
+        ]
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr",
+        "meshecho",
+        "meshtastic",
+        "meshcore"
+      ]
+    },
+    {
+      "id": "S2-matched",
+      "scenario": "S2",
+      "configuration": "matched",
+      "case": {
+        "key": "S2-matched",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": [
+          {
+            "start_s": 80.0,
+            "end_s": 160.0,
+            "edges": [
+              [
+                7,
+                8
+              ],
+              [
+                12,
+                13
+              ]
+            ],
+            "attenuation_db": 80.0
+          }
+        ]
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr-matched",
+        "meshecho-matched",
+        "meshtastic-matched",
+        "meshcore-matched",
+        "meshecho-cpr-noackcancel",
+        "meshecho-cpr-norepeat",
+        "meshecho-cpr-norecovery"
+      ]
+    },
+    {
+      "id": "S3-default",
+      "scenario": "S3",
+      "configuration": "default",
+      "case": {
+        "key": "S3-default",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 40.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": []
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr",
+        "meshecho",
+        "meshtastic",
+        "meshcore"
+      ]
+    },
+    {
+      "id": "S3-matched",
+      "scenario": "S3",
+      "configuration": "matched",
+      "case": {
+        "key": "S3-matched",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 40.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": []
+      },
+      "deadline_s": 30.0,
+      "arms": [
+        "meshecho-cpr-matched",
+        "meshecho-matched",
+        "meshtastic-matched",
+        "meshcore-matched",
+        "meshecho-cpr-noackcancel",
+        "meshecho-cpr-norepeat",
+        "meshecho-cpr-norecovery"
+      ]
+    },
+    {
+      "id": "R-deadline-10-S2-matched",
+      "scenario": "R-deadline",
+      "configuration": "robustness",
+      "case": {
+        "key": "R-deadline-10-S2-matched",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": [
+          {
+            "start_s": 80.0,
+            "end_s": 160.0,
+            "edges": [
+              [
+                7,
+                8
+              ],
+              [
+                12,
+                13
+              ]
+            ],
+            "attenuation_db": 80.0
+          }
+        ]
+      },
+      "deadline_s": 10.0,
+      "arms": [
+        "meshecho-cpr-matched",
+        "meshecho-matched",
+        "meshtastic-matched",
+        "meshcore-matched"
+      ]
+    },
+    {
+      "id": "R-deadline-60-S2-matched",
+      "scenario": "R-deadline",
+      "configuration": "robustness",
+      "case": {
+        "key": "R-deadline-60-S2-matched",
+        "nodes": 20,
+        "area_m": 5000.0,
+        "duration_s": 240.0,
+        "rate_per_min": 8.0,
+        "pair_count": 4,
+        "pair_schedule": "poisson",
+        "sf": 7,
+        "shadow_sigma_db": 2.0,
+        "temporal_fading_sigma_db": 2.0,
+        "temporal_fading_interval_s": 60.0
+      },
+      "environment": {
+        "model": "grid-obstructed-v1",
+        "columns": 5,
+        "rows": 4,
+        "spacing_m": 1000.0,
+        "position_jitter_fraction": 0.025,
+        "neighbor_loss_db": 20.0,
+        "nonneighbor_loss_db": 80.0,
+        "channel_bin_s": 0.01,
+        "endpoint_pairs": [
+          [
+            5,
+            9
+          ],
+          [
+            9,
+            5
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            14,
+            10
+          ]
+        ],
+        "faults": [
+          {
+            "start_s": 80.0,
+            "end_s": 160.0,
+            "edges": [
+              [
+                7,
+                8
+              ],
+              [
+                12,
+                13
+              ]
+            ],
+            "attenuation_db": 80.0
+          }
+        ]
+      },
+      "deadline_s": 60.0,
+      "arms": [
+        "meshecho-cpr-matched",
+        "meshecho-matched",
+        "meshtastic-matched",
+        "meshcore-matched"
+      ]
+    }
+  ],
+  "arms": [
+    {
+      "id": "meshecho-cpr",
+      "protocol": "meshecho-cpr",
+      "parameters": {}
+    },
+    {
+      "id": "meshecho-cpr-matched",
+      "protocol": "meshecho-cpr",
+      "parameters": {
+        "route_ttl_s": 600.0,
+        "flood_base_delay_s": 0.45,
+        "flood_jitter_s": 0.65
+      }
+    },
+    {
+      "id": "meshecho",
+      "protocol": "meshecho",
+      "parameters": {}
+    },
+    {
+      "id": "meshecho-matched",
+      "protocol": "meshecho",
+      "parameters": {
+        "route_ttl_s": 600.0,
+        "flood_base_delay_s": 0.45,
+        "flood_jitter_s": 0.65
+      }
+    },
+    {
+      "id": "meshtastic",
+      "protocol": "meshtastic",
+      "parameters": {}
+    },
+    {
+      "id": "meshtastic-matched",
+      "protocol": "meshtastic",
+      "parameters": {
+        "base_delay_s": 0.45,
+        "jitter_s": 0.65
+      }
+    },
+    {
+      "id": "meshcore",
+      "protocol": "meshcore",
+      "parameters": {}
+    },
+    {
+      "id": "meshcore-matched",
+      "protocol": "meshcore",
+      "parameters": {
+        "route_ttl_s": 600.0,
+        "flood_base_delay_s": 0.45,
+        "flood_jitter_s": 0.65
+      }
+    },
+    {
+      "id": "meshecho-cpr-noackcancel",
+      "protocol": "meshecho-cpr-noackcancel",
+      "parameters": {}
+    },
+    {
+      "id": "meshecho-cpr-norepeat",
+      "protocol": "meshecho-cpr-norepeat",
+      "parameters": {}
+    },
+    {
+      "id": "meshecho-cpr-norecovery",
+      "protocol": "meshecho-cpr-norecovery",
+      "parameters": {}
+    }
+  ],
+  "statistics": {
+    "unit": "seed",
+    "analysis_seed": 20271104,
+    "bootstrap_resamples": 10000,
+    "interval": "paired-percentile-bootstrap-95-unadjusted-descriptive",
+    "primary_metrics": [
+      "ack_pdr_deadline",
+      "tx_ledger_airtime_s"
+    ],
+    "secondary_metrics": [
+      "delivery_pdr_deadline",
+      "airtime_per_timely_delivery_s",
+      "timely_ack_latency_p95_s"
+    ],
+    "comparison_family": "CPR versus each of three behavioral comparators within each scenario/regime; three clean controls in S2/S3 matched; deadline robustness S2 matched10/30/60; all descriptive unadjusted, no significance/noninferiority claim",
+    "sampling": "20 consecutive predeclared nonhistorical seed IDs; no outcome selection or precision stopping"
+  },
+  "budget": {
+    "expected_runs": 760,
+    "main_runs": 480,
+    "ablation_runs": 120,
+    "robustness_runs": 160,
+    "concurrency": 4,
+    "pilot_plan_path": "results/secon2027/plans/development-pilot-v2.json",
+    "pilot_resource_report": "results/secon2027/gates/pilot-v2/resource-costs.json",
+    "estimated_serial_seconds": 3314.8214624901243,
+    "estimated_four_worker_ideal_seconds": 828.7053656225311,
+    "estimated_raw_bytes": 7511290148.641974,
+    "measured_single_worker_peak_rss_bytes": 360251392,
+    "concurrency_rss_estimate_bytes": 1441005568,
+    "host_memory_bytes": 17179869184,
+    "time_reserve_multiplier": 2.0,
+    "storage_reserve_multiplier": 2.0,
+    "max_runtime_hours": 4,
+    "max_raw_storage_gib": 18,
+    "estimation_rule": "main case/arm means from full72 pilot; controls use corresponding CPR mean; robustness scales S2matched by accounting horizon/270; estimates are not hard performance guarantees;2x reserve for audit/retry;concurrency4 cap from16GiB memory and360251392B measured max workerRSS",
+    "failure_policy": "Any nonzero run stops new submissions; in-flight keys finish and remain preserved. No scientific retry or unplanned seed. Infrastructure retry only explicit bounded policy.",
+    "status": "frozen-after-complete-development-gate"
+  },
+  "failure_policy": {
+    "max_attempts": 2,
+    "retry": "infrastructure-only-explicit",
+    "missing": "report-incomplete"
+  },
+  "development_gate": "results/secon2027/gates/development-method-freeze.json"
+}

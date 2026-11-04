@@ -9,6 +9,17 @@ individual input hashes. All function and test references below refer to
 that saved tree. A later release version must be mapped to this tested
 snapshot by the release record; it does not change the version tested here.
 
+Subsequent development repair: pilot v1 found that the invalid-route recovery
+branch referenced an unimported `CprDecision`. The corrected pilot-v2 snapshot
+`ee890e25030782fc01208ee4ce1f20863c6ade5322ac954ad67ae48b594056a2`
+is tested as VERSION2.1.28 and adds the missing import plus an event-driven
+regression; it changes no controller policy or budget. The original snapshot
+above did not safely execute that rejection branch. The action enum remains
+`DROP_DEADLINE_INFEASIBLE` with reason `stale-route-generation`; this reason
+can occur while time remains, so diagnosis must not label it as deadline
+shortage. Independent missing/quarantined/replaced/expired route fixtures
+verify protocol-no-start without new TX/airtime; READY recovery still starts.
+
 This is an implementation specification, not a performance report. Its scope
 is the unicast simulator policy and the explicitly named controls. There are
 no hardware measurements or firmware-equivalence results in this document.

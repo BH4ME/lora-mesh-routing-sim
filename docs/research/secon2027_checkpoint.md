@@ -56,3 +56,38 @@ Frozen source e8d94c29b3797a55787ee8cc5a60c3d08b4949186f2250581ed36d851ef5b1a2; 
 - VERSION2.1.28 promoted locally after57 regression tests; uncommitted/unpushed. Last commit a0ee4ce import. Exact P0 data remains21/21, dev seeds2027000..2 exposed,42 start/completion history events, no pilot/formal run yet.
 - Analyzer A1/A2/A3 fixes tested15/15; v2 analysis retained. A4 load curve effective-arm identity still open; agent owns fix+tests now. This changes analysis only, not raw P0 events.
 - Reassigned paper blueprint and pilot read-only preflight after429 agent errors; no duplicate simulation. Next: close analysisA4, archive independently tested analyzer+outputs, scopedcommit/push2.1.28 verifySHA; freeze72-runpilot with current runtime, run serial then diagnose actual cached-path fault/pressure exposure.
+
+## P0 release confirmed; before pilot
+Release2.1.28 pushed and remoteSHA verified: a64b2d92f2778089534700cbaa27d2ca453303ea. AnalyzerA1–A4 closed with18tests+actualv3 reanalysis. P0 testedsnapshot and raw manifests remain2.1.27. Analysis archiveSHA fe305df09f9c2f242c92e07ce86e1c6e4ffd58a553c7f7f6bd455d0121156309; final analyzerSHA7fd757a780e9725bd3d1992790eaad4a6cc3be7b48f7adcce674a729990eeb54. Next freeze development_pilot.json72keys, execute serial. Dev2027000..2 alreadyexposed intentionally; formal cohort unregistered.
+
+## Pilot running
+PlanSHA 3729b05d983845dda0ecca1804f1b4307c2e5869402656a5896ec32e91c1232f, snapshot b212b2f0e56920646581d2e2561247caf284d0815b5260c78cd404c5334fae81, tested2.1.28;72registeredkeys across S1/S2/S3×default/matched×4models×3devseeds. Actual process started via /usr/bin/python3 tools/secon2027_experiment.py run --plan results/secon2027/plans/development-pilot-v1.json, log results/secon2027/gates/pilot-v1/run.log, execsession71168. First5runs complete; source stable. Resume must check process/log before restarting; no formaldata yet.
+
+## Pilot v1 terminated by a real implementation defect
+
+- Confirmed parent PID69189 absent; 48 completed, 1 failed, 23 unstarted. Failed S3-default/meshecho-cpr/seed2027000, run key79351a989e26b20a449f1d5522fa2303ad7b9ad2a181ecd5c58bc7c54a1a6577, attempt-001.
+- stderr identifies NameError: CprDecision not defined at lora_mesh_sim.py4193, _cpr_start_recovery denial path. Failure kind remains scientific-or-worker, never infrastructure. No same-key retry.
+- v1 source/plan/raw completions/failure all preserved; incident.json hashes every existing attempt file. v1 is incomplete and cannot provide final paired pilot conclusions. Independent frozen audit is being saved as incomplete-audit.json/log.
+- Next: minimal import fix plus deterministic red/green real denial-path regression; freeze new development-pilot-v2 source/plan, test saved snapshot, rerun all72 declared arms on the same already-exposed development seeds2027000..2. No validation cohort exists. After corrected pilot/audit, promote next patch2.1.29 and verify push;2.1.28 release limitation recorded separately.
+
+- Frozen v1 audit completed with expected exit2:48 validated completions,1failed,23missing. It remains incomplete. Replacement matrix development_pilot_v2.json changes only experiment identity; cases/arms/seeds/settings unchanged.
+
+## Pilot v2 frozen and tested before launch
+
+- Minimal runtime change imports CprDecision; deterministic stale-route regression red/green preserved. Full saved snapshot suite161passed. TestedVERSION2.1.28, snapshot ee890e25030782fc01208ee4ce1f20863c6ade5322ac954ad67ae48b594056a2, plan 0c49a69a5c3725c9f72ff2e28ed870d10db1df7eec4319f6397097b84a2c85e7,72keys.
+- Launch command: /usr/bin/python3 tools/secon2027_experiment.py run --plan results/secon2027/plans/development-pilot-v2.json; log results/secon2027/gates/pilot-v2/run.log. All seeds remain development2027000..2.
+- Original failure archive pilot-v1-implementation-failure.tar.gz SHA2aaaf790ca67b05090a00aaeb3595f1f62a26cc663dabca5be4f20e492abdd1d,1044verified files. No prior attempt changed.
+
+- Independent recovery branch review copied from supervisor: missing/quarantined/new-generation/expired reject with no TX/airtime increase, READY recovery starts; reason stale-route-generation is not necessarily deadline shortage. Event-driven production regression complements these direct fixtures.
+
+## Corrected pilot complete; next patch promotion prepared
+
+- v2 CLIexit0;72/72 completion,0failed/missing. Saved frozenaudit and rawanalysis bothcomplete; analysis remains descriptive n3development. Tested2.1.28 sourceee890e25030782fc01208ee4ce1f20863c6ade5322ac954ad67ae48b594056a2, plan0c49a69a5c3725c9f72ff2e28ed870d10db1df7eec4319f6397097b84a2c85e7.
+- Measured serialwall301.925714167s,peakRSS360251392B,rawattempt706194269B. Formalcandidate20freshseeds×full760runs estimates3314.82serials/7.51GBraw; fourworker memory1.44GB versus16GiBhost. Candidate pendingfullmechanismreview and one-timecontract/gate/registryfreeze.
+- VERSION now locally2.1.29 after validatedround; promotedregression/archive/scopedcommit/push next. No oldresult relabeled, no researchseed rerun for version.
+
+## Formal760 frozen, no formal seed exposed yet
+
+- Methoddecision §9 written with observedS3DATA/ACK/collision/queue populations; fixedCPR retained, no newcandidate. Allnegativeoutcomes remain.
+- Newcohortsecon2027-validation-v1 reserves2027100..119. Plan5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0, source63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee,tested2.1.29;161frozencheckspass. Main480+controls120+deadline/drainrobustness160;20seedunit,10000pairedbootstrap,descriptiveunadjusted95%,allcriteria/claims/failures/budgetfrozen beforeexposure.
+- Currentreleasestaging2.1.29 includes minimalimportfix+eventregression,completepilotarchives andformalpre-exposurearchive. Pushthenlaunch760frozenkeys withwork/dispatch_frozen_plan.py (4workers),exclusivegatelogs. Formalgenerationnotstartedyet.
