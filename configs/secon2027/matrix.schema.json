@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SECON frozen experiment matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "experiment_id",
+    "stage",
+    "cohort_id",
+    "seeds",
+    "contract_path",
+    "cases",
+    "arms",
+    "statistics",
+    "budget",
+    "failure_policy"
+  ],
+  "properties": {
+    "schema": {
+      "const": "secon2027-matrix-v1"
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stage": {
+      "enum": [
+        "development",
+        "validation"
+      ]
+    },
+    "cohort_id": {
+      "type": "string"
+    },
+    "seeds": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "contract_path": {
+      "type": "string"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "scenario",
+          "configuration",
+          "case",
+          "environment",
+          "deadline_s"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "scenario": {
+            "enum": [
+              "P0-smoke",
+              "S1",
+              "S2",
+              "S3",
+              "R-deadline",
+              "R-scale"
+            ]
+          },
+          "configuration": {
+            "enum": [
+              "default",
+              "matched",
+              "smoke",
+              "robustness"
+            ]
+          },
+          "case": {
+            "type": "object"
+          },
+          "environment": {
+            "type": "object"
+          },
+          "deadline_s": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "arms": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "protocol",
+          "parameters"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "protocol": {
+            "type": "string"
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "required": [
+        "unit"
+      ],
+      "properties": {
+        "unit": {
+          "const": "seed"
+        }
+      }
+    },
+    "budget": {
+      "type": "object"
+    },
+    "failure_policy": {
+      "const": {
+        "max_attempts": 2,
+        "retry": "infrastructure-only-explicit",
+        "missing": "report-incomplete"
+      }
+    },
+    "development_gate": {
+      "type": "string"
+    }
+  }
+}

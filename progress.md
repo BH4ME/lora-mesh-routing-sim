@@ -5420,3 +5420,5 @@ validation or keep the claims explicitly simulation-only.
   result artifacts, publication or remote Git state changed by this task.
 - Deliver the Markdown link. Future implementation starts by reading this
   task book and canonical checkpoints; this turn does not start that work.
+
+2026-11-04: Recovered after429. User resumed same full task. Registry has dev2027000..2 exposed; only P0 21runs completed. No active simulations. AnalysisA4 agent in progress, pilot72keys read-only preflight passed, version2.1.28 local but not yet committed/pushed.

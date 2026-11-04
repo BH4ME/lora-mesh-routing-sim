@@ -166,6 +166,7 @@ class DrcRouteRecord:
     last_accepted_ack_at: Optional[float] = None
     miss_streak: int = 0
     last_used_lru: int = 0
+    confirmation_revision: int = 1
 
 
 @dataclass
@@ -280,6 +281,29 @@ class DrcSourceState:
             if destination in protected:
                 continue
             self._destination_epochs.pop(destination, None)
+
+    def refresh_same_ready_route(
+        self, destination: int, path: Tuple[int, ...], *, now: float, ttl_s: float,
+    ) -> Optional[DrcRouteRecord]:
+        """Refresh an unchanged live path without inventing a new generation.
+
+        CPR calls this only after validating the ACK against its live flow.
+        A different, expired or quarantined route is not refreshed here.
+        Existing DRC installation semantics remain unchanged.
+        """
+
+        if ttl_s <= 0.0:
+            raise ValueError("route TTL must be positive")
+        record = self.routes.get(destination)
+        if (record is None or record.path != tuple(path)
+                or record.phase is not RoutePhase.READY or now >= record.expires_at):
+            return None
+        record.expires_at = now + ttl_s
+        record.last_accepted_ack_at = now
+        record.confirmation_revision += 1
+        record.miss_streak = 0
+        self._touch(self.routes, destination)
+        return record
 
     def route_generation_for(self, destination: int) -> int:
         """Return the latest destination-specific route epoch, including tombstones."""

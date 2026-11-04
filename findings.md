@@ -5487,3 +5487,5 @@ author list/title.
 - Official requirements were checked separately from recommendations. No
   universal hardware requirement was found on the reviewed SECON pages.
 - This task only created documentation and updated planning checkpoints.
+
+P0 smoke mechanism limit: all48CPR/control flows useF_INITIAL; no actual repeat/recovery TX. Pilot uses recurrent Poisson flows to measure cached route and fault exposure. Grid4x5 is synthetic obstructions, area_m5000 does not override4km×3km node-grid span. All source runtime files match frozenP0 exceptVERSION; analyzer separately tested and mapped.

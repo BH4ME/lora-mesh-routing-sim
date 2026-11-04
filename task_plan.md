@@ -5527,3 +5527,6 @@ The prior `c086...` hash is historical and must not identify the BAR run.
 - [boundary] This turn produces the requested plan only. It does not run
   experiments, modify the algorithm/manuscript, promote a version, push or
   register a submission.
+
+## SECON milestone status
+P0 code/frozen tests/smoke/archive recovery verified. Analysis A4 fix and P0 research release push pending; P1 pilot/formal/figures/anonymous PDF still pending. Existing142tests+21smoke not repeated.

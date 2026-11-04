@@ -1,0 +1,657 @@
+{
+  "cohorts": {
+    "secon2027-development-v1": {
+      "artifacts": [
+        "results/secon2027/runs/db03eb720995f17ddb82b6d25c2e6c62614b62c10695f0211099c0c96e717b92/attempt-001",
+        "results/secon2027/runs/7727c70d5ccb20f4f0f06a1f829e032c77506b9f467878691e439297fe197eed/attempt-001",
+        "results/secon2027/runs/834508465bb2ca9267117eebd7692f82fc68c7ab3ccaffcc83e7da5288139107/attempt-001",
+        "results/secon2027/runs/6d3cfefb6a28e0b13b3cdb3a268ec3902ff54b15bb1a83120b9e1e9678978309/attempt-001",
+        "results/secon2027/runs/c54419b703d6bf2ee0c6c6514295eba77a1a3557c8c7e18e3ebd5c76fab10621/attempt-001",
+        "results/secon2027/runs/531275d1141b6666aa914da905fb0e2e45f19aa903762ecb5568082cfb34a8d3/attempt-001",
+        "results/secon2027/runs/ffd95f0d019ac32bde97d4f32d72b1427a6bb0d32062c074b336e66106c82d5f/attempt-001",
+        "results/secon2027/runs/51f2c482a20fb3d67cd3189547c0625b02419d8e6bc88e65116d5e702723b77d/attempt-001",
+        "results/secon2027/runs/b4e2447a768b3a8e60b4ce317c0cfd18159a03ef048393eeb1414fe91726882a/attempt-001",
+        "results/secon2027/runs/0d4c60a5c908c3de67d448aa4982c7791e2a75d4f3dbf0d258033b0f9ade5df0/attempt-001",
+        "results/secon2027/runs/f522d96fb03e0beb486948008056a4b01448e9c219968016af792a0cde7b887b/attempt-001",
+        "results/secon2027/runs/7eb8b708d0b58b51d44adae5d074c1383aefb6762f4a11f507f60e152331d8ed/attempt-001",
+        "results/secon2027/runs/20bfa6e39aab56511432846a1b38327860e6a3d38fe7f7723ed39d312f92ab20/attempt-001",
+        "results/secon2027/runs/8746f6b024f789e1b0a4ac3bf2646a82bbf624d9892f4c14592d5139d3eb7b20/attempt-001",
+        "results/secon2027/runs/c1db27f1febd00cdbf47945088efa37ccf2520d59dcd4758670b3ff98d0faae9/attempt-001",
+        "results/secon2027/runs/e9d21c69cd497ad4d879e473d4e2d98fc76d7e6d5e31ae19044219ee8a2ff525/attempt-001",
+        "results/secon2027/runs/d5e93b366d4f784c78f0ef6049ee9f3ea38752fb7c6d3c1ecb734222dcb8dd51/attempt-001",
+        "results/secon2027/runs/a9acdec74c0726aa6d55ff1962200931556959eeb74d41b486677e3fa84bcc39/attempt-001",
+        "results/secon2027/runs/1daa0bd836d086bde662b17660978ec7421a36d75f3c96a1a7bf8917f5936a3e/attempt-001",
+        "results/secon2027/runs/74d0599ee850e1d1b655a6e90383e9962476516b7d807de29e0e47526cca5c33/attempt-001",
+        "results/secon2027/runs/e93ceabcdc36f7f6ea47041ae7835f73a4b5050fa0670987081a5afa745b1572/attempt-001"
+      ],
+      "cohort_id": "secon2027-development-v1",
+      "config_sha256": "bb81ec400edbab5f2b6ebc1eb47d4f81907b366ff1f7a92964dcf591d3275988",
+      "contract_path": "docs/research/secon2027_experiment_contract.md",
+      "contract_sha256": null,
+      "development_gate": "pending",
+      "execution_gate": "No execution until contract/source/config hashes and exact planned run keys are bound by the freeze command.",
+      "execution_history": [
+        {
+          "at": "2026-11-04T07:47:24.226608+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "db03eb720995f17ddb82b6d25c2e6c62614b62c10695f0211099c0c96e717b92"
+        },
+        {
+          "at": "2026-11-04T07:47:24.731026+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "db03eb720995f17ddb82b6d25c2e6c62614b62c10695f0211099c0c96e717b92"
+        },
+        {
+          "at": "2026-11-04T07:47:24.763792+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "7727c70d5ccb20f4f0f06a1f829e032c77506b9f467878691e439297fe197eed"
+        },
+        {
+          "at": "2026-11-04T07:47:25.308534+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "7727c70d5ccb20f4f0f06a1f829e032c77506b9f467878691e439297fe197eed"
+        },
+        {
+          "at": "2026-11-04T07:47:25.349739+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "834508465bb2ca9267117eebd7692f82fc68c7ab3ccaffcc83e7da5288139107"
+        },
+        {
+          "at": "2026-11-04T07:47:26.044120+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "834508465bb2ca9267117eebd7692f82fc68c7ab3ccaffcc83e7da5288139107"
+        },
+        {
+          "at": "2026-11-04T07:47:26.081914+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "6d3cfefb6a28e0b13b3cdb3a268ec3902ff54b15bb1a83120b9e1e9678978309"
+        },
+        {
+          "at": "2026-11-04T07:47:26.745847+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "6d3cfefb6a28e0b13b3cdb3a268ec3902ff54b15bb1a83120b9e1e9678978309"
+        },
+        {
+          "at": "2026-11-04T07:47:26.774789+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "c54419b703d6bf2ee0c6c6514295eba77a1a3557c8c7e18e3ebd5c76fab10621"
+        },
+        {
+          "at": "2026-11-04T07:47:27.331246+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "c54419b703d6bf2ee0c6c6514295eba77a1a3557c8c7e18e3ebd5c76fab10621"
+        },
+        {
+          "at": "2026-11-04T07:47:27.359203+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "531275d1141b6666aa914da905fb0e2e45f19aa903762ecb5568082cfb34a8d3"
+        },
+        {
+          "at": "2026-11-04T07:47:27.911972+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "531275d1141b6666aa914da905fb0e2e45f19aa903762ecb5568082cfb34a8d3"
+        },
+        {
+          "at": "2026-11-04T07:47:27.944150+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "ffd95f0d019ac32bde97d4f32d72b1427a6bb0d32062c074b336e66106c82d5f"
+        },
+        {
+          "at": "2026-11-04T07:47:28.493130+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "ffd95f0d019ac32bde97d4f32d72b1427a6bb0d32062c074b336e66106c82d5f"
+        },
+        {
+          "at": "2026-11-04T07:47:28.523645+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "51f2c482a20fb3d67cd3189547c0625b02419d8e6bc88e65116d5e702723b77d"
+        },
+        {
+          "at": "2026-11-04T07:47:28.968049+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "51f2c482a20fb3d67cd3189547c0625b02419d8e6bc88e65116d5e702723b77d"
+        },
+        {
+          "at": "2026-11-04T07:47:28.996160+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "b4e2447a768b3a8e60b4ce317c0cfd18159a03ef048393eeb1414fe91726882a"
+        },
+        {
+          "at": "2026-11-04T07:47:29.444908+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "b4e2447a768b3a8e60b4ce317c0cfd18159a03ef048393eeb1414fe91726882a"
+        },
+        {
+          "at": "2026-11-04T07:47:29.474060+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "0d4c60a5c908c3de67d448aa4982c7791e2a75d4f3dbf0d258033b0f9ade5df0"
+        },
+        {
+          "at": "2026-11-04T07:47:30.070907+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "0d4c60a5c908c3de67d448aa4982c7791e2a75d4f3dbf0d258033b0f9ade5df0"
+        },
+        {
+          "at": "2026-11-04T07:47:30.106987+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "f522d96fb03e0beb486948008056a4b01448e9c219968016af792a0cde7b887b"
+        },
+        {
+          "at": "2026-11-04T07:47:30.704255+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "f522d96fb03e0beb486948008056a4b01448e9c219968016af792a0cde7b887b"
+        },
+        {
+          "at": "2026-11-04T07:47:30.734299+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "7eb8b708d0b58b51d44adae5d074c1383aefb6762f4a11f507f60e152331d8ed"
+        },
+        {
+          "at": "2026-11-04T07:47:31.195641+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "7eb8b708d0b58b51d44adae5d074c1383aefb6762f4a11f507f60e152331d8ed"
+        },
+        {
+          "at": "2026-11-04T07:47:31.225167+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "20bfa6e39aab56511432846a1b38327860e6a3d38fe7f7723ed39d312f92ab20"
+        },
+        {
+          "at": "2026-11-04T07:47:31.685766+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "20bfa6e39aab56511432846a1b38327860e6a3d38fe7f7723ed39d312f92ab20"
+        },
+        {
+          "at": "2026-11-04T07:47:31.719730+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "8746f6b024f789e1b0a4ac3bf2646a82bbf624d9892f4c14592d5139d3eb7b20"
+        },
+        {
+          "at": "2026-11-04T07:47:32.304761+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "8746f6b024f789e1b0a4ac3bf2646a82bbf624d9892f4c14592d5139d3eb7b20"
+        },
+        {
+          "at": "2026-11-04T07:47:32.353610+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "c1db27f1febd00cdbf47945088efa37ccf2520d59dcd4758670b3ff98d0faae9"
+        },
+        {
+          "at": "2026-11-04T07:47:33.246122+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "c1db27f1febd00cdbf47945088efa37ccf2520d59dcd4758670b3ff98d0faae9"
+        },
+        {
+          "at": "2026-11-04T07:47:33.305651+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "e9d21c69cd497ad4d879e473d4e2d98fc76d7e6d5e31ae19044219ee8a2ff525"
+        },
+        {
+          "at": "2026-11-04T07:47:34.156908+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "e9d21c69cd497ad4d879e473d4e2d98fc76d7e6d5e31ae19044219ee8a2ff525"
+        },
+        {
+          "at": "2026-11-04T07:47:34.204681+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "d5e93b366d4f784c78f0ef6049ee9f3ea38752fb7c6d3c1ecb734222dcb8dd51"
+        },
+        {
+          "at": "2026-11-04T07:47:34.855018+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "d5e93b366d4f784c78f0ef6049ee9f3ea38752fb7c6d3c1ecb734222dcb8dd51"
+        },
+        {
+          "at": "2026-11-04T07:47:34.908720+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "a9acdec74c0726aa6d55ff1962200931556959eeb74d41b486677e3fa84bcc39"
+        },
+        {
+          "at": "2026-11-04T07:47:35.912558+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "a9acdec74c0726aa6d55ff1962200931556959eeb74d41b486677e3fa84bcc39"
+        },
+        {
+          "at": "2026-11-04T07:47:35.977856+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "1daa0bd836d086bde662b17660978ec7421a36d75f3c96a1a7bf8917f5936a3e"
+        },
+        {
+          "at": "2026-11-04T07:47:37.095076+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "1daa0bd836d086bde662b17660978ec7421a36d75f3c96a1a7bf8917f5936a3e"
+        },
+        {
+          "at": "2026-11-04T07:47:37.161617+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "74d0599ee850e1d1b655a6e90383e9962476516b7d807de29e0e47526cca5c33"
+        },
+        {
+          "at": "2026-11-04T07:47:38.015259+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "74d0599ee850e1d1b655a6e90383e9962476516b7d807de29e0e47526cca5c33"
+        },
+        {
+          "at": "2026-11-04T07:47:38.063158+00:00",
+          "attempt": "attempt-001",
+          "event": "started",
+          "run_key": "e93ceabcdc36f7f6ea47041ae7835f73a4b5050fa0670987081a5afa745b1572"
+        },
+        {
+          "at": "2026-11-04T07:47:38.694093+00:00",
+          "attempt": "attempt-001",
+          "event": "completed",
+          "run_key": "e93ceabcdc36f7f6ea47041ae7835f73a4b5050fa0670987081a5afa745b1572"
+        }
+      ],
+      "first_run_at": "2026-11-04T07:47:24.226591+00:00",
+      "gate_report": null,
+      "planned_run_keys": [
+        "99e249dc2787fccc2525e4e903d891a2df7366bf429285f52c710c5f62a98b61",
+        "0f69c2470ffbebe13e13c6aa3b999e941b6e70566ef521103d50bd4860faaae7",
+        "8b9760804b7402502b9f979e92f22f16243a78189684beb86995824fbb7efaee",
+        "399ea727e1a7fd577b0a335721b8594da37036cda83c0ffc0aef9a4473416144",
+        "41e31ab59f7d7b9aa2424b0c886d51a66c5fb9953c67a5cdeeeab90c5a1c3f94",
+        "c60b595e9e9b005c106622d939b7171d72f079a5ac85894b55de94092e10c8c9",
+        "ced0f9166ac0e74aae2f6870ec50e56fc68b73921dc4fcac966262120c6cdb4e",
+        "b30fe0aac6b1b472a6eaf3b348b7d9ee8a36a51ece6522e1935579783d70c409",
+        "52c5a45dd4abdc46daccaa6123cce01ab85c13e0ee3a00d195920eb8b41b3c83",
+        "2425e40a002883584449aacd88a5d8a200379c916a86a0fb4597af99d4df0c76",
+        "d828cd67a0a618172d3aee6b5e8a8f48a2985c892874b51df0f7824233a10ce3",
+        "3173b46c944e7bc95ddfe703b555a4c0e5dc569990548058ef03aa6c3dfeff0e",
+        "a80616285c40aba30a3da24cfd416bed131c58efadc7050cac7cb3de61502bfd",
+        "137d9e61b5894cdf3d3efe0c7a3bda4516ef4381d5477dcfaefb00e1f419b04f",
+        "0fd9f8a166131e64e55ff25a25a1d4d6fad3bca7e7a0c64d59c552dc9989b4ef",
+        "36d69e35ff3980002799fe4cb91ebfdf5673654c60c828209a0f320195d3d169",
+        "cf1388a6329d94bf9935d2635f2083096ae0a748c9b90de4d9a6a4a947f2c7b4",
+        "36756bcd450fceb68c4aedb620fb5517a30b26c834749dc952ab64d79646fa48",
+        "04a13637de7cd26af8c612208ac28b4bfda928bbd00ad7eb6156d4e5ccbab868",
+        "ba120c26a1387f1a29e01e1ed63a2b3fbd0841e0ce999a257d4321810d242428",
+        "b12e332549dfa3f9e2ac4bbb2239dd5503c65b1887ea4e9498bc59e16873c1fc",
+        "6a5105539232c7e89adcfff51352a263e70441cccf2e526736e0d5bfd31cf1ff",
+        "008ef0d260934b14a535fb89e0cc372b06f124fb8af8c38ab2293378ac6e508c",
+        "1d1307bf9199349b002c7355e4964cef4b8d004f11c9b2de5e5d3cd94965a082",
+        "db207a36f9e94fd3bd86a3c0ab0880233b3737ef24ab2912633af8d514dc5a3d",
+        "f9506522f7a760865056038d8d2265a32bf22b004574f88e4e4f28a986337253",
+        "b6fa21add4b899b32796dabf12d920d22b77644d53d769070d5bd7c00146e3b7",
+        "d6339348fb69b5f6a39b71b9f8444f53e57733129b2d86457f5a2308c6fe4f09",
+        "1a8c9789ea73b093c93a1ed59f3ccb0cd20cfd4e8c2e8d4d891cad511d4b05a3",
+        "eebd380abfc9d734236e391246e0cc27550a4623ddeb1bb5d50c7183b77275c7",
+        "8a6caeb5a7bd6196f543a4f660be154d4999e8d218affa0941df115ea5654a9f",
+        "725b36e841262466637aba02002710bc3e81bc942512a616ba77ff73fcf6ae8d",
+        "34c6785133e5d053c6843f62ea21e6252505751f84cb695641d4731d25d45860",
+        "eee5677df10f5dddae8fc8035e4d359421d8cfa7823f91fc05bd5660ac7373a2",
+        "5b07574a1c53495483c7354522c78815e61f781ec467851fa366830a7e9c8c4a",
+        "3b1a66790212a8e2c32931d67c1f3f548bca3491a5622c755fe182fc7826f3a4",
+        "bdce345591393128d636346589239514dc2881a6971a986b9ba43940306e3879",
+        "d4708d25ea061db8d43845cd0e5cc400782d016de618e1d8adddc1c8cb2b4c99",
+        "b5133cf34db5e74e0afe827ccd147ea0a39c87871c87b095ea851936a891c8f5",
+        "c85a7ec7ff4b6c1a76a0e234fc45d09dd004fa015e339be70cc8596ac177456e",
+        "e60bc93fb7c59ed918cbecf9d0fc3ba9bdb51559f2456d2152b98de62c535df1",
+        "12ff17cd61186b10ada47ae1614ea27a47b51239fe5d23647e6d665c4393561c",
+        "db03eb720995f17ddb82b6d25c2e6c62614b62c10695f0211099c0c96e717b92",
+        "7727c70d5ccb20f4f0f06a1f829e032c77506b9f467878691e439297fe197eed",
+        "834508465bb2ca9267117eebd7692f82fc68c7ab3ccaffcc83e7da5288139107",
+        "6d3cfefb6a28e0b13b3cdb3a268ec3902ff54b15bb1a83120b9e1e9678978309",
+        "c54419b703d6bf2ee0c6c6514295eba77a1a3557c8c7e18e3ebd5c76fab10621",
+        "531275d1141b6666aa914da905fb0e2e45f19aa903762ecb5568082cfb34a8d3",
+        "ffd95f0d019ac32bde97d4f32d72b1427a6bb0d32062c074b336e66106c82d5f",
+        "51f2c482a20fb3d67cd3189547c0625b02419d8e6bc88e65116d5e702723b77d",
+        "b4e2447a768b3a8e60b4ce317c0cfd18159a03ef048393eeb1414fe91726882a",
+        "0d4c60a5c908c3de67d448aa4982c7791e2a75d4f3dbf0d258033b0f9ade5df0",
+        "f522d96fb03e0beb486948008056a4b01448e9c219968016af792a0cde7b887b",
+        "7eb8b708d0b58b51d44adae5d074c1383aefb6762f4a11f507f60e152331d8ed",
+        "20bfa6e39aab56511432846a1b38327860e6a3d38fe7f7723ed39d312f92ab20",
+        "8746f6b024f789e1b0a4ac3bf2646a82bbf624d9892f4c14592d5139d3eb7b20",
+        "c1db27f1febd00cdbf47945088efa37ccf2520d59dcd4758670b3ff98d0faae9",
+        "e9d21c69cd497ad4d879e473d4e2d98fc76d7e6d5e31ae19044219ee8a2ff525",
+        "d5e93b366d4f784c78f0ef6049ee9f3ea38752fb7c6d3c1ecb734222dcb8dd51",
+        "a9acdec74c0726aa6d55ff1962200931556959eeb74d41b486677e3fa84bcc39",
+        "1daa0bd836d086bde662b17660978ec7421a36d75f3c96a1a7bf8917f5936a3e",
+        "74d0599ee850e1d1b655a6e90383e9962476516b7d807de29e0e47526cca5c33",
+        "e93ceabcdc36f7f6ea47041ae7835f73a4b5050fa0670987081a5afa745b1572"
+      ],
+      "plans": [
+        {
+          "config_sha256": "c18abc29f44fefbb6846563178eb8377e80941fd02c13c504a595368c400635a",
+          "frozen_at": "2026-11-04T07:43:17.813063+00:00",
+          "plan_path": "results/secon2027/plans/p0-smoke-v1.json",
+          "plan_sha256": "9dcacf673df0670b92eb91479bb1d0160b85e585184fb97c0d3b9542b72ababe",
+          "reason": "Frozen regression discovered README fixture dependency absent; zero research runs started. Retain snapshot and test log; replace with complete source closure.",
+          "source_snapshot": "9a7cbcaea27d04081db2230ea52a91ac1d1d7628507d129e10c4e3149941b500",
+          "status": "superseded-before-exposure"
+        },
+        {
+          "config_sha256": "0d12f982d0156d0f006938214d534aac634b1ec34fafb4ee87559bf13b10b6bb",
+          "frozen_at": "2026-11-04T07:45:12.531970+00:00",
+          "plan_path": "results/secon2027/plans/p0-smoke-v2.json",
+          "plan_sha256": "fa95be40c95192e5487473e98791dfbbb2c294c38a715345f49d885d79209662",
+          "reason": "Independent destination-delivery audit tightened before first research execution; no seeds consumed.",
+          "source_snapshot": "42ddf3aa7bb1e12f62a743bf5d2337c2830e8272d6139106a117d1c7292b71df",
+          "status": "superseded-before-exposure"
+        },
+        {
+          "config_sha256": "bb81ec400edbab5f2b6ebc1eb47d4f81907b366ff1f7a92964dcf591d3275988",
+          "frozen_at": "2026-11-04T07:46:57.450965+00:00",
+          "plan_path": "results/secon2027/plans/p0-smoke-v3.json",
+          "plan_sha256": "238973ce7c76a2317358cd2fa7e61acc2b7b0bf190192af7b731367cd3380ebd",
+          "source_snapshot": "e8d94c29b3797a55787ee8cc5a60c3d08b4949186f2250581ed36d851ef5b1a2",
+          "status": "active"
+        }
+      ],
+      "purpose": "development",
+      "registered_at": "2026-11-04T15:22:49+08:00",
+      "scenarios": [
+        "P0-smoke",
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "scope": "Deterministic P0 smoke, then three development seeds across S1/S2/S3 and four modeled protocols in default and matched configurations. Explicit development additions require new frozen config/run keys; exposure remains development. No confirmatory interpretation.",
+      "seed_states": {
+        "2027000": "exposed",
+        "2027001": "exposed",
+        "2027002": "exposed"
+      },
+      "seeds": [
+        2027000,
+        2027001,
+        2027002
+      ],
+      "source_snapshot": "e8d94c29b3797a55787ee8cc5a60c3d08b4949186f2250581ed36d851ef5b1a2",
+      "source_version": null,
+      "status": "exposed"
+    }
+  },
+  "contract_path": "docs/research/secon2027_experiment_contract.md",
+  "exclusions": [
+    {
+      "end": 999999,
+      "provenance": [
+        {
+          "path": "docs/research/secon2027_provenance/historical_seed_inventory.json",
+          "sha256": "7fb7feba9c27189a6ebed58bff8a1e4faf5e2d42eaa1ae78705504f78e626df0"
+        },
+        {
+          "path": "docs/research/secon2027_provenance/legacy_registry_import.json",
+          "sha256": "bda4e2062acc2dad43ebf47a0064b3271211f25314d81f0e483eb985eb313de4"
+        },
+        {
+          "path": "docs/research/secon2027_provenance/dependency_closure.json",
+          "sha256": "33de99b317546f3855b7465f40f247511af68375b61543a4ca7cbaf64325f0c6"
+        }
+      ],
+      "reason": "Conservative historical namespace fence. Not every integer was run; existing exposed, reserved, closed and ambiguous legacy cohorts cannot become new SECON holdout.",
+      "start": 0,
+      "status": "retired"
+    }
+  ],
+  "formal_validation": {
+    "reason": "Allocate only after development correctness, mechanism exposure and measured cost review; freeze method, matrix, sample size, statistics and failure policy first.",
+    "status": "not_registered"
+  },
+  "historical_summary": {
+    "artifact_exposed_ranges": [
+      [
+        1,
+        101
+      ],
+      [
+        200,
+        201
+      ],
+      [
+        300,
+        301
+      ],
+      [
+        400,
+        401
+      ],
+      [
+        1100,
+        1101
+      ],
+      [
+        1200,
+        1201
+      ],
+      [
+        1300,
+        1301
+      ],
+      [
+        1400,
+        1401
+      ],
+      [
+        2001,
+        2020
+      ],
+      [
+        3001,
+        3020
+      ],
+      [
+        5000,
+        5020
+      ],
+      [
+        6000,
+        6020
+      ],
+      [
+        7000,
+        7020
+      ],
+      [
+        8000,
+        8020
+      ],
+      [
+        9000,
+        9020
+      ],
+      [
+        14001,
+        14003
+      ],
+      [
+        16000,
+        16020
+      ],
+      [
+        18001,
+        18003
+      ],
+      [
+        22001,
+        22003
+      ],
+      [
+        23000,
+        23040
+      ],
+      [
+        34000,
+        34005
+      ],
+      [
+        37000,
+        37003
+      ],
+      [
+        38000,
+        38020
+      ],
+      [
+        39000,
+        39020
+      ],
+      [
+        40000,
+        40020
+      ],
+      [
+        41000,
+        41020
+      ],
+      [
+        42000,
+        42020
+      ],
+      [
+        43001,
+        43020
+      ],
+      [
+        43200,
+        43200
+      ],
+      [
+        45000,
+        45020
+      ],
+      [
+        46000,
+        46020
+      ],
+      [
+        49201,
+        49210
+      ],
+      [
+        49301,
+        49310
+      ],
+      [
+        49400,
+        49400
+      ],
+      [
+        61001,
+        61001
+      ],
+      [
+        62001,
+        62020
+      ],
+      [
+        91000,
+        91000
+      ],
+      [
+        92010,
+        92011
+      ],
+      [
+        92020,
+        92029
+      ],
+      [
+        92100,
+        92109
+      ],
+      [
+        92200,
+        92219
+      ],
+      [
+        92300,
+        92319
+      ]
+    ],
+    "artifact_seed_count": 614,
+    "curated_cohort_count": 64,
+    "details_path": "docs/research/secon2027_provenance/legacy_registry_import.json",
+    "limitations": [
+      "Artifact seed IDs take precedence over filename IDs and old untouched labels.",
+      "Document range extraction includes code-line/page ranges: use curated cohorts, not every raw mention, as semantic evidence.",
+      "Results outside source tree or in deleted /tmp paths cannot be independently recovered from this inventory. The broad retired namespace prevents their known IDs from being reused.",
+      "The 91002 manifest actually declares seed 91000. Both IDs remain retired; do not assert 91002 truly ran from filename alone.",
+      "43000 ran once in memory during a prior audit with no saved performance artifact; it is exposed.",
+      "45001 was partially exposed in a failed attempt before later full 45001\u201345020 run; retain first-attempt failure history."
+    ],
+    "seed_bearing_artifact_count": 496
+  },
+  "mutation_rules": [
+    "Never edit historical manifests or overwrite artifacts.",
+    "Acquire one exclusive atomic lock per complete run key, not per seed.",
+    "Persist started/exposed state before launching a process.",
+    "Cohort exposure does not prevent executing already planned paired arms.",
+    "A validation run key cannot be added after observing validation outcomes.",
+    "Development variants may be appended explicitly with new configuration hashes, never relabeled as fresh validation."
+  ],
+  "registered_at": "2026-11-04T15:22:49+08:00",
+  "run_state_root": "results/secon2027/run_state",
+  "schema": "secon2027-seed-registry-v1",
+  "state_semantics": {
+    "attempt_rule": "Each failed retry requires a new attempt_id; never overwrite an attempt. Exposed cohort state does not block remaining predeclared run keys.",
+    "cohort_status": [
+      "reserved",
+      "running",
+      "exposed",
+      "retired"
+    ],
+    "run_key_fields": [
+      "cohort_id",
+      "frozen_config_sha256",
+      "arm",
+      "seed"
+    ],
+    "run_status": [
+      "planned",
+      "running",
+      "completed",
+      "failed",
+      "invalidated"
+    ],
+    "seed_status": [
+      "reserved",
+      "running",
+      "exposed",
+      "retired"
+    ]
+  },
+  "timezone": "Asia/Shanghai"
+}

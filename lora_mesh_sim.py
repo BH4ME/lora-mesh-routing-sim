@@ -114,6 +114,9 @@ DRC_PROTOCOL_MODES = {
 CPR_PROTOCOL_MODES = {
     "meshecho-cpr": "cpr",
     "meshecho-cpr-nocancel": "no-cancel",
+    "meshecho-cpr-noackcancel": "no-ack-cancel",
+    "meshecho-cpr-norepeat": "no-repeat",
+    "meshecho-cpr-norecovery": "no-recovery",
 }
 DRC_MAX_PENDING_FALLBACKS_PER_NODE = 128
 
@@ -1288,6 +1291,10 @@ class Simulator:
         })
         return attempt_id
 
+    def channel_uniform(self, tx: Transmission, receiver: int) -> float:
+        """Draw a channel innovation; experiment subclasses may use a common field."""
+        return self.channel_random.random()
+
     def try_receive(self, tx: Transmission, receiver: int) -> Optional[RxInfo]:
         if receiver == tx.sender:
             self._record_rx_attempt(
@@ -1340,7 +1347,7 @@ class Simulator:
             for other in self.transmissions_overlapping(tx.start, tx.end)
             if other.tx_id != tx.tx_id and other.sender != receiver
         ]
-        if self.channel_random.random() <= self.prr_from_snr(sinr_db):
+        if self.channel_uniform(tx, receiver) <= self.prr_from_snr(sinr_db):
             self.metrics.rx_success += 1
             attempt_id = self._record_rx_attempt(
                 tx, receiver, reason="success", decoded=True,
@@ -3848,19 +3855,38 @@ class MeshEchoCPR(MeshEchoDRC):
 
     name = "meshecho-cpr"
 
-    def __init__(self, *args: Any, cancel_on_ack: bool = True, **kwargs: Any) -> None:
+    def __init__(
+        self, *args: Any, cancel_on_ack: bool = True,
+        relay_ledger_enabled: Optional[bool] = None,
+        evict_pending_on_capacity: Optional[bool] = None,
+        enable_repeat: bool = True, enable_recovery: bool = True,
+        relay_capacity: int = 8, protocol_name: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         # Reuse only the PHY-facing route/flood helpers.  CPR has independent
         # source lifecycle and ACK validation below; it does not call DRC's
         # reservation/fixed-guard selector.
         super().__init__(*args, mode="drc", **kwargs)
         self.cancel_on_ack = bool(cancel_on_ack)
-        self.name = "meshecho-cpr" if cancel_on_ack else "meshecho-cpr-nocancel"
+        self.relay_ledger_enabled = (
+            self.cancel_on_ack if relay_ledger_enabled is None else bool(relay_ledger_enabled)
+        )
+        self.evict_pending_on_capacity = (
+            self.relay_ledger_enabled if evict_pending_on_capacity is None
+            else bool(evict_pending_on_capacity)
+        )
+        self.enable_repeat = bool(enable_repeat)
+        self.enable_recovery = bool(enable_recovery)
+        self.relay_capacity = int(relay_capacity)
+        self.name = protocol_name or (
+            "meshecho-cpr" if cancel_on_ack else "meshecho-cpr-nocancel"
+        )
         self._reset_cpr_state(max_hops=8)
 
     def _reset_cpr_state(self, *, max_hops: int) -> None:
         self.cpr_pending = CprRelayLedger(
-            max_records=8, max_hops=max_hops,
-            evict_pending=self.cancel_on_ack,
+            max_records=self.relay_capacity, max_hops=max_hops,
+            evict_pending=self.evict_pending_on_capacity,
         )
         self.cpr_flows: Dict[int, CprFlowRecord] = {}
         self.cpr_initial_pending: Dict[int, PendingSend] = {}
@@ -3984,6 +4010,7 @@ class MeshEchoCPR(MeshEchoDRC):
             "src": flow.source, "dst": flow.destination,
             "action": action, "reason": reason, "deadline": flow.deadline,
             "route_generation": flow.route_generation,
+            "route_confirmation_revision": flow.route_confirmation_revision,
             "initial_route_epoch": flow.initial_route_epoch,
             "recovery_route_epoch": flow.recovery_route_epoch,
         }
@@ -4000,6 +4027,8 @@ class MeshEchoCPR(MeshEchoDRC):
         flow = self._cpr_flow(flow_id)
         state = self.flow_states.get(flow_id)
         if flow is None or state is None or flow_id in self.retired_flows:
+            return None
+        if flow.initial_action is not None:
             return None
         if flow.acked_at is not None or start >= flow.deadline:
             self._cpr_decision_event(
@@ -4026,6 +4055,7 @@ class MeshEchoCPR(MeshEchoDRC):
             flow.initial_action = "R"
             flow.initial_path = route.path
             flow.route_generation = route.generation
+            flow.route_confirmation_revision = route.confirmation_revision
             self.flow_actions[flow_id] = "R_INITIAL"
             self.flow_sent_paths[flow_id] = route.path
             self._cpr_decision_event(
@@ -4054,12 +4084,14 @@ class MeshEchoCPR(MeshEchoDRC):
             time=start, route_bound_s=route_bound_s,
             flood_bound_s=flood_bound_s,
         )
-        return Packet(
+        packet = Packet(
             kind="FLOOD", flow_id=flow_id, origin=flow.source,
             final_dst=flow.destination, ttl=self.sim.max_hops,
             created_at=flow.enqueue_at, protocol=self.name,
             request_id=flow_id, path=(flow.source,),
         )
+        self.seen_floods[flow.source].add(self._seen_key(packet), self.sim.now)
+        return packet
 
     def _cpr_start_repeat(
         self, sender: int, flow_id: int, start: float, pending: PendingSend,
@@ -4070,6 +4102,7 @@ class MeshEchoCPR(MeshEchoDRC):
             flow is None or flow_id in self.retired_flows
             or flow.acked_at is not None
             or flow.initial_action != "R"
+            or not self.enable_repeat
             or not flow.repeat_requested
             or flow.repeat_started_at is not None
         ):
@@ -4124,7 +4157,11 @@ class MeshEchoCPR(MeshEchoDRC):
         if (
             flow is None or state is None or flow_id in self.retired_flows
             or flow.acked_at is not None
-            or not flow.repeat_started_at is not None
+            or not self.enable_recovery
+            or (flow.repeat_started_at is None and (
+                self.enable_repeat or flow.skipped_repeat_slot_ends_at is None
+                or start < flow.skipped_repeat_slot_ends_at
+            ))
             or not flow.recovery_requested
             or flow.recovery_started_at is not None
         ):
@@ -4146,7 +4183,11 @@ class MeshEchoCPR(MeshEchoDRC):
                 repair_index=1,
             ),
             flood_bound_s=flood_bound_s,
-            repeat_started=True,
+            repeat_started=flow.repeat_started_at is not None,
+            enable_repeat=self.enable_repeat,
+            enable_recovery=self.enable_recovery,
+            repeat_slot_elapsed=(flow.skipped_repeat_slot_ends_at is not None
+                                 and start >= flow.skipped_repeat_slot_ends_at),
         ))
         if not route_valid:
             decision = CprDecision(
@@ -4166,12 +4207,14 @@ class MeshEchoCPR(MeshEchoDRC):
             flow, action=CprAction.F_RECOVERY.value, reason=decision.reason,
             time=start, flood_bound_s=flood_bound_s,
         )
-        return Packet(
+        packet = Packet(
             kind="FLOOD", flow_id=flow_id, origin=flow.source,
             final_dst=flow.destination, ttl=self.sim.max_hops,
             created_at=flow.enqueue_at, protocol=self.name,
             request_id=flow_id, path=(flow.source,), repair_index=2,
         )
+        self.seen_floods[flow.source].add(self._seen_key(packet), self.sim.now)
+        return packet
 
     def on_transmit(self, sender: int, packet: Packet, start: float, end: float) -> None:
         super().on_transmit(sender, packet, start, end)
@@ -4190,13 +4233,31 @@ class MeshEchoCPR(MeshEchoDRC):
                     flow.source, flow.destination, flow.flow_id, flow.initial_path,
                     repair_index=1,
                 )
-                self.sim.schedule(
-                    min(flow.deadline, start + bound), "protocol_timer",
-                    lambda flow_id=flow.flow_id: self._cpr_arm_repeat(flow_id),
-                )
+                if self.enable_repeat:
+                    self.sim.schedule(
+                        min(flow.deadline, start + bound), "protocol_timer",
+                        lambda flow_id=flow.flow_id: self._cpr_arm_repeat(flow_id),
+                    )
+                else:
+                    # Reserve the nominal repeat observation slot. The
+                    # released airtime is not advanced into an earlier flood,
+                    # and no fictitious repeat physical start is recorded.
+                    flow.skipped_repeat_slot_ends_at = start + 2.0 * bound
+                    self.action_events.append({
+                        "event": "repeat-slot-skipped", "time": start,
+                        "flow_id": flow.flow_id, "src": sender,
+                        "slot_ends_at": flow.skipped_repeat_slot_ends_at,
+                        "route_bound_s": bound,
+                    })
+                    if self.enable_recovery:
+                        self.sim.schedule(
+                            min(flow.deadline, flow.skipped_repeat_slot_ends_at),
+                            "protocol_timer",
+                            lambda flow_id=flow.flow_id: self._cpr_arm_recovery(flow_id),
+                        )
         elif packet.kind == "DATA" and packet.repair_index == 1:
             flow.repeat_started_at = start
-            if flow.flow_id not in self.cpr_recovery_timers:
+            if self.enable_recovery and flow.flow_id not in self.cpr_recovery_timers:
                 self.cpr_recovery_timers.add(flow.flow_id)
                 bound = self._cpr_route_bound_s(
                     flow.source, flow.destination, flow.flow_id, flow.initial_path,
@@ -4218,6 +4279,7 @@ class MeshEchoCPR(MeshEchoDRC):
         if (
             flow is None or flow_id in self.retired_flows
             or flow.acked_at is not None or flow.initial_action != "R"
+            or not self.enable_repeat
             or flow.repeat_requested or flow.initial_started_at is None
         ):
             return
@@ -4237,7 +4299,11 @@ class MeshEchoCPR(MeshEchoDRC):
         flow = self._cpr_flow(flow_id)
         if (
             flow is None or flow_id in self.retired_flows
-            or flow.acked_at is not None or flow.repeat_started_at is None
+            or flow.acked_at is not None or not self.enable_recovery
+            or (flow.repeat_started_at is None and (
+                self.enable_repeat or flow.skipped_repeat_slot_ends_at is None
+                or self.sim.now < flow.skipped_repeat_slot_ends_at
+            ))
             or flow.recovery_requested or flow.recovery_started_at is not None
         ):
             return
@@ -4267,9 +4333,10 @@ class MeshEchoCPR(MeshEchoDRC):
             self.cpr_recovery_pending,
         ):
             pending = pending_map.pop(flow_id, None)
-            if pending is not None:
+            if pending is not None and not pending.committed:
                 pending.canceled = True
         record = state.routes.get(flow.destination)
+        cache_timeout_effect = "no-matching-ready-route"
         if (
             record is not None
             and record.phase is RoutePhase.READY
@@ -4277,17 +4344,29 @@ class MeshEchoCPR(MeshEchoDRC):
             and flow.route_generation is not None
             and record.generation == flow.route_generation
         ):
-            evicted = state.record_in_deadline_miss(
-                flow.destination, flow.route_generation,
-            )
-            if evicted:
-                self._remove_route(flow.source, flow.destination)
+            if record.confirmation_revision != flow.route_confirmation_revision:
+                # Another live message has since confirmed this path. Its
+                # newer evidence survives an older message's missing ACK,
+                # including two confirmations at the same timestamp.
+                cache_timeout_effect = "preserved-newer-confirmation"
             else:
-                self._mirror_route(flow.source, record)
+                evicted = state.record_in_deadline_miss(
+                    flow.destination, flow.route_generation,
+                )
+                cache_timeout_effect = "evicted" if evicted else "quarantined"
+                if evicted:
+                    self._remove_route(flow.source, flow.destination)
+                else:
+                    self._mirror_route(flow.source, record)
         self.action_events.append({
             "event": "timeout", "time": self.sim.now, "flow_id": flow_id,
             "src": flow.source, "dst": flow.destination,
             "reason": "deadline-censor",
+            "cache_timeout_effect": cache_timeout_effect,
+            "route_confirmation_revision_at_start": flow.route_confirmation_revision,
+            "route_confirmation_revision_at_timeout": (
+                record.confirmation_revision if record is not None else None
+            ),
         })
         self._cpr_retire(flow_id)
 
@@ -4314,8 +4393,10 @@ class MeshEchoCPR(MeshEchoDRC):
     ) -> Optional[str]:
         if packet.kind != "ACK":
             return "wrong-kind"
-        if packet.request_id != flow.flow_id:
+        if packet.flow_id != flow.flow_id or packet.request_id != flow.flow_id:
             return "flow-request-mismatch"
+        if flow.acked_at is not None or flow.flow_id in self.retired_flows:
+            return "retired-flow"
         if packet.origin != flow.destination or packet.final_dst != flow.source:
             return "endpoint-mismatch"
         if packet.app_payload:
@@ -4336,50 +4417,29 @@ class MeshEchoCPR(MeshEchoDRC):
         state = self.flow_states.get(flow.flow_id)
         if state is None:
             return "unknown-flow-state"
-        current_epoch = state.route_generation_for(flow.destination)
-        record = state.routes.get(flow.destination)
+        # The active flow's sent-stage identity is immutable. Shared cache
+        # generations gate route updates below, never application completion:
+        # another message's valid ACK must not invalidate this message's ACK.
         marker = packet.repair_index
         if marker is None:
             if flow.initial_started_at is None:
                 return "initial-not-started"
             if flow.initial_action == "R" and path != flow.initial_path:
                 return "initial-path-mismatch"
-            if flow.initial_action == "R":
-                if (
-                    record is None
-                    or record.phase is not RoutePhase.READY
-                    or record.generation != flow.route_generation
-                ):
-                    return "stale-route-generation"
-            elif current_epoch != flow.initial_route_epoch:
-                return "stale-route-generation"
+            if self.sim.now < flow.initial_started_at:
+                return "initial-not-started"
         elif marker == 1:
             if flow.repeat_started_at is None:
                 return "repeat-not-started"
             if path != flow.initial_path:
                 return "repeat-path-mismatch"
-            if (
-                record is None
-                or record.phase is not RoutePhase.READY
-                or record.generation != flow.route_generation
-            ):
-                return "stale-route-generation"
+            if self.sim.now < flow.repeat_started_at:
+                return "repeat-not-started"
         elif marker == 2:
             if flow.recovery_started_at is None:
                 return "recovery-not-started"
-            expected_epoch = (
-                flow.recovery_route_epoch
-                if flow.recovery_route_epoch is not None
-                else flow.route_generation
-            )
-            if expected_epoch is None or current_epoch != expected_epoch:
-                return "stale-route-generation"
-            if (
-                record is None
-                or record.phase is not RoutePhase.READY
-                or record.generation != expected_epoch
-            ):
-                return "stale-route-generation"
+            if self.sim.now < flow.recovery_started_at:
+                return "recovery-not-started"
         else:
             return "marker-mismatch"
         return None
@@ -4396,12 +4456,40 @@ class MeshEchoCPR(MeshEchoDRC):
             self._on_data(receiver, packet, rx)
 
     def _cpr_on_flood(self, receiver: int, packet: Packet, rx: RxInfo) -> None:
+        # Reject invalid wire paths before the inherited handler can append a
+        # node, deliver data, emit an ACK or enqueue a relay. This also rejects
+        # a return to the origin after bounded duplicate state has expired.
+        if not (
+            packet.app_payload and packet.repair_index in {None, 2}
+            and packet.request_id == packet.flow_id
+            and packet.origin != receiver
+            and bool(packet.path) and packet.path[0] == packet.origin
+            and packet.path[-1] == rx.sender
+            and receiver not in packet.path
+            and len(set(packet.path)) == len(packet.path)
+            and 1 <= len(packet.path) <= self.sim.max_hops
+            and packet.path_index == len(packet.path) - 1
+            and 1 <= packet.ttl <= self.sim.max_hops - len(packet.path) + 1
+        ):
+            self.action_events.append({
+                "event": "flood-reject", "time": self.sim.now,
+                "flow_id": packet.flow_id, "node": receiver,
+                "repair_index": packet.repair_index,
+                "reason": "invalid-wire-path-or-identity",
+            })
+            return
         self.cpr_pending.retire()
         key = self._seen_key(packet)
         unseen = not self.seen_floods[receiver].contains(key, self.sim.now)
-        super()._on_flood(receiver, packet, rx)
         if not unseen:
+            pending = self.pending_fallback.get((receiver, key))
+            if pending is not None and not pending.canceled and not pending.committed:
+                pending.canceled = True
+                self.pending_fallback.pop((receiver, key), None)
+                self.sim.metrics.suppressed_forwards += 1
+            self.sim.metrics.duplicate_rx += 1
             return
+        super()._on_flood(receiver, packet, rx)
         valid_forward = (
             packet.app_payload
             and packet.repair_index in {None, 2}
@@ -4421,7 +4509,7 @@ class MeshEchoCPR(MeshEchoDRC):
         pending = self.pending_fallback.get(pending_key)
         if pending is None or pending.canceled or pending.committed:
             return
-        if not self.cancel_on_ack:
+        if not self.relay_ledger_enabled:
             return
         evicted = self.cpr_pending.enroll(
             CprPendingRelay(
@@ -4459,6 +4547,12 @@ class MeshEchoCPR(MeshEchoDRC):
                 app_payload=packet.app_payload,
             ),
         )
+        self.action_events.append({
+            "event": "cpr-cancel-check", "time": self.sim.now,
+            "node": receiver, "flow_id": packet.flow_id,
+            "repair_index": packet.repair_index, "canceled": bool(canceled),
+            "ack_rx_attempt_id": rx.attempt_id,
+        })
         if not canceled:
             return
         key = (
@@ -4524,7 +4618,7 @@ class MeshEchoCPR(MeshEchoDRC):
         if flow is None or state is None or flow_id in self.retired_flows:
             return
         marker = packet.repair_index
-        if marker not in {None, 1, 2}:
+        if marker not in {None, 1, 2} or len(packet.path) < 2:
             return
         if self._cpr_ack_rejection_reason(
             flow, packet, RxInfo(
@@ -4543,13 +4637,30 @@ class MeshEchoCPR(MeshEchoDRC):
             if pending is not None and not pending.committed:
                 pending.canceled = True
         route_generation_before = state.route_generation_for(flow.destination)
-        route = state.install_route(
+        route = state.refresh_same_ready_route(
             flow.destination, tuple(packet.path), now=now,
             ttl_s=self.route_ttl_s,
         )
-        self._mirror_route(flow.source, route)
+        expected_epoch = (
+            flow.recovery_route_epoch if marker == 2
+            else flow.route_generation if flow.initial_action == "R"
+            else flow.initial_route_epoch
+        )
+        if route is not None:
+            cache_update = "refreshed-same-path"
+        elif expected_epoch == route_generation_before:
+            route = state.install_route(
+                flow.destination, tuple(packet.path), now=now,
+                ttl_s=self.route_ttl_s,
+            )
+            cache_update = "installed-matching-epoch"
+        else:
+            cache_update = "preserved-newer-route"
+        if route is not None:
+            self._mirror_route(flow.source, route)
+            self.last_commit_flow[(flow.source, flow.destination)] = flow_id
+        route_generation_after = state.route_generation_for(flow.destination)
         self.flow_ack_paths[flow_id] = tuple(packet.path)
-        self.last_commit_flow[(flow.source, flow.destination)] = flow_id
         ack_event_id = self.cpr_ack_event_ids.pop(flow_id, None)
         if ack_event_id is not None:
             for provenance in self.sim.ack_provenance:
@@ -4559,7 +4670,8 @@ class MeshEchoCPR(MeshEchoDRC):
                         if flow.route_generation is not None
                         else route_generation_before
                     )
-                    provenance["route_generation_after"] = route.generation
+                    provenance["route_generation_after"] = route_generation_after
+                    provenance["cache_update"] = cache_update
                     break
         self.action_events.append({
             "event": "ack-accept", "time": now, "flow_id": flow_id,
@@ -4567,7 +4679,8 @@ class MeshEchoCPR(MeshEchoDRC):
             "action": self.flow_actions.get(flow_id),
             "path": tuple(packet.path), "repair_index": marker,
             "route_generation_before": route_generation_before,
-            "route_generation_after": route.generation,
+            "route_generation_after": route_generation_after,
+            "cache_update": cache_update,
         })
         self._cpr_retire(flow_id)
 
@@ -9124,7 +9237,13 @@ def build_protocol(name: str, args: Optional[argparse.Namespace] = None) -> Rout
         )
     if name in CPR_PROTOCOL_MODES:
         return MeshEchoCPR(
-            cancel_on_ack=name == "meshecho-cpr",
+            cancel_on_ack=name not in {"meshecho-cpr-nocancel", "meshecho-cpr-noackcancel"},
+            relay_ledger_enabled=name != "meshecho-cpr-nocancel",
+            evict_pending_on_capacity=name != "meshecho-cpr-nocancel",
+            enable_repeat=name != "meshecho-cpr-norepeat",
+            enable_recovery=name != "meshecho-cpr-norecovery",
+            relay_capacity=getattr(args, "cpr_relay_capacity", 8),
+            protocol_name=name,
             route_ttl_s=getattr(args, "calm_route_ttl_s", 600.0),
             flood_base_delay_s=getattr(
                 args, "calm_flood_base_delay_s", 0.45,

@@ -22,3 +22,6 @@ results/*
 !paper/full2026/smart_calm_full_paper.pdf
 !paper/icc2027/figures/fig_baseline_delivery.pdf
 !paper/icc2027/icc2027_lora_mesh.pdf
+
+# Runtime registry lock is process state, never a release input.
+configs/secon2027/*.lock

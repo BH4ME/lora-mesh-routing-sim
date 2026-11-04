@@ -1,0 +1,149 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "tools/secon2027_experiment.py",
+    "audit",
+    "--plan",
+    "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/results/secon2027/plans/p0-smoke-v3.json"
+  ],
+  "cwd": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo",
+  "exit_code": 0,
+  "plan_file_sha256": "409736b2bb18d5c241b2304d22596ed93be335902b8d2cb693e4a635cca7db73",
+  "source_snapshot": "e8d94c29b3797a55787ee8cc5a60c3d08b4949186f2250581ed36d851ef5b1a2",
+  "report": {
+    "status": "complete",
+    "plan_sha256": "238973ce7c76a2317358cd2fa7e61acc2b7b0bf190192af7b731367cd3380ebd",
+    "expected_runs": 21,
+    "completed": [
+      {
+        "run_key": "db03eb720995f17ddb82b6d25c2e6c62614b62c10695f0211099c0c96e717b92",
+        "attempt_path": "results/secon2027/runs/db03eb720995f17ddb82b6d25c2e6c62614b62c10695f0211099c0c96e717b92/attempt-001",
+        "completion_sha256": "b0be132e5f16eaccbaad3da47ad70d4f1aaaad26d7cf9e909681ecca8df57730",
+        "wall_seconds": 0.353126167
+      },
+      {
+        "run_key": "7727c70d5ccb20f4f0f06a1f829e032c77506b9f467878691e439297fe197eed",
+        "attempt_path": "results/secon2027/runs/7727c70d5ccb20f4f0f06a1f829e032c77506b9f467878691e439297fe197eed/attempt-001",
+        "completion_sha256": "fc6ced1115ba3fca4e9bc158ba42e40025368ff99d44c647cb59672f639dd9fb",
+        "wall_seconds": 0.35794229199999994
+      },
+      {
+        "run_key": "834508465bb2ca9267117eebd7692f82fc68c7ab3ccaffcc83e7da5288139107",
+        "attempt_path": "results/secon2027/runs/834508465bb2ca9267117eebd7692f82fc68c7ab3ccaffcc83e7da5288139107/attempt-001",
+        "completion_sha256": "1b99a483d43befdfa3001d03252b58769a57e3bd626bbcf9ec3981f93135e94c",
+        "wall_seconds": 0.44905679200000015
+      },
+      {
+        "run_key": "6d3cfefb6a28e0b13b3cdb3a268ec3902ff54b15bb1a83120b9e1e9678978309",
+        "attempt_path": "results/secon2027/runs/6d3cfefb6a28e0b13b3cdb3a268ec3902ff54b15bb1a83120b9e1e9678978309/attempt-001",
+        "completion_sha256": "3e132cf43d275f76cafb83a13b65b8de44b30341e40d1b5f88966e2bdcd47450",
+        "wall_seconds": 0.4924580409999999
+      },
+      {
+        "run_key": "c54419b703d6bf2ee0c6c6514295eba77a1a3557c8c7e18e3ebd5c76fab10621",
+        "attempt_path": "results/secon2027/runs/c54419b703d6bf2ee0c6c6514295eba77a1a3557c8c7e18e3ebd5c76fab10621/attempt-001",
+        "completion_sha256": "9cae0aa7b16c88c3fcfec80534fe5ae8962f37cb02a88668acc7c43d92c61800",
+        "wall_seconds": 0.39204045899999995
+      },
+      {
+        "run_key": "531275d1141b6666aa914da905fb0e2e45f19aa903762ecb5568082cfb34a8d3",
+        "attempt_path": "results/secon2027/runs/531275d1141b6666aa914da905fb0e2e45f19aa903762ecb5568082cfb34a8d3/attempt-001",
+        "completion_sha256": "5c6dbed949e4491d992c7a5883dab13da20f1c3784668c50e59c77785b85c8f8",
+        "wall_seconds": 0.3871380000000002
+      },
+      {
+        "run_key": "ffd95f0d019ac32bde97d4f32d72b1427a6bb0d32062c074b336e66106c82d5f",
+        "attempt_path": "results/secon2027/runs/ffd95f0d019ac32bde97d4f32d72b1427a6bb0d32062c074b336e66106c82d5f/attempt-001",
+        "completion_sha256": "445539d37de299223f632935bf0c7d005ee3ae526fbcad87b1a4fb3a6e4f1260",
+        "wall_seconds": 0.38142112500000014
+      },
+      {
+        "run_key": "51f2c482a20fb3d67cd3189547c0625b02419d8e6bc88e65116d5e702723b77d",
+        "attempt_path": "results/secon2027/runs/51f2c482a20fb3d67cd3189547c0625b02419d8e6bc88e65116d5e702723b77d/attempt-001",
+        "completion_sha256": "7c24f8bd6f5fb21a0329d5ddf502f869a87e0c820628de2c20f4044a8b0905c8",
+        "wall_seconds": 0.2976227500000004
+      },
+      {
+        "run_key": "b4e2447a768b3a8e60b4ce317c0cfd18159a03ef048393eeb1414fe91726882a",
+        "attempt_path": "results/secon2027/runs/b4e2447a768b3a8e60b4ce317c0cfd18159a03ef048393eeb1414fe91726882a/attempt-001",
+        "completion_sha256": "18ac7409e2739be265290296f2aceee0db5c230701b33daa990f5f3a47f0b476",
+        "wall_seconds": 0.2991311249999997
+      },
+      {
+        "run_key": "0d4c60a5c908c3de67d448aa4982c7791e2a75d4f3dbf0d258033b0f9ade5df0",
+        "attempt_path": "results/secon2027/runs/0d4c60a5c908c3de67d448aa4982c7791e2a75d4f3dbf0d258033b0f9ade5df0/attempt-001",
+        "completion_sha256": "0b976b23c394b265c537998299fa1c8fdec65bedbaa0a5e602f852b1ffb51697",
+        "wall_seconds": 0.39934120900000014
+      },
+      {
+        "run_key": "f522d96fb03e0beb486948008056a4b01448e9c219968016af792a0cde7b887b",
+        "attempt_path": "results/secon2027/runs/f522d96fb03e0beb486948008056a4b01448e9c219968016af792a0cde7b887b/attempt-001",
+        "completion_sha256": "42c7bd168757b9a2b3d9fb7b4e505a2f870e9e00e2a596bb1017b6c1b3f97893",
+        "wall_seconds": 0.42078104199999977
+      },
+      {
+        "run_key": "7eb8b708d0b58b51d44adae5d074c1383aefb6762f4a11f507f60e152331d8ed",
+        "attempt_path": "results/secon2027/runs/7eb8b708d0b58b51d44adae5d074c1383aefb6762f4a11f507f60e152331d8ed/attempt-001",
+        "completion_sha256": "bf67d3c9ec23616d0fcc34d09776c9c72304d41a1ed3c94094d7e0e0314724df",
+        "wall_seconds": 0.31256320800000026
+      },
+      {
+        "run_key": "20bfa6e39aab56511432846a1b38327860e6a3d38fe7f7723ed39d312f92ab20",
+        "attempt_path": "results/secon2027/runs/20bfa6e39aab56511432846a1b38327860e6a3d38fe7f7723ed39d312f92ab20/attempt-001",
+        "completion_sha256": "8a8ad0eeda2e3bc73c10ab4790226790c2eeb6a9868f94c71b88b78a5ca75d99",
+        "wall_seconds": 0.3094194160000008
+      },
+      {
+        "run_key": "8746f6b024f789e1b0a4ac3bf2646a82bbf624d9892f4c14592d5139d3eb7b20",
+        "attempt_path": "results/secon2027/runs/8746f6b024f789e1b0a4ac3bf2646a82bbf624d9892f4c14592d5139d3eb7b20/attempt-001",
+        "completion_sha256": "da042ead44d14560c42b279ea979bc6ce79090f8a5114777fb0af06fbc2a7bb7",
+        "wall_seconds": 0.36359133300000046
+      },
+      {
+        "run_key": "c1db27f1febd00cdbf47945088efa37ccf2520d59dcd4758670b3ff98d0faae9",
+        "attempt_path": "results/secon2027/runs/c1db27f1febd00cdbf47945088efa37ccf2520d59dcd4758670b3ff98d0faae9/attempt-001",
+        "completion_sha256": "221e1871583649970651c867a1b3b3d735baedbd4f33906c95532a8c90673281",
+        "wall_seconds": 0.565782209
+      },
+      {
+        "run_key": "e9d21c69cd497ad4d879e473d4e2d98fc76d7e6d5e31ae19044219ee8a2ff525",
+        "attempt_path": "results/secon2027/runs/e9d21c69cd497ad4d879e473d4e2d98fc76d7e6d5e31ae19044219ee8a2ff525/attempt-001",
+        "completion_sha256": "d8f259bb1e2d28dd2129cac727d0ced869ce57039e86cfa6aba404d4b82bc682",
+        "wall_seconds": 0.6135555000000004
+      },
+      {
+        "run_key": "d5e93b366d4f784c78f0ef6049ee9f3ea38752fb7c6d3c1ecb734222dcb8dd51",
+        "attempt_path": "results/secon2027/runs/d5e93b366d4f784c78f0ef6049ee9f3ea38752fb7c6d3c1ecb734222dcb8dd51/attempt-001",
+        "completion_sha256": "cbc02665d56c182b88785ec2acb3487215ce5e86627d4755083129512201f415",
+        "wall_seconds": 0.41126474999999907
+      },
+      {
+        "run_key": "a9acdec74c0726aa6d55ff1962200931556959eeb74d41b486677e3fa84bcc39",
+        "attempt_path": "results/secon2027/runs/a9acdec74c0726aa6d55ff1962200931556959eeb74d41b486677e3fa84bcc39/attempt-001",
+        "completion_sha256": "84a8a211614a089f4db97f070ed2665bedd43074a73083afe7c9fe7ca783eae5",
+        "wall_seconds": 0.686604333
+      },
+      {
+        "run_key": "1daa0bd836d086bde662b17660978ec7421a36d75f3c96a1a7bf8917f5936a3e",
+        "attempt_path": "results/secon2027/runs/1daa0bd836d086bde662b17660978ec7421a36d75f3c96a1a7bf8917f5936a3e/attempt-001",
+        "completion_sha256": "2f40c9cfa97faee8da6af9c34d58c5edb543798120e1233d063beee7c1e5a440",
+        "wall_seconds": 0.7890842079999985
+      },
+      {
+        "run_key": "74d0599ee850e1d1b655a6e90383e9962476516b7d807de29e0e47526cca5c33",
+        "attempt_path": "results/secon2027/runs/74d0599ee850e1d1b655a6e90383e9962476516b7d807de29e0e47526cca5c33/attempt-001",
+        "completion_sha256": "9b338513c53d9a2d702d90dfae25ac8e90970fa3f333c86ed47f93c5cd3e658b",
+        "wall_seconds": 0.5844132500000008
+      },
+      {
+        "run_key": "e93ceabcdc36f7f6ea47041ae7835f73a4b5050fa0670987081a5afa745b1572",
+        "attempt_path": "results/secon2027/runs/e93ceabcdc36f7f6ea47041ae7835f73a4b5050fa0670987081a5afa745b1572/attempt-001",
+        "completion_sha256": "46ac548c45574489e3fabd8cea1c36c35915c0775157b2f3a52acaa476129efb",
+        "wall_seconds": 0.43446720800000094
+      }
+    ],
+    "failed": [],
+    "missing": [],
+    "audited_at": "2026-11-04T07:48:40.490585+00:00"
+  }
+}

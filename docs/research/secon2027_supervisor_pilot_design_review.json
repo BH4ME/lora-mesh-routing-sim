@@ -1,0 +1,46 @@
+{
+  "scope": "Read-only static pilot configuration/source review; no simulator, test, RNG, trace generation, or seed execution.",
+  "sha256": {
+    "configs/secon2027/development_pilot.json": "8e91e49204b33cff34c77bd1fc1620e8fc1ee10b4fcc32d2227a199a21cedd2e",
+    "configs/secon2027/seed_registry.json": "4eaee1c7f296734dd74664eeff257a67c072ab6fd00f926933ce95e1c2598ae3",
+    "tools/secon2027_scenarios.py": "d83ebbf9f57a448c220a32f452f3e6e9bffe4a40580acd6f6e11909ddc25d061",
+    "tools/run_drc_experiment.py": "e1ac79e951f1aeca9b85cee9c893d513e05b5c9600f2dd3c9eef29d078810d8f",
+    "tools/run_cpr_experiment.py": "d43dcfa30eda47af2a40e99f429f21b5815c6fac97d6e90d161a37b63b96019f",
+    "tools/secon2027_experiment.py": "6908c859bade6aec9aebf8f9231c76ae5aebdd347d9791d3ddda47f5ceebbb51",
+    "tools/analyze_secon2027.py": "7fd757a780e9725bd3d1992790eaad4a6cc3be7b48f7adcce674a729990eeb54",
+    "lora_mesh_sim.py": "7c4fcef35eb91054df775f05ed07154f097d5e0b5ea798a6313983bbebcb86fb",
+    "docs/research/secon2027_baseline_fidelity.md": "68538ad6bd3461f935ce9d3e34c3917148ccf61051d1b0a0b2ca963dfbe08d55",
+    "docs/research/secon2027_experiment_contract.md": "b23e09f654646aadec3af45b2d65f8eda55cf9aee1b4762ab9656c69f6c15192"
+  },
+  "registered_cohort": {
+    "purpose": "development",
+    "status": "exposed",
+    "seeds": [
+      2027000,
+      2027001,
+      2027002
+    ],
+    "seed_states": {
+      "2027000": "exposed",
+      "2027001": "exposed",
+      "2027002": "exposed"
+    },
+    "first_run_at": "2026-11-04T07:47:24.226591+00:00"
+  },
+  "observed_plans": [
+    {
+      "file": "p0-smoke-v2.json",
+      "experiment_id": "secon-p0-smoke-v2"
+    },
+    {
+      "file": "p0-smoke-v3.json",
+      "experiment_id": "secon-p0-smoke-v3"
+    },
+    {
+      "file": "p0-smoke-v1.json",
+      "experiment_id": "secon-p0-smoke-v1"
+    }
+  ],
+  "planned_runs": 72,
+  "ablation_arm_ids": []
+}

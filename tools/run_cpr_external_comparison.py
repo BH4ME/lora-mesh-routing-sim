@@ -9,7 +9,7 @@ import statistics
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Sequence, Tuple
+from typing import Any, Dict, Mapping, Sequence, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -33,6 +33,7 @@ class ComparisonResult:
     runs: Tuple[Dict[str, Any], ...]
     paired: Tuple[Dict[str, Any], ...]
     summary: Tuple[Dict[str, Any], ...]
+    bundle: cpr.CprExperiment
 
 
 def _summary(runs: Sequence[Dict[str, Any]]) -> Tuple[Dict[str, Any], ...]:
@@ -58,42 +59,37 @@ def run_comparison(
     *,
     case_profile: str = "exposure",
     protocols: Sequence[str] = DEFAULT_PROTOCOLS,
-    seeds: Sequence[int] = (92300,),
+    seeds: Sequence[int],
     deadline_s: float = 30.0,
     split: str = "custom",
+    case: cpr.CprCase | None = None,
+    contract_path: Path = cpr.CONTRACT_PATH,
+    environment: Mapping[str, Any] | None = None,
+    protocol_parameters: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> ComparisonResult:
-    """Run external protocol baselines on the exact CPR identity contract.
-
-    The CPR population runner intentionally rejects non-CPR arms. This wrapper
-    temporarily extends that validation only for this separate comparison
-    experiment and restores it before returning.
-    """
-
+    """Run explicit arms through the complete evidence path without globals."""
     selected = tuple(protocols)
-    if selected[0] != "meshecho-cpr":
+    if not selected or selected[0] != "meshecho-cpr":
         raise ValueError("the candidate must be the first comparison arm")
-    original = cpr.CPR_PROTOCOLS
-    cpr.CPR_PROTOCOLS = tuple(dict.fromkeys((*original, *selected)))
-    try:
-        bundle = cpr.run_matrix(
-            cpr.CASE_PROFILES[case_profile], selected, tuple(seeds),
-            deadline_s, split,
-        )
-    finally:
-        cpr.CPR_PROTOCOLS = original
+    bundle = cpr.run_matrix(
+        case or cpr.CASE_PROFILES[case_profile], selected, tuple(seeds),
+        deadline_s, split, contract_path=contract_path,
+        registry=cpr.EXTERNAL_REGISTRY, environment=environment,
+        protocol_parameters=protocol_parameters,
+    )
     return ComparisonResult(
-        runs=tuple(bundle.runs),
-        paired=tuple(bundle.paired),
-        summary=_summary(bundle.runs),
+        runs=tuple(bundle.runs), paired=tuple(bundle.paired),
+        summary=_summary(bundle.runs), bundle=bundle,
     )
 
 
 def _write_csv(path: Path, rows: Sequence[Dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not rows:
-        path.write_text("", encoding="utf-8")
+        with path.open("x", encoding="utf-8"):
+            pass
         return
-    with path.open("w", newline="", encoding="utf-8") as handle:
+    with path.open("x", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
@@ -102,12 +98,12 @@ def _write_csv(path: Path, rows: Sequence[Dict[str, Any]]) -> None:
 def main(argv: Sequence[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case-profile", choices=tuple(cpr.CASE_PROFILES), default="exposure")
-    parser.add_argument("--seed", action="append", type=int, dest="seeds")
+    parser.add_argument("--seed", action="append", type=int, dest="seeds", required=True)
     parser.add_argument("--protocol", action="append", dest="protocols")
     parser.add_argument("--deadline-s", type=float, default=30.0)
     parser.add_argument("--out-prefix", type=Path, required=True)
     args = parser.parse_args(argv)
-    seeds = tuple(args.seeds or tuple(range(92300, 92320)))
+    seeds = tuple(args.seeds)
     protocols = tuple(args.protocols or DEFAULT_PROTOCOLS)
     result = run_comparison(
         case_profile=args.case_profile,
@@ -116,9 +112,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         deadline_s=args.deadline_s,
         split="custom",
     )
-    _write_csv(Path(f"{args.out_prefix}.runs.csv"), list(result.runs))
-    _write_csv(Path(f"{args.out_prefix}.paired.csv"), list(result.paired))
-    _write_csv(Path(f"{args.out_prefix}.summary.csv"), list(result.summary))
+    paths = cpr.write_artifacts(args.out_prefix, result.bundle)
+    cpr.audit_artifacts(paths["manifest"])
     print(f"wrote {args.out_prefix}.runs.csv")
     print(f"wrote {args.out_prefix}.paired.csv")
     print(f"wrote {args.out_prefix}.summary.csv")

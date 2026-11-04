@@ -3,9 +3,11 @@
 CPR is intentionally independent from the simulator and PHY.  The simulator
 supplies conservative, locally computable duration bounds; this module only
 decides which recovery action is eligible at a real transmission opportunity.
-The first recovery attempt is always a same-path repeat.  A FLOOD recovery is
-eligible only after that repeat has physically started and only when its full
-bound still fits before the flow deadline.
+In the full policy the first recovery attempt is a same-path repeat. A FLOOD
+recovery is eligible only after that repeat has physically started and only
+when its full bound still fits before the flow deadline. The explicit no-repeat
+control instead waits through a reserved repeat observation slot; it never
+reports a skipped repeat as a physical transmission.
 """
 
 from __future__ import annotations
@@ -30,6 +32,8 @@ class CprObservation:
 
     ``repeat_started`` is a physical event, not a queued-request flag.  The
     caller must set it only after the repeat TX actually starts.
+    ``repeat_slot_elapsed`` is used only by the explicit no-repeat control;
+    it preserves the nominal wait without fabricating a repeat-start event.
     """
 
     now: float
@@ -39,6 +43,9 @@ class CprObservation:
     repeat_started: bool
     flow_acked: bool = False
     recovery_started: bool = False
+    enable_repeat: bool = True
+    enable_recovery: bool = True
+    repeat_slot_elapsed: bool = False
 
     def __post_init__(self) -> None:
         if self.now < 0.0:
@@ -95,11 +102,13 @@ class CprFlowRecord:
     initial_action: Optional[str] = None
     initial_path: Tuple[int, ...] = ()
     route_generation: Optional[int] = None
+    route_confirmation_revision: Optional[int] = None
     initial_route_epoch: int = 0
     recovery_route_epoch: Optional[int] = None
     initial_started_at: Optional[float] = None
     repeat_requested: bool = False
     repeat_started_at: Optional[float] = None
+    skipped_repeat_slot_ends_at: Optional[float] = None
     recovery_requested: bool = False
     recovery_started_at: Optional[float] = None
     acked_at: Optional[float] = None
@@ -210,15 +219,23 @@ def choose_recovery_action(observation: CprObservation) -> CprDecision:
             CprAction.DROP_DEADLINE_INFEASIBLE,
             "recovery-already-started",
         )
-    if not observation.repeat_started:
+    if not observation.repeat_started and observation.enable_repeat:
         if _fits(observation.now, observation.route_bound_s, observation.deadline):
             return CprDecision(CprAction.R_REPEAT, "repeat-fits-before-flood")
         return CprDecision(
             CprAction.DROP_DEADLINE_INFEASIBLE,
             "repeat-deadline-infeasible",
         )
+    if not observation.enable_recovery:
+        return CprDecision(CprAction.DROP_DEADLINE_INFEASIBLE, "recovery-disabled")
+    if not observation.repeat_started and not observation.repeat_slot_elapsed:
+        return CprDecision(CprAction.DROP_DEADLINE_INFEASIBLE, "repeat-slot-not-elapsed")
     if _fits(observation.now, observation.flood_bound_s, observation.deadline):
-        return CprDecision(CprAction.F_RECOVERY, "recovery-fits-after-repeat")
+        return CprDecision(
+            CprAction.F_RECOVERY,
+            "recovery-fits-after-repeat" if observation.repeat_started
+            else "recovery-fits-after-skipped-repeat-slot",
+        )
     return CprDecision(
         CprAction.DROP_DEADLINE_INFEASIBLE,
         "recovery-deadline-infeasible",

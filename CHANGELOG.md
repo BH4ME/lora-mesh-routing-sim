@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.28 - SECON correctness and reproducible evidence foundation
+
+- Reject returning/looped source floods before forwarding; separate live-flow ACK confirmation from shared route cache updates, preserving newer same-path confirmation evidence on old-flow timeout.
+- Add independent ACK-only, no-repeat and no-recovery controls, with explicit skipped-repeat timing and physical cancellation checks.
+- Add explicit protocol registry, full baseline ACK/delivery/TX evidence, common exogenous link/time field, controlled multihop/fault configurations, and physical cutoff accounting.
+- Freeze registered source/config/run keys, retain failed attempts, reject swapped/missing evidence, validate restart and complete raw-event reconstruction.
+- Tested simulation version remains 2.1.27, snapshot e8d94c29b3797a55787ee8cc5a60c3d08b4949186f2250581ed36d851ef5b1a2: 142 frozen tests and 21 development mechanical-smoke runs audited. This is a correctness/evidence release, not a demonstrated performance upgrade.
+- Retain the current ICC manuscript and all historical results. The original 2.1.27 performance evidence has known defects and is not reused as repaired-protocol evidence.
+
 ## 2.1.27 - MeshEcho-CPR core rewrite and audited ICC package
 
 - Replace the old source/recovery decision core for the ICC study with

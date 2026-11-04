@@ -7,13 +7,18 @@ import argparse
 import csv
 import hashlib
 import json
+import math
+import os
+import traceback
+from datetime import datetime, timezone
 import platform
 import random
 import subprocess
 import sys
 from collections import Counter, defaultdict
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
+from types import MappingProxyType
 from typing import Any, Dict, Iterator, List, Mapping, Optional, Sequence, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +36,7 @@ from lora_mesh_sim import (  # noqa: E402
     generate_nodes,
 )
 from tools import run_drc_experiment as drc  # noqa: E402
+from tools import secon2027_scenarios as scenarios  # noqa: E402
 
 
 CPR_PROTOCOLS = (
@@ -39,7 +45,18 @@ CPR_PROTOCOLS = (
     "meshecho-drc-no-rescue",
     "meshecho-drc",
 )
-SCHEMA = "meshecho-cpr-evidence-v2"
+@dataclass(frozen=True)
+class ProtocolSpec:
+    factory: str
+
+
+CPR_REGISTRY = MappingProxyType({name: ProtocolSpec(name) for name in CPR_PROTOCOLS})
+EXTERNAL_REGISTRY = MappingProxyType({name: ProtocolSpec(name) for name in (
+    *CPR_PROTOCOLS, "meshecho", "meshtastic", "meshcore",
+    "meshtastic-common-ack", "meshcore-common-ack",
+    "meshecho-cpr-noackcancel", "meshecho-cpr-norepeat", "meshecho-cpr-norecovery",
+)})
+SCHEMA = "meshecho-cpr-evidence-v3"
 CONTRACT_PATH = ROOT / "docs" / "research" / "meshecho_cpr_smoke_contract_20261006.md"
 VERSION_PATH = ROOT / "VERSION"
 
@@ -129,12 +146,50 @@ class CprExperiment:
     contract_path: Path
     source_sha256: Dict[str, str]
     identities: Dict[int, Dict[str, Any]]
+    environment: Optional[Dict[str, Any]] = None
+    protocol_parameters: Dict[str, Dict[str, Any]] = field(default_factory=dict)
 
 
 class _RecordingSimulator(Simulator):
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, *args: Any, common_environment: Optional[Mapping[str, Any]] = None,
+                 application_deadline_s: float = 30.0, **kwargs: Any) -> None:
+        self.common_environment = common_environment
+        self.application_deadline_s = application_deadline_s
         super().__init__(*args, **kwargs)
         self.tx_history: List[Transmission] = []
+
+    def channel_uniform(self, tx: Transmission, receiver: int) -> float:
+        if self.common_environment is None:
+            return super().channel_uniform(tx, receiver)
+        return scenarios.channel_uniform(self.common_environment, tx.sender, receiver, tx.start)
+
+    def rx_power_dbm(self, sender: int, receiver: int, when: Optional[float] = None) -> float:
+        power = super().rx_power_dbm(sender, receiver, when)
+        if self.common_environment is not None:
+            power -= scenarios.attenuation_db(self.common_environment, sender, receiver,
+                                              self.now if when is None else when)
+        return power
+
+    def handle_tx_end(self, tx: Transmission) -> None:
+        # Observe baseline ACK acceptance at the physical decode boundary.
+        # CPR/DRC already record their richer semantic acceptance/rejection.
+        self.prune_transmissions()
+        for receiver in self.nodes:
+            rx = self.try_receive(tx, receiver)
+            if rx is None:
+                continue
+            flow = self.metrics.flows.get(tx.packet.flow_id)
+            previous_ack = flow.acked_at if flow is not None else None
+            provenance_start = len(self.ack_provenance)
+            self.protocol.on_receive(receiver, tx.packet, rx)
+            if (tx.packet.kind == "ACK" and flow is not None and previous_ack is None
+                    and flow.acked_at is not None
+                    and not any(row.get("accepted") for row in self.ack_provenance[provenance_start:])):
+                self.record_ack_provenance(
+                    tx.packet, rx, receiver=receiver, accepted=True,
+                    accepted_at=flow.acked_at,
+                    deadline_at=flow.created_at + self.application_deadline_s,
+                )
 
     def begin_transmission(self, sender: int, packet: Packet, pending: Any) -> None:
         before = self.metrics.tx_count
@@ -182,21 +237,29 @@ def _display_path(path: Path) -> str:
         return str(resolved)
 
 
-def _source_hashes(contract_path: Path = CONTRACT_PATH) -> Dict[str, str]:
+def _source_hashes(contract_path: Path = CONTRACT_PATH, *, source_root: Optional[Path] = None) -> Dict[str, str]:
+    root = Path(source_root).resolve() if source_root is not None else ROOT
     contract_path = Path(contract_path)
     if not contract_path.is_absolute():
-        contract_path = ROOT / contract_path
-    contract_path = contract_path.resolve()
-    paths = (
-        ROOT / "lora_mesh_sim.py",
-        ROOT / "meshecho_cpr.py",
-        ROOT / "meshecho_drc.py",
-        ROOT / "meshecho_utility.py",
-        Path(__file__).resolve(),
-        contract_path,
-        VERSION_PATH,
-    )
-    return {_display_path(path): _file_sha256(path) for path in paths}
+        contract_path = root / contract_path
+    elif source_root is not None:
+        try:
+            contract_path = root / contract_path.relative_to(ROOT)
+        except ValueError:
+            pass
+    paths = [root / name for name in (
+        "lora_mesh_sim.py", "meshecho_cpr.py", "meshecho_drc.py", "meshecho_utility.py",
+        "tools/run_cpr_experiment.py", "tools/run_drc_experiment.py",
+        "tools/secon2027_scenarios.py", "tools/run_cpr_external_comparison.py", "requirements.txt", "VERSION",
+    )] + [contract_path.resolve()]
+    hashes = {}
+    for path in paths:
+        try:
+            key = str(path.relative_to(root))
+        except ValueError:
+            key = str(path)
+        hashes[key] = _file_sha256(path)
+    return hashes
 
 
 def _git_revision() -> str:
@@ -296,19 +359,42 @@ def _flow_rows(
     return rows
 
 
+def validate_parameters(protocol_name: str, parameters: Mapping[str, Any],
+                        registry: Mapping[str, ProtocolSpec] = EXTERNAL_REGISTRY) -> None:
+    """Validate configuration without constructing a simulator or exposing a seed."""
+    if protocol_name not in registry:
+        raise ValueError(f"unknown protocol: {protocol_name}")
+    protocol = build_protocol(registry[protocol_name].factory)
+    allowed = {"route_ttl_s", "flood_base_delay_s", "flood_jitter_s", "base_delay_s",
+               "jitter_s", "discovery_window_s", "rrep_wait_s"}
+    for key, value in parameters.items():
+        if key not in allowed or not hasattr(protocol, key):
+            raise ValueError(f"unsupported parameter for {protocol_name}: {key}")
+        if (not isinstance(value, (int, float)) or isinstance(value, bool)
+                or not math.isfinite(value) or value < 0
+                or key in {"route_ttl_s", "rrep_wait_s"} and value == 0):
+            raise ValueError(f"invalid protocol parameter: {key}")
+
+
 def run_one(
     case: CprCase,
     protocol_name: str,
     seed: int,
     deadline_s: float = 30.0,
     split: str = "smoke",
+    *,
+    registry: Mapping[str, ProtocolSpec] = CPR_REGISTRY,
+    environment: Optional[Mapping[str, Any]] = None,
+    protocol_parameters: Optional[Mapping[str, Any]] = None,
 ) -> CprRun:
-    if protocol_name not in CPR_PROTOCOLS:
+    if protocol_name not in registry:
         raise ValueError(f"unknown CPR arm: {protocol_name}")
-    if type(seed) is not int or deadline_s <= 0:
+    if type(seed) is not int or not math.isfinite(deadline_s) or deadline_s <= 0:
         raise ValueError("CPR seed and deadline are invalid")
     topology_rng = random.Random(seed)
-    nodes = generate_nodes(case.nodes, case.area_m, topology_rng, repeater_ratio=0.0)
+    common_environment = scenarios.resolve_environment(case, seed, environment) if environment is not None else None
+    nodes = (scenarios.environment_nodes(common_environment) if common_environment is not None
+             else generate_nodes(case.nodes, case.area_m, topology_rng, repeater_ratio=0.0))
     radio = _radio(case)
     args = argparse.Namespace(
         calm_route_ttl_s=case.route_ttl_s,
@@ -318,12 +404,19 @@ def run_one(
         drc_safety_margin_s=case.safety_margin_s,
         drc_fixed_guard_s=case.fixed_guard_s,
     )
-    protocol = build_protocol(protocol_name, args)
+    protocol = build_protocol(registry[protocol_name].factory, args)
+    validate_parameters(protocol_name, protocol_parameters or {}, registry)
+    for key, value in (protocol_parameters or {}).items():
+        setattr(protocol, key, value)
+    resolved_parameters = {key: value for key, value in vars(protocol).items()
+                           if isinstance(value, (str, int, float, bool)) or value is None}
     sim = _RecordingSimulator(
         nodes, radio, protocol, seed=seed, max_hops=case.max_hops,
         independent_random_streams=True, record_rx_attempts=True,
+        common_environment=common_environment, application_deadline_s=deadline_s,
     )
-    pairs = _make_pair_pool(nodes, seed, case.pair_count)
+    pairs = ([tuple(pair) for pair in common_environment["pairs"]] if common_environment is not None
+             else _make_pair_pool(nodes, seed, case.pair_count))
     _schedule_traffic(sim, case, pairs, seed)
     trace, trace_sha256 = _trace_from_events(sim)
     cutoff = case.duration_s + deadline_s
@@ -333,17 +426,32 @@ def run_one(
         "case_sha256": _digest(asdict(case)),
         "trace_sha256": trace_sha256,
         "trace_schema": "time+ordinal+src+dst+flow_id",
+        "application_trace": trace,
+        "nodes": [dict(node_id=n.node_id, x=n.x, y=n.y, role=n.role) for n in nodes],
+        "pairs": list(pairs),
+        "radio": asdict(radio),
+        "static_shadowing_db": [dict(edge=list(edge), db=value) for edge, value in sorted(sim.link_shadowing_db.items())],
+        "common_environment": common_environment,
+        "environment_sha256": common_environment["environment_sha256"] if common_environment else "legacy-sequential-rx",
+        "protocol_parameters": resolved_parameters,
         **_topology_identity(nodes, radio, pairs),
     }
     sim.run(cutoff)
     sim.finalize_request_ledger(cutoff)
     requests = drc._request_rows(sim, protocol, trace, deadline_s, cutoff, protocol_name)
+    # A queue reservation beyond cutoff is not a realized physical TX.
+    for request in requests:
+        if request.get("status") == "started" and float(request["start"]) > cutoff:
+            request.update(status="committed_future_start", reserved_tx_id=request.get("tx_id"),
+                           tx_id=None, no_start_reason="reserved-start-after-cutoff")
     request_by_tx = {
         int(row["tx_id"]): row for row in requests
         if row.get("status") == "started" and row.get("tx_id") is not None
     }
     deadlines = {int(item["flow_id"]): float(item["time"]) + deadline_s for item in trace}
-    transmissions = [_packet_row(tx, request_by_tx, deadlines, cutoff) for tx in sim.tx_history]
+    transmissions = [_packet_row(tx, request_by_tx, deadlines, cutoff) for tx in sim.tx_history if tx.start <= cutoff]
+    for tx in transmissions:
+        tx["in_flight_at_cutoff"] = float(tx["end"]) > cutoff
     tx_request_by_tx = {int(row["tx_id"]): row.get("tx_request_id") for row in transmissions}
     rx_attempts = []
     for source in sim.rx_attempts:
@@ -367,8 +475,43 @@ def run_one(
     started = [row for row in requests if row.get("status") == "started"]
     tx_airtime = sum(float(row["toa_s"]) for row in transmissions if float(row["start"]) <= cutoff)
     tx_energy = sum(float(row["toa_s"]) * radio.supply_voltage_v * radio.tx_current_ma / 1000.0 for row in transmissions if float(row["start"]) <= cutoff)
+    # Preserve simulator reservation counters only under explicit legacy names.
+    # Public physical aliases are derived from starts observed by the cutoff.
+    physical_keys = ("tx_count", "data_tx", "control_tx", "ack_tx", "total_airtime_s",
+                     "tx_energy_j", "rx_energy_j", "total_energy_j", "energy_per_delivery_j",
+                     "airtime_per_delivery_s", "channel_busy_time_s", "channel_busy_ratio",
+                     "route_requests", "route_replies", "fallback_forward_count", "control_overhead_ratio")
+    metrics.update({f"legacy_reserved_{key}": metrics[key] for key in physical_keys})
+    kinds = Counter(tx["packet_kind"] for tx in transmissions)
+    control_count = sum(kinds[k] for k in ("ACK", "ACK_DONE", "RREQ", "RREP"))
+    busy = 0.0
+    previous_end = 0.0
+    for tx in sorted(transmissions, key=lambda row: row["start"]):
+        start, end = float(tx["start"]), min(cutoff, float(tx["end"]))
+        busy += max(0.0, end - max(start, previous_end))
+        previous_end = max(previous_end, end)
+    listening_by_tx = Counter(int(rx["tx_id"]) for rx in rx_attempts
+                              if rx.get("reason") not in {"self", "half_duplex"})
+    rx_proxy = 0.0
+    for tx in transmissions:
+        if tx["in_flight_at_cutoff"]:
+            listeners = sum(node.node_id != int(tx["sender"]) and not any(
+                other["sender"] == node.node_id and other["start"] < tx["end"] and tx["start"] < other["end"]
+                for other in transmissions) for node in nodes)
+        else:
+            listeners = listening_by_tx[int(tx["tx_id"])]
+        rx_proxy += listeners * float(tx["toa_s"]) * radio.supply_voltage_v * radio.rx_current_ma / 1000.0
+    deadline_deliveries = sum(bool(flow["delivery_by_deadline"]) for flow in flows)
+    metrics.update(tx_count=len(transmissions), data_tx=len(transmissions) - control_count,
+                   control_tx=control_count, ack_tx=kinds["ACK"], total_airtime_s=tx_airtime,
+                   tx_energy_j=tx_energy, rx_energy_j=rx_proxy, total_energy_j=tx_energy + rx_proxy,
+                   energy_per_delivery_j=(tx_energy + rx_proxy) / deadline_deliveries if deadline_deliveries else None,
+                   airtime_per_delivery_s=tx_airtime / deadline_deliveries if deadline_deliveries else None,
+                   channel_busy_time_s=busy, channel_busy_ratio=busy / cutoff,
+                   route_requests=kinds["RREQ"], route_replies=kinds["RREP"], fallback_forward_count=kinds["FALLBACK"],
+                   control_overhead_ratio=control_count / len(transmissions) if transmissions else 0.0)
     rx_count_by_tx = Counter(int(item["tx_id"]) for item in rx_attempts)
-    incomplete = [item["tx_id"] for item in transmissions if float(item["start"]) <= cutoff and rx_count_by_tx.get(int(item["tx_id"]), 0) != case.nodes]
+    incomplete = [item["tx_id"] for item in transmissions if float(item["end"]) <= cutoff and rx_count_by_tx.get(int(item["tx_id"]), 0) != case.nodes]
     row = {
         **metrics,
         "case": case.key,
@@ -382,6 +525,7 @@ def run_one(
         "topology_sha256": identity["topology_sha256"],
         "radio_sha256": identity["radio_sha256"],
         "pair_pool_sha256": identity["pair_pool_sha256"],
+        "environment_sha256": identity["environment_sha256"],
         "scheduled_unicast_flows": len(trace),
         "ack_by_deadline": sum(bool(item["ack_by_deadline"]) for item in flows),
         "delivery_by_deadline": sum(bool(item["delivery_by_deadline"]) for item in flows),
@@ -392,10 +536,14 @@ def run_one(
         "no_start_count": len(requests) - len(started),
         "tx_ledger_airtime_s": tx_airtime,
         "tx_ledger_energy_j": tx_energy,
+        "airtime_per_deadline_delivery_s": tx_airtime / deadline_deliveries if deadline_deliveries else None,
+        "energy_scope": "TX-only ToA model plus per-frame receiver-listening proxy; not measured device energy",
         "rx_attempt_count": len(rx_attempts),
         "accepted_ack_count": sum(bool(item["accepted"]) for item in acks),
         "protocol_action_count": len(actions),
         "incomplete_rx_tx_count": len(incomplete),
+        "in_flight_at_cutoff_count": sum(bool(tx["in_flight_at_cutoff"]) for tx in transmissions),
+        "committed_future_start_count": sum(r.get("status") == "committed_future_start" for r in requests),
         "seed_split": split,
     }
     for collection in (flows, actions, requests, transmissions, rx_attempts, acks):
@@ -422,6 +570,7 @@ def _paired_rows(runs: Sequence[Mapping[str, Any]], protocols: Sequence[str]) ->
                 "trace_match": base["scheduled_trace_sha256"] == other["scheduled_trace_sha256"],
                 "topology_match": base["topology_sha256"] == other["topology_sha256"],
                 "pair_pool_match": base["pair_pool_sha256"] == other["pair_pool_sha256"],
+                "environment_match": base["environment_sha256"] == other["environment_sha256"],
             })
     return rows
 
@@ -429,18 +578,24 @@ def _paired_rows(runs: Sequence[Mapping[str, Any]], protocols: Sequence[str]) ->
 def run_matrix(
     case: CprCase,
     protocols: Sequence[str] = CPR_PROTOCOLS,
-    seeds: Sequence[int] = (92000,),
+    seeds: Optional[Sequence[int]] = None,
     deadline_s: float = 30.0,
     split: str = "smoke",
     contract_path: Path = CONTRACT_PATH,
+    *,
+    registry: Mapping[str, ProtocolSpec] = CPR_REGISTRY,
+    environment: Optional[Mapping[str, Any]] = None,
+    protocol_parameters: Optional[Mapping[str, Mapping[str, Any]]] = None,
 ) -> CprExperiment:
     protocols = tuple(protocols)
+    if seeds is None:
+        raise ValueError("explicit seeds are required; use a registered cohort")
     seeds = tuple(seeds)
-    if split not in {"smoke", "exploratory", "development", "holdout", "custom"}:
+    if split not in {"smoke", "exploratory", "development", "holdout", "validation", "custom"}:
         raise ValueError("unknown CPR experiment split")
     if not protocols or not seeds or len(set(protocols)) != len(protocols) or len(set(seeds)) != len(seeds):
         raise ValueError("duplicate or empty CPR matrix")
-    unknown = [name for name in protocols if name not in CPR_PROTOCOLS]
+    unknown = [name for name in protocols if name not in registry]
     if unknown:
         raise ValueError(f"unknown CPR arm: {unknown[0]}")
     runs: List[Dict[str, Any]] = []
@@ -449,14 +604,17 @@ def run_matrix(
     for seed in seeds:
         expected: Optional[Dict[str, Any]] = None
         for protocol in protocols:
-            result = run_one(case, protocol, seed, deadline_s, split)
+            result = run_one(case, protocol, seed, deadline_s, split, registry=registry,
+                             environment=environment,
+                             protocol_parameters=(protocol_parameters or {}).get(protocol, {}))
             if expected is None:
                 expected = result.identity
                 identities[seed] = result.identity
             else:
-                for key in ("case_sha256", "trace_sha256", "topology_sha256", "radio_sha256", "pair_pool_sha256"):
+                for key in ("case_sha256", "trace_sha256", "topology_sha256", "radio_sha256", "pair_pool_sha256", "environment_sha256"):
                     if result.identity[key] != expected[key]:
                         raise ValueError(f"paired identity mismatch: {key}")
+            identities[seed].setdefault("protocol_parameters_by_arm", {})[protocol] = result.identity["protocol_parameters"]
             runs.append(result.row)
             for key in collections:
                 collections[key].extend(getattr(result, key))
@@ -471,6 +629,8 @@ def run_matrix(
         collections["requests"], collections["transmissions"],
         collections["rx_attempts"], collections["acks"], paired,
         contract_path, _source_hashes(contract_path), identities,
+        dict(environment) if environment is not None else None,
+        {str(k): dict(v) for k, v in (protocol_parameters or {}).items()},
     )
 
 
@@ -479,12 +639,14 @@ def _artifact_paths(prefix: Path) -> Dict[str, Path]:
     return {
         "runs": Path(f"{prefix}.runs.csv"),
         "paired": Path(f"{prefix}.paired.csv"),
+        "summary": Path(f"{prefix}.summary.csv"),
         "flows": Path(f"{prefix}.flows.jsonl"),
         "actions": Path(f"{prefix}.actions.jsonl"),
         "requests": Path(f"{prefix}.requests.jsonl"),
         "tx": Path(f"{prefix}.transmissions.jsonl"),
         "rx_attempts": Path(f"{prefix}.rx_attempts.jsonl"),
         "acks": Path(f"{prefix}.acks.jsonl"),
+        "identities": Path(f"{prefix}.identities.json"),
         "manifest": Path(f"{prefix}.manifest.json"),
     }
 
@@ -492,10 +654,11 @@ def _artifact_paths(prefix: Path) -> Dict[str, Path]:
 def _write_csv(path: Path, records: Sequence[Mapping[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not records:
-        path.write_text("", encoding="utf-8")
+        with path.open("x", encoding="utf-8"):
+            pass
         return
     fields = list(records[0].keys())
-    with path.open("w", newline="", encoding="utf-8") as handle:
+    with path.open("x", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(records)
@@ -503,71 +666,87 @@ def _write_csv(path: Path, records: Sequence[Mapping[str, Any]]) -> None:
 
 def _write_jsonl(path: Path, records: Sequence[Mapping[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as handle:
+    with path.open("x", encoding="utf-8") as handle:
         for record in records:
             handle.write(json.dumps(_canonical(record), sort_keys=True) + "\n")
 
 
 def write_artifacts(prefix: Path, bundle: CprExperiment) -> Dict[str, Path]:
     paths = _artifact_paths(prefix)
+    prefix = Path(prefix)
+    prefix.parent.mkdir(parents=True, exist_ok=True)
+    lock = Path(f"{prefix}.lock")
+    # Exclusive creation closes the check-then-write race between exporters.
+    with lock.open("x", encoding="utf-8") as handle:
+        json.dump({"pid": os.getpid(), "created_at": datetime.now(timezone.utc).isoformat()}, handle)
     if any(path.exists() for path in paths.values()):
         raise FileExistsError("CPR artifact prefix already exists")
+    summary = []
+    for protocol in bundle.protocols:
+        selected = [row for row in bundle.runs if row["protocol"] == protocol]
+        for metric in ("ack_pdr_deadline", "delivery_pdr_deadline", "tx_ledger_airtime_s", "tx_ledger_energy_j", "started_request_count"):
+            values = [float(row[metric]) for row in selected]
+            summary.append(dict(protocol=protocol, metric=metric, seed_count=len(values),
+                                mean=sum(values) / len(values), min=min(values), max=max(values)))
     records = {
-        "runs": bundle.runs, "paired": bundle.paired,
+        "runs": bundle.runs, "paired": bundle.paired, "summary": summary,
         "flows": bundle.flows, "actions": bundle.actions,
         "requests": bundle.requests, "tx": bundle.transmissions,
         "rx_attempts": bundle.rx_attempts, "acks": bundle.acks,
     }
     try:
-        for key in ("runs", "paired"):
+        for key in ("runs", "paired", "summary"):
             _write_csv(paths[key], records[key])
         for key in ("flows", "actions", "requests", "tx", "rx_attempts", "acks"):
             _write_jsonl(paths[key], records[key])
+        with paths["identities"].open("x", encoding="utf-8") as handle:
+            json.dump(_canonical(bundle.identities), handle, sort_keys=True, indent=2)
+            handle.write("\n")
         manifest = {
-            "schema": SCHEMA,
+            "schema": SCHEMA, "status": "completed",
+            "completed_at": datetime.now(timezone.utc).isoformat(),
             "contract_sha256": _file_sha256(bundle.contract_path),
             "contract_path": _display_path(bundle.contract_path),
             "source_sha256": bundle.source_sha256,
             "sim_version": VERSION_PATH.read_text(encoding="utf-8").strip(),
             "git_revision": _git_revision(),
             "python_version": platform.python_version(),
-            "case": asdict(bundle.case),
-            "case_sha256": _digest(asdict(bundle.case)),
-            "protocols": list(bundle.protocols),
-            "seeds": list(bundle.seeds),
-            "seed_split": bundle.split,
-            "experiment_stage": bundle.split,
-            "deadline_s": bundle.deadline_s,
-            "event_priority": dict(EVENT_PRIORITY),
+            "case": asdict(bundle.case), "case_sha256": _digest(asdict(bundle.case)),
+            "common_environment": bundle.environment,
+            "protocol_parameter_overrides": bundle.protocol_parameters,
+            "protocols": list(bundle.protocols), "seeds": list(bundle.seeds),
+            "seed_split": bundle.split, "experiment_stage": bundle.split,
+            "deadline_s": bundle.deadline_s, "event_priority": dict(EVENT_PRIORITY),
             "application_trace_schema": "time+ordinal+src+dst+flow_id",
+            "cutoff_semantics": "charge full ToA for start<=cutoff; preserve reserved future requests; RX complete only for end<=cutoff",
             "artifacts": {
-                key: {"sha256": _file_sha256(paths[key]), "records": len(records[key])}
-                for key in records
+                **{key: {"sha256": _file_sha256(paths[key]), "records": len(records[key])} for key in records},
+                "identities": {"sha256": _file_sha256(paths["identities"]), "records": len(bundle.identities)},
             },
             "counts": {
-                "runs": len(bundle.runs),
-                "scheduled_flows": len(bundle.flows),
-                "requests": len(bundle.requests),
-                "transmissions": len(bundle.transmissions),
+                "runs": len(bundle.runs), "scheduled_flows": len(bundle.flows),
+                "requests": len(bundle.requests), "transmissions": len(bundle.transmissions),
                 "rx_attempts": len(bundle.rx_attempts),
                 "accepted_acks": sum(bool(row.get("accepted")) for row in bundle.acks),
                 "incomplete_rx_tx": sum(int(row.get("incomplete_rx_tx_count", 0)) for row in bundle.runs),
             },
-            "gates": {
-                "mechanical_smoke": bundle.split in {"smoke", "exploratory", "custom"},
-                "development": False,
-                "holdout": False,
-            },
+            "gates": {"mechanical_smoke": bundle.split in {"smoke", "exploratory", "custom"},
+                      "development": False, "holdout": False},
         }
-        with paths["manifest"].open("w", encoding="utf-8") as handle:
+        with paths["manifest"].open("x", encoding="utf-8") as handle:
             json.dump(_canonical(manifest), handle, sort_keys=True, indent=2)
             handle.write("\n")
-    except Exception:
-        for path in paths.values():
-            try:
-                path.unlink()
-            except OSError:
-                pass
+    except Exception as exc:
+        # Failed evidence is retained. A new attempt must use a new prefix.
+        if not paths["manifest"].exists():
+            paths["manifest"].write_text(json.dumps({
+                "schema": SCHEMA, "status": "failed", "error": repr(exc),
+                "traceback": traceback.format_exc(),
+                "source_sha256": bundle.source_sha256,
+                "seeds": list(bundle.seeds), "protocols": list(bundle.protocols),
+                "partial_artifacts": {key: _file_sha256(path) for key, path in paths.items()
+                                      if key != "manifest" and path.exists()},
+            }, sort_keys=True, indent=2) + "\n", encoding="utf-8")
         raise
     return paths
 
@@ -582,25 +761,28 @@ def _iter_jsonl(path: Path) -> Iterator[Dict[str, Any]]:
                 yield value
 
 
-def audit_artifacts(manifest_path: Path) -> Dict[str, Any]:
+def audit_artifacts(manifest_path: Path, *, source_root: Optional[Path] = None) -> Dict[str, Any]:
+    root = Path(source_root).resolve() if source_root is not None else ROOT
     manifest_path = Path(manifest_path)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("status") != "completed":
+        raise ValueError("CPR artifact attempt is not completed")
     if manifest.get("schema") != SCHEMA:
         raise ValueError("unsupported CPR artifact schema")
     if manifest.get("event_priority") != dict(EVENT_PRIORITY):
         raise ValueError("event-priority contract differs")
-    current_version = VERSION_PATH.read_text(encoding="utf-8").strip()
+    current_version = (root / "VERSION").read_text(encoding="utf-8").strip()
     if manifest.get("sim_version") != current_version:
         raise ValueError("CPR simulator version mismatch")
     contract_path_value = manifest.get("contract_path", str(CONTRACT_PATH))
     contract_path = Path(contract_path_value)
     if not contract_path.is_absolute():
-        contract_path = ROOT / contract_path
+        contract_path = root / contract_path
     if not contract_path.exists():
         raise ValueError("CPR contract file is missing")
     if manifest.get("contract_sha256") != _file_sha256(contract_path):
         raise ValueError("CPR contract hash mismatch")
-    if manifest.get("source_sha256") != _source_hashes(contract_path):
+    if manifest.get("source_sha256") != _source_hashes(contract_path, source_root=root):
         raise ValueError("CPR source hash mismatch")
     prefix = Path(str(manifest_path)[:-len(".manifest.json")])
     paths = _artifact_paths(prefix)
@@ -618,7 +800,7 @@ def audit_artifacts(manifest_path: Path) -> Dict[str, Any]:
     if len(runs) != int(manifest["counts"]["runs"]):
         raise ValueError("run count mismatch")
     expected_split = manifest.get("seed_split")
-    if expected_split not in {"smoke", "exploratory", "development", "holdout", "custom"}:
+    if expected_split not in {"smoke", "exploratory", "development", "holdout", "validation", "custom"}:
         raise ValueError("invalid CPR seed split")
     if any(row.get("seed_split") != expected_split for row in runs):
         raise ValueError("CPR run row split mismatch")
@@ -715,6 +897,7 @@ def audit_artifacts(manifest_path: Path) -> Dict[str, Any]:
             decisions_by_flow[(row_scope, int(row["flow_id"]))].append(row)
             if (
                 str(row_scope[1]).startswith("meshecho-cpr")
+                and row.get("action") != "DROP"
                 and "route_generation" not in row
             ):
                 raise ValueError("CPR decision lacks route-generation evidence")
@@ -819,7 +1002,9 @@ def audit_artifacts(manifest_path: Path) -> Dict[str, Any]:
             raise ValueError("accepted CPR ACK path invalid")
         accepted_at = row.get("accepted_at")
         deadline_at = row.get("deadline_at")
-        if accepted_at is None or deadline_at is None or float(accepted_at) > float(deadline_at):
+        if accepted_at is None or deadline_at is None:
+            raise ValueError("accepted ACK lacks timing")
+        if str(row_scope[1]).startswith("meshecho-cpr") and float(accepted_at) > float(deadline_at):
             raise ValueError("accepted CPR ACK is outside deadline")
         if (
             str(row_scope[1]).startswith("meshecho-cpr")
@@ -830,6 +1015,8 @@ def audit_artifacts(manifest_path: Path) -> Dict[str, Any]:
         ):
             raise ValueError("accepted CPR ACK lacks route-generation provenance")
         expected_kinds = {None: {"DATA", "FLOOD"}, 1: {"DATA"}, 2: {"FLOOD"}}[marker]
+        if not str(row_scope[1]).startswith("meshecho-cpr") and marker is None:
+            expected_kinds |= {"FALLBACK", "DIRECT"}
         matching_payload = any(
             tx.get("packet_kind") in expected_kinds
             and int(tx.get("flow_id")) == int(row["flow_id"])
@@ -871,14 +1058,112 @@ def audit_artifacts(manifest_path: Path) -> Dict[str, Any]:
         raise ValueError("accepted CPR ACK lacks RX attempt")
     for scope, tx_ids in tx_by_scope.items():
         for tx_id in tx_ids:
-            if rx_count[scope][tx_id] != node_count:
+            tx = tx_by_scope[scope][tx_id]
+            cutoff = float(run_scopes[scope]["drain_until_s"])
+            expected_count = node_count if float(tx["end"]) <= cutoff else 0
+            if rx_count[scope][tx_id] != expected_count:
                 raise ValueError("CPR RX ledger incomplete")
+    # Independently derive the reported denominator, success counts and cost.
+    flow_scopes: Dict[Tuple[int, str], Dict[int, Mapping[str, Any]]] = defaultdict(dict)
+    accepted_flows: Dict[Tuple[int, str], Dict[int, Mapping[str, Any]]] = defaultdict(dict)
+    for ack in jsonl_records["acks"]:
+        if not ack.get("accepted"):
+            continue
+        row_scope = (int(ack["seed"]), str(ack["protocol"]))
+        flow_id = int(ack["flow_id"])
+        if flow_id in accepted_flows[row_scope]:
+            raise ValueError("duplicate accepted ACK for one flow")
+        accepted_flows[row_scope][flow_id] = ack
+    successful_rx_by_flow: Dict[Tuple[Tuple[int, str], int, int], List[Mapping[str, Any]]] = defaultdict(list)
+    for rx in jsonl_records["rx_attempts"]:
+        if rx.get("decoded") and rx.get("reason") == "success":
+            successful_rx_by_flow[((int(rx["seed"]), str(rx["protocol"])), int(rx["flow_id"]), int(rx["receiver"]))].append(rx)
+    for flow in jsonl_records["flows"]:
+        row_scope = (int(flow["seed"]), str(flow["protocol"]))
+        flow_id = int(flow["flow_id"])
+        if flow_id in flow_scopes[row_scope]:
+            raise ValueError("duplicate scheduled flow")
+        flow_scopes[row_scope][flow_id] = flow
+        deadline = float(flow["deadline_at"])
+        for time_key, flag_key in (("accepted_ack_at", "ack_by_deadline"), ("first_delivery_at", "delivery_by_deadline")):
+            expected_flag = flow.get(time_key) is not None and float(flow[time_key]) <= deadline
+            if bool(flow[flag_key]) != expected_flag:
+                raise ValueError("flow deadline flag mismatch")
+        ack = accepted_flows[row_scope].get(flow_id)
+        if (flow.get("accepted_ack_at") is None) != (ack is None):
+            raise ValueError("flow ACK lacks physical acceptance provenance")
+        if ack is not None and abs(float(ack["accepted_at"]) - float(flow["accepted_ack_at"])) > 1e-9:
+            raise ValueError("flow ACK acceptance time mismatch")
+        delivered_at = flow.get("first_delivery_at")
+        if delivered_at is not None:
+            supported = False
+            for rx in successful_rx_by_flow[(row_scope, flow_id, int(flow["dst"]))]:
+                if abs(float(rx["end"]) - float(delivered_at)) > 1e-9:
+                    continue
+                tx = tx_by_scope[row_scope][int(rx["tx_id"])]
+                if (int(tx["flow_id"]) != flow_id or int(tx["origin"]) != int(flow["src"])
+                        or int(tx["final_dst"]) != int(flow["dst"])
+                        or tx["packet_kind"] not in {"DATA", "FLOOD", "FALLBACK", "DIRECT"}
+                        or abs(float(tx["end"]) - float(delivered_at)) > 1e-9):
+                    continue
+                path = list(tx.get("path") or [])
+                index = int(tx["path_index"])
+                if not path or path[0] != int(flow["src"]):
+                    continue
+                if tx["packet_kind"] in {"DATA", "DIRECT"} and path[-1] == int(flow["dst"]):
+                    path_valid = (0 <= index < len(path) - 1 and index + 1 == len(path) - 1
+                                  and path[index] == int(tx["sender"]))
+                else:
+                    path_valid = (tx["packet_kind"] in {"FLOOD", "FALLBACK"}
+                                  or tx["packet_kind"] == "DATA" and row_scope[1].startswith("meshtastic"))
+                    path_valid = path_valid and path[-1] == int(tx["sender"]) and int(flow["dst"]) not in path
+                if path_valid:
+                    supported = True
+                    break
+            if not supported:
+                raise ValueError("delivery lacks matching physical destination decode")
+    identities = json.loads(paths["identities"].read_text(encoding="utf-8"))
+    for row_scope, run in run_scopes.items():
+        seed, arm = row_scope
+        trace = identities[str(seed)]["application_trace"]
+        recorded = flow_scopes[row_scope]
+        if set(recorded) != {int(item["flow_id"]) for item in trace}:
+            raise ValueError("scheduled trace denominator mismatch")
+        for item in trace:
+            flow = recorded[int(item["flow_id"])]
+            if (int(flow["src"]) != int(item["src"]) or int(flow["dst"]) != int(item["dst"])
+                    or abs(float(flow["enqueued_at"]) - float(item["time"])) > 1e-9):
+                raise ValueError("scheduled flow identity mismatch")
+        count = len(trace)
+        if int(run["scheduled_unicast_flows"]) != count:
+            raise ValueError("reported flow denominator mismatch")
+        for count_key, flag_key, rate_key in (("ack_by_deadline", "ack_by_deadline", "ack_pdr_deadline"),
+                                              ("delivery_by_deadline", "delivery_by_deadline", "delivery_pdr_deadline")):
+            total = sum(bool(flow[flag_key]) for flow in recorded.values())
+            if int(run[count_key]) != total or abs(float(run[rate_key]) - total / count) > 1e-9:
+                raise ValueError("reported flow success metric mismatch")
+        cost = sum(float(tx["toa_s"]) for tx in tx_by_scope[row_scope].values())
+        if abs(float(run["tx_ledger_airtime_s"]) - cost) > 1e-9:
+            raise ValueError("reported physical TX cost mismatch")
+        if int(run["started_request_count"]) != len(tx_by_scope[row_scope]):
+            raise ValueError("reported physical TX count mismatch")
+        physical = list(tx_by_scope[row_scope].values())
+        kinds = Counter(tx["packet_kind"] for tx in physical)
+        controls = sum(kinds[kind] for kind in ("ACK", "ACK_DONE", "RREQ", "RREP"))
+        for key, expected in (("tx_count", len(physical)), ("data_tx", len(physical) - controls),
+                              ("control_tx", controls), ("ack_tx", kinds["ACK"]),
+                              ("route_requests", kinds["RREQ"]), ("route_replies", kinds["RREP"]),
+                              ("fallback_forward_count", kinds["FALLBACK"])):
+            if int(run[key]) != expected:
+                raise ValueError("physical counter alias mismatch")
+        if abs(float(run["total_airtime_s"]) - cost) > 1e-9 or abs(float(run["tx_energy_j"]) - float(run["tx_ledger_energy_j"])) > 1e-9:
+            raise ValueError("physical cost alias mismatch")
     return manifest
 
 
 def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--seed", action="append", type=int, dest="seeds")
+    parser.add_argument("--seed", action="append", type=int, dest="seeds", required=True)
     parser.add_argument("--protocol", action="append", dest="protocols")
     parser.add_argument("--deadline-s", type=float, default=30.0)
     parser.add_argument("--out-prefix", type=Path, required=True)
@@ -886,11 +1171,11 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--case-profile", choices=tuple(CASE_PROFILES), default="smoke")
     parser.add_argument(
         "--split",
-        choices=("smoke", "exploratory", "development", "holdout", "custom"),
+        choices=("smoke", "exploratory", "development", "holdout", "validation", "custom"),
         default="custom",
     )
     args = parser.parse_args(argv)
-    args.seeds = tuple(args.seeds or (92000,))
+    args.seeds = tuple(args.seeds)
     args.protocols = tuple(args.protocols or CPR_PROTOCOLS)
     return args
 

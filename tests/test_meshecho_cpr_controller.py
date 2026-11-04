@@ -200,7 +200,7 @@ def test_cpr_timeout_quarantines_failed_route_and_next_flow_does_not_reuse_it():
     assert flow3_decisions[0]["action"] == "F_INITIAL"
 
 
-def test_cpr_recovery_ack_rejects_route_epoch_changed_by_newer_flow():
+def test_cpr_recovery_ack_accepts_same_path_refreshed_by_concurrent_flow():
     protocol = build_protocol("meshecho-cpr")
     sim = Simulator(
         [Node(0, 0.0, 0.0), Node(1, 10.0, 0.0)],
@@ -220,7 +220,7 @@ def test_cpr_recovery_ack_rejects_route_epoch_changed_by_newer_flow():
     )
     protocol.cpr_flows[1] = old_flow
     protocol.flow_states[1] = state
-    state.install_route(1, (0, 1), now=4.0, ttl_s=100.0)
+    current = state.install_route(1, (0, 1), now=4.0, ttl_s=100.0)
     sim.now = 5.0
     packet = Packet(
         kind="ACK", flow_id=1, origin=1, final_dst=0, ttl=3,
@@ -233,7 +233,12 @@ def test_cpr_recovery_ack_rejects_route_epoch_changed_by_newer_flow():
                sinr_db=0.0, collided=False),
     )
 
-    assert rejection == "stale-route-generation"
+    assert rejection is None
+    protocol.on_ack(1, 0, sim.now, packet)
+    assert old_flow.acked_at == 5.0
+    assert state.routes[1] is current
+    assert state.routes[1].generation == current.generation
+    assert state.routes[1].last_accepted_ack_at == 5.0
 
 
 def test_cpr_recovery_start_uses_public_controller(monkeypatch):
