@@ -1,0 +1,349 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          8,
+          27
+        ]
+      ],
+      "date-time": "2026-08-27T15:17:00Z",
+      "timestamp": 1787843820196,
+      "version": "build-2784847793"
+    },
+    "reference-count": 24,
+    "publisher": "IEEE",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/501100004040",
+        "name": "KU Leuven",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/501100004040",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [],
+    "published-print": {
+      "date-parts": [
+        [
+          2022,
+          5
+        ]
+      ]
+    },
+    "DOI": "10.1109/dcoss54816.2022.00014",
+    "type": "proceedings-article",
+    "created": {
+      "date-parts": [
+        [
+          2022,
+          9,
+          12
+        ]
+      ],
+      "date-time": "2022-09-12T15:59:24Z",
+      "timestamp": 1662998364000
+    },
+    "page": "17-20",
+    "source": "Crossref",
+    "is-referenced-by-count": 10,
+    "title": [
+      "Smart-Hop: Low-Latency Multi-hop Networking for LoRa"
+    ],
+    "prefix": "10.1109",
+    "author": [
+      {
+        "given": "Absar-Ul-Haque",
+        "family": "Ahmar",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Computer Science KU,imec-DistriNet,Leuven,Belgium"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Wouter",
+        "family": "Joosen",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Computer Science KU,imec-DistriNet,Leuven,Belgium"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Danny",
+        "family": "Hughes",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Computer Science KU,imec-DistriNet,Leuven,Belgium"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "263",
+    "reference": [
+      {
+        "key": "ref10",
+        "article-title": "Lorawan specification",
+        "author": "n",
+        "year": "2015"
+      },
+      {
+        "key": "ref11",
+        "article-title": "End device activation",
+        "year": "0"
+      },
+      {
+        "key": "ref12",
+        "article-title": "Semtech sx1278 datasheet",
+        "year": "0"
+      },
+      {
+        "key": "ref13",
+        "article-title": "Lora32u4 board",
+        "year": "0"
+      },
+      {
+        "key": "ref14",
+        "article-title": "Atmega32u4",
+        "year": "0"
+      },
+      {
+        "key": "ref15",
+        "article-title": "Radio head",
+        "year": "0"
+      },
+      {
+        "key": "ref16",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/MCOM.2017.1600613"
+      },
+      {
+        "key": "ref17",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/BMSB.2018.8436722"
+      },
+      {
+        "key": "ref18",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/en13061368"
+      },
+      {
+        "key": "ref19",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ICDCSW.2004.1284108"
+      },
+      {
+        "key": "ref4",
+        "article-title": "Lorawan protocol",
+        "year": "0"
+      },
+      {
+        "key": "ref3",
+        "article-title": "Weightless specification",
+        "year": "0"
+      },
+      {
+        "key": "ref6",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/INFOCOM41043.2020.9155474"
+      },
+      {
+        "key": "ref5",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ICCE-Asia49877.2020.9276973"
+      },
+      {
+        "key": "ref8",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JIOT.2019.2919151"
+      },
+      {
+        "key": "ref7",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3372224.3419200"
+      },
+      {
+        "key": "ref2",
+        "article-title": "Sigfox specification",
+        "year": "0"
+      },
+      {
+        "key": "ref1",
+        "article-title": "Lora specification",
+        "year": "0"
+      },
+      {
+        "key": "ref9",
+        "article-title": "Lorawan regional parameters",
+        "year": "0"
+      },
+      {
+        "key": "ref20",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/GHTC46280.2020.9342944"
+      },
+      {
+        "key": "ref22",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2019.2898239"
+      },
+      {
+        "key": "ref21",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JIOT.2020.3009228"
+      },
+      {
+        "key": "ref24",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s21134314"
+      },
+      {
+        "key": "ref23",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2019.2913985"
+      }
+    ],
+    "event": {
+      "name": "2022 18th International Conference on Distributed Computing in Sensor Systems (DCOSS)",
+      "location": "Marina del Rey, Los Angeles, CA, USA",
+      "start": {
+        "date-parts": [
+          [
+            2022,
+            5,
+            30
+          ]
+        ]
+      },
+      "end": {
+        "date-parts": [
+          [
+            2022,
+            6,
+            1
+          ]
+        ]
+      }
+    },
+    "container-title": [
+      "2022 18th International Conference on Distributed Computing in Sensor Systems (DCOSS)"
+    ],
+    "original-title": [],
+    "link": [
+      {
+        "URL": "http://xplorestaging.ieee.org/ielx7/9881599/9881528/09881644.pdf?arnumber=9881644",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2022,
+          10,
+          3
+        ]
+      ],
+      "date-time": "2022-10-03T16:36:48Z",
+      "timestamp": 1664815008000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://ieeexplore.ieee.org/document/9881644/"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2022,
+          5
+        ]
+      ]
+    },
+    "references-count": 24,
+    "URL": "https://doi.org/10.1109/dcoss54816.2022.00014",
+    "relation": {},
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2022,
+          5
+        ]
+      ]
+    }
+  }
+}

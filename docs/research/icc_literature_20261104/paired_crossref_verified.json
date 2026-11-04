@@ -1,0 +1,174 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          11,
+          3
+        ]
+      ],
+      "date-time": "2026-11-03T22:57:47Z",
+      "timestamp": 1793746667323,
+      "version": "4.6.1"
+    },
+    "reference-count": 0,
+    "publisher": "Institute for Operations Research and the Management Sciences (INFORMS)",
+    "issue": "6",
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Management Science"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          1992,
+          6
+        ]
+      ]
+    },
+    "abstract": "<jats:p> Common random numbers (CRN) is a widely-used technique for reducing variance in comparing stochastic systems through simulation. Its popularity derives from its intuitive appeal and ease of implementation. However, though CRN has been observed to work well with a broad range of models, the class of systems for which it is provably advantageous has remained rather limited. </jats:p><jats:p> This paper has two purposes: We first discuss the effectiveness and optimality of CRN in a general setting, stressing the roles played by monotonicity and continuity properties. We then present specific, new classes of systems and comparisons for which CRN is beneficial and even optimal. Our conclusions for these systems are largely consistent with simulation practice and lend further theoretical support to folklore. Our results differ from those of previous analyses primarily because we put conditions on the timing of events, rather than the sequence of states, in a discrete-event simulation. </jats:p><jats:p> We formulate our results in three settings corresponding to three applications of CRN: distributional comparisons, structural comparisons, and sensitivity analysis. In each case, we make use of conditions that simultaneously ensure monotonicity and continuity in the timing of events. These properties are established through explicit recursions for event epochs in terms of increasing, continuous functions. </jats:p>",
+    "DOI": "10.1287/mnsc.38.6.884",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2008,
+          11,
+          8
+        ]
+      ],
+      "date-time": "2008-11-08T14:58:02Z",
+      "timestamp": 1226156282000
+    },
+    "page": "884-908",
+    "source": "Crossref",
+    "is-referenced-by-count": 154,
+    "title": [
+      "Some Guidelines and Guarantees for Common Random Numbers"
+    ],
+    "prefix": "10.1287",
+    "volume": "38",
+    "author": [
+      {
+        "given": "Paul",
+        "family": "Glasserman",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Graduate School of Business, Columbia University, New York, New York 10027"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "David D.",
+        "family": "Yao",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "IE/OR Department, Columbia University, New York, New York 10027"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "109",
+    "container-title": [
+      "Management Science"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://pubsonline.informs.org/doi/pdf/10.1287/mnsc.38.6.884",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2023,
+          4,
+          2
+        ]
+      ],
+      "date-time": "2023-04-02T20:06:08Z",
+      "timestamp": 1680465968000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://pubsonline.informs.org/doi/10.1287/mnsc.38.6.884"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          1992,
+          6
+        ]
+      ]
+    },
+    "references-count": 0,
+    "journal-issue": {
+      "issue": "6",
+      "published-print": {
+        "date-parts": [
+          [
+            1992,
+            6
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1287/mnsc.38.6.884"
+    ],
+    "URL": "https://doi.org/10.1287/mnsc.38.6.884",
+    "relation": {},
+    "ISSN": [
+      "0025-1909",
+      "1526-5501"
+    ],
+    "issn-type": [
+      {
+        "value": "0025-1909",
+        "type": "print"
+      },
+      {
+        "value": "1526-5501",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          1992,
+          6
+        ]
+      ]
+    }
+  }
+}

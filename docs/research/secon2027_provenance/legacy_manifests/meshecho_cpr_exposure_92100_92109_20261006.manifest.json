@@ -1,0 +1,118 @@
+{
+  "application_trace_schema": "time+ordinal+src+dst+flow_id",
+  "artifacts": {
+    "acks": {
+      "records": 1328,
+      "sha256": "e6191b7bd38d9f7f0cfd2030c26e41c7e53da7bf3d08f19ccb428a9574ce41df"
+    },
+    "actions": {
+      "records": 3676,
+      "sha256": "722cb7c16a3736fd0f923fc9ee0f7ceb6145bbcf35ea30fbe521ca1a703e6d59"
+    },
+    "flows": {
+      "records": 1292,
+      "sha256": "75bf807f2fde1f0d6d2231ca3a8bf7cbfda6b11431ca5c21f925aa264dab30ea"
+    },
+    "paired": {
+      "records": 30,
+      "sha256": "319ca4e0ec0eca84ddc947cd3654b7f0a649b633cca5e026bd34b9d3bf826b3b"
+    },
+    "requests": {
+      "records": 7673,
+      "sha256": "33d8e386cc005e36c07f4b07e77fc7d34abe748d3783ea6cfb73d396469d62e3"
+    },
+    "runs": {
+      "records": 40,
+      "sha256": "93aa1e9114b9ab514f99ff176075744e795b3fd8ccde3693aefba0899e7c5892"
+    },
+    "rx_attempts": {
+      "records": 96060,
+      "sha256": "19ca1fbd9f5c6ddbf0fec9e4dc759703c9986b68f28901a7977cee816d5d9b9e"
+    },
+    "tx": {
+      "records": 4803,
+      "sha256": "16d9d8ef8cc806d81972389a58ac774693029dd6e2acb59901a6f99397344492"
+    }
+  },
+  "case": {
+    "area_m": 3000.0,
+    "bw_hz": 125000,
+    "capture_threshold_db": 6.0,
+    "cr": 1,
+    "duration_s": 240.0,
+    "fixed_guard_s": 15.0,
+    "flood_base_delay_s": 0.45,
+    "flood_jitter_s": 0.65,
+    "key": "cpr_exposure",
+    "max_hops": 6,
+    "nodes": 20,
+    "pair_count": 4,
+    "pair_schedule": "poisson",
+    "path_loss_exp": 2.75,
+    "payload_bytes": 32,
+    "rate_per_min": 8.0,
+    "route_ttl_s": 600.0,
+    "safety_margin_s": 0.25,
+    "sf": 7,
+    "shadow_sigma_db": 4.0,
+    "temporal_fading_interval_s": 60.0,
+    "temporal_fading_sigma_db": 6.0,
+    "traffic": "unicast",
+    "tx_power_dbm": 17.0
+  },
+  "case_sha256": "db52d1ff308daccbab84ff710e5f350032402a1f2e5907eacfff28797fed6de8",
+  "contract_path": "/Users/bh4me_macair/Documents/Codex/lora_mesh_current_version_v2/docs/research/meshecho_cpr_exposure_contract_20261006.md",
+  "contract_sha256": "68eb4cca0369d1e3e19b897d2b8be4f1754305e4ea6ebf8a5cff179672fdb59a",
+  "counts": {
+    "accepted_acks": 1233,
+    "incomplete_rx_tx": 0,
+    "requests": 7673,
+    "runs": 40,
+    "rx_attempts": 96060,
+    "scheduled_flows": 1292,
+    "transmissions": 4803
+  },
+  "deadline_s": 30.0,
+  "event_priority": {
+    "app_send": 1,
+    "flow_timeout": 1,
+    "protocol_timer": 1,
+    "tx_end": 0,
+    "tx_request": 2
+  },
+  "gates": {
+    "development": false,
+    "holdout": false,
+    "mechanical_smoke": true
+  },
+  "git_revision": "78ffb6ebf33d5dc51eaf65057321c76c8ab5391e+dirty",
+  "protocols": [
+    "meshecho-cpr",
+    "meshecho-cpr-nocancel",
+    "meshecho-drc-no-rescue",
+    "meshecho-drc"
+  ],
+  "python_version": "3.9.6",
+  "schema": "meshecho-cpr-evidence-v2",
+  "seed_split": "custom",
+  "seeds": [
+    92100,
+    92101,
+    92102,
+    92103,
+    92104,
+    92105,
+    92106,
+    92107,
+    92108,
+    92109
+  ],
+  "sim_version": "2.1.26",
+  "source_sha256": {
+    "docs/research/meshecho_cpr_exposure_contract_20261006.md": "68eb4cca0369d1e3e19b897d2b8be4f1754305e4ea6ebf8a5cff179672fdb59a",
+    "lora_mesh_sim.py": "9c9a43aae097d91ea7652c18f06bb76e098707ebd3815e138403d296a674869a",
+    "meshecho_cpr.py": "16a937ecb3a0cb7b4eb80c6534e0f024dc56867b8f71c41a617db60c9ecd5648",
+    "meshecho_drc.py": "4b6bdf43be1f4d544f8733f41779cf19e521894240d7ec71f3bec8777f3b897b",
+    "tools/run_cpr_experiment.py": "0f7d7f0bc6fe54d712b21439de6825a5ae2536109694b020f54db273b357bb7a"
+  }
+}

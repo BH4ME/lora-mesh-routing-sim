@@ -1,0 +1,130 @@
+{
+  "application_deadline_s": 30.0,
+  "artifacts": {
+    "actions": {
+      "file": "meshecho_first_hop_receipt_explore_45001_45020_v2_20261005.actions.jsonl",
+      "sha256": "e7973858064a5ad0425cac5f12688b8c90ecbf12e0da6a44d5a89e3e54c5d13f"
+    },
+    "authorization": {
+      "file": "meshecho_first_hop_receipt_explore_45001_45020_v2_20261005.authorization.json",
+      "sha256": "ded7b8cd5b1d6fe2f39879fe87330be2cfa0593335f03d57b8656a0981328b91"
+    },
+    "first_hop_decodes": {
+      "file": "meshecho_first_hop_receipt_explore_45001_45020_v2_20261005.first_hop_decodes.jsonl",
+      "sha256": "0e62e3a5fe855a5ca87141f9f945de0689c7568e0ceaada0f50c9d4068982a7e"
+    },
+    "flows": {
+      "file": "meshecho_first_hop_receipt_explore_45001_45020_v2_20261005.flows.jsonl",
+      "sha256": "e4dcf1d190cee9c0d16e6cca7b391e107d5d99d0a0cc8af375e3e25f9a204f11"
+    },
+    "initial_r_rows": {
+      "file": "meshecho_first_hop_receipt_explore_45001_45020_v2_20261005.initial_r_rows.jsonl",
+      "sha256": "9ccbc9fb1f062a3d0593747d69809a29d0e80da227ecbad7808c5c7596cdc29b"
+    },
+    "runs": {
+      "file": "meshecho_first_hop_receipt_explore_45001_45020_v2_20261005.runs.jsonl",
+      "sha256": "fe6c624b3c751e4ae50c99563d28a2a37465bca898354213ea23edc73b7c4924"
+    },
+    "summary": {
+      "file": "meshecho_first_hop_receipt_explore_45001_45020_v2_20261005.summary.json",
+      "sha256": "0cb26fa4f8c1812df1d6ef419fd3ad61245f36baf0b9cf3cf7ad00b363a2ecfd"
+    },
+    "transmissions": {
+      "file": "meshecho_first_hop_receipt_explore_45001_45020_v2_20261005.transmissions.jsonl",
+      "sha256": "c593d30dd4247136354ba6aad193367280da38c3a5b9a3dff5f706108ca17355"
+    }
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "mode": "explore",
+  "prerequisite_manifest_sha256": {
+    "smoke_manifest": "7290acd265a1cf9ded4850eac1fc13d6351fa93b1f694e79240f0b5385b73631"
+  },
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "seeds": [
+    45001,
+    45002,
+    45003,
+    45004,
+    45005,
+    45006,
+    45007,
+    45008,
+    45009,
+    45010,
+    45011,
+    45012,
+    45013,
+    45014,
+    45015,
+    45016,
+    45017,
+    45018,
+    45019,
+    45020
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_first_hop_receipt_screen_design.md": "3d5744130bf12275ea8ce2e5b9b1928cf7ad4f2ffd4ce35f07fc474182b6034b",
+    "lora_mesh_sim.py": "3c4e3e4ad878083ae28ea48079363948aba87b5f050817ac191bac819fb4f74e",
+    "tests/test_first_hop_receipt_screen.py": "7b793a00390d95cbad410b60dc46964111ea733f873ca67e058e0d6431d3c003",
+    "tests/test_receipt_seed_guard.py": "613a11545833366d93b0760539eb864b69a4e5e73d387eb3304aede3b62518ed",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_first_hop_receipt_screen.py": "66dddf7747dbbef477797e9317d707f8d13f40d96bf66b318811d6cceac269b7",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "acac07c6fa4bb441a97dbb046111b3429fbe5c8693a291df897e36f2093ad1e8"
+  },
+  "stage_authorization_sha256": "ded7b8cd5b1d6fe2f39879fe87330be2cfa0593335f03d57b8656a0981328b91",
+  "summary": {
+    "active_capacity_excluded_failures": 0,
+    "all_scheduled_unicast_flows": 783,
+    "already_source_acked_at_early_trigger_failures": 0,
+    "both_deadline_admissions": 57,
+    "censored_direct_initial_r_flows": 0,
+    "censored_multihop_initial_r_flows": 0,
+    "decoded_multihop_first_hops": 442,
+    "direct_first_hop_failures": 48,
+    "direct_initial_r_flows": 113,
+    "early_only_available_admissions": 0,
+    "early_only_deadline_admissions": 0,
+    "failed_multihop_fraction_of_multihop_no_guard_ack": 0.6333333333333333,
+    "failed_multihop_no_guard_ack": 57,
+    "failed_multihop_no_guard_ack_delivered_by_deadline": 57,
+    "failed_multihop_no_guard_ack_delivered_unacked": 10,
+    "failed_multihop_no_guard_ack_seed_count": 19,
+    "failed_multihop_no_guard_ack_source_acked_by_deadline": 47,
+    "failed_multihop_no_guard_ack_undelivered_unacked": 0,
+    "fixed_only_deadline_admissions": 0,
+    "gate_1_exposure_passed": true,
+    "gate_2_delivered_unacked": 10,
+    "gate_2_residual_opportunity_passed": true,
+    "gate_2_residual_unacked_early_opportunities": 10,
+    "gate_2_seed_count": 7,
+    "gate_2_undelivered_unacked": 0,
+    "gate_3_receipt_cost_passed": true,
+    "gate_4_optimistic_ceiling_passed": false,
+    "initial_r_flows": 612,
+    "late_initial_r_starts": 0,
+    "multihop_initial_r_flows": 499,
+    "multihop_initial_r_no_guard_ack": 90,
+    "necessary_gate_passed": false,
+    "neither_deadline_admissions": 0,
+    "nominal_early_f_admissions": 57,
+    "nominal_fixed_f_admissions": 57,
+    "optimistic_destination_pdr_gain_equal_seed_mean": 0.0,
+    "optimistic_destination_pdr_gain_pooled": 0.0,
+    "optimistic_source_ack_pdr_gain_equal_seed_mean": 0.012871284906168628,
+    "optimistic_source_ack_pdr_gain_pooled": 0.01277139208173691,
+    "receipt_lower_bound_airtime_fraction_equal_seed_mean": 0.023603723109347743,
+    "receipt_lower_bound_airtime_s": 22.743551999999998,
+    "receipt_toa_s": 0.051455999999999995,
+    "receipt_upper_coverage_airtime_fraction_equal_seed_mean": 0.026439129680996182,
+    "receipt_upper_coverage_airtime_s": 25.676543999999993,
+    "receipt_wire_bytes": 17,
+    "residual_unacked_early_delivered": 10,
+    "residual_unacked_early_opportunities": 10,
+    "residual_unacked_early_undelivered": 0,
+    "source_busy_at_early_trigger_failures": 0,
+    "source_busy_at_fixed_trigger_failures": 0,
+    "whole_network_tx_airtime_s": 982.2120959999569
+  }
+}

@@ -1,0 +1,707 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          10,
+          31
+        ]
+      ],
+      "date-time": "2026-10-31T21:45:58Z",
+      "timestamp": 1793483158407,
+      "version": "4.5.0"
+    },
+    "reference-count": 61,
+    "publisher": "MDPI AG",
+    "issue": "15",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2020,
+              7,
+              31
+            ]
+          ],
+          "date-time": "2020-07-31T00:00:00Z",
+          "timestamp": 1596153600000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/501100002322",
+        "name": "Coordenação de Aperfeiçoamento de Pessoal de Nível Superior",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "1"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "1"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/501100002322",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "name": "Rede Nacional de Pesquisa (RNP)",
+        "award": [
+          "EUB-02-2017 IoT Pilots call"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "EUB-02-2017 IoT Pilots call"
+            ]
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Sensors"
+    ],
+    "abstract": "<jats:p>The growth of the Internet of Things (IoT) led to the deployment of many applications that use wireless networks, like smart cities and smart agriculture. Low Power Wide Area Networks (LPWANs) meet many requirements of IoT, such as energy efficiency, low cost, large coverage area, and large-scale deployment. Long Range Wide Area Network (LoRaWAN) networks are one of the most studied and implemented LPWAN technologies, due to the facility to build private networks with an open standard. Typical LoRaWAN networks are single-hop in a star topology, composed of end-devices that transmit data directly to gateways. Recently, several studies proposed multihop LoRaWAN networks, thus forming wireless mesh networks. This article provides a review of the state-of-the-art multihop proposals for LoRaWAN. In addition, we carried out a comparative analysis and classification, considering technical characteristics, intermediate devices function, and network topologies. This paper also discusses open issues and future directions to realize the full potential of multihop networking. We hope to encourage other researchers to work on improving the performance of LoRaWAN mesh networks, with more theoretical and simulation analysis, as well as practical deployments.</jats:p>",
+    "DOI": "10.3390/s20154273",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2020,
+          8,
+          3
+        ]
+      ],
+      "date-time": "2020-08-03T06:16:47Z",
+      "timestamp": 1596435407000
+    },
+    "page": "4273",
+    "update-policy": "https://doi.org/10.3390/mdpi_crossmark_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 120,
+    "title": [
+      "LoRaWAN Mesh Networks: A Review and Classification of Multihop Communication"
+    ],
+    "prefix": "10.3390",
+    "volume": "20",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0003-2651-2496",
+        "authenticated-orcid": false,
+        "given": "Jeferson Rodrigues",
+        "family": "Cotrim",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Center of Engineering, Modeling, and Applied Social Sciences, Federal University of the ABC, Santo André 09210-580, Brazil"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-6706-455X",
+        "authenticated-orcid": false,
+        "given": "João Henrique",
+        "family": "Kleinschmidt",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Center of Engineering, Modeling, and Applied Social Sciences, Federal University of the ABC, Santo André 09210-580, Brazil"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "1968",
+    "published-online": {
+      "date-parts": [
+        [
+          2020,
+          7,
+          31
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "ref_1",
+        "doi-asserted-by": "crossref",
+        "first-page": "122",
+        "DOI": "10.1016/j.adhoc.2016.12.004",
+        "article-title": "Understanding the Internet of Things: Definition, potentials, and societal role of a fast evolving paradigm",
+        "volume": "56",
+        "author": "Atzori",
+        "year": "2017",
+        "journal-title": "Ad Hoc Netw."
+      },
+      {
+        "key": "ref_2",
+        "doi-asserted-by": "crossref",
+        "first-page": "2787",
+        "DOI": "10.1016/j.comnet.2010.05.010",
+        "article-title": "The Internet of Things: A survey",
+        "volume": "54",
+        "author": "Atzori",
+        "year": "2010",
+        "journal-title": "Comput. Netw."
+      },
+      {
+        "key": "ref_3",
+        "doi-asserted-by": "crossref",
+        "first-page": "91",
+        "DOI": "10.1109/MWC.2013.6704479",
+        "article-title": "A survey on the ietf protocol suite for the internet of things: Standards, challenges, and opportunities",
+        "volume": "20",
+        "author": "Sheng",
+        "year": "2013",
+        "journal-title": "IEEE Wirel. Commun."
+      },
+      {
+        "key": "ref_4",
+        "doi-asserted-by": "crossref",
+        "first-page": "2347",
+        "DOI": "10.1109/COMST.2015.2444095",
+        "article-title": "Internet of Things: A Survey on Enabling Technologies, Protocols, and Applications",
+        "volume": "17",
+        "author": "Guizani",
+        "year": "2015",
+        "journal-title": "IEEE Commun. Surv. Tutor."
+      },
+      {
+        "key": "ref_5",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Cilfone, A., Davoli, L., Belli, L., and Ferrari, G. (2019). Wireless Mesh Networking: An IoT-Oriented Perspective Survey on Relevant Technologies. Future Internet, 11.",
+        "DOI": "10.3390/fi11040099"
+      },
+      {
+        "key": "ref_6",
+        "doi-asserted-by": "crossref",
+        "first-page": "855",
+        "DOI": "10.1109/COMST.2017.2652320",
+        "article-title": "Low Power Wide Area Networks: An Overview",
+        "volume": "19",
+        "author": "Raza",
+        "year": "2017",
+        "journal-title": "IEEE Commun. Surv. Tutor."
+      },
+      {
+        "key": "ref_7",
+        "doi-asserted-by": "crossref",
+        "first-page": "14",
+        "DOI": "10.1016/j.icte.2017.03.004",
+        "article-title": "A survey on LPWA technology: LoRa and NB-IoT",
+        "volume": "3",
+        "author": "Sinha",
+        "year": "2017",
+        "journal-title": "ICT Express"
+      },
+      {
+        "key": "ref_8",
+        "unstructured": "LoRa Alliance (2020, June 08). LoRaWAN™ 1.0 Specification. Available online: https://lora-alliance.org/resource-hub/lorawanr-specification-v10."
+      },
+      {
+        "key": "ref_9",
+        "unstructured": "LoRa Alliance (2020, June 10). LoRaWAN™ 1.1 Specification. Available online: https://lora-alliance.org/resource-hub/lorawanr-specification-v11."
+      },
+      {
+        "key": "ref_10",
+        "unstructured": "LoRa Alliance (2020, June 05). LoRaWAN™ 1.0.3 Specification. Available online: https://lora-alliance.org/resource-hub/lorawanr-specification-v103."
+      },
+      {
+        "key": "ref_11",
+        "doi-asserted-by": "crossref",
+        "first-page": "371",
+        "DOI": "10.1109/COMST.2019.2949598",
+        "article-title": "A Survey on LoRa Networking: Research Problems, Current Solutions, and Open Issues",
+        "volume": "22",
+        "author": "Du",
+        "year": "2020",
+        "journal-title": "IEEE Commun. Surv. Tutor."
+      },
+      {
+        "key": "ref_12",
+        "doi-asserted-by": "crossref",
+        "first-page": "34",
+        "DOI": "10.1109/MCOM.2017.1600613",
+        "article-title": "Understanding the Limits of LoRaWAN",
+        "volume": "55",
+        "author": "Adelantado",
+        "year": "2017",
+        "journal-title": "IEEE Commun. Mag."
+      },
+      {
+        "key": "ref_13",
+        "unstructured": "Mikhaylov, K., Petäjäjärvi, J., and Hänninen, T. (2016, January 18–20). Analysis of Capacity and Scalability of the LoRa Low Power Wide Area Network Technology. Proceedings of the European Wireless 2016, Oulu, Finland."
+      },
+      {
+        "key": "ref_14",
+        "doi-asserted-by": "crossref",
+        "first-page": "187",
+        "DOI": "10.1007/s11277-017-4419-5",
+        "article-title": "Sub-GHz LPWAN Network Coexistence, Management and Virtualization: An Overview and Open Research Challenges",
+        "volume": "95",
+        "author": "Hoebeke",
+        "year": "2017",
+        "journal-title": "Wirel. Pers. Commun."
+      },
+      {
+        "key": "ref_15",
+        "doi-asserted-by": "crossref",
+        "first-page": "46990",
+        "DOI": "10.1109/ACCESS.2019.2909408",
+        "article-title": "Increasing LPWAN Scalability by Means of Concurrent Multiband IoT Technologies: An Industry 4.0 Use Case",
+        "volume": "7",
+        "author": "Adame",
+        "year": "2019",
+        "journal-title": "IEEE Access"
+      },
+      {
+        "key": "ref_16",
+        "doi-asserted-by": "crossref",
+        "first-page": "2029",
+        "DOI": "10.1109/ACCESS.2016.2557758",
+        "article-title": "Goodbye, ALOHA!",
+        "volume": "4",
+        "author": "Laya",
+        "year": "2016",
+        "journal-title": "IEEE Access"
+      },
+      {
+        "key": "ref_17",
+        "unstructured": "Bor, M., Vidler, J., and Roedig, U. (2016, January 15–17). LoRa for the Internet of Things. Proceedings of the 2016 International Conference on Embedded Wireless Systems and Networks, Graz, Austria."
+      },
+      {
+        "key": "ref_18",
+        "doi-asserted-by": "crossref",
+        "first-page": "21430",
+        "DOI": "10.1109/ACCESS.2017.2755858",
+        "article-title": "Multi-Hop LoRa Networks Enabled by Concurrent Transmission",
+        "volume": "5",
+        "author": "Liao",
+        "year": "2017",
+        "journal-title": "IEEE Access"
+      },
+      {
+        "key": "ref_19",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Lundell, D., Hedberg, A., Nyberg, C., and Fitzgerald, E. (2018, January 12–15). A Routing Protocol for LoRA Mesh Networks. Proceedings of the 19th IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks, WoWMoM 2018, Chania, Greece.",
+        "DOI": "10.1109/WoWMoM.2018.8449743"
+      },
+      {
+        "key": "ref_20",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Anedda, M., Desogus, C., Murroni, M., Giusto, D.D., and Muntean, G.M. (2018, January 6–8). An Energy-efficient Solution for Multi-Hop Communications in Low Power Wide Area Networks. Proceedings of the IEEE International Symposium on Broadband Multimedia Systems and Broadcasting, BMSB, Valencia, Spain.",
+        "DOI": "10.1109/BMSB.2018.8436722"
+      },
+      {
+        "key": "ref_21",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Abrardo, A., and Pozzebon, A. (2019). A multi-hop lora linear sensor network for the monitoring of underground environments: The case of the medieval aqueducts in Siena, Italy. Sensors, 19.",
+        "DOI": "10.3390/s19020402"
+      },
+      {
+        "key": "ref_22",
+        "doi-asserted-by": "crossref",
+        "first-page": "143",
+        "DOI": "10.14257/ijca.2018.11.4.13",
+        "article-title": "Reliable Multi-Hop Linear Network Based on LoRa",
+        "volume": "11",
+        "author": "Duong",
+        "year": "2018",
+        "journal-title": "Int. J. Control Autom."
+      },
+      {
+        "key": "ref_23",
+        "doi-asserted-by": "crossref",
+        "first-page": "1",
+        "DOI": "10.1109/TIM.2018.2814082",
+        "article-title": "Monitoring of Large-Area IoT Sensors Using a LoRa Wireless Mesh Network System: Design and Evaluation",
+        "volume": "67",
+        "author": "Lee",
+        "year": "2018",
+        "journal-title": "IEEE Trans. Instrum. Meas."
+      },
+      {
+        "key": "ref_24",
+        "doi-asserted-by": "crossref",
+        "first-page": "945",
+        "DOI": "10.1007/s12652-019-01207-3",
+        "article-title": "Multi-hop LoRaWAN uplink extension: Specification and prototype implementation",
+        "volume": "11",
+        "author": "Dias",
+        "year": "2020",
+        "journal-title": "J. Ambient Intell. Humaniz. Comput."
+      },
+      {
+        "key": "ref_25",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Mai, D.L., and Kim, M.K. (2020). Multi-Hop LoRa Network Protocol with Minimized Latency. Energies, 13.",
+        "DOI": "10.3390/en13061368"
+      },
+      {
+        "key": "ref_26",
+        "doi-asserted-by": "crossref",
+        "first-page": "21584",
+        "DOI": "10.1109/ACCESS.2019.2898239",
+        "article-title": "Improving the Capacity of a Mesh LoRa Network by Spreading-Factor-Based Network Clustering",
+        "volume": "7",
+        "author": "Zhu",
+        "year": "2019",
+        "journal-title": "IEEE Access"
+      },
+      {
+        "key": "ref_27",
+        "doi-asserted-by": "crossref",
+        "first-page": "57663",
+        "DOI": "10.1109/ACCESS.2019.2913985",
+        "article-title": "Synchronous LoRa Mesh Network to Monitor Processes in Underground Infrastructure",
+        "volume": "7",
+        "author": "Ebi",
+        "year": "2019",
+        "journal-title": "IEEE Access"
+      },
+      {
+        "key": "ref_28",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Sartori, B., Thielemans, S., Bezunartea, M., Braeken, A., and Steenhaut, K. (2017, January 9–11). Enabling RPL multihop communications based on LoRa. Proceedings of the 2017 IEEE 13th International Conference on Wireless and Mobile Computing, Networking and Communications (WiMob), Rome, Italy.",
+        "DOI": "10.1109/WiMOB.2017.8115756"
+      },
+      {
+        "key": "ref_29",
+        "first-page": "1",
+        "article-title": "TSCH-over-LoRA: Long range and reliable IPv6 multi-hop networks for the internet of things",
+        "volume": "1",
+        "author": "Haubro",
+        "year": "2020",
+        "journal-title": "Internet Technol. Lett."
+      },
+      {
+        "key": "ref_30",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Dwijaksara, M.H., Sook Jeon, W., and Jeong, D.G. (2019, January 13–15). Multihop gateway-to-gateway communication protocol for lora networks. Proceedings of the IEEE International Conference on Industrial Technology, Melbourne, Australia.",
+        "DOI": "10.1109/ICIT.2019.8755136"
+      },
+      {
+        "key": "ref_31",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Sisinni, E., Carvalho, D.F., Ferrari, P., Flammini, A., Silva, D.R.C., and Da Silva, I.M. (2018, January 13–15). Enhanced flexible LoRaWAN node for industrial IoT. Proceedings of the IEEE International Workshop on Factory Communication Systems - Proceedings, WFCS, Imperia, Italy.",
+        "DOI": "10.1109/WFCS.2018.8402367"
+      },
+      {
+        "key": "ref_32",
+        "first-page": "1",
+        "article-title": "A LoRaWAN range extender for Industrial IoT",
+        "volume": "16",
+        "author": "Sisinni",
+        "year": "2019",
+        "journal-title": "IEEE Trans. Ind. Inform."
+      },
+      {
+        "key": "ref_33",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Diop, M., and Pham, C. (2019, January 24–26). Increased flexibility in long-range IoT deployments with transparent and light-weight 2-hop LoRa approach. Proceedings of the IFIP Wireless Days, Manchester, UK.",
+        "DOI": "10.1109/WD.2019.8734228"
+      },
+      {
+        "key": "ref_34",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Zhou, W., Tong, Z., Dong, Z., and Wang, Y. (2019, January 23–25). LoRa-Hybrid: A LoRaWAN Based multihop solution for regional microgrid. Proceedings of the 2019 IEEE 4th International Conference on Computer and Communication Systems, Singapore.",
+        "DOI": "10.1109/CCOMS.2019.8821683"
+      },
+      {
+        "key": "ref_35",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Tanjung, D., Byeon, S., Kim, D.H., and Deok Kim, J. (2020, January 7–10). OODC: An Opportunistic and On-Demand Forwarding Mechanism for LPWA Networks. Proceedings of the International Conference on Information Networking, Barcelona, Spain.",
+        "DOI": "10.1109/ICOIN48656.2020.9016475"
+      },
+      {
+        "key": "ref_36",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Choi, R., Lee, S., and Lee, S. (2020). Reliability Improvement of LoRa with ARQ and Relay Node. Symmetry, 12.",
+        "DOI": "10.3390/sym12040552"
+      },
+      {
+        "key": "ref_37",
+        "doi-asserted-by": "crossref",
+        "first-page": "225",
+        "DOI": "10.1109/MNET.001.1900269",
+        "article-title": "Exploring Multi-Hop LoRa for Green Smart Cities",
+        "volume": "34",
+        "author": "Aslam",
+        "year": "2020",
+        "journal-title": "IEEE Netw."
+      },
+      {
+        "key": "ref_38",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Ochoa, M.N., Guizar, A., Maman, M., and Duda, A. (2017, January 9–11). Evaluating LoRa energy efficiency for adaptive networks: From star to mesh topologies. Proceedings of the International Conference on Wireless and Mobile Computing, Networking and Communications, Rome, Italy.",
+        "DOI": "10.1109/WiMOB.2017.8115793"
+      },
+      {
+        "key": "ref_39",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Misbahuddin Iqbal, M.S., and Wiriasto, G.W. (2019, January 26–27). Multi-hop uplink for low power wide area networks using LoRa technology. Proceedings of the 2019 6th International Conference on Information Technology, Computer and Electrical Engineering, ICITACEE 2019, Semarang, Indonesia.",
+        "DOI": "10.1109/ICITACEE.2019.8904272"
+      },
+      {
+        "key": "ref_40",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Farooq, M.O. (2019, January 9–13). Introducing scalability in LoRa-based networks through multi-hop communication setups. Proceedings of the 2019 IEEE Global Communications Conference, GLOBECOM 2019, Waikoloa, HI, USA.",
+        "DOI": "10.1109/GLOBECOM38437.2019.9013315"
+      },
+      {
+        "key": "ref_41",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Haxhibeqiri, J., De Poorter, E., Moerman, I., and Hoebeke, J. (2018). A Survey of LoRaWAN for IoT: From Technology to Application. Sensors, 18.",
+        "DOI": "10.3390/s18113995"
+      },
+      {
+        "key": "ref_42",
+        "doi-asserted-by": "crossref",
+        "first-page": "51",
+        "DOI": "10.1007/978-3-319-27072-2_7",
+        "article-title": "Long-Range IoT Technologies: The Dawn of LoRa™",
+        "volume": "Volume 159",
+        "author": "Atanasovski",
+        "year": "2015",
+        "journal-title": "Future Access Enablers for Ubiquitous and Intelligent Infrastructures"
+      },
+      {
+        "key": "ref_43",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Reynders, B., and Pollin, S. (2016, January 22–22). Chirp spread spectrum as a modulation technique for long range communication. Proceedings of the 2016 Symposium on Communications and Vehicular Technologies (SCVT), Mons, Belgium.",
+        "DOI": "10.1109/SCVT.2016.7797659"
+      },
+      {
+        "key": "ref_44",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Farooq, M.O., and Pesch, D. (2018, January 5–8). Analyzing LoRa: A use case perspective. Proceedings of the 2018 IEEE 4th World Forum on Internet of Things (WF-IoT), Singapore.",
+        "DOI": "10.1109/WF-IoT.2018.8355224"
+      },
+      {
+        "key": "ref_45",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Petajajarvi, J., Mikhaylov, K., Roivainen, A., Hanninen, T., and Pettissalo, M. (2015, January 2–4). On the coverage of LPWANs: Range evaluation and channel attenuation model for LoRa technology. Proceedings of the 2015 14th International Conference on ITS Telecommunications (ITST), Copenhagen, Denmark.",
+        "DOI": "10.1109/ITST.2015.7377400"
+      },
+      {
+        "key": "ref_46",
+        "unstructured": "LoRa Alliance (2020, June 07). Available online: https://lora-alliance.org/resource-hub/rp2-101-lorawanr-regional-parameters."
+      },
+      {
+        "key": "ref_47",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Bor, M.C., Roedig, U., Voigt, T., and Alonso, J.M. (2016). Do LoRa Low-Power Wide-Area Networks Scale?. Proceedings of the 19th ACM International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems—MSWiM ’16, ACM Press.",
+        "DOI": "10.1145/2988287.2989163"
+      },
+      {
+        "key": "ref_48",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Haxhibeqiri, J., Van den Abeele, F., Moerman, I., and Hoebeke, J. (2017). LoRa Scalability: A Simulation Model Based on Interference Measurements. Sensors, 17.",
+        "DOI": "10.3390/s17061193"
+      },
+      {
+        "key": "ref_49",
+        "unstructured": "LoRa Alliance (2020, June 01). LoRaWAN 1.1 Regional Parameters. Available online: https://lora-alliance.org/resource-hub/lorawanr-regional-parameters-v11ra."
+      },
+      {
+        "key": "ref_50",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Ertürk, M.A., Aydın, M.A., Büyükakkaşlar, M.T., and Evirgen, H. (2019). A Survey on LoRaWAN Architecture, Protocol and Technologies. Future Internet, 11.",
+        "DOI": "10.3390/fi11100216"
+      },
+      {
+        "key": "ref_51",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Krejci, R., Hujnak, O., and Svepes, M. (2017, January 21–22). Security survey of the IoT wireless protocols. Proceedings of the 2017 25th Telecommunication Forum (TELFOR), Belgrade, Serbia.",
+        "DOI": "10.1109/TELFOR.2017.8249286"
+      },
+      {
+        "key": "ref_52",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Azhari, R.Y. (2019, January 5–6). Simple Protocol Design of Multi-hop Network in LoRa. Proceedings of the 2019 International Seminar on Research of Information Technology and Intelligent Systems (ISRITI), Yogyakarta, Indonesia.",
+        "DOI": "10.1109/ISRITI48646.2019.9034662"
+      },
+      {
+        "key": "ref_53",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Bezunartea, M., Van Glabbeek, R., Braeken, A., Tiberghien, J., and Steenhaut, K. (2019, January 1–3). Towards energy efficient LoRa multihop networks. Proceedings of the IEEE Workshop on Local and Metropolitan Area Networks, Paris, France.",
+        "DOI": "10.1109/LANMAN.2019.8847137"
+      },
+      {
+        "key": "ref_54",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Flauzac, O. (2020, January 17–19). A Low Power LoRa-LoRaWan Relay Function with a Single Input, Single Output Device. Proceedings of the International Conference on Embedded Wireless Systems and Networks (EWSN) 2020, Lyon, France.",
+        "DOI": "10.1007/978-3-030-63089-8_56"
+      },
+      {
+        "key": "ref_55",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Huh, H., and Kim, J.Y. (2019, January 15–18). LoRa-based Mesh Network for IoT Applications. Proceedings of the IEEE 5th World Forum on Internet of Things, WF-IoT, Limerick, Ireland.",
+        "DOI": "10.1109/WF-IoT.2019.8767242"
+      },
+      {
+        "key": "ref_56",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Kim, M., and Jang, J.W. (2020, January 7–10). A Study on Implementation of Multi-hop Network for LoRaWAN Communication. Proceedings of the International Conference on Information Networking, Barcelona, Spain.",
+        "DOI": "10.1109/ICOIN48656.2020.9016548"
+      },
+      {
+        "key": "ref_57",
+        "doi-asserted-by": "crossref",
+        "first-page": "153",
+        "DOI": "10.1016/j.comnet.2017.05.020",
+        "article-title": "Multi-hop communication in the uplink for LPWANs",
+        "volume": "123",
+        "author": "Bellalta",
+        "year": "2017",
+        "journal-title": "Comput. Netw."
+      },
+      {
+        "key": "ref_58",
+        "doi-asserted-by": "crossref",
+        "unstructured": "Vázquez, T.A., Barrachina-Muñoz, S., Bellalta, B., and Bel, A. (2018). HARE: Supporting Efficient Uplink Multi-Hop Communications in Self-Organizing LPWANs. Sensors, 18.",
+        "DOI": "10.3390/s18010115"
+      },
+      {
+        "key": "ref_59",
+        "doi-asserted-by": "crossref",
+        "first-page": "1187",
+        "DOI": "10.1145/3342100",
+        "article-title": "One-hop out-of-band control planes for multi-hop wireless sensor networks",
+        "volume": "15",
+        "author": "Gu",
+        "year": "2019",
+        "journal-title": "ACM Trans. Sens. Netw."
+      },
+      {
+        "key": "ref_60",
+        "doi-asserted-by": "crossref",
+        "first-page": "445",
+        "DOI": "10.1016/j.comnet.2004.12.001",
+        "article-title": "Wireless mesh networks: A survey",
+        "volume": "47",
+        "author": "Akyildiz",
+        "year": "2005",
+        "journal-title": "Comput. Netw."
+      },
+      {
+        "key": "ref_61",
+        "doi-asserted-by": "crossref",
+        "first-page": "206",
+        "DOI": "10.1109/MWC.001.1900215",
+        "article-title": "IPv6 over LPWANs: Connecting Low Power Wide Area Networks to the Internet (of Things)",
+        "volume": "27",
+        "author": "Gomez",
+        "year": "2020",
+        "journal-title": "IEEE Wirel. Commun."
+      }
+    ],
+    "container-title": [
+      "Sensors"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://www.mdpi.com/1424-8220/20/15/4273/pdf",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          10,
+          11
+        ]
+      ],
+      "date-time": "2025-10-11T09:53:17Z",
+      "timestamp": 1760176397000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://www.mdpi.com/1424-8220/20/15/4273"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2020,
+          7,
+          31
+        ]
+      ]
+    },
+    "references-count": 61,
+    "journal-issue": {
+      "issue": "15",
+      "published-online": {
+        "date-parts": [
+          [
+            2020,
+            8
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "s20154273"
+    ],
+    "URL": "https://doi.org/10.3390/s20154273",
+    "relation": {},
+    "ISSN": [
+      "1424-8220"
+    ],
+    "issn-type": [
+      {
+        "value": "1424-8220",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2020,
+          7,
+          31
+        ]
+      ]
+    }
+  }
+}

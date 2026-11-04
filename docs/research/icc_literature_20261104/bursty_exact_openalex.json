@@ -1,0 +1,825 @@
+{
+  "id": "https://openalex.org/W2047282676",
+  "doi": "https://doi.org/10.1145/1460412.1460416",
+  "title": "The β-factor",
+  "display_name": "The β-factor",
+  "publication_year": 2008,
+  "publication_date": "2008-11-05",
+  "ids": {
+    "openalex": "https://openalex.org/W2047282676",
+    "doi": "https://doi.org/10.1145/1460412.1460416",
+    "mag": "2047282676"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1145/1460412.1460416",
+    "doi": "https://doi.org/10.1145/1460412.1460416",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1145/1460412.1460416",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S7407089124",
+      "display_name": "ACM Conference on Embedded Networked Sensor Systems (SenSys)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": null,
+      "host_organization_name": null,
+      "host_organization_lineage": [],
+      "host_organization_lineage_names": [],
+      "type": "conference"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Proceedings of the 6th ACM conference on Embedded network sensor systems",
+    "raw_type": "proceedings-article"
+  },
+  "volume": null,
+  "type": "conference-paper",
+  "indexed_in": [
+    "crossref"
+  ],
+  "open_access": {
+    "is_oa": false,
+    "oa_status": "closed",
+    "oa_url": null,
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5101657648",
+        "display_name": "Kannan Srinivasan",
+        "orcid": "https://orcid.org/0000-0003-2805-1902",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-2805-1902",
+          "https://orcid.org/0000-0001-6449-9750"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I97018004",
+          "display_name": "Stanford University",
+          "ror": "https://ror.org/00f54p054",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I97018004"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Kannan Srinivasan",
+      "raw_affiliation_strings": [
+        "Stanford University, Stanford, CA, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Stanford University, Stanford, CA, USA",
+          "institution_ids": [
+            "https://openalex.org/I97018004"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5020698454",
+        "display_name": "Maria A. Kazandjieva",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I97018004",
+          "display_name": "Stanford University",
+          "ror": "https://ror.org/00f54p054",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I97018004"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Maria A. Kazandjieva",
+      "raw_affiliation_strings": [
+        "Stanford University, Stanford, CA, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Stanford University, Stanford, CA, USA",
+          "institution_ids": [
+            "https://openalex.org/I97018004"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5038844065",
+        "display_name": "Saatvik Agarwal",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I97018004",
+          "display_name": "Stanford University",
+          "ror": "https://ror.org/00f54p054",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I97018004"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Saatvik Agarwal",
+      "raw_affiliation_strings": [
+        "Stanford University, Stanford, CA, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Stanford University, Stanford, CA, USA",
+          "institution_ids": [
+            "https://openalex.org/I97018004"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5060306684",
+        "display_name": "Philip A. Levis",
+        "orcid": "https://orcid.org/0000-0003-2934-2701",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-2934-2701"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I97018004",
+          "display_name": "Stanford University",
+          "ror": "https://ror.org/00f54p054",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I97018004"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Philip Levis",
+      "raw_affiliation_strings": [
+        "Stanford University, Stanford, CA, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Stanford University, Stanford, CA, USA",
+          "institution_ids": [
+            "https://openalex.org/I97018004"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 1,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [
+    "https://openalex.org/I97018004"
+  ],
+  "apc_list": null,
+  "apc_paid": null,
+  "fwci": 18.7836,
+  "has_fulltext": false,
+  "cited_by_count": 305,
+  "citation_normalized_percentile": {
+    "value": 0.99687146,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 89,
+    "max": 100
+  },
+  "biblio": {
+    "volume": null,
+    "issue": null,
+    "first_page": "29",
+    "last_page": "42"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T10080",
+    "display_name": "Energy Efficient Wireless Sensor Networks",
+    "score": 0.9336000084877014,
+    "subfield": {
+      "id": "https://openalex.org/subfields/1705",
+      "display_name": "Computer Networks and Communications"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/17",
+      "display_name": "Computer Science"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T10080",
+      "display_name": "Energy Efficient Wireless Sensor Networks",
+      "score": 0.9336000084877014,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T11158",
+      "display_name": "Wireless Networks and Protocols",
+      "score": 0.049300000071525574,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10138",
+      "display_name": "Network Traffic and Congestion Control",
+      "score": 0.006099999882280827,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/beta-factor",
+      "display_name": "beta factor",
+      "score": 0.5870000123977661
+    },
+    {
+      "id": "https://openalex.org/keywords/wireless-sensor-networks",
+      "display_name": "wireless sensor networks",
+      "score": 0.8619999885559082
+    },
+    {
+      "id": "https://openalex.org/keywords/transmission-cost",
+      "display_name": "transmission cost",
+      "score": 0.5809999704360962
+    },
+    {
+      "id": "https://openalex.org/keywords/data-collection-protocol",
+      "display_name": "data collection protocol",
+      "score": 0.6240000128746033
+    },
+    {
+      "id": "https://openalex.org/keywords/ieee-802-11b",
+      "display_name": "IEEE 802.11b",
+      "score": 0.7910000085830688
+    },
+    {
+      "id": "https://openalex.org/keywords/wireless-connectivity",
+      "display_name": "wireless connectivity",
+      "score": 0.3059999942779541
+    },
+    {
+      "id": "https://openalex.org/keywords/testbed-measurements",
+      "display_name": "testbed measurements",
+      "score": 0.44200000166893005
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.4637013375759125
+    },
+    {
+      "id": "https://openalex.org/C2781039887",
+      "wikidata": "https://www.wikidata.org/wiki/Q1391724",
+      "display_name": "Factor (programming language)",
+      "level": 2,
+      "score": 0.43458715081214905
+    },
+    {
+      "id": "https://openalex.org/C199360897",
+      "wikidata": "https://www.wikidata.org/wiki/Q9143",
+      "display_name": "Programming language",
+      "level": 1,
+      "score": 0.12283313274383545
+    }
+  ],
+  "mesh": [],
+  "locations_count": 1,
+  "locations": [
+    {
+      "id": "doi:10.1145/1460412.1460416",
+      "doi": "https://doi.org/10.1145/1460412.1460416",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1145/1460412.1460416",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S7407089124",
+        "display_name": "ACM Conference on Embedded Networked Sensor Systems (SenSys)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": null,
+        "host_organization_name": null,
+        "host_organization_lineage": [],
+        "host_organization_lineage_names": [],
+        "type": "conference"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Proceedings of the 6th ACM conference on Embedded network sensor systems",
+      "raw_type": "proceedings-article"
+    }
+  ],
+  "best_oa_location": null,
+  "sustainable_development_goals": [
+    {
+      "id": "https://metadata.un.org/sdg/9",
+      "score": 0.4943999946117401,
+      "display_name": "Industry, innovation and infrastructure"
+    }
+  ],
+  "study_designs": [],
+  "awards": [],
+  "funders": [],
+  "has_content": {
+    "pdf": false,
+    "grobid_xml": false
+  },
+  "content_urls": null,
+  "referenced_works_count": 25,
+  "referenced_works": [
+    "https://openalex.org/W116457057",
+    "https://openalex.org/W1580242306",
+    "https://openalex.org/W1582880497",
+    "https://openalex.org/W2009079787",
+    "https://openalex.org/W2034574915",
+    "https://openalex.org/W2041248965",
+    "https://openalex.org/W2063142364",
+    "https://openalex.org/W2071582233",
+    "https://openalex.org/W2104532741",
+    "https://openalex.org/W2107401636",
+    "https://openalex.org/W2108481447",
+    "https://openalex.org/W2109075006",
+    "https://openalex.org/W2125101937",
+    "https://openalex.org/W2128815505",
+    "https://openalex.org/W2129512201",
+    "https://openalex.org/W2138736862",
+    "https://openalex.org/W2147163807",
+    "https://openalex.org/W2153964544",
+    "https://openalex.org/W2157936671",
+    "https://openalex.org/W2164021301",
+    "https://openalex.org/W2399264815",
+    "https://openalex.org/W2610335499",
+    "https://openalex.org/W2753297910",
+    "https://openalex.org/W3160254190",
+    "https://openalex.org/W4243443630"
+  ],
+  "related_works": [
+    "https://openalex.org/W7098138382",
+    "https://openalex.org/W7095219559",
+    "https://openalex.org/W6962871176",
+    "https://openalex.org/W7099615013",
+    "https://openalex.org/W3107608753",
+    "https://openalex.org/W1951727350",
+    "https://openalex.org/W7096870617",
+    "https://openalex.org/W2152431187",
+    "https://openalex.org/W2021941808",
+    "https://openalex.org/W3143667438"
+  ],
+  "abstract_inverted_index": {
+    "Measuring": [
+      0
+    ],
+    "802.15.4": [
+      1,
+      108
+    ],
+    "reception": [
+      2
+    ],
+    "in": [
+      3,
+      88,
+      123
+    ],
+    "three": [
+      4
+    ],
+    "testbeds,": [
+      5,
+      109
+    ],
+    "we": [
+      6,
+      110
+    ],
+    "find": [
+      7,
+      35,
+      76,
+      117
+    ],
+    "that": [
+      8,
+      36,
+      43,
+      51,
+      77
+    ],
+    "most": [
+      9
+    ],
+    "intermediate": [
+      10
+    ],
+    "links": [
+      11
+    ],
+    "are": [
+      12
+    ],
+    "bursty:": [
+      13
+    ],
+    "they": [
+      14
+    ],
+    "shift": [
+      15
+    ],
+    "between": [
+      16
+    ],
+    "poor": [
+      17
+    ],
+    "and": [
+      18,
+      30,
+      42,
+      116
+    ],
+    "good": [
+      19
+    ],
+    "delivery.": [
+      20
+    ],
+    "We": [
+      21,
+      34,
+      49,
+      75
+    ],
+    "present": [
+      22
+    ],
+    "a": [
+      23,
+      61,
+      67,
+      81,
+      85,
+      89,
+      120
+    ],
+    "metric": [
+      24
+    ],
+    "to": [
+      25,
+      56,
+      70,
+      83,
+      105
+    ],
+    "measure": [
+      26
+    ],
+    "this": [
+      27
+    ],
+    "link": [
+      28,
+      37
+    ],
+    "burstiness": [
+      29,
+      38
+    ],
+    "name": [
+      31
+    ],
+    "it": [
+      32
+    ],
+    "β.": [
+      33
+    ],
+    "affects": [
+      39
+    ],
+    "protocol": [
+      40,
+      62,
+      95
+    ],
+    "performance": [
+      41
+    ],
+    "β": [
+      44,
+      53,
+      79,
+      118
+    ],
+    "can": [
+      45
+    ],
+    "predict": [
+      46
+    ],
+    "the": [
+      47,
+      124
+    ],
+    "effects.": [
+      48
+    ],
+    "show": [
+      50
+    ],
+    "measuring": [
+      52
+    ],
+    "allows": [
+      54
+    ],
+    "us": [
+      55
+    ],
+    "reason": [
+      57
+    ],
+    "about": [
+      58
+    ],
+    "how": [
+      59
+    ],
+    "long": [
+      60
+    ],
+    "should": [
+      63
+    ],
+    "pause": [
+      64
+    ],
+    "after": [
+      65
+    ],
+    "encountering": [
+      66
+    ],
+    "packet": [
+      68
+    ],
+    "failure": [
+      69
+    ],
+    "reduce": [
+      71
+    ],
+    "its": [
+      72,
+      97
+    ],
+    "transmission": [
+      73,
+      99
+    ],
+    "cost.": [
+      74
+    ],
+    "using": [
+      78
+    ],
+    "as": [
+      80
+    ],
+    "guide": [
+      82
+    ],
+    "setting": [
+      84
+    ],
+    "single": [
+      86
+    ],
+    "constant": [
+      87
+    ],
+    "standard": [
+      90
+    ],
+    "sensor": [
+      91
+    ],
+    "network": [
+      92
+    ],
+    "data": [
+      93,
+      106
+    ],
+    "collection": [
+      94
+    ],
+    "reduces": [
+      96
+    ],
+    "average": [
+      98
+    ],
+    "cost": [
+      100
+    ],
+    "by": [
+      101
+    ],
+    "15%.": [
+      102
+    ],
+    "In": [
+      103
+    ],
+    "addition": [
+      104
+    ],
+    "from": [
+      107,
+      113
+    ],
+    "examine": [
+      111
+    ],
+    "traces": [
+      112
+    ],
+    "802.11b": [
+      114
+    ],
+    "networks": [
+      115
+    ],
+    "has": [
+      119
+    ],
+    "broader": [
+      121
+    ],
+    "relevance": [
+      122
+    ],
+    "wireless": [
+      125
+    ],
+    "domain.": [
+      126
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2025,
+      "cited_by_count": 3
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 2
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 3
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 1
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 5
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 9
+    },
+    {
+      "year": 2019,
+      "cited_by_count": 8
+    },
+    {
+      "year": 2018,
+      "cited_by_count": 17
+    },
+    {
+      "year": 2017,
+      "cited_by_count": 21
+    },
+    {
+      "year": 2016,
+      "cited_by_count": 15
+    },
+    {
+      "year": 2015,
+      "cited_by_count": 26
+    },
+    {
+      "year": 2014,
+      "cited_by_count": 37
+    },
+    {
+      "year": 2013,
+      "cited_by_count": 40
+    },
+    {
+      "year": 2012,
+      "cited_by_count": 45
+    }
+  ],
+  "updated_date": "2026-11-03T10:50:19.383937",
+  "created_date": "2016-06-24T00:00:00"
+}

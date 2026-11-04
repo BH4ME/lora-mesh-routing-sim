@@ -1,0 +1,893 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 3420984,
+    "items": [
+      {
+        "institution": [
+          {
+            "name": "US Dept of the Navy",
+            "acronym": [
+              "NAVELEX"
+            ],
+            "department": [
+              "Funding"
+            ]
+          },
+          {
+            "name": "NAVAL RESEARCH LAB  WASHINGTON DC",
+            "department": [
+              "Performing"
+            ]
+          }
+        ],
+        "indexed": {
+          "date-parts": [
+            [
+              2024,
+              8,
+              29
+            ]
+          ],
+          "date-time": "2024-08-29T01:10:15Z",
+          "timestamp": 1724893815960
+        },
+        "publisher-location": "Fort Belvoir, VA",
+        "reference-count": 0,
+        "publisher": "Defense Technical Information Center",
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              1977,
+              9,
+              8
+            ]
+          ]
+        },
+        "DOI": "10.21236/ada047412",
+        "type": "report",
+        "created": {
+          "date-parts": [
+            [
+              2017,
+              9,
+              29
+            ]
+          ],
+          "date-time": "2017-09-29T17:44:37Z",
+          "timestamp": 1506707077000
+        },
+        "source": "Crossref",
+        "is-referenced-by-count": 2,
+        "title": [
+          "Throughput Performance of Data-Communication Systems Using Automatic-Repeat-Request (ARQ) Error-Control Schemes"
+        ],
+        "prefix": "10.21236",
+        "author": [
+          {
+            "given": "Joel M.",
+            "family": "Morris",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "member": "9879",
+        "original-title": [
+          ""
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2024,
+              8,
+              29
+            ]
+          ],
+          "date-time": "2024-08-29T00:16:17Z",
+          "timestamp": 1724890577000
+        },
+        "score": 52.6723,
+        "resource": {
+          "primary": {
+            "URL": "http://www.dtic.mil/docs/citations/ADA047412"
+          }
+        },
+        "subtitle": [
+          ""
+        ],
+        "issued": {
+          "date-parts": [
+            [
+              1977,
+              9,
+              8
+            ]
+          ]
+        },
+        "references-count": 0,
+        "alternative-id": [
+          "NRL-8140"
+        ],
+        "URL": "https://doi.org/10.21236/ada047412",
+        "published": {
+          "date-parts": [
+            [
+              1977,
+              9,
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2024,
+              10,
+              22
+            ]
+          ],
+          "date-time": "2024-10-22T15:05:44Z",
+          "timestamp": 1729609544491,
+          "version": "3.28.0"
+        },
+        "reference-count": 26,
+        "publisher": "IEEE",
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "DOI": "10.1109/glocom.1988.26100",
+        "type": "proceedings-article",
+        "created": {
+          "date-parts": [
+            [
+              2003,
+              1,
+              6
+            ]
+          ],
+          "date-time": "2003-01-06T15:22:18Z",
+          "timestamp": 1041866538000
+        },
+        "page": "1648-1652",
+        "source": "Crossref",
+        "is-referenced-by-count": 0,
+        "title": [
+          "Majority decoded automatic repeat request error control schemes"
+        ],
+        "prefix": "10.1109",
+        "author": [
+          {
+            "family": "Wu Cheng-Shong",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "V.O.K.",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "member": "263",
+        "reference": [
+          {
+            "key": "ref7s",
+            "article-title": "Clustering in packet radio networks",
+            "author": "li",
+            "year": "0",
+            "journal-title": "ICCAD'85"
+          },
+          {
+            "key": "ref5s",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/PROC.1987.13705"
+          },
+          {
+            "key": "ref3s",
+            "doi-asserted-by": "crossref",
+            "first-page": "21",
+            "DOI": "10.1109/PROC.1987.13702",
+            "article-title": "the darpa packet radio network protocols",
+            "volume": "75",
+            "author": "jubin",
+            "year": "1987",
+            "journal-title": "Proceedings of the IEEE"
+          },
+          {
+            "key": "ref1s",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/MCOM.1986.1092925"
+          },
+          {
+            "key": "ref10",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1981.1095141"
+          },
+          {
+            "key": "ref11",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1978.1093954"
+          },
+          {
+            "key": "ref12",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1985.1096284"
+          },
+          {
+            "key": "ref13",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1975.1092876"
+          },
+          {
+            "key": "ref14",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1976.1093318"
+          },
+          {
+            "key": "ref15",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1985.1096290"
+          },
+          {
+            "key": "ref16",
+            "first-page": "521",
+            "article-title": "A selective repeat ARQ protocol for a point to multipoint channel",
+            "author": "towsley",
+            "year": "1987",
+            "journal-title": "IEEE INFOCOM"
+          },
+          {
+            "key": "ref17",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1982.1095497"
+          },
+          {
+            "key": "ref18",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1981.1094999"
+          },
+          {
+            "key": "ref4",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1985.1096314"
+          },
+          {
+            "key": "ref3",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1984.1096057"
+          },
+          {
+            "key": "ref6",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1987.1096688"
+          },
+          {
+            "key": "ref4s",
+            "doi-asserted-by": "crossref",
+            "first-page": "43",
+            "DOI": "10.1109/PROC.1987.13704",
+            "article-title": "the application of packet switching techniques to combat net radio",
+            "volume": "75",
+            "author": "davies",
+            "year": "1987",
+            "journal-title": "Proceedings of the IEEE"
+          },
+          {
+            "key": "ref5",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1984.1096179"
+          },
+          {
+            "key": "ref8s",
+            "article-title": "Clustering techniques for large distributed systems",
+            "author": "ramamoorthy",
+            "year": "0",
+            "journal-title": "IEEE INFOCOM'86"
+          },
+          {
+            "key": "ref8",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1982.1095643"
+          },
+          {
+            "key": "ref6s",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TAES.1981.309181"
+          },
+          {
+            "key": "ref7",
+            "article-title": "Performance analysis of a memory ARQ scheme with soft decision detectors",
+            "volume": "34",
+            "author": "lau",
+            "year": "1986",
+            "journal-title": "IEEE Trans on Commun"
+          },
+          {
+            "key": "ref2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1986.1096518"
+          },
+          {
+            "key": "ref9",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1983.1095849"
+          },
+          {
+            "key": "ref1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1985.1096291"
+          },
+          {
+            "key": "ref2s",
+            "article-title": "A packet radio communication system architecture in a mixed traffic and dynamic enviroment",
+            "author": "nilsson",
+            "year": "0",
+            "journal-title": "1980 Computer Network"
+          }
+        ],
+        "event": {
+          "name": "IEEE Global Telecommunications Conference and Exhibition. Communications for the Information Age",
+          "location": "Hollywood, FL, USA"
+        },
+        "container-title": [
+          "IEEE Global Telecommunications Conference and Exhibition. Communications for the Information Age"
+        ],
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx2/717/971/00026100.pdf?arnumber=26100",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2017,
+              6,
+              15
+            ]
+          ],
+          "date-time": "2017-06-15T13:14:50Z",
+          "timestamp": 1497532490000
+        },
+        "score": 46.969425,
+        "resource": {
+          "primary": {
+            "URL": "http://ieeexplore.ieee.org/document/26100/"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              null
+            ]
+          ]
+        },
+        "references-count": 26,
+        "URL": "https://doi.org/10.1109/glocom.1988.26100"
+      },
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2026,
+              10,
+              2
+            ]
+          ],
+          "date-time": "2026-10-02T02:52:49Z",
+          "timestamp": 1790909569595,
+          "version": "4.1.0"
+        },
+        "reference-count": 54,
+        "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+        "issue": "12",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  1984,
+                  12,
+                  1
+                ]
+              ],
+              "date-time": "1984-12-01T00:00:00Z",
+              "timestamp": 470707200000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/IEEE.html"
+          }
+        ],
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "short-container-title": [
+          "IEEE Commun. Mag."
+        ],
+        "published-print": {
+          "date-parts": [
+            [
+              1984,
+              12
+            ]
+          ]
+        },
+        "DOI": "10.1109/mcom.1984.1091865",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [
+            [
+              2004,
+              4,
+              28
+            ]
+          ],
+          "date-time": "2004-04-28T20:28:59Z",
+          "timestamp": 1083184139000
+        },
+        "page": "5-17",
+        "source": "Crossref",
+        "is-referenced-by-count": 760,
+        "title": [
+          "Automatic-repeat-request error-control schemes"
+        ],
+        "prefix": "10.1109",
+        "volume": "22",
+        "author": [
+          {
+            "family": "Shu Lin",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Daniel J.",
+            "family": "Costello",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Michael J.",
+            "family": "Miller",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "member": "263",
+        "reference": [
+          {
+            "key": "ref39",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1979.1094392"
+          },
+          {
+            "key": "ref38",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1979.1094392"
+          },
+          {
+            "key": "ref33",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TIT.1980.1056245"
+          },
+          {
+            "key": "ref32",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1976.1093318"
+          },
+          {
+            "key": "ref31",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1975.1092876"
+          },
+          {
+            "key": "ref30",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1968.1089835"
+          },
+          {
+            "key": "ref6a",
+            "first-page": "27",
+            "article-title": "Bounds on undetected error probability and optimum group codes in a channel with feedback",
+            "volume": "1",
+            "author": "korzhik",
+            "year": "1965",
+            "journal-title": "Radio-tecknika"
+          },
+          {
+            "key": "ref37",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TIT.1974.1055215"
+          },
+          {
+            "key": "ref6b",
+            "first-page": "87",
+            "volume": "2",
+            "year": "1965",
+            "journal-title": "Telecommun Radio Eng 2"
+          },
+          {
+            "key": "ref36",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1981.1094890"
+          },
+          {
+            "key": "ref35",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1982.1095432"
+          },
+          {
+            "key": "ref34",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TIT.1983.1056711"
+          },
+          {
+            "key": "ref28",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1147/rd.144.0426"
+          },
+          {
+            "key": "ref27",
+            "year": "1980",
+            "journal-title": "Interface between data terminal equipment (DTE) and data circuit-terminating equipment(DCE) for terminals operating in the packet mode on public data networks"
+          },
+          {
+            "key": "ref29",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1982.1095643"
+          },
+          {
+            "key": "ref2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1007/978-1-4899-2174-1"
+          },
+          {
+            "key": "ref1",
+            "author": "berklekamp",
+            "year": "1968",
+            "journal-title": "Algebraic Coding Theory"
+          },
+          {
+            "key": "ref20",
+            "author": "metzner",
+            "year": "1965",
+            "journal-title": "Word Selection Procedures for Error-Free Communication Systems"
+          },
+          {
+            "key": "ref22",
+            "year": "1969",
+            "journal-title": "General Information - Binary Synchronous Communications"
+          },
+          {
+            "key": "ref21",
+            "doi-asserted-by": "crossref",
+            "first-page": "1293",
+            "DOI": "10.1109/PROC.1972.8897",
+            "article-title": "errors and error control",
+            "volume": "60",
+            "author": "burton",
+            "year": "1972",
+            "journal-title": "Proceedings of the IEEE"
+          },
+          {
+            "key": "ref24",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1981.1095141"
+          },
+          {
+            "key": "ref23",
+            "first-page": "3b:1-1",
+            "article-title": "A study of an efficient retransmission strategy for data links",
+            "author": "metzner",
+            "year": "0",
+            "journal-title": "NTC'77 Conf Rec"
+          },
+          {
+            "key": "ref26",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1981.1094999"
+          },
+          {
+            "key": "ref25",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1982.1095497"
+          },
+          {
+            "key": "ref50",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TIT.1962.1057760"
+          },
+          {
+            "key": "ref51",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TIT.1971.1054602"
+          },
+          {
+            "key": "ref52",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/PROC.1978.11151"
+          },
+          {
+            "key": "ref10",
+            "article-title": "Coding techniques for digital data networks",
+            "volume": "65",
+            "author": "massey",
+            "year": "1978",
+            "journal-title": "Proc Int Conf Inform Theory and Syst"
+          },
+          {
+            "key": "ref11",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1982.1095473"
+          },
+          {
+            "key": "ref40",
+            "article-title": "Convolutional Parity Check Automatic Repeat Request",
+            "author": "ancheta",
+            "year": "1979",
+            "journal-title": "1979 IEEE Int Symp Inform Theory"
+          },
+          {
+            "key": "ref12",
+            "article-title": "Data transmission using error detection codes",
+            "author": "padovani",
+            "year": "1982",
+            "journal-title": "GLOBECOM '82 Conf Rec"
+          },
+          {
+            "key": "ref13",
+            "article-title": "On the probability of undetected error of linear block codes",
+            "author": "kasami",
+            "year": "1982",
+            "journal-title": "GLOBECOM '82 Conf Rec"
+          },
+          {
+            "key": "ref14",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TIT.1983.1056615"
+          },
+          {
+            "key": "ref15",
+            "article-title": "On the probability of undetected error for shortened cyclic Hamming codes",
+            "author": "fujiwara",
+            "year": "1982",
+            "journal-title": "Proc Fifth Conf Inform Theory and Its Application"
+          },
+          {
+            "key": "ref16",
+            "article-title": "Coded feedback communication systems",
+            "author": "metzner",
+            "year": "1960",
+            "journal-title": "Proc Nat Electron Conf"
+          },
+          {
+            "key": "ref17",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCE.1961.6373106"
+          },
+          {
+            "key": "ref18",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCE.1962.6373160"
+          },
+          {
+            "key": "ref19",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1964.1088975"
+          },
+          {
+            "key": "ref4",
+            "author": "macwilliams",
+            "year": "1977",
+            "journal-title": "Theory of Error-Correcting Codes"
+          },
+          {
+            "key": "ref3",
+            "author": "lin",
+            "year": "1983",
+            "journal-title": "Error Control Coding Fundamentals and Applications"
+          },
+          {
+            "key": "ref5",
+            "author": "peterson",
+            "year": "1972",
+            "journal-title": "Error-Correcting Codes"
+          },
+          {
+            "key": "ref8",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TIT.1976.1055515"
+          },
+          {
+            "key": "ref49",
+            "author": "lugand",
+            "year": "1982",
+            "journal-title": "ARQ Schemes Using Convolutional Codes and Viterbi Decoding over Non-Stationary Channels"
+          },
+          {
+            "key": "ref9",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TIT.1979.1055991"
+          },
+          {
+            "key": "ref46",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/JSAC.1984.1146084"
+          },
+          {
+            "key": "ref7a",
+            "first-page": "3",
+            "article-title": "Bounds on the probability of undetected error",
+            "volume": "13",
+            "author": "levenshtein",
+            "year": "1977",
+            "journal-title": "Problemy Perdachi Informatsii"
+          },
+          {
+            "key": "ref45",
+            "article-title": "A comparison of three hybrid ARQ schemes using convolutional codes on a nonstationary channel",
+            "author": "lugand",
+            "year": "1982",
+            "journal-title": "GLOBECOM '82Conf Rec"
+          },
+          {
+            "key": "ref48",
+            "author": "miller",
+            "year": "1982",
+            "journal-title": "ARQ Systems"
+          },
+          {
+            "key": "ref7b",
+            "first-page": "1",
+            "volume": "13",
+            "year": "1978",
+            "journal-title": "Problems of Information Transmission"
+          },
+          {
+            "key": "ref47",
+            "article-title": "Parity retransmission ARQ using convolutional codes",
+            "author": "miller",
+            "year": "1982",
+            "journal-title": "IEEE Trans Inform Theory"
+          },
+          {
+            "key": "ref42",
+            "author": "lin",
+            "year": "1979",
+            "journal-title": "SPEC?An Effective Hybrid-ARQ Scheme"
+          },
+          {
+            "key": "ref41",
+            "author": "lin",
+            "year": "1979",
+            "journal-title": "A Hybrid ARQ System with Parity Retransmission for Error Correction"
+          },
+          {
+            "key": "ref44",
+            "article-title": "A parity-retransmission hybrid ARQ using a convolutional code and Viterbi decoding for error control",
+            "author": "wang",
+            "year": "1982",
+            "journal-title": "GLOBECOM '82 Conf Rec"
+          },
+          {
+            "key": "ref43",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TCOM.1983.1095873"
+          }
+        ],
+        "container-title": [
+          "IEEE Communications Magazine"
+        ],
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/35/23802/01091865.pdf?arnumber=1091865",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2022,
+              1,
+              12
+            ]
+          ],
+          "date-time": "2022-01-12T11:18:50Z",
+          "timestamp": 1641986330000
+        },
+        "score": 46.497143,
+        "resource": {
+          "primary": {
+            "URL": "http://ieeexplore.ieee.org/document/1091865/"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              1984,
+              12
+            ]
+          ]
+        },
+        "references-count": 54,
+        "journal-issue": {
+          "issue": "12"
+        },
+        "URL": "https://doi.org/10.1109/mcom.1984.1091865",
+        "ISSN": [
+          "0163-6804"
+        ],
+        "issn-type": [
+          {
+            "value": "0163-6804",
+            "type": "print"
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              1984,
+              12
+            ]
+          ]
+        }
+      }
+    ],
+    "items-per-page": 3,
+    "query": {
+      "start-index": 0,
+      "search-terms": null
+    }
+  }
+}

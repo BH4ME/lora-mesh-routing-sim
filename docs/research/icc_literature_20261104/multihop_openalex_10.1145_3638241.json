@@ -1,0 +1,1308 @@
+{
+  "id": "https://openalex.org/W4390002238",
+  "doi": "https://doi.org/10.1145/3638241",
+  "title": "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications",
+  "display_name": "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications",
+  "publication_year": 2023,
+  "publication_date": "2023-12-20",
+  "ids": {
+    "openalex": "https://openalex.org/W4390002238",
+    "doi": "https://doi.org/10.1145/3638241"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1145/3638241",
+    "doi": "https://doi.org/10.1145/3638241",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1145/3638241",
+    "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3638241",
+    "source": {
+      "id": "https://openalex.org/S157921468",
+      "display_name": "ACM Computing Surveys",
+      "issn_l": "0360-0300",
+      "issn": [
+        "0360-0300",
+        "1557-7341"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "cwts-core",
+        "dongbi-a",
+        "jufo-3",
+        "ki-jl-2",
+        "norway-2",
+        "poland-200",
+        "russia-white-list-1",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310319798",
+      "host_organization_name": "Association for Computing Machinery",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319798"
+      ],
+      "host_organization_lineage_names": [
+        "Association for Computing Machinery"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "ACM Computing Surveys",
+    "raw_type": "journal-article"
+  },
+  "volume": null,
+  "type": "article",
+  "indexed_in": [
+    "crossref"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "bronze",
+    "oa_url": "https://dl.acm.org/doi/pdf/10.1145/3638241",
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5111878447",
+        "display_name": "A. Wong",
+        "orcid": "https://orcid.org/0000-0003-3822-4432",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-3822-4432"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I161371597",
+          "display_name": "Universiti of Malaysia Sabah",
+          "ror": "https://ror.org/040v70252",
+          "country_code": "MY",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I161371597"
+          ]
+        }
+      ],
+      "countries": [
+        "MY"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Andrew Wei-Loong Wong",
+      "raw_affiliation_strings": [
+        "Optimisation and Visual Analytics Research Group, Faculty of Computing and Informatics, Universiti Malaysia Sabah Labuan International Campus, Labuan 87000, Malaysia"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-3822-4432",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Optimisation and Visual Analytics Research Group, Faculty of Computing and Informatics, Universiti Malaysia Sabah Labuan International Campus, Labuan 87000, Malaysia",
+          "institution_ids": [
+            "https://openalex.org/I161371597"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5069629393",
+        "display_name": "Say Leng Goh",
+        "orcid": "https://orcid.org/0000-0003-4562-2519",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-4562-2519"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I161371597",
+          "display_name": "Universiti of Malaysia Sabah",
+          "ror": "https://ror.org/040v70252",
+          "country_code": "MY",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I161371597"
+          ]
+        }
+      ],
+      "countries": [
+        "MY"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Say Leng Goh",
+      "raw_affiliation_strings": [
+        "Optimisation and Visual Analytics Research Group, Faculty of Computing and Informatics, Universiti Malaysia Sabah Labuan International Campus, Labuan 87000, Malaysia"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-4562-2519",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Optimisation and Visual Analytics Research Group, Faculty of Computing and Informatics, Universiti Malaysia Sabah Labuan International Campus, Labuan 87000, Malaysia",
+          "institution_ids": [
+            "https://openalex.org/I161371597"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5084720361",
+        "display_name": "Mohammad Kamrul Hasan",
+        "orcid": "https://orcid.org/0000-0001-5511-0205",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-5511-0205"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I885383172",
+          "display_name": "National University of Malaysia",
+          "ror": "https://ror.org/00bw8d226",
+          "country_code": "MY",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I885383172"
+          ]
+        }
+      ],
+      "countries": [
+        "MY"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Mohammad Kamrul Hasan",
+      "raw_affiliation_strings": [
+        "Faculty of Information Science and Technology, Universiti Kebangsaan Malaysia, Bangi, Selangor, Malaysia"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0001-5511-0205",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Faculty of Information Science and Technology, Universiti Kebangsaan Malaysia, Bangi, Selangor, Malaysia",
+          "institution_ids": [
+            "https://openalex.org/I885383172"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5082409268",
+        "display_name": "Salmah Binti Fattah",
+        "orcid": "https://orcid.org/0000-0003-4377-9256",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-4377-9256"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I161371597",
+          "display_name": "Universiti of Malaysia Sabah",
+          "ror": "https://ror.org/040v70252",
+          "country_code": "MY",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I161371597"
+          ]
+        }
+      ],
+      "countries": [
+        "MY"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Salmah Fattah",
+      "raw_affiliation_strings": [
+        "Faculty of Computing and Informatics, Universiti Malaysia Sabah, Labuan 87000, Malaysia"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-4377-9256",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Faculty of Computing and Informatics, Universiti Malaysia Sabah, Labuan 87000, Malaysia",
+          "institution_ids": [
+            "https://openalex.org/I161371597"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 2,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": null,
+  "apc_paid": null,
+  "fwci": 4.7387,
+  "has_fulltext": true,
+  "cited_by_count": 64,
+  "citation_normalized_percentile": {
+    "value": 0.96600274,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 99,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "56",
+    "issue": "6",
+    "first_page": "1",
+    "last_page": "43"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T12079",
+    "display_name": "IoT Networks and Protocols",
+    "score": 0.989300012588501,
+    "subfield": {
+      "id": "https://openalex.org/subfields/2208",
+      "display_name": "Electrical and Electronic Engineering"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T12079",
+      "display_name": "IoT Networks and Protocols",
+      "score": 0.989300012588501,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10080",
+      "display_name": "Energy Efficient Wireless Sensor Networks",
+      "score": 0.008200000040233135,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10246",
+      "display_name": "Mobile Ad Hoc Networks",
+      "score": 0.0010000000474974513,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/lora-networks",
+      "display_name": "LoRa networks",
+      "score": 0.9200000166893005
+    },
+    {
+      "id": "https://openalex.org/keywords/multi-hop-networks",
+      "display_name": "multi-hop networks",
+      "score": 0.8569999933242798
+    },
+    {
+      "id": "https://openalex.org/keywords/mesh-networks",
+      "display_name": "mesh networks",
+      "score": 0.9629999995231628
+    },
+    {
+      "id": "https://openalex.org/keywords/energy-efficiency",
+      "display_name": "energy efficiency",
+      "score": 0.7379999756813049
+    },
+    {
+      "id": "https://openalex.org/keywords/duty-cycling",
+      "display_name": "duty cycling",
+      "score": 0.6389999985694885
+    },
+    {
+      "id": "https://openalex.org/keywords/concurrent-access",
+      "display_name": "concurrent access",
+      "score": 0.9430000185966492
+    },
+    {
+      "id": "https://openalex.org/keywords/routing-protocols",
+      "display_name": "routing protocols",
+      "score": 0.8989999890327454
+    },
+    {
+      "id": "https://openalex.org/keywords/proactive-routing-protocols",
+      "display_name": "proactive routing",
+      "score": 0.8029999732971191
+    },
+    {
+      "id": "https://openalex.org/keywords/on-demand-routing",
+      "display_name": "on-demand routing",
+      "score": 0.9929999709129333
+    },
+    {
+      "id": "https://openalex.org/keywords/hybrid-routing-protocol",
+      "display_name": "hybrid routing",
+      "score": 0.9129999876022339
+    },
+    {
+      "id": "https://openalex.org/keywords/network-security",
+      "display_name": "network security",
+      "score": 0.8379999995231628
+    },
+    {
+      "id": "https://openalex.org/keywords/denial-of-service-attacks",
+      "display_name": "denial-of-service attacks",
+      "score": 0.7879999876022339
+    },
+    {
+      "id": "https://openalex.org/keywords/man-in-the-middle-attacks",
+      "display_name": "man-in-the-middle attacks",
+      "score": 0.8989999890327454
+    },
+    {
+      "id": "https://openalex.org/keywords/spoofing-attacks",
+      "display_name": "spoofing attacks",
+      "score": 0.8309999704360962
+    },
+    {
+      "id": "https://openalex.org/keywords/temporal-synchronization",
+      "display_name": "temporal synchronization",
+      "score": 0.7149999737739563
+    },
+    {
+      "id": "https://openalex.org/keywords/clustering",
+      "display_name": "clustering",
+      "score": 0.753000020980835
+    },
+    {
+      "id": "https://openalex.org/keywords/machine-learning-for-routing",
+      "display_name": "machine learning for routing",
+      "score": 0.5950000286102295
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.90404212474823
+    },
+    {
+      "id": "https://openalex.org/C25906391",
+      "wikidata": "https://www.wikidata.org/wiki/Q1432381",
+      "display_name": "Hop (telecommunications)",
+      "level": 2,
+      "score": 0.5544638633728027
+    },
+    {
+      "id": "https://openalex.org/C31548570",
+      "wikidata": "https://www.wikidata.org/wiki/Q6453712",
+      "display_name": "Wireless mesh network",
+      "level": 4,
+      "score": 0.5299319624900818
+    },
+    {
+      "id": "https://openalex.org/C123691950",
+      "wikidata": "https://www.wikidata.org/wiki/Q25552104",
+      "display_name": "Mesh networking",
+      "level": 3,
+      "score": 0.5126825571060181
+    },
+    {
+      "id": "https://openalex.org/C31258907",
+      "wikidata": "https://www.wikidata.org/wiki/Q1301371",
+      "display_name": "Computer network",
+      "level": 1,
+      "score": 0.5005128383636475
+    },
+    {
+      "id": "https://openalex.org/C120314980",
+      "wikidata": "https://www.wikidata.org/wiki/Q180634",
+      "display_name": "Distributed computing",
+      "level": 1,
+      "score": 0.36973637342453003
+    },
+    {
+      "id": "https://openalex.org/C76155785",
+      "wikidata": "https://www.wikidata.org/wiki/Q418",
+      "display_name": "Telecommunications",
+      "level": 1,
+      "score": 0.2718580365180969
+    },
+    {
+      "id": "https://openalex.org/C108037233",
+      "wikidata": "https://www.wikidata.org/wiki/Q11375",
+      "display_name": "Wireless network",
+      "level": 3,
+      "score": 0.1882525384426117
+    },
+    {
+      "id": "https://openalex.org/C555944384",
+      "wikidata": "https://www.wikidata.org/wiki/Q249",
+      "display_name": "Wireless",
+      "level": 2,
+      "score": 0.14817821979522705
+    }
+  ],
+  "mesh": [],
+  "locations_count": 2,
+  "locations": [
+    {
+      "id": "doi:10.1145/3638241",
+      "doi": "https://doi.org/10.1145/3638241",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.1145/3638241",
+      "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3638241",
+      "source": {
+        "id": "https://openalex.org/S157921468",
+        "display_name": "ACM Computing Surveys",
+        "issn_l": "0360-0300",
+        "issn": [
+          "0360-0300",
+          "1557-7341"
+        ],
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": true,
+        "listed_in": [
+          "cwts-core",
+          "dongbi-a",
+          "jufo-3",
+          "ki-jl-2",
+          "norway-2",
+          "poland-200",
+          "russia-white-list-1",
+          "vabb-shw"
+        ],
+        "host_organization": "https://openalex.org/P4310319798",
+        "host_organization_name": "Association for Computing Machinery",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319798"
+        ],
+        "host_organization_lineage_names": [
+          "Association for Computing Machinery"
+        ],
+        "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "ACM Computing Surveys",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmh:oai:eprints.ums.edu.my:44907",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "https://eprints.ums.edu.my/id/eprint/44907/1/FULLTEXT.pdf",
+      "pdf_url": "https://eprints.ums.edu.my/id/eprint/44907/1/FULLTEXT.pdf",
+      "source": {
+        "id": "https://openalex.org/S4306400331",
+        "display_name": "UMS Institutional Repository (Universiti Malaysia Sabah)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I161371597",
+        "host_organization_name": "Universiti of Malaysia Sabah",
+        "host_organization_lineage": [
+          "https://openalex.org/I161371597"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "acceptedVersion",
+      "is_accepted": true,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "Article"
+    }
+  ],
+  "best_oa_location": {
+    "id": "doi:10.1145/3638241",
+    "doi": "https://doi.org/10.1145/3638241",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1145/3638241",
+    "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3638241",
+    "source": {
+      "id": "https://openalex.org/S157921468",
+      "display_name": "ACM Computing Surveys",
+      "issn_l": "0360-0300",
+      "issn": [
+        "0360-0300",
+        "1557-7341"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "cwts-core",
+        "dongbi-a",
+        "jufo-3",
+        "ki-jl-2",
+        "norway-2",
+        "poland-200",
+        "russia-white-list-1",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310319798",
+      "host_organization_name": "Association for Computing Machinery",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319798"
+      ],
+      "host_organization_lineage_names": [
+        "Association for Computing Machinery"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "ACM Computing Surveys",
+    "raw_type": "journal-article"
+  },
+  "sustainable_development_goals": [
+    {
+      "id": "https://metadata.un.org/sdg/9",
+      "display_name": "Industry, innovation and infrastructure",
+      "score": 0.428600013256073
+    }
+  ],
+  "study_designs": [],
+  "awards": [],
+  "funders": [],
+  "has_content": {
+    "pdf": true,
+    "grobid_xml": true
+  },
+  "content_urls": {
+    "pdf": "https://content.openalex.org/works/W4390002238.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W4390002238.grobid-xml"
+  },
+  "referenced_works_count": 72,
+  "referenced_works": [
+    "https://openalex.org/W2499400668",
+    "https://openalex.org/W2507828263",
+    "https://openalex.org/W2576629242",
+    "https://openalex.org/W2595511394",
+    "https://openalex.org/W2756782458",
+    "https://openalex.org/W2772033649",
+    "https://openalex.org/W2772929437",
+    "https://openalex.org/W2776126075",
+    "https://openalex.org/W2781583119",
+    "https://openalex.org/W2782006171",
+    "https://openalex.org/W2885437927",
+    "https://openalex.org/W2885815071",
+    "https://openalex.org/W2889167692",
+    "https://openalex.org/W2896003826",
+    "https://openalex.org/W2896500950",
+    "https://openalex.org/W2901111720",
+    "https://openalex.org/W2905409007",
+    "https://openalex.org/W2909661269",
+    "https://openalex.org/W2910677601",
+    "https://openalex.org/W2913709008",
+    "https://openalex.org/W2917714242",
+    "https://openalex.org/W2917931339",
+    "https://openalex.org/W2943535307",
+    "https://openalex.org/W2944228011",
+    "https://openalex.org/W2955551477",
+    "https://openalex.org/W2963219587",
+    "https://openalex.org/W2973602519",
+    "https://openalex.org/W2975918984",
+    "https://openalex.org/W2981455641",
+    "https://openalex.org/W2982455897",
+    "https://openalex.org/W2985363936",
+    "https://openalex.org/W2993037392",
+    "https://openalex.org/W2996638874",
+    "https://openalex.org/W3000180903",
+    "https://openalex.org/W3013307513",
+    "https://openalex.org/W3018870863",
+    "https://openalex.org/W3027118990",
+    "https://openalex.org/W3035780619",
+    "https://openalex.org/W3035932795",
+    "https://openalex.org/W3043328207",
+    "https://openalex.org/W3046834032",
+    "https://openalex.org/W3083272947",
+    "https://openalex.org/W3085081926",
+    "https://openalex.org/W3095355284",
+    "https://openalex.org/W3101175576",
+    "https://openalex.org/W3115701597",
+    "https://openalex.org/W3127996085",
+    "https://openalex.org/W3137014282",
+    "https://openalex.org/W3139226909",
+    "https://openalex.org/W3185504986",
+    "https://openalex.org/W3186612467",
+    "https://openalex.org/W3194319504",
+    "https://openalex.org/W3195384377",
+    "https://openalex.org/W3201634655",
+    "https://openalex.org/W3213798546",
+    "https://openalex.org/W3215358304",
+    "https://openalex.org/W3217244220",
+    "https://openalex.org/W4205704520",
+    "https://openalex.org/W4206425359",
+    "https://openalex.org/W4210555605",
+    "https://openalex.org/W4210582629",
+    "https://openalex.org/W4221134552",
+    "https://openalex.org/W4280590075",
+    "https://openalex.org/W4281987095",
+    "https://openalex.org/W4282971155",
+    "https://openalex.org/W4283009081",
+    "https://openalex.org/W4283212624",
+    "https://openalex.org/W4285275089",
+    "https://openalex.org/W4285327658",
+    "https://openalex.org/W4297818341",
+    "https://openalex.org/W4376455422",
+    "https://openalex.org/W4377971447"
+  ],
+  "related_works": [
+    "https://openalex.org/W4377224442",
+    "https://openalex.org/W2889167692",
+    "https://openalex.org/W4408215394",
+    "https://openalex.org/W3046834032",
+    "https://openalex.org/W4361987105",
+    "https://openalex.org/W4405846287",
+    "https://openalex.org/W7000935779",
+    "https://openalex.org/W4285291569",
+    "https://openalex.org/W4283212624",
+    "https://openalex.org/W7157585530"
+  ],
+  "abstract_inverted_index": {
+    "A": [
+      0,
+      220
+    ],
+    "comprehensive": [
+      1
+    ],
+    "review": [
+      2
+    ],
+    "is": [
+      3,
+      123,
+      165
+    ],
+    "presented": [
+      4
+    ],
+    "on": [
+      5,
+      12,
+      27,
+      68,
+      174
+    ],
+    "the": [
+      6,
+      19,
+      224
+    ],
+    "latest": [
+      7
+    ],
+    "approaches": [
+      8,
+      35
+    ],
+    "to": [
+      9,
+      102,
+      108,
+      126,
+      149,
+      196
+    ],
+    "solutions": [
+      10
+    ],
+    "focusing": [
+      11
+    ],
+    "multi-hop": [
+      13,
+      98,
+      197,
+      235
+    ],
+    "and": [
+      14,
+      23,
+      32,
+      47,
+      53,
+      62,
+      71,
+      80,
+      90,
+      100,
+      144,
+      185,
+      198,
+      216,
+      227,
+      236
+    ],
+    "mesh": [
+      15,
+      199,
+      237
+    ],
+    "LoRa": [
+      16,
+      171,
+      200,
+      238
+    ],
+    "networks": [
+      17,
+      99,
+      201,
+      239
+    ],
+    "through": [
+      18
+    ],
+    "evaluation": [
+      20
+    ],
+    "of": [
+      21,
+      86,
+      140,
+      191,
+      207,
+      223
+    ],
+    "simulations": [
+      22
+    ],
+    "real-world": [
+      24
+    ],
+    "experiments,": [
+      25
+    ],
+    "based": [
+      26
+    ],
+    "papers": [
+      28
+    ],
+    "published": [
+      29
+    ],
+    "between": [
+      30
+    ],
+    "2015": [
+      31
+    ],
+    "2023.": [
+      33
+    ],
+    "The": [
+      34,
+      55,
+      64,
+      74,
+      84,
+      188
+    ],
+    "are": [
+      36,
+      106,
+      157,
+      240
+    ],
+    "systematically": [
+      37
+    ],
+    "classified": [
+      38
+    ],
+    "into": [
+      39
+    ],
+    "four": [
+      40
+    ],
+    "(4)": [
+      41
+    ],
+    "aspects:": [
+      42
+    ],
+    "energy": [
+      43
+    ],
+    "awareness,": [
+      44
+    ],
+    "concurrent": [
+      45
+    ],
+    "access": [
+      46,
+      114
+    ],
+    "duty": [
+      48,
+      104
+    ],
+    "cycle": [
+      49,
+      105
+    ],
+    "regulations,": [
+      50
+    ],
+    "routing": [
+      51,
+      82,
+      152
+    ],
+    "protocols,": [
+      52
+    ],
+    "security.": [
+      54
+    ],
+    "first": [
+      56
+    ],
+    "aspect": [
+      57,
+      66,
+      76,
+      85
+    ],
+    "encompasses": [
+      58
+    ],
+    "parameter": [
+      59
+    ],
+    "selection,": [
+      60,
+      215
+    ],
+    "distance,": [
+      61
+    ],
+    "clustering.": [
+      63
+    ],
+    "second": [
+      65
+    ],
+    "focuses": [
+      67
+    ],
+    "network": [
+      69,
+      118
+    ],
+    "segregation": [
+      70
+    ],
+    "time": [
+      72
+    ],
+    "synchronisation.": [
+      73
+    ],
+    "third": [
+      75
+    ],
+    "covers": [
+      77
+    ],
+    "proactive,": [
+      78
+    ],
+    "reactive,": [
+      79
+    ],
+    "hybrid": [
+      81
+    ],
+    "protocols.": [
+      83
+    ],
+    "security": [
+      87
+    ],
+    "includes": [
+      88
+    ],
+    "privacy": [
+      89
+    ],
+    "Denial-of-Service": [
+      91
+    ],
+    "(DoS).": [
+      92
+    ],
+    "Findings": [
+      93
+    ],
+    "show": [
+      94
+    ],
+    "a": [
+      95,
+      132,
+      167,
+      204
+    ],
+    "consensus": [
+      96
+    ],
+    "that": [
+      97,
+      231
+    ],
+    "adherence": [
+      101
+    ],
+    "radio": [
+      103
+    ],
+    "able": [
+      107
+    ],
+    "lower": [
+      109,
+      145
+    ],
+    "average": [
+      110
+    ],
+    "power": [
+      111,
+      146
+    ],
+    "consumption.": [
+      112
+    ],
+    "Concurrent": [
+      113
+    ],
+    "method": [
+      115
+    ],
+    "can": [
+      116
+    ],
+    "improve": [
+      117
+    ],
+    "performance,": [
+      119
+    ],
+    "but": [
+      120
+    ],
+    "more": [
+      121
+    ],
+    "research": [
+      122
+    ],
+    "needed": [
+      124
+    ],
+    "due": [
+      125,
+      148
+    ],
+    "different": [
+      127
+    ],
+    "conclusions.": [
+      128
+    ],
+    "Reactive": [
+      129
+    ],
+    "protocols": [
+      130,
+      137,
+      156
+    ],
+    "have": [
+      131
+    ],
+    "slight": [
+      133
+    ],
+    "advantage": [
+      134
+    ],
+    "over": [
+      135
+    ],
+    "proactive": [
+      136
+    ],
+    "in": [
+      138,
+      160
+    ],
+    "terms": [
+      139
+    ],
+    "node": [
+      141
+    ],
+    "deployment": [
+      142
+    ],
+    "scalability": [
+      143
+    ],
+    "consumption": [
+      147
+    ],
+    "less": [
+      150
+    ],
+    "frequent": [
+      151
+    ],
+    "table": [
+      153
+    ],
+    "updates.": [
+      154
+    ],
+    "Hybrid": [
+      155
+    ],
+    "only": [
+      158
+    ],
+    "beneficial": [
+      159
+    ],
+    "specific": [
+      161
+    ],
+    "topology": [
+      162
+    ],
+    "deployments.": [
+      163
+    ],
+    "Security": [
+      164
+    ],
+    "still": [
+      166
+    ],
+    "major": [
+      168
+    ],
+    "concern": [
+      169
+    ],
+    "for": [
+      170
+    ],
+    "networks,": [
+      172
+    ],
+    "particularly": [
+      173
+    ],
+    "attacks": [
+      175
+    ],
+    "such": [
+      176
+    ],
+    "as": [
+      177
+    ],
+    "Man-In-The-Middle": [
+      178
+    ],
+    "(MITM),": [
+      179
+    ],
+    "spoofing,": [
+      180
+    ],
+    "wormholes,": [
+      181
+    ],
+    "flooding,": [
+      182
+    ],
+    "packet": [
+      183
+    ],
+    "replay,": [
+      184
+    ],
+    "information": [
+      186
+    ],
+    "disclosure.": [
+      187
+    ],
+    "upcoming": [
+      189
+    ],
+    "trend": [
+      190
+    ],
+    "implementing": [
+      192
+    ],
+    "machine": [
+      193
+    ],
+    "learning": [
+      194
+    ],
+    "algorithms": [
+      195
+    ],
+    "opens": [
+      202
+    ],
+    "up": [
+      203
+    ],
+    "wide": [
+      205
+    ],
+    "range": [
+      206
+    ],
+    "possibilities,": [
+      208
+    ],
+    "ranging": [
+      209
+    ],
+    "from": [
+      210,
+      234
+    ],
+    "airspace": [
+      211
+    ],
+    "efficiency,": [
+      212
+    ],
+    "efficient": [
+      213
+    ],
+    "route": [
+      214
+    ],
+    "improving": [
+      217
+    ],
+    "data": [
+      218
+    ],
+    "throughput.": [
+      219
+    ],
+    "detailed": [
+      221
+    ],
+    "discussion": [
+      222
+    ],
+    "aspects’": [
+      225
+    ],
+    "issues": [
+      226
+    ],
+    "recommended": [
+      228
+    ],
+    "industry": [
+      229
+    ],
+    "applications": [
+      230
+    ],
+    "will": [
+      232
+    ],
+    "benefit": [
+      233
+    ],
+    "also": [
+      241
+    ],
+    "provided.": [
+      242
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 19
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 34
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 11
+    }
+  ],
+  "updated_date": "2026-11-03T10:50:19.383937",
+  "created_date": "2023-12-21T00:00:00"
+}

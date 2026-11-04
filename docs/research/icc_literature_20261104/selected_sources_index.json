@@ -1,0 +1,243 @@
+{
+  "date": "2026-11-04",
+  "ordered_keys": [
+    "augustin2016study",
+    "bor2016scale",
+    "georgiou2017scale",
+    "wong2024multihop",
+    "cotrim2020lorawanmesh",
+    "decouto2003etx",
+    "croce2018orthogonality",
+    "rahmadhani2018concurrent",
+    "heusse2023capacity",
+    "to2018lorans3",
+    "vandenabeele2017scalability",
+    "ahmar2022smarthop",
+    "feng2022cost",
+    "zhu2019improving",
+    "pueyo2024minimalistic",
+    "sole2022implementation",
+    "tian2023lorahop",
+    "johnson1996dsr",
+    "ni1999broadcaststorm",
+    "levis2004trickle",
+    "biswas2005exor",
+    "meshtasticdocs",
+    "meshcore",
+    "liu2004truncated",
+    "srinivasan2008beta",
+    "glasserman1992crn"
+  ],
+  "sources": {
+    "augustin2016study": {
+      "title": "A Study of LoRa: Long Range & Low Power Networks for the Internet of Things",
+      "doi": "10.3390/s16091466",
+      "count": 1500,
+      "id": "https://openalex.org/W2520480241",
+      "read": "abstract plus full-text sections 3.2–3.4, 4.2, 5.2; equations 1–3"
+    },
+    "to2018lorans3": {
+      "title": "Simulation of LoRa in NS-3: Improving LoRa Performance with CSMA",
+      "doi": "10.1109/icc.2018.8422800",
+      "count": 160,
+      "id": "https://openalex.org/W2884228260",
+      "read": "abstract only"
+    },
+    "bor2016scale": {
+      "title": "Do LoRa Low-Power Wide-Area Networks Scale?",
+      "doi": "10.1145/2988287.2989163",
+      "count": 838,
+      "id": "https://openalex.org/W2525332113",
+      "read": "abstract plus corrected author manuscript sections 3.2–3.3, 4 and first-page correction notice"
+    },
+    "georgiou2017scale": {
+      "title": "Low Power Wide Area Network Analysis: Can LoRa Scale?",
+      "doi": "10.1109/lwc.2016.2647247",
+      "count": 731,
+      "id": "https://openalex.org/W2537187694",
+      "read": "abstract plus arXiv v2 full text, sections II–V"
+    },
+    "croce2018orthogonality": {
+      "title": "Impact of LoRa Imperfect Orthogonality: Analysis of Link-Level Performance",
+      "doi": "10.1109/lcomm.2018.2797057",
+      "count": 394,
+      "id": "https://openalex.org/W2792195154",
+      "read": "abstract only"
+    },
+    "rahmadhani2018concurrent": {
+      "title": "When LoRaWAN Frames Collide",
+      "doi": "10.1145/3267204.3267212",
+      "count": 85,
+      "id": "https://openalex.org/W2896332706",
+      "read": "abstract only"
+    },
+    "vandenabeele2017scalability": {
+      "title": "Scalability Analysis of Large-Scale LoRaWAN Networks in ns-3",
+      "doi": "10.1109/jiot.2017.2768498",
+      "count": 349,
+      "id": "https://openalex.org/W2614897509",
+      "read": "abstract plus arXiv author manuscript full text, sections II, IV–VIII"
+    },
+    "heusse2023capacity": {
+      "title": "Performance of Unslotted ALOHA With Capture and Multiple Collisions in LoRaWAN",
+      "doi": "10.1109/jiot.2023.3280393",
+      "count": 19,
+      "id": "https://openalex.org/W4378421950",
+      "read": "abstract only"
+    },
+    "wong2024multihop": {
+      "title": "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications",
+      "doi": "10.1145/3638241",
+      "count": 64,
+      "id": "https://openalex.org/W4390002238",
+      "read": "已读 Crossref 出版商提供的摘要，OpenAlex 摘要一致；未取得全文。"
+    },
+    "cotrim2020lorawanmesh": {
+      "title": "LoRaWAN Mesh Networks: A Review and Classification of Multihop Communication",
+      "doi": "10.3390/s20154273",
+      "count": 137,
+      "id": "https://openalex.org/W3046834032",
+      "read": "已读Crossref摘要及PMC全文的多跳方案、relay/router分类、拓扑章节。"
+    },
+    "pueyo2024minimalistic": {
+      "title": "A Minimalistic Distance-Vector Routing Protocol for LoRa Mesh Networks",
+      "doi": "10.1109/access.2024.3443605",
+      "count": 15,
+      "id": "https://openalex.org/W3197897949",
+      "read": "已读OpenAlex完整摘要；出版社和UPCommons全文请求均被拒，未读全文。"
+    },
+    "sole2022implementation": {
+      "title": "Implementation of a LoRa Mesh Library",
+      "doi": "10.1109/access.2022.3217215",
+      "count": 47,
+      "id": "https://openalex.org/W4312791581",
+      "read": "已读OpenAlex完整摘要；UPCommons和IEEE PDF均返回418，未取得全文。"
+    },
+    "zhu2019improving": {
+      "title": "Improving the Capacity of a Mesh LoRa Network by Spreading-Factor-Based Network Clustering",
+      "doi": "10.1109/access.2019.2898239",
+      "count": 107,
+      "id": "https://openalex.org/W2913709008",
+      "read": "已读OpenAlex完整摘要；IEEE页面返回202空正文，未取得全文。"
+    },
+    "ahmar2022smarthop": {
+      "title": "Smart-Hop: Low-Latency Multi-hop Networking for LoRa",
+      "doi": "10.1109/dcoss54816.2022.00014",
+      "count": 12,
+      "id": "https://openalex.org/W4297818341",
+      "read": "已读OpenAlex完整摘要；KU Leuven链接返回搜索应用外壳，不能视为已读取论文全文。"
+    },
+    "feng2022cost": {
+      "title": "Cost Effective Routing in Large-scale Multi-hop LoRa Networks",
+      "doi": "10.1109/infocomwkshps54753.2022.9798302",
+      "count": 12,
+      "id": "https://openalex.org/W4283212624",
+      "read": "已读OpenAlex完整摘要；Crossref元数据和发表venue已核实，未读全文。"
+    },
+    "tian2023lorahop": {
+      "title": "LoRaHop: Multihop Support for LoRaWAN Uplink and Downlink Messaging",
+      "doi": "10.1109/jiot.2023.3263630",
+      "count": 34,
+      "id": "https://openalex.org/W4361987105",
+      "read": "已读OpenAlex完整摘要并核对Crossref作者/卷期/页码；本轮未获得全文。"
+    },
+    "decouto2003etx": {
+      "title": "A high-throughput path metric for multi-hop wireless routing",
+      "doi": "10.1145/938985.939000",
+      "count": 3383,
+      "id": "https://openalex.org/W2041248965",
+      "read": "见分项核验报告"
+    },
+    "johnson1996dsr": {
+      "title": "Dynamic Source Routing in Ad Hoc Wireless Networks",
+      "doi": "10.1007/978-0-585-29603-6_5",
+      "count": 8554,
+      "id": "https://openalex.org/W2157457404",
+      "read": "见分项核验报告"
+    },
+    "ni1999broadcaststorm": {
+      "title": "The broadcast storm problem in a mobile ad hoc network",
+      "doi": "10.1145/313451.313525",
+      "count": 3162,
+      "id": "https://openalex.org/W2014550373",
+      "read": "见分项核验报告"
+    },
+    "biswas2005exor": {
+      "title": "ExOR",
+      "doi": "10.1145/1080091.1080108",
+      "count": 1356,
+      "id": "https://openalex.org/W2141151352",
+      "read": "见分项核验报告"
+    },
+    "liu2004truncated": {
+      "title": "Cross-Layer Combining of Adaptive Modulation and Coding With Truncated ARQ Over Wireless Links",
+      "doi": "10.1109/twc.2004.833474",
+      "count": 932,
+      "id": "https://openalex.org/W2151222548",
+      "read": "见分项核验报告"
+    },
+    "srinivasan2008beta": {
+      "title": "The β-factor",
+      "doi": "10.1145/1460412.1460416",
+      "count": 305,
+      "id": "https://openalex.org/W2047282676",
+      "read": "见分项核验报告"
+    },
+    "glasserman1992crn": {
+      "title": "Some Guidelines and Guarantees for Common Random Numbers",
+      "doi": "10.1287/mnsc.38.6.884",
+      "count": 188,
+      "id": "https://openalex.org/W2171554447",
+      "read": "见分项核验报告"
+    },
+    "levis2004trickle": {
+      "title": "Trickle: a self-regulating algorithm for code propagation and maintenance in wireless sensor networks",
+      "doi": "",
+      "count": 1150,
+      "id": "https://openalex.org/W2058632086",
+      "read": "索引摘要；无核实 DOI"
+    },
+    "meshtasticdocs": {
+      "title": "Meshtastic mesh algorithm",
+      "doi": "",
+      "count": null,
+      "id": "https://meshtastic.org/docs/overview/mesh-algo/",
+      "read": "官方项目文档，不是学术论文"
+    },
+    "meshcore": {
+      "title": "MeshCore FAQ",
+      "doi": "",
+      "count": null,
+      "id": "https://github.com/meshcore-dev/MeshCore/blob/main/docs/faq.md",
+      "read": "官方项目文档，不是学术论文"
+    }
+  },
+  "uses": {
+    "augustin2016study": "LoRa背景、标准符号数/ToA公式（eq:lora-toa）",
+    "bor2016scale": "空口占用、并发与扩展性背景",
+    "georgiou2017scale": "负载/干扰与单网关容量研究边界",
+    "wong2024multihop": "多跳/mesh研究分类与定位",
+    "cotrim2020lorawanmesh": "relay/router架构区分",
+    "decouto2003etx": "DATA/ACK双向损失及ETX定义",
+    "croce2018orthogonality": "不同SF不完全正交；固定SF7局限",
+    "rahmadhani2018concurrent": "并发帧碰撞与捕获实验背景",
+    "heusse2023capacity": "多个干扰帧与接收模型边界",
+    "to2018lorans3": "LoRa仿真/CSMA方法先例，不能代替本模拟器校准",
+    "vandenabeele2017scalability": "ACK/downlink成本与确认成功率",
+    "ahmar2022smarthop": "低开销多跳、SF选择与延迟目标",
+    "feng2022cost": "低成本覆盖与能耗均衡的不同目标",
+    "zhu2019improving": "SF聚类及airtime平衡",
+    "pueyo2024minimalistic": "ToA路由度量与距离向量方法",
+    "sole2022implementation": "ESP32上主动mesh协议实现",
+    "tian2023lorahop": "双向LoRaWAN mesh与室外实现证据",
+    "johnson1996dsr": "源路由、发现与复用的先行方法",
+    "ni1999broadcaststorm": "洪泛冗余、竞争与碰撞",
+    "levis2004trickle": "监听一致信息后抑制的先行机制",
+    "biswas2005exor": "机会转发/ACK协调的先行机制",
+    "meshtasticdocs": "产品机制与简化模拟基线边界",
+    "meshcore": "路径学习、重试与flood fallback的产品文档",
+    "liu2004truncated": "有限ARQ的时延/可靠性取舍；非CPR预算出处",
+    "srinivasan2008beta": "突发丢包动机；条件重试不假定独立",
+    "glasserman1992crn": "共同场景仿真的方差减少方法及条件"
+  }
+}

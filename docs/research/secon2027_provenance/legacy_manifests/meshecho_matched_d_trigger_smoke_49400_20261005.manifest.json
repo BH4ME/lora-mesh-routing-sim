@@ -1,0 +1,60 @@
+{
+  "arms": [
+    "D",
+    "R",
+    "F"
+  ],
+  "artifact_sha256": {
+    "branches": "715f1d8c75430a9077726544a6e88901423fd48ac585053ed21774a08055c4ae",
+    "evidence": "745e4e7a8f126ccabcd5d66c3252437f0d8ed67fcccd886ca8e816f7384c8bbb",
+    "targets": "d9f3ae561f8e7506edb2b5a00632f65231caf5cd98b72df4624c5cf9edc7dcb5",
+    "traces": "f25b1e33a2dccbdfaf5b663952f2cd4910d0aa53166711f71d4b407bb2b546a0"
+  },
+  "branch_count": 15,
+  "case": {
+    "area_m": 8250.0,
+    "bw_hz": 125000,
+    "capture_threshold_db": 6.0,
+    "cr": 1,
+    "duration_s": 600.0,
+    "edge_prr_threshold": 0.9,
+    "key": "recurring_fading",
+    "matched_rreq_timing": true,
+    "max_graph_hops": 4,
+    "max_hops": 6,
+    "min_graph_hops": 2,
+    "nodes": 50,
+    "pair_count": 4,
+    "pair_mode": "connected-multihop",
+    "pair_schedule": "poisson",
+    "path_loss_exp": 2.75,
+    "payload_bytes": 32,
+    "rate_per_min": 4.0,
+    "route_ttl_s": 600.0,
+    "sf": 7,
+    "shadow_sigma_db": 4.0,
+    "temporal_fading_interval_s": 60.0,
+    "temporal_fading_sigma_db": 6.0,
+    "traffic": "unicast",
+    "traffic_pattern": "standard",
+    "tx_power_dbm": 17.0
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "evidence_count": 15,
+  "pairing": "role-keyed reception: discovery/useful/ack/rescue; initial useful excludes packet kind",
+  "reference_policy": "meshecho-dcb",
+  "seeds": [
+    49400
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_d_trigger_matched_branch_design.md": "726137fe013cf6b7e98c44b06b867ef49c591f02617d5c7f403db6c40da2df7f",
+    "lora_mesh_sim.py": "f8a3ef379eafc02c8a1266d77b7da4a07276e2d58254e3b78e9f03e95505b318",
+    "tests/test_matched_d_trigger.py": "5a2c46cb98d6f8e55c82ea6859994288be1577e5acf72761891c2a351af6e2f7",
+    "tests/test_matched_d_trigger_branches.py": "a967d1c2c9f6dd8b65a141bf12829cdd02429a7581eca82e32ca0bac6a6f6835",
+    "tools/diagnose_matched_d_trigger.py": "02a77305926f799ffb45d5cd043b0f18fda2cd748d7e475b4891c586b8842cfc",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "0e42dedd3333bcd4300fdb3f7a0441e4e47a9c3169f3948eddd626e44a61f5ac"
+  },
+  "split": "smoke",
+  "target_count": 5
+}

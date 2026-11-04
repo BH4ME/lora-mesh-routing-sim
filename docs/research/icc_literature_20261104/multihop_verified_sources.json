@@ -1,0 +1,429 @@
+{
+  "retrieval_date": "2026-11-04",
+  "scope": "LoRa multihop/mesh relevant sources; metadata and abstracts verified online; no main manuscript changes",
+  "sources": [
+    {
+      "key": "wong2024multihop",
+      "cr": "multihop_crossref_10.1145_3638241.json",
+      "oa": "multihop_openalex_10.1145_3638241.json",
+      "priority": "高：近年综述、定位创新边界",
+      "read": "已读 Crossref 出版商提供的摘要，OpenAlex 摘要一致；未取得全文。",
+      "finding": "评述2015–2023年的LoRa多跳/mesh仿真与实测研究，并按能耗、并发接入/占空比、路由、安全分类；路由分类含proactive/reactive/hybrid。",
+      "anchor": "Related Work第一段后；Introduction的multihop背景句也可引用。",
+      "sentence": "Recent surveys organize LoRa mesh research around routing, energy use, concurrent access, and duty-cycle constraints, with both simulation and deployment evidence represented~\\cite{wong2024multihop}.",
+      "limit": "只支持领域分类与研究范围；不证明CPR首次提出ACK恢复，也不证明reactive在所有配置下优于proactive。OpenAlex year=2023与Crossref冲突，采用Crossref正式线上2024-01-22 /卷期2024-06-30。",
+      "doi": "10.1145/3638241",
+      "title": "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications",
+      "authors": [
+        "Andrew Wei-Loong Wong",
+        "Say Leng Goh",
+        "Mohammad Kamrul Hasan",
+        "Salmah Fattah"
+      ],
+      "year": 2024,
+      "venue": "ACM Computing Surveys",
+      "volume": "56",
+      "issue": "6",
+      "pages": "1-43",
+      "crossref_count": 64,
+      "openalex_count": 64,
+      "openalex_id": "https://openalex.org/W4390002238",
+      "abstract": "A comprehensive review is presented on the latest approaches to solutions focusing on multi-hop and mesh LoRa networks through the evaluation of simulations and real-world experiments, based on papers published between 2015 and 2023. The approaches are systematically classified into four (4) aspects: energy awareness, concurrent access and duty cycle regulations, routing protocols, and security. The first aspect encompasses parameter selection, distance, and clustering. The second aspect focuses on network segregation and time synchronisation. The third aspect covers proactive, reactive, and hybrid routing protocols. The aspect of security includes privacy and Denial-of-Service (DoS). Findings show a consensus that multi-hop networks and adherence to radio duty cycle are able to lower average power consumption. Concurrent access method can improve network performance, but more research is needed due to different conclusions. Reactive protocols have a slight advantage over proactive protocols in terms of node deployment scalability and lower power consumption due to less frequent routing table updates. Hybrid protocols are only beneficial in specific topology deployments. Security is still a major concern for LoRa networks, particularly on attacks such as Man-In-The-Middle (MITM), spoofing, wormholes, flooding, packet replay, and information disclosure. The upcoming trend of implementing machine learning algorithms to multi-hop and mesh LoRa networks opens up a wide range of possibilities, ranging from airspace efficiency, efficient route selection, and improving data throughput. A detailed discussion of the aspects’ issues and recommended industry applications that will benefit from multi-hop and mesh LoRa networks are also provided.",
+      "citation_record": {
+        "cited_work": "https://openalex.org/W4390002238",
+        "doi": "https://doi.org/10.1145/3638241",
+        "source_url": "https://api.openalex.org/works?filter=cites%3AW4390002238&per-page=2&sort=cited_by_count%3Adesc",
+        "retrieved_utc": "2026-11-04T06:40:06.220436+00:00",
+        "api_citing_count": 62,
+        "records": [
+          {
+            "id": "https://openalex.org/W4403758980",
+            "title": "LoRa Communication for Agriculture 4.0: Opportunities, Challenges, and Future Directions",
+            "doi": "https://doi.org/10.1109/jiot.2024.3486369",
+            "publication_year": 2024,
+            "type": "article"
+          },
+          {
+            "id": "https://openalex.org/W4410639293",
+            "title": "Federated Learning With Small and Large Models With Privacy-Preserving Data Space for Holographic Internet of Things in Consumer Electronics",
+            "doi": "https://doi.org/10.1109/tce.2025.3573033",
+            "publication_year": 2025,
+            "type": "article"
+          }
+        ]
+      },
+      "crossref_url": "https://api.crossref.org/works/10.1145/3638241",
+      "openalex_url": "https://api.openalex.org/works/W4390002238"
+    },
+    {
+      "key": "cotrim2020lorawanmesh",
+      "cr": "multihop_crossref_10.3390_s20154273.json",
+      "oa": "multihop_openalex_10.3390_s20154273.json",
+      "priority": "高：LoRa与LoRaWAN、多跳角色区分",
+      "read": "已读Crossref摘要及PMC全文的多跳方案、relay/router分类、拓扑章节。",
+      "finding": "传统LoRaWAN为single-hop star-of-stars；综述按中间设备功能、技术特点、拓扑分类多跳方案。全文区分relay-device、relay-gateway、router-device，说明不能把不同架构的mesh直接视为同一系统。",
+      "anchor": "Introduction中说明LoRa substrate和Related Work第一段；用于限定baseline并非LoRaWAN标准扩展。",
+      "sentence": "Multihop LoRaWAN proposals differ in the functions assigned to intermediate devices and in whether relaying occurs among end devices or gateways~\\cite{cotrim2020lorawanmesh}.",
+      "limit": "不把所有LoRa mesh当作LoRaWAN；未直接阅读LoRaBlink原始文献，不能把综述转述当作LoRaBlink全文证据。",
+      "doi": "10.3390/s20154273",
+      "title": "LoRaWAN Mesh Networks: A Review and Classification of Multihop Communication",
+      "authors": [
+        "Jeferson Rodrigues Cotrim",
+        "João Henrique Kleinschmidt"
+      ],
+      "year": 2020,
+      "venue": "Sensors",
+      "volume": "20",
+      "issue": "15",
+      "pages": "4273",
+      "crossref_count": 120,
+      "openalex_count": 137,
+      "openalex_id": "https://openalex.org/W3046834032",
+      "abstract": "The growth of the Internet of Things (IoT) led to the deployment of many applications that use wireless networks, like smart cities and smart agriculture. Low Power Wide Area Networks (LPWANs) meet many requirements of IoT, such as energy efficiency, low cost, large coverage area, and large-scale deployment. Long Range Wide Area Network (LoRaWAN) networks are one of the most studied and implemented LPWAN technologies, due to the facility to build private networks with an open standard. Typical LoRaWAN networks are single-hop in a star topology, composed of end-devices that transmit data directly to gateways. Recently, several studies proposed multihop LoRaWAN networks, thus forming wireless mesh networks. This article provides a review of the state-of-the-art multihop proposals for LoRaWAN. In addition, we carried out a comparative analysis and classification, considering technical characteristics, intermediate devices function, and network topologies. This paper also discusses open issues and future directions to realize the full potential of multihop networking. We hope to encourage other researchers to work on improving the performance of LoRaWAN mesh networks, with more theoretical and simulation analysis, as well as practical deployments.",
+      "citation_record": {
+        "cited_work": "https://openalex.org/W3046834032",
+        "doi": "https://doi.org/10.3390/s20154273",
+        "source_url": "https://api.openalex.org/works?filter=cites%3AW3046834032&per-page=2&sort=cited_by_count%3Adesc",
+        "retrieved_utc": "2026-11-04T06:40:06.220654+00:00",
+        "api_citing_count": 135,
+        "records": [
+          {
+            "id": "https://openalex.org/W4313004744",
+            "title": "A Survey on LoRa for Smart Agriculture: Current Trends and Future Perspectives",
+            "doi": "https://doi.org/10.1109/jiot.2022.3230505",
+            "publication_year": 2022,
+            "type": "article"
+          },
+          {
+            "id": "https://openalex.org/W4282971155",
+            "title": "Recent Advances in LoRa: A Comprehensive Survey",
+            "doi": "https://doi.org/10.1145/3543856",
+            "publication_year": 2022,
+            "type": "article"
+          }
+        ]
+      },
+      "crossref_url": "https://api.crossref.org/works/10.3390/s20154273",
+      "openalex_url": "https://api.openalex.org/works/W3046834032"
+    },
+    {
+      "key": "pueyo2024minimalistic",
+      "cr": "multihop_crossref_10.1109_ACCESS.2024.3443605.json",
+      "oa": "multihop_openalex_10.1109_ACCESS.2024.3443605.json",
+      "priority": "最高：路由度量、ToA、公平仿真最接近",
+      "read": "已读OpenAlex完整摘要；出版社和UPCommons全文请求均被拒，未读全文。",
+      "finding": "提出minimalistic distance-vector routing及ToA metric；在FLoRa/OMNeT++中评估不同拓扑、负载、多SF配置的PDR/吞吐/延迟；多SF收益依赖负载和异构性，尤其饱和时吞吐变化明显。",
+      "anchor": "Related Work新增route metric段；Common path and physical cost引出airtime accounting前。",
+      "sentence": "Pueyo Centelles et al. evaluate a minimalistic distance-vector protocol with a time-on-air metric in FLoRa/OMNeT++, showing that routing and multi-SF performance depend on topology and traffic load~\\cite{pueyo2024minimalistic}.",
+      "limit": "不能据该文证明本稿SF7配置覆盖所有LoRa设置，也不能把其ToA路由度量等同CPR的实际发送airtime记账。",
+      "doi": "10.1109/access.2024.3443605",
+      "title": "A Minimalistic Distance-Vector Routing Protocol for LoRa Mesh Networks",
+      "authors": [
+        "Roger Pueyo Centelles",
+        "Roc Meseguer",
+        "Fèlix Freitag",
+        "Roger Baig Viñas",
+        "Leandro Navarro"
+      ],
+      "year": 2024,
+      "venue": "IEEE Access",
+      "volume": "12",
+      "issue": null,
+      "pages": "128941-128962",
+      "crossref_count": 11,
+      "openalex_count": 15,
+      "openalex_id": "https://openalex.org/W3197897949",
+      "abstract": "LoRa is popular in the Internet of Things (IoT) domain as a Low Power, Wide Area Network (LPWAN) radio technology, providing low-power and long-range communication in the sub-GHz band. Most often, LoRa is used as part of the LoRaWAN architecture with a star-of-stars topology, but it can also be operated standalone. This paper presents and evaluates a minimalistic *RP for building LoRa networks with a more flexible mesh network topology. We propose a *ToA metric that, when used in heterogeneous network topologies, can take better advantage of LoRa’s multiple *SF, and their trade-off between transmission distance and bit rate, and their quasi-orthogonality property. We evaluate the routing protocol with the FLoRa framework and OMNeT++ and compare it with other common routing strategies. Our experiments provide a comprehensive understanding of the routing protocol performance concerning the scalability, throughput, and latency in several topology and network traffic scenarios. When using the ToA metric, we observed in LoRa mesh networks formed by random topologies and heterogeneous links the positive impact of a more balanced Packet Delivery Ratio (PDR) among the nodes with different network centrality, suggesting hence the multi-SF ToA metric to be used for improved PDR in conditions that are expected to occur in real-world systems. Regarding goodput, we observed that using multiple SF simultaneously had a limited impact on low to high traffic loads but dramatically improved throughput and goodput in traffic saturation scenarios. This suggests that multi-SF operation would be preferred to maximize network performance. We observed the best latency performance with multi-SF ToA for low and medium traffic loads, especially for the random topology, where the metric can again take advantage of the node and link heterogeneity.",
+      "citation_record": {
+        "cited_work": "https://openalex.org/W3197897949",
+        "doi": "https://doi.org/10.1109/access.2024.3443605",
+        "source_url": "https://api.openalex.org/works?filter=cites%3AW3197897949&per-page=2&sort=cited_by_count%3Adesc",
+        "retrieved_utc": "2026-11-04T06:40:07.001658+00:00",
+        "api_citing_count": 14,
+        "records": [
+          {
+            "id": "https://openalex.org/W7117611429",
+            "title": "Mobility-Aware LoRa Protocol for Reliable IoT Communications",
+            "doi": "https://doi.org/10.1109/access.2025.3649413",
+            "publication_year": 2025,
+            "type": "article"
+          },
+          {
+            "id": "https://openalex.org/W4405975158",
+            "title": "Demo: Edge Federated Learning over a LoRa Mesh Network",
+            "doi": "https://doi.org/10.1109/sec62691.2024.00061",
+            "publication_year": 2024,
+            "type": "conference-paper"
+          }
+        ]
+      },
+      "crossref_url": "https://api.crossref.org/works/10.1109/access.2024.3443605",
+      "openalex_url": "https://api.openalex.org/works/W3197897949"
+    },
+    {
+      "key": "sole2022implementation",
+      "cr": "multihop_crossref_10.1109_ACCESS.2022.3217215.json",
+      "oa": "multihop_openalex_10.1109_ACCESS.2022.3217215.json",
+      "priority": "高：实物mesh、主动路由对照",
+      "read": "已读OpenAlex完整摘要；UPCommons和IEEE PDF均返回418，未取得全文。",
+      "finding": "实现proactive routing的LoRa mesh library，通过邻居routing messages维护各节点routing table；在ESP32+single-channel LoRa的embedded boards测试，不要求LoRaWAN gateway。",
+      "anchor": "Related Work：Meshtastic/MeshCore产品介绍之前的academic mesh implementation段；Scope用于解释实物验证尚缺。",
+      "sentence": "Sol\\'e et al. implement proactive LoRa mesh routing with neighbor routing messages and test the library on ESP32 boards equipped with single-channel LoRa radios~\\cite{sole2022implementation}.",
+      "limit": "此为独立学术library，不是Meshtastic或MeshCore官方固件；摘要无可复核具体PDR，不附会数值；其硬件测试不代表本稿已有硬件证据。",
+      "doi": "10.1109/access.2022.3217215",
+      "title": "Implementation of a LoRa Mesh Library",
+      "authors": [
+        "Joan Miquel Solé",
+        "Roger Pueyo Centelles",
+        "Fèlix Freitag",
+        "Roc Meseguer"
+      ],
+      "year": 2022,
+      "venue": "IEEE Access",
+      "volume": "10",
+      "issue": null,
+      "pages": "113158-113171",
+      "crossref_count": 44,
+      "openalex_count": 47,
+      "openalex_id": "https://openalex.org/W4312791581",
+      "abstract": "LoRa is a popular communication technology in the Internet of Things (IoT) domain, providing low-power and long-range communications. Most LoRa IoT applications use the LoRaWAN architecture, which builds a star topology between LoRa end nodes and the gateway they connect to. However, LoRa can also be used for the communication between end nodes themselves, forming a mesh network topology. In this paper, we present a library that allows to integrate LoRa end nodes into a LoRa mesh network, in which a routing protocol is used. Thus, an IoT application running on these nodes can use the library to send and receive data packets to and from other nodes in the LoRa mesh network. The designed routing protocol is proactive, and maintains the routing table at each node updated by sending routing messages between neighboring nodes. The implemented library has been tested on embedded boards featuring an ESP32 microcontroller and a LoRa single-channel radio. By using our LoRa mesh library, nodes do not need to connect to a LoRaWAN gateway, but among themselves. This opens the possibility for new, distributed applications solely built upon tiny IoT nodes.",
+      "citation_record": {
+        "cited_work": "https://openalex.org/W4312791581",
+        "doi": "https://doi.org/10.1109/access.2022.3217215",
+        "source_url": "https://api.openalex.org/works?filter=cites%3AW4312791581&per-page=2&sort=cited_by_count%3Adesc",
+        "retrieved_utc": "2026-11-04T06:40:07.007493+00:00",
+        "api_citing_count": 47,
+        "records": [
+          {
+            "id": "https://openalex.org/W4381682471",
+            "title": "Embedded federated learning over a LoRa mesh network",
+            "doi": "https://doi.org/10.1016/j.pmcj.2023.101819",
+            "publication_year": 2023,
+            "type": "article"
+          },
+          {
+            "id": "https://openalex.org/W4391867450",
+            "title": "AlLoRa: Empowering environmental intelligence through an advanced LoRa-based IoT solution",
+            "doi": "https://doi.org/10.1016/j.comcom.2024.02.014",
+            "publication_year": 2024,
+            "type": "article"
+          }
+        ]
+      },
+      "crossref_url": "https://api.crossref.org/works/10.1109/access.2022.3217215",
+      "openalex_url": "https://api.openalex.org/works/W4312791581"
+    },
+    {
+      "key": "zhu2019improving",
+      "cr": "multihop_crossref_10.1109_ACCESS.2019.2898239.json",
+      "oa": "multihop_openalex_10.1109_ACCESS.2019.2898239.json",
+      "priority": "中高：早期重要多SF airtime/容量工作",
+      "read": "已读OpenAlex完整摘要；IEEE页面返回202空正文，未取得全文。",
+      "finding": "tree-based spreading-factor clustering将traffic分至不同SF子网，在保证连接性的同时平衡airtime及减少hop count；用仿真评估性能，另做real-chip experiment验证并行传输可行性。",
+      "anchor": "Related Work的airtime/多SF段；Common path and physical cost的ToA动机；Limitations固定SF7之后。",
+      "sentence": "Zhu et al. combine spreading-factor clustering with airtime balancing in multihop LoRa, evaluating network performance in simulation and parallel transmission feasibility on real radios~\\cite{zhu2019improving}.",
+      "limit": "只支持SF/airtime设计与其证据类型，不能证明不同SF完全正交，也不证明其测试优于CPR或CPR优于它。2019为8篇中唯一2020以前的关键工作。",
+      "doi": "10.1109/access.2019.2898239",
+      "title": "Improving the Capacity of a Mesh LoRa Network by Spreading-Factor-Based Network Clustering",
+      "authors": [
+        "Guibing Zhu",
+        "Chun-Hao Liao",
+        "Theerat Sakdejayont",
+        "I-Wei Lai",
+        "Yoshiaki Narusue",
+        "Hiroyuki Morikawa"
+      ],
+      "year": 2019,
+      "venue": "IEEE Access",
+      "volume": "7",
+      "issue": null,
+      "pages": "21584-21596",
+      "crossref_count": 98,
+      "openalex_count": 107,
+      "openalex_id": "https://openalex.org/W2913709008",
+      "abstract": "LoRa is a low-power long-range IoT standard that uses the chirp spread spectrum technique, and we have strived to further extend its coverage by utilizing the direct device-to-device (D2D) links to construct a multi-hop relay network. In LoRa, the spreading factor (SF) is an important parameter, which not only provides great flexibility between the data rate and sensitivity but also presents a new dimension for multiple accesses. Our approach to improving the capacity of a multihop LoRa network is to attempt to off-load the data traffic into several subnets by utilizing this multiple-access dimension. Each subnet rooted at a sink node is allocated a specific SF on the basis of network clustering. This enables packet transmission in parallel with multiple SFs to become feasible. To allow such parallel transmissions, our considerations are: 1) ensuring the connectivity of all subnets; 2) off-loading the traffic according to the number of nodes, data rates, and network topologies of each subnet; and 3) shortening the airtime of each subnet by reducing the hop count. Toward these objectives, we present a tree-based SF clustering algorithm (TSCA) to conduct SF allocation in a multihop LoRa network. The TSCA focuses on balancing the airtime between the subnets while ensuring connectivity. Furthermore, we use simulations to show that our approach can significantly increase the network performance compared with other approaches. We additionally deploy a real-chip experiment to evaluate the feasibility of parallel transmission in practice.",
+      "citation_record": {
+        "cited_work": "https://openalex.org/W2913709008",
+        "doi": "https://doi.org/10.1109/access.2019.2898239",
+        "source_url": "https://api.openalex.org/works?filter=cites%3AW2913709008&per-page=2&sort=cited_by_count%3Adesc",
+        "retrieved_utc": "2026-11-04T06:40:07.472503+00:00",
+        "api_citing_count": 106,
+        "records": [
+          {
+            "id": "https://openalex.org/W4376455422",
+            "title": "A Survey on Scalable LoRaWAN for Massive IoT: Recent Advances, Potentials, and Challenges",
+            "doi": "https://doi.org/10.1109/comst.2023.3274934",
+            "publication_year": 2023,
+            "type": "article"
+          },
+          {
+            "id": "https://openalex.org/W4206425359",
+            "title": "A Survey on LoRaWAN Technology: Recent Trends, Opportunities, Simulation Tools and Future Directions",
+            "doi": "https://doi.org/10.3390/electronics11010164",
+            "publication_year": 2022,
+            "type": "article"
+          }
+        ]
+      },
+      "crossref_url": "https://api.crossref.org/works/10.1109/access.2019.2898239",
+      "openalex_url": "https://api.openalex.org/works/W2913709008"
+    },
+    {
+      "key": "ahmar2022smarthop",
+      "cr": "multihop_crossref_10.1109_DCOSS54816.2022.00014.json",
+      "oa": "multihop_openalex_10.1109_DCOSS54816.2022.00014.json",
+      "priority": "高：低开销多跳与延迟问题",
+      "read": "已读OpenAlex完整摘要；KU Leuven链接返回搜索应用外壳，不能视为已读取论文全文。",
+      "finding": "Smart-Hop将multi-hop MAC与low-overhead routing结合，利用SF造成的range差异，减少高SF终端以降低data extraction时间，同时保持最高SF可达范围。",
+      "anchor": "Related Work低延迟多跳段；CPR的duration budget前可对比研究对象。",
+      "sentence": "Smart-Hop couples low-overhead multihop routing with spreading-factor-dependent range selection to reduce data-extraction latency~\\cite{ahmar2022smarthop}.",
+      "limit": "摘要未说明本次可核实的具体实测数字，不能额外声称某PDR提升或相同deadline保证；其MAC/SF机制不同于本稿fixed-SF recovery。",
+      "doi": "10.1109/dcoss54816.2022.00014",
+      "title": "Smart-Hop: Low-Latency Multi-hop Networking for LoRa",
+      "authors": [
+        "Absar-Ul-Haque Ahmar",
+        "Wouter Joosen",
+        "Danny Hughes"
+      ],
+      "year": 2022,
+      "venue": "2022 18th International Conference on Distributed Computing in Sensor Systems (DCOSS)",
+      "volume": null,
+      "issue": null,
+      "pages": "17-20",
+      "crossref_count": 10,
+      "openalex_count": 12,
+      "openalex_id": "https://openalex.org/W4297818341",
+      "abstract": "Low Power Wide Area Networks (LPWANs) provide the Internet of Things (IoT) with energy-efficient, low cost, and long-range networking. LoRaWAN is one of the most widely deployed and studied LPWAN technologies due to its license-free operation and open standard, which has enabled 3rd parties to deploy millions of networks worldwide. LoRa allows transmission range and speed to be traded off by configuring the Spreading Factor (SF) setting. By tuning this parameter, the performance envelope of the network can be configured to favor a higher speed or longer range. While the SF of LoRA provides a simple and elegant means to tailor performance, at the highest spreading factor, maximum throughput drops to a few bits per second, dramatically increasing data extraction times. In this paper, we address this problem by proposing Smart-Hop, a novel multi-hop MAC layer protocol for LoRa which implements low-overhead routing. In contrast to prior work, Smart-Hop exploits the variable range afforded by different SFs to eliminate much of the complexity and overhead of traditional multi-hop mesh networking. Smart-Hop reduces the number of end-devices operating at high SFs while implementing low overhead routing in order to reduce data extraction times. These improvements are achieved while preserving the maximum range offered by LoRa in its highest SF configuration.",
+      "citation_record": {
+        "cited_work": "https://openalex.org/W4297818341",
+        "doi": "https://doi.org/10.1109/dcoss54816.2022.00014",
+        "source_url": "https://api.openalex.org/works?filter=cites%3AW4297818341&per-page=2&sort=cited_by_count%3Adesc",
+        "retrieved_utc": "2026-11-04T06:40:07.939099+00:00",
+        "api_citing_count": 12,
+        "records": [
+          {
+            "id": "https://openalex.org/W4390002238",
+            "title": "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications",
+            "doi": "https://doi.org/10.1145/3638241",
+            "publication_year": 2023,
+            "type": "article"
+          },
+          {
+            "id": "https://openalex.org/W4361987105",
+            "title": "LoRaHop: Multihop Support for LoRaWAN Uplink and Downlink Messaging",
+            "doi": "https://doi.org/10.1109/jiot.2023.3263630",
+            "publication_year": 2023,
+            "type": "article"
+          }
+        ]
+      },
+      "crossref_url": "https://api.crossref.org/works/10.1109/dcoss54816.2022.00014",
+      "openalex_url": "https://api.openalex.org/works/W4297818341"
+    },
+    {
+      "key": "feng2022cost",
+      "cr": "multihop_cost_routing_crossref.json",
+      "oa": "multihop_cost_routing_openalex.json",
+      "priority": "中高：低成本覆盖、能耗路由",
+      "read": "已读OpenAlex完整摘要；Crossref元数据和发表venue已核实，未读全文。",
+      "finding": "MLoRa是network-layer multi-hop routing方案，针对单跳覆盖、增加gateway的部署成本和节点耗能不均问题，以低成本覆盖及更低、更均衡能耗为目标。",
+      "anchor": "Related Work的cost/energy-aware routing段，可与Smart-Hop并列。",
+      "sentence": "MLoRa studies multihop routing for cost-effective coverage and balanced energy consumption, illustrating objectives beyond packet delivery alone~\\cite{feng2022cost}.",
+      "limit": "发表在IEEE INFOCOM Workshops，绝不可写成INFOCOM main conference。摘要不足以判断所有模拟/实测设置，故不补写实验规模或具体百分比。",
+      "doi": "10.1109/infocomwkshps54753.2022.9798302",
+      "title": "Cost Effective Routing in Large-scale Multi-hop LoRa Networks",
+      "authors": [
+        "Silin Feng",
+        "Jiajun Chen",
+        "Zhiwei Zhao"
+      ],
+      "year": 2022,
+      "venue": "IEEE INFOCOM 2022 - IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS)",
+      "volume": null,
+      "issue": null,
+      "pages": "1-6",
+      "crossref_count": 10,
+      "openalex_count": 12,
+      "openalex_id": "https://openalex.org/W4283212624",
+      "abstract": "Low-Power Wide-Area Network (LPWAN) technologies promoted the communication capacities of Internet of Things (IoT) to several or even dozens of kilometers. LoRa is one of these technologies characterized with longrange, low data rates and low power consumption. The LoRaWAN architecture is applied to a star-of-stars topology. However, in several non-line-of-sight or larger scale deployment scenarios, such as underground deployment and large-scale military launch, the single-hop topology may not meet the requirements. Adding gateways to increase coverage may increase deployment complexity and reduce information sharing. Furthermore, the exhaustion of a single node in the network will bring extra cost of replacing the battery, further reducing the network lifetime. Consequently, this paper introduces a multi-hop protocol MLoRa to solve these problems. MLoRa gives a routing strategy upon network layer, which not only brings cost-effective coverage but also lower and balanced energy consumption for the same coverage in LoRa networks.",
+      "citation_record": {
+        "cited_work": "https://openalex.org/W4283212624",
+        "doi": "https://doi.org/10.1109/infocomwkshps54753.2022.9798302",
+        "source_url": "https://api.openalex.org/works?filter=cites%3AW4283212624&per-page=2&sort=cited_by_count%3Adesc",
+        "retrieved_utc": "2026-11-04T06:40:07.989339+00:00",
+        "api_citing_count": 12,
+        "records": [
+          {
+            "id": "https://openalex.org/W4390002238",
+            "title": "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications",
+            "doi": "https://doi.org/10.1145/3638241",
+            "publication_year": 2023,
+            "type": "article"
+          },
+          {
+            "id": "https://openalex.org/W4385834565",
+            "title": "A One-Way Time Synchronization Scheme for Practical Energy-Efficient LoRa Network Based on Reverse Asymmetric Framework",
+            "doi": "https://doi.org/10.1109/tcomm.2023.3305515",
+            "publication_year": 2023,
+            "type": "article"
+          }
+        ]
+      },
+      "crossref_url": "https://api.crossref.org/works/10.1109/infocomwkshps54753.2022.9798302",
+      "openalex_url": "https://api.openalex.org/works/W4283212624"
+    },
+    {
+      "key": "tian2023lorahop",
+      "cr": "multihop_lorahop_crossref.json",
+      "oa": "multihop_lorahop_openalex.json",
+      "priority": "最高：可靠性、多跳上下行、真实设备部署",
+      "read": "已读OpenAlex完整摘要并核对Crossref作者/卷期/页码；本轮未获得全文。",
+      "finding": "LoRaHop让LoRaWAN end-devices形成mesh并relay双向traffic；采用concurrent transmissions和rendezvous机制；在off-the-shelf端设备实现并与commercial gateways/network servers互通，室外testbed评估。",
+      "anchor": "Related Work的academic mesh段，在产品机制之前；Scope and limitations实物验证句可引用。",
+      "sentence": "LoRaHop adds mesh-based uplink and downlink relaying to LoRaWAN through concurrent transmissions and rendezvous mechanisms, and evaluates an implementation on an outdoor testbed with commercial infrastructure interoperability~\\cite{tian2023lorahop}.",
+      "limit": "LoRaHop是面向gateway的LoRaWAN扩展，不能视为本稿任意peer-to-peer场景的直接同条件基线。摘要的up-to可靠性/能耗数字没有转移到本稿，不证明CPR的ACK取消公式。",
+      "doi": "10.1109/jiot.2023.3263630",
+      "title": "LoRaHop: Multihop Support for LoRaWAN Uplink and Downlink Messaging",
+      "authors": [
+        "Pei Tian",
+        "Carlo Alberto Boano",
+        "Xiaoyuan Ma",
+        "Jianming Wei"
+      ],
+      "year": 2023,
+      "venue": "IEEE Internet of Things Journal",
+      "volume": "10",
+      "issue": "17",
+      "pages": "15376-15392",
+      "crossref_count": 34,
+      "openalex_count": 34,
+      "openalex_id": "https://openalex.org/W4361987105",
+      "abstract": "LoRaWAN is one of the most popular protocols to build low-power wide area networks. Unfortunately, it adopts a star topology, which limits network coverage and may also cause an unnecessary decrease in energy efficiency as well as scalability. In fact, end-devices that are deployed far away from a gateway need to increase their transmission power or spreading factor (SF) to sustain reliable communications, which increases their energy expenditure as well as the size of the collision domain. The only alternative is the deployment of additional gateways or dedicated relay nodes, which results in higher costs and deployment efforts. In this work, we introduce LoRaHop, an extension of LoRaWAN that enriches end-devices with the ability to form a mesh network and to seamlessly relay packets to/from a gateway, thereby providing LoRaWAN networks with multihop support for both uplink and downlink messaging. LoRaHop leverages concurrent transmissions to enable a reliable and efficient data collection or dissemination over the mesh network, as well as to simplify network formation. Furthermore, LoRaHop embeds a mechanism that simplifies rendezvous across devices and that minimizes the impact of mesh operations on existing LoRaWAN transmissions. We implement LoRaHop on off-the-shelf LoRa end-devices (ensuring their interoperability with commercial LoRaWAN gateways and network servers), and evaluate its performance on an outdoor testbed. Our results show that LoRaHop can effectively extend the coverage of an LoRaWAN network while improving reliability by up to 98.33% and reducing energy consumption by up to 48.02%. Our findings further demonstrate that using LoRaHop to create a multihop LoRaWAN network that communicates using low SFs brings significant benefits in terms of energy efficiency and scalability compared to the use of a single-hop LoRaWAN network using high SFs.",
+      "citation_record": {
+        "cited_work": "https://openalex.org/W4361987105",
+        "doi": "https://doi.org/10.1109/jiot.2023.3263630",
+        "source_url": "https://api.openalex.org/works?filter=cites%3AW4361987105&per-page=2&sort=cited_by_count%3Adesc",
+        "retrieved_utc": "2026-11-04T06:41:35.483457+00:00",
+        "api_citing_count": 33,
+        "records": [
+          {
+            "id": "https://openalex.org/W4404446931",
+            "title": "A survey on massive IoT for water distribution systems: Challenges, simulation tools, and guidelines for large-scale deployment",
+            "doi": "https://doi.org/10.1016/j.adhoc.2024.103714",
+            "publication_year": 2024,
+            "type": "article"
+          },
+          {
+            "id": "https://openalex.org/W4391867450",
+            "title": "AlLoRa: Empowering environmental intelligence through an advanced LoRa-based IoT solution",
+            "doi": "https://doi.org/10.1016/j.comcom.2024.02.014",
+            "publication_year": 2024,
+            "type": "article"
+          }
+        ]
+      },
+      "crossref_url": "https://api.crossref.org/works/10.1109/jiot.2023.3263630",
+      "openalex_url": "https://api.openalex.org/works/W4361987105"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "application_deadline_s": 30.0,
+  "artifact_sha256": {
+    "actions": "78912e8b8cb86528207689b55ba541770e66577d210852ca942e7618dc6efc50",
+    "extended_actions": "78912e8b8cb86528207689b55ba541770e66577d210852ca942e7618dc6efc50",
+    "extended_receipts": "7a650e38950d885473f086ece74c09457c6a356ce3f229a771284ead01d1df9b",
+    "extended_tx": "f1e33baa91cc16ff35cd9c0481234aabd154efd4f65b86f5b890ca1438cfa1b7",
+    "flows": "4a9ae727802493bd66b1e2861061450af7652bcf920b06ea7f8146bbdd8fda19",
+    "paired": "92ff3ae434670522a656e9f69a47c90696736cdd258078a7ca9fe2de3230fd46",
+    "per_seed": "c973bea22b9115446f9834ba6e85e77b8317d0ec385c45f72293f1fa11ae21e2",
+    "receipts": "7a650e38950d885473f086ece74c09457c6a356ce3f229a771284ead01d1df9b",
+    "repeat_events": "145325fb77a99afdb72566df6f0ebe6eaa15d3d1ddb5101413ebaa5702b23a94",
+    "runs": "2236185884c31443035d7aeced61a341a0d493386876871c0c79a36d81f7952a",
+    "tx": "f1e33baa91cc16ff35cd9c0481234aabd154efd4f65b86f5b890ca1438cfa1b7"
+  },
+  "case": {
+    "area_m": 8250.0,
+    "bw_hz": 125000,
+    "capture_threshold_db": 6.0,
+    "cr": 1,
+    "duration_s": 600.0,
+    "edge_prr_threshold": 0.9,
+    "key": "recurring_fading",
+    "matched_rreq_timing": true,
+    "max_graph_hops": 4,
+    "max_hops": 6,
+    "min_graph_hops": 2,
+    "nodes": 50,
+    "pair_count": 4,
+    "pair_mode": "connected-multihop",
+    "pair_schedule": "poisson",
+    "path_loss_exp": 2.75,
+    "payload_bytes": 32,
+    "rate_per_min": 4.0,
+    "route_ttl_s": 600.0,
+    "sf": 7,
+    "shadow_sigma_db": 4.0,
+    "temporal_fading_interval_s": 60.0,
+    "temporal_fading_sigma_db": 6.0,
+    "traffic": "unicast",
+    "traffic_pattern": "standard",
+    "tx_power_dbm": 17.0
+  },
+  "complete_packet_toa_for_included_tx": true,
+  "extended_cost_window_limited": true,
+  "extended_tx_start_cutoff_s": 660.0,
+  "fixed_flood_ack_delay_s": 2.0,
+  "generation_horizon_s": 600.0,
+  "primary_tx_start_cutoff_s": 630.0,
+  "protocols": [
+    "meshecho-dhr-flood-ack-delay",
+    "meshecho-dhr-flood-ack-delay-repeat"
+  ],
+  "repeat_local_window_s": 10.0,
+  "runs": 2,
+  "same_path_repeat_wait_s": 0.5,
+  "seed_split": "smoke",
+  "seeds": [
+    41000
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_delayed_ack_repeat_control_design.md": "78c106d4acdc8b78dcce26c716021d7eb0aad18829be9dc9285286e4dde1e9e8",
+    "lora_mesh_sim.py": "165fff13ac3839045b41bf39a8e9451503c50e0c66ca4cc39c92709e5eaf2875",
+    "tests/test_delayed_ack_repeat_control.py": "95ca717e84b7573cf4ba1956f4efc7c7c6c4e164cff36e3397b90ada628a12f2",
+    "tests/test_delayed_ack_repeat_runner.py": "9467a494a497ad6198b1aa73612a397870c2efd4a75dac1d28b6035fd0406f20",
+    "tests/test_delayed_ack_repeat_runner_experiment.py": "c7370485d3ccf4be33dc18894c1c12c3662b00b0e45e56862fb1846e68455736",
+    "tools/run_delayed_ack_repeat_control.py": "031a82ff0b56a0ed43617b38594202cbc800b2b199424a54b5333dccbc84e798",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "f61b2bccb154c7ec3f7603c51dd47ff2b8271d68db4baa69e2ccee5a4a1d0d1c"
+  },
+  "stock_current_code_parity": true,
+  "unstarted_first_ack_at_extended_cutoff": false
+}

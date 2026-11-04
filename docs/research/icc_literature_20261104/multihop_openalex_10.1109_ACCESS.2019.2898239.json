@@ -1,0 +1,1309 @@
+{
+  "id": "https://openalex.org/W2913709008",
+  "doi": "https://doi.org/10.1109/access.2019.2898239",
+  "title": "Improving the Capacity of a Mesh LoRa Network by Spreading-Factor-Based Network Clustering",
+  "display_name": "Improving the Capacity of a Mesh LoRa Network by Spreading-Factor-Based Network Clustering",
+  "publication_year": 2019,
+  "publication_date": "2019-01-01",
+  "ids": {
+    "openalex": "https://openalex.org/W2913709008",
+    "doi": "https://doi.org/10.1109/access.2019.2898239",
+    "mag": "2913709008"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1109/access.2019.2898239",
+    "doi": "https://doi.org/10.1109/access.2019.2898239",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1109/access.2019.2898239",
+    "pdf_url": "https://ieeexplore.ieee.org/ielx7/6287639/8600701/08637935.pdf",
+    "source": {
+      "id": "https://openalex.org/S2485537415",
+      "display_name": "IEEE Access",
+      "issn_l": "2169-3536",
+      "issn": [
+        "2169-3536"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "anvur-scientific",
+        "cwts-core",
+        "doaj",
+        "jufo-1",
+        "ki-jl-1",
+        "norway-1",
+        "oarl",
+        "poland-100",
+        "russia-white-list-1",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310319808",
+      "host_organization_name": "Institute of Electrical and Electronics Engineers",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319808"
+      ],
+      "host_organization_lineage_names": [
+        "Institute of Electrical and Electronics Engineers"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "IEEE Access",
+    "raw_type": "journal-article"
+  },
+  "volume": null,
+  "type": "article",
+  "indexed_in": [
+    "crossref",
+    "doaj"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "gold",
+    "oa_url": "https://ieeexplore.ieee.org/ielx7/6287639/8600701/08637935.pdf",
+    "any_repository_has_fulltext": true
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5083035118",
+        "display_name": "Guibing Zhu",
+        "orcid": "https://orcid.org/0000-0003-4600-734X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-4600-734X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I74801974",
+          "display_name": "The University of Tokyo",
+          "ror": "https://ror.org/057zh3y96",
+          "country_code": "JP",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ],
+      "countries": [
+        "JP"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Guibing Zhu",
+      "raw_affiliation_strings": [
+        "School of Engineering, The University of Tokyo, Tokyo, Japan"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-4600-734X",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "School of Engineering, The University of Tokyo, Tokyo, Japan",
+          "institution_ids": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5101934447",
+        "display_name": "Chun-Hao Liao",
+        "orcid": "https://orcid.org/0000-0002-6609-4113",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-6609-4113"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I74801974",
+          "display_name": "The University of Tokyo",
+          "ror": "https://ror.org/057zh3y96",
+          "country_code": "JP",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ],
+      "countries": [
+        "JP"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Chun-Hao Liao",
+      "raw_affiliation_strings": [
+        "School of Engineering, The University of Tokyo, Tokyo, Japan"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0002-6609-4113",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "School of Engineering, The University of Tokyo, Tokyo, Japan",
+          "institution_ids": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5090674252",
+        "display_name": "Theerat Sakdejayont",
+        "orcid": "https://orcid.org/0009-0001-9640-2105",
+        "observed_orcids": [
+          "https://orcid.org/0009-0001-9640-2105"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I74801974",
+          "display_name": "The University of Tokyo",
+          "ror": "https://ror.org/057zh3y96",
+          "country_code": "JP",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ],
+      "countries": [
+        "JP"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Theerat Sakdejayont",
+      "raw_affiliation_strings": [
+        "School of Engineering, The University of Tokyo, Tokyo, Japan"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "School of Engineering, The University of Tokyo, Tokyo, Japan",
+          "institution_ids": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5013320181",
+        "display_name": "I‐Wei Lai",
+        "orcid": "https://orcid.org/0000-0003-3173-1562",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-3173-1562"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I134161618",
+          "display_name": "National Taiwan Normal University",
+          "ror": "https://ror.org/059dkdx38",
+          "country_code": "TW",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I134161618"
+          ]
+        }
+      ],
+      "countries": [
+        "TW"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "I-Wei Lai",
+      "raw_affiliation_strings": [
+        "Department of Electrical Engineering, National Taiwan Normal University, Taipei, Taiwan"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-3173-1562",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Electrical Engineering, National Taiwan Normal University, Taipei, Taiwan",
+          "institution_ids": [
+            "https://openalex.org/I134161618"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5068346224",
+        "display_name": "Yoshiaki Narusue",
+        "orcid": "https://orcid.org/0000-0001-7957-0839",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-7957-0839"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I74801974",
+          "display_name": "The University of Tokyo",
+          "ror": "https://ror.org/057zh3y96",
+          "country_code": "JP",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ],
+      "countries": [
+        "JP"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Yoshiaki Narusue",
+      "raw_affiliation_strings": [
+        "School of Engineering, The University of Tokyo, Tokyo, Japan"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "School of Engineering, The University of Tokyo, Tokyo, Japan",
+          "institution_ids": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5087234322",
+        "display_name": "Hiroyuki Morikawa",
+        "orcid": "https://orcid.org/0000-0001-8628-3109",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-8628-3109"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I74801974",
+          "display_name": "The University of Tokyo",
+          "ror": "https://ror.org/057zh3y96",
+          "country_code": "JP",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ],
+      "countries": [
+        "JP"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Hiroyuki Morikawa",
+      "raw_affiliation_strings": [
+        "School of Engineering, The University of Tokyo, Tokyo, Japan"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "School of Engineering, The University of Tokyo, Tokyo, Japan",
+          "institution_ids": [
+            "https://openalex.org/I74801974"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 2,
+  "institutions_distinct_count": 2,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": {
+    "value": 1750,
+    "currency": "USD",
+    "value_usd": 1750
+  },
+  "apc_paid": {
+    "value": 1750,
+    "currency": "USD",
+    "value_usd": 1750
+  },
+  "fwci": 5.5735,
+  "has_fulltext": true,
+  "cited_by_count": 107,
+  "citation_normalized_percentile": {
+    "value": 0.96945938,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 97,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "7",
+    "issue": null,
+    "first_page": "21584",
+    "last_page": "21596"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T12079",
+    "display_name": "IoT Networks and Protocols",
+    "score": 0.9994999766349792,
+    "subfield": {
+      "id": "https://openalex.org/subfields/2208",
+      "display_name": "Electrical and Electronic Engineering"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T12079",
+      "display_name": "IoT Networks and Protocols",
+      "score": 0.9994999766349792,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10080",
+      "display_name": "Energy Efficient Wireless Sensor Networks",
+      "score": 0.0005000000237487257,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10273",
+      "display_name": "IoT and Edge/Fog Computing",
+      "score": 0.0,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/lora",
+      "display_name": "LoRa",
+      "score": 0.9869999885559082
+    },
+    {
+      "id": "https://openalex.org/keywords/hyaluronidase",
+      "display_name": "hyaluronidase",
+      "score": 0.6959999799728394
+    },
+    {
+      "id": "https://openalex.org/keywords/network-clustering",
+      "display_name": "network clustering",
+      "score": 0.8939999938011169
+    },
+    {
+      "id": "https://openalex.org/keywords/traffic-offloading",
+      "display_name": "traffic offloading",
+      "score": 0.7229999899864197
+    },
+    {
+      "id": "https://openalex.org/keywords/parallel-transmission",
+      "display_name": "parallel transmission",
+      "score": 0.6769999861717224
+    },
+    {
+      "id": "https://openalex.org/keywords/network-connectivity",
+      "display_name": "network connectivity",
+      "score": 0.6759999990463257
+    },
+    {
+      "id": "https://openalex.org/keywords/internet-of-things",
+      "display_name": "Internet of Things",
+      "score": 0.4189999997615814
+    },
+    {
+      "id": "https://openalex.org/keywords/chirp-spread-spectrum",
+      "display_name": "chirp spread spectrum",
+      "score": 0.7480000257492065
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C21099817",
+      "wikidata": "https://www.wikidata.org/wiki/Q7631721",
+      "display_name": "Subnet",
+      "level": 2,
+      "score": 0.8887669444084167
+    },
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.800400972366333
+    },
+    {
+      "id": "https://openalex.org/C31258907",
+      "wikidata": "https://www.wikidata.org/wiki/Q1301371",
+      "display_name": "Computer network",
+      "level": 1,
+      "score": 0.7123053073883057
+    },
+    {
+      "id": "https://openalex.org/C73555534",
+      "wikidata": "https://www.wikidata.org/wiki/Q622825",
+      "display_name": "Cluster analysis",
+      "level": 2,
+      "score": 0.5342295169830322
+    },
+    {
+      "id": "https://openalex.org/C158379750",
+      "wikidata": "https://www.wikidata.org/wiki/Q214111",
+      "display_name": "Network packet",
+      "level": 2,
+      "score": 0.5055475234985352
+    },
+    {
+      "id": "https://openalex.org/C199845137",
+      "wikidata": "https://www.wikidata.org/wiki/Q145490",
+      "display_name": "Network topology",
+      "level": 2,
+      "score": 0.5027663707733154
+    },
+    {
+      "id": "https://openalex.org/C120314980",
+      "wikidata": "https://www.wikidata.org/wiki/Q180634",
+      "display_name": "Distributed computing",
+      "level": 1,
+      "score": 0.4142317771911621
+    },
+    {
+      "id": "https://openalex.org/C119857082",
+      "wikidata": "https://www.wikidata.org/wiki/Q2539",
+      "display_name": "Machine learning",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 2,
+  "locations": [
+    {
+      "id": "doi:10.1109/access.2019.2898239",
+      "doi": "https://doi.org/10.1109/access.2019.2898239",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.1109/access.2019.2898239",
+      "pdf_url": "https://ieeexplore.ieee.org/ielx7/6287639/8600701/08637935.pdf",
+      "source": {
+        "id": "https://openalex.org/S2485537415",
+        "display_name": "IEEE Access",
+        "issn_l": "2169-3536",
+        "issn": [
+          "2169-3536"
+        ],
+        "is_oa": true,
+        "is_in_doaj": true,
+        "is_core": true,
+        "listed_in": [
+          "anvur-scientific",
+          "cwts-core",
+          "doaj",
+          "jufo-1",
+          "ki-jl-1",
+          "norway-1",
+          "oarl",
+          "poland-100",
+          "russia-white-list-1",
+          "vabb-shw"
+        ],
+        "host_organization": "https://openalex.org/P4310319808",
+        "host_organization_name": "Institute of Electrical and Electronics Engineers",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319808"
+        ],
+        "host_organization_lineage_names": [
+          "Institute of Electrical and Electronics Engineers"
+        ],
+        "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "IEEE Access",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmh:oai:doaj.org/article:ee55e1010a204c8e87eb38ccd4624b88",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "https://doaj.org/article/ee55e1010a204c8e87eb38ccd4624b88",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306401280",
+        "display_name": "DOAJ (DOAJ: Directory of Open Access Journals)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": null,
+        "host_organization_name": null,
+        "host_organization_lineage": [],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by-sa",
+      "license_id": "https://openalex.org/licenses/cc-by-sa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "IEEE Access, Vol 7, Pp 21584-21596 (2019)",
+      "raw_type": "article"
+    }
+  ],
+  "best_oa_location": {
+    "id": "doi:10.1109/access.2019.2898239",
+    "doi": "https://doi.org/10.1109/access.2019.2898239",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1109/access.2019.2898239",
+    "pdf_url": "https://ieeexplore.ieee.org/ielx7/6287639/8600701/08637935.pdf",
+    "source": {
+      "id": "https://openalex.org/S2485537415",
+      "display_name": "IEEE Access",
+      "issn_l": "2169-3536",
+      "issn": [
+        "2169-3536"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "anvur-scientific",
+        "cwts-core",
+        "doaj",
+        "jufo-1",
+        "ki-jl-1",
+        "norway-1",
+        "oarl",
+        "poland-100",
+        "russia-white-list-1",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310319808",
+      "host_organization_name": "Institute of Electrical and Electronics Engineers",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319808"
+      ],
+      "host_organization_lineage_names": [
+        "Institute of Electrical and Electronics Engineers"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "IEEE Access",
+    "raw_type": "journal-article"
+  },
+  "sustainable_development_goals": [
+    {
+      "id": "https://metadata.un.org/sdg/9",
+      "display_name": "Industry, innovation and infrastructure",
+      "score": 0.7207000255584717
+    }
+  ],
+  "study_designs": [],
+  "awards": [
+    {
+      "id": "https://openalex.org/G3396170536",
+      "display_name": "Development of Seismic Damage Assessment Method for Instrumented Large Civil Structures using Sparse Representation Techniques",
+      "funder_award_id": "16H02358",
+      "funder_id": "https://openalex.org/F4320334764",
+      "funder_display_name": "Japan Society for the Promotion of Science"
+    }
+  ],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320334764",
+      "display_name": "Japan Society for the Promotion of Science",
+      "ror": "https://ror.org/00hhkn466"
+    }
+  ],
+  "has_content": {
+    "pdf": true,
+    "grobid_xml": true
+  },
+  "content_urls": {
+    "pdf": "https://content.openalex.org/works/W2913709008.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W2913709008.grobid-xml"
+  },
+  "referenced_works_count": 24,
+  "referenced_works": [
+    "https://openalex.org/W2118498353",
+    "https://openalex.org/W2238723005",
+    "https://openalex.org/W2243299349",
+    "https://openalex.org/W2499400668",
+    "https://openalex.org/W2520480241",
+    "https://openalex.org/W2537187694",
+    "https://openalex.org/W2575239128",
+    "https://openalex.org/W2576629242",
+    "https://openalex.org/W2606072485",
+    "https://openalex.org/W2606248001",
+    "https://openalex.org/W2608974495",
+    "https://openalex.org/W2616905512",
+    "https://openalex.org/W2756782458",
+    "https://openalex.org/W2766513146",
+    "https://openalex.org/W2768951086",
+    "https://openalex.org/W2771027669",
+    "https://openalex.org/W2783002040",
+    "https://openalex.org/W2791233940",
+    "https://openalex.org/W2791530033",
+    "https://openalex.org/W2794238080",
+    "https://openalex.org/W2811485728",
+    "https://openalex.org/W2825630662",
+    "https://openalex.org/W2887143404",
+    "https://openalex.org/W2963545067"
+  ],
+  "related_works": [
+    "https://openalex.org/W4322624251",
+    "https://openalex.org/W2894807840",
+    "https://openalex.org/W3158195028",
+    "https://openalex.org/W3125061616",
+    "https://openalex.org/W4380894399",
+    "https://openalex.org/W4400264839",
+    "https://openalex.org/W2890161926",
+    "https://openalex.org/W2982438804",
+    "https://openalex.org/W4311014325",
+    "https://openalex.org/W4415227122"
+  ],
+  "abstract_inverted_index": {
+    "LoRa": [
+      0,
+      76,
+      188
+    ],
+    "is": [
+      1,
+      42,
+      78,
+      101
+    ],
+    "a": [
+      2,
+      32,
+      61,
+      74,
+      98,
+      103,
+      175,
+      186,
+      225
+    ],
+    "low-power": [
+      3
+    ],
+    "long-range": [
+      4
+    ],
+    "IoT": [
+      5
+    ],
+    "standard": [
+      6
+    ],
+    "that": [
+      7,
+      209
+    ],
+    "uses": [
+      8
+    ],
+    "the": [
+      9,
+      25,
+      38,
+      53,
+      71,
+      83,
+      107,
+      134,
+      141,
+      145,
+      160,
+      167,
+      195,
+      198,
+      215,
+      230
+    ],
+    "chirp": [
+      10
+    ],
+    "spread": [
+      11
+    ],
+    "spectrum": [
+      12
+    ],
+    "technique,": [
+      13
+    ],
+    "and": [
+      14,
+      56,
+      151,
+      157
+    ],
+    "we": [
+      15,
+      173,
+      204
+    ],
+    "have": [
+      16
+    ],
+    "strived": [
+      17
+    ],
+    "to": [
+      18,
+      30,
+      69,
+      79,
+      81,
+      121,
+      144,
+      181,
+      207,
+      228
+    ],
+    "further": [
+      19
+    ],
+    "extend": [
+      20
+    ],
+    "its": [
+      21
+    ],
+    "coverage": [
+      22
+    ],
+    "by": [
+      23,
+      89,
+      165
+    ],
+    "utilizing": [
+      24,
+      90
+    ],
+    "direct": [
+      26
+    ],
+    "device-to-device": [
+      27
+    ],
+    "(D2D)": [
+      28
+    ],
+    "links": [
+      29
+    ],
+    "construct": [
+      31
+    ],
+    "multi-hop": [
+      33
+    ],
+    "relay": [
+      34
+    ],
+    "network.": [
+      35,
+      189
+    ],
+    "In": [
+      36
+    ],
+    "LoRa,": [
+      37
+    ],
+    "spreading": [
+      39
+    ],
+    "factor": [
+      40
+    ],
+    "(SF)": [
+      41
+    ],
+    "an": [
+      43
+    ],
+    "important": [
+      44
+    ],
+    "parameter,": [
+      45
+    ],
+    "which": [
+      46
+    ],
+    "not": [
+      47
+    ],
+    "only": [
+      48
+    ],
+    "provides": [
+      49
+    ],
+    "great": [
+      50
+    ],
+    "flexibility": [
+      51
+    ],
+    "between": [
+      52,
+      197
+    ],
+    "data": [
+      54,
+      84,
+      149
+    ],
+    "rate": [
+      55
+    ],
+    "sensitivity": [
+      57
+    ],
+    "but": [
+      58
+    ],
+    "also": [
+      59
+    ],
+    "presents": [
+      60
+    ],
+    "new": [
+      62
+    ],
+    "dimension": [
+      63
+    ],
+    "for": [
+      64
+    ],
+    "multiple": [
+      65,
+      119
+    ],
+    "accesses.": [
+      66
+    ],
+    "Our": [
+      67
+    ],
+    "approach": [
+      68,
+      211
+    ],
+    "improving": [
+      70
+    ],
+    "capacity": [
+      72
+    ],
+    "of": [
+      73,
+      109,
+      136,
+      147,
+      154,
+      162,
+      232
+    ],
+    "multihop": [
+      75,
+      187
+    ],
+    "network": [
+      77,
+      110,
+      152,
+      216
+    ],
+    "attempt": [
+      80
+    ],
+    "off-load": [
+      82
+    ],
+    "traffic": [
+      85,
+      142
+    ],
+    "into": [
+      86
+    ],
+    "several": [
+      87
+    ],
+    "subnets": [
+      88,
+      199
+    ],
+    "this": [
+      91
+    ],
+    "multiple-access": [
+      92
+    ],
+    "dimension.": [
+      93
+    ],
+    "Each": [
+      94
+    ],
+    "subnet": [
+      95,
+      164
+    ],
+    "rooted": [
+      96
+    ],
+    "at": [
+      97
+    ],
+    "sink": [
+      99
+    ],
+    "node": [
+      100
+    ],
+    "allocated": [
+      102
+    ],
+    "specific": [
+      104
+    ],
+    "SF": [
+      105,
+      177,
+      183
+    ],
+    "on": [
+      106,
+      193
+    ],
+    "basis": [
+      108
+    ],
+    "clustering.": [
+      111
+    ],
+    "This": [
+      112
+    ],
+    "enables": [
+      113
+    ],
+    "packet": [
+      114
+    ],
+    "transmission": [
+      115,
+      234
+    ],
+    "in": [
+      116,
+      185,
+      235
+    ],
+    "parallel": [
+      117,
+      127,
+      233
+    ],
+    "with": [
+      118,
+      219
+    ],
+    "SFs": [
+      120
+    ],
+    "become": [
+      122
+    ],
+    "feasible.": [
+      123
+    ],
+    "To": [
+      124
+    ],
+    "allow": [
+      125
+    ],
+    "such": [
+      126
+    ],
+    "transmissions,": [
+      128
+    ],
+    "our": [
+      129,
+      210
+    ],
+    "considerations": [
+      130
+    ],
+    "are:": [
+      131
+    ],
+    "1)": [
+      132
+    ],
+    "ensuring": [
+      133,
+      201
+    ],
+    "connectivity": [
+      135
+    ],
+    "all": [
+      137
+    ],
+    "subnets;": [
+      138
+    ],
+    "2)": [
+      139
+    ],
+    "off-loading": [
+      140
+    ],
+    "according": [
+      143
+    ],
+    "number": [
+      146
+    ],
+    "nodes,": [
+      148
+    ],
+    "rates,": [
+      150
+    ],
+    "topologies": [
+      153
+    ],
+    "each": [
+      155,
+      163
+    ],
+    "subnet;": [
+      156
+    ],
+    "3)": [
+      158
+    ],
+    "shortening": [
+      159
+    ],
+    "airtime": [
+      161,
+      196
+    ],
+    "reducing": [
+      166
+    ],
+    "hop": [
+      168
+    ],
+    "count.": [
+      169
+    ],
+    "Toward": [
+      170
+    ],
+    "these": [
+      171
+    ],
+    "objectives,": [
+      172
+    ],
+    "present": [
+      174
+    ],
+    "tree-based": [
+      176
+    ],
+    "clustering": [
+      178
+    ],
+    "algorithm": [
+      179
+    ],
+    "(TSCA)": [
+      180
+    ],
+    "conduct": [
+      182
+    ],
+    "allocation": [
+      184
+    ],
+    "The": [
+      190
+    ],
+    "TSCA": [
+      191
+    ],
+    "focuses": [
+      192
+    ],
+    "balancing": [
+      194
+    ],
+    "while": [
+      200
+    ],
+    "connectivity.": [
+      202
+    ],
+    "Furthermore,": [
+      203
+    ],
+    "use": [
+      205
+    ],
+    "simulations": [
+      206
+    ],
+    "show": [
+      208
+    ],
+    "can": [
+      212
+    ],
+    "significantly": [
+      213
+    ],
+    "increase": [
+      214
+    ],
+    "performance": [
+      217
+    ],
+    "compared": [
+      218
+    ],
+    "other": [
+      220
+    ],
+    "approaches.": [
+      221
+    ],
+    "We": [
+      222
+    ],
+    "additionally": [
+      223
+    ],
+    "deploy": [
+      224
+    ],
+    "real-chip": [
+      226
+    ],
+    "experiment": [
+      227
+    ],
+    "evaluate": [
+      229
+    ],
+    "feasibility": [
+      231
+    ],
+    "practice.": [
+      236
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 3
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 13
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 14
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 15
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 24
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 17
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 14
+    },
+    {
+      "year": 2019,
+      "cited_by_count": 7
+    }
+  ],
+  "updated_date": "2026-10-14T16:39:01.820549",
+  "created_date": "2019-02-21T00:00:00"
+}

@@ -1,0 +1,77 @@
+{
+  "application_deadline_s": 30.0,
+  "artifact_sha256": {
+    "actions": "7d437cb331803b2bdb2a4bcb44f2f220587461bf43a9db4d46eea67517a13f0d",
+    "flows": "fd83f9bf1d2375a2959c9ac0c7f6b382552f1c65aec1cebe8bc8252870ff1a0d",
+    "paired": "8d1f10613e3b6ce21df2e16725feac243c06e750099f60b22938ee58bfdf7d79",
+    "runs": "40d13f7115607747e73c70afe6d7db6e7838afd097338194d712682765b18c30"
+  },
+  "case": {
+    "area_m": 8250.0,
+    "bw_hz": 125000,
+    "capture_threshold_db": 6.0,
+    "cr": 1,
+    "duration_s": 600.0,
+    "edge_prr_threshold": 0.9,
+    "key": "recurring_fading",
+    "matched_rreq_timing": true,
+    "max_graph_hops": 4,
+    "max_hops": 6,
+    "min_graph_hops": 2,
+    "nodes": 50,
+    "pair_count": 4,
+    "pair_mode": "connected-multihop",
+    "pair_schedule": "poisson",
+    "path_loss_exp": 2.75,
+    "payload_bytes": 32,
+    "rate_per_min": 4.0,
+    "route_ttl_s": 600.0,
+    "sf": 7,
+    "shadow_sigma_db": 4.0,
+    "temporal_fading_interval_s": 60.0,
+    "temporal_fading_sigma_db": 6.0,
+    "traffic": "unicast",
+    "traffic_pattern": "standard",
+    "tx_power_dbm": 17.0
+  },
+  "clar_ack_continuation_cancel_events": 8,
+  "clar_candidate_eligible_events": 164,
+  "clar_candidate_exposed_seeds": 1,
+  "clar_done_cancel_events": 143,
+  "clar_exposure_gate": false,
+  "clar_joint_primary_gate": false,
+  "protocols": [
+    "meshecho-clar",
+    "meshecho-clar-nocancel",
+    "meshecho-clar-repeat",
+    "meshecho-clar-fr"
+  ],
+  "raw_packet_count_caveat": "Legacy data_tx/control_tx/ack_tx and raw_* fields include TX requests processed before drain but queued to start after the TX cost window",
+  "raw_packet_count_fields": [
+    "raw_tx_count",
+    "raw_data_tx",
+    "raw_control_tx",
+    "raw_ack_tx"
+  ],
+  "runs": 4,
+  "rx_energy_caveat": "raw_modeled_rx_energy_j is simulator accounting, potentially including queued TX that starts after the TX cost window; it is not a primary energy result",
+  "scheduled_unicast_flows": 168,
+  "seed_split": "custom",
+  "seeds": [
+    8000
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_clar_design.md": "e2b56b94ba18d8b72a45171b66910345ce2ee4430031ddcd615d56b292a5078c",
+    "lora_mesh_sim.py": "ee5749b401284b7a37647e50f0aadb7460716b28c6667ecd3bdd4aa76a5bc8a1",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "aafe1fb4c1ebdf3f5f8181a01dc5ea476b544283394659933b6c3929f6b68a88"
+  },
+  "tx_cost_window": {
+    "first_tx_start_s": 0.0,
+    "full_packet_toa_for_included_tx": true,
+    "includes_post_flow_deadline_tx": true,
+    "last_tx_start_s": 630.0,
+    "queued_tx_starting_after_window_excluded": true,
+    "windowed_packet_counts_share_start_cutoff": true
+  }
+}

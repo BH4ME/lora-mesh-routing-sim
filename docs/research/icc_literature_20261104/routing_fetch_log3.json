@@ -1,0 +1,31 @@
+[
+  {
+    "id": "exor2005_openalex",
+    "url": "https://api.openalex.org/works/https://doi.org/10.1145/1080091.1080108",
+    "final_url": "https://api.openalex.org/works/https://doi.org/10.1145/1080091.1080108",
+    "file": "docs/research/icc_literature_20261104/exor2005_openalex.json",
+    "bytes": 14430
+  },
+  {
+    "id": "trickle_stanford_pdf",
+    "url": "https://www.scs.stanford.edu/~pal/pubs/trickle-nsdi04.pdf",
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  },
+  {
+    "id": "trickle_usenix_pdf",
+    "url": "https://www.usenix.org/legacy/publications/library/proceedings/nsdi04/tech/full_papers/levis/levis.pdf",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "pdos_papers",
+    "url": "https://pdos.csail.mit.edu/papers/",
+    "final_url": "https://pdos.csail.mit.edu/papers/",
+    "file": "docs/research/icc_literature_20261104/pdos_papers.html",
+    "bytes": 91331
+  },
+  {
+    "id": "broadcast_author_pdf",
+    "url": "https://people.cs.nctu.edu.tw/~yctseng/papers.pub/mobile6-storm-mobicom99.pdf",
+    "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>"
+  }
+]

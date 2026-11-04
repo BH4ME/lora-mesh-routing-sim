@@ -1,0 +1,3392 @@
+[
+  {
+    "query": "A high-throughput path metric for multi-hop wireless routing",
+    "url": "https://api.crossref.org/works?query.title=A+high-throughput+path+metric+for+multi-hop+wireless+routing&rows=2",
+    "items": [
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2026,
+              10,
+              31
+            ]
+          ],
+          "date-time": "2026-10-31T22:14:49Z",
+          "timestamp": 1793484889349,
+          "version": "4.5.0"
+        },
+        "publisher-location": "New York, NY, USA",
+        "reference-count": 34,
+        "publisher": "ACM",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2003,
+                  9,
+                  14
+                ]
+              ],
+              "date-time": "2003-09-14T00:00:00Z",
+              "timestamp": 1063497600000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://www.acm.org/publications/policies/copyright_policy#Background"
+          }
+        ],
+        "content-domain": {
+          "domain": [
+            "dl.acm.org"
+          ],
+          "crossmark-restriction": true
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2003,
+              9,
+              14
+            ]
+          ]
+        },
+        "DOI": "10.1145/938985.939000",
+        "type": "proceedings-article",
+        "created": {
+          "date-parts": [
+            [
+              2004,
+              4,
+              19
+            ]
+          ],
+          "date-time": "2004-04-19T17:18:43Z",
+          "timestamp": 1082395123000
+        },
+        "page": "134-146",
+        "update-policy": "https://doi.org/10.1145/crossmark-policy",
+        "source": "Crossref",
+        "is-referenced-by-count": 1744,
+        "title": [
+          "A high-throughput path metric for multi-hop wireless routing"
+        ],
+        "prefix": "10.1145",
+        "author": [
+          {
+            "given": "Douglas S. J.",
+            "family": "De Couto",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "M.I.T., Cambridge, MA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Daniel",
+            "family": "Aguayo",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "M.I.T., Cambridge, MA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "John",
+            "family": "Bicket",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "M.I.T., Cambridge, MA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Robert",
+            "family": "Morris",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "M.I.T., Cambridge, MA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "member": "320",
+        "published-online": {
+          "date-parts": [
+            [
+              2003,
+              9,
+              14
+            ]
+          ]
+        },
+        "reference": [
+          {
+            "key": "e_1_3_2_1_1_1",
+            "unstructured": "The Network Simulator --- ns-2 2003. http://www.isi.edu/nsnam/ns.  The Network Simulator --- ns-2 2003. http://www.isi.edu/nsnam/ns."
+          },
+          {
+            "key": "e_1_3_2_1_2_1",
+            "volume-title": "High throughput route selection in multi-rate ad hoc wireless networks. Technical report",
+            "author": "Awerbuch Baruch",
+            "year": "2003",
+            "unstructured": "Baruch Awerbuch , David Holmer , and Herbert Rubens . High throughput route selection in multi-rate ad hoc wireless networks. Technical report , Johns Hopkins University, Computer Science Department , March 2003 . Version 2. Baruch Awerbuch, David Holmer, and Herbert Rubens. High throughput route selection in multi-rate ad hoc wireless networks. Technical report, Johns Hopkins University, Computer Science Department, March 2003. Version 2."
+          },
+          {
+            "key": "e_1_3_2_1_3_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/90.650137"
+          },
+          {
+            "key": "e_1_3_2_1_4_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.5555/514151.514166"
+          },
+          {
+            "key": "e_1_3_2_1_5_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/288235.288256"
+          },
+          {
+            "issue": "8",
+            "key": "e_1_3_2_1_6_1",
+            "article-title": "Distributed quality-of-service routing in ad hoc networks",
+            "volume": "17",
+            "author": "Chen Shigang",
+            "year": "1999",
+            "unstructured": "Shigang Chen and Klara Nahrstedt . Distributed quality-of-service routing in ad hoc networks . IEEE Journal on Selected Areas in Communcations , 17 ( 8 ), August 1999 . Shigang Chen and Klara Nahrstedt. Distributed quality-of-service routing in ad hoc networks. IEEE Journal on Selected Areas in Communcations, 17(8), August 1999.",
+            "journal-title": "IEEE Journal on Selected Areas in Communcations"
+          },
+          {
+            "key": "e_1_3_2_1_7_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/ICUPC.1997.627226"
+          },
+          {
+            "key": "e_1_3_2_1_8_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/774749.774758"
+          },
+          {
+            "key": "e_1_3_2_1_9_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/PROC.1987.13704"
+          },
+          {
+            "key": "e_1_3_2_1_10_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/98.575990"
+          },
+          {
+            "key": "e_1_3_2_1_11_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/381677.381682"
+          },
+          {
+            "key": "e_1_3_2_1_12_1",
+            "volume-title": "Hari Balakrishnan. Energy-efficient Communication Protocols for Wireless Microsensor Networks. In Proceedings of the Hawaiian International Conference on Systems Science",
+            "author": "Heinzelman Wendi Rabiner",
+            "year": "2000",
+            "unstructured": "Wendi Rabiner Heinzelman , Anantha Chandrakasan , and Hari Balakrishnan. Energy-efficient Communication Protocols for Wireless Microsensor Networks. In Proceedings of the Hawaiian International Conference on Systems Science , January 2000 . Wendi Rabiner Heinzelman, Anantha Chandrakasan, and Hari Balakrishnan. Energy-efficient Communication Protocols for Wireless Microsensor Networks. In Proceedings of the Hawaiian International Conference on Systems Science, January 2000."
+          },
+          {
+            "key": "e_1_3_2_1_13_1",
+            "volume-title": "Proceedings of the 3rd International Mobile Computing Workshop",
+            "author": "Hsu Yu-Ching",
+            "year": "1997",
+            "unstructured": "Yu-Ching Hsu , Tzu-Chieh Tsai , Ying-Dar Lin , and Mario Gerla . Bandwidth routing in multi-hop packet radio environment . In Proceedings of the 3rd International Mobile Computing Workshop , 1997 . Yu-Ching Hsu, Tzu-Chieh Tsai, Ying-Dar Lin, and Mario Gerla. Bandwidth routing in multi-hop packet radio environment. In Proceedings of the 3rd International Mobile Computing Workshop, 1997."
+          },
+          {
+            "key": "e_1_3_2_1_14_1",
+            "volume-title": "Proceedings of the MILCOM",
+            "author": "Hu Yih-Chun",
+            "year": "2002",
+            "unstructured": "Yih-Chun Hu and David B. Johnson . Design and demonstration of live audio and video over multihop wireless ad hoc networks . In Proceedings of the MILCOM 2002 . Yih-Chun Hu and David B. Johnson. Design and demonstration of live audio and video over multihop wireless ad hoc networks. In Proceedings of the MILCOM 2002."
+          },
+          {
+            "key": "e_1_3_2_1_15_1",
+            "first-page": "158",
+            "volume-title": "Proc. of the IEEE Workshop on Mobile Computing Systems and Applications",
+            "author": "Johnson David B.",
+            "year": "1994",
+            "unstructured": "David B. Johnson . Routing in ad hoc networks of mobile hosts . In Proc. of the IEEE Workshop on Mobile Computing Systems and Applications , pages 158 -- 163 , December 1994 . David B. Johnson. Routing in ad hoc networks of mobile hosts. In Proc. of the IEEE Workshop on Mobile Computing Systems and Applications, pages 158--163, December 1994."
+          },
+          {
+            "key": "e_1_3_2_1_16_1",
+            "volume-title": "IETF",
+            "author": "Johnson David B.",
+            "year": "2003",
+            "unstructured": "David B. Johnson , David A. Maltz , and Yih-Chun Hu . The Dynamic Source Routing protocol for mobile ad hoc networks (DSR). Internet draft (work in progress) , IETF , April 2003 . http://www.ietf.org/internet-drafts/draft-ietf-manet-dsr-09.txt. David B. Johnson, David A. Maltz, and Yih-Chun Hu. The Dynamic Source Routing protocol for mobile ad hoc networks (DSR). Internet draft (work in progress), IETF, April 2003. http://www.ietf.org/internet-drafts/draft-ietf-manet-dsr-09.txt."
+          },
+          {
+            "key": "e_1_3_2_1_17_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/PROC.1987.13702"
+          },
+          {
+            "key": "e_1_3_2_1_18_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/570645.570651"
+          },
+          {
+            "key": "e_1_3_2_1_19_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/354871.354874"
+          },
+          {
+            "key": "e_1_3_2_1_20_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/381677.381684"
+          },
+          {
+            "key": "e_1_3_2_1_21_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/INFCOM.2001.916671"
+          },
+          {
+            "key": "e_1_3_2_1_22_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/570790.570799"
+          },
+          {
+            "key": "e_1_3_2_1_23_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/PIMRC.2001.965297"
+          },
+          {
+            "key": "e_1_3_2_1_24_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/WCNC.1999.796938"
+          },
+          {
+            "key": "e_1_3_2_1_25_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/190314.190336"
+          },
+          {
+            "key": "e_1_3_2_1_26_1",
+            "volume-title": "Proceedings of the 2nd IEEE Workshop on Mobile Computing Systems and Applications",
+            "author": "Charles",
+            "year": "1999",
+            "unstructured": "Charles E. Perkins and Elizabeth M. Royer. Ad hoc On-Demand Distance Vector Routing . In Proceedings of the 2nd IEEE Workshop on Mobile Computing Systems and Applications , 1999 . Charles E. Perkins and Elizabeth M. Royer. Ad hoc On-Demand Distance Vector Routing. In Proceedings of the 2nd IEEE Workshop on Mobile Computing Systems and Applications, 1999."
+          },
+          {
+            "key": "e_1_3_2_1_27_1",
+            "unstructured": "Rice Monarch Project. Wireless and mobility extensions to ns-2. http://www.monarch.cs.rice.edu/cmu-ns.html.  Rice Monarch Project. Wireless and mobility extensions to ns-2. http://www.monarch.cs.rice.edu/cmu-ns.html."
+          },
+          {
+            "key": "e_1_3_2_1_28_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/RAWCON.1999.810925"
+          },
+          {
+            "key": "e_1_3_2_1_29_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/INFCOM.2000.832213"
+          },
+          {
+            "key": "e_1_3_2_1_30_1",
+            "volume-title": "Proceedings of IEEE International Conference on Communications",
+            "author": "Samarth",
+            "year": "2002",
+            "unstructured": "Samarth H. Shah and Klara Nahrstedt. Predictive location-based QoS routing in mobile ad hoc networks . In Proceedings of IEEE International Conference on Communications , 2002 . Samarth H. Shah and Klara Nahrstedt. Predictive location-based QoS routing in mobile ad hoc networks. In Proceedings of IEEE International Conference on Communications, 2002."
+          },
+          {
+            "key": "e_1_3_2_1_31_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/INFCOM.1999.749269"
+          },
+          {
+            "key": "e_1_3_2_1_32_1",
+            "volume-title": "Modular and adaptive ad hoc routing in Click. Master's thesis",
+            "author": "Tornquist Audun",
+            "year": "2001",
+            "unstructured": "Audun Tornquist . Modular and adaptive ad hoc routing in Click. Master's thesis , University of Colorado , 2001 . Audun Tornquist. Modular and adaptive ad hoc routing in Click. Master's thesis, University of Colorado, 2001."
+          },
+          {
+            "key": "e_1_3_2_1_33_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.5555/582629.848323"
+          },
+          {
+            "key": "e_1_3_2_1_34_1",
+            "volume-title": "Proc. IEEE Infocom",
+            "author": "Zhu Chenxi",
+            "year": "2001",
+            "unstructured": "Chenxi Zhu and M. Scott Corson . QoS routing for mobile ad hoc networks . In Proc. IEEE Infocom , June 2001 . Chenxi Zhu and M. Scott Corson. QoS routing for mobile ad hoc networks. In Proc. IEEE Infocom, June 2001."
+          }
+        ],
+        "event": {
+          "name": "MobiCom03: Ninth Annual International Conference on Mobile Computing and Networking",
+          "location": "San Diego CA USA",
+          "acronym": "MobiCom03",
+          "sponsor": [
+            "SIGMOBILE ACM Special Interest Group on Mobility of Systems, Users, Data and Computing",
+            "ACM Association for Computing Machinery"
+          ]
+        },
+        "container-title": [
+          "Proceedings of the 9th annual international conference on Mobile computing and networking"
+        ],
+        "link": [
+          {
+            "URL": "https://dl.acm.org/doi/10.1145/938985.939000",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://dl.acm.org/doi/pdf/10.1145/938985.939000",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2025,
+              6,
+              18
+            ]
+          ],
+          "date-time": "2025-06-18T16:19:22Z",
+          "timestamp": 1750263562000
+        },
+        "score": 57.208588,
+        "resource": {
+          "primary": {
+            "URL": "https://dl.acm.org/doi/10.1145/938985.939000"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              2003,
+              9,
+              14
+            ]
+          ]
+        },
+        "references-count": 34,
+        "aliases": [
+          "10.1145/938998.939000"
+        ],
+        "alternative-id": [
+          "10.1145/938985.939000",
+          "10.1145/938985"
+        ],
+        "URL": "https://doi.org/10.1145/938985.939000",
+        "published": {
+          "date-parts": [
+            [
+              2003,
+              9,
+              14
+            ]
+          ]
+        },
+        "assertion": [
+          {
+            "value": "2003-09-14",
+            "order": 2,
+            "name": "published",
+            "label": "Published",
+            "group": {
+              "name": "publication_history",
+              "label": "Publication History"
+            }
+          }
+        ]
+      },
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2026,
+              10,
+              25
+            ]
+          ],
+          "date-time": "2026-10-25T19:20:08Z",
+          "timestamp": 1792956008412,
+          "version": "4.5.0"
+        },
+        "reference-count": 34,
+        "publisher": "Springer Science and Business Media LLC",
+        "issue": "4",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2005,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2005-07-01T00:00:00Z",
+              "timestamp": 1120176000000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "http://www.springer.com/tdm"
+          }
+        ],
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "short-container-title": [
+          "Wireless Netw"
+        ],
+        "published-print": {
+          "date-parts": [
+            [
+              2005,
+              7
+            ]
+          ]
+        },
+        "DOI": "10.1007/s11276-005-1766-z",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [
+            [
+              2005,
+              7,
+              22
+            ]
+          ],
+          "date-time": "2005-07-22T03:06:33Z",
+          "timestamp": 1122001593000
+        },
+        "page": "419-434",
+        "source": "Crossref",
+        "is-referenced-by-count": 820,
+        "title": [
+          "a high-throughput path metric for multi-hop wireless routing"
+        ],
+        "prefix": "10.1007",
+        "volume": "11",
+        "author": [
+          {
+            "given": "Douglas S. J. De",
+            "family": "Couto",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Daniel",
+            "family": "Aguayo",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "John",
+            "family": "Bicket",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Robert",
+            "family": "Morris",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "member": "297",
+        "reference": [
+          {
+            "key": "1766_CR1",
+            "doi-asserted-by": "crossref",
+            "unstructured": "B. Awerbuch, D. Holmer and H. Rubens, High throughput route selection in multi-ratead hoc wireless networks, Technical report, Johns Hopkins University, Computer Science Department (March 2003). Version 2.",
+            "DOI": "10.1007/978-3-540-24614-5_19"
+          },
+          {
+            "key": "1766_CR2",
+            "doi-asserted-by": "crossref",
+            "unstructured": "H. Balakrishnan, V.N. Padmanabhan, S. Seshan and R.H. Katz, A comparison of mechanisms for improving TCP performance of wireless links, IEEE/ACM Transactions on Networking 6(5) (1997).",
+            "DOI": "10.1109/90.650137"
+          },
+          {
+            "key": "1766_CR3",
+            "doi-asserted-by": "crossref",
+            "unstructured": "B. Bensaou, Y. Wang and C.C. Ko, Fair medium access in 802.11 based wireless ad-hoc networks, in: First Annual IEEE and ACM International Workshop on Mobile Ad Hoc Networking and Computing (MobiHoc) (August 2000).",
+            "DOI": "10.1109/MOBHOC.2000.869217"
+          },
+          {
+            "key": "1766_CR4",
+            "doi-asserted-by": "crossref",
+            "unstructured": "J. Broch, D.A. Maltz, D.B. Johnson, Y.-C. Hu and J. Jetcheva, A performance comparison of multi-hop wireless ad hoc network routing protocols, in: Proc. ACM/IEEE MobiCom (October 1998) pp. 85–97.",
+            "DOI": "10.1145/288235.288256"
+          },
+          {
+            "key": "1766_CR5",
+            "doi-asserted-by": "crossref",
+            "unstructured": "S. Chen and K. Nahrstedt, Distributed quality-of-service routing in ad hoc networks, IEEE Journal on Selected Areas in Communcations 17(8) (Aug. 1999).",
+            "DOI": "10.1109/49.780354"
+          },
+          {
+            "key": "1766_CR6",
+            "doi-asserted-by": "crossref",
+            "unstructured": "T.-W. Chen, J.T. Tsai and M. Gerla, QoS routing performance in multihop, multimedia, wireless networks, in: Proceedings of IEEE ICUPC’97 (1997).",
+            "DOI": "10.1109/ICUPC.1997.627226"
+          },
+          {
+            "key": "1766_CR7",
+            "doi-asserted-by": "crossref",
+            "unstructured": "K.-W. Chin, J. Judge, A. Williams and R. Kermode, Implementation experience with MANET routing protocols, ACM SIGCOMM Computer Communications Review 32(5) (2002).",
+            "DOI": "10.1145/774749.774758"
+          },
+          {
+            "key": "1766_CR8",
+            "doi-asserted-by": "crossref",
+            "unstructured": "B.H. Davies and T.R. Davies, The application of packet switching techniques to combat net radio, in: Proceedings of the IEEE 75(1) (1987).",
+            "DOI": "10.1109/PROC.1987.13704"
+          },
+          {
+            "key": "1766_CR9",
+            "doi-asserted-by": "crossref",
+            "unstructured": "R. Dube, C.D. Rais, K.-Y. Wang and S.K. Tripathi, Signal stability-based adaptive routing (SSA) for ad hoc mobile networks, IEEE Personal Communications (Feb. 1997).",
+            "DOI": "10.1109/98.575990"
+          },
+          {
+            "key": "1766_CR10",
+            "doi-asserted-by": "crossref",
+            "unstructured": "T. Goff, N.B. Abu-Ghazaleh, D.S. Phatak and R. Kahvecioglu, Preemptive routing in ad hoc networks, in: Proc. ACM/IEEE MobiCom (July 2001).",
+            "DOI": "10.1145/381677.381682"
+          },
+          {
+            "key": "1766_CR11",
+            "doi-asserted-by": "crossref",
+            "unstructured": "W.R. Heinzelman, A. Chandrakasan and H. Balakrishnan, Energy-efficient communication protocols for wireless microsensor networks, in: Proceedings of the Hawaiian International Conference on Systems Science (Jan. 2000).",
+            "DOI": "10.1109/HICSS.2000.926982"
+          },
+          {
+            "key": "1766_CR12",
+            "unstructured": "Y.-C. Hsu, T.-C. Tsai, Y.-D. Lin and M. Gerla, Bandwidth routing in multi-hop packet radio environment, in: Proceedings of the 3rd International Mobile Computing Workshop (1997)."
+          },
+          {
+            "key": "1766_CR13",
+            "unstructured": "Y.-C. Hu and D.B. Johnson, Design and demonstration of live audio and video over multihop wireless ad hoc networks, in: Proceedings of the MILCOM 2002 (2002)."
+          },
+          {
+            "key": "1766_CR14",
+            "doi-asserted-by": "crossref",
+            "unstructured": "D.B. Johnson, Routing in ad hoc networks of mobile hosts, in: Proc. of the IEEE Workshop on Mobile Computing Systems and Applications (Dec. 1994). pp. 158–163.",
+            "DOI": "10.1109/WMCSA.1994.33"
+          },
+          {
+            "key": "1766_CR15",
+            "unstructured": "D.B. Johnson, D.A. Maltz and Y.-C. Hu, The dynamic source routing protocol for mobile ad hoc networks (DSR), Internet draft (work in progress), IETF (April 2003). http://www.ietf.org/internet-drafts/draft-ietf-manet-dsr-09.txt."
+          },
+          {
+            "key": "1766_CR16",
+            "doi-asserted-by": "crossref",
+            "unstructured": "J. Jubin and J.D. Tornow, The DARPA packet radio network protocols, in: Proceedings of the IEEE 75(1) (1987).",
+            "DOI": "10.1109/PROC.1987.13702"
+          },
+          {
+            "key": "1766_CR17",
+            "doi-asserted-by": "crossref",
+            "unstructured": "E.-S. Jung and N. Vaidya, A power control MAC protocol for ad hoc networks, in: Proc. ACM/IEEE MobiCom (Sept. 2002).",
+            "DOI": "10.1145/570645.570651"
+          },
+          {
+            "key": "1766_CR18",
+            "doi-asserted-by": "crossref",
+            "unstructured": "E. Kohler, R. Morris, B. Chen, J. Jannotti and M.F. Kaashoek, The Click modular router, ACM Transactions on Computer Systems 18(4) (2000).",
+            "DOI": "10.1145/354871.354874"
+          },
+          {
+            "key": "1766_CR19",
+            "doi-asserted-by": "crossref",
+            "unstructured": "J. Li, C. Blake, D. S.J. De Couto, H.I. Lee and R. Morris, Capacity of ad hoc wireless networks, in: Proceedings of the 7th ACM International Conference on Mobile Computing and Networking, (Rome, Italy, July 2001) pp. 61–69.",
+            "DOI": "10.1145/381677.381684"
+          },
+          {
+            "key": "1766_CR20",
+            "doi-asserted-by": "crossref",
+            "unstructured": "C.R. Lin, On-demand QoS routing in multihop mobile networks, in: Proc. IEEE Infocom (April 2001).",
+            "DOI": "10.1109/INFCOM.2001.916671"
+          },
+          {
+            "key": "1766_CR21",
+            "doi-asserted-by": "crossref",
+            "unstructured": "H. Lundgren, E. Nordström and C. Tschudin, Coping with comunication gray zones in IEEE 802.11b based ad hoc networks, in: 5th ACM International Workshop on Wireless Mobile Multimedia (WoWMoM 2002) (September 2002).",
+            "DOI": "10.1145/570790.570799"
+          },
+          {
+            "key": "1766_CR22",
+            "doi-asserted-by": "crossref",
+            "unstructured": "A. Michail and A. Ephremides, Algorithms for routing session traffic in wireless ad-hoc networks with energy and bandwidth limitations, in: Proceedings of 12th IEEE International Symposium on Personal, Indoor and Mobile Radio Communications (2001).",
+            "DOI": "10.1109/PIMRC.2001.965297"
+          },
+          {
+            "key": "1766_CR23",
+            "doi-asserted-by": "crossref",
+            "unstructured": "C. Parsa and J.J. Garcia-Luna-Aceves, TULIP: A link-level protocol for improving TCP over wireless links, in: Proc. IEEE Wireless Communications and Networking Conference 1999 (WCNC 99), (Sept. 1999).",
+            "DOI": "10.1109/WCNC.1999.796938"
+          },
+          {
+            "key": "1766_CR24",
+            "doi-asserted-by": "crossref",
+            "unstructured": "C.E. Perkins and P. Bhagwat, Highly dynamic destination-sequenced distance-vector routing (DSDV) for mobile computers, in: Proc. ACM SIGCOMM Conference (SIGCOMM ‘94) (Aug. 1993) pp. 234–244.",
+            "DOI": "10.1145/190314.190336"
+          },
+          {
+            "key": "1766_CR25",
+            "doi-asserted-by": "crossref",
+            "unstructured": "C.E. Perkins and E.M. Royer, Ad hoc on-demand distance vector routing, in: Proceedings of the 2nd IEEE Workshop on Mobile Computing Systems and Applications (1999).",
+            "DOI": "10.1109/MCSA.1999.749281"
+          },
+          {
+            "key": "1766_CR26",
+            "doi-asserted-by": "crossref",
+            "unstructured": "R.J. Punnoose, P.V. Nitkin, J. Broch and D.D. Stancil, Optimizing wireless network protocols using real-time predictive propagation modeling, in: Radio and Wireless Conference (RAWCON) (August 1999).",
+            "DOI": "10.1109/RAWCON.1999.810925"
+          },
+          {
+            "key": "1766_CR27",
+            "doi-asserted-by": "crossref",
+            "unstructured": "R. Ramanathan and R. Rosales-Hain, Topology control of multihop wireless networks using transmit power adjustment, in: Proc. IEEE Infocom (March 2000).",
+            "DOI": "10.1109/INFCOM.2000.832213"
+          },
+          {
+            "key": "1766_CR28",
+            "unstructured": "Rice Monarch Project, Wireless and mobility extensions to ns-2. http://www.monarch.cs.rice.edu/cmu-ns.html."
+          },
+          {
+            "key": "1766_CR29",
+            "doi-asserted-by": "crossref",
+            "unstructured": "S.H. Shah and K. Nahrstedt, Predictive location-based QoS routing in mobile ad hoc networks, in: Proceedings of IEEE International Conference on Communications (2002).",
+            "DOI": "10.1109/ICC.2002.997009"
+          },
+          {
+            "key": "1766_CR30",
+            "doi-asserted-by": "crossref",
+            "unstructured": "P. Sinha, R. Sivakumar and V. Bharghavan, CEDAR: A core-extraction distributed ad hoc routing algorithm, in: Proc. IEEE Infocom (March 1999).",
+            "DOI": "10.1109/INFCOM.1999.749269"
+          },
+          {
+            "key": "1766_CR31",
+            "unstructured": "The Network Simulator—ns-2 (2003). http://www.isi.edu/nsnam/ns."
+          },
+          {
+            "key": "1766_CR32",
+            "unstructured": "A. Tornquist, Modular and adaptive ad hoc routing in Click, Master’s thesis, University of Colorado (2001)."
+          },
+          {
+            "key": "1766_CR33",
+            "doi-asserted-by": "crossref",
+            "unstructured": "M. Yarvis, W.S. Conner, L. Krishnamurthy, J. Chhabra, B. Elliott and A. Mainwaring, Real-world experiences with an interactive ad hoc sensor network, in: Proceedings of the International Workshop on Ad Hoc Networking (August 2002).",
+            "DOI": "10.1109/ICPPW.2002.1039724"
+          },
+          {
+            "key": "1766_CR34",
+            "unstructured": "C. Zhu and M.S. Corson, QoS routing for mobile ad hoc networks, in: Proc. IEEE Infocom (June 2001)."
+          }
+        ],
+        "container-title": [
+          "Wireless Networks"
+        ],
+        "language": "en",
+        "link": [
+          {
+            "URL": "http://link.springer.com/content/pdf/10.1007/s11276-005-1766-z.pdf",
+            "content-type": "application/pdf",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "http://link.springer.com/article/10.1007/s11276-005-1766-z/fulltext.html",
+            "content-type": "text/html",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "http://link.springer.com/content/pdf/10.1007/s11276-005-1766-z",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2020,
+              4,
+              8
+            ]
+          ],
+          "date-time": "2020-04-08T09:06:55Z",
+          "timestamp": 1586336815000
+        },
+        "score": 57.13904,
+        "resource": {
+          "primary": {
+            "URL": "http://link.springer.com/10.1007/s11276-005-1766-z"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              2005,
+              7
+            ]
+          ]
+        },
+        "references-count": 34,
+        "journal-issue": {
+          "issue": "4",
+          "published-print": {
+            "date-parts": [
+              [
+                2005,
+                7
+              ]
+            ]
+          }
+        },
+        "alternative-id": [
+          "1766"
+        ],
+        "URL": "https://doi.org/10.1007/s11276-005-1766-z",
+        "ISSN": [
+          "1022-0038",
+          "1572-8196"
+        ],
+        "issn-type": [
+          {
+            "value": "1022-0038",
+            "type": "print"
+          },
+          {
+            "value": "1572-8196",
+            "type": "electronic"
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2005,
+              7
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "query": "Dynamic Source Routing in Ad Hoc Wireless Networks",
+    "url": "https://api.crossref.org/works?query.title=Dynamic+Source+Routing+in+Ad+Hoc+Wireless+Networks&rows=2",
+    "items": [
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2026,
+              10,
+              31
+            ]
+          ],
+          "date-time": "2026-10-31T21:54:10Z",
+          "timestamp": 1793483650609,
+          "version": "4.5.0"
+        },
+        "publisher-location": "Boston, MA",
+        "reference-count": 29,
+        "publisher": "Springer US",
+        "isbn-type": [
+          {
+            "value": "9780792396970",
+            "type": "print"
+          }
+        ],
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "DOI": "10.1007/978-0-585-29603-6_5",
+        "type": "book-chapter",
+        "created": {
+          "date-parts": [
+            [
+              2007,
+              8,
+              25
+            ]
+          ],
+          "date-time": "2007-08-25T22:30:38Z",
+          "timestamp": 1188081038000
+        },
+        "page": "153-181",
+        "source": "Crossref",
+        "is-referenced-by-count": 4552,
+        "title": [
+          "Dynamic Source Routing in Ad Hoc Wireless Networks"
+        ],
+        "prefix": "10.1007",
+        "author": [
+          {
+            "given": "David B.",
+            "family": "Johnson",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "David A.",
+            "family": "Maltz",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "member": "297",
+        "reference": [
+          {
+            "issue": "2",
+            "key": "5_CR1",
+            "doi-asserted-by": "publisher",
+            "first-page": "43",
+            "DOI": "10.1109/65.272940",
+            "volume": "8",
+            "author": "D. F. Bantz",
+            "year": "1994",
+            "unstructured": "David F. Bantz and Frédéric J. Bauchot. Wireless LAN design alternatives. IEEE Network 8(2):43–53, March/April 1994.",
+            "journal-title": "IEEE Network"
+          },
+          {
+            "key": "5_CR2",
+            "doi-asserted-by": "crossref",
+            "unstructured": "Vaduvur Bharghavan, Alan Demers, Scott Shenker, and Lixia Zhang. MACAW: A media access protocol for wireless LAN’s. In Proceedings of the SIGCOMM’ 94 Conference on Communications Architectures, Protocols and Applications, pages 212–225, August 1994.",
+            "DOI": "10.1145/190314.190334"
+          },
+          {
+            "key": "5_CR3",
+            "unstructured": "Robert T. Braden, editor. Requirements for Internet hosts. Internet Request For Comments RFC 1122, October 1989."
+          },
+          {
+            "issue": "1",
+            "key": "5_CR4",
+            "doi-asserted-by": "publisher",
+            "first-page": "25",
+            "DOI": "10.1109/65.3234",
+            "volume": "2",
+            "author": "R. C. Dixon",
+            "year": "1988",
+            "unstructured": "Roy C. Dixon and Daniel A. Pitt. Addressing, bridging, and source routing. IEEE Network, 2(1):25–32, January 1988.",
+            "journal-title": "IEEE Network"
+          },
+          {
+            "key": "5_CR5",
+            "doi-asserted-by": "crossref",
+            "unstructured": "Deborah Estrin, Daniel Zappala, Tony Li, Yakov Rekhter, and Kannan Varadhan. Source Demand Routing: Packet format and forwarding specification (version 1). Internet Draft, January 1995. Work in progress.",
+            "DOI": "10.17487/rfc1940"
+          },
+          {
+            "key": "5_CR6",
+            "unstructured": "Daniel M. Frank. Transmission of IP datagrams over NET/ROM networks. In ARRL Amateur Radio 7th Computer Networking Conference, pages 65–70, October 1988."
+          },
+          {
+            "key": "5_CR7",
+            "unstructured": "Bdale Garbee. Thoughts on the issues of address resolution and routing in amateur packet radio TCP/IP networks. In ARRL Amateur Radio 6th Computer Networking Conference, pages 56–58, August 1987."
+          },
+          {
+            "key": "5_CR8",
+            "unstructured": "James Geier, Martin DeSimio, and Byron Welsh. Network routing techniques and their relevance to packet radio networks. In ARRL/CRRL Amateur Radio 9th Computer Networking Conference, pages 105–117, September 1990."
+          },
+          {
+            "key": "5_CR9",
+            "doi-asserted-by": "crossref",
+            "unstructured": "C. Hedrick. Routing Information Protocol. Internet Request For Comments RFC 1058, June 1988.",
+            "DOI": "10.17487/rfc1058"
+          },
+          {
+            "key": "5_CR10",
+            "unstructured": "International Standards Organization. Intermediate system to intermediate system intra-domain routing exchange protocol for use in conjunction with the protocol for providing the connectionless-mode network service (ISO 8473). ISO DP 10589, February 1990."
+          },
+          {
+            "issue": "1",
+            "key": "5_CR11",
+            "doi-asserted-by": "crossref",
+            "first-page": "21",
+            "DOI": "10.1109/PROC.1987.13702",
+            "volume": "75",
+            "author": "J. Jubin",
+            "year": "1987",
+            "unstructured": "John Jubin and Janet D. Tornow. The DARPA packet radio network protocols. Proceedings of the IEEE, 75(1):21–32, January 1987.",
+            "journal-title": "Proceedings of the IEEE"
+          },
+          {
+            "issue": "1",
+            "key": "5_CR12",
+            "doi-asserted-by": "publisher",
+            "first-page": "73",
+            "DOI": "10.1145/151250.151253",
+            "volume": "11",
+            "author": "M. Frans Kaashoek",
+            "year": "1993",
+            "unstructured": "M. Frans Kaashoek, Robbert van Renesse, Hans van Staveren, and Andrew S. Tanenbaum. FLIP: An internetwork protocol for supporting distributed systems. ACM Transactions on Computer Systems, 11(1):73–106, February 1993.",
+            "journal-title": "ACM Transactions on Computer Systems"
+          },
+          {
+            "key": "5_CR13",
+            "unstructured": "Phil Karn. MACA — A new channel access method for packet radio. In ARRL/CRRL Amateur Radio 9th Computer Networking Conference, pages 134–140, September 1990."
+          },
+          {
+            "issue": "3",
+            "key": "5_CR14",
+            "doi-asserted-by": "crossref",
+            "first-page": "431",
+            "DOI": "10.1109/JSAC.1985.1146214",
+            "volume": "SAC-3",
+            "author": "P. R. Karn",
+            "year": "1985",
+            "unstructured": "Philip R. Karn, Harold E. Price, and Robert J. Diersing. Packet radio in the amateur service. IEEE Journal on Selected Areas in Communications, SAC-3(3):431–439, May 1985.",
+            "journal-title": "IEEE Journal on Selected Areas in Communications"
+          },
+          {
+            "key": "5_CR15",
+            "first-page": "55",
+            "volume-title": "Routing in Communications Networks",
+            "author": "G. S. Lauer",
+            "year": "1995",
+            "unstructured": "Gregory S. Lauer. Packet-radio routing. In Routing in Communications Networks, edited by Martha E. SteenStrup, chapter 11, pages 55–76. Prentice-Hall, Englewood Cliffs, New Jersey, 1995."
+          },
+          {
+            "issue": "5",
+            "key": "5_CR16",
+            "doi-asserted-by": "publisher",
+            "first-page": "711",
+            "DOI": "10.1109/TCOM.1980.1094721",
+            "volume": "COM-28",
+            "author": "J. M. McQuillan",
+            "year": "1980",
+            "unstructured": "John M. McQuillan, Ira Richer, and Eric C. Rosen. The new routing algorithm for the ARPANET. IEEE Transactions on Communications, COM-28(5):711–719, May 1980.",
+            "journal-title": "IEEE Transactions on Communications"
+          },
+          {
+            "issue": "5",
+            "key": "5_CR17",
+            "first-page": "243",
+            "volume": "1",
+            "author": "J. M. McQuillan",
+            "year": "1977",
+            "unstructured": "John M. McQuillan and David C. Walden. The ARPA network design decisions. Computer Networks, 1(5):243–289, August 1977.",
+            "journal-title": "Computer Networks"
+          },
+          {
+            "key": "5_CR18",
+            "doi-asserted-by": "crossref",
+            "unstructured": "J. Moy. OSPF version 2. Internet Request For Comments RFC 1247, July 1991.",
+            "DOI": "10.17487/rfc1247"
+          },
+          {
+            "key": "5_CR19",
+            "doi-asserted-by": "crossref",
+            "unstructured": "Charles E. Perkins and Pravin Bhagwat. Highly Dynamic Destination-Sequenced Distance-Vector Routing (DSDV) for Mobile Computers. In Proceedings of the SIGCOMM’ 94 Conference on Communications Architectures, Protocols and Applications, pages 234–244, August 1994.",
+            "DOI": "10.1145/190314.190336"
+          },
+          {
+            "key": "5_CR20",
+            "volume-title": "Interconnections: Bridges and Routers",
+            "author": "R. Perlman",
+            "year": "1992",
+            "unstructured": "Radia Perlman. Interconnections: Bridges and Routers. Addison-Wesley, Reading, Massachusetts, 1992."
+          },
+          {
+            "key": "5_CR21",
+            "doi-asserted-by": "crossref",
+            "unstructured": "David C. Plummer. An Ethernet address resolution protocol: Or converting network protocol addresses to 48.bit Ethernet addresses for transmission on Ethernet hardware. Internet Request For Comments RFC 826, November 1982.",
+            "DOI": "10.17487/rfc0826"
+          },
+          {
+            "key": "5_CR22",
+            "doi-asserted-by": "crossref",
+            "unstructured": "J. B. Postel, editor. Internet Protocol. Internet Request For Comments RFC 791, September 1981.",
+            "DOI": "10.17487/rfc0791"
+          },
+          {
+            "key": "5_CR23",
+            "doi-asserted-by": "crossref",
+            "unstructured": "J. B. Postel, editor. Transmission Control Protocol. Internet Request For Comments RFC 793, September 1981.",
+            "DOI": "10.17487/rfc0793"
+          },
+          {
+            "key": "5_CR24",
+            "doi-asserted-by": "crossref",
+            "unstructured": "J. B. Postel. Multi-LAN address resolution. Internet Request For Comments RFC 925, October 1984.",
+            "DOI": "10.17487/rfc0925"
+          },
+          {
+            "issue": "1",
+            "key": "5_CR25",
+            "doi-asserted-by": "publisher",
+            "first-page": "83",
+            "DOI": "10.1109/PROC.1987.13707",
+            "volume": "75",
+            "author": "N. Shacham",
+            "year": "1987",
+            "unstructured": "Nachum Shacham and Jil Westcott. Future directions in packet radio architectures and protocols. Proceedings of the IEEE, 75(1):83–99, January 1987.",
+            "journal-title": "Proceedings of the IEEE"
+          },
+          {
+            "key": "5_CR26",
+            "volume-title": "Inside AppleTalk",
+            "author": "G. S. Sidhu",
+            "year": "1990",
+            "unstructured": "Gursharan S. Sidhu, Richard F, Andrews, and Alan B. Oppenheimer. Inside AppleTalk. Addison Wesley, Reading, Massachusetts, 1990."
+          },
+          {
+            "key": "5_CR27",
+            "unstructured": "Paul Turner. NetWare communications processes. NetWare Application Notes, Novell Research, pages 25–81, September 1990."
+          },
+          {
+            "key": "5_CR28",
+            "unstructured": "Kannan Varadhan, Deborah Estrin, Steve Hotz, and Yakov Rekhter. SDRP route construction. Internet Draft, July 1994. Work in progress."
+          },
+          {
+            "key": "5_CR29",
+            "unstructured": "Xerox Corporation. Internet transport protocols. Xerox System Integration Standard 028112, December 1981."
+          }
+        ],
+        "container-title": [
+          "The Kluwer International Series in Engineering and Computer Science",
+          "Mobile Computing"
+        ],
+        "language": "en",
+        "link": [
+          {
+            "URL": "http://link.springer.com/content/pdf/10.1007/978-0-585-29603-6_5.pdf",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2021,
+              4,
+              29
+            ]
+          ],
+          "date-time": "2021-04-29T00:11:09Z",
+          "timestamp": 1619655069000
+        },
+        "score": 52.74997,
+        "resource": {
+          "primary": {
+            "URL": "http://link.springer.com/10.1007/978-0-585-29603-6_5"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              null
+            ]
+          ]
+        },
+        "ISBN": [
+          "9780792396970"
+        ],
+        "references-count": 29,
+        "URL": "https://doi.org/10.1007/978-0-585-29603-6_5"
+      },
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2025,
+              7,
+              27
+            ]
+          ],
+          "date-time": "2025-07-27T07:49:22Z",
+          "timestamp": 1753602562222
+        },
+        "reference-count": 8,
+        "publisher": "IEEE",
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "DOI": "10.1109/wiopt.2005.21",
+        "type": "proceedings-article",
+        "created": {
+          "date-parts": [
+            [
+              2005,
+              4,
+              25
+            ]
+          ],
+          "date-time": "2005-04-25T14:49:51Z",
+          "timestamp": 1114440591000
+        },
+        "page": "305-310",
+        "source": "Crossref",
+        "is-referenced-by-count": 22,
+        "title": [
+          "Energy Saving Dynamic Source Routing for Ad Hoc Wireless Networks"
+        ],
+        "prefix": "10.1109",
+        "author": [
+          {
+            "given": "M.",
+            "family": "Tarique",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "K.E.",
+            "family": "Tepe",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "M.",
+            "family": "Naserian",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "member": "263",
+        "reference": [
+          {
+            "key": "3",
+            "article-title": "Ns notes and documentation technical report",
+            "author": "fall",
+            "year": "2003",
+            "journal-title": "University of California Berkeley LBL USC/ISI and Xeron PARC"
+          },
+          {
+            "key": "2",
+            "article-title": "The dynamic source routing protocol for mobile ad hoc networks",
+            "author": "broch",
+            "year": "1998",
+            "journal-title": "IETF Internet-Draft"
+          },
+          {
+            "key": "1",
+            "article-title": "Ad Hoc on Demand Distance Vector (AODV) routing",
+            "author": "perkins",
+            "year": "1997",
+            "journal-title": "IETF Internet-Draft"
+          },
+          {
+            "key": "7",
+            "first-page": "117",
+            "article-title": "Non-blocking localized routing algorithm for balanced energy consumption in mobile ad hoc networks",
+            "author": "woo",
+            "year": "0",
+            "journal-title": "Proc IEEE Int Symp Modeling Analysis and Simulation of Computer and Telecommunication Systems"
+          },
+          {
+            "key": "6",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/35.925682"
+          },
+          {
+            "key": "5",
+            "doi-asserted-by": "crossref",
+            "first-page": "181",
+            "DOI": "10.1145/288235.288286",
+            "article-title": "Power-aware routing in mobile ad hoc networks",
+            "author": "singh",
+            "year": "1998",
+            "journal-title": "Proc of the Fourth Annual ACM/IEEE International Conference on Mobile Computing and Networking"
+          },
+          {
+            "key": "4",
+            "first-page": "371",
+            "article-title": "Power-aware localized routing in wireless networks",
+            "author": "ivan",
+            "year": "2000",
+            "journal-title": "Proc of the 14th International Symposium on Parallel and Distributed Processing"
+          },
+          {
+            "key": "8",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/581291.581300"
+          }
+        ],
+        "event": {
+          "name": "Third International Symposium on Modeling and Optimization in Mobile, Ad Hoc, and Wireless Networks (WiOpt'05)",
+          "location": "Riva del Garda, Trentino, Italy"
+        },
+        "container-title": [
+          "Third International Symposium on Modeling and Optimization in Mobile, Ad Hoc, and Wireless Networks (WiOpt'05)"
+        ],
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/9729/30707/01421118.pdf?arnumber=1421118",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2017,
+              6,
+              16
+            ]
+          ],
+          "date-time": "2017-06-16T14:47:42Z",
+          "timestamp": 1497624462000
+        },
+        "score": 48.646614,
+        "resource": {
+          "primary": {
+            "URL": "http://ieeexplore.ieee.org/document/1421118/"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              null
+            ]
+          ]
+        },
+        "references-count": 8,
+        "URL": "https://doi.org/10.1109/wiopt.2005.21"
+      }
+    ]
+  },
+  {
+    "query": "The broadcast storm problem in a mobile ad hoc network",
+    "url": "https://api.crossref.org/works?query.title=The+broadcast+storm+problem+in+a+mobile+ad+hoc+network&rows=2",
+    "items": [
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2026,
+              10,
+              26
+            ]
+          ],
+          "date-time": "2026-10-26T18:08:54Z",
+          "timestamp": 1793038134773,
+          "version": "4.5.0"
+        },
+        "publisher-location": "New York, NY, USA",
+        "reference-count": 24,
+        "publisher": "ACM",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  1999,
+                  8,
+                  1
+                ]
+              ],
+              "date-time": "1999-08-01T00:00:00Z",
+              "timestamp": 933465600000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://www.acm.org/publications/policies/copyright_policy#Background"
+          }
+        ],
+        "content-domain": {
+          "domain": [
+            "dl.acm.org"
+          ],
+          "crossmark-restriction": true
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              1999,
+              8
+            ]
+          ]
+        },
+        "DOI": "10.1145/313451.313525",
+        "type": "proceedings-article",
+        "created": {
+          "date-parts": [
+            [
+              2003,
+              11,
+              25
+            ]
+          ],
+          "date-time": "2003-11-25T16:40:08Z",
+          "timestamp": 1069778408000
+        },
+        "page": "151-162",
+        "update-policy": "https://doi.org/10.1145/crossmark-policy",
+        "source": "Crossref",
+        "is-referenced-by-count": 1597,
+        "title": [
+          "The broadcast storm problem in a mobile ad hoc network"
+        ],
+        "prefix": "10.1145",
+        "author": [
+          {
+            "given": "Sze-Yao",
+            "family": "Ni",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Computer Science and Information Engineering, National Central University, Chung-Li, 32054, Taiwan"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yu-Chee",
+            "family": "Tseng",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Computer Science and Information Engineering, National Central University, Chung-Li, 32054, Taiwan"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yuh-Shyan",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Computer Science and Information Engineering, National Central University, Chung-Li, 32054, Taiwan"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jang-Ping",
+            "family": "Sheu",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Computer Science and Information Engineering, National Central University, Chung-Li, 32054, Taiwan"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "member": "320",
+        "published-online": {
+          "date-parts": [
+            [
+              1999,
+              8
+            ]
+          ]
+        },
+        "reference": [
+          {
+            "key": "e_1_3_2_1_1_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/MILCOM.1995.483305"
+          },
+          {
+            "key": "e_1_3_2_1_2_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1007/BF02259748"
+          },
+          {
+            "key": "e_1_3_2_1_3_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1016/0022-0000(92)90042-H"
+          },
+          {
+            "key": "e_1_3_2_1_4_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1137/0222055"
+          },
+          {
+            "key": "e_1_3_2_1_5_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/288235.288254"
+          },
+          {
+            "key": "e_1_3_2_1_6_2",
+            "volume-title": "The dynamic source routing protocol for mobile ad hoc networks",
+            "author": "Broch J.",
+            "year": "1998",
+            "unstructured": "J. Broch , D. B. Johnson , and D. A. Maltz . The dynamic source routing protocol for mobile ad hoc networks , 1998 . Internet Draft . J. Broch, D. B. Johnson, and D. A. Maltz. The dynamic source routing protocol for mobile ad hoc networks, 1998. Internet Draft."
+          },
+          {
+            "key": "e_1_3_2_1_7_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/288235.288256"
+          },
+          {
+            "key": "e_1_3_2_1_8_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/90.282605"
+          },
+          {
+            "key": "e_1_3_2_1_9_2",
+            "article-title": "On broadcasting in radio networks - problem analysis and protocol design",
+            "volume": "1240",
+            "author": "Chlamtac I.",
+            "year": "1985",
+            "unstructured": "I. Chlamtac and S. Kutten . On broadcasting in radio networks - problem analysis and protocol design . IEEE Trans. on Commun., COM-33(12) : 1240-1246 , Dec. 1985 . I. Chlamtac and S. Kutten. On broadcasting in radio networks - problem analysis and protocol design. IEEE Trans. on Commun., COM-33(12):1240-1246, Dec. 1985.",
+            "journal-title": "IEEE Trans. on Commun., COM-33(12)"
+          },
+          {
+            "key": "e_1_3_2_1_10_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/TC.1987.1676861"
+          },
+          {
+            "key": "e_1_3_2_1_11_2",
+            "article-title": "The wave expansion approach to broadcasting in multihop radio networks",
+            "volume": "426",
+            "author": "Chlamtac I.",
+            "year": "1991",
+            "unstructured": "I. Chlamtac and O. Weinstein . The wave expansion approach to broadcasting in multihop radio networks . IEEE Trans. on Commun., COM-39(3) : 426-433 , Mar. 1991 . I. Chlamtac and O. Weinstein. The wave expansion approach to broadcasting in multihop radio networks. IEEE Trans. on Commun., COM-39(3):426-433, Mar. 1991.",
+            "journal-title": "IEEE Trans. on Commun., COM-39(3)"
+          },
+          {
+            "key": "e_1_3_2_1_13_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1007/BF01200845"
+          },
+          {
+            "key": "e_1_3_2_1_14_2",
+            "volume-title": "The zone routing protocol (ZRP) for ad hoc networks",
+            "author": "Haas Z. J.",
+            "year": "1998",
+            "unstructured": "Z. J. Haas and M. R. Pearlman . The zone routing protocol (ZRP) for ad hoc networks , 1998 . Internet Draft . Z. J. Haas and M. R. Pearlman. The zone routing protocol (ZRP) for ad hoc networks, 1998. Internet Draft."
+          },
+          {
+            "key": "e_1_3_2_1_15_2",
+            "volume-title": "Cluster based routing protocol (CBRP) functional specification",
+            "author": "Jiang M.",
+            "year": "1998",
+            "unstructured": "M. Jiang , J. Li , and Y. C. Tay . Cluster based routing protocol (CBRP) functional specification , 1998 . Internet Draft . M. Jiang, J. Li, and Y. C. Tay. Cluster based routing protocol (CBRP) functional specification, 1998. Internet Draft."
+          },
+          {
+            "key": "e_1_3_2_1_16_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/90.700893"
+          },
+          {
+            "key": "e_1_3_2_1_17_2",
+            "volume-title": "Understanding GPS: Principles and Applications",
+            "author": "Kaplan E. D.",
+            "year": "1996",
+            "unstructured": "E. D. Kaplan , editor. Understanding GPS: Principles and Applications . Artech House , Boston, MA , 1996 . E. D. Kaplan, editor. Understanding GPS: Principles and Applications. Artech House, Boston, MA, 1996."
+          },
+          {
+            "key": "e_1_3_2_1_18_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/288235.288252"
+          },
+          {
+            "key": "e_1_3_2_1_19_2",
+            "volume-title": "Wireless LAN Medium Access Control MAC and Physical Layer (PHY specifications, iEEE",
+            "author": "LAN MAN Standards Committee of the IEEE Computer Socity",
+            "year": "1997",
+            "unstructured": "LAN MAN Standards Committee of the IEEE Computer Socity , editor. IEEE Std 802.11-1997 , Wireless LAN Medium Access Control MAC and Physical Layer (PHY specifications, iEEE , Nov. 1997 . LAN MAN Standards Committee of the IEEE Computer Socity, editor. IEEE Std 802.11-1997, Wireless LAN Medium Access Control MAC and Physical Layer (PHY specifications, iEEE, Nov. 1997."
+          },
+          {
+            "key": "e_1_3_2_1_21_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/584017.584023"
+          },
+          {
+            "key": "e_1_3_2_1_22_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/262116.262125"
+          },
+          {
+            "key": "e_1_3_2_1_23_2",
+            "volume-title": "Ad hoc on demand distance vector (AODV) routing",
+            "author": "Perkins C. E.",
+            "year": "1998",
+            "unstructured": "C. E. Perkins and E. M. Royer . Ad hoc on demand distance vector (AODV) routing , 1998 . Internet Draft . C. E. Perkins and E. M. Royer. Ad hoc on demand distance vector (AODV) routing, 1998. Internet Draft."
+          },
+          {
+            "key": "e_1_3_2_1_24_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/90.222924"
+          },
+          {
+            "key": "e_1_3_2_1_25_2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1023/A:1019128411323"
+          },
+          {
+            "key": "e_1_3_2_1_26_2",
+            "volume-title": "Wireless Multimedia Communications: Networking Video, Voice, and Data",
+            "author": "Wesel E. K.",
+            "year": "1867",
+            "unstructured": "E. K. Wesel . Wireless Multimedia Communications: Networking Video, Voice, and Data . Addison-Wesley , One Jacob Way, Reading, Massachusetts 0 1867 USA, 1998. E. K. Wesel. Wireless Multimedia Communications: Networking Video, Voice, and Data. Addison-Wesley, One Jacob Way, Reading, Massachusetts 01867 USA, 1998."
+          }
+        ],
+        "event": {
+          "name": "MobiCom '99: The Fifth International Conference on Mobile Computing and Networking",
+          "location": "Seattle Washington USA",
+          "acronym": "MobiCom '99",
+          "sponsor": [
+            "SIGMOD ACM Special Interest Group on Management of Data",
+            "SIGMETRICS ACM Special Interest Group on Measurement and Evaluation",
+            "SIGCOMM ACM Special Interest Group on Data Communication",
+            "SIGMOBILE ACM Special Interest Group on Mobility of Systems, Users, Data and Computing",
+            "SIGOPS ACM Special Interest Group on Operating Systems"
+          ]
+        },
+        "container-title": [
+          "Proceedings of the 5th annual ACM/IEEE international conference on Mobile computing and networking"
+        ],
+        "link": [
+          {
+            "URL": "https://dl.acm.org/doi/10.1145/313451.313525",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://dl.acm.org/doi/pdf/10.1145/313451.313525",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2025,
+              6,
+              18
+            ]
+          ],
+          "date-time": "2025-06-18T03:30:11Z",
+          "timestamp": 1750217411000
+        },
+        "score": 52.96064,
+        "resource": {
+          "primary": {
+            "URL": "https://dl.acm.org/doi/10.1145/313451.313525"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              1999,
+              8
+            ]
+          ]
+        },
+        "references-count": 24,
+        "alternative-id": [
+          "10.1145/313451.313525",
+          "10.1145/313451"
+        ],
+        "URL": "https://doi.org/10.1145/313451.313525",
+        "published": {
+          "date-parts": [
+            [
+              1999,
+              8
+            ]
+          ]
+        },
+        "assertion": [
+          {
+            "value": "1999-08-01",
+            "order": 2,
+            "name": "published",
+            "label": "Published",
+            "group": {
+              "name": "publication_history",
+              "label": "Publication History"
+            }
+          }
+        ]
+      },
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2026,
+              10,
+              29
+            ]
+          ],
+          "date-time": "2026-10-29T16:01:10Z",
+          "timestamp": 1793289670490,
+          "version": "4.5.0"
+        },
+        "reference-count": 28,
+        "publisher": "Springer Science and Business Media LLC",
+        "issue": "2-3",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2002,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2002-03-01T00:00:00Z",
+              "timestamp": 1014940800000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.springernature.com/gp/researchers/text-and-data-mining"
+          },
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2002,
+                  3,
+                  1
+                ]
+              ],
+              "date-time": "2002-03-01T00:00:00Z",
+              "timestamp": 1014940800000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://www.springernature.com/gp/researchers/text-and-data-mining"
+          }
+        ],
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "short-container-title": [
+          "Wireless Networks"
+        ],
+        "published-print": {
+          "date-parts": [
+            [
+              2002,
+              3
+            ]
+          ]
+        },
+        "DOI": "10.1023/a:1013763825347",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [
+            [
+              2002,
+              12,
+              29
+            ]
+          ],
+          "date-time": "2002-12-29T14:13:07Z",
+          "timestamp": 1041171187000
+        },
+        "page": "153-167",
+        "source": "Crossref",
+        "is-referenced-by-count": 921,
+        "title": [
+          "The Broadcast Storm Problem in a Mobile Ad Hoc Network"
+        ],
+        "prefix": "10.1007",
+        "volume": "8",
+        "author": [
+          {
+            "given": "Yu-Chee",
+            "family": "Tseng",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sze-Yao",
+            "family": "Ni",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yuh-Shyan",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jang-Ping",
+            "family": "Sheu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "member": "297",
+        "reference": [
+          {
+            "key": "392646_CR1",
+            "first-page": "236",
+            "volume": "1",
+            "author": "S. Alagar",
+            "year": "1995",
+            "unstructured": "S. Alagar, S. Venkatesan and J. Cleveland, Reliable broadcast in mobile wireless networks, in: Military Communications Conference (MILCOM), Conference Record, Vol. 1 (1995) pp. 236–240.",
+            "journal-title": "Military Communications Conference (MILCOM), Conference Record"
+          },
+          {
+            "issue": "11",
+            "key": "392646_CR2",
+            "doi-asserted-by": "crossref",
+            "first-page": "1694",
+            "DOI": "10.1109/TCOM.1981.1094909",
+            "volume": "COM-29",
+            "author": "D.J. Baker",
+            "year": "1981",
+            "unstructured": "D.J. Baker and A. Ephremides, The architecture organization of a mobile radio network via a distributed algorithm, IEEE Transactions on Communications COM-29(11) (November 1981) 1694–1701.",
+            "journal-title": "IEEE Transactions on Communications"
+          },
+          {
+            "issue": "2",
+            "key": "392646_CR3",
+            "doi-asserted-by": "crossref",
+            "first-page": "67",
+            "DOI": "10.1007/BF02259748",
+            "volume": "5",
+            "author": "R. Bar-Yehuda",
+            "year": "1991",
+            "unstructured": "R. Bar-Yehuda, O. Goldreich and A. Itai, Efficient emulation of single-hop radio network with collision detection on multi-hop radio network with no collision detection, Distributed Computing 5(2) (1991) 67–72.",
+            "journal-title": "Distributed Computing"
+          },
+          {
+            "issue": "1",
+            "key": "392646_CR4",
+            "doi-asserted-by": "crossref",
+            "first-page": "104",
+            "DOI": "10.1016/0022-0000(92)90042-H",
+            "volume": "45",
+            "author": "R. Bar-Yehuda",
+            "year": "1992",
+            "unstructured": "R. Bar-Yehuda, O. Goldreich and A. Itai, On the time-complexity of broadcast in multi-hop radio networks: An exponential gap between determinism and randomization, Journal of Computer and System Sciences 45(1) (August 1992) 104–126.",
+            "journal-title": "Journal of Computer and System Sciences"
+          },
+          {
+            "issue": "4",
+            "key": "392646_CR5",
+            "doi-asserted-by": "crossref",
+            "first-page": "875",
+            "DOI": "10.1137/0222055",
+            "volume": "22",
+            "author": "R. Bar-Yehuda",
+            "year": "1993",
+            "unstructured": "R. Bar-Yehuda, A. Israeli and A. Itai, Multiple communication in multi-hop radio networks, SIAM Journal on Computing 22(4) (August 1993) 875–887.",
+            "journal-title": "SIAM Journal on Computing"
+          },
+          {
+            "key": "392646_CR6",
+            "doi-asserted-by": "crossref",
+            "unstructured": "S. Basagni, I. Chlamtac, V.R. Syrotiuk and B.A. Woodward, A distance routing effect algorithm for mobility (DREAM), in: Proc. IEEE/ACM International Conference on Mobile Computing and Networking (MOBICOM) (1998) pp. 76–84.",
+            "DOI": "10.1145/288235.288254"
+          },
+          {
+            "key": "392646_CR7",
+            "unstructured": "J. Broch, D.B. Johnson and D.A. Maltz, The dynamic source routing protocol for mobile ad hoc networks, Internet Draft (work in progess) (1998) draft-ietf-manet-dsr-00.txt"
+          },
+          {
+            "key": "392646_CR8",
+            "doi-asserted-by": "crossref",
+            "unstructured": "J. Broch, D.A. Maltz, D.B. Johnson, Y.-C. Hu and J. Jetcheva, A performance comparison of multi-hop wireless ad hoc network routing protocols, in: Proc. IEEE/ACM Interference Conference on Mobile Computing and Networking (MOBICOM) (1998) pp. 85–97.",
+            "DOI": "10.1145/288235.288256"
+          },
+          {
+            "issue": "1",
+            "key": "392646_CR9",
+            "doi-asserted-by": "crossref",
+            "first-page": "23",
+            "DOI": "10.1109/90.282605",
+            "volume": "2",
+            "author": "I. Chlamtac",
+            "year": "1994",
+            "unstructured": "I. Chlamtac and A. Faragó, Making transmission schedules immune to topology changes in multi-hop packet radio networks, IEEE/ACM Transactions on Networking 2(1) (February 1994) 23–29.",
+            "journal-title": "IEEE/ACM Transactions on Networking"
+          },
+          {
+            "issue": "12",
+            "key": "392646_CR10",
+            "doi-asserted-by": "crossref",
+            "first-page": "1240",
+            "DOI": "10.1109/TCOM.1985.1096245",
+            "volume": "COM-33",
+            "author": "I. Chlamtac",
+            "year": "1985",
+            "unstructured": "I. Chlamtac and S. Kutten, On broadcasting in radio networks – problem analysis and protocol design, IEEE Transactions on Communications COM-33(12) (December 1985) 1240–1246.",
+            "journal-title": "IEEE Transactions on Communications"
+          },
+          {
+            "issue": "10",
+            "key": "392646_CR11",
+            "doi-asserted-by": "crossref",
+            "first-page": "1209",
+            "DOI": "10.1109/TC.1987.1676861",
+            "volume": "COM-36",
+            "author": "I. Chlamtac",
+            "year": "1987",
+            "unstructured": "I. Chlamtac and S. Kutten, Tree-based broadcasting in multihop radio networks, IEEE Transactions on Communications COM-36(10) (October 1987) 1209–1223.",
+            "journal-title": "IEEE Transactions on Communications"
+          },
+          {
+            "issue": "3",
+            "key": "392646_CR12",
+            "doi-asserted-by": "crossref",
+            "first-page": "426",
+            "DOI": "10.1109/26.79285",
+            "volume": "COM-39",
+            "author": "I. Chlamtac",
+            "year": "1991",
+            "unstructured": "I. Chlamtac and O. Weinstein, The wave expansion approach to broadcasting in multihop radio networks, IEEE Transactions on Communications COM-39(3) (March 1991) 426–433.",
+            "journal-title": "IEEE Transactions on Communications"
+          },
+          {
+            "key": "392646_CR13",
+            "series-title": "Technical report",
+            "volume-title": "Signal stability based adaptive routing (SSA) for ad-hoc mobile networks",
+            "author": "R. Dube",
+            "year": "1996",
+            "unstructured": "R. Dube, C.D. Rais, K.-Y. Wang and S.K. Tripathi, Signal stability based adaptive routing (SSA) for ad-hoc mobile networks, Technical report CS-TR-3646, University of Maryland, College Park (August 1996)."
+          },
+          {
+            "issue": "3",
+            "key": "392646_CR14",
+            "doi-asserted-by": "crossref",
+            "first-page": "255",
+            "DOI": "10.1007/BF01200845",
+            "volume": "1",
+            "author": "M. Gerla",
+            "year": "1995",
+            "unstructured": "M. Gerla and J.T.-C. Tsai, Multicluster, mobile, multimedia radio network, Wireless Networks 1(3) (1995) 255–265.",
+            "journal-title": "Wireless Networks"
+          },
+          {
+            "key": "392646_CR15",
+            "unstructured": "Z.J. Haas and M.R. Pearlman, The zone routing protocol (ZRP) for ad hoc networks, Internet Draft (work in progess) (1998) draft-ietf-manet-zone-zrp-01.txt."
+          },
+          {
+            "key": "392646_CR16",
+            "unstructured": "M. Jiang, J. Li and Y.C. Tay, Cluster based routing protocol (CBRP) functional specification, Internet Draft (work in progess) (1998) draft-ietf-manet-cbrp-spec-00.txt"
+          },
+          {
+            "issue": "3",
+            "key": "392646_CR17",
+            "doi-asserted-by": "crossref",
+            "first-page": "298",
+            "DOI": "10.1109/90.700893",
+            "volume": "6",
+            "author": "J.-H. Ju",
+            "year": "1998",
+            "unstructured": "J.-H. Ju and V.O.K. Li, An optimal topology-transparent scheduling method in multihop packet radio networks, IEEE/ACM Transactions on Networking 6(3) (June 1998) 298–306.",
+            "journal-title": "IEEE/ACM Transactions on Networking"
+          },
+          {
+            "key": "392646_CR18",
+            "volume-title": "Understanding GPS: Principles and Applications",
+            "year": "1996",
+            "unstructured": "E.D. Kaplan (ed.), Understanding GPS: Principles and Applications (Artech House, Boston, MA, 1996)."
+          },
+          {
+            "key": "392646_CR19",
+            "doi-asserted-by": "crossref",
+            "unstructured": "Y.-B. Ko and N.H. Vaidya, Location-aided routing (LAR) in mobile ad hoc networks, in: Proc. IEEE/ACM International Conference on Mobile Computing and Networking (MOBICOM) (1998) pp. 66–75.",
+            "DOI": "10.1145/288235.288252"
+          },
+          {
+            "key": "392646_CR20",
+            "unstructured": "LAN MAN Standards Committee of the IEEE Computer Society, IEEE Standard 802.11-1997, Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) specifications (November 1997)."
+          },
+          {
+            "key": "392646_CR21",
+            "unstructured": "C. Lee, J.E. Burns and M.H. Ammar, Improved randomized broadcast protocol in multi-hop radio networks, Technical report GIT-CC-93-14, College of Computing, Georgia Institute of Technology (February 1993)."
+          },
+          {
+            "issue": "3",
+            "key": "392646_CR22",
+            "doi-asserted-by": "crossref",
+            "first-page": "7",
+            "DOI": "10.1145/1321387.1321395",
+            "volume": "2",
+            "author": "J.P. Macker",
+            "year": "1998",
+            "unstructured": "J.P. Macker and M.S. Corson, Mobile ad hoc networking and the IETF, ACM Mobile Computing and Communications Review 2(3) (July 1998) 7–9.",
+            "journal-title": "ACM Mobile Computing and Communications Review"
+          },
+          {
+            "key": "392646_CR23",
+            "doi-asserted-by": "crossref",
+            "unstructured": "A. Michail and A. Ephremides, Energy efficient routing for connection-oriented traffic in ad-hoc wireless networks, in: IEEE International Symposium on Personal, Indoor and Mobile Radio Communications (2000) pp. 762–766.",
+            "DOI": "10.1109/PIMRC.2000.881525"
+          },
+          {
+            "key": "392646_CR24",
+            "doi-asserted-by": "crossref",
+            "unstructured": "E. Pagani and G.P. Rossi, Reliable broadcast in mobile multihop packet networks, in: Proc. IEEE/ACM International Conference on Mobile Computing and Networking (MOBICOM) (1997) pp. 34–42.",
+            "DOI": "10.1145/262116.262125"
+          },
+          {
+            "key": "392646_CR25",
+            "doi-asserted-by": "crossref",
+            "unstructured": "C.E. Perkins and E.M. Royer, Ad hoc on demand distance vector (AODV) routing, Internet Draft (work in progess) (1998) draft-ietf-manet-aodv-02.txt",
+            "DOI": "10.1109/MCSA.1999.749281"
+          },
+          {
+            "issue": "2",
+            "key": "392646_CR26",
+            "doi-asserted-by": "crossref",
+            "first-page": "166",
+            "DOI": "10.1109/90.222924",
+            "volume": "2",
+            "author": "S. Ramanathan",
+            "year": "1993",
+            "unstructured": "S. Ramanathan and E.L. Lloyd, Scheduling algorithms for multihop radio networks, IEEE/ACM Transactions on Networking 2(2) (April 1993) 166–177.",
+            "journal-title": "IEEE/ACM Transactions on Networking"
+          },
+          {
+            "key": "392646_CR27",
+            "doi-asserted-by": "crossref",
+            "first-page": "71",
+            "DOI": "10.1023/A:1019128411323",
+            "volume": "3",
+            "author": "A. Sen",
+            "year": "1997",
+            "unstructured": "A. Sen and M.L. Huson, A new model for scheduling packet radio networks, Wireless Networks 3 (1997) 71–82.",
+            "journal-title": "Wireless Networks"
+          },
+          {
+            "key": "392646_CR28",
+            "volume-title": "Wireless Multimedia Communications: Networking Video, Voice, and Data",
+            "author": "E.K. Wesel",
+            "year": "1998",
+            "unstructured": "E.K. Wesel, Wireless Multimedia Communications: Networking Video, Voice, and Data (Addison-Wesley, Reading, MA, 1998)."
+          }
+        ],
+        "container-title": [
+          "Wireless Networks"
+        ],
+        "language": "en",
+        "link": [
+          {
+            "URL": "https://link.springer.com/content/pdf/10.1023/A:1013763825347.pdf",
+            "content-type": "application/pdf",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://link.springer.com/article/10.1023/A:1013763825347/fulltext.html",
+            "content-type": "text/html",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://link.springer.com/content/pdf/10.1023/A:1013763825347.pdf",
+            "content-type": "application/pdf",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2025,
+              8,
+              13
+            ]
+          ],
+          "date-time": "2025-08-13T12:04:43Z",
+          "timestamp": 1755086683000
+        },
+        "score": 52.868706,
+        "resource": {
+          "primary": {
+            "URL": "https://link.springer.com/10.1023/A:1013763825347"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              2002,
+              3
+            ]
+          ]
+        },
+        "references-count": 28,
+        "journal-issue": {
+          "issue": "2-3",
+          "published-print": {
+            "date-parts": [
+              [
+                2002,
+                3
+              ]
+            ]
+          }
+        },
+        "alternative-id": [
+          "392646"
+        ],
+        "URL": "https://doi.org/10.1023/a:1013763825347",
+        "ISSN": [
+          "1022-0038",
+          "1572-8196"
+        ],
+        "issn-type": [
+          {
+            "value": "1022-0038",
+            "type": "print"
+          },
+          {
+            "value": "1572-8196",
+            "type": "electronic"
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2002,
+              3
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "query": "Trickle: A Self-Regulating Algorithm for Code Propagation and Maintenance in Wireless Sensor Networks",
+    "url": "https://api.crossref.org/works?query.title=Trickle%3A+A+Self-Regulating+Algorithm+for+Code+Propagation+and+Maintenance+in+Wireless+Sensor+Networks&rows=2",
+    "items": [
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2026,
+              9,
+              18
+            ]
+          ],
+          "date-time": "2026-09-18T17:12:22Z",
+          "timestamp": 1789751542677,
+          "version": "4.0.1"
+        },
+        "reference-count": 25,
+        "publisher": "Elsevier BV",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2018,
+                  8,
+                  1
+                ]
+              ],
+              "date-time": "2018-08-01T00:00:00Z",
+              "timestamp": 1533081600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          }
+        ],
+        "content-domain": {
+          "domain": [
+            "elsevier.com",
+            "sciencedirect.com"
+          ],
+          "crossmark-restriction": true
+        },
+        "short-container-title": [
+          "Computers &amp; Electrical Engineering"
+        ],
+        "published-print": {
+          "date-parts": [
+            [
+              2018,
+              8
+            ]
+          ]
+        },
+        "DOI": "10.1016/j.compeleceng.2017.12.022",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [
+            [
+              2017,
+              12,
+              16
+            ]
+          ],
+          "date-time": "2017-12-16T05:08:02Z",
+          "timestamp": 1513400882000
+        },
+        "page": "799-812",
+        "update-policy": "https://doi.org/10.1016/elsevier_cm_policy",
+        "source": "Crossref",
+        "is-referenced-by-count": 109,
+        "special_numbering": "C",
+        "title": [
+          "Self-maintenance model for Wireless Sensor Networks"
+        ],
+        "prefix": "10.1016",
+        "volume": "70",
+        "author": [
+          {
+            "given": "Walaa",
+            "family": "Elsayed",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-6347-8368",
+            "authenticated-orcid": false,
+            "given": "Mohamed",
+            "family": "Elhoseny",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sahar",
+            "family": "Sabbeh",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Alaa",
+            "family": "Riad",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "member": "78",
+        "reference": [
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0001",
+            "series-title": "An efficient fault detection algorithm in wireless sensor network",
+            "first-page": "279",
+            "author": "Panda",
+            "year": "2011"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0002",
+            "series-title": "ISAEBD 2011, Part IV, CCIS",
+            "first-page": "523",
+            "article-title": "A distributed algorithm for isolating malfunctioning nodes in wireless sensor networks",
+            "volume": "211",
+            "author": "Watfa",
+            "year": "2011"
+          },
+          {
+            "issue": "10",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0003",
+            "first-page": "146",
+            "article-title": "Fault tolerance in wireless sensor networks",
+            "volume": "2",
+            "author": "Mishra",
+            "year": "2012",
+            "journal-title": "Int J Adv Res Comput Sci Softw Eng"
+          },
+          {
+            "issue": "1",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0004",
+            "first-page": "57",
+            "article-title": "Sensor node failure or malfunctioning detection in wireless sensor network",
+            "volume": "3",
+            "author": "Duche",
+            "year": "2012",
+            "journal-title": "ACEEE Int J Commun"
+          },
+          {
+            "issue": "4",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0005",
+            "first-page": "127",
+            "article-title": "A review of fault detection techniques for wireless sensor networks",
+            "volume": "10",
+            "author": "Saurabh",
+            "year": "2013",
+            "journal-title": "IJCSI Int J Comput Sci Issues"
+          },
+          {
+            "issue": "9",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0006",
+            "doi-asserted-by": "crossref",
+            "first-page": "2024",
+            "DOI": "10.1002/sec.1459",
+            "article-title": "An energy efficient encryption method for secure dynamic WSN",
+            "author": "Elhoseny",
+            "year": "2016",
+            "journal-title": "Security Commun Networks"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0007",
+            "doi-asserted-by": "crossref",
+            "first-page": "3703",
+            "DOI": "10.1016/j.eswa.2013.11.034",
+            "article-title": "Probabilistic fault detector for wireless sensor network",
+            "volume": "41",
+            "author": "Lau",
+            "year": "2014",
+            "journal-title": "Expert Syst Appl"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0008",
+            "unstructured": "Guo S, Zhong Z, He T, 2009. FIND: faulty node detection for wireless sensor networks; NSF grants CNS- 0626609, CNS-0626614 and CNS-0917097; ACM 978-1-60558-748-6."
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0009",
+            "series-title": "International conference on automation, control, engineering and computer science",
+            "first-page": "95",
+            "article-title": "A real time centralized fault detection application in wireless sensor networks",
+            "author": "Saihi",
+            "year": "2014"
+          },
+          {
+            "issue": "7",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0010",
+            "doi-asserted-by": "crossref",
+            "first-page": "2683",
+            "DOI": "10.1109/JSEN.2013.2255591",
+            "article-title": "Fault node recovery algorithm for a wireless sensor network",
+            "volume": "13",
+            "author": "Shih",
+            "year": "2013",
+            "journal-title": "IEEE Sensors J"
+          },
+          {
+            "issue": "2",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0011",
+            "doi-asserted-by": "crossref",
+            "first-page": "175",
+            "DOI": "10.1002/wcm.1240",
+            "article-title": "A fault-tolerant energy-efficient clustering protocol of a wireless sensor network",
+            "volume": "14",
+            "author": "Karim",
+            "year": "2014",
+            "journal-title": "Wireless Commun Mobile Comput"
+          },
+          {
+            "issue": "2",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0012",
+            "doi-asserted-by": "crossref",
+            "first-page": "253",
+            "DOI": "10.15623/ijret.2015.0402033",
+            "article-title": "Fault detection and diagnosis of high-speed switching devices in power inverter",
+            "volume": "4",
+            "author": "Dhumale",
+            "year": "2015",
+            "journal-title": "Int J Res Eng Technol (IJRET)"
+          },
+          {
+            "issue": "2",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0013",
+            "first-page": "2393",
+            "article-title": "EEC: Evaluation of energy consumption in wireless sensor networks",
+            "volume": "3",
+            "author": "Tahir",
+            "year": "2016",
+            "journal-title": "Int J Eng Trends Appl (IJETA)"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0014",
+            "doi-asserted-by": "crossref",
+            "first-page": "309",
+            "DOI": "10.1007/978-3-642-17931-0_12",
+            "article-title": "Wireless sensor network anomalies: diagnosis and detection strategies",
+            "volume": "10",
+            "author": "Jurdak",
+            "year": "2011",
+            "journal-title": "Intell-Based Syst Eng, ISRL"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0015",
+            "first-page": "68",
+            "volume": "192",
+            "author": "Banerjee",
+            "year": "2011"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0016",
+            "first-page": "69",
+            "volume": "168",
+            "author": "Mahapatro",
+            "year": "2011"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0017",
+            "doi-asserted-by": "crossref",
+            "first-page": "1931",
+            "DOI": "10.1007/s11277-012-0916-8",
+            "article-title": "Online distributed fault diagnosis in wireless sensor networks",
+            "volume": "71",
+            "author": "Mahapatro",
+            "year": "2012",
+            "journal-title": "Wireless Pers Commun"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0018",
+            "doi-asserted-by": "crossref",
+            "first-page": "582",
+            "DOI": "10.1016/j.sysarc.2013.06.004",
+            "article-title": "A new self-diagnosing approach based on petri nets and correlation graphs for fault management in wireless sensor networks",
+            "volume": "59",
+            "author": "Babaie",
+            "year": "2013",
+            "journal-title": "J Syst Archit"
+          },
+          {
+            "issue": "2",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0019",
+            "doi-asserted-by": "crossref",
+            "first-page": "291",
+            "DOI": "10.1016/j.compeleceng.2013.04.027",
+            "article-title": "Effective fault detection and routing scheme for wireless sensor networks",
+            "volume": "40",
+            "author": "Banerjee",
+            "year": "2014",
+            "journal-title": "Comput Electr Eng"
+          },
+          {
+            "issue": "11",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0020",
+            "first-page": "400",
+            "article-title": "Recent advances of secure clustering protocols in wireless sensor networks",
+            "volume": "2",
+            "author": "Elhoseny",
+            "year": "2014",
+            "journal-title": "Int J Comput Networks Commun Secur"
+          },
+          {
+            "issue": "12",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0021",
+            "doi-asserted-by": "crossref",
+            "first-page": "2194",
+            "DOI": "10.1109/LCOMM.2014.2381226",
+            "article-title": "Balancing energy consumption in heterogeneous wireless sensor networks using genetic algorithm",
+            "volume": "19",
+            "author": "Elhoseny",
+            "year": "2015",
+            "journal-title": "IEEE Commun Lett"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0022",
+            "doi-asserted-by": "crossref",
+            "first-page": "194",
+            "DOI": "10.4236/wsn.2013.510022",
+            "article-title": "Energy efficient packet-duration-value based MAC protocol for wireless sensor networks",
+            "volume": "5",
+            "author": "Ajofoyinbo",
+            "year": "2013",
+            "journal-title": "Wireless Sens Network"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0023",
+            "series-title": "2015 IEEE 81st Vehicular Technology Conference (VTC Spring)",
+            "first-page": "1",
+            "article-title": "Energy-efficient fault-tolerant dynamic event region detection in wireless sensor networks",
+            "author": "Enemark",
+            "year": "2015"
+          },
+          {
+            "issue": "1",
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0024",
+            "doi-asserted-by": "crossref",
+            "first-page": "21",
+            "DOI": "10.1007/s10922-016-9379-7",
+            "article-title": "A genetic algorithm-based, dynamic clustering method towards improved WSN longevity",
+            "volume": "25",
+            "author": "Yuan",
+            "year": "2016",
+            "journal-title": "J Network Systems Manage"
+          },
+          {
+            "key": "10.1016/j.compeleceng.2017.12.022_bib0025",
+            "doi-asserted-by": "crossref",
+            "first-page": "142",
+            "DOI": "10.1016/j.eswa.2017.09.008",
+            "article-title": "Optimizing K-coverage of mobile WSNs",
+            "volume": "92",
+            "author": "Elhoseny",
+            "year": "2018",
+            "journal-title": "Expert Syst Appl"
+          }
+        ],
+        "container-title": [
+          "Computers &amp; Electrical Engineering"
+        ],
+        "language": "en",
+        "link": [
+          {
+            "URL": "https://api.elsevier.com/content/article/PII:S0045790617327660?httpAccept=text/xml",
+            "content-type": "text/xml",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://api.elsevier.com/content/article/PII:S0045790617327660?httpAccept=text/plain",
+            "content-type": "text/plain",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2024,
+              6,
+              29
+            ]
+          ],
+          "date-time": "2024-06-29T19:52:30Z",
+          "timestamp": 1719690750000
+        },
+        "score": 35.22793,
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0045790617327660"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              2018,
+              8
+            ]
+          ]
+        },
+        "references-count": 25,
+        "alternative-id": [
+          "S0045790617327660"
+        ],
+        "URL": "https://doi.org/10.1016/j.compeleceng.2017.12.022",
+        "ISSN": [
+          "0045-7906"
+        ],
+        "issn-type": [
+          {
+            "value": "0045-7906",
+            "type": "print"
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2018,
+              8
+            ]
+          ]
+        },
+        "assertion": [
+          {
+            "value": "Elsevier",
+            "name": "publisher",
+            "label": "This article is maintained by"
+          },
+          {
+            "value": "Self-maintenance model for Wireless Sensor Networks",
+            "name": "articletitle",
+            "label": "Article Title"
+          },
+          {
+            "value": "Computers & Electrical Engineering",
+            "name": "journaltitle",
+            "label": "Journal Title"
+          },
+          {
+            "value": "https://doi.org/10.1016/j.compeleceng.2017.12.022",
+            "name": "articlelink",
+            "label": "CrossRef DOI link to publisher maintained version"
+          },
+          {
+            "value": "article",
+            "name": "content_type",
+            "label": "Content Type"
+          },
+          {
+            "value": "© 2017 Elsevier Ltd. All rights reserved.",
+            "name": "copyright",
+            "label": "Copyright"
+          }
+        ]
+      },
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2022,
+              4,
+              4
+            ]
+          ],
+          "date-time": "2022-04-04T18:31:53Z",
+          "timestamp": 1649097113593
+        },
+        "reference-count": 11,
+        "publisher": "Elsevier BV",
+        "issue": "13",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2003,
+                  7,
+                  1
+                ]
+              ],
+              "date-time": "2003-07-01T00:00:00Z",
+              "timestamp": 1057017600000
+            },
+            "content-version": "tdm",
+            "delay-in-days": 0,
+            "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+          }
+        ],
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "short-container-title": [
+          "IFAC Proceedings Volumes"
+        ],
+        "published-print": {
+          "date-parts": [
+            [
+              2003,
+              7
+            ]
+          ]
+        },
+        "DOI": "10.1016/s1474-6670(17)32464-3",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [
+            [
+              2017,
+              5,
+              16
+            ]
+          ],
+          "date-time": "2017-05-16T18:03:24Z",
+          "timestamp": 1494957804000
+        },
+        "page": "53-57",
+        "source": "Crossref",
+        "is-referenced-by-count": 1,
+        "title": [
+          "Propagation delays in self-organized wireless sensor networks"
+        ],
+        "prefix": "10.1016",
+        "volume": "36",
+        "author": [
+          {
+            "given": "Jean-Dominique",
+            "family": "Decotignie",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "member": "78",
+        "reference": [
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0005",
+            "series-title": "Proceedings of the 19th IFAC/IFIP Workshop on Real-Time Programming",
+            "first-page": "9",
+            "article-title": "Spatio-Temporal Constraints in Fieldbus: Requirements and Current Solutions",
+            "author": "Decotignie",
+            "year": "1994"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0010",
+            "doi-asserted-by": "crossref",
+            "first-page": "105",
+            "DOI": "10.1109/PIMRC.1995.476413",
+            "article-title": "“A wireless gateway for fieldbus”",
+            "volume": "vol.1",
+            "author": "Morel",
+            "year": "1995",
+            "journal-title": "Sixth IEEE International Symposium on Personal, Indoor and Mobile Radio Communications PIMRC'95"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0015",
+            "volume": "vol.3/3",
+            "year": "1996",
+            "journal-title": "General Purpose Field Communication System"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0020",
+            "doi-asserted-by": "crossref",
+            "first-page": "55",
+            "DOI": "10.1109/65.3274",
+            "article-title": "Time Critical Communication Networks: Field Busses",
+            "volume": "vol. 2",
+            "author": "Pleinevaux",
+            "year": "1988",
+            "journal-title": "IEEE Network Magazine"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0025",
+            "series-title": "Proc. IEEE Symposium on Low Power Electronics, 1995",
+            "first-page": "8",
+            "article-title": "Low power communications protocols: paging and beyond",
+            "author": "Mangione-Smith",
+            "year": "1995"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0030",
+            "series-title": "Invited Presentation",
+            "article-title": "PicoRadio: Ultra-Low Energy Wireless Sensor and Monitor Networks",
+            "author": "Rabaey",
+            "year": "2000"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0035",
+            "series-title": "Proceedings IEEE Computer Society Workshop on VLSI",
+            "first-page": "9",
+            "article-title": "PicoRadio: Ad-hoc wireless networking of ubiquitous low-energy sensor/monitor nodes",
+            "author": "Rabaey",
+            "year": "2000"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0040",
+            "series-title": "IEE Colloquium on Safety Critical Distributed Systems",
+            "first-page": "6/1",
+            "article-title": "'“OLCHFA' a distributed time-critical fieldbus”",
+            "author": "Roberts",
+            "year": "1993"
+          },
+          {
+            "issue": "5",
+            "key": "10.1016/S1474-6670(17)32464-3_bib0045",
+            "doi-asserted-by": "crossref",
+            "first-page": "16",
+            "DOI": "10.1109/98.878532",
+            "article-title": "Protocols for self-organization of a wireless sensor network",
+            "volume": "volume 7",
+            "author": "Sohrabi",
+            "year": "2000",
+            "journal-title": "IEEE Personal Communications"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0050",
+            "series-title": "Proc. COMPEURO'93",
+            "first-page": "365",
+            "article-title": "Time and Industrial Local Area Networks",
+            "author": "Thomesse",
+            "year": "1993"
+          },
+          {
+            "key": "10.1016/S1474-6670(17)32464-3_bib0055",
+            "series-title": "Proc. 5th ACM/IEEE Mobicom Conference",
+            "article-title": "Adaptive Protocols for Information Dissemination in Wireless Sensor Networks",
+            "author": "Heinzelman",
+            "year": "1999"
+          }
+        ],
+        "container-title": [
+          "IFAC Proceedings Volumes"
+        ],
+        "language": "en",
+        "link": [
+          {
+            "URL": "https://api.elsevier.com/content/article/PII:S1474667017324643?httpAccept=text/xml",
+            "content-type": "text/xml",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://api.elsevier.com/content/article/PII:S1474667017324643?httpAccept=text/plain",
+            "content-type": "text/plain",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2018,
+              9,
+              1
+            ]
+          ],
+          "date-time": "2018-09-01T20:29:07Z",
+          "timestamp": 1535833747000
+        },
+        "score": 33.63531,
+        "resource": {
+          "primary": {
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1474667017324643"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              2003,
+              7
+            ]
+          ]
+        },
+        "references-count": 11,
+        "journal-issue": {
+          "issue": "13",
+          "published-print": {
+            "date-parts": [
+              [
+                2003,
+                7
+              ]
+            ]
+          }
+        },
+        "alternative-id": [
+          "S1474667017324643"
+        ],
+        "URL": "https://doi.org/10.1016/s1474-6670(17)32464-3",
+        "ISSN": [
+          "1474-6670"
+        ],
+        "issn-type": [
+          {
+            "value": "1474-6670",
+            "type": "print"
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2003,
+              7
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "query": "ExOR: opportunistic multi-hop routing for wireless networks",
+    "url": "https://api.crossref.org/works?query.title=ExOR%3A+opportunistic+multi-hop+routing+for+wireless+networks&rows=2",
+    "items": [
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2026,
+              10,
+              27
+            ]
+          ],
+          "date-time": "2026-10-27T18:33:47Z",
+          "timestamp": 1793126027420,
+          "version": "4.5.0"
+        },
+        "reference-count": 10,
+        "publisher": "Association for Computing Machinery (ACM)",
+        "issue": "1",
+        "license": [
+          {
+            "start": {
+              "date-parts": [
+                [
+                  2004,
+                  1,
+                  1
+                ]
+              ],
+              "date-time": "2004-01-01T00:00:00Z",
+              "timestamp": 1072915200000
+            },
+            "content-version": "vor",
+            "delay-in-days": 0,
+            "URL": "https://www.acm.org/publications/policies/copyright_policy#Background"
+          }
+        ],
+        "content-domain": {
+          "domain": [
+            "dl.acm.org"
+          ],
+          "crossmark-restriction": true
+        },
+        "short-container-title": [
+          "SIGCOMM Comput. Commun. Rev."
+        ],
+        "published-print": {
+          "date-parts": [
+            [
+              2004,
+              1
+            ]
+          ]
+        },
+        "abstract": "<jats:p>This paper describes Extremely Opportunistic Routing (ExOR), a new unicast routing technique for multi-hop wireless networks. ExOR forwards each packet through a sequence of nodes, deferring the choice of each node in the sequence until after the previous node has transmitted the packet on its radio. ExOR then determines which node, of all the nodes that successfully received that transmission, is the node closest to the destination. That closest node transmits the packet. The result is that each hop moves the packet farther (or average) than the hops of the best possible pre-determined route.The ExOR design addresses the challenge of choosing a forwarding node after transmission using a distributed algorithm. First, when a node transmits a packet, it includes in the packet a simple schedule describing the priority order in which the potential receivers should forward the packet. The node computes the schedule based on shared measurements of inter-node delivery rates. ExOR then uses a distributed slotted MAC protocol for acknowledgements to ensure that the receivers agree who the highest priority receiver was.The efficacy of ExOR depends mainly on the rate at which the reception probability falls off with distance. Simulations based on measured radio characteristics [6] suggest that ExOR reduces the total number of transmissions by nearly a factor of two over the best possible pre-determined route.</jats:p>",
+        "DOI": "10.1145/972374.972387",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [
+            [
+              2004,
+              10,
+              12
+            ]
+          ],
+          "date-time": "2004-10-12T09:44:32Z",
+          "timestamp": 1097574272000
+        },
+        "page": "69-74",
+        "update-policy": "https://doi.org/10.1145/crossmark-policy",
+        "source": "Crossref",
+        "is-referenced-by-count": 399,
+        "title": [
+          "Opportunistic routing in multi-hop wireless networks"
+        ],
+        "prefix": "10.1145",
+        "volume": "34",
+        "author": [
+          {
+            "given": "Sanjit",
+            "family": "Biswas",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "MIT Laboratory for Computer Science"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Robert",
+            "family": "Morris",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "MIT Laboratory for Computer Science"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "member": "320",
+        "published-online": {
+          "date-parts": [
+            [
+              2004,
+              1
+            ]
+          ]
+        },
+        "reference": [
+          {
+            "key": "e_1_2_1_1_1",
+            "volume-title": "IGF: A state-free robust communication protocol for wireless sensor networks. Technical report CS-2003-11",
+            "author": "Blum B.",
+            "year": "2003",
+            "unstructured": "B. Blum , T. He , S. Son , and J. Stankovic . IGF: A state-free robust communication protocol for wireless sensor networks. Technical report CS-2003-11 , University of Virginia CS Department , 2003 . B. Blum, T. He, S. Son, and J. Stankovic. IGF: A state-free robust communication protocol for wireless sensor networks. Technical report CS-2003-11, University of Virginia CS Department, 2003."
+          },
+          {
+            "key": "e_1_2_1_2_1",
+            "volume-title": "Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications",
+            "author": "IEEE Computer Society LAN MAN Standards Committee.",
+            "year": "1997",
+            "unstructured": "IEEE Computer Society LAN MAN Standards Committee. Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications . New York , New York, 1997 . IEEE Std . 802.11--1997. IEEE Computer Society LAN MAN Standards Committee. Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications. New York, New York, 1997. IEEE Std. 802.11--1997."
+          },
+          {
+            "key": "e_1_2_1_3_1",
+            "volume-title": "USC ISI",
+            "author": "Finn Gregory G.",
+            "year": "1987",
+            "unstructured": "Gregory G. Finn . Routing and addressing problems in large metropolitan-scale internetworks. Technical report ISI/RR-87-180 , USC ISI , March 1987 . Gregory G. Finn. Routing and addressing problems in large metropolitan-scale internetworks. Technical report ISI/RR-87-180, USC ISI, March 1987."
+          },
+          {
+            "key": "e_1_2_1_4_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/90.650139"
+          },
+          {
+            "key": "e_1_2_1_5_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/509506.509514"
+          },
+          {
+            "key": "e_1_2_1_6_1",
+            "volume-title": "UCLA CS Department",
+            "author": "Ganesan D.",
+            "year": "2002",
+            "unstructured": "D. Ganesan , B. Krishnamachari , A. Woo , D. Culler , D. Estrin , and S. Wicker . Complex behavior at scale: An experimental study of low-power wireless sensor networks. Technical report UCLA/CSD-TR 02--0013 , UCLA CS Department , 2002 . D. Ganesan, B. Krishnamachari, A. Woo, D. Culler, D. Estrin, and S. Wicker. Complex behavior at scale: An experimental study of low-power wireless sensor networks. Technical report UCLA/CSD-TR 02--0013, UCLA CS Department, 2002."
+          },
+          {
+            "key": "e_1_2_1_7_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/345910.345953"
+          },
+          {
+            "key": "e_1_2_1_8_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/288235.288252"
+          },
+          {
+            "key": "e_1_2_1_9_1",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/WCNC.2000.904590"
+          },
+          {
+            "key": "e_1_2_1_10_1",
+            "volume-title": "Proc. Allerton Conference on Communications, Control, and Computing",
+            "author": "Laneman J. N.",
+            "year": "2000",
+            "unstructured": "J. N. Laneman and G. Wornell . Exploiting distributed spatial diversity in wireless networks . In Proc. Allerton Conference on Communications, Control, and Computing , October 2000 . J. N. Laneman and G. Wornell. Exploiting distributed spatial diversity in wireless networks. In Proc. Allerton Conference on Communications, Control, and Computing, October 2000."
+          }
+        ],
+        "container-title": [
+          "ACM SIGCOMM Computer Communication Review"
+        ],
+        "language": "en",
+        "link": [
+          {
+            "URL": "https://dl.acm.org/doi/10.1145/972374.972387",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://dl.acm.org/doi/pdf/10.1145/972374.972387",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2025,
+              6,
+              18
+            ]
+          ],
+          "date-time": "2025-06-18T17:41:20Z",
+          "timestamp": 1750268480000
+        },
+        "score": 49.980904,
+        "resource": {
+          "primary": {
+            "URL": "https://dl.acm.org/doi/10.1145/972374.972387"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              2004,
+              1
+            ]
+          ]
+        },
+        "references-count": 10,
+        "journal-issue": {
+          "issue": "1",
+          "published-print": {
+            "date-parts": [
+              [
+                2004,
+                1
+              ]
+            ]
+          }
+        },
+        "alternative-id": [
+          "10.1145/972374.972387"
+        ],
+        "URL": "https://doi.org/10.1145/972374.972387",
+        "ISSN": [
+          "0146-4833"
+        ],
+        "issn-type": [
+          {
+            "value": "0146-4833",
+            "type": "print"
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2004,
+              1
+            ]
+          ]
+        },
+        "assertion": [
+          {
+            "value": "2004-01-01",
+            "order": 2,
+            "name": "published",
+            "label": "Published",
+            "group": {
+              "name": "publication_history",
+              "label": "Publication History"
+            }
+          }
+        ]
+      },
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2024,
+              9,
+              5
+            ]
+          ],
+          "date-time": "2024-09-05T04:09:36Z",
+          "timestamp": 1725509376355
+        },
+        "reference-count": 6,
+        "publisher": "IEEE",
+        "content-domain": {
+          "domain": [],
+          "crossmark-restriction": false
+        },
+        "published-print": {
+          "date-parts": [
+            [
+              2009,
+              9
+            ]
+          ]
+        },
+        "DOI": "10.1109/wicom.2009.5302409",
+        "type": "proceedings-article",
+        "created": {
+          "date-parts": [
+            [
+              2009,
+              11,
+              5
+            ]
+          ],
+          "date-time": "2009-11-05T13:46:55Z",
+          "timestamp": 1257428815000
+        },
+        "page": "1-3",
+        "source": "Crossref",
+        "is-referenced-by-count": 0,
+        "title": [
+          "Multi-Stream Opportunistic Routing Protocol for Multi-Hop Wireless Networks"
+        ],
+        "prefix": "10.1109",
+        "author": [
+          {
+            "given": "Shuang",
+            "family": "Yuan",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Muqing",
+            "family": "Wu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yan",
+            "family": "Zhen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "member": "263",
+        "reference": [
+          {
+            "key": "3",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/190314.190336"
+          },
+          {
+            "key": "2",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/MCSA.1999.749281"
+          },
+          {
+            "key": "1",
+            "article-title": "DSR: The dynamic source routing protocol for multihop wireless ad hoc networks",
+            "author": "johnson",
+            "year": "2001",
+            "journal-title": "Ad Hoc Networking"
+          },
+          {
+            "key": "6",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1145/938998.939000"
+          },
+          {
+            "key": "5",
+            "article-title": "Simple Opportunistic Routing Protocol for Wireless Mesh Networks. Wireless Mesh Networks, 2006. WiMesh 2006",
+            "author": "rozner",
+            "year": "2006",
+            "journal-title": "2nd IEEE Workshop on 25-28"
+          },
+          {
+            "key": "4",
+            "doi-asserted-by": "publisher",
+            "DOI": "10.1109/WOWMOM.2005.42"
+          }
+        ],
+        "event": {
+          "name": "2009 5th International Conference on Wireless Communications, Networking and Mobile Computing (WiCOM)",
+          "start": {
+            "date-parts": [
+              [
+                2009,
+                9,
+                24
+              ]
+            ]
+          },
+          "location": "Beijing, China",
+          "end": {
+            "date-parts": [
+              [
+                2009,
+                9,
+                26
+              ]
+            ]
+          }
+        },
+        "container-title": [
+          "2009 5th International Conference on Wireless Communications, Networking and Mobile Computing"
+        ],
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/5300798/5300799/05302409.pdf?arnumber=5302409",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2017,
+              3,
+              18
+            ]
+          ],
+          "date-time": "2017-03-18T20:47:01Z",
+          "timestamp": 1489870021000
+        },
+        "score": 46.31835,
+        "resource": {
+          "primary": {
+            "URL": "http://ieeexplore.ieee.org/document/5302409/"
+          }
+        },
+        "issued": {
+          "date-parts": [
+            [
+              2009,
+              9
+            ]
+          ]
+        },
+        "references-count": 6,
+        "URL": "https://doi.org/10.1109/wicom.2009.5302409",
+        "published": {
+          "date-parts": [
+            [
+              2009,
+              9
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "query": "Gossip-based ad hoc routing",
+    "error": "HTTP Error 429: Too Many Requests"
+  }
+]

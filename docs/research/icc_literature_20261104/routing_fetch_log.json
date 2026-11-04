@@ -1,0 +1,57 @@
+[
+  {
+    "id": "exor_crossref",
+    "url": "https://api.crossref.org/works/10.1145/1080091.1080118",
+    "final_url": "https://api.crossref.org/works/10.1145/1080091.1080118",
+    "file": "docs/research/icc_literature_20261104/exor_crossref.json",
+    "bytes": 11807,
+    "type": "application/json"
+  },
+  {
+    "id": "gossip_crossref",
+    "url": "https://api.crossref.org/works/10.1109/INFCOM.2002.1019368",
+    "final_url": "https://api.crossref.org/works/10.1109/INFCOM.2002.1019368",
+    "file": "docs/research/icc_literature_20261104/gossip_crossref.json",
+    "bytes": 4631,
+    "type": "application/json"
+  },
+  {
+    "id": "trickle_openalex",
+    "url": "https://api.openalex.org/works?search=Trickle%20A%20Self-Regulating%20Algorithm%20for%20Code%20Propagation%20and%20Maintenance%20in%20Wireless%20Sensor%20Networks&per-page=2",
+    "final_url": "https://api.openalex.org/works?search=Trickle%20A%20Self-Regulating%20Algorithm%20for%20Code%20Propagation%20and%20Maintenance%20in%20Wireless%20Sensor%20Networks&per-page=2",
+    "file": "docs/research/icc_literature_20261104/trickle_openalex.json",
+    "bytes": 30980,
+    "type": "application/json"
+  },
+  {
+    "id": "dsr_springer",
+    "url": "https://link.springer.com/chapter/10.1007/978-0-585-29603-6_5",
+    "final_url": "https://link.springer.com/chapter/10.1007/978-0-585-29603-6_5?error=cookies_not_supported&code=51a9f794-cb8a-4882-8cb1-94c8c33ddfa7",
+    "file": "docs/research/icc_literature_20261104/dsr_springer.html",
+    "bytes": 311349,
+    "type": "text/html; charset=utf-8"
+  },
+  {
+    "id": "trickle_usenix",
+    "url": "https://www.usenix.org/legacy/events/nsdi04/tech/levis.html",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "etx_pdf",
+    "url": "https://pdos.csail.mit.edu/papers/grid:mobicom03/paper.pdf",
+    "final_url": "https://pdos.csail.mit.edu/papers/grid:mobicom03/paper.pdf",
+    "file": "docs/research/icc_literature_20261104/etx_pdf.pdf",
+    "bytes": 284493,
+    "type": "application/pdf"
+  },
+  {
+    "id": "exor_pdf",
+    "url": "https://pdos.csail.mit.edu/papers/exor-sigcomm05.pdf",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "broadcast_acm",
+    "url": "https://dl.acm.org/doi/10.1145/313451.313525",
+    "error": "HTTP Error 403: Forbidden"
+  }
+]

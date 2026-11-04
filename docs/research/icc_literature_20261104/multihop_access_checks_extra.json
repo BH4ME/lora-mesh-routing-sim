@@ -1,0 +1,41 @@
+[
+  {
+    "key": "mrt_publisher",
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0140366422004637",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "mrt_elsevier_xml",
+    "url": "https://api.elsevier.com/content/article/pii/S0140366422004637?httpAccept=text/xml",
+    "status": 200,
+    "content_type": "text/xml;charset=UTF-8",
+    "bytes": 1859,
+    "file": "docs/research/icc_literature_20261104/multihop_mrt_elsevier_xml.txt"
+  },
+  {
+    "key": "cost_routing_crossref",
+    "url": "https://api.crossref.org/works/10.1109/INFOCOMWKSHPS54753.2022.9798302",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 4436,
+    "file": "docs/research/icc_literature_20261104/multihop_cost_routing_crossref.json"
+  },
+  {
+    "key": "cost_routing_openalex",
+    "url": "https://api.openalex.org/works/https://doi.org/10.1109/INFOCOMWKSHPS54753.2022.9798302",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 13291,
+    "file": "docs/research/icc_literature_20261104/multihop_cost_routing_openalex.json"
+  },
+  {
+    "key": "sole_ieee_pdf",
+    "url": "https://ieeexplore.ieee.org/ielx7/6287639/9668973/09930341.pdf",
+    "error": "HTTP Error 418: Unknown Code"
+  },
+  {
+    "key": "pueyo_ieee_pdf",
+    "url": "https://ieeexplore.ieee.org/ielx8/6287639/10380310/10636160.pdf",
+    "error": "HTTP Error 418: Unknown Code"
+  }
+]

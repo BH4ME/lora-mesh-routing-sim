@@ -1,0 +1,1255 @@
+{
+  "id": "https://openalex.org/W4312791581",
+  "doi": "https://doi.org/10.1109/access.2022.3217215",
+  "title": "Implementation of a LoRa Mesh Library",
+  "display_name": "Implementation of a LoRa Mesh Library",
+  "publication_year": 2022,
+  "publication_date": "2022-01-01",
+  "ids": {
+    "openalex": "https://openalex.org/W4312791581",
+    "doi": "https://doi.org/10.1109/access.2022.3217215"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1109/access.2022.3217215",
+    "doi": "https://doi.org/10.1109/access.2022.3217215",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1109/access.2022.3217215",
+    "pdf_url": "https://ieeexplore.ieee.org/ielx7/6287639/9668973/09930341.pdf",
+    "source": {
+      "id": "https://openalex.org/S2485537415",
+      "display_name": "IEEE Access",
+      "issn_l": "2169-3536",
+      "issn": [
+        "2169-3536"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "anvur-scientific",
+        "cwts-core",
+        "doaj",
+        "jufo-1",
+        "ki-jl-1",
+        "norway-1",
+        "oarl",
+        "poland-100",
+        "russia-white-list-1",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310319808",
+      "host_organization_name": "Institute of Electrical and Electronics Engineers",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319808"
+      ],
+      "host_organization_lineage_names": [
+        "Institute of Electrical and Electronics Engineers"
+      ],
+      "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "IEEE Access",
+    "raw_type": "journal-article"
+  },
+  "volume": null,
+  "type": "article",
+  "indexed_in": [
+    "crossref",
+    "doaj"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "gold",
+    "oa_url": "https://ieeexplore.ieee.org/ielx7/6287639/9668973/09930341.pdf",
+    "any_repository_has_fulltext": true
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5016121023",
+        "display_name": "Joan Miquel Solé",
+        "orcid": "https://orcid.org/0000-0003-3737-376X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-3737-376X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I9617848",
+          "display_name": "Universitat Politècnica de Catalunya",
+          "ror": "https://ror.org/03mb6wj31",
+          "country_code": "ES",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I9617848"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Joan Miquel Sole",
+      "raw_affiliation_strings": [
+        "Department of Computer Architecture, Universitat Polit&#x00E8;cnica de Catalunya, BarcelonaTech, Barcelona, Spain"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-3737-376X",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Computer Architecture, Universitat Polit&#x00E8;cnica de Catalunya, BarcelonaTech, Barcelona, Spain",
+          "institution_ids": [
+            "https://openalex.org/I9617848"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5053609729",
+        "display_name": "Roger Pueyo Centelles",
+        "orcid": "https://orcid.org/0000-0002-3133-0657",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-3133-0657"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I9617848",
+          "display_name": "Universitat Politècnica de Catalunya",
+          "ror": "https://ror.org/03mb6wj31",
+          "country_code": "ES",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I9617848"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Roger Pueyo Centelles",
+      "raw_affiliation_strings": [
+        "Department of Computer Architecture, Universitat Polit&#x00E8;cnica de Catalunya, BarcelonaTech, Barcelona, Spain"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0002-3133-0657",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Computer Architecture, Universitat Polit&#x00E8;cnica de Catalunya, BarcelonaTech, Barcelona, Spain",
+          "institution_ids": [
+            "https://openalex.org/I9617848"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5066864067",
+        "display_name": "Fèlix Freitag",
+        "orcid": "https://orcid.org/0000-0001-5438-479X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-5438-479X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I9617848",
+          "display_name": "Universitat Politècnica de Catalunya",
+          "ror": "https://ror.org/03mb6wj31",
+          "country_code": "ES",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I9617848"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Felix Freitag",
+      "raw_affiliation_strings": [
+        "Department of Computer Architecture, Universitat Polit&#x00E8;cnica de Catalunya, BarcelonaTech, Barcelona, Spain"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0001-5438-479X",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Computer Architecture, Universitat Polit&#x00E8;cnica de Catalunya, BarcelonaTech, Barcelona, Spain",
+          "institution_ids": [
+            "https://openalex.org/I9617848"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5021579981",
+        "display_name": "Roc Meseguer",
+        "orcid": "https://orcid.org/0000-0002-9414-646X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-9414-646X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I9617848",
+          "display_name": "Universitat Politècnica de Catalunya",
+          "ror": "https://ror.org/03mb6wj31",
+          "country_code": "ES",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I9617848"
+          ]
+        }
+      ],
+      "countries": [
+        "ES"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Roc Meseguer",
+      "raw_affiliation_strings": [
+        "Department of Computer Architecture, Universitat Polit&#x00E8;cnica de Catalunya, BarcelonaTech, Barcelona, Spain"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Computer Architecture, Universitat Polit&#x00E8;cnica de Catalunya, BarcelonaTech, Barcelona, Spain",
+          "institution_ids": [
+            "https://openalex.org/I9617848"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 1,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [
+    "https://openalex.org/I9617848"
+  ],
+  "apc_list": {
+    "value": 1850,
+    "currency": "USD",
+    "value_usd": 1850
+  },
+  "apc_paid": {
+    "value": 1850,
+    "currency": "USD",
+    "value_usd": 1850
+  },
+  "fwci": 2.5341,
+  "has_fulltext": true,
+  "cited_by_count": 47,
+  "citation_normalized_percentile": {
+    "value": 0.90715938,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 99,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "10",
+    "issue": null,
+    "first_page": "113158",
+    "last_page": "113171"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T12079",
+    "display_name": "IoT Networks and Protocols",
+    "score": 0.9984999895095825,
+    "subfield": {
+      "id": "https://openalex.org/subfields/2208",
+      "display_name": "Electrical and Electronic Engineering"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T12079",
+      "display_name": "IoT Networks and Protocols",
+      "score": 0.9984999895095825,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10080",
+      "display_name": "Energy Efficient Wireless Sensor Networks",
+      "score": 0.0012000000569969416,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10273",
+      "display_name": "IoT and Edge/Fog Computing",
+      "score": 0.0,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/lora",
+      "display_name": "LoRa",
+      "score": 0.9660000205039978
+    },
+    {
+      "id": "https://openalex.org/keywords/lora-mesh-networks",
+      "display_name": "LoRa mesh networks",
+      "score": 0.7910000085830688
+    },
+    {
+      "id": "https://openalex.org/keywords/proactive-routing-protocols",
+      "display_name": "proactive routing",
+      "score": 0.9670000076293945
+    },
+    {
+      "id": "https://openalex.org/keywords/routing-table-maintenance",
+      "display_name": "routing table maintenance",
+      "score": 0.8420000076293945
+    },
+    {
+      "id": "https://openalex.org/keywords/internet-of-things",
+      "display_name": "Internet of Things",
+      "score": 0.7860000133514404
+    },
+    {
+      "id": "https://openalex.org/keywords/low-power-long-range-communication",
+      "display_name": "low-power long-range communication",
+      "score": 0.6940000057220459
+    },
+    {
+      "id": "https://openalex.org/keywords/esp32",
+      "display_name": "ESP32 microcontroller",
+      "score": 0.8999999761581421
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C31258907",
+      "wikidata": "https://www.wikidata.org/wiki/Q1301371",
+      "display_name": "Computer network",
+      "level": 1,
+      "score": 0.8647249937057495
+    },
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.8292827010154724
+    },
+    {
+      "id": "https://openalex.org/C31548570",
+      "wikidata": "https://www.wikidata.org/wiki/Q6453712",
+      "display_name": "Wireless mesh network",
+      "level": 4,
+      "score": 0.6415405869483948
+    },
+    {
+      "id": "https://openalex.org/C184896649",
+      "wikidata": "https://www.wikidata.org/wiki/Q290066",
+      "display_name": "Routing table",
+      "level": 4,
+      "score": 0.6378766894340515
+    },
+    {
+      "id": "https://openalex.org/C123691950",
+      "wikidata": "https://www.wikidata.org/wiki/Q25552104",
+      "display_name": "Mesh networking",
+      "level": 3,
+      "score": 0.6157265901565552
+    },
+    {
+      "id": "https://openalex.org/C158379750",
+      "wikidata": "https://www.wikidata.org/wiki/Q214111",
+      "display_name": "Network packet",
+      "level": 2,
+      "score": 0.5533087253570557
+    },
+    {
+      "id": "https://openalex.org/C104954878",
+      "wikidata": "https://www.wikidata.org/wiki/Q1648707",
+      "display_name": "Routing protocol",
+      "level": 3,
+      "score": 0.5445989370346069
+    },
+    {
+      "id": "https://openalex.org/C187713609",
+      "wikidata": "https://www.wikidata.org/wiki/Q2465461",
+      "display_name": "Default gateway",
+      "level": 2,
+      "score": 0.5109645128250122
+    },
+    {
+      "id": "https://openalex.org/C62611344",
+      "wikidata": "https://www.wikidata.org/wiki/Q1062658",
+      "display_name": "Node (physics)",
+      "level": 2,
+      "score": 0.49434447288513184
+    },
+    {
+      "id": "https://openalex.org/C199845137",
+      "wikidata": "https://www.wikidata.org/wiki/Q145490",
+      "display_name": "Network topology",
+      "level": 2,
+      "score": 0.4617919921875
+    },
+    {
+      "id": "https://openalex.org/C74172769",
+      "wikidata": "https://www.wikidata.org/wiki/Q1446839",
+      "display_name": "Routing (electronic design automation)",
+      "level": 2,
+      "score": 0.4328678846359253
+    },
+    {
+      "id": "https://openalex.org/C120314980",
+      "wikidata": "https://www.wikidata.org/wiki/Q180634",
+      "display_name": "Distributed computing",
+      "level": 1,
+      "score": 0.334155797958374
+    },
+    {
+      "id": "https://openalex.org/C555944384",
+      "wikidata": "https://www.wikidata.org/wiki/Q249",
+      "display_name": "Wireless",
+      "level": 2,
+      "score": 0.22052696347236633
+    },
+    {
+      "id": "https://openalex.org/C108037233",
+      "wikidata": "https://www.wikidata.org/wiki/Q11375",
+      "display_name": "Wireless network",
+      "level": 3,
+      "score": 0.18729650974273682
+    },
+    {
+      "id": "https://openalex.org/C76155785",
+      "wikidata": "https://www.wikidata.org/wiki/Q418",
+      "display_name": "Telecommunications",
+      "level": 1,
+      "score": 0.15801110863685608
+    },
+    {
+      "id": "https://openalex.org/C127413603",
+      "wikidata": "https://www.wikidata.org/wiki/Q11023",
+      "display_name": "Engineering",
+      "level": 0,
+      "score": 0.10203090310096741
+    },
+    {
+      "id": "https://openalex.org/C66938386",
+      "wikidata": "https://www.wikidata.org/wiki/Q633538",
+      "display_name": "Structural engineering",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 3,
+  "locations": [
+    {
+      "id": "doi:10.1109/access.2022.3217215",
+      "doi": "https://doi.org/10.1109/access.2022.3217215",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.1109/access.2022.3217215",
+      "pdf_url": "https://ieeexplore.ieee.org/ielx7/6287639/9668973/09930341.pdf",
+      "source": {
+        "id": "https://openalex.org/S2485537415",
+        "display_name": "IEEE Access",
+        "issn_l": "2169-3536",
+        "issn": [
+          "2169-3536"
+        ],
+        "is_oa": true,
+        "is_in_doaj": true,
+        "is_core": true,
+        "listed_in": [
+          "anvur-scientific",
+          "cwts-core",
+          "doaj",
+          "jufo-1",
+          "ki-jl-1",
+          "norway-1",
+          "oarl",
+          "poland-100",
+          "russia-white-list-1",
+          "vabb-shw"
+        ],
+        "host_organization": "https://openalex.org/P4310319808",
+        "host_organization_name": "Institute of Electrical and Electronics Engineers",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319808"
+        ],
+        "host_organization_lineage_names": [
+          "Institute of Electrical and Electronics Engineers"
+        ],
+        "type": "journal"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "IEEE Access",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmh:oai:doaj.org/article:02529db48d624c46b23df9486f295570",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "https://doaj.org/article/02529db48d624c46b23df9486f295570",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306401280",
+        "display_name": "DOAJ (DOAJ: Directory of Open Access Journals)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": null,
+        "host_organization_name": null,
+        "host_organization_lineage": [],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by-sa",
+      "license_id": "https://openalex.org/licenses/cc-by-sa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "IEEE Access, Vol 10, Pp 113158-113171 (2022)",
+      "raw_type": "article"
+    },
+    {
+      "id": "pmh:oai:upcommons.upc.edu:2117/377515",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "http://hdl.handle.net/2117/377515",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4377196262",
+        "display_name": "UPCommons institutional repository (Universitat Politècnica de Catalunya)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I9617848",
+        "host_organization_name": "Universitat Politècnica de Catalunya",
+        "host_organization_lineage": [
+          "https://openalex.org/I9617848"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": "Article"
+    }
+  ],
+  "best_oa_location": {
+    "id": "doi:10.1109/access.2022.3217215",
+    "doi": "https://doi.org/10.1109/access.2022.3217215",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1109/access.2022.3217215",
+    "pdf_url": "https://ieeexplore.ieee.org/ielx7/6287639/9668973/09930341.pdf",
+    "source": {
+      "id": "https://openalex.org/S2485537415",
+      "display_name": "IEEE Access",
+      "issn_l": "2169-3536",
+      "issn": [
+        "2169-3536"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "anvur-scientific",
+        "cwts-core",
+        "doaj",
+        "jufo-1",
+        "ki-jl-1",
+        "norway-1",
+        "oarl",
+        "poland-100",
+        "russia-white-list-1",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310319808",
+      "host_organization_name": "Institute of Electrical and Electronics Engineers",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319808"
+      ],
+      "host_organization_lineage_names": [
+        "Institute of Electrical and Electronics Engineers"
+      ],
+      "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "IEEE Access",
+    "raw_type": "journal-article"
+  },
+  "sustainable_development_goals": [
+    {
+      "display_name": "Industry, innovation and infrastructure",
+      "score": 0.7207000255584717,
+      "id": "https://metadata.un.org/sdg/9"
+    }
+  ],
+  "study_designs": [],
+  "awards": [
+    {
+      "id": "https://openalex.org/G1269555003",
+      "display_name": null,
+      "funder_award_id": "PCI2019-111851-2",
+      "funder_id": "https://openalex.org/F4320335598",
+      "funder_display_name": "Agencia Estatal de Investigación"
+    },
+    {
+      "id": "https://openalex.org/G1869550644",
+      "display_name": null,
+      "funder_award_id": "PID2019-106774RB-C21",
+      "funder_id": "https://openalex.org/F4320335598",
+      "funder_display_name": "Agencia Estatal de Investigación"
+    },
+    {
+      "id": "https://openalex.org/G2515089198",
+      "display_name": "Distributed Stream Processing on Fog and Edge Systems via Transprecise Computing",
+      "funder_award_id": "ANR-19-CHR3-0002",
+      "funder_id": "https://openalex.org/F4320320883",
+      "funder_display_name": "Agence Nationale de la Recherche"
+    },
+    {
+      "id": "https://openalex.org/G3690828678",
+      "display_name": null,
+      "funder_award_id": "PID2019",
+      "funder_id": "https://openalex.org/F4320322930",
+      "funder_display_name": "Ministerio de Ciencia e Innovación"
+    },
+    {
+      "id": "https://openalex.org/G3759251972",
+      "display_name": null,
+      "funder_award_id": "PID2019-106774RB-C21",
+      "funder_id": "https://openalex.org/F4320322930",
+      "funder_display_name": "Ministerio de Ciencia e Innovación"
+    },
+    {
+      "id": "https://openalex.org/G4121297948",
+      "display_name": null,
+      "funder_award_id": "PCI2019-111850-2",
+      "funder_id": "https://openalex.org/F4320338463",
+      "funder_display_name": "CHIST-ERA"
+    },
+    {
+      "id": "https://openalex.org/G4246703479",
+      "display_name": null,
+      "funder_award_id": "PCI2019-111850-2 (DiPET CHIST-ERA)",
+      "funder_id": "https://openalex.org/F4320323737",
+      "funder_display_name": "Ministerio de Ciencia y Tecnología"
+    },
+    {
+      "id": "https://openalex.org/G5749149472",
+      "display_name": null,
+      "funder_award_id": "PCI2019-111851-2 (LeadingEdge CHIST-ERA)",
+      "funder_id": "https://openalex.org/F4320323737",
+      "funder_display_name": "Ministerio de Ciencia y Tecnología"
+    },
+    {
+      "id": "https://openalex.org/G6011065592",
+      "display_name": null,
+      "funder_award_id": "PCI2019-111850-2",
+      "funder_id": "https://openalex.org/F4320335598",
+      "funder_display_name": "Agencia Estatal de Investigación"
+    },
+    {
+      "id": "https://openalex.org/G8572054699",
+      "display_name": null,
+      "funder_award_id": "PID2019-106774RB-C21",
+      "funder_id": "https://openalex.org/F4320323737",
+      "funder_display_name": "Ministerio de Ciencia y Tecnología"
+    },
+    {
+      "id": "https://openalex.org/G8684520763",
+      "display_name": null,
+      "funder_award_id": "PID2019",
+      "funder_id": "https://openalex.org/F4320335598",
+      "funder_display_name": "Agencia Estatal de Investigación"
+    }
+  ],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320320883",
+      "display_name": "Agence Nationale de la Recherche",
+      "ror": "https://ror.org/00rbzpz17"
+    },
+    {
+      "id": "https://openalex.org/F4320322930",
+      "display_name": "Ministerio de Ciencia e Innovación",
+      "ror": null
+    },
+    {
+      "id": "https://openalex.org/F4320323737",
+      "display_name": "Ministerio de Ciencia y Tecnología",
+      "ror": null
+    },
+    {
+      "id": "https://openalex.org/F4320335598",
+      "display_name": "Agencia Estatal de Investigación",
+      "ror": "https://ror.org/003x0zc53"
+    },
+    {
+      "id": "https://openalex.org/F4320338463",
+      "display_name": "CHIST-ERA",
+      "ror": "https://ror.org/00rbzpz17"
+    }
+  ],
+  "has_content": {
+    "pdf": true,
+    "grobid_xml": true
+  },
+  "content_urls": {
+    "pdf": "https://content.openalex.org/works/W4312791581.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W4312791581.grobid-xml"
+  },
+  "referenced_works_count": 17,
+  "referenced_works": [
+    "https://openalex.org/W2770070197",
+    "https://openalex.org/W2792029445",
+    "https://openalex.org/W2795262473",
+    "https://openalex.org/W2901111720",
+    "https://openalex.org/W2910677601",
+    "https://openalex.org/W2913709008",
+    "https://openalex.org/W2922165330",
+    "https://openalex.org/W2943535307",
+    "https://openalex.org/W3011056232",
+    "https://openalex.org/W3021575660",
+    "https://openalex.org/W3043328207",
+    "https://openalex.org/W3046834032",
+    "https://openalex.org/W3047530211",
+    "https://openalex.org/W3139226909",
+    "https://openalex.org/W4206425359",
+    "https://openalex.org/W4281987095",
+    "https://openalex.org/W4384826463"
+  ],
+  "related_works": [
+    "https://openalex.org/W4312768428",
+    "https://openalex.org/W7130689229",
+    "https://openalex.org/W3176268145",
+    "https://openalex.org/W6982365542",
+    "https://openalex.org/W7125768654",
+    "https://openalex.org/W4412069555",
+    "https://openalex.org/W7000073659",
+    "https://openalex.org/W2964055667",
+    "https://openalex.org/W3021534311",
+    "https://openalex.org/W2912684460"
+  ],
+  "abstract_inverted_index": {
+    "LoRa": [
+      0,
+      19,
+      32,
+      42,
+      70,
+      75,
+      110,
+      150,
+      156
+    ],
+    "is": [
+      1,
+      83,
+      117
+    ],
+    "a": [
+      2,
+      28,
+      55,
+      64,
+      74,
+      80,
+      149,
+      166
+    ],
+    "popular": [
+      3
+    ],
+    "communication": [
+      4,
+      49
+    ],
+    "technology": [
+      5
+    ],
+    "in": [
+      6,
+      78,
+      108
+    ],
+    "the": [
+      7,
+      23,
+      36,
+      48,
+      95,
+      109,
+      121,
+      174
+    ],
+    "Internet": [
+      8
+    ],
+    "of": [
+      9
+    ],
+    "Things": [
+      10
+    ],
+    "(IoT)": [
+      11
+    ],
+    "domain,": [
+      12
+    ],
+    "providing": [
+      13
+    ],
+    "low-power": [
+      14
+    ],
+    "and": [
+      15,
+      35,
+      99,
+      104,
+      119,
+      148
+    ],
+    "long-range": [
+      16
+    ],
+    "communications.": [
+      17
+    ],
+    "Most": [
+      18
+    ],
+    "IoT": [
+      20,
+      87,
+      184
+    ],
+    "applications": [
+      21,
+      179
+    ],
+    "use": [
+      22,
+      94
+    ],
+    "LoRaWAN": [
+      24,
+      167
+    ],
+    "architecture,": [
+      25
+    ],
+    "which": [
+      26,
+      79
+    ],
+    "builds": [
+      27
+    ],
+    "star": [
+      29
+    ],
+    "topology": [
+      30
+    ],
+    "between": [
+      31,
+      50,
+      132
+    ],
+    "end": [
+      33,
+      51,
+      71
+    ],
+    "nodes": [
+      34,
+      52,
+      72,
+      92,
+      107,
+      159
+    ],
+    "gateway": [
+      37
+    ],
+    "they": [
+      38
+    ],
+    "connect": [
+      39,
+      164
+    ],
+    "to.": [
+      40
+    ],
+    "However,": [
+      41
+    ],
+    "can": [
+      43,
+      93
+    ],
+    "also": [
+      44
+    ],
+    "be": [
+      45
+    ],
+    "used": [
+      46
+    ],
+    "for": [
+      47,
+      176
+    ],
+    "themselves,": [
+      53
+    ],
+    "forming": [
+      54
+    ],
+    "mesh": [
+      56,
+      76,
+      111,
+      157
+    ],
+    "network": [
+      57
+    ],
+    "topology.": [
+      58
+    ],
+    "In": [
+      59
+    ],
+    "this": [
+      60
+    ],
+    "paper,": [
+      61
+    ],
+    "we": [
+      62
+    ],
+    "present": [
+      63
+    ],
+    "library": [
+      65,
+      96,
+      137
+    ],
+    "that": [
+      66
+    ],
+    "allows": [
+      67
+    ],
+    "to": [
+      68,
+      97,
+      103,
+      163,
+      165
+    ],
+    "integrate": [
+      69
+    ],
+    "into": [
+      73
+    ],
+    "network,": [
+      77
+    ],
+    "routing": [
+      81,
+      115,
+      122,
+      130
+    ],
+    "protocol": [
+      82,
+      116
+    ],
+    "used.": [
+      84
+    ],
+    "Thus,": [
+      85
+    ],
+    "an": [
+      86,
+      145
+    ],
+    "application": [
+      88
+    ],
+    "running": [
+      89
+    ],
+    "on": [
+      90,
+      141
+    ],
+    "these": [
+      91
+    ],
+    "send": [
+      98
+    ],
+    "receive": [
+      100
+    ],
+    "data": [
+      101
+    ],
+    "packets": [
+      102
+    ],
+    "from": [
+      105
+    ],
+    "other": [
+      106
+    ],
+    "network.": [
+      112
+    ],
+    "The": [
+      113,
+      135
+    ],
+    "designed": [
+      114
+    ],
+    "proactive,": [
+      118
+    ],
+    "maintains": [
+      120
+    ],
+    "table": [
+      123
+    ],
+    "at": [
+      124
+    ],
+    "each": [
+      125
+    ],
+    "node": [
+      126
+    ],
+    "updated": [
+      127
+    ],
+    "by": [
+      128
+    ],
+    "sending": [
+      129
+    ],
+    "messages": [
+      131
+    ],
+    "neighboring": [
+      133
+    ],
+    "nodes.": [
+      134,
+      185
+    ],
+    "implemented": [
+      136
+    ],
+    "has": [
+      138
+    ],
+    "been": [
+      139
+    ],
+    "tested": [
+      140
+    ],
+    "embedded": [
+      142
+    ],
+    "boards": [
+      143
+    ],
+    "featuring": [
+      144
+    ],
+    "ESP32": [
+      146
+    ],
+    "microcontroller": [
+      147
+    ],
+    "single-channel": [
+      151
+    ],
+    "radio.": [
+      152
+    ],
+    "By": [
+      153
+    ],
+    "using": [
+      154
+    ],
+    "our": [
+      155
+    ],
+    "library,": [
+      158
+    ],
+    "do": [
+      160
+    ],
+    "not": [
+      161
+    ],
+    "need": [
+      162
+    ],
+    "gateway,": [
+      168
+    ],
+    "but": [
+      169
+    ],
+    "among": [
+      170
+    ],
+    "themselves.": [
+      171
+    ],
+    "This": [
+      172
+    ],
+    "opens": [
+      173
+    ],
+    "possibility": [
+      175
+    ],
+    "new,": [
+      177
+    ],
+    "distributed": [
+      178
+    ],
+    "solely": [
+      180
+    ],
+    "built": [
+      181
+    ],
+    "upon": [
+      182
+    ],
+    "tiny": [
+      183
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 10
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 17
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 10
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 10
+    }
+  ],
+  "updated_date": "2026-10-19T09:35:57.686232",
+  "created_date": "2023-01-05T00:00:00"
+}

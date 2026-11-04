@@ -1,0 +1,209 @@
+[
+  {
+    "cited_work": "https://openalex.org/W4390002238",
+    "doi": "https://doi.org/10.1145/3638241",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW4390002238&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:40:06.220436+00:00",
+    "api_citing_count": 62,
+    "records": [
+      {
+        "id": "https://openalex.org/W4403758980",
+        "title": "LoRa Communication for Agriculture 4.0: Opportunities, Challenges, and Future Directions",
+        "doi": "https://doi.org/10.1109/jiot.2024.3486369",
+        "publication_year": 2024,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4410639293",
+        "title": "Federated Learning With Small and Large Models With Privacy-Preserving Data Space for Holographic Internet of Things in Consumer Electronics",
+        "doi": "https://doi.org/10.1109/tce.2025.3573033",
+        "publication_year": 2025,
+        "type": "article"
+      }
+    ]
+  },
+  {
+    "cited_work": "https://openalex.org/W3046834032",
+    "doi": "https://doi.org/10.3390/s20154273",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW3046834032&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:40:06.220654+00:00",
+    "api_citing_count": 135,
+    "records": [
+      {
+        "id": "https://openalex.org/W4313004744",
+        "title": "A Survey on LoRa for Smart Agriculture: Current Trends and Future Perspectives",
+        "doi": "https://doi.org/10.1109/jiot.2022.3230505",
+        "publication_year": 2022,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4282971155",
+        "title": "Recent Advances in LoRa: A Comprehensive Survey",
+        "doi": "https://doi.org/10.1145/3543856",
+        "publication_year": 2022,
+        "type": "article"
+      }
+    ]
+  },
+  {
+    "cited_work": "https://openalex.org/W3043328207",
+    "doi": "https://doi.org/10.1109/mcom.001.2000053",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW3043328207&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:40:06.220734+00:00",
+    "api_citing_count": 72,
+    "records": [
+      {
+        "id": "https://openalex.org/W4376455422",
+        "title": "A Survey on Scalable LoRaWAN for Massive IoT: Recent Advances, Potentials, and Challenges",
+        "doi": "https://doi.org/10.1109/comst.2023.3274934",
+        "publication_year": 2023,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4206425359",
+        "title": "A Survey on LoRaWAN Technology: Recent Trends, Opportunities, Simulation Tools and Future Directions",
+        "doi": "https://doi.org/10.3390/electronics11010164",
+        "publication_year": 2022,
+        "type": "article"
+      }
+    ]
+  },
+  {
+    "cited_work": "https://openalex.org/W3197897949",
+    "doi": "https://doi.org/10.1109/access.2024.3443605",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW3197897949&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:40:07.001658+00:00",
+    "api_citing_count": 14,
+    "records": [
+      {
+        "id": "https://openalex.org/W7117611429",
+        "title": "Mobility-Aware LoRa Protocol for Reliable IoT Communications",
+        "doi": "https://doi.org/10.1109/access.2025.3649413",
+        "publication_year": 2025,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4405975158",
+        "title": "Demo: Edge Federated Learning over a LoRa Mesh Network",
+        "doi": "https://doi.org/10.1109/sec62691.2024.00061",
+        "publication_year": 2024,
+        "type": "conference-paper"
+      }
+    ]
+  },
+  {
+    "cited_work": "https://openalex.org/W4312791581",
+    "doi": "https://doi.org/10.1109/access.2022.3217215",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW4312791581&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:40:07.007493+00:00",
+    "api_citing_count": 47,
+    "records": [
+      {
+        "id": "https://openalex.org/W4381682471",
+        "title": "Embedded federated learning over a LoRa mesh network",
+        "doi": "https://doi.org/10.1016/j.pmcj.2023.101819",
+        "publication_year": 2023,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4391867450",
+        "title": "AlLoRa: Empowering environmental intelligence through an advanced LoRa-based IoT solution",
+        "doi": "https://doi.org/10.1016/j.comcom.2024.02.014",
+        "publication_year": 2024,
+        "type": "article"
+      }
+    ]
+  },
+  {
+    "cited_work": "https://openalex.org/W2913709008",
+    "doi": "https://doi.org/10.1109/access.2019.2898239",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW2913709008&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:40:07.472503+00:00",
+    "api_citing_count": 106,
+    "records": [
+      {
+        "id": "https://openalex.org/W4376455422",
+        "title": "A Survey on Scalable LoRaWAN for Massive IoT: Recent Advances, Potentials, and Challenges",
+        "doi": "https://doi.org/10.1109/comst.2023.3274934",
+        "publication_year": 2023,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4206425359",
+        "title": "A Survey on LoRaWAN Technology: Recent Trends, Opportunities, Simulation Tools and Future Directions",
+        "doi": "https://doi.org/10.3390/electronics11010164",
+        "publication_year": 2022,
+        "type": "article"
+      }
+    ]
+  },
+  {
+    "cited_work": "https://openalex.org/W4297818341",
+    "doi": "https://doi.org/10.1109/dcoss54816.2022.00014",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW4297818341&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:40:07.939099+00:00",
+    "api_citing_count": 12,
+    "records": [
+      {
+        "id": "https://openalex.org/W4390002238",
+        "title": "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications",
+        "doi": "https://doi.org/10.1145/3638241",
+        "publication_year": 2023,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4361987105",
+        "title": "LoRaHop: Multihop Support for LoRaWAN Uplink and Downlink Messaging",
+        "doi": "https://doi.org/10.1109/jiot.2023.3263630",
+        "publication_year": 2023,
+        "type": "article"
+      }
+    ]
+  },
+  {
+    "cited_work": "https://openalex.org/W4283212624",
+    "doi": "https://doi.org/10.1109/infocomwkshps54753.2022.9798302",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW4283212624&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:40:07.989339+00:00",
+    "api_citing_count": 12,
+    "records": [
+      {
+        "id": "https://openalex.org/W4390002238",
+        "title": "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications",
+        "doi": "https://doi.org/10.1145/3638241",
+        "publication_year": 2023,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4385834565",
+        "title": "A One-Way Time Synchronization Scheme for Practical Energy-Efficient LoRa Network Based on Reverse Asymmetric Framework",
+        "doi": "https://doi.org/10.1109/tcomm.2023.3305515",
+        "publication_year": 2023,
+        "type": "article"
+      }
+    ]
+  },
+  {
+    "cited_work": "https://openalex.org/W4361987105",
+    "doi": "https://doi.org/10.1109/jiot.2023.3263630",
+    "source_url": "https://api.openalex.org/works?filter=cites%3AW4361987105&per-page=2&sort=cited_by_count%3Adesc",
+    "retrieved_utc": "2026-11-04T06:41:35.483457+00:00",
+    "api_citing_count": 33,
+    "records": [
+      {
+        "id": "https://openalex.org/W4404446931",
+        "title": "A survey on massive IoT for water distribution systems: Challenges, simulation tools, and guidelines for large-scale deployment",
+        "doi": "https://doi.org/10.1016/j.adhoc.2024.103714",
+        "publication_year": 2024,
+        "type": "article"
+      },
+      {
+        "id": "https://openalex.org/W4391867450",
+        "title": "AlLoRa: Empowering environmental intelligence through an advanced LoRa-based IoT solution",
+        "doi": "https://doi.org/10.1016/j.comcom.2024.02.014",
+        "publication_year": 2024,
+        "type": "article"
+      }
+    ]
+  }
+]

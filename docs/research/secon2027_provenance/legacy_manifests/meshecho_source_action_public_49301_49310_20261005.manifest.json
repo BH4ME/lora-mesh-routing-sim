@@ -1,0 +1,431 @@
+{
+  "artifact_sha256": {
+    "actions": "6bfee7a627ee894f72ed483193ba6a666ed6c68132dc131239c924b29bff3132",
+    "flows": "85f019f48c728121d2c98e01eecb332167fb1e12ac6267b2303bf2054e990ab7",
+    "joined_flows": "1cfdcd39bd9f476dd9e7a23d17989ee8b9b86a8498bbf6e82d204db17ab9a5e5",
+    "per_seed": "2a0cf153af26df3b53378486137e97cb2f2c64ee119d569384ea158f59d7e003",
+    "runs": "99a451fc6e62f15b57c1244a2021d189e5ec0619e19748ca975e9dbf1e5978b1",
+    "transmissions": "0e8cb67043ab353a564522a33fc7a88cf2414ad72419fd3dfd3fa9c7ec6325ed"
+  },
+  "exploratory_intervals_from_old_dcb": {
+    "meshecho-dcb-source-fr": {
+      "ack_pdr_delta": {
+        "ci95_high": 0.018701666309308654,
+        "ci95_low": -0.03334723745642781,
+        "mean": -0.007322785573559576,
+        "n": 10
+      },
+      "airtime_delta_s": {
+        "ci95_high": -5.469547430977182,
+        "ci95_low": -15.411809369023821,
+        "mean": -10.440678400000502,
+        "n": 10
+      },
+      "collision_failures_delta": {
+        "ci95_high": -4063.7273365538467,
+        "ci95_low": -7863.872663446154,
+        "mean": -5963.8,
+        "n": 10
+      },
+      "destination_pdr_delta": {
+        "ci95_high": 0.014226423721031972,
+        "ci95_low": -0.00290265976568908,
+        "mean": 0.005661881977671446,
+        "n": 10
+      },
+      "raw_modeled_rx_energy_delta_j": {
+        "ci95_high": -8.758936188392195,
+        "ci95_low": -24.229376662551655,
+        "mean": -16.494156425471925,
+        "n": 10
+      },
+      "relative_airtime_delta": {
+        "ci95_high": -0.1106420500243245,
+        "ci95_low": -0.3088414658349107,
+        "mean": -0.2097417579296176,
+        "n": 10
+      },
+      "tx_bytes_delta": {
+        "ci95_high": -1418.0918283674973,
+        "ci95_low": -6320.508171632503,
+        "mean": -3869.3,
+        "n": 10
+      },
+      "whole_network_queue_wait_delta_s": {
+        "ci95_high": 0.05713386847706146,
+        "ci95_low": -0.09388747965871061,
+        "mean": -0.018376805590824573,
+        "n": 10
+      },
+      "windowed_tx_energy_delta_j": {
+        "ci95_high": -2.1659407826669614,
+        "ci95_low": -6.103076510133434,
+        "mean": -4.134508646400198,
+        "n": 10
+      }
+    },
+    "meshecho-dcb-source-trigger-f": {
+      "ack_pdr_delta": {
+        "ci95_high": 0.008859923552387378,
+        "ci95_low": -0.05823214401121965,
+        "mean": -0.024686110229416136,
+        "n": 10
+      },
+      "airtime_delta_s": {
+        "ci95_high": -1.81059442077619,
+        "ci95_low": -7.96077197922573,
+        "mean": -4.88568320000096,
+        "n": 10
+      },
+      "collision_failures_delta": {
+        "ci95_high": -2379.8839944521187,
+        "ci95_low": -4899.9160055478815,
+        "mean": -3639.9,
+        "n": 10
+      },
+      "destination_pdr_delta": {
+        "ci95_high": 0.009166099853367462,
+        "ci95_low": -0.009963548019236683,
+        "mean": -0.00039872408293460947,
+        "n": 10
+      },
+      "raw_modeled_rx_energy_delta_j": {
+        "ci95_high": -3.049527013573157,
+        "ci95_low": -12.71226314271464,
+        "mean": -7.880895078143899,
+        "n": 10
+      },
+      "relative_airtime_delta": {
+        "ci95_high": -0.03578630971415335,
+        "ci95_low": -0.15082878616854067,
+        "mean": -0.093307547941347,
+        "n": 10
+      },
+      "tx_bytes_delta": {
+        "ci95_high": 393.8288131836832,
+        "ci95_low": -2626.428813183683,
+        "mean": -1116.3,
+        "n": 10
+      },
+      "whole_network_queue_wait_delta_s": {
+        "ci95_high": 0.038085936533142115,
+        "ci95_low": -0.08939915296120694,
+        "mean": -0.025656608214032418,
+        "n": 10
+      },
+      "windowed_tx_energy_delta_j": {
+        "ci95_high": -0.7169953906273705,
+        "ci95_low": -3.152465703773389,
+        "mean": -1.93473054720038,
+        "n": 10
+      }
+    },
+    "meshecho-dcb-trial": {
+      "ack_pdr_delta": {
+        "ci95_high": 0.03052577510865406,
+        "ci95_low": -0.06200790651102636,
+        "mean": -0.015741065701186153,
+        "n": 10
+      },
+      "airtime_delta_s": {
+        "ci95_high": -0.42786508516167476,
+        "ci95_low": -15.070682114839517,
+        "mean": -7.749273600000596,
+        "n": 10
+      },
+      "collision_failures_delta": {
+        "ci95_high": -1991.7594127342131,
+        "ci95_low": -7830.040587265787,
+        "mean": -4910.9,
+        "n": 10
+      },
+      "destination_pdr_delta": {
+        "ci95_high": 0.013950045311663238,
+        "ci95_low": -0.0063299850600240445,
+        "mean": 0.0038100301258195968,
+        "n": 10
+      },
+      "raw_modeled_rx_energy_delta_j": {
+        "ci95_high": -0.8546099293228693,
+        "ci95_low": -23.657344810389063,
+        "mean": -12.255977369855966,
+        "n": 10
+      },
+      "relative_airtime_delta": {
+        "ci95_high": -0.017029873673051754,
+        "ci95_low": -0.2932928951197296,
+        "mean": -0.15516138439639068,
+        "n": 10
+      },
+      "tx_bytes_delta": {
+        "ci95_high": 1145.5383775625733,
+        "ci95_low": -6199.938377562573,
+        "mean": -2527.2,
+        "n": 10
+      },
+      "whole_network_queue_wait_delta_s": {
+        "ci95_high": 0.06887241317160833,
+        "ci95_low": -0.0883027926663272,
+        "mean": -0.009715189747359432,
+        "n": 10
+      },
+      "windowed_tx_energy_delta_j": {
+        "ci95_high": -0.1694345737240237,
+        "ci95_low": -5.9679901174764485,
+        "mean": -3.068712345600236,
+        "n": 10
+      }
+    },
+    "meshecho-dcb-trial-blind": {
+      "ack_pdr_delta": {
+        "ci95_high": 0.03052577510865406,
+        "ci95_low": -0.06200790651102636,
+        "mean": -0.015741065701186153,
+        "n": 10
+      },
+      "airtime_delta_s": {
+        "ci95_high": -0.42786508516167476,
+        "ci95_low": -15.070682114839517,
+        "mean": -7.749273600000596,
+        "n": 10
+      },
+      "collision_failures_delta": {
+        "ci95_high": -1991.7594127342131,
+        "ci95_low": -7830.040587265787,
+        "mean": -4910.9,
+        "n": 10
+      },
+      "destination_pdr_delta": {
+        "ci95_high": 0.013950045311663238,
+        "ci95_low": -0.0063299850600240445,
+        "mean": 0.0038100301258195968,
+        "n": 10
+      },
+      "raw_modeled_rx_energy_delta_j": {
+        "ci95_high": -0.8546099293228693,
+        "ci95_low": -23.657344810389063,
+        "mean": -12.255977369855966,
+        "n": 10
+      },
+      "relative_airtime_delta": {
+        "ci95_high": -0.017029873673051754,
+        "ci95_low": -0.2932928951197296,
+        "mean": -0.15516138439639068,
+        "n": 10
+      },
+      "tx_bytes_delta": {
+        "ci95_high": 1145.5383775625733,
+        "ci95_low": -6199.938377562573,
+        "mean": -2527.2,
+        "n": 10
+      },
+      "whole_network_queue_wait_delta_s": {
+        "ci95_high": 0.06887241317160833,
+        "ci95_low": -0.0883027926663272,
+        "mean": -0.009715189747359432,
+        "n": 10
+      },
+      "windowed_tx_energy_delta_j": {
+        "ci95_high": -0.1694345737240237,
+        "ci95_low": -5.9679901174764485,
+        "mean": -3.068712345600236,
+        "n": 10
+      }
+    },
+    "meshecho-dcb-trial-no-switch": {
+      "ack_pdr_delta": {
+        "ci95_high": 0.030451311712111562,
+        "ci95_low": -0.038140664699452174,
+        "mean": -0.003844676493670307,
+        "n": 10
+      },
+      "airtime_delta_s": {
+        "ci95_high": -0.7978618190780233,
+        "ci95_low": -15.045824580923341,
+        "mean": -7.921843200000683,
+        "n": 10
+      },
+      "collision_failures_delta": {
+        "ci95_high": -2228.715542843804,
+        "ci95_low": -7673.484457156197,
+        "mean": -4951.1,
+        "n": 10
+      },
+      "destination_pdr_delta": {
+        "ci95_high": 0.014226423721031972,
+        "ci95_low": -0.00290265976568908,
+        "mean": 0.005661881977671446,
+        "n": 10
+      },
+      "raw_modeled_rx_energy_delta_j": {
+        "ci95_high": -1.5328409467384994,
+        "ci95_low": -23.634638515661408,
+        "mean": -12.583739731199953,
+        "n": 10
+      },
+      "relative_airtime_delta": {
+        "ci95_high": -0.01045313297470507,
+        "ci95_low": -0.30247787871882287,
+        "mean": -0.15646550584676397,
+        "n": 10
+      },
+      "tx_bytes_delta": {
+        "ci95_high": 952.4896647174537,
+        "ci95_low": -6170.089664717454,
+        "mean": -2608.8,
+        "n": 10
+      },
+      "whole_network_queue_wait_delta_s": {
+        "ci95_high": 0.07538551474049911,
+        "ci95_low": -0.0809876191269339,
+        "mean": -0.0028010521932174013,
+        "n": 10
+      },
+      "windowed_tx_energy_delta_j": {
+        "ci95_high": -0.3159532803548961,
+        "ci95_low": -5.958146534045644,
+        "mean": -3.13704990720027,
+        "n": 10
+      }
+    },
+    "meshecho-dhr-flood-ack-delay": {
+      "ack_pdr_delta": {
+        "ci95_high": 0.04838993197174453,
+        "ci95_low": -0.018534682861039722,
+        "mean": 0.014927624555352403,
+        "n": 10
+      },
+      "airtime_delta_s": {
+        "ci95_high": 4.764504378430079,
+        "ci95_low": -5.3041523784297855,
+        "mean": -0.26982399999985346,
+        "n": 10
+      },
+      "collision_failures_delta": {
+        "ci95_high": 1623.969350533263,
+        "ci95_low": -1834.7693505332632,
+        "mean": -105.4,
+        "n": 10
+      },
+      "destination_pdr_delta": {
+        "ci95_high": 0.009884848484848476,
+        "ci95_low": -0.0038242424242424197,
+        "mean": 0.0030303030303030277,
+        "n": 10
+      },
+      "raw_modeled_rx_energy_delta_j": {
+        "ci95_high": 7.462374844022224,
+        "ci95_low": -8.309679304310238,
+        "mean": -0.4236522301440068,
+        "n": 10
+      },
+      "relative_airtime_delta": {
+        "ci95_high": 0.102730551543538,
+        "ci95_low": -0.0887063706259863,
+        "mean": 0.007012090458775844,
+        "n": 10
+      },
+      "tx_bytes_delta": {
+        "ci95_high": 2613.660081386252,
+        "ci95_low": -2775.8600813862517,
+        "mean": -81.1,
+        "n": 10
+      },
+      "whole_network_queue_wait_delta_s": {
+        "ci95_high": 0.03881815894693369,
+        "ci95_low": -0.06679802690292541,
+        "mean": -0.013989933977995861,
+        "n": 10
+      },
+      "windowed_tx_energy_delta_j": {
+        "ci95_high": 1.8867437338583122,
+        "ci95_low": -2.100444341858195,
+        "mean": -0.10685030399994151,
+        "n": 10
+      }
+    }
+  },
+  "fixed_inputs": {
+    "application_deadline_s": 30.0,
+    "arms": [
+      "meshecho-dcb",
+      "meshecho-dcb-source-fr",
+      "meshecho-dcb-source-trigger-f",
+      "meshecho-dcb-trial",
+      "meshecho-dcb-trial-no-switch",
+      "meshecho-dcb-trial-blind",
+      "meshecho-dhr-flood-ack-delay"
+    ],
+    "case": {
+      "area_m": 8250.0,
+      "bw_hz": 125000,
+      "capture_threshold_db": 6.0,
+      "cr": 1,
+      "duration_s": 600.0,
+      "edge_prr_threshold": 0.9,
+      "key": "recurring_fading",
+      "matched_rreq_timing": true,
+      "max_graph_hops": 4,
+      "max_hops": 6,
+      "min_graph_hops": 2,
+      "nodes": 50,
+      "pair_count": 4,
+      "pair_mode": "connected-multihop",
+      "pair_schedule": "poisson",
+      "path_loss_exp": 2.75,
+      "payload_bytes": 32,
+      "rate_per_min": 4.0,
+      "route_ttl_s": 600.0,
+      "sf": 7,
+      "shadow_sigma_db": 4.0,
+      "temporal_fading_interval_s": 60.0,
+      "temporal_fading_sigma_db": 6.0,
+      "traffic": "unicast",
+      "traffic_pattern": "standard",
+      "tx_power_dbm": 17.0
+    },
+    "case_config_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+    "independent_channel_streams": true,
+    "seeds": [
+      49301,
+      49302,
+      49303,
+      49304,
+      49305,
+      49306,
+      49307,
+      49308,
+      49309,
+      49310
+    ],
+    "tx_start_cost_cutoff_s": 630.0
+  },
+  "record_counts": {
+    "actions": 16935,
+    "flows": 2793,
+    "joined_flows": 2793,
+    "per_seed": 10,
+    "runs": 70,
+    "transmissions": 35574
+  },
+  "scheduled_trace_sha256": {
+    "49301": "0df45141727d7ed2e5a33c3e52f8bccca87b2a143d2bd8e065cc8faafdda9ab0",
+    "49302": "f85e5aac7b96c93a3a15327e83b32d6ad99fb3f1ccd563c0955811d4d832f964",
+    "49303": "0e0dec4c8304d7376576f063735916b2659315ec126070d1ae86d90ebf1f10a7",
+    "49304": "96d191cff1f7473f74311112cdcb481d1505442feb01887f7d789bcfe59a8384",
+    "49305": "9ef2d79a0ea998ffed72584a0298589a206ab6c6dada41b1e856575d771e39d4",
+    "49306": "03aee6d65e0d57dd3f0b2c17af48988416532799acf3287de1fb81f8bbaf6c53",
+    "49307": "b0418ae1c2846916481f50aa6f5f0b8d76d48677db8c86cfc6bd0d9bb3fc7b09",
+    "49308": "2c7c9b787d6468d9fdef3875b18a273b86d822ffbe2237fb6bd32779860fd997",
+    "49309": "70568ed7d4d2cfbe273063c42c7c94b5b87a16609cf86907a89a764931431ed5",
+    "49310": "ab0fcfbc9926da605d2ead1b23c3b538144b3f784f1f2ed894745cca22445625"
+  },
+  "source_sha256": {
+    "docs/research/meshecho_source_action_public_diagnostic.md": "f981d2d8df4c301504a26e917ecf612e4ee4efda2dea128902ce3e5844301224",
+    "lora_mesh_sim.py": "b57023e9fecc5c094184949cb20d9e2a6b3aa95d41bf128573a924eb0e276ce5",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "0e42dedd3333bcd4300fdb3f7a0441e4e47a9c3169f3948eddd626e44a61f5ac",
+    "tools/screen_source_action_public.py": "ff24b39b6402bd33008e878d0fef977657e9b581666bd2344d5f27511477da12"
+  },
+  "status": "exploratory mechanism diagnostic; not confirmation or per-flow counterfactual"
+}

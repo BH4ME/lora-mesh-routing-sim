@@ -1,0 +1,1109 @@
+{
+  "id": "https://openalex.org/W4297818341",
+  "doi": "https://doi.org/10.1109/dcoss54816.2022.00014",
+  "title": "Smart-Hop: Low-Latency Multi-hop Networking for LoRa",
+  "display_name": "Smart-Hop: Low-Latency Multi-hop Networking for LoRa",
+  "publication_year": 2022,
+  "publication_date": "2022-05-01",
+  "ids": {
+    "openalex": "https://openalex.org/W4297818341",
+    "doi": "https://doi.org/10.1109/dcoss54816.2022.00014"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1109/dcoss54816.2022.00014",
+    "doi": "https://doi.org/10.1109/dcoss54816.2022.00014",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1109/dcoss54816.2022.00014",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S7407088273",
+      "display_name": "International Conference on Distributed Computing in Smart Systems and the Internet of Things (DCOSS-IoT)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": null,
+      "host_organization_name": null,
+      "host_organization_lineage": [],
+      "host_organization_lineage_names": [],
+      "type": "conference"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "2022 18th International Conference on Distributed Computing in Sensor Systems (DCOSS)",
+    "raw_type": "proceedings-article"
+  },
+  "volume": null,
+  "type": "conference-paper",
+  "indexed_in": [
+    "crossref"
+  ],
+  "open_access": {
+    "is_oa": false,
+    "oa_status": "closed",
+    "oa_url": null,
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5029112053",
+        "display_name": "Absar-Ul-Haque Ahmar",
+        "orcid": "https://orcid.org/0000-0002-9196-4117",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-9196-4117"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210114974",
+          "display_name": "IMEC",
+          "ror": "https://ror.org/02kcbn207",
+          "country_code": "BE",
+          "type": "nonprofit",
+          "lineage": [
+            "https://openalex.org/I4210114974"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I99464096",
+          "display_name": "KU Leuven",
+          "ror": "https://ror.org/05f950310",
+          "country_code": "BE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I99464096"
+          ]
+        }
+      ],
+      "countries": [
+        "BE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Absar-Ul-Haque Ahmar",
+      "raw_affiliation_strings": [
+        "Computer Science KU,imec-DistriNet,Leuven,Belgium",
+        "imec-DistriNet, Computer Science KU, Leuven, Belgium"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Computer Science KU,imec-DistriNet,Leuven,Belgium",
+          "institution_ids": [
+            "https://openalex.org/I4210114974",
+            "https://openalex.org/I99464096"
+          ]
+        },
+        {
+          "raw_affiliation_string": "imec-DistriNet, Computer Science KU, Leuven, Belgium",
+          "institution_ids": [
+            "https://openalex.org/I4210114974",
+            "https://openalex.org/I99464096"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5054031138",
+        "display_name": "Wouter Joosen",
+        "orcid": "https://orcid.org/0000-0002-7710-5092",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-7710-5092"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210114974",
+          "display_name": "IMEC",
+          "ror": "https://ror.org/02kcbn207",
+          "country_code": "BE",
+          "type": "nonprofit",
+          "lineage": [
+            "https://openalex.org/I4210114974"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I99464096",
+          "display_name": "KU Leuven",
+          "ror": "https://ror.org/05f950310",
+          "country_code": "BE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I99464096"
+          ]
+        }
+      ],
+      "countries": [
+        "BE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Wouter Joosen",
+      "raw_affiliation_strings": [
+        "Computer Science KU,imec-DistriNet,Leuven,Belgium",
+        "imec-DistriNet, Computer Science KU, Leuven, Belgium"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Computer Science KU,imec-DistriNet,Leuven,Belgium",
+          "institution_ids": [
+            "https://openalex.org/I4210114974",
+            "https://openalex.org/I99464096"
+          ]
+        },
+        {
+          "raw_affiliation_string": "imec-DistriNet, Computer Science KU, Leuven, Belgium",
+          "institution_ids": [
+            "https://openalex.org/I4210114974",
+            "https://openalex.org/I99464096"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5110467238",
+        "display_name": "Danny Hughes",
+        "orcid": "https://orcid.org/0000-0002-0750-3693",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0750-3693"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210114974",
+          "display_name": "IMEC",
+          "ror": "https://ror.org/02kcbn207",
+          "country_code": "BE",
+          "type": "nonprofit",
+          "lineage": [
+            "https://openalex.org/I4210114974"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I99464096",
+          "display_name": "KU Leuven",
+          "ror": "https://ror.org/05f950310",
+          "country_code": "BE",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I99464096"
+          ]
+        }
+      ],
+      "countries": [
+        "BE"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Danny Hughes",
+      "raw_affiliation_strings": [
+        "Computer Science KU,imec-DistriNet,Leuven,Belgium",
+        "imec-DistriNet, Computer Science KU, Leuven, Belgium"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Computer Science KU,imec-DistriNet,Leuven,Belgium",
+          "institution_ids": [
+            "https://openalex.org/I4210114974",
+            "https://openalex.org/I99464096"
+          ]
+        },
+        {
+          "raw_affiliation_string": "imec-DistriNet, Computer Science KU, Leuven, Belgium",
+          "institution_ids": [
+            "https://openalex.org/I4210114974",
+            "https://openalex.org/I99464096"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 2,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": null,
+  "apc_paid": null,
+  "fwci": 4.0425,
+  "has_fulltext": false,
+  "cited_by_count": 12,
+  "citation_normalized_percentile": {
+    "value": 0.95568512,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 94,
+    "max": 97
+  },
+  "biblio": {
+    "volume": null,
+    "issue": null,
+    "first_page": "17",
+    "last_page": "20"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T12079",
+    "display_name": "IoT Networks and Protocols",
+    "score": 0.9994999766349792,
+    "subfield": {
+      "id": "https://openalex.org/subfields/2208",
+      "display_name": "Electrical and Electronic Engineering"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T12079",
+      "display_name": "IoT Networks and Protocols",
+      "score": 0.9994999766349792,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10080",
+      "display_name": "Energy Efficient Wireless Sensor Networks",
+      "score": 0.00039999998989515007,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10273",
+      "display_name": "IoT and Edge/Fog Computing",
+      "score": 0.0,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/lora",
+      "display_name": "LoRa",
+      "score": 0.9020000100135803
+    },
+    {
+      "id": "https://openalex.org/keywords/lorawan",
+      "display_name": "LoRaWAN",
+      "score": 0.8529999852180481
+    },
+    {
+      "id": "https://openalex.org/keywords/mac-layer-protocol",
+      "display_name": "MAC layer protocol",
+      "score": 0.8980000019073486
+    },
+    {
+      "id": "https://openalex.org/keywords/low-latency-routing",
+      "display_name": "low-latency routing",
+      "score": 0.7699999809265137
+    },
+    {
+      "id": "https://openalex.org/keywords/hyaluronidase",
+      "display_name": "hyaluronidase",
+      "score": 0.9380000233650208
+    },
+    {
+      "id": "https://openalex.org/keywords/low-power-wide-area-networks",
+      "display_name": "low-power wide-area networks",
+      "score": 0.8600000143051147
+    },
+    {
+      "id": "https://openalex.org/keywords/internet-of-things",
+      "display_name": "Internet of Things",
+      "score": 0.9869999885559082
+    },
+    {
+      "id": "https://openalex.org/keywords/mesh-networks",
+      "display_name": "mesh networks",
+      "score": 0.5009999871253967
+    },
+    {
+      "id": "https://openalex.org/keywords/throughput",
+      "display_name": "throughput",
+      "score": 0.4390000104904175
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.805763304233551
+    },
+    {
+      "id": "https://openalex.org/C31258907",
+      "wikidata": "https://www.wikidata.org/wiki/Q1301371",
+      "display_name": "Computer network",
+      "level": 1,
+      "score": 0.7008448243141174
+    },
+    {
+      "id": "https://openalex.org/C2776445043",
+      "wikidata": "https://www.wikidata.org/wiki/Q20706829",
+      "display_name": "LPWAN",
+      "level": 3,
+      "score": 0.6330729126930237
+    },
+    {
+      "id": "https://openalex.org/C25906391",
+      "wikidata": "https://www.wikidata.org/wiki/Q1432381",
+      "display_name": "Hop (telecommunications)",
+      "level": 2,
+      "score": 0.6303618550300598
+    },
+    {
+      "id": "https://openalex.org/C147224247",
+      "wikidata": "https://www.wikidata.org/wiki/Q885373",
+      "display_name": "Bloom filter",
+      "level": 2,
+      "score": 0.5074555277824402
+    },
+    {
+      "id": "https://openalex.org/C82876162",
+      "wikidata": "https://www.wikidata.org/wiki/Q17096504",
+      "display_name": "Latency (audio)",
+      "level": 2,
+      "score": 0.47658297419548035
+    },
+    {
+      "id": "https://openalex.org/C2779960059",
+      "wikidata": "https://www.wikidata.org/wiki/Q7113681",
+      "display_name": "Overhead (engineering)",
+      "level": 2,
+      "score": 0.44271203875541687
+    },
+    {
+      "id": "https://openalex.org/C165696696",
+      "wikidata": "https://www.wikidata.org/wiki/Q11287",
+      "display_name": "Exploit",
+      "level": 2,
+      "score": 0.43473291397094727
+    },
+    {
+      "id": "https://openalex.org/C46637626",
+      "wikidata": "https://www.wikidata.org/wiki/Q6693015",
+      "display_name": "Low latency (capital markets)",
+      "level": 2,
+      "score": 0.4216011166572571
+    },
+    {
+      "id": "https://openalex.org/C2776238582",
+      "wikidata": "https://www.wikidata.org/wiki/Q11384",
+      "display_name": "Wide area network",
+      "level": 2,
+      "score": 0.22682395577430725
+    },
+    {
+      "id": "https://openalex.org/C76155785",
+      "wikidata": "https://www.wikidata.org/wiki/Q418",
+      "display_name": "Telecommunications",
+      "level": 1,
+      "score": 0.11727502942085266
+    },
+    {
+      "id": "https://openalex.org/C38652104",
+      "wikidata": "https://www.wikidata.org/wiki/Q3510521",
+      "display_name": "Computer security",
+      "level": 1,
+      "score": 0.11692842841148376
+    },
+    {
+      "id": "https://openalex.org/C111919701",
+      "wikidata": "https://www.wikidata.org/wiki/Q9135",
+      "display_name": "Operating system",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 2,
+  "locations": [
+    {
+      "id": "doi:10.1109/dcoss54816.2022.00014",
+      "doi": "https://doi.org/10.1109/dcoss54816.2022.00014",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1109/dcoss54816.2022.00014",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S7407088273",
+        "display_name": "International Conference on Distributed Computing in Smart Systems and the Internet of Things (DCOSS-IoT)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": null,
+        "host_organization_name": null,
+        "host_organization_lineage": [],
+        "host_organization_lineage_names": [],
+        "type": "conference"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "2022 18th International Conference on Distributed Computing in Sensor Systems (DCOSS)",
+      "raw_type": "proceedings-article"
+    },
+    {
+      "id": "pmh:oai:lirias2repo.kuleuven.be:20.500.12942/694103",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "https://lirias.kuleuven.be/handle/20.500.12942/694103",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306401954",
+        "display_name": "Lirias (KU Leuven)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I99464096",
+        "host_organization_name": "KU Leuven",
+        "host_organization_lineage": [
+          "https://openalex.org/I99464096"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "18th Annual International Conference on Distributed Computing in Sensor Systems (DCOSS), CA, Los Angeles, 30 May - 1 June 2022",
+      "raw_type": "info:eu-repo/semantics/conferenceObject"
+    }
+  ],
+  "best_oa_location": null,
+  "sustainable_development_goals": [
+    {
+      "id": "https://metadata.un.org/sdg/9",
+      "display_name": "Industry, innovation and infrastructure",
+      "score": 0.8970999717712402
+    }
+  ],
+  "study_designs": [],
+  "awards": [],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320322308",
+      "display_name": "KU Leuven",
+      "ror": "https://ror.org/05f950310"
+    }
+  ],
+  "has_content": {
+    "pdf": false,
+    "grobid_xml": false
+  },
+  "content_urls": null,
+  "referenced_works_count": 13,
+  "referenced_works": [
+    "https://openalex.org/W2096657178",
+    "https://openalex.org/W2499400668",
+    "https://openalex.org/W2885437927",
+    "https://openalex.org/W2913709008",
+    "https://openalex.org/W2943535307",
+    "https://openalex.org/W2951615004",
+    "https://openalex.org/W3011056232",
+    "https://openalex.org/W3035932795",
+    "https://openalex.org/W3047589269",
+    "https://openalex.org/W3087772852",
+    "https://openalex.org/W3110777430",
+    "https://openalex.org/W3127996085",
+    "https://openalex.org/W3176268145"
+  ],
+  "related_works": [
+    "https://openalex.org/W2900723499",
+    "https://openalex.org/W3129907425",
+    "https://openalex.org/W4361987105",
+    "https://openalex.org/W4283212624",
+    "https://openalex.org/W4205704520",
+    "https://openalex.org/W7000935779",
+    "https://openalex.org/W3009482824",
+    "https://openalex.org/W4377224442",
+    "https://openalex.org/W4408215394",
+    "https://openalex.org/W4415034430"
+  ],
+  "abstract_inverted_index": {
+    "Low": [
+      0
+    ],
+    "Power": [
+      1
+    ],
+    "Wide": [
+      2
+    ],
+    "Area": [
+      3
+    ],
+    "Networks": [
+      4
+    ],
+    "(LPWANs)": [
+      5
+    ],
+    "provide": [
+      6
+    ],
+    "the": [
+      7,
+      23,
+      62,
+      71,
+      75,
+      89,
+      103,
+      150,
+      161,
+      172,
+      198
+    ],
+    "Internet": [
+      8
+    ],
+    "of": [
+      9,
+      22,
+      47,
+      74,
+      91,
+      160,
+      165,
+      174
+    ],
+    "Things": [
+      10
+    ],
+    "(IoT)": [
+      11
+    ],
+    "with": [
+      12
+    ],
+    "energy-efficient,": [
+      13
+    ],
+    "low": [
+      14,
+      182
+    ],
+    "cost,": [
+      15
+    ],
+    "and": [
+      16,
+      27,
+      36,
+      54,
+      96,
+      163
+    ],
+    "long-range": [
+      17
+    ],
+    "networking.": [
+      18,
+      169
+    ],
+    "LoRaWAN": [
+      19
+    ],
+    "is": [
+      20
+    ],
+    "one": [
+      21
+    ],
+    "most": [
+      24
+    ],
+    "widely": [
+      25
+    ],
+    "deployed": [
+      26
+    ],
+    "studied": [
+      28
+    ],
+    "LPWAN": [
+      29
+    ],
+    "technologies": [
+      30
+    ],
+    "due": [
+      31
+    ],
+    "to": [
+      32,
+      44,
+      56,
+      80,
+      99,
+      110,
+      145,
+      157,
+      187
+    ],
+    "its": [
+      33,
+      205
+    ],
+    "license-free": [
+      34
+    ],
+    "operation": [
+      35
+    ],
+    "open": [
+      37
+    ],
+    "standard,": [
+      38
+    ],
+    "which": [
+      39,
+      139
+    ],
+    "has": [
+      40
+    ],
+    "enabled": [
+      41
+    ],
+    "3rd": [
+      42
+    ],
+    "parties": [
+      43
+    ],
+    "deploy": [
+      45
+    ],
+    "millions": [
+      46
+    ],
+    "networks": [
+      48
+    ],
+    "worldwide.": [
+      49
+    ],
+    "LoRa": [
+      50,
+      138,
+      203
+    ],
+    "allows": [
+      51
+    ],
+    "transmission": [
+      52
+    ],
+    "range": [
+      53,
+      152,
+      200
+    ],
+    "speed": [
+      55,
+      84
+    ],
+    "be": [
+      57,
+      78
+    ],
+    "traded": [
+      58
+    ],
+    "off": [
+      59
+    ],
+    "by": [
+      60,
+      128,
+      154,
+      202
+    ],
+    "configuring": [
+      61
+    ],
+    "Spreading": [
+      63
+    ],
+    "Factor": [
+      64
+    ],
+    "(SF)": [
+      65
+    ],
+    "setting.": [
+      66
+    ],
+    "By": [
+      67
+    ],
+    "tuning": [
+      68
+    ],
+    "this": [
+      69,
+      122,
+      126
+    ],
+    "parameter,": [
+      70
+    ],
+    "performance": [
+      72
+    ],
+    "envelope": [
+      73
+    ],
+    "network": [
+      76
+    ],
+    "can": [
+      77
+    ],
+    "configured": [
+      79
+    ],
+    "favor": [
+      81
+    ],
+    "a": [
+      82,
+      94,
+      111,
+      131
+    ],
+    "higher": [
+      83
+    ],
+    "or": [
+      85
+    ],
+    "longer": [
+      86
+    ],
+    "range.": [
+      87
+    ],
+    "While": [
+      88
+    ],
+    "SF": [
+      90,
+      207
+    ],
+    "LoRA": [
+      92
+    ],
+    "provides": [
+      93
+    ],
+    "simple": [
+      95
+    ],
+    "elegant": [
+      97
+    ],
+    "means": [
+      98
+    ],
+    "tailor": [
+      100
+    ],
+    "performance,": [
+      101
+    ],
+    "at": [
+      102,
+      177
+    ],
+    "highest": [
+      104,
+      206
+    ],
+    "spreading": [
+      105
+    ],
+    "factor,": [
+      106
+    ],
+    "maximum": [
+      107,
+      199
+    ],
+    "throughput": [
+      108
+    ],
+    "drops": [
+      109
+    ],
+    "few": [
+      112
+    ],
+    "bits": [
+      113
+    ],
+    "per": [
+      114
+    ],
+    "second,": [
+      115
+    ],
+    "dramatically": [
+      116
+    ],
+    "increasing": [
+      117
+    ],
+    "data": [
+      118,
+      189
+    ],
+    "extraction": [
+      119,
+      190
+    ],
+    "times.": [
+      120,
+      191
+    ],
+    "In": [
+      121,
+      143
+    ],
+    "paper,": [
+      123
+    ],
+    "we": [
+      124
+    ],
+    "address": [
+      125
+    ],
+    "problem": [
+      127
+    ],
+    "proposing": [
+      129
+    ],
+    "Smart-Hop,": [
+      130
+    ],
+    "novel": [
+      132
+    ],
+    "multi-hop": [
+      133,
+      167
+    ],
+    "MAC": [
+      134
+    ],
+    "layer": [
+      135
+    ],
+    "protocol": [
+      136
+    ],
+    "for": [
+      137
+    ],
+    "implements": [
+      140
+    ],
+    "low-overhead": [
+      141
+    ],
+    "routing.": [
+      142
+    ],
+    "contrast": [
+      144
+    ],
+    "prior": [
+      146
+    ],
+    "work,": [
+      147
+    ],
+    "Smart-Hop": [
+      148,
+      170
+    ],
+    "exploits": [
+      149
+    ],
+    "variable": [
+      151
+    ],
+    "afforded": [
+      153
+    ],
+    "different": [
+      155
+    ],
+    "SFs": [
+      156,
+      179
+    ],
+    "eliminate": [
+      158
+    ],
+    "much": [
+      159
+    ],
+    "complexity": [
+      162
+    ],
+    "overhead": [
+      164,
+      183
+    ],
+    "traditional": [
+      166
+    ],
+    "mesh": [
+      168
+    ],
+    "reduces": [
+      171
+    ],
+    "number": [
+      173
+    ],
+    "end-devices": [
+      175
+    ],
+    "operating": [
+      176
+    ],
+    "high": [
+      178
+    ],
+    "while": [
+      180,
+      196
+    ],
+    "implementing": [
+      181
+    ],
+    "routing": [
+      184
+    ],
+    "in": [
+      185,
+      204
+    ],
+    "order": [
+      186
+    ],
+    "reduce": [
+      188
+    ],
+    "These": [
+      192
+    ],
+    "improvements": [
+      193
+    ],
+    "are": [
+      194
+    ],
+    "achieved": [
+      195
+    ],
+    "preserving": [
+      197
+    ],
+    "offered": [
+      201
+    ],
+    "configuration.": [
+      208
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 2
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 2
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 4
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 4
+    }
+  ],
+  "updated_date": "2026-10-29T09:56:32.521200",
+  "created_date": "2022-10-01T00:00:00"
+}

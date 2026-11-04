@@ -1,0 +1,387 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          10,
+          25
+        ]
+      ],
+      "date-time": "2026-10-25T19:20:09Z",
+      "timestamp": 1792956009158,
+      "version": "4.5.0"
+    },
+    "publisher-location": "New York, NY, USA",
+    "reference-count": 28,
+    "publisher": "ACM",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2008,
+              11,
+              5
+            ]
+          ],
+          "date-time": "2008-11-05T00:00:00Z",
+          "timestamp": 1225843200000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "https://www.acm.org/publications/policies/copyright_policy#Background"
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "dl.acm.org"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [],
+    "published-print": {
+      "date-parts": [
+        [
+          2008,
+          11,
+          5
+        ]
+      ]
+    },
+    "DOI": "10.1145/1460412.1460416",
+    "type": "proceedings-article",
+    "created": {
+      "date-parts": [
+        [
+          2008,
+          11,
+          14
+        ]
+      ],
+      "date-time": "2008-11-14T13:17:40Z",
+      "timestamp": 1226668660000
+    },
+    "page": "29-42",
+    "update-policy": "https://doi.org/10.1145/crossmark-policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 199,
+    "title": [
+      "The β-factor"
+    ],
+    "prefix": "10.1145",
+    "author": [
+      {
+        "given": "Kannan",
+        "family": "Srinivasan",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Stanford University, Stanford, CA, USA"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Maria A.",
+        "family": "Kazandjieva",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Stanford University, Stanford, CA, USA"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Saatvik",
+        "family": "Agarwal",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Stanford University, Stanford, CA, USA"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Philip",
+        "family": "Levis",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Stanford University, Stanford, CA, USA"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "320",
+    "published-online": {
+      "date-parts": [
+        [
+          2008,
+          11,
+          5
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "e_1_3_2_1_1_1",
+        "unstructured": "ANSI/IEEE Std 802.11 1999 Edition.  ANSI/IEEE Std 802.11 1999 Edition."
+      },
+      {
+        "key": "e_1_3_2_1_2_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/1030194.1015482"
+      },
+      {
+        "key": "e_1_3_2_1_3_1",
+        "unstructured": "A. Cerpa. Low-power wireless links properties: Modeling and applications in sensor networks. In PhD thesis University of California Los Angeles California 2005.   A. Cerpa. Low-power wireless links properties: Modeling and applications in sensor networks. In PhD thesis University of California Los Angeles California 2005."
+      },
+      {
+        "key": "e_1_3_2_1_5_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/1062689.1062741"
+      },
+      {
+        "key": "e_1_3_2_1_6_1",
+        "unstructured": "ChipCon Inc. CC2420 Data Sheet. http://www.chipcon.com/files/CC2420_Data_Sheet_1_4.pdf 2006.  ChipCon Inc. CC2420 Data Sheet. http://www.chipcon.com/files/CC2420_Data_Sheet_1_4.pdf 2006."
+      },
+      {
+        "key": "e_1_3_2_1_7_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/938985.939000"
+      },
+      {
+        "key": "e_1_3_2_1_8_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.sigpro.2005.09.034"
+      },
+      {
+        "key": "e_1_3_2_1_9_1",
+        "unstructured": "R. Fonseca O. Gnawali K. Jamieson S. Kim P. Levis and A. Woo. TEP 123: Collection Tree Protocol. http://www.tinyos.net/tinyos-2.x/doc/.  R. Fonseca O. Gnawali K. Jamieson S. Kim P. Levis and A. Woo. TEP 123: Collection Tree Protocol. http://www.tinyos.net/tinyos-2.x/doc/."
+      },
+      {
+        "key": "e_1_3_2_1_10_1",
+        "volume-title": "The Sixth Workshop on Hot Topics in Networks (HotNets-VI)",
+        "author": "Fonseca R.",
+        "year": "2007"
+      },
+      {
+        "key": "e_1_3_2_1_11_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/j.1538-7305.1960.tb03959.x"
+      },
+      {
+        "key": "e_1_3_2_1_12_1",
+        "volume-title": "USA",
+        "author": "Goldsmith A.",
+        "year": "2005"
+      },
+      {
+        "key": "e_1_3_2_1_13_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/378993.379006"
+      },
+      {
+        "key": "e_1_3_2_1_14_1",
+        "unstructured": "Intel Research Berkeley. Mirage testbed. https://mirage.berkeley.intel-research.net/.  Intel Research Berkeley. Mirage testbed. https://mirage.berkeley.intel-research.net/."
+      },
+      {
+        "key": "e_1_3_2_1_15_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JSAC.1986.1146410"
+      },
+      {
+        "key": "e_1_3_2_1_16_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/1282380.1282426"
+      },
+      {
+        "key": "e_1_3_2_1_17_1",
+        "first-page": "534",
+        "volume-title": "LCN '02: Proceedings of the 27th Annual IEEE Conference on Local Computer Networks",
+        "author": "Jiao C.",
+        "year": "2002"
+      },
+      {
+        "key": "e_1_3_2_1_18_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/381677.381705"
+      },
+      {
+        "key": "e_1_3_2_1_19_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/INFCOM.2003.1208702"
+      },
+      {
+        "key": "e_1_3_2_1_20_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/1236360.1236364"
+      },
+      {
+        "key": "e_1_3_2_1_21_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/1182807.1182830"
+      },
+      {
+        "key": "e_1_3_2_1_22_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/18.45284"
+      },
+      {
+        "key": "e_1_3_2_1_23_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/1151659.1159921"
+      },
+      {
+        "key": "e_1_3_2_1_24_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5555/938978.939133"
+      },
+      {
+        "key": "e_1_3_2_1_25_1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s11276-004-4745-x"
+      },
+      {
+        "key": "e_1_3_2_1_26_1",
+        "volume-title": "The Fifth Workshop on Hot Topics in Networks (HotNets-V)",
+        "author": "Srinivasan K.",
+        "year": "2006"
+      },
+      {
+        "key": "e_1_3_2_1_27_1",
+        "volume-title": "Proceedings of the Third ACM Workshop on Embedded Networked Sensors (EmNets 2006)",
+        "author": "Srinivasan K.",
+        "year": "2006"
+      },
+      {
+        "key": "e_1_3_2_1_28_1",
+        "unstructured": "The Institute of Electrical and Electronics Engineers Inc. Part 15.4: Wireless Medium Access Control (MAC) and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal Area Networks (LR-WPANs) Oct. 2003.  The Institute of Electrical and Electronics Engineers Inc. Part 15.4: Wireless Medium Access Control (MAC) and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal Area Networks (LR-WPANs) Oct. 2003."
+      },
+      {
+        "key": "e_1_3_2_1_29_1",
+        "volume-title": "UC-Berkeley",
+        "author": "Woo A.",
+        "year": "2003"
+      }
+    ],
+    "event": {
+      "name": "SenSys08: The 6th ACM Conference on Embedded Networked Sensor Systems",
+      "location": "Raleigh NC USA",
+      "acronym": "SenSys08",
+      "sponsor": [
+        "SIGMETRICS ACM Special Interest Group on Measurement and Evaluation",
+        "SIGCOMM ACM Special Interest Group on Data Communication",
+        "SIGMOBILE ACM Special Interest Group on Mobility of Systems, Users, Data and Computing",
+        "SIGOPS ACM Special Interest Group on Operating Systems",
+        "ACM Association for Computing Machinery",
+        "SIGBED ACM Special Interest Group on Embedded Systems",
+        "SIGARCH ACM Special Interest Group on Computer Architecture"
+      ]
+    },
+    "container-title": [
+      "Proceedings of the 6th ACM conference on Embedded network sensor systems"
+    ],
+    "original-title": [],
+    "link": [
+      {
+        "URL": "https://dl.acm.org/doi/10.1145/1460412.1460416",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://dl.acm.org/doi/pdf/10.1145/1460412.1460416",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          18
+        ]
+      ],
+      "date-time": "2025-06-18T23:44:01Z",
+      "timestamp": 1750290241000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://dl.acm.org/doi/10.1145/1460412.1460416"
+      }
+    },
+    "subtitle": [
+      "measuring wireless link burstiness"
+    ],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2008,
+          11,
+          5
+        ]
+      ]
+    },
+    "references-count": 28,
+    "alternative-id": [
+      "10.1145/1460412.1460416",
+      "10.1145/1460412"
+    ],
+    "URL": "https://doi.org/10.1145/1460412.1460416",
+    "relation": {},
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2008,
+          11,
+          5
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "2008-11-05",
+        "order": 2,
+        "name": "published",
+        "label": "Published",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      }
+    ]
+  }
+}

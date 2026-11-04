@@ -1,0 +1,401 @@
+{
+  "retrieved_at": "2026-11-04T14:41:58.999596+08:00",
+  "scope": "Read-only literature audit. Metadata from Crossref, abstracts and citation counts from OpenAlex; selected full texts additionally read. No TeX/Bib edits or simulations.",
+  "count_warning": "Counts are database-specific indexed citations, not Google Scholar totals, and do not measure paper quality. Counts can differ between Crossref and OpenAlex.",
+  "records": [
+    {
+      "bibtex_key": "augustin2016study",
+      "title": "A Study of LoRa: Long Range & Low Power Networks for the Internet of Things",
+      "doi": "10.3390/s16091466",
+      "authors": [
+        {
+          "given": "Aloÿs",
+          "family": "Augustin"
+        },
+        {
+          "given": "Jiazi",
+          "family": "Yi"
+        },
+        {
+          "given": "Thomas",
+          "family": "Clausen"
+        },
+        {
+          "given": "William",
+          "family": "Townsley"
+        }
+      ],
+      "year": 2016,
+      "venue": "Sensors",
+      "volume": "16",
+      "issue": "9",
+      "pages_or_article": "1466",
+      "crossref_url": "https://api.crossref.org/works/10.3390/s16091466",
+      "crossref_is_referenced_by_count": 1375,
+      "openalex_id": "https://openalex.org/W2520480241",
+      "openalex_api_url": "https://api.openalex.org/works/W2520480241",
+      "openalex_cited_by_count": 1500,
+      "abstract_read": "LoRa is a long-range, low-power, low-bitrate, wireless telecommunications system, promoted as an infrastructure solution for the Internet of Things: end-devices use LoRa across a single wireless hop to communicate to gateway(s), connected to the Internet and which act as transparent bridges and relay messages between these end-devices and a central network server. This paper provides an overview of LoRa and an in-depth analysis of its functional components. The physical and data link layer performance is evaluated by field tests and simulations. Based on the analysis and evaluations, some possible solutions for performance enhancements are proposed.",
+      "oa_locations": [
+        {
+          "landing_page_url": "https://doi.org/10.3390/s16091466",
+          "pdf_url": "https://www.mdpi.com/1424-8220/16/9/1466/pdf?version=1473427827"
+        },
+        {
+          "landing_page_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/5038744",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/27618064",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "https://polytechnique.hal.science/hal-02263367",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "https://doaj.org/article/e43f5f3cfe12415c8332594d25d9d35b",
+          "pdf_url": null
+        }
+      ],
+      "reading_scope": "abstract plus full-text sections 3.2–3.4, 4.2, 5.2; equations 1–3",
+      "fulltext_used": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5038744/fullTextXML"
+    },
+    {
+      "bibtex_key": "to2018lorans3",
+      "title": "Simulation of LoRa in NS-3: Improving LoRa Performance with CSMA",
+      "doi": "10.1109/icc.2018.8422800",
+      "authors": [
+        {
+          "given": "Thanh-Hai",
+          "family": "To"
+        },
+        {
+          "given": "Andrzej",
+          "family": "Duda"
+        }
+      ],
+      "year": 2018,
+      "venue": "2018 IEEE International Conference on Communications (ICC)",
+      "volume": null,
+      "issue": null,
+      "pages_or_article": "1-7",
+      "crossref_url": "https://api.crossref.org/works/10.1109/icc.2018.8422800",
+      "crossref_is_referenced_by_count": 124,
+      "openalex_id": "https://openalex.org/W2884228260",
+      "openalex_api_url": "https://api.openalex.org/works/W2884228260",
+      "openalex_cited_by_count": 160,
+      "abstract_read": "In this paper, we consider two research issues. First, we present a NS-3 module that simulates the behavior of LoRa in an accurate way. To validate the module, we compare its results with measurements on a real-world testbed and with measured values reported by other work. We also show that the module correctly represents the capture effect that lowers the packet drop rate due to collisions. Second, we want to improve the performance of LoRa devices while not impacting energy consumption, the aspect that usually is not taken into account in the literature. We use the simulator to evaluate CSMA, a simple enhancement to LoRaWAN that lowers the collision ratio. The simulation results show that CSMA considerably lowers the collision ratio while only slightly increasing energy consumption. We also observe that CSMA presents lower energy consumption than LoRa for a large number of devices. Another advantage of CSMA consists of increased throughput and larger network capacity because the ETSI restrictions on the duty cycle do not longer apply.",
+      "oa_locations": [
+        {
+          "landing_page_url": "https://doi.org/10.1109/icc.2018.8422800",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "https://hal.science/hal-01835883",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "https://hal.science/hal-03275039",
+          "pdf_url": null
+        }
+      ],
+      "reading_scope": "abstract only",
+      "fulltext_used": null
+    },
+    {
+      "bibtex_key": "bor2016scale",
+      "title": "Do LoRa Low-Power Wide-Area Networks Scale?",
+      "doi": "10.1145/2988287.2989163",
+      "authors": [
+        {
+          "given": "Martin C.",
+          "family": "Bor"
+        },
+        {
+          "given": "Utz",
+          "family": "Roedig"
+        },
+        {
+          "given": "Thiemo",
+          "family": "Voigt"
+        },
+        {
+          "given": "Juan M.",
+          "family": "Alonso"
+        }
+      ],
+      "year": 2016,
+      "venue": "Proceedings of the 19th ACM International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems",
+      "volume": null,
+      "issue": null,
+      "pages_or_article": "59-67",
+      "crossref_url": "https://api.crossref.org/works/10.1145/2988287.2989163",
+      "crossref_is_referenced_by_count": 713,
+      "openalex_id": "https://openalex.org/W2525332113",
+      "openalex_api_url": "https://api.openalex.org/works/W2525332113",
+      "openalex_cited_by_count": 838,
+      "abstract_read": "New Internet of Things (IoT) technologies such as Long Range (LoRa) are emerging which enable power efficient wireless communication over very long distances. Devices typically communicate directly to a sink node which removes the need of constructing and maintaining a complex multi-hop network. Given the fact that a wide area is covered and that all devices communicate directly to a few sink nodes a large number of nodes have to share the communication medium. LoRa provides for this reason a range of communication options (centre frequency, spreading factor, bandwidth, coding rates) from which a transmitter can choose. Many combination settings are orthogonal and provide simultaneous collision free communications. Nevertheless, there is a limit regarding the number of transmitters a LoRa system can support. In this paper we investigate the capacity limits of LoRa networks. Using experiments we develop models describing LoRa communication behaviour. We use these models to parameterise a LoRa simulation to study scalability. Our experiments show that a typical smart city deployment can support 120 nodes per 3.8 ha, which is not sufficient for future IoT deployments. LoRa networks can scale quite well, however, if they use dynamic communication parameter selection and/or multiple sinks.",
+      "oa_locations": [
+        {
+          "landing_page_url": "https://doi.org/10.1145/2988287.2989163",
+          "pdf_url": "http://dl.acm.org/ft_gateway.cfm?id=2989163&type=pdf"
+        },
+        {
+          "landing_page_url": "https://eprints.lancs.ac.uk/id/eprint/81674/7/Adding_an_electronic_thesis_5.3.3.pdf",
+          "pdf_url": "https://eprints.lancs.ac.uk/id/eprint/81674/7/Adding_an_electronic_thesis_5.3.3.pdf"
+        },
+        {
+          "landing_page_url": "http://urn.kb.se/resolve?urn=urn:nbn:se:ri:diva-28257",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-306901",
+          "pdf_url": null
+        }
+      ],
+      "reading_scope": "abstract plus corrected author manuscript sections 3.2–3.3, 4 and first-page correction notice",
+      "fulltext_used": "https://eprints.lancs.ac.uk/id/eprint/81674/13/lora_scalability_r338.pdf",
+      "verification_notes": [
+        "OpenAlex location Adding_an_electronic_thesis_5.3.3.pdf was downloaded and rejected: unrelated doctoral-thesis upload guide.",
+        "Corrected author manuscript states simulation collision bug was fixed and figures/numbers updated; 64 nodes per 3.8 ha replaces 120 in OpenAlex old abstract. Do not transfer either scenario-specific number to mesh."
+      ]
+    },
+    {
+      "bibtex_key": "georgiou2017scale",
+      "title": "Low Power Wide Area Network Analysis: Can LoRa Scale?",
+      "doi": "10.1109/lwc.2016.2647247",
+      "authors": [
+        {
+          "given": "Orestis",
+          "family": "Georgiou"
+        },
+        {
+          "given": "Usman",
+          "family": "Raza"
+        }
+      ],
+      "year": 2017,
+      "venue": "IEEE Wireless Communications Letters",
+      "volume": "6",
+      "issue": "2",
+      "pages_or_article": "162-165",
+      "crossref_url": "https://api.crossref.org/works/10.1109/lwc.2016.2647247",
+      "crossref_is_referenced_by_count": 664,
+      "openalex_id": "https://openalex.org/W2537187694",
+      "openalex_api_url": "https://api.openalex.org/works/W2537187694",
+      "openalex_cited_by_count": 731,
+      "abstract_read": "Low power wide area (LPWA) networks are making spectacular progress from design, standardization, to commercialization. At this time of fast-paced adoption, it is of utmost importance to analyze how well these technologies will scale as the number of devices connected to the Internet of Things inevitably grows. In this letter, we provide a stochastic geometry framework for modeling the performance of a single gateway LoRa network, a leading LPWA technology. Our analysis formulates the unique peculiarities of LoRa, including its chirp spread-spectrum modulation technique, regulatory limitations on radio duty cycle, and use of ALOHA protocol on top, all of which are not as common in today's commercial cellular networks. We show that the coverage probability drops exponentially as the number of end-devices grows due to interfering signals using the same spreading sequence. We conclude that this fundamental limiting factor is perhaps more significant toward LoRa scalability than for instance spectrum restrictions. Our derivations for co-spreading factor interference found in LoRa networks enables rigorous scalability analysis of such networks.",
+      "oa_locations": [
+        {
+          "landing_page_url": "https://doi.org/10.1109/lwc.2016.2647247",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "http://arxiv.org/abs/1610.04793",
+          "pdf_url": "https://arxiv.org/pdf/1610.04793"
+        },
+        {
+          "landing_page_url": "https://doi.org/10.48550/arxiv.1610.04793",
+          "pdf_url": null
+        }
+      ],
+      "reading_scope": "abstract plus arXiv v2 full text, sections II–V",
+      "fulltext_used": "https://arxiv.org/pdf/1610.04793"
+    },
+    {
+      "bibtex_key": "croce2018orthogonality",
+      "title": "Impact of LoRa Imperfect Orthogonality: Analysis of Link-Level Performance",
+      "doi": "10.1109/lcomm.2018.2797057",
+      "authors": [
+        {
+          "given": "Daniele",
+          "family": "Croce"
+        },
+        {
+          "given": "Michele",
+          "family": "Gucciardo"
+        },
+        {
+          "given": "Stefano",
+          "family": "Mangione"
+        },
+        {
+          "given": "Giuseppe",
+          "family": "Santaromita"
+        },
+        {
+          "given": "Ilenia",
+          "family": "Tinnirello"
+        }
+      ],
+      "year": 2018,
+      "venue": "IEEE Communications Letters",
+      "volume": "22",
+      "issue": "4",
+      "pages_or_article": "796-799",
+      "crossref_url": "https://api.crossref.org/works/10.1109/lcomm.2018.2797057",
+      "crossref_is_referenced_by_count": 382,
+      "openalex_id": "https://openalex.org/W2792195154",
+      "openalex_api_url": "https://api.openalex.org/works/W2792195154",
+      "openalex_cited_by_count": 394,
+      "abstract_read": "In this letter, we focus on the evaluation of link-level performance of LoRa technology, in the usual network scenario with a central gateway and high-density deployment of end-devices. LoRa technology achieves wide coverage areas, low power consumption and robustness to interference thanks to a chirp spread-spectrum modulation, in which chirps modulated with different spreading factors (SFs) are quasi-orthogonal. We focus on the performance analysis of a single receiver in presence of collisions. First, we analyze LoRa modulation numerically and show that collisions between packets modulated with different SFs can indeed cause packet loss if the interference power received is strong enough. Second, we validate such findings in experiments based on commercial devices and software-defined radios. Contradicting the common belief that SFs can be considered orthogonal, our results demonstrate that inter-SF collisions are indeed an issue in LoRa networks and, thus, allocating higher SFs to users far from the gateway might not necessarily improve their link capacity, in case of congested networks.",
+      "oa_locations": [
+        {
+          "landing_page_url": "https://doi.org/10.1109/lcomm.2018.2797057",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "http://hdl.handle.net/10447/301652",
+          "pdf_url": null
+        }
+      ],
+      "reading_scope": "abstract only",
+      "fulltext_used": null
+    },
+    {
+      "bibtex_key": "rahmadhani2018collide",
+      "title": "When LoRaWAN Frames Collide",
+      "doi": "10.1145/3267204.3267212",
+      "authors": [
+        {
+          "given": "Andri",
+          "family": "Rahmadhani"
+        },
+        {
+          "given": "Fernando",
+          "family": "Kuipers"
+        }
+      ],
+      "year": 2018,
+      "venue": "Proceedings of the 12th International Workshop on Wireless Network Testbeds, Experimental Evaluation & Characterization",
+      "volume": null,
+      "issue": null,
+      "pages_or_article": "89-97",
+      "crossref_url": "https://api.crossref.org/works/10.1145/3267204.3267212",
+      "crossref_is_referenced_by_count": 76,
+      "openalex_id": "https://openalex.org/W2896332706",
+      "openalex_api_url": "https://api.openalex.org/works/W2896332706",
+      "openalex_cited_by_count": 85,
+      "abstract_read": "LoRa, an abbreviation of Long Range, is a Low-Power Wide Area Network (LPWAN) radio technology that has quickly gained popularity as a communications means for the Internet-of-Things (IoT). LoRa is typically used together with the MAC protocol LoRaWAN and operates in the license-free ISM-bands. As such, anyone is allowed to deploy their own LoRaWAN network, provided that they adhere to the LoRaWAN specification and ISM regulations. However, an uncoordinated deployment of LoRaWAN networks may cause neighboring networks to interfere and LoRaWAN frames to collide. In this paper, we present an in-depth investigation of LoRaWAN frame collisions -- and the capture effect in particular -- through various experiments. Contrary to previous research, we focus on correct reception of data at the application, instead of at the gateway, and we consider multi-gateway, multi-provider, and dense scenarios to obtain insight into collisions within actual networks.",
+      "oa_locations": [
+        {
+          "landing_page_url": "https://doi.org/10.1145/3267204.3267212",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "http://resolver.tudelft.nl/uuid:696066dd-359f-44f5-9f0f-8a37aef5234c",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "http://resolver.tudelft.nl/uuid:696066dd-359f-44f5-9f0f-8a37aef5234c",
+          "pdf_url": null
+        }
+      ],
+      "reading_scope": "abstract only",
+      "fulltext_used": null,
+      "verification_notes": [
+        "Published in WiNTECH workshop co-located with MobiCom 2018, not MobiCom main conference."
+      ]
+    },
+    {
+      "bibtex_key": "vandenabeele2017scalability",
+      "title": "Scalability Analysis of Large-Scale LoRaWAN Networks in ns-3",
+      "doi": "10.1109/jiot.2017.2768498",
+      "authors": [
+        {
+          "given": "Floris",
+          "family": "Van den Abeele"
+        },
+        {
+          "given": "Jetmir",
+          "family": "Haxhibeqiri"
+        },
+        {
+          "given": "Ingrid",
+          "family": "Moerman"
+        },
+        {
+          "given": "Jeroen",
+          "family": "Hoebeke"
+        }
+      ],
+      "year": 2017,
+      "venue": "IEEE Internet of Things Journal",
+      "volume": "4",
+      "issue": "6",
+      "pages_or_article": "2186-2198",
+      "crossref_url": "https://api.crossref.org/works/10.1109/jiot.2017.2768498",
+      "crossref_is_referenced_by_count": 317,
+      "openalex_id": "https://openalex.org/W2614897509",
+      "openalex_api_url": "https://api.openalex.org/works/W2614897509",
+      "openalex_cited_by_count": 349,
+      "abstract_read": "As LoRaWAN networks are actively being deployed in the field, it is important to comprehend the limitations of this low power wide area network technology. Previous work has raised questions in terms of the scalability and capacity of LoRaWAN networks as the number of end devices grows to hundreds or thousands per gateway. Some works have modeled LoRaWAN networks as pure ALOHA networks, which fails to capture important characteristics such as the capture effect and the effects of interference. Other works provide a more comprehensive model by relying on empirical and stochastic techniques. This paper uses a different approach where a LoRa error model is constructed from extensive complex baseband bit error rate simulations and used as an interference model. The error model is combined with the LoRaWAN MAC protocol in an ns-3 module that enables to study multichannel, multispreading factor, multi-gateway, bi-directional LoRaWAN networks with thousands of end devices. Using the LoRaWAN ns-3 module, a scalability analysis of LoRaWAN shows the detrimental impact downstream traffic has on the delivery ratio of confirmed upstream traffic. The analysis shows that increasing gateway density can ameliorate but not eliminate this effect, as stringent duty cycle requirements for gateways continue to limit downstream opportunities.",
+      "oa_locations": [
+        {
+          "landing_page_url": "https://doi.org/10.1109/jiot.2017.2768498",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "https://arxiv.org/pdf/1705.05899.pdf",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "http://hdl.handle.net/1854/LU-8544311",
+          "pdf_url": null
+        }
+      ],
+      "reading_scope": "abstract plus arXiv author manuscript full text, sections II, IV–VIII",
+      "fulltext_used": "https://arxiv.org/pdf/1705.05899"
+    },
+    {
+      "bibtex_key": "heusse2023aloha",
+      "title": "Performance of Unslotted ALOHA With Capture and Multiple Collisions in LoRaWAN",
+      "doi": "10.1109/jiot.2023.3280393",
+      "authors": [
+        {
+          "given": "Martin",
+          "family": "Heusse"
+        },
+        {
+          "given": "Christelle",
+          "family": "Caillouet"
+        },
+        {
+          "given": "Andrzej",
+          "family": "Duda"
+        }
+      ],
+      "year": 2023,
+      "venue": "IEEE Internet of Things Journal",
+      "volume": "10",
+      "issue": "20",
+      "pages_or_article": "17824-17838",
+      "crossref_url": "https://api.crossref.org/works/10.1109/jiot.2023.3280393",
+      "crossref_is_referenced_by_count": 20,
+      "openalex_id": "https://openalex.org/W4378421950",
+      "openalex_api_url": "https://api.openalex.org/works/W4378421950",
+      "openalex_cited_by_count": 19,
+      "abstract_read": "This article explores the capacity limits and the tradeoff between the antagonistic means of enabling reliable data delivery in a loaded LoRaWAN cell. In fact, channel attenuation and variability call for robust transmission settings but the associated load increase causes more collisions between frames. In addition to the physical-layer parameters of the LoRa modulation, this article considers the benefits and tuning of interpacket error correction codes (ECCs), which also trade transmission redundancy for reliability. We thus start by proposing a refined packet delivery ratio (PDR) model that improves the ones found in the literature in that, first, it takes into account the dependency between overcoming ambient noise and dominating colliding frames, and second, it considers the sum of interference powers when multiple colliding frames are present, even if the interference preexists. Moreover, the model extends to the case of a gateway with receiver diversity. In a second step, the model allows to set out the level of redundancy at which ECC is the most effective without hindering capacity: a coding rate of one third. When this is fixed, it allows to define the transmission parameters allocation within a cell and thus the size of the cell. We finally develop an ad-hoc Python discrete-event simulator, freely accessible, to complement the model for assessing the effect of inter-SF and near–far interference and to show the benefits of power control in this respect.",
+      "oa_locations": [
+        {
+          "landing_page_url": "https://doi.org/10.1109/jiot.2023.3280393",
+          "pdf_url": null
+        },
+        {
+          "landing_page_url": "https://hal.science/hal-04119710",
+          "pdf_url": "https://hal.science/hal-04119710/document"
+        },
+        {
+          "landing_page_url": "https://hal.science/hal-04119710",
+          "pdf_url": "https://hal.science/hal-04119710v2/document"
+        }
+      ],
+      "reading_scope": "abstract only",
+      "fulltext_used": null,
+      "verification_notes": [
+        "HAL document request returned HTML challenge page, not paper full text."
+      ]
+    }
+  ]
+}

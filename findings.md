@@ -1,4 +1,271 @@
 # Findings
+- Canonical source /Users/bh4me_macair/Documents/Codex/lora_mesh_current_version_v2 at ea0af90b8146ba5b8d7d518ae43997d9550e7ca4, version/v2, VERSION 2.1.27, firmware 0.1.4.
+- Canonical has 10 tracked modifications and many untracked research/test/firmware dependencies; 4.4 GB total, historical results 3.5 GB. Old lora_mesh must not be used.
+- Existing ICC sources preserved; data affected by source-return flood and concurrent shared-generation ACK bugs. Existing successful paths 95.12% single-hop.
+- Worktree creation tool pending; read-only correctness, seed and runner audits delegated.
+
+---
+## Imported historical record (earlier scopes do not override this task)
+
+# Findings
+
+## Firmware continuation root-cause inventory (2026-10-13)
+
+- Current node uses fixed500-ms ACK wait despite each app carrying a modeled
+  route_bound, so multi-hop traffic can be retried before its exchange budget.
+- emitFlood does not copy the controller's captured recovery generation;
+  strict source ACK validation then rejects a real recovery ACK.
+- DATA/FLOOD destination creates ACK by copying already depleted forward TTL;
+  longest7-hop exchanges cannot return without a fresh reverse-hop budget.
+- Node still contains unreachable legacy discovery machinery; remove only
+  after behavior regressions are green. Controller/route modular-time and
+  recent-retired-ID fixes are owned by the core agent with public-interface TDD.
+
+## Current recovered manuscript and firmware checkpoint (2026-10-13)
+
+- The current request's manuscript changes were already present at recovery.
+  Current source has 30 equation groups, full-name four-arm tables and chart,
+  MT delay/cost/reliability, MC cache/discovery/cost, and CPR admission,
+  recovery, ACK identity and cancellation equations with adjacent explanations.
+- The same source compiled successfully in the desktop editor in this turn.
+  Four existing metadata/figure checks pass; unchanged unclosed-file
+  ResourceWarnings are nonfatal. No separate PDF/page-count claim is made.
+- Firmware native session 16324 completed with 39/39 Unity cases passing,
+  including unsynchronized relay-clock countdown and strict generation tests.
+  This supersedes the stale missing-prepareTx statements immediately below.
+  prepareTx and source discard cleanup now exist; RREQ/RREP cannot install a
+  route through onFrame; off-path ACK cancellation uses validated sender/path.
+- Wire v2 carries remaining_budget_ms, not a cross-node absolute deadline;
+  created_at_ms is opaque source metadata. Frame bounds stay 36/86 bytes.
+  Local expires_at_ms is carried through pending relays and TX preflight.
+- Budget helper/main use real firmware lengths and conservative LoRa ToA:
+  default maximum 7-hop exchange 10591 ms, SF12 58660 ms. Nine helper tests
+  pass, also included in the 39-case native result. Latest board builds are
+  still outstanding; no RF validation, flash or firmware release is claimed.
+- ASan/UBSan combined helper process failed before main in host ASan
+  initialization and was terminated by its owning agent (exit 143). Its
+  result is not sanitizer success; no test process remains running.
+
+## Firmware continuation authoritative audit (2026-10-13)
+
+- prepareTx is absent while main calls it. discard/enqueue failure only cancel
+  relay tokens; they do not retire a source app/controller flow.
+- RREP still installs a usable route, contrary to CPR ACK-only confirmation.
+  Recovery FLOOD generation remains zero and controller accepts zero wire ACK
+  generation despite a nonzero expected epoch.
+- Runtime ACK cancellation currently requires the relay ON a prefix path;
+  the simulator CPR ledger cancels eligible OFF-path pending copies. Needs a
+  behavioral test and contract correction, not merely preserving green tests.
+- Main's fixed route/flood budgets ignore actual firmware header and LoRa
+  settings. A separate agent owns a tested budget helper and main integration.
+
+## Latest paper visibility and explanation audit (2026-10-13)
+
+- Current .tex has 28 equation groups and full MT/MC model sections, but the
+  performance table and many result sentences use only ME/MT/MC abbreviations.
+  Strengthen visible full names without claiming missing experiments existed.
+- Read-only implementation audit found CPR retains inherited duplicate-DATA
+  suppression in addition to its ACK ledger. Correct the prose that contrasts
+  MT duplicate suppression with CPR as if they were mutually exclusive.
+- Useful missing mathematics: modeled wire lengths and CPR's margin-dependent
+  flood delay. Both can be grounded in lora_mesh_sim.py rather than invented
+  probability estimates or new untested algorithms.
+- Added eq:wire-length and eq:cpr-relay-delay; source now has 30 equation
+  groups. The packet-length specialization uses encoded path count n_P so
+  FLOOD's growing path is not confused with a preinstalled full route.
+- Results now name all four protocols in full and separately interpret gains
+  against each baseline with explicit links to mechanism equations. No existing
+  numerical outcome or chart coordinates changed.
+- Compiler success and reference checks confirm the revised same source is
+  valid; no standalone PDF export, page count or visual inspection is claimed.
+- Native firmware session 97104 was collected: 23/23 Unity cases passed.
+  This does not certify the unfinished prepareTx integration or board builds.
+
+## Firmware goal resumed (2026-10-13)
+
+- Source inspection reconfirms a production mismatch: cold sendApp emits
+  RREQ and RREP installs a usable route, instead of an initial DATA flood
+  with ACK-only confirmation. handleAck never installs an ACK-proven route.
+- runtime.prepareTx is still absent although main.cpp calls it. Queue drops
+  cancel only relay tokens, leaving source/controller slots allocated.
+- Controller acquire and node acquireApp overwrite live IDs. Unstarted app
+  records skip deadline cleanup in poll. These are public-behavior TDD slices.
+- The separate CprCore compatibility scaffold is not sufficient evidence for
+  production CprNode/CprRuntime correctness; formal Unity counting is needed.
+
+## Current ICC comparison follow-up (2026-10-13)
+
+- Canonical source is paper/icc2027/icc2027_lora_mesh.tex in
+  lora_mesh_current_version_v2, not the reference lora_mesh tree.
+- It already contains separate MT delay/suppression/union-reliability and MC
+  cache/discovery/conditional-cost equations, a four-arm table, and a chart.
+  The remaining editorial issue is connecting these definitions to CPR's
+  different decision rules and the observed gains.
+- This is academic-paper revision mode. Preserve IEEEtran, authors Zu Gao
+  and Zhi Quan, the simulation-only model boundary and existing citations.
+- Firmware agents stopped safely after the latest user request. Their current
+  changes are partial, including an undefined prepareTx integration and RED
+  TX_DONE tests. Firmware completion must not be inferred from manuscript
+  compilation or old build artifacts.
+- Formula audit found that begin_transmission commits at the processing event
+  before a possibly later recorded air start. Corrected MT suppression to use
+  commitment kappa, and CPR admission to use scheduled start at commitment;
+  removed claims of revalidation up to physical transmission time.
+- Added ACK-installed route generation/TTL/phase updates, conditional marginal
+  repeat/recovery success, and pooled network airtime per deadline delivery.
+  The source now has 28 equation groups. The route counter is source-wide;
+  no claim of a reachable second-timeout eviction in the CPR wrapper was added.
+- Existing CSVs give pooled delivery costs CPR/ME/MT/MC =
+  0.188615964/0.319225211/0.886560970/0.314173765 seconds. These are ratios
+  of sums, not means of per-seed ratios. No new simulations were run.
+- Clarified the MT/CPR duplicate-triggered suppression counter: it can count
+  cancel flags after commitment and is not a physical-airtime savings estimate.
+
+## 2026-10-13 firmware integration audit continuation
+
+- The board-neutral implementation is present under
+  `firmware/meshecho_cpr/` and all three requested board compile targets pass.
+- The native test currently exercises only the compatibility `CprCore` API;
+  it does not prove that `CprNode` forwards a route, delivers DATA, returns an
+  ACK, or admits/cancels a recovery relay in the real runtime path.
+- `CprNode::handleAck` currently leaves `CprAckObservation.route_generation`
+  at zero. `CprRelayLedger::cancelForAck` also matches endpoints and marker
+  but not the pending path prefix, so a same-key ACK on an unrelated branch
+  could cancel a pending relay. These are the next test-first fixes.
+
+## 2026-10-13 firmware CPR upgrade audit
+
+- The existing `firmware/esp32_smart_calm/` project is a burnable ESP32
+  Smart-CALM prototype with an older route/fallback state machine; it does not
+  implement the ICC MeshEcho-CPR state ordering.
+- The requested firmware deliverable requires a new shared fixed-memory core,
+  not a rename of the old project. The core must expose physical-start state,
+  route generation, one repeat, one deadline-gated recovery, and strict ACK /
+  relay-handle identity checks.
+- The target matrix is `native`, ESP32 SX1262, ESP32 SX127x, and nRF52840
+  SX1262. PlatformIO and RadioLib are available; no physical boards are
+  connected, so RF behavior cannot be claimed as validated.
+- The canonical implementation plan is `firmware/meshecho_cpr/`; the old
+  Smart-CALM directory remains untouched until the new core passes host tests
+  and all PlatformIO builds.
+
+## 2026-10-12 four-protocol simulation rerun
+
+- An independent rerun of `tools/run_cpr_external_comparison.py` used the
+  exposure case and seeds `92300..92319` for MeshEcho-CPR, legacy MeshEcho,
+  Meshtastic-like, and MeshCore-like. It produced 80 run rows and 60 paired
+  rows. Every paired row has matching trace, topology, and pair-pool identity;
+  the aggregate incomplete RX/TX join count is zero.
+- Holdout means are CPR `0.9829/0.9984/6.290 s`, legacy MeshEcho
+  `0.9477/0.9616/10.231 s`, Meshtastic-like `0.9405/0.9886/29.257 s`, and
+  MeshCore-like `0.9328/0.9451/9.896 s` for ACK PDR/destination PDR/TX
+  airtime. The rerun summary is byte-identical to the previous four-protocol
+  summary, confirming deterministic reproduction.
+- Relative to legacy/Meshtastic-like/MeshCore-like, CPR gains `+3.515/+4.238/
+  +5.006` ACK-PDR percentage points and reduces airtime by `38.518%/78.499%/
+  36.439%`. Paired 95% intervals exclude zero for all three airtime deltas
+  and all three ACK-PDR deltas.
+- A standalone PNG bar chart was generated from the raw per-seed CSV with
+  t-based error bars. The report is
+  `docs/results/meshecho_four_protocol_comparison_20261012.md`.
+- The result supports a strong same-condition simulation improvement, not a
+  breakthrough claim: the baselines are behavior-level models, the workload
+  is one exposure case, and the retry/flood/ACK-cancellation primitives have
+  prior art. CPR is best described as a promising integrated
+  cost-responsive recovery policy pending broader workloads, matched
+  same-information controls, prior-art separation, and hardware or
+  measured-channel validation.
+
+## 2026-10-12 formula-and-comparison revision
+
+- The manuscript now compares four behavior-level families in one analytical
+  interface: legacy MeshEcho, Meshtastic-like managed flooding, MeshCore-like
+  shortest-candidate source routing, and MeshEcho-CPR.
+- MeshCore is described as shortest-candidate selection because the runner uses
+  `min(candidates, key=(len(path), path))`; no unsupported quality score is
+  claimed. Meshtastic delay now increases as normalized reception quality falls.
+- CPR destination PDR is conditioned on ACK failure and destination failure,
+  avoiding double-counting a packet delivered when its reverse ACK is lost.
+  Relay cancellation is described as validated reverse-path structure rather
+  than exact equality with the relay's stored forward-path prefix.
+- The source now has 26 numbered equations, a four-family figure, and a
+  six-page Letter build with no Overfull boxes after the direct comparison
+  paragraph and result interpretation were added. Product-like rows remain
+  simulator abstractions, not firmware or hardware measurements.
+
+## 2026-10-11 four-protocol comparison objective
+
+- The current formal ICC holdout is not yet a four-protocol comparison: its
+  primary causal arms are CPR/no-cancel/DRC controls, while the external rows
+  are only Meshtastic-like and MeshCore-like.
+- A four-way claim must use one runner, one case profile, one seed set, one
+  application trace, one topology, and one pair pool for all four protocols.
+
+## 2026-10-06 protocol-comparison/formula revision
+
+- The ICC TeX now gives Meshtastic-like managed-flooding cost, MeshCore-like
+  shortest source-route plus RREQ/RREP discovery cost, and the common physical
+  TX-ledger definition used to compute airtime, modeled TX energy, and deadline
+  ACK PDR.
+- CPR now has an explicit per-flow cost equation: initial route plus any
+  physically started repeat, followed by source/relay flood cost only for
+  committed relays. This matches the cancellation rule and does not charge a
+  queued relay that is cancelled before commit.
+- The new equations increased the manuscript to ten numbered equations while
+  preserving the five-page Letter layout. A prior literal `qquad` rendering
+  artifact was corrected to the LaTeX spacing command `\qquad`.
+- The CPR cost equation was dimension-checked: it now uses pure packet ToA
+  terms for airtime, while forwarding delays and the safety margin remain only
+  in the deadline-budget equations.
+- Full project compilation through the bundled BibTeX wrapper hung; the
+  existing verified bibliography artifact was reused and two local XeLaTeX
+  passes plus `xdvipdfmx` completed successfully. This is a tooling issue, not
+  a source or citation error; the final log has no undefined references.
+
+## 2026-10-06 comparison explanation checkpoint
+
+- Current method is MeshEcho-CPR. Its material changes are a TX-start
+  deadline check, confirmed-route initial send followed by one physically
+  started same-path repeat, at most one deadline-admissible recovery flood,
+  strict marker/path/endpoint/physical-sender ACK validation, and a bounded
+  relay ledger that cancels only an uncommitted matching relay after a
+  physical ACK.
+- Legacy MeshEcho uses RREQ/RREP path collection and confidence-ranked cached
+  routes, with delayed bounded fallback when confidence is low or discovery
+  misses. Meshtastic-like uses managed delayed flooding with duplicate
+  suppression. MeshCore-like uses separate RREQ/RREP discovery and cached
+  source routes.
+- CPR's current ICC holdout reports ACK PDR 0.9829, destination PDR 0.9984,
+  and 6.290 s mean TX airtime. These are directly paired only against
+  CPR-no-cancel, DRC-no-rescue, and DRC; CPR versus no-rescue improves ACK
+  PDR by 0.0334 (95% CI [0.0172, 0.0495]), destination PDR by 0.0364, and
+  reduces airtime by 3.143 s.
+- Historical MeshEcho/Meshtastic-like/MeshCore-like numbers use a different
+  50-node, 8.25-km, 4-flow/min workload. They are simulator models, not
+  official firmware runs, so they support qualitative mechanism discussion
+  only and cannot establish a CPR cross-protocol percentage gain.
+- Do not claim CPR is universally better than Meshtastic or MeshCore until a
+  fresh same-topology, same-workload, same-seed matrix includes those baselines.
+
+## 2026-10-06 ICC acceptance assessment checkpoint
+
+- Reviewer-style estimate for the current five-page CPR paper: 20--35%
+  acceptance probability as submitted, central estimate 25--30%. The range is
+  conditional on correct EDAS authorship/originality and is not an official
+  venue acceptance-rate statistic.
+- Strong points are the explicit mechanism, paired 20-seed untouched holdout,
+  no-cancel ablation, complete physical TX/RX/ACK provenance, reproducibility,
+  and restrained simulation-only claims.
+- Main risks are that the contribution may be judged as a combination of
+  familiar retry/flood/ACK ideas, the current four-arm table uses internal DRC
+  controls rather than named external baselines, and the evidence covers only
+  one small repeated-unicast workload without measured-channel validation.
+- The strongest next revision is a compact prior-art comparison table plus a
+  same-condition external baseline or second stress workload. A hardware demo
+  would improve external validity but is not a universal ICC gate.
+- One wording risk for a future edit: replace broad “statistically
+  indistinguishable” language with the narrower statement that the paired
+  interval contains zero / no demonstrated difference.
 
 ## 2026-10-06 authoritative completion state
 
@@ -5094,3 +5361,129 @@ author list/title.
   second invalid exploratory bundle is retained under
   `results/invalid_cpr_multihop_ack_20261006/`; no metrics from either failed
   bundle enter the exploratory decision.
+
+## 2026-10-13 ICC comparison audit
+
+- The manuscript already had protocol-level equations; the useful revision was
+  to make the comparison observable rather than merely add generic algebra.
+- The current source gives both ACK and destination-delivery branch equations
+  for all four behavior-level models and reports normalized mechanism counters
+  in the holdout results.
+- The holdout remains workload-conditional. The manuscript must not present the
+  named Meshtastic-like or MeshCore-like rows as official firmware or hardware
+  measurements, and broader load/topology sensitivity remains future work.
+
+## 2026-10-13 Canonical Firmware Tree Audit
+
+- The user-facing repository is `/Users/bh4me_macair/Documents/Codex/lora_mesh_current_version_v2`.
+- Its `firmware/meshecho_cpr/` currently contains only the `CprCore` test
+  scaffold; it has no core header, wire codec, runtime, radio adapter, or
+  `platformio.ini` yet.
+- A separate working tree, `/Users/bh4me_macair/Documents/Codex/lora_mesh`,
+  contains a more complete CPR implementation and passed version `0.1.4`
+  builds, but those builds are not evidence for the canonical target tree.
+- The target scaffold requires `CprCore`, `FlowRequest`, `Decision`, `Action`,
+  `AckInfo`, and `PendingRelay`; the port must preserve these names or extend
+  the tests without discarding them.
+- No physical ESP32 or nRF52840 board is connected. Build success will remain
+  distinct from RF, antenna, and over-the-air validation.
+
+## 2026-10-13 ICC final formula checkpoint
+
+- Final manuscript-only result: the Results section now contains a unified
+  four-protocol physical-airtime decomposition and CPR-relative holdout ratios.
+- Verified artifact is the six-page canonical PDF with complete references and
+  no overfull, undefined-reference, or fatal diagnostics.
+
+## 2026-10-13 Latest baseline/formula recovery audit
+
+- The current open source already contains 30 numbered equation groups,
+  separate Meshtastic-like and MeshCore-like model subsections, a four-arm
+  mechanism table, a numerical results table and the existing paired chart.
+- Repetition of completed derivations is unnecessary. The remaining prose
+  issue is visibility in the introduction and the Related Work claim that
+  component effects are isolated, despite the presented four-arm aggregate
+  not being a component ablation. Both are addressed in place.
+- The built-in compiler accepted the recovered source before this final
+  prose edit. It does not establish the page count of the old disk PDF.
+
+## 2026-10-13 Current source and output distinction
+
+- Latest user asks for explicit Meshtastic/MeshCore comparisons and more
+  mathematical explanation in the open ICC document, not firmware work.
+- The source has 36 equation environments but contains duplicated outcome,
+  cost, and transition maps. The current on-disk PDF is older than the source;
+  the built-in compiler is preview/diagnostics only and does not export it.
+- Baseline equations must describe the actual runner. In particular, control
+  counts must not count RREP twice, discovery failures still cost their
+  actually started packets, and conditional outcome probabilities cannot
+  assume DATA failure independently of ACK failure.
+- All four protocols are compared as behavior-level simulator models; the
+  experiment is not an official Meshtastic/MeshCore firmware benchmark.
+- Confirmed runner settings: MT base/jitter 0.75/0.75 s; MC cache TTL 300 s,
+  discovery base/jitter 0.5/0.7 s, collection window zero; ME/CPR TTL 600 s
+  and flood base/jitter 0.45/0.65 s. Shared topology/traffic/radio does not
+  mean shared protocol-local timers.
+- Legacy confidence is recursively inherited by RREQ: each extension calls
+  MeshEcho.path_confidence on min(incoming confidence, current link score).
+  A single final bottleneck-minus-penalty expression was incorrect. The
+  current source uses C_h=clip(min(C_(h-1),c_h)-lambda*I(h>=2)).
+- The standalone editor cannot load the external bibliography or figure
+  source. Prior conditional inputs silently omitted them from its preview;
+  both are now embedded in the same .tex rather than replaced by placeholders.
+- Crossref verified all three DOI-backed citations. Corrected full ETX and
+  LoRa-NS3 titles, ETX author list, and Townsley's given-name metadata in
+  both the embedded bibliography and references.bib.
+- Agent independently verified all four-arm means, percentage-point gains,
+  paired 95% intervals and mechanism ratios against the existing CSVs.
+  This revision ran no new seeds and did not establish new empirical results.
+
+## 2026-10-13 ICC comparison visibility audit
+
+- The manuscript now makes the four-way comparison executable at the state
+  boundary, rather than leaving Meshtastic/MeshCore as prose labels.
+- Meshtastic-like uses duplicate-before-commit versus delayed relay commit;
+  MeshCore-like uses cache-hit versus RREQ/RREP discovery; legacy MeshEcho
+  uses scored-route versus fallback; CPR uses explicit stage variable
+  `k_t` for initial, one repeat, and one recovery flood.
+- All named-product rows remain behavior-level simulator models. No claim of
+  official firmware equivalence or hardware measurement was added.
+- The source compiles successfully; page count and the enlarged figure need a
+  final rendered-PDF check.
+
+## 2026-10-13 ICC baseline-formula revision
+
+- The manuscript already had protocol equations, but the comparison was too
+  distributed for Results. A compact decomposition now puts MT relay commits,
+  MC cache-miss discovery, ME fallback, and CPR repeat/recovery in one equation
+  tied to the same started-TX ledger.
+- The revision reports only existing ledger-derived values; it does not claim
+  official Meshtastic or MeshCore firmware reproduction or hardware results.
+- A temporary page-height enlargement was rejected after visual QA showed a
+  clipped bibliography. The accepted build uses normal margins and renders
+  references [1]--[5] completely on page 6.
+
+## 2026-10-13 ICC final formula checkpoint
+
+- Final manuscript-only result: the Results section now contains a unified
+  four-protocol physical-airtime decomposition and CPR-relative holdout ratios.
+- Verified artifact is the six-page canonical PDF with complete references and
+  no overfull, undefined-reference, or fatal diagnostics.
+
+
+## 2026-11-04 SECON execution handoff findings
+
+- Deliverable: docs/research/secon2027_codex_execution_plan_20261104.md.
+- Priorities: frozen source and seed registry; full external evidence and
+  overwrite protection; baseline fidelity; clean component ablations;
+  development selection before formal validation; multi-scenario statistics.
+- Existing no-cancel also disables capacity eviction; current defaults do
+  not match all baseline timers/TTLs. Historic 92300-92319 is exposed.
+- Run locks belong to cohort/config/arm/seed; exposure does not block the
+  remaining pre-registered arms. Airtime packet types and source phases
+  require separate or two-dimensional accounting, not overlapping totals.
+- VERSION participates in source hashes, so release promotion must retain
+  the tested snapshot and explicit tested-version to release mapping.
+- Official requirements were checked separately from recommendations. No
+  universal hardware requirement was found on the reviewed SECON pages.
+- This task only created documentation and updated planning checkpoints.

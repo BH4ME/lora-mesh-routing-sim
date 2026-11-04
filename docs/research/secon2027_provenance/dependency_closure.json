@@ -1,0 +1,45 @@
+{
+  "entrypoints": [
+    "tools/run_cpr_experiment.py",
+    "tools/run_cpr_external_comparison.py",
+    "tools/audit_cpr_population.py"
+  ],
+  "local_python_dependencies": [
+    {
+      "path": "lora_mesh_sim.py",
+      "sha256": "9c9a43aae097d91ea7652c18f06bb76e098707ebd3815e138403d296a674869a"
+    },
+    {
+      "path": "meshecho_cpr.py",
+      "sha256": "16a937ecb3a0cb7b4eb80c6534e0f024dc56867b8f71c41a617db60c9ecd5648"
+    },
+    {
+      "path": "meshecho_drc.py",
+      "sha256": "4b6bdf43be1f4d544f8733f41779cf19e521894240d7ec71f3bec8777f3b897b"
+    },
+    {
+      "path": "meshecho_utility.py",
+      "sha256": "d82ab28c339b5ccd7de92316c16e142b1646fbd9ec2988c4b6c932bd6771ea62"
+    },
+    {
+      "path": "tools/audit_cpr_population.py",
+      "sha256": "a41166de2b8a689db40776c9cb73bbd33ba6ed62abff9632bd7a7012b6f3214b"
+    },
+    {
+      "path": "tools/run_cpr_experiment.py",
+      "sha256": "1dd73b7b402bf69afccacaf620bdbfb452e239033bf3996eb686783bd787d27e"
+    },
+    {
+      "path": "tools/run_cpr_external_comparison.py",
+      "sha256": "0a76933c28875666a9d201f284a786c382ffa59eefffe429c31f144f287342c7"
+    },
+    {
+      "path": "tools/run_drc_experiment.py",
+      "sha256": "e1ac79e951f1aeca9b85cee9c893d513e05b5c9600f2dd3c9eef29d078810d8f"
+    },
+    {
+      "path": "tools/run_drc_population.py",
+      "sha256": "3680075eb6d1483b651409a01082bd7c4c086653343fa9600101d6fc406ffcb5"
+    }
+  ]
+}

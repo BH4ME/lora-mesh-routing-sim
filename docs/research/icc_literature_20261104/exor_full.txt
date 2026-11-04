@@ -1,0 +1,859 @@
+         ExOR: Opportunistic Multi-Hop Routing for Wireless
+                             Networks
+
+                                                          Sanjit Biswas and Robert Morris
+                                          M.I.T. Computer Science and Artifical Intelligence Laboratory
+                                                               biswas, rtm @csail.mit.edu
+
+
+ABSTRACT                                                                             Keywords
+This paper describes ExOR, an integrated routing and MAC                             wireless, mesh, 802.11
+protocol that increases the throughput of large unicast trans-
+fers in multi-hop wireless networks. ExOR chooses each hop
+of a packet’s route after the transmission for that hop, so                          1.   INTRODUCTION
+that the choice can reflect which intermediate nodes actually                           Multi-hop wireless networks typically use routing tech-
+received the transmission. This deferred choice gives each                           niques similar to those in wired networks [15, 16, 9, 4, 5].
+transmission multiple opportunities to make progress. As a                           These traditional routing protocols choose the best sequence
+result ExOR can use long radio links with high loss rates,                           of nodes between the source and destination, and forward
+which would be avoided by traditional routing. ExOR in-                              each packet through that sequence. In contrast, cooperative
+creases a connection’s throughput while using no more net-                           diversity schemes proposed by the information theory com-
+work capacity than traditional routing.                                              munity [20, 14] suggest that traditional routing may not be
+   ExOR’s design faces the following challenges. The nodes                           the best approach. Cooperative diversity takes advantage of
+that receive each packet must agree on their identities and                          broadcast transmission to send information through multi-
+choose one forwarder. The agreement protocol must have                               ple relays concurrently. The destination can then choose the
+low overhead, but must also be robust enough that it rarely                          best of many relayed signals, or combine information from
+forwards a packet zero times or more than once. Finally,                             multiple signals. These schemes require radios capable of
+ExOR must choose the forwarder with the lowest remaining                             simultaneous, synchronized repeating of the signal [18], or
+cost to the ultimate destination.                                                    additional radio channels for each relay [11].
+   Measurements of an implementation on a 38-node 802.11b                               This paper describes ExOR, an integrated routing and
+test-bed show that ExOR increases throughput for most                                MAC technique that realizes some of the gains of cooper-
+node pairs when compared with traditional routing. For                               ative diversity on standard radio hardware such as 802.11.
+pairs between which traditional routing uses one or two                              ExOR broadcasts each packet, choosing a receiver to forward
+hops, ExOR’s robust acknowledgments prevent unnecessary                              only after learning the set of nodes which actually received
+retransmissions, increasing throughput by nearly 35%. For                            the packet. Delaying forwarding decisions until after recep-
+more distant pairs, ExOR takes advantage of the choice of                            tion allows ExOR to try multiple long but radio lossy links
+forwarders to provide throughput gains of a factor of two to                         concurrently, resulting in high expected progress per trans-
+four.                                                                                mission. Unlike cooperative diversity schemes, only a single
+                                                                                     ExOR node forwards each packet, so that ExOR works with
+Categories and Subject Descriptors                                                   existing radios.
+                                                                                        The key challenge in realizing ExOR is ensuring that only
+C.2.2 [Computer Communications Networks]: Network
+                                                                                     the “best” receiver of each packet forwards it, in order to
+Protocols—Routing Protocols; C.2.1 [Computer Commu-
+                                                                                     avoid duplication. ExOR operates on batches of packets
+nications Networks]: Network Architecture and Design—
+                                                                                     in order to reduce the communication cost of agreement.
+Wireless Communication
+                                                                                     The source node includes in each packet a list of candidate
+                                                                                     forwarders prioritized by closeness to the destination. Re-
+General Terms                                                                        ceiving nodes buffer successfully received packets and await
+Algorithms, Experimentation, Performance                                             the end of the batch. The highest priority forwarder then
+                                                                                     broadcasts the packets in its buffer, including its copy of the
+                                                                                     “batch map” in each packet. The batch map contains the
+                                                                                     sender’s best guess of the highest priority node to have re-
+Permission to make digital or hard copies of all or part of this work for            ceived each packet. The remaining forwarders then transmit
+personal or classroom use is granted without fee provided that copies are            in order, but only send packets which were not acknowledged
+not made or distributed for profit or commercial advantage and that copies           in the batch maps of higher priority nodes. The forwarders
+bear this notice and the full citation on the first page. To copy otherwise, to      continue to cycle through the priority list until the desti-
+republish, to post on servers or to redistribute to lists, requires prior specific   nation has 90% of the packets. The remaining packets are
+permission and/or a fee.
+SIGCOMM’05, August 21–26, 2005, Philadelphia, Pennsylvania, USA.                     transferred with traditional routing.
+Copyright 2005 ACM 1-59593-009-4/05/0008 ...$5.00.                                      Measurements of an ExOR implementation on a 32-node
+                              1                                        src      A       B       C        D       E       dst
+
+
+                                                                  Figure 2: Example in which the source’s transmis-
+                                                                  sions may make different amounts of progress to-
+                              2
+                                                                  wards the destination.
+          src                                    dst
+                              ...
+                                                                  that it takes advantage of transmissions that reach unex-
+                                                                  pectedly far, or fall unexpectedly short. Consider Figure 2,
+                             100
+                                                                  in which the source is separated by a chain of nodes leading
+                                                                  towards the destination. Delivery probability decreases with
+                                                                  distance. Traditional routing would forward data through
+Figure 1: Example in which each of the source’s                   some sub-sequence of the chain, for example src-B-D-dst.
+transmissions has many independent chances of be-                 If a packet transmission from the source falls short of B,
+ing received by an intermediate node.                             reaching only A, then that transmission is always wasted in
+                                                                  traditional routing, and the source must re-send the packet.
+                                                                  If a transmission reaches farther than B, for example all the
+                                                                  way to D, traditional routing cannot make use of that luck.
+802.11b test-bed show that ExOR performs better than tra-
+                                                                  ExOR, in contrast, can often take advantage of both of these
+ditional routing for almost all node pairs, typically boosting
+                                                                  situations. In the former case, A will re-send the packet, al-
+end-to-end throughput by a factor of two. The paper in-
+                                                                  lowing it to make some progress. In the latter case, D will
+vestigates the conditions under which ExOR performs well,
+                                                                  forward the packet, eliminating one transmission. These
+and the reasons for that performance.
+                                                                  situations are likely to be common, since traditional rout-
+   This paper contributes the first complete design and im-
+                                                                  ing must compromise when choosing hops: they must be
+plementation of a link/network-layer diversity routing tech-
+                                                                  long-distance enough to make good progress (and thus have
+nique that uses standard radio hardware. It demonstrates
+                                                                  noticeable loss rates), but short enough that the loss rate
+a substantial throughput improvement and provides insight
+                                                                  is low (thus leaving many more distant nodes with non-zero
+into the sources of that improvement.
+                                                                  delivery probabilities).
+   The rest of the paper is organized as follows. Section 2
+                                                                     The above arguments assume that reception at different
+describes the basic idea behind ExOR. Section 3 presents
+                                                                  nodes is independent, and that there is a gradual falloff in
+ExOR’s design, followed by Section 5, which presents an
+                                                                  delivery probability with distance. Whether these assump-
+evaluation of ExOR’s performance. Section 6 describes re-
+                                                                  tions hold depends on the particulars of the propagation
+lated work, and Section 7 concludes.
+                                                                  and interference environment. For example, ExOR will work
+                                                                  better with interference localized at each receiver than with
+2. BASIC IDEA                                                     global interference. The measurements in Section 5 suggest
+                                                                  that the assumptions are sufficiently true in at least one real
+   A simplified version of ExOR might work as follows. A
+                                                                  environment.
+source node has a packet that it wishes to deliver to a distant
+                                                                     ExOR is likely to increase total network capacity as well as
+destination. Between the source and destination are other
+                                                                  individual connection throughput. It transmits each packet
+wireless nodes willing to participate in ExOR. The source
+                                                                  fewer times than traditional routing, which should cause less
+broadcasts the packet. Some sub-set of the nodes receive the
+                                                                  interference for other users of the network and of the same
+packet. The nodes run a protocol to discover and agree on
+                                                                  spectrum.
+which nodes are in that sub-set. The node in the sub-set that
+is closest to the destination broadcasts the packet. Again,
+the nodes that receive this second transmission agree on the      3.   DESIGN
+closest receiver, which broadcasts the packet. This process          ExOR’s design faces four key challenges. First, the nodes
+continues until the destination has received the packet.          must agree on which sub-set of them received each packet.
+   Why might ExOR provide more throughput than tradi-             Since agreement involves communication, the agreement pro-
+tional routing? One reason is that each transmission may          tocol must have low enough overhead that it doesn’t over-
+have more independent chances of being received and for-          whelm ExOR’s potential throughput gain. The protocol
+warded. Consider the contrived scenario in Figure 1. The          must also be robust enough in the face of packet loss that
+delivery probability from the source to each intermediate is      disagreement and thus duplicate forwarding are rare.
+only 10%. The delivery probability from each intermediate            Second, among the nodes that receive a packet, the node
+to the destination is 100%. Traditional routing would route       “closest” to the ultimate destination should be the one that
+all the data through the same intermediate; the high loss         forwards the packet. Thus ExOR must have a metric re-
+rate would require each packet to be sent an average of ten       flecting the likely cost of moving a packet from any node to
+times before being received by the intermediate, once more        the destination.
+to reach the destination, for a total throughput of 0.09 times       Third, in a large dense network there is a penalty to us-
+the nominal radio speed. ExOR would achieve a through-            ing too many nodes as potential forwarders, since the costs
+put of roughly 0.5, since each of the source’s transmissions      of agreement grow with the number of participants. Thus
+is likely to be received by at least one intermediate.            ExOR must choose only the most useful nodes as partici-
+   Another reason why ExOR might improve throughput is            pants.
+   Finally, ExOR must avoid simultaneous transmissions by
+different nodes, to minimize collisions.                                                         Ethernet Header
+
+   ExOR operates on batches of packets. The source node
+                                                                                    Ver         HdrLen          PayloadLen
+includes a list of candidate forwarders in each packet, pri-
+oritized by the estimated cost to the destination. Receiving                                         Batch ID
+nodes buffer successfully received packets and await the end
+                                                                                   PktNum       BatchSz   FragNum         FragSz
+of the batch. The highest priority forwarder then broadcasts
+the packets in its buffer: these transmissions are called the                         FwdListSize              ForwarderNum
+node’s fragment of the batch. Each packet includes a copy
+of the sender’s batch map, containing the sender’s best guess                                     Forwarder List
+of the highest priority node to have received each packet in
+the batch. The remaining forwarders then transmit in or-
+der, sending only packets which were not acknowledged in                                            Batch Map
+the batch maps of higher priority nodes. The forwarders
+continue to cycle through the priority list until the desti-
+                                                                                                    Checksum
+nation has 90% of the packets. The remaining packets are
+transferred with traditional routing.                                                                Payload
+
+
+3.1 Node State
+   Each ExOR node maintains state for each batch of pack-                  Figure 3: ExOR packet header format.
+ets in which it is participating, as indicated by the node’s
+presence in the batch’s forwarder list. Nodes begin keeping
+state after receiving a single packet.                                                                    90%
+   The packet buffer stores the successfully received packets                               B                              C
+in the current batch.                                                           %
+                                                                              90            30%                                      %
+   The local forwarder list contains a copy of the prioritized                                                     30              85
+list of nodes, copied from one of the packets in the packet                                                           %
+buffer. For a given batch, all nodes use the same forwarder                                         10%
+                                                                       A                                                                 E
+list, originally generated by the source.
+                                                                                    70%
+   The forwarding timer indicates the time at which the node                                                                70%
+predicts that it should start forwarding packets from its
+packet buffer. The node sets the timer far enough ahead to                                                D
+give higher-priority nodes enough time to send. The node
+adjusts the timer when it hears other nodes’ packets.
+   The transmission tracker records the measured rate at         Figure 4: Example five node network with link deliv-
+which the currently sending node is sending, along with the      ery probabilities shown along the edges of the graph.
+expected number of packets it has left to send. The node
+uses this information to adjust the forwarding timer.
+   The batch map indicates, for each packet in a batch, the
+highest-priority node known to have received a copy of that      3.3   Batch Preparation
+packet.                                                             The source begins by collecting a batch of packets all des-
+                                                                 tined to the same host. The source chooses a unique batch
+3.2 Packet Format                                                ID and selects a forwarder list (Section 3.4). The source
+   Figure 3 outlines ExOR’s packet header format. The            prepends an ExOR header to each packet of the batch, con-
+ExOR header follows the Ethernet header, and is followed         taining the batch ID and forwarder list. The batch map in
+by the packet’s data. All ExOR packets are broadcasts. The       each header indicates that the only source has received each
+Ver field indicates the current ExOR version, in case of fu-     packet. The source indicates how many packets it will send
+ture protocol changes. The HdrLen and PayloadLen fields          in both the BatchSz and FragSz fields. Finally the source
+indicate the size of the ExOR header and payload respec-         broadcasts each packet in the batch.
+tively. The BatchID field indicates which batch the packet
+belongs to. The PktNum is the current packet’s offset in the     3.4   Forwarder List
+batch. This offset corresponds to the batch map entry for           The source specifies the forwarder list in priority order
+the packet. The BatchSz indicates the total number of pack-      based on the expected cost of delivering a packet from each
+ets in the batch. FragSz indicates the size of the currently     node in the list to the destination. The cost metric is the
+sending node’s fragment (in packets), and FragNum is the         number of transmissions required to move a packet along
+current packet’s offset within the fragment. The FwdList-        the best traditional route from the node to the destination,
+Size field specifies the number of forwarders in the list, and   counting both hops and retransmissions. This metric is sim-
+the ForwarderNum is the current sender’s offset within the       ilar to ETX [4], differing in that ExOR uses only the forward
+list. The Forwarder List is a copy of the sender’s local for-    delivery probability. ExOR uses knowledge of the complete
+warder list. The source and destination are specified in the     set of inter-node loss rates to calculate these ETX values.
+forwarder list. The Batch Map is a copy of the sending              Figure 5 shows the ETX values to node E from each node
+node’s batch map; in order to save space, each entry is an       in the network of Figure 4. Each node’s ETX value is the
+index into the Forwarder List rather than a full IP address.     sum of the link ETX values along the lowest-ETX path to
+           ETX = 2.28                        ETX = 1.17           ticularly important since ExOR would like to use marginal
+                        B                C                        links on which carrier sense often doesn’t work.
+                                                                     Each node waits its turn to transmit: after the source has
+   ETX = 2.85                                       ETX = 0       sent the whole batch, the destination sends packets contain-
+                                                                  ing just batch maps, then the participating nodes send in
+          A                                         E             the order in which they appear in the forwarder list, high-
+                                                                  est priority first. However, a node cannot rely on receiving
+                                                                  the last transmission of the node just before it in the trans-
+                                D                                 mission order. Instead, a node starts sending at the time
+                                                                  it predicts the previous fragment will finish, as indicated by
+                            ETX = 1.43
+                                                                  the node’s forwarding timer.
+                                                                     Whenever a node receives a packet, it updates its trans-
+Figure 5: Estimated transmission count (ETX) to                   mission tracker. The receiver remembers the last received
+node E from each node in the sample network from                  fragment number, which it allows it to calculate how many
+Figure 4.                                                         packets must have been sent since the last received packet.
+                                                                  This number, divided by the time since the last reception,
+                                                                  yields the current transmission rate. The node passes the
+                                                                  current transmission rate through an exponentially weighted
+E. A link’s ETX value is the inverse of the link’s delivery
+                                                                  moving average (EWMA) filter with α = 0.9, which deter-
+probability in the forward direction. For example, B’s ETX
+                                                                  mines the estimated send rate. The EWMA filter smooths
+value to node E is the sum of the ETX of link B-C (1.11)
+                                                                  transient delays which would otherwise artificially inflate
+and the ETX of link C-E (1.17).
+                                                                  the estimated send rate. The node then sets the forwarding
+  If the number of nodes in a network is too large, then
+                                                                  timer to be equal to the current time plus the estimated send
+the expected number of a batch’s packets that any given
+                                                                  rate times the number of packets remaining to be sent. The
+node is responsible for forwarding might be close to zero. In
+                                                                  node determines the number of packets remaining from the
+that case ExOR’s agreement and scheduling protocols will
+                                                                  fragment fields. Competing transmissions from other net-
+have high overhead, since they have costs proportional to the
+                                                                  work protocols, or from other batches, inherit the fairness
+number of nodes. For this reason the ExOR source includes
+                                                                  that the 802.11 MAC provides. The transmission tracker
+only a sub-set of the nodes in the forwarder list. The source
+                                                                  adapts to competing traffic because it observes a slower over-
+runs an ExOR simulation based on the link loss probabilities
+                                                                  all rate of transmission from the current forwarding node.
+and selects only the nodes which transmit at least 10% of
+                                                                     If a node has not yet heard any forwarded packets from
+the total transmissions in a batch.
+                                                                  higher priority nodes, and thus has no information in its
+  The source chooses the forwarder list using network-wide
+                                                                  batch map, it assumes that each higher priority node will
+knowledge of inter-node loss rates. The source can acquire
+                                                                  send for five packet durations.
+this knowledge via periodic link-state flooding of per-node
+                                                                     When a node’s forwarding timer elapses, it sends its batch
+measurements. ExOR is relatively insensitive to inaccurate
+                                                                  fragment: the packets that it has received, but that its batch
+or out-of-date measurements, since a packet’s actual path is
+                                                                  map indicates have not been received by any higher priority
+determined by conditions at the time of transmission. In-
+                                                                  node. As a special case, when the ultimate destination’s
+correct measurements may degrade performance by causing
+                                                                  turn occurs to send, it sends ten packets that include its
+the forwarder list order to be incorrect, or by causing nodes
+                                                                  batch map but no data.
+to be inappropriately included or excluded from the list.
+                                                                     When the lowest priority node has finished forwarding,
+3.5 Packet Reception                                              the schedule starts again. The source re-sends any packets
+                                                                  that its batch map indicates were not received by any node,
+   A node examines the header of every successfully decoded
+                                                                  the destination sends copies of its batch map, and each node
+packet. If the forwarder list includes the node, the node adds
+                                                                  in the forwarding set forwards any packets that have still not
+the packet to the packet buffer for the corresponding batch.
+                                                                  been received by any higher priority node.
+For each entry in the batch map contained in the packet,
+the node compares the entry with the corresponding entry
+in the local batch map, and replaces the latter if the packet’s   3.7   Completion
+entry indicates a higher priority node.                              If a node’s batch map indicates that over 90% of the batch
+   This batch map update algorithm and the inclusion of the       has been received by higher priority nodes, the node sends
+sender’s batch map in every transmission help the nodes ar-       nothing when its turn comes. The last few packets in a
+rive at nearly identical batch maps. The packet batch maps        batch would be the most expensive to send, since they would
+act as a gossip mechanism, carrying reception information         require all the overhead of running the transmission sched-
+from high priority nodes to lower priority nodes. The result      ule, but the overhead would be divided among relatively
+is that a low priority node is unlikely to forward a packet       few packets. In addition, if fragments are small, there is a
+that has already been received by a higher priority node.         greater likelihood that nodes will set their forwarding timers
+                                                                  incorrectly and collide.
+3.6 Scheduling Transmissions                                         Because ExOR only guarantees to deliver 90% of a batch,
+  ExOR attempts to schedule the times at which nodes send         the destination requests the remaining packets via tradi-
+their fragments so that only one node sends at a time. This       tional routing. The destination sends its batch map to the
+scheduling allows higher-priority nodes to send first, which      source, which then sends the remaining packets with tra-
+speeds completion and updates lower-priority nodes’ batch         ditional routing, which uses link-level acknowledgments to
+maps. Scheduling also helps avoid collisions, which is par-       ensure reliable delivery.
+  The source begins sending a new batch when 90% of the         4.    IMPLEMENTATION
+batch map entries from the current batch are filled with the       The ExOR implementation uses the Click toolkit [10] and
+IDs of higher priority nodes. The source waits until it stops   runs as a user-space daemon on Linux. The daemon sends
+hearing packets from the current batch.                         and receives raw Ethernet frames from the wireless device
+                                                                using a libpcap-like interface. The implementation accepts
+3.8 Example                                                     entire files, which it splits into batches of packets. ExOR
+   Figure 6 shows an example transmission time-line for the     does not guarantee reliable delivery, so the implementation
+first six seconds of an ExOR transfer. The data is derived      uses traditional routing to transfer missing packets at the
+by monitoring a transfer from the experimental evaluation in    end of each batch.
+Section 5. Node N5 is the source, and N24 is the destination.      If ExOR were layered under TCP, ExOR’s batches would
+   The figure was generated by aggregating traces of received   likely interact badly with TCP’s window mechanism. If the
+packets. Because of delays within the radio hardware and        end-to-end loss rate were not very low, TCP would use a
+operating system of the individual nodes, the timing reso-      window size too small to allow ExOR to accumulate the 10
+lution of the trace is on the order of tens of milliseconds,    or more packets required for an efficient batch. For this rea-
+or roughly a single packet time. The figure shows a bar if      son the implementation includes a split web proxy. Browsers
+more than four packets were sent by a node within a win-        communicate with TCP to the proxy half on the client side
+dow of 60ms, and the bar’s horizontal length indicates the      of the wireless network. The proxy half on the Internet side
+total duration of the transmission. The two shades of gray      of the wireless network fetches files with TCP from Internet
+represent two successive batches.                               web servers. The two halves use ExOR to transfer any files
+   The source, N5, broadcasts the first batch of 100 packets    larger than 100 kilobytes over the wireless network between
+with the forwarder list set to N24, N20, N18, N11, N8, N17,     them.
+N13, N5 (ordered from highest to lowest priority).
+   The destination (N24) and N20 happen to receive none         5.    EVALUATION
+of the source’s packets, and thus are not yet aware of the
+batch’s existence. N18 does receive about a dozen packets.        This section presents experimental results which show that
+N18 waits an interval that it thinks is long enough for the     ExOR delivers bulk data faster than traditional routing, for
+source to finish, plus 5 packet times each for N24 and N20      both long and short routes. It also examines some of the
+(which send nothing), though N18 under-estimates the time       individual design decisions in the ExOR protocol, explores
+required because it misses most of N5’s packets. Then N18       the consistency of ExOR’s performance and identifies areas
+sends all the packets it received.                              for improvement.
+   Next, the remaining forwarding nodes transmit in reverse
+priority order. The batch maps they broadcast carry the set     5.1    Network Description
+of received packets back towards N5, since N5 may not have         The evaluation was performed on Roofnet [1], an outdoor
+heard any of N18’s transmissions. When N13 is done, N5          roof-top 802.11b network. Roofnet consists of 38 nodes dis-
+starts a second round of transmissions, sending packets that    tributed over roughly six square kilometers of Cambridge,
+were not received by any node in the first round.               Massachusetts. Each of the nodes is a PC with an 802.11b
+   N24 starts the second round too early, at time 1.8, before   card connected to a roof mounted omni-directional antenna.
+N5 finishes. The reason is that N24 cannot hear N5, so it       The physical locations of all the nodes are show in in Fig-
+assumes N5 will send only five packets. N24 sends ten copies    ure 7. The area is dominated by tightly-packed three and
+of its batch map.                                               four story houses; most of the antennas are mounted about
+   N8 does not transmit in the second round because over        two or three feet above the chimneys of the houses. There
+90% of the packets in the batch have been acknowledged by       are a number of taller buildings in the area and five of the
+higher priority nodes (though not yet by the destination).      Roofnet nodes are mounted on these buildings, which are
+N17 does send a small fragment, possibly because it did not     located along the perimeter of the network. A handful of
+hear some of the earlier batch maps. The source sees at the     the nodes have antennas mounted in windows.
+end of the second round that 90% of the batch has made             All but four of the nodes use the Intersil Prism 2.5 802.11b
+progress, and thus sends nothing; it delays starting the next   chip-set. The transmit power level is 200mW. The other four
+batch while it hears packets from the first batch.              nodes use Atheros AR5212 chip-sets with a transmit power
+   Two smaller rounds ensue before the destination acknowl-     level of 100mW. The radios operate in “pseudo-IBSS” mode,
+edges receiving 90% of the packets. The source node begins      a simplified version of the 802.11 IBSS (ad-hoc) mode which
+transmission of a second batch at 3.4 seconds, since it hears   does not use beacons.
+from N11 that 90% of the batch has been received by higher
+priority nodes.                                                 5.2    Method
+   Figure 6 illustrates why ExOR achieves higher throughput        Each experiment measures throughput between 65 ran-
+than traditional routing. Traditional routing must choose a     domly selected node pairs. First, the nodes broadcast 1500-
+first-hop node to which N5 will send. If the first hop is       byte packets every ten seconds for ten minutes and report
+N18, then the loss rate will be about 90%, forcing N5 to        the measured delivery probabilities from all other nodes to
+re-send most packets many times even though N13 through         a central server. The server distributes this information
+N11 received most of them. If the first hop is N13, then        to all the nodes. The measurements are used to compute
+most packets will be received at nodes closer to N24, but       ETX metrics and traditional routes. Next, the server con-
+will be ignored. The choices in between suffer from both of     tacts each of the 65 node pairs in sequence, telling the pair
+these problems. ExOR performs better because it does not        to measure the time required to transfer a 1.0 megabyte
+have to commit to a specific route.                             file using traditional routing, then to wait 15 seconds, then
+                                N24
+                                N20
+                                N18
+                                N11
+                                     N8
+                                N17
+                                N13
+                                     N5
+
+
+                                                 0                 0.5                1.0                     1.5                    2.0          2.5   3.0    3.5      4.0    4.5     5.0    5.5     6.0
+                                                                                                                                                        Time (sec)
+
+Figure 6: Transmission time-line for an ExOR transfer from N5 to N24. Nodes higher on the Y axis have
+lower ETX metrics to N24. The light gray bars show the transmissions in the first batch. The darker gray
+bars show part of the second batch.
+
+
+                   2.40
+                                                                                                                                                         packets are sent with the 802.11b one megabit/second bit-
+                   2.10
+                                     N3
+                                                                                                                                                         rate. It’s likely that a higher bit-rate would provide higher
+                                                                                                                                                         throughput, but selection of the best rate remains as future
+                   1.80
+                                                                                                                                                         work.
+                                                              N6                                                                                            The traditional route is chosen using the ETX metric,
+                   1.50
+                                                                                               N21
+                                                                                                                                                         which has been shown to find the best routes [4, 5] when the
+                                                                                                                      N31N34                N38
+                                                                                                                                                         link loss measurements are accurate. The traditional routing
+
+   Distance (km)
+                                                                                                     N2                 N3N35        N37
+
+                   1.20
+                                                                                N14
+                                                                                         N19
+                                                                                                     N23
+                                                                                                        N24
+                                                                                                                N28
+                                                                                                                      N30
+                                                                                                                      N32
+                                                                                                                                                         traffic is sent along pre-computed source-routed paths. Each
+                                                                                                              N26
+                                     N2
+                                     N1                                                                       N25
+                                                                                                                                                         node in the route sends the entire file to the next node before
+                   0.90                                  N5
+                                                                                         N20                                                             the next node starts sending, so that only one node sends
+                                                               N8
+                                                                    N9             N16
+                                                                           N12 N13N15                                                                    at a time. This is done to make a fair comparison of the
+                   0.60                                       N7
+                                                                    N10
+                                                                           N1
+                                                                                   N17
+                                                                                     8
+                                                                                                                N27                                      two protocols, since traditional multi-hop traffic tends to
+                                                                                                                    N29
+                                                                                                                                                         suffer losses due to collisions between successive hops. Each
+                   0.30
+                                                 N4
+                                                                                                                               N36
+                                                                                                                                                         traditional routing data packet is sent using 802.11 unicast,
+                                                                                                                                                         so that 802.11 keeps re-sending a lost packet until the sender
+                   0.00
+                                                                                                                                                         gets an 802.11 acknowledgment from the next hop.
+                       0.00   0.30        0.60        0.90          1.20        1.50
+                                                                          Distance (km)
+                                                                                                 1.80          2.10              2.40      2.70
+                                                                                                                                                            To reduce the effect of interference from Roofnet user traf-
+                                                                                                                                                         fic and other sources, the reported values are the median of
+                                                                                                                                                         nine experimental runs. The exception is Section 5.7, which
+Figure 7: Physical layout of the 38 Roofnet nodes
+                                                                                                                                                         studies the variations between experimental iterations.
+which participated in the performance evaluation.
+                                                                                                                                                            In addition to throughput measurements, the nodes col-
+                                                                                                                                                         lect the received headers and arrival times of all packets of a
+                                                                                                                                                         single iteration of the experiment. These traces are centrally
+                                                                                                                                                         processed to reconstruct the state of the wireless channel,
+to measure the time required to transfer 1.1 megabytes us-                                                                                               providing the trace data for the case studies in Sections 3.8
+ing ExOR. The evaluation does not use the combination of                                                                                                 and 5.4.
+ExOR and traditional routing, so the extra 0.1 megabyte is
+to compensate for the 10% of packets which may not have                                                                                                  5.3      End-to-End Performance
+been delivered ordinarily. The reported throughput is one                                                                                                   Figure 8 compares the throughput CDFs of ExOR and
+megabyte divided by the total time required to transfer the                                                                                              traditional routing for the 65 node pairs. ExOR’s through-
+data. Every twenty minutes, the central server suspends the                                                                                              put is 33 KBytes/sec for the median pair, whereas tradi-
+experimental runs to recollect the link loss measurements.                                                                                               tional routing achieved 11 KBytes/sec for the median pair.
+During the experiment, existing Roofnet routing and user
+traffic are present.                                                                                                                                      5.3.1      The 25 Highest Throughput Pairs
+  The ExOR batch size is 100 packets, except for the exper-                                                                                                 ExOR’s throughput advantage varies with the number of
+iments in Section 5.5 which consider batch sizes of 10 and                                                                                               nodes between the source and destination. Figure 9 com-
+250 packets. Each packet contains 1024 byte of payload data                                                                                              pares the 25 highest throughput pairs. The top five pairs and
+and either a traditional routing header or an ExOR header.                                                                                               the pair N13-N7, near the center of the figure, correspond to
+Traditional headers vary between 24 and 48 bytes, depend-                                                                                                single hop traditional routes. For these pairs ExOR provides
+ing on the number of hops. ExOR headers vary between 44                                                                                                  higher throughput even though it too sends most packets di-
+and 114 bytes, depending on the forwarder list size. All the                                                                                             rectly from source to destination. Traditional routing relies
+                                      100         ExOR
+
+
+
+
+              Throughput (KBytes/s)
+                                                  Traditional Routing
+                                       80
+
+
+                                       60
+
+
+                                       40
+
+
+                                       20
+
+
+                                        0
+
+
+
+                                            N35−N26   N23−N13   N34−N14   N25−N6    N3−N37   N25−N28   N33−N26   N28−N25   N18−N23   N20−N7   N25−N30   N34−N6     N13−N7    N5−N9
+                                                                                                                                                                                      N21−N35   N21−N37   N8−N15    N21−N3   N23−N34   N15−N17    N13−N17   N9−N18   N10−N8   N31−N37   N35−N30
+
+
+                                                                          3 Traditional Hops                                                                                2 Traditional Hops                                                       1 Traditional Hop
+
+
+Figure 9: The 25 highest throughput pairs, sorted by traditional routing throughput. The bars show each
+pair’s median throughput, and the error bars show the lowest and highest of the nine experiments. ExOR’s
+improvement in throughput is smaller for shorter routes.
+
+
+                                      100         ExOR
+
+
+
+
+              Throughput (KBytes/s)
+                                                  Traditional Routing
+                                       80
+
+
+                                       60
+
+
+                                       40
+
+
+                                       20
+
+
+                                        0
+
+
+
+                                            N17−N14   N17−N1    N17−N33   N17−N11   N3−N38   N18−N2    N1−N33    N14−N2    N34−N2    N6−N2    N1−N5
+                                                                                                                                                        N27−N22    N5−N30    N32−N4   N33−N5    N9−N6
+                                                                                                                                                                                                          N34−N36   N6−N11   N6−N12    N13−N6     N36−N38   N5−N24   N1−N18   N9−N38    N21−N16
+
+                                                      5-7 Traditional Hops                                                                              4 Traditional Hops                                                                       3 Traditional Hops
+
+
+Figure 10: The 25 lowest throughput pairs. The bars show each pair’s median throughput, and the error
+bars show the lowest and the highest of the nine experiments. ExOR outperforms traditional routing by a
+factor of two or more.
+
+
+
+on 802.11 ACKs to trigger re-sends, but this mechanism in-                                                                                                        by a factor of two or more. As route length increases, the
+correctly re-sends the data packet if the ACK is lost. In                                                                                                         likelihood of finding additional forwarding nodes increases,
+contrast, the ExOR destination sends each batch map ten                                                                                                           which gives ExOR more opportunities to make progress.
+times, so that the source is unlikely to re-send incorrectly. In
+addition, in some cases ExOR re-sends packets from nodes
+that have lower-loss links to the destination than the source
+                                                                                                                                                                  5.3.2                The 25 Lowest Throughput Pairs
+has.                                                                                                                                                                 Figure 10 compares the throughputs of the 25 pairs with
+  The next nine pairs to the left are routes with two tra-                                                                                                        the lowest traditional routing throughputs. These pairs are
+ditional routing hops. For most of the pairs ExOR outper-                                                                                                         separated by three traditional hops or more, and tend to
+forms traditional routing by 50% or more. In these cases,                                                                                                         have many potential forwarders and thus benefit the most
+ExOR has a choice of forwarding nodes as well as multi-                                                                                                           from ExOR.
+ple ways in which batch map information can be gossiped                                                                                                              The biggest performance gains occur on the longest routes,
+back to the source. Some of the pairs see little improvement                                                                                                      which have between five and seven hops. In many cases
+because of a limited number of forwarding node choices.                                                                                                           ExOR is able to use long links that are asymmetric: that
+  The remaining pairs correspond to three hop routes. For                                                                                                         deliver many data packets but few packets in the reverse di-
+most of these pairs, ExOR outperforms traditional routing                                                                                                         rection. In these cases the ExOR batch maps flow back to-
+                                                                                                                                                                  wards the source by a different path than the data packets.
+                                        1                                                                                                   1
+
+
+
+
+   Cumulative Fraction of Node Pairs                                                                   Cumulative Fraction of Node Pairs
+                                       0.8                                                                                                 0.8
+
+
+                                       0.6                                                                                                 0.6
+
+
+                                       0.4                                                                                                 0.4
+
+
+                                       0.2                                                                                                 0.2                                      Traditional
+                                                                                ExOR                                                                                                BatchSz 10
+                                                                                Traditional                                                                                         BatchSz 100
+                                        0                                                                                                                                           BatchSz 250
+                                                                                                                                            0
+                                             0   20    40       60      80      100           120                                                0   20   40       60        80          100
+                                                      Throughput (KBytes/sec)                                                                             Throughput (KBytes/sec)
+
+
+Figure 8: The distribution of throughputs of ExOR                                                   Figure 13: CDF of ExOR throughput for three batch
+and traditional routing between the 65 node pairs.                                                  sizes. All of the sizes outperform traditional rout-
+The plots shows the median throughput achieved for                                                  ing. Large batches work well for low-throughput
+each pair over nine experimental runs. ExOR pro-                                                    pairs because of redundant batch map transmis-
+vides three times as much throughput as traditional                                                 sions, while smaller batches work well for high-
+routing for the median pair.                                                                        throughput pairs due to lower header overhead.
+
+
+
+Traditional routing, in contrast, avoids these asymmetric                                           few packets. This section examines how ExOR throughput
+links because ETX takes link-level ACK losses into account.                                         varies with batch sizes of 10, 100 and 250 packets.
+                                                                                                       The batch size affects the per-packet overhead due to the
+5.4 Distance per Transmission                                                                       batch map embedded in the ExOR header. Given a rel-
+  One of the potential reasons that ExOR works well is that                                         atively large forwarder list of 14 nodes, each entry in the
+delivery probability may decrease gradually with distance,                                          batch map occupies 4 bits. Thus, for a 10 packet batch the
+so that significant numbers of packets travel less or more far                                      total batch map requires five bytes of space. For a batch size
+than expected. Figures 11 and 12 illustrate the extent to                                           of 100, the batch map occupies 50 bytes, and for a 250 packet
+which this is true for a transfer from node N5 to node N24.                                         batch, the map occupies 125 bytes. In the experiment, the
+This is the same transfer explored in Section 3.8.                                                  per-packet payload is fixed at 1024 bytes, so the 250-batch
+  Each bar in Figures 11 shows the number of transmissions                                          map creates 12% more per-packet overhead. The through-
+a particular node makes, with the node’s ETX metric to N24                                          put is calculated as the total amount of unique payload data
+plotted on the X axis. Bars higher than 1000 indicate nodes                                         delivered divided by the total transfer time.
+that had to transmit some packets more than once. For ex-                                              Figure 13 shows the throughput distribution for each of
+ample, the traditional routing source node had to send each                                         the three batch sizes. The evaluation method is similar to
+packet an average of over three times. The ExOR source                                              the experiments presented earlier in the section, except that
+node sent each packet about half as many times. The rea-                                            each experiment was repeated only three times. The graph
+son is that many of the ExOR transmissions that failed to                                           plots the median for each node pair.
+reach the first traditional hop were received by nodes closer                                          For low-throughput pairs the batch size of ten performs
+to the source (i.e. with X positions to the left of 5); ExOR al-                                    about 20% worse than 100 or 250. Smaller batches reduce
+lows these packets to make some progress, while traditional                                         the chance that all nodes hear previous senders’ batch maps,
+routing does not.                                                                                   and thus increase the chance of needless transmissions. For
+  Figure 12 shows that ExOR makes good use of packets                                               high-throughput node pairs with direct communication, the
+that travel farther than expected. The graph indicates the                                          ExOR header overhead penalizes large batches. 250-packet
+distance that each transmission traveled, as measured in                                            batches result in roughly 15% slower performance when com-
+difference in ETX metric to N24 between the transmitter                                             pared to 10 or 100 packet batches. The fact that 10 and 100
+and receiver. The white bars indicate that the four hops in                                         perform equally well suggests that the best batch size is
+the traditional route traveled ETX distances of up to about                                         somewhere between those two values.
+2.6. Many ExOR transmissions traveled farther than 2.6.
+While the number of packets carried by each individual long-                                        5.6                                     Independent Loss Simulation
+distance link is small, the sum is substantial. The resulting                                          ExOR’s design assumes that the majority of packet loss is
+decrease in total transmissions required helps explain why                                          uncorrelated among receivers. If all losses were due to low
+ExOR increases throughput.                                                                          signal-to-noise ratio or multi-path fading, such an assump-
+                                                                                                    tion would be true. Packet losses caused by background traf-
+5.5 Batch Size                                                                                      fic or interference, in contrast, might be correlated among
+   ExOR’s batches increase the chances that repeated in-                                            the receivers. This section evaluates the impact on ExOR
+formation such as batch maps and fragment counters reach                                            throughput of correlated losses.
+all the nodes, so that they make consistent scheduling and                                             To study the effects of shared interference, it is necessary
+transmission decisions. However, the ExOR header grows                                              to use a simulator, as such interference sources are difficult
+with the batch size, and many transfers may only have a                                             to produce on the test-bed. The simulator takes the mea-
+                                      3500
+                                                                                                                                                 ExOR
+                                      3000
+                                                                                                                                                 Traditional
+
+
+
+
+               Packet Transmissions
+                                      2500
+
+                                      2000
+
+                                      1500
+
+                                      1000
+
+                                       500
+
+                                         0
+                                              8       7.5         7   6.5   6     5.5       5   4.5    4       3.5         3   2.5   2     1.5        1        0.5   0
+                                                                                        Transmitterʼs ETX to Destination
+
+Figure 11: The number of transmissions made by each node during a 1000-packet transfer from N5 to
+N24. The X axis indicates the sender’s ETX metric to N24. The Y axis indicates the number of packet
+transmissions that node performs. Bars higher than 1000 indicate nodes that had to re-send packets due to
+losses.
+
+                                       7000
+                                                                                                                                                 ExOR
+                                                                                                                                                 Traditional
+
+
+
+
+               Packet Transmissions
+                                       1500
+
+
+                                       1000
+
+
+                                        500
+
+
+                                          0
+                                                  0         0.5       1     1.5         2       2.5        3         3.5       4     4.5          5        5.5
+                                                                                  ETX Progress from Transmitter to Receiver
+
+Figure 12: Distance traveled towards N24 in ETX space by each transmission. The X axis indicates the
+difference in ETX metric between the sending and receiving nodes; the receiver is the next hop for traditional
+routing, and the highest-priority receiving node for ExOR. The Y axis indicates the number of transmissions
+that travel the corresponding distance. Packets with zero progress are not received by the next hop (for
+traditional routing) or by any higher-priority node (for ExOR).
+
+
+
+sured link loss rates as input. When a packet is broadcast                                            ers, allowing ExOR to exploit the lucky transmissions. Thus,
+with independent loss, the simulator models each link (each                                           ExOR does not require independent losses, but does take
+receiver) with a separate random variable. For dependent                                              advantage of them when available.
+loss, all the links are conditioned on the same random vari-
+able. For example, given two links with a 50% and a 75%                                               5.7       Throughput Variation
+loss rate, the first receiver will receive a strict superset of the                                      A side-effect of ExOR’s use of multiple forwarding nodes
+packets received by the second receiver. The simulator does                                           is a reduction in variation between per-transfer through-
+not model contention or any other MAC-related delays, so                                              puts. Table 1 shows the variation among the nine exper-
+it produces an optimistic result.                                                                     imental iterations for 20 randomly selected node pairs. The
+   Figure 14 illustrates the simulation results. For single                                           throughput columns are the median of the nine runs and the
+hop routes, there is no difference between dependent and                                              range column is the difference between the highest and low-
+independent losses, as there is only a single link. As the                                            est throughputs, expressed as a percentage of the median.
+pairs become distant, a performance gap develops, in which                                            Traditional routing throughput tends to vary by eight to ten
+the dependent curve lags the independent curve by 20% for                                             times as much as ExOR.
+the median pair.                                                                                         It might seem surprising that the throughputs of succes-
+   ExOR forwarder lists contain nodes at various distances                                            sive transfers should vary substantially, since each transfer
+between the source and destination, producing a wide range                                            effectively averages thousands of individual packet transmis-
+of inter-node loss rates. Even if all losses were correlated,                                         sions. The variation is caused by changes in link delivery
+some transmissions would deliver packets farther than oth-                                            rates at time scales comparable to a single transfer. Changes
+                                        1
+                                                                                                        packets between changes in channel conditions. OAR de-
+
+
+
+
+   Cumulative Fraction of Node Pairs
+                                                                                                        termines the channel conditions by measuring the received
+                                       0.8
+                                                                                                        signal strength of 802.11 control packets. The source node
+                                                                                                        sends an RTS packet when it wishes to initiate a transmis-
+                                       0.6                                                              sion. The returned CTS packet includes the received signal
+                                                                                                        strength of the RTS, which can be used to determine the
+                                       0.4                                                              best bit rate to send at, as in the RBAR protocol [7]. OAR
+                                                                                                        then sends a burst of packets, monitoring the signal strength
+                                       0.2                                                              information of the link-level acknowledgments to ensure the
+                                                                          ExOR (Dependent Losses)       channel is still good.
+                                                                          ExOR (Independent Losses)
+                                        0                                                                  Like OAR, ExOR uses a channel reservation scheme to
+                                             0   20       40       60          80       100       120   avoid collisions. However, ExOR requires less channel sta-
+                                                           Throughput (KBytes/sec)
+                                                                                                        bility, since it has no RTS/CTS exchange, and ExOR does
+                                                                                                        not require signal strength measurements to predict recep-
+Figure 14: CDF of simulated end-to-end ExOR                                                             tion. Finally, ExOR takes advantage of intermediate nodes
+throughput for independent and dependent losses.                                                        to relay packets.
+Overall throughput is 20% less when losses are de-
+pendent.                                                                                                6.2    Opportunistic Forwarding
+                                                                                                           A number of protocols have considered the problem of
+                                                                                                        choosing forwarding hops based on channel conditions. Lars-
+      Node Pair                                   ExOR     ExOR         Traditional     Traditional
+                                                 (KB/s)    Range          (KB/s)          Range
+                                                                                                        son presents the idea of “selection diversity forwarding” [13],
+                  N17-N33                          33.1    3.9%             1.4           55.6%         in which the source includes a list of potential forwarders’
+                  N18-N2                           21.8    3.6%             5.5           63.8%         node addresses in the RTS packet. Neighboring nodes which
+                  N34-N2                           20.7    1.6%             6.9           90.4%         successfully receive the packet respond with CTS packets
+                  N27-N22                          33.7    4.3%             8.5           41.2%         containing the signal to noise ratio of the RTS, and the
+                  N33-N5                           23.8    3.2%             8.9           44.0%         source node chooses a forwarder based on guidelines from
+                  N6-N11                           24.8    3.0%             9.1           59.6%
+                                                                                                        the routing layer and reported RTS S/N. The candidate for-
+                  N36-N38                          33.4    3.3%            10.0           68.1%
+                  N9-N38                           31.7    5.9%            10.4           63.9%         warding nodes are likely to send CTS frames simultaneously,
+                  N4-N33                           24.6    4.0%            10.9           38.1%         potentially causing collisions. Jain, et al. [8]. propose an im-
+                  N11-N30                          31.5    3.1%            11.3           44.2%         provement to the protocol in which the forwarders respond
+                  N19-N16                          29.3    3.8%            11.7           71.4%         in a priority order specified in the initial RTS. Upon receiv-
+                  N13-N34                          35.1    4.1%            12.6           22.7%         ing the first reply, the source immediately begins transmis-
+                  N33-N20                          29.7    1.8%            14.4           65.1%
+                                                                                                        sion to that node (regardless of S/N), reducing the overhead
+                  N23-N13                          39.4    4.8%            17.2           39.4%
+                  N3-N37                           39.1    6.5%            19.3           10.2%         associated with waiting for multiple replies. Roy Chowdhury
+                  N28-N25                          39.3    4.8%            20.6           56.1%         presents an alternate protocol [3] which avoids the control
+                  N25-N30                          54.2    3.1%            23.4            9.7%         packet overhead by using historical observations of channel
+                   N5-N9                           37.2    5.9%            31.4           43.7%         conditions. Similarly, GeRaF [21] uses an RTS/CTS-based
+                  N8-N15                           77.3    4.0%            38.8           26.5%         receiver contention scheme to select the best of many po-
+                  N15-N17                          62.0    5.5%            46.8           15.7%
+                                                                                                        tential forwarders, but prioritizes forwarders based on geo-
+                  N10-N8                           77.2    8.5%            78.0           32.9%
+                                                                                                        graphic distance instead of S/N.
+                                                                                                           In all four protocols, it is assumed that channel measure-
+Table 1: Comparison of traditional and ExOR                                                             ments or distance accurately predict whether packets are
+throughputs and variation for 20 node pairs.                                                            likely to be delivered. ExOR, in contrast, determines the
+                                                                                                        forwarding node based on reception of data packets rather
+                                                                                                        than preceding control packets. Link-level measurements in
+in a single link can have a large effect on a traditional                                               [1] have shown that delivery probability is hard to predict
+route that happens to use that link. ExOR’s throughput                                                  by signal to noise ratio or distance measurements.
+is less sensitive to single links, so that ExOR’s experiment-
+to-experiment throughput would only vary if many links si-                                              6.3    Multiple Path Routing
+multaneously changed quality.                                                                              Ganesan’s braided multi-path routing [6] identifies multi-
+                                                                                                        ple routes, using one as a primary and switching if the pri-
+                                                                                                        mary fails. Opportunistic Multipath Scheduling (OMS) [2]
+6. RELATED WORK                                                                                         splits traffic over multiple paths, adaptively favoring paths
+                                                                                                        that provide low delay or high throughput. Tsirigos and
+6.1 Opportunistic Channel Protocols                                                                     Haas [19] propose sending erasure-coded fragments of each
+  The Opportunistic Auto Rate (OAR) protocol [17] ex-                                                   packet over disjoint paths in a mobile ad-hoc network, in
+ploits durations of high quality channel conditions caused by                                           order to tolerate loss of some fragments due to fading or
+movement. Wireless channels between pairs of nodes tend                                                 node movement. ExOR also exploits multiple paths, but
+to change over time, but if there are multiple nodes waiting                                            uses broadcast to explore them simultaneously and to use
+to send there is likely to be one good channel at any given                                             long and high-loss radio links. ExOR does not need to iden-
+time. OAR attempts to identify the best channel and let                                                 tify specific paths in advance, nor must it ensure that the
+that pair of nodes send without interruption, while main-                                               paths are disjoint.
+taining fairness between contending senders. OAR works
+best if channels are stable enough that it can send many                                                6.4    Cooperative Diversity Routing
+                                                                    [5] R. Draves, J. Padhye, and B. Zill. Comparison of routing
+   Laneman and Wornell [12] develop and analyze a series                metrics for static multi-hop wireless networks. In Proc.
+of information theoretic cooperative diversity techniques to            ACM SIGCOMM Conference (SIGCOMM 2004),
+                                                                        September 2004.
+exploit nearby nodes which overhear transmissions. In their
+                                                                    [6] D. Ganesan, R. Govindan, S. Shenker, and D. Estrin.
+protocols, all nodes “closer” to the destination relay a copy           Highly-resilient, energy-efficient multipath routing in
+of the packet. Closeness is determined by S/N; nodes which              wireless sensor networks. ACM Mobile Computing and
+are closer to the destination are likely to have higher S/N             Communications Review, 5(4), October 2001.
+than the source. However, because the relay nodes do not            [7] G. Holland, N. Vaidya, and P. Bahl. A rate-adaptive MAC
+communicate with each other before forwarding, duplicate                protocol for multi-hop wireless networks. In ACM Mobicom
+transmissions are likely to occur in dense networks, poten-             2001, September 2001.
+tially wasting spectrum. Laneman’s protocols assume or-             [8] S. Jain and S. Das. Exploiting path diversity in the link
+thogonal channels or fixed time slots, which are difficult to           layer in wireless ad hoc networks. In Proc. of the 6th IEEE
+                                                                        WoWMoM Symposium, June 2005.
+implement with commodity radio hardware.
+                                                                    [9] D. B. Johnson. Routing in ad hoc networks of mobile hosts.
+   ExOR fills in some of the details needed to make coopera-            In Proc. of the IEEE Workshop on Mobile Computing
+tive diversity efficient and practical on commodity hardware,           Systems and Applications, pages 158–163, December 1994.
+such as scheduling transmissions and agreeing on the best          [10] Eddie Kohler, Robert Morris, Benjie Chen, John Jannotti,
+node to relay each packet.                                              and M. Frans Kaashoek. The Click modular router. ACM
+                                                                        Transactions on Computer Systems, 18(3):263–297, August
+7. CONCLUSION                                                           2000.
+                                                                   [11] J. N. Laneman, D. Tse, and G. Wornell. Cooperative
+  This paper presents ExOR, an integrated routing and                   diversity in wireless networks: Efficient protocols and
+MAC protocol for multi-hop wireless networks in which the               outage behavior. In IEEE Transactions on Information
+“best” of multiple receivers forwards each packet. ExOR                 Theory, December 2004.
+improves performance by taking advantage of long-distance          [12] J. N. Laneman and G. Wornell. Exploiting distributed
+but lossy links which would otherwise have been avoided by              spatial diversity in wireless networks. In Proc. Allerton
+                                                                        Conference on Communications, Control, and Computing,
+traditional routing protocols. The result is a factor of two
+                                                                        October 2000.
+to four improvement in throughput between distant pairs of         [13] P. Larsson. Selection diversity forwarding in a multihop
+nodes in a real test-bed.                                               packet radio network with fading channel and capture.
+  Potential areas of future work include extending the pro-             SIGMOBILE Mob. Comput. Commun. Rev., 5(4):47–54,
+tocol to use multiple transmit bit rates, better integration            2001.
+with TCP, and taking advantage of received frames which            [14] R. U. Nabar, H. Bölcskei, and F. W. Kneubühler. Fading
+contain bit-errors.                                                     relay channels: Performance limits and space-time signal
+  The source code for ExOR is available for download:                   design. IEEE Journal on Selected Areas in
+                                                                        Communications, June 2004.
+      http://pdos.lcs.mit.edu/ExOR/                                [15] C. E. Perkins and P. Bhagwat. Highly dynamic
+                                                                        Destination-Sequenced Distance-Vector routing (DSDV) for
+                                                                        mobile computers. In Proc. ACM SIGCOMM Conference
+Acknowledgments                                                         (SIGCOMM ’94), pages 234–244, August 1993.
+We thank John Bicket and Dan Aguayo for helping con-               [16] C. E. Perkins and E. M. Royer. Ad hoc On-Demand
+struct the Roofnet test-bed. This research was supported                Distance Vector Routing. In Proceedings of the 2nd IEEE
+by the NTT Corporation under the NTT-MIT collabora-                     Workshop on Mobile Computing Systems and Applications,
+                                                                        1999.
+tion, by MIT’s Project Oxygen, and by Taiwan’s Industrial
+                                                                   [17] B. Sadeghi, V. Kanodia, A. Sabharwal, and E. Knightly.
+Technology Research Institute (ITRI). We thank the many                 Opportunistic media access for multirate ad hoc networks.
+volunteers who host Roofnet nodes for their time and pa-                In Proceedings of ACM Mobicom 2002, September 2002.
+tience.                                                            [18] A. Scaglione and Y.W. Hong. Opportunistic large arrays:
+                                                                        Cooperative transmission in wireless multihop ad hoc
+8. REFERENCES                                                           networks to reach far distances. In IEEE transactions on
+                                                                        Signal Processing, volume 8, pages 2082–2092, August 2003.
+ [1] D. Aguayo, J. Bicket, S. Biswas, G. Judd, and R. Morris.      [19] A. Tsirigos and Z. Haas. Analysis of multipath
+     Link-level measurements from an 802.11b mesh network. In           routing—Part I: The effect on the packet delivery ratio.
+     ACM SIGCOMM 2004, August 2004.                                     IEEE Transactions on Wireless Communications, 3(1),
+ [2] C. Cetinkaya and E. Knightly. Opportunistic traffic                January 2004.
+     scheduling over multiple network paths. In Proc. IEEE         [20] E.C. Van der Meulen. A survey of multi-way channels in
+     Infocom. IEEE, September 2004.                                     information theory. IEEE Transactions on Information
+ [3] R. Roy Choudhury and N. Vaidya. MAC layer anycasting               Theory, IT-23:1–37, 1977.
+     in wireless networks. In Second workshop on Hot Topics in     [21] M. Zorzi and R. Rao. Geographic Random Forwarding
+     Networks (HotNets II), November 2003.                              (GeRaF) for ad hoc and sensor networks: multihop
+ [4] D. De Couto, D. Aguayo, J. Bicket, and R. Morris. A                performance. IEEE Transactions on Mobile Computing,
+     high-throughput path metric for multi-hop wireless routing.        2(4), October 2003.
+     In Proc. ACM/IEEE MobiCom, September 2003.
+

@@ -1,0 +1,734 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          10,
+          31
+        ]
+      ],
+      "date-time": "2026-10-31T21:45:59Z",
+      "timestamp": 1793483159801,
+      "version": "4.5.0"
+    },
+    "reference-count": 89,
+    "publisher": "Association for Computing Machinery (ACM)",
+    "issue": "6",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2024,
+              1,
+              22
+            ]
+          ],
+          "date-time": "2024-01-22T00:00:00Z",
+          "timestamp": 1705881600000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "https://www.acm.org/publications/policies/copyright_policy#Background"
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "dl.acm.org"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "ACM Comput. Surv."
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2024,
+          6,
+          30
+        ]
+      ]
+    },
+    "abstract": "<jats:p>A comprehensive review is presented on the latest approaches to solutions focusing on multi-hop and mesh LoRa networks through the evaluation of simulations and real-world experiments, based on papers published between 2015 and 2023. The approaches are systematically classified into four (4) aspects: energy awareness, concurrent access and duty cycle regulations, routing protocols, and security. The first aspect encompasses parameter selection, distance, and clustering. The second aspect focuses on network segregation and time synchronisation. The third aspect covers proactive, reactive, and hybrid routing protocols. The aspect of security includes privacy and Denial-of-Service (DoS). Findings show a consensus that multi-hop networks and adherence to radio duty cycle are able to lower average power consumption. Concurrent access method can improve network performance, but more research is needed due to different conclusions. Reactive protocols have a slight advantage over proactive protocols in terms of node deployment scalability and lower power consumption due to less frequent routing table updates. Hybrid protocols are only beneficial in specific topology deployments. Security is still a major concern for LoRa networks, particularly on attacks such as Man-In-The-Middle (MITM), spoofing, wormholes, flooding, packet replay, and information disclosure. The upcoming trend of implementing machine learning algorithms to multi-hop and mesh LoRa networks opens up a wide range of possibilities, ranging from airspace efficiency, efficient route selection, and improving data throughput. A detailed discussion of the aspects’ issues and recommended industry applications that will benefit from multi-hop and mesh LoRa networks are also provided.</jats:p>",
+    "DOI": "10.1145/3638241",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2023,
+          12,
+          20
+        ]
+      ],
+      "date-time": "2023-12-20T07:04:45Z",
+      "timestamp": 1703055885000
+    },
+    "page": "1-43",
+    "update-policy": "https://doi.org/10.1145/crossmark-policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 64,
+    "title": [
+      "Multi-Hop and Mesh for LoRa Networks: Recent Advancements, Issues, and Recommended Applications"
+    ],
+    "prefix": "10.1145",
+    "volume": "56",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0003-3822-4432",
+        "authenticated-orcid": false,
+        "given": "Andrew Wei-Loong",
+        "family": "Wong",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Optimisation and Visual Analytics Research Group, Faculty of Computing and Informatics, Universiti Malaysia Sabah Labuan International Campus, Labuan 87000, Malaysia"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-4562-2519",
+        "authenticated-orcid": false,
+        "given": "Say Leng",
+        "family": "Goh",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Optimisation and Visual Analytics Research Group, Faculty of Computing and Informatics, Universiti Malaysia Sabah Labuan International Campus, Labuan 87000, Malaysia"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-5511-0205",
+        "authenticated-orcid": false,
+        "given": "Mohammad Kamrul",
+        "family": "Hasan",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Faculty of Information Science and Technology, Universiti Kebangsaan Malaysia, Bangi, Selangor, Malaysia"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-4377-9256",
+        "authenticated-orcid": false,
+        "given": "Salmah",
+        "family": "Fattah",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Faculty of Computing and Informatics, Universiti Malaysia Sabah, Labuan 87000, Malaysia"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "320",
+    "published-online": {
+      "date-parts": [
+        [
+          2024,
+          1,
+          22
+        ]
+      ]
+    },
+    "reference": [
+      {
+        "key": "e_1_3_1_2_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s19020402"
+      },
+      {
+        "key": "e_1_3_1_3_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/mcom.2017.1600613"
+      },
+      {
+        "key": "e_1_3_1_4_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/DCOSS54816.2022.00014"
+      },
+      {
+        "key": "e_1_3_1_5_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.14569/ijacsa.2019.0101117"
+      },
+      {
+        "key": "e_1_3_1_6_2",
+        "unstructured": "LoRa Alliance. 2020. A digital revolution for oil and gas from scada to industrial iot. (2020). Retrieved from https://lora-alliance.org/wp-content/uploads/2021/04/FINAL_A-DIGITAL-REVOLUTION-FOR-OIL-GAS-FROM-SCADA-TO-INDUSTRIAL-IOT.pdf"
+      },
+      {
+        "key": "e_1_3_1_7_2",
+        "unstructured": "LoRa Alliance. 2020. LoRa Alliance Publishes Latest LoRaWAN Regional Parameters; Includes Support for New Data Rates that Expand Network Capacity for Specific Use Cases. Retrieved from https://lora-alliance.org/lora-alliance-press-release/lora-alliance-publishes-latest-lorawan-regional-parameters-includes-support-for-new-data-rates-that-expand-network-capacity-for-specific-use-cases/"
+      },
+      {
+        "key": "e_1_3_1_8_2",
+        "unstructured": "LoRa Alliance. 2021. LoRaWAN Formally Recognized as ITU International Standard for Low Power Wide Area Networking. Retrieved from https://lora-alliance.org/lora-alliance-press-release/lorawan-formally-recognized-as-itu-international-standard-for-low-power-wide-area-networking/"
+      },
+      {
+        "key": "e_1_3_1_9_2",
+        "unstructured": "Weightless Alliance. 2022. Weightless Technology. Retrieved from https://www.weightless-alliance.org/technology"
+      },
+      {
+        "key": "e_1_3_1_10_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/electronics11010164"
+      },
+      {
+        "key": "e_1_3_1_11_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/app9224753"
+      },
+      {
+        "key": "e_1_3_1_12_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/BMSB.2018.8436722"
+      },
+      {
+        "key": "e_1_3_1_13_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3144457.3144478"
+      },
+      {
+        "key": "e_1_3_1_14_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/mnet.001.1900269"
+      },
+      {
+        "key": "e_1_3_1_15_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WF-IoT.2019.8767193"
+      },
+      {
+        "key": "e_1_3_1_16_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/LANMAN.2019.8847137"
+      },
+      {
+        "key": "e_1_3_1_17_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/DS-RT47707.2019.8958675"
+      },
+      {
+        "key": "e_1_3_1_18_2",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Raziel Carvajal-Gómez and Etienne Rivière. 2020. Reactive overlays for adaptive routing in mobile ad hoc networks. In Proceedings of the 10th ACM Symposium on Design and Analysis of Intelligent Vehicular Networks and Applications (MSWiM’20). ACM. 10.1145/3416014.3424608",
+        "DOI": "10.1145/3416014.3424608"
+      },
+      {
+        "key": "e_1_3_1_19_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/mprv.2021.3063443"
+      },
+      {
+        "key": "e_1_3_1_20_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s12083-016-0501-0"
+      },
+      {
+        "key": "e_1_3_1_21_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/SCVT.2017.8240313"
+      },
+      {
+        "key": "e_1_3_1_22_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3431832.3431835"
+      },
+      {
+        "key": "e_1_3_1_23_2",
+        "volume-title": "Short Range Devices—Specifications (2nd Revision)",
+        "author": "Communications Malaysian",
+        "year": "2020",
+        "unstructured": "Malaysian Communications and Multimedia Commission Malaysia. 2020. Short Range Devices—Specifications (2nd Revision). Retrieved from https://www.mcmc.gov.my/skmmgovmy/media/General/pdf/Short-Range-Devices-Specification.pdf"
+      },
+      {
+        "key": "e_1_3_1_24_2",
+        "volume-title": "Class Assignment No. 1 of 2022",
+        "author": "Communications Malaysian",
+        "year": "2022",
+        "unstructured": "Malaysian Communications and Multimedia Commission Malaysia. 2022. Class Assignment No. 1 of 2022. Retrieved from https://mcmc.gov.my/skmmgovmy/media/General/CA-No-1-of-2022.pdf"
+      },
+      {
+        "key": "e_1_3_1_25_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s20154273"
+      },
+      {
+        "key": "e_1_3_1_26_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/iemcon51383.2020.9284888"
+      },
+      {
+        "key": "e_1_3_1_27_2",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Benjamin Dix-Matthews Rachel Cardell-Oliver and Christof Hübner. 2018. LoRa parameter choice for minimal energy usage. In Proceedings of the 7th International Workshop on Real-World Embedded Wireless Systems and Networks (SenSys’18). ACM (Nov. 2018). 10.1145/3277883.3277888",
+        "DOI": "10.1145/3277883.3277888"
+      },
+      {
+        "key": "e_1_3_1_28_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ICIT.2019.8755136"
+      },
+      {
+        "key": "e_1_3_1_29_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/access.2019.2913985"
+      },
+      {
+        "key": "e_1_3_1_30_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/lnet.2020.3003161"
+      },
+      {
+        "key": "e_1_3_1_31_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/INFOCOMWKSHPS54753.2022.9798302"
+      },
+      {
+        "key": "e_1_3_1_32_2",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Krzysztof Grochla Anna Strzoda Rafal Marjasz Przemyslaw Glomb Kamil Ksiazek and Zbigniew Laskarzewski. 2022. Energy-aware algorithm for assignment of relays in LPWAN. ACM Trans. Sens. Netw. 18 4 (Nov. 2022) 1–23. 10.1145/3544561",
+        "DOI": "10.1145/3544561"
+      },
+      {
+        "key": "e_1_3_1_33_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/s11277-021-08894-2"
+      },
+      {
+        "key": "e_1_3_1_34_2",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Sakshi Gupta and Itu Snigdh. 2022. Leveraging data aggregation algorithm in LoRa networks. J. Supercomput. 78 15 (May. 2022) 16861–16875. 10.1007/s11227-022-04534-z",
+        "DOI": "10.1007/s11227-022-04534-z"
+      },
+      {
+        "key": "e_1_3_1_35_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s18113995"
+      },
+      {
+        "key": "e_1_3_1_36_2",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Frank Hessel Lars Almon and Flor Álvarez. 2020. ChirpOTLE: A framework for practical LoRaWAN security evaluation. In Proceedings of the 13th ACM Conference on Security and Privacy in Wireless and Mobile Networks (WiSec’20). ACM. 10.1145/3395351.3399423",
+        "DOI": "10.1145/3395351.3399423"
+      },
+      {
+        "key": "e_1_3_1_37_2",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Shengguang Hong Fang Yao Yulong Ding and Shuang-Hua Yang. 2022. A hierarchy-based energy efficient routing protocol for LoRa-mesh network. IEEE IoT J. 9 22 (Nov. 2022) 22836–22849. 10.1109/jiot.2022.3185619",
+        "DOI": "10.1109/jiot.2022.3185619"
+      },
+      {
+        "key": "e_1_3_1_38_2",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Shengguang Hong Fang Yao Fengyun Zhang Yulong Ding and Shuang-Hua Yang. 2023. Reinforcement learning approach for SF allocation in LoRa network. IEEE IoT J. 10 20 (Oct. 2023) 18259–18272. 10.1109/jiot.2023.3279429",
+        "DOI": "10.1109/jiot.2023.3279429"
+      },
+      {
+        "key": "e_1_3_1_39_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ICSensT.2018.8603641"
+      },
+      {
+        "key": "e_1_3_1_40_2",
+        "unstructured": "Ingenu. 2015. How RPMA Works. Retrieved from https://www.ingenu.com/wp-content/uploads/dlm_uploads/2015/08/How-RPMA-Works.pdf"
+      },
+      {
+        "key": "e_1_3_1_41_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/jiot.2020.3009228"
+      },
+      {
+        "key": "e_1_3_1_42_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/comst.2023.3274934"
+      },
+      {
+        "key": "e_1_3_1_43_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3339186.3339187"
+      },
+      {
+        "key": "e_1_3_1_44_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/IECON.2017.8217061"
+      },
+      {
+        "key": "e_1_3_1_45_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/jsen.2017.2789121"
+      },
+      {
+        "key": "e_1_3_1_46_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s20185044"
+      },
+      {
+        "key": "e_1_3_1_47_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3465481.3469191"
+      },
+      {
+        "key": "e_1_3_1_48_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/access.2021.3135080"
+      },
+      {
+        "key": "e_1_3_1_49_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1155/2019/3502987"
+      },
+      {
+        "key": "e_1_3_1_50_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3494673"
+      },
+      {
+        "key": "e_1_3_1_51_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3293534"
+      },
+      {
+        "key": "e_1_3_1_52_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/access.2017.2755858"
+      },
+      {
+        "key": "e_1_3_1_53_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3479239.3485718"
+      },
+      {
+        "key": "e_1_3_1_54_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WoWMoM.2018.8449743"
+      },
+      {
+        "key": "e_1_3_1_55_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3406115"
+      },
+      {
+        "key": "e_1_3_1_56_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/GHTC46280.2020.9342944"
+      },
+      {
+        "key": "e_1_3_1_57_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3368756.3369018"
+      },
+      {
+        "key": "e_1_3_1_58_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3426020.3426112"
+      },
+      {
+        "key": "e_1_3_1_59_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/electronics10060751"
+      },
+      {
+        "key": "e_1_3_1_60_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.icte.2017.12.005"
+      },
+      {
+        "key": "e_1_3_1_61_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/iThings-GreenCom-CPSCom-SmartData-Cybermatics53846.2021.00029"
+      },
+      {
+        "key": "e_1_3_1_62_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s18103468"
+      },
+      {
+        "key": "e_1_3_1_63_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.comcom.2021.11.010"
+      },
+      {
+        "key": "e_1_3_1_64_2",
+        "unstructured": "The Things Network. 2021. The Things Network: Frequency Plans. Retrieved from https://www.thethingsnetwork.org/docs/lorawan/frequency-plans/#as920-923-as1"
+      },
+      {
+        "key": "e_1_3_1_65_2",
+        "unstructured": "Nokia Networks. 2015. LTE-M—Optimizing LTE for theInternet of Things White Paper. Retrieved from https://lafibre.info/images/4g/201508_nokia_lte-m_white_paper.pdf"
+      },
+      {
+        "key": "e_1_3_1_66_2",
+        "unstructured": "LoRa Alliance and Olivier Seller. 2023. Opportunities and Capabilities Created by the Inclusion of the LR-FHSS Modulation in LoRaWAN. Retrieved from https://resources.lora-alliance.org/webinars/opportunities-capabilities-created-by-the-inclusion-of-the-lr-fhss-modulation-in-lorawanTechnical Webinar."
+      },
+      {
+        "key": "e_1_3_1_67_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.future.2022.05.028"
+      },
+      {
+        "key": "e_1_3_1_68_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/mcom.001.2000053"
+      },
+      {
+        "key": "e_1_3_1_69_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/tccn.2021.3114147"
+      },
+      {
+        "key": "e_1_3_1_70_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1186/s13638-020-01783-5"
+      },
+      {
+        "key": "e_1_3_1_71_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/jsen.2020.2983765"
+      },
+      {
+        "key": "e_1_3_1_72_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1177/1550147717699412"
+      },
+      {
+        "key": "e_1_3_1_73_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/comst.2017.2652320"
+      },
+      {
+        "key": "e_1_3_1_74_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.14209/sbrt.2019.1570558763"
+      },
+      {
+        "key": "e_1_3_1_75_2",
+        "unstructured": "Satista. 2022. Number of Internet of Things (IoT) Connected Devices Worldwide from 2019 to 2021 with Forecasts from 2022 to 2030 (in Billions). Retrieved from https://www.statista.com/statistics/1183457/iot-connected-devices-worldwide/"
+      },
+      {
+        "key": "e_1_3_1_76_2",
+        "unstructured": "Semtech. 2016. SX1276/77/78/79—137 MHz to 1020 MHz Low Power Long Range Transceiver Datasheet. Retrieved from https://www.mouser.com/datasheet/2/761/sx1276-1278113.pdf"
+      },
+      {
+        "key": "e_1_3_1_77_2",
+        "unstructured": "Semtech. 2017. SX1272/73—860 MHz to 1020 MHz Low Power Long Range Transceiver. Retrieved from https://www.mouser.com/datasheet/2/761/sx1272-1277619.pdf"
+      },
+      {
+        "key": "e_1_3_1_78_2",
+        "unstructured": "Semtech. 2020. LoRa and LoRaWAN: A Technical Overview. Retrieved from https://lora-developers.semtech.com/uploads/documents/files/LoRa_and_LoRaWAN-A_Tech_Overview-Downloadable.pdf"
+      },
+      {
+        "key": "e_1_3_1_79_2",
+        "unstructured": "Sigfox. 2022. Sigfox Device Radio Specifications. Retrieved from https://build.sigfox.com/sigfox-device-radio-specifications"
+      },
+      {
+        "key": "e_1_3_1_80_2",
+        "article-title": "The Contributors of IoT & LPWAN Growth in 2022",
+        "author": "Studer Julian",
+        "year": "2022",
+        "unstructured": "Julian Studer. 2022. The Contributors of IoT & LPWAN Growth in 2022. Video, Podcast. Retrieved from https://www.iotforall.com/podcasts/e224-contributors-of-iot-lpwan-growth-in-2022",
+        "journal-title": "Video, Podcast"
+      },
+      {
+        "key": "e_1_3_1_81_2",
+        "doi-asserted-by": "publisher",
+        "unstructured": "Zehua Sun Huanqi Yang Kai Liu Zhimeng Yin Zhenjiang Li and Weitao Xu. 2022. Recent advances in LoRa: A comprehensive survey. ACM Trans. Sens. Netw. 18 4 (Nov. 2022) 1–44. 10.1145/3543856",
+        "DOI": "10.1145/3543856"
+      },
+      {
+        "key": "e_1_3_1_82_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/comst.2019.2949598"
+      },
+      {
+        "key": "e_1_3_1_83_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/access.2019.2941972"
+      },
+      {
+        "key": "e_1_3_1_84_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/MetroInd4.0IoT51437.2021.9488434"
+      },
+      {
+        "key": "e_1_3_1_85_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3230833.3232804"
+      },
+      {
+        "key": "e_1_3_1_86_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3514105.3514118"
+      },
+      {
+        "key": "e_1_3_1_87_2",
+        "unstructured": "LoRa Alliance Technical Committee Regional Parameters Workgroup. 2020. RP002-1.0.2 LoRaWAN Regional Parameters. Retrieved from https://resources.lora-alliance.org/technical-specifications/rp2-1-0-2-lorawan-regional-parameters"
+      },
+      {
+        "key": "e_1_3_1_88_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/jiot.2019.2915952"
+      },
+      {
+        "key": "e_1_3_1_89_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ICPADS53394.2021.00077"
+      },
+      {
+        "key": "e_1_3_1_90_2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/access.2019.2898239"
+      }
+    ],
+    "container-title": [
+      "ACM Computing Surveys"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://dl.acm.org/doi/10.1145/3638241",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://dl.acm.org/doi/pdf/10.1145/3638241",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2025,
+          6,
+          18
+        ]
+      ],
+      "date-time": "2025-06-18T18:53:34Z",
+      "timestamp": 1750272814000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://dl.acm.org/doi/10.1145/3638241"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2024,
+          1,
+          22
+        ]
+      ]
+    },
+    "references-count": 89,
+    "journal-issue": {
+      "issue": "6",
+      "published-print": {
+        "date-parts": [
+          [
+            2024,
+            6,
+            30
+          ]
+        ]
+      }
+    },
+    "alternative-id": [
+      "10.1145/3638241"
+    ],
+    "URL": "https://doi.org/10.1145/3638241",
+    "relation": {},
+    "ISSN": [
+      "0360-0300",
+      "1557-7341"
+    ],
+    "issn-type": [
+      {
+        "value": "0360-0300",
+        "type": "print"
+      },
+      {
+        "value": "1557-7341",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2024,
+          1,
+          22
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "2022-11-26",
+        "order": 0,
+        "name": "received",
+        "label": "Received",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2023-12-15",
+        "order": 2,
+        "name": "accepted",
+        "label": "Accepted",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2024-01-22",
+        "order": 3,
+        "name": "published",
+        "label": "Published",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      }
+    ]
+  }
+}

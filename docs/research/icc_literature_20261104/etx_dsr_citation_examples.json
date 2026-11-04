@@ -1,0 +1,46 @@
+[
+  {
+    "key": "decouto2003etx",
+    "title": "A high-throughput path metric for multi-hop wireless routing",
+    "id": "https://openalex.org/W2041248965",
+    "cited_by_count": 3383,
+    "url": "https://api.openalex.org/works?filter=cites:W2041248965&per-page=2",
+    "query_count": 3382,
+    "examples": [
+      {
+        "title": "Wireless mesh networks: a survey",
+        "doi": "https://doi.org/10.1016/j.comnet.2004.12.001",
+        "year": 2005,
+        "references_target": true
+      },
+      {
+        "title": "Routing in multi-radio, multi-hop wireless mesh networks",
+        "doi": "https://doi.org/10.1145/1023720.1023732",
+        "year": 2004,
+        "references_target": true
+      }
+    ]
+  },
+  {
+    "key": "johnson1996dsr",
+    "title": "Dynamic Source Routing in Ad Hoc Wireless Networks",
+    "id": "https://openalex.org/W2157457404",
+    "cited_by_count": 8554,
+    "url": "https://api.openalex.org/works?filter=cites:W2157457404&per-page=2",
+    "query_count": 8548,
+    "examples": [
+      {
+        "title": "Ad-hoc on-demand distance vector routing",
+        "doi": "https://doi.org/10.1109/mcsa.1999.749281",
+        "year": 1999,
+        "references_target": true
+      },
+      {
+        "title": "GPSR",
+        "doi": "https://doi.org/10.1145/345910.345953",
+        "year": 2000,
+        "references_target": true
+      }
+    ]
+  }
+]

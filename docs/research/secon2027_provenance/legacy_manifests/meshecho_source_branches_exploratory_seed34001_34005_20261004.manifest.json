@@ -1,0 +1,104 @@
+{
+  "airtime_estimates": {
+    "network_full_run_airtime_s": "all complete packet ToA with start through run stop",
+    "network_window_airtime_s": "all complete packet ToA with start in [enqueue, deadline]",
+    "target_flow_full_run_airtime_s": "target-flow complete packet ToA with start through run stop"
+  },
+  "arms": [
+    "R",
+    "F",
+    "R-F",
+    "R-R"
+  ],
+  "artifact_sha256": {
+    "branches": "49c87a919bbdc3fc0180e6b5b151a221f02dbfe289e9bf9d96f87889b1af8b02",
+    "targets": "4ab596fa565749c0abddfdb469d56e54c1e9c14b68244d3b4af4a33f19e9cb92",
+    "trace": "99937f0303709e38fe84a18613404359b66e9dd6423f8e363674fda83edb25ba"
+  },
+  "branch_rows": 116,
+  "case": {
+    "area_m": 8250.0,
+    "bw_hz": 125000,
+    "capture_threshold_db": 6.0,
+    "cr": 1,
+    "duration_s": 600.0,
+    "edge_prr_threshold": 0.9,
+    "key": "recurring_fading",
+    "matched_rreq_timing": true,
+    "max_graph_hops": 4,
+    "max_hops": 6,
+    "min_graph_hops": 2,
+    "nodes": 50,
+    "pair_count": 4,
+    "pair_mode": "connected-multihop",
+    "pair_schedule": "poisson",
+    "path_loss_exp": 2.75,
+    "payload_bytes": 32,
+    "rate_per_min": 4.0,
+    "route_ttl_s": 600.0,
+    "sf": 7,
+    "shadow_sigma_db": 4.0,
+    "temporal_fading_interval_s": 60.0,
+    "temporal_fading_sigma_db": 6.0,
+    "traffic": "unicast",
+    "traffic_pattern": "standard",
+    "tx_power_dbm": 17.0
+  },
+  "case_config_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "eligible_targets": 29,
+  "pairing": "Common random numbers keyed by seed, flow, directed link and receive attempt; FLOOD relay jitter keyed by seed, flow, relay, repair marker and relay attempt. Realized channels need not match.",
+  "reference_policy": "meshecho-dhr-none",
+  "runs": [
+    {
+      "branch_rows": 20,
+      "eligible_targets": 5,
+      "scheduled_applications": 33,
+      "scheduled_trace_sha256": "a9d849d306721c84edbef7777e0e5345451a833a302a294e3cf952a62a78fd45",
+      "seed": 34001
+    },
+    {
+      "branch_rows": 20,
+      "eligible_targets": 5,
+      "scheduled_applications": 37,
+      "scheduled_trace_sha256": "c712a8b08cf0de45567d9a202c1179d6499536574864898611ea33d3f29054b3",
+      "seed": 34002
+    },
+    {
+      "branch_rows": 24,
+      "eligible_targets": 6,
+      "scheduled_applications": 46,
+      "scheduled_trace_sha256": "440b97f383a34f24058dfd65d3fd70aafb9569f1be178ebff48ef3d333044276",
+      "seed": 34003
+    },
+    {
+      "branch_rows": 24,
+      "eligible_targets": 6,
+      "scheduled_applications": 38,
+      "scheduled_trace_sha256": "6d366883d623900fb7a0d0c6bf99f0f0618d127f7ab264ab77207dcbdd365860",
+      "seed": 34004
+    },
+    {
+      "branch_rows": 28,
+      "eligible_targets": 7,
+      "scheduled_applications": 39,
+      "scheduled_trace_sha256": "c2f50187bed63b05e1035ac199252131cb6f6b001dd5ffbd7b6c0b6095421401",
+      "seed": 34005
+    }
+  ],
+  "seeds": [
+    34001,
+    34002,
+    34003,
+    34004,
+    34005
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_source_branch_diagnostic_design.md": "13fa7ae2678a4d9e8dfe4f04ddeec57d35a7ae51f34c6d7658fb194d56683da3",
+    "lora_mesh_sim.py": "4d51d09660f06b536cbc2939e0d9410e405786b899c3f12818afacab41d00b23",
+    "tests/test_source_branches.py": "d4b63ddfbfbc613b688bb9d75a7de58e61ab8a20e690e8753b7cde1ec7c8468a",
+    "tools/diagnose_source_branches.py": "ab70b6c3af7cfd303ac8ebe31c319ba6cd51e781c37ac77d827c7501a0e9f74d",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "ac12adf568714e766cff2efd67b1ba2ab6d1fc9ca4530cdd5f195e3d7f3c21b7"
+  },
+  "split": "exploratory"
+}

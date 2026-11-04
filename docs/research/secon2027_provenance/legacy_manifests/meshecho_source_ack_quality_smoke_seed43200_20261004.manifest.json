@@ -1,0 +1,125 @@
+{
+  "application_deadline_s": 30.0,
+  "artifacts": {
+    "runs": {
+      "file": "meshecho_source_ack_quality_smoke_seed43200_20261004.runs.jsonl",
+      "sha256": "3cf7bcfae4dd20a74ec116213cfd2459201c2ea833081b6a15c789872bfe7651"
+    },
+    "summary": {
+      "file": "meshecho_source_ack_quality_smoke_seed43200_20261004.summary.json",
+      "sha256": "ef9944f551a410bd2a2bad5e62b9fc8123f2e0c85566106c3f8891fbd0a1ad25"
+    }
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "exploration_fit": null,
+  "mode": "smoke",
+  "prerequisite_manifest_sha256": {},
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "python_minor": [
+    3,
+    9
+  ],
+  "seeds": [
+    43200
+  ],
+  "sensitivity_fit": null,
+  "sensitivity_validation_score": null,
+  "source_sha256": {
+    "docs/research/meshecho_source_ack_snr_signal_gate.md": "dde63707612511b94e53ba684b206e35a4542f05f7e3d5f8d9bc9242f7652192",
+    "lora_mesh_sim.py": "165fff13ac3839045b41bf39a8e9451503c50e0c66ca4cc39c92709e5eaf2875",
+    "tests/test_source_ack_quality_gate.py": "27229e954304693d4278b24c21fa71267d87912a49cb17985b6ade432670222e",
+    "tests/test_source_ack_quality_model.py": "256b62a3aa960e2ae5c0fcc03745670550be3569764ca031c67b4b84d73d0995",
+    "tests/test_source_ack_snr.py": "fef7b420b5fb463d985c0412ce2dc3436969d18a2c4a94ffefe1d42cb45f9213",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_source_ack_snr.py": "a7937f42e8ad2ab820f0d73e1f9223b6bc1e2647337580e2051252073aaeb451",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_source_ack_quality_gate.py": "48ec73815a1e91284aeb465702510881b12e1e1e0648ecd0ac2ce2016fbb3f52",
+    "tools/run_sr_experiment.py": "f61b2bccb154c7ec3f7603c51dd47ff2b8271d68db4baa69e2ccee5a4a1d0d1c",
+    "tools/source_ack_quality_model.py": "8d494ad565179309863e1121f9504148837889146b2e68a520c247cc29ed84a0"
+  },
+  "stage_authorization_sha256": null,
+  "summary": {
+    "by_path_type": {
+      "direct": {
+        "eligible_decisions": 5,
+        "eligible_r_ack_misses": 2,
+        "eligible_r_ack_successes": 3,
+        "full_r_ack_misses": 2,
+        "full_r_ack_successes": 3,
+        "initial_r_decisions": 5,
+        "later_recovery_ack_successes": 2,
+        "later_recovery_attempts": 2
+      },
+      "multihop": {
+        "eligible_decisions": 33,
+        "eligible_r_ack_misses": 4,
+        "eligible_r_ack_successes": 29,
+        "full_r_ack_misses": 4,
+        "full_r_ack_successes": 29,
+        "initial_r_decisions": 33,
+        "later_recovery_ack_successes": 3,
+        "later_recovery_attempts": 4
+      }
+    },
+    "by_seed": {
+      "43200": {
+        "eligible_decisions": 38,
+        "eligible_r_ack_misses": 6,
+        "eligible_r_ack_successes": 32,
+        "full_r_ack_misses": 6,
+        "full_r_ack_successes": 32,
+        "initial_r_decisions": 38
+      }
+    },
+    "eligible_decisions": 38,
+    "eligible_diagnostics": {
+      "ack_age_s": {
+        "at_most_30": {
+          "r_ack_misses": 0,
+          "r_ack_successes": 4,
+          "records": 4
+        },
+        "over_30": {
+          "r_ack_misses": 6,
+          "r_ack_successes": 28,
+          "records": 34
+        }
+      },
+      "fading_block": {
+        "different": {
+          "r_ack_misses": 5,
+          "r_ack_successes": 24,
+          "records": 29
+        },
+        "same": {
+          "r_ack_misses": 1,
+          "r_ack_successes": 8,
+          "records": 9
+        }
+      },
+      "prior_ack_interference": {
+        "captured": {
+          "r_ack_misses": 0,
+          "r_ack_successes": 1,
+          "records": 1
+        },
+        "none": {
+          "r_ack_misses": 6,
+          "r_ack_successes": 31,
+          "records": 37
+        }
+      }
+    },
+    "eligible_r_ack_misses": 6,
+    "eligible_r_ack_successes": 32,
+    "exclusions": 0,
+    "initial_r_ack_misses": 6,
+    "initial_r_ack_successes": 32,
+    "initial_r_decisions": 38,
+    "later_recovery_ack_successes": 5,
+    "later_recovery_attempts": 6,
+    "missing_q_decisions": 0
+  },
+  "validation_score": null
+}

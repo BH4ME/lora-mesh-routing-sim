@@ -1,0 +1,937 @@
+{
+  "id": "https://openalex.org/W2151222548",
+  "doi": "https://doi.org/10.1109/twc.2004.833474",
+  "title": "Cross-Layer Combining of Adaptive Modulation and Coding With Truncated ARQ Over Wireless Links",
+  "display_name": "Cross-Layer Combining of Adaptive Modulation and Coding With Truncated ARQ Over Wireless Links",
+  "publication_year": 2004,
+  "publication_date": "2004-09-01",
+  "ids": {
+    "openalex": "https://openalex.org/W2151222548",
+    "doi": "https://doi.org/10.1109/twc.2004.833474",
+    "mag": "2151222548"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1109/twc.2004.833474",
+    "doi": "https://doi.org/10.1109/twc.2004.833474",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1109/twc.2004.833474",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S63459445",
+      "display_name": "IEEE Transactions on Wireless Communications",
+      "issn_l": "1536-1276",
+      "issn": [
+        "1536-1276",
+        "1558-2248"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "ccf-b",
+        "cwts-core",
+        "dongbi-a",
+        "jufo-3",
+        "norway-2",
+        "poland-140",
+        "russia-white-list-1"
+      ],
+      "host_organization": "https://openalex.org/P4310319808",
+      "host_organization_name": "Institute of Electrical and Electronics Engineers",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319808"
+      ],
+      "host_organization_lineage_names": [
+        "Institute of Electrical and Electronics Engineers"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "IEEE Transactions on Wireless Communications",
+    "raw_type": "journal-article"
+  },
+  "volume": null,
+  "type": "article",
+  "indexed_in": [
+    "crossref"
+  ],
+  "open_access": {
+    "is_oa": false,
+    "oa_status": "closed",
+    "oa_url": null,
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5100318538",
+        "display_name": "Qian Liu",
+        "orcid": "https://orcid.org/0000-0002-0368-2292",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0368-2292"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I130238516",
+          "display_name": "University of Minnesota",
+          "ror": "https://ror.org/017zqws13",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I130238516"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Q. Liu",
+      "raw_affiliation_strings": [
+        "Department of Electrical Engineering, University of Minnesota, Minneapolis, MN, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Electrical Engineering, University of Minnesota, Minneapolis, MN, USA",
+          "institution_ids": [
+            "https://openalex.org/I130238516"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5021120517",
+        "display_name": "Sheng Zhou",
+        "orcid": "https://orcid.org/0000-0003-0651-0071",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-0651-0071"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I140172145",
+          "display_name": "University of Connecticut",
+          "ror": "https://ror.org/02der9h97",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I140172145"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "S. Zhou",
+      "raw_affiliation_strings": [
+        "Department of Electrical and Computer Engineering, University of Connecticut, Storrs, CT, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Electrical and Computer Engineering, University of Connecticut, Storrs, CT, USA",
+          "institution_ids": [
+            "https://openalex.org/I140172145"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5026758314",
+        "display_name": "Georgios B. Giannakis",
+        "orcid": "https://orcid.org/0000-0002-0196-0260",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-0196-0260"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I130238516",
+          "display_name": "University of Minnesota",
+          "ror": "https://ror.org/017zqws13",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I130238516"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "G.B. Giannakis",
+      "raw_affiliation_strings": [
+        "Department of Electrical Engineering, University of Minnesota, Minneapolis, MN, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Electrical Engineering, University of Minnesota, Minneapolis, MN, USA",
+          "institution_ids": [
+            "https://openalex.org/I130238516"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 2,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": {
+    "value": 2645,
+    "currency": "USD",
+    "value_usd": 2645
+  },
+  "apc_paid": null,
+  "fwci": 51.3408,
+  "has_fulltext": false,
+  "cited_by_count": 932,
+  "citation_normalized_percentile": {
+    "value": 0.9996285,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 97,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "3",
+    "issue": "5",
+    "first_page": "1746",
+    "last_page": "1755"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T10125",
+    "display_name": "Advanced Wireless Communication Techniques",
+    "score": 0.4246000051498413,
+    "subfield": {
+      "id": "https://openalex.org/subfields/2208",
+      "display_name": "Electrical and Electronic Engineering"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T10125",
+      "display_name": "Advanced Wireless Communication Techniques",
+      "score": 0.4246000051498413,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T11409",
+      "display_name": "Advanced Wireless Network Optimization",
+      "score": 0.4083999991416931,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10575",
+      "display_name": "Wireless Communication Networks Research",
+      "score": 0.057999998331069946,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/adaptive-modulation-and-coding",
+      "display_name": "adaptive modulation and coding",
+      "score": 0.9279999732971191
+    },
+    {
+      "id": "https://openalex.org/keywords/cross-layer-design",
+      "display_name": "cross-layer design",
+      "score": 0.902999997138977
+    },
+    {
+      "id": "https://openalex.org/keywords/spectral-efficiency",
+      "display_name": "spectral efficiency",
+      "score": 0.972000002861023
+    },
+    {
+      "id": "https://openalex.org/keywords/nakagami-fading",
+      "display_name": "Nakagami-m fading",
+      "score": 0.8949999809265137
+    },
+    {
+      "id": "https://openalex.org/keywords/block-fading-channels",
+      "display_name": "block fading channels",
+      "score": 0.9440000057220459
+    },
+    {
+      "id": "https://openalex.org/keywords/retransmission",
+      "display_name": "retransmission",
+      "score": 0.7820000052452087
+    },
+    {
+      "id": "https://openalex.org/keywords/throughput-delay-tradeoff",
+      "display_name": "throughput-delay tradeoff",
+      "score": 0.9430000185966492
+    },
+    {
+      "id": "https://openalex.org/keywords/diversity-gain",
+      "display_name": "diversity gain",
+      "score": 0.6800000071525574
+    },
+    {
+      "id": "https://openalex.org/keywords/error-control",
+      "display_name": "error control",
+      "score": 0.5479999780654907
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C137246740",
+      "wikidata": "https://www.wikidata.org/wiki/Q583970",
+      "display_name": "Spectral efficiency",
+      "level": 3,
+      "score": 0.8005881309509277
+    },
+    {
+      "id": "https://openalex.org/C171952454",
+      "wikidata": "https://www.wikidata.org/wiki/Q29522",
+      "display_name": "Automatic repeat request",
+      "level": 4,
+      "score": 0.7843777537345886
+    },
+    {
+      "id": "https://openalex.org/C118437007",
+      "wikidata": "https://www.wikidata.org/wiki/Q1017139",
+      "display_name": "Hybrid automatic repeat request",
+      "level": 3,
+      "score": 0.6937613487243652
+    },
+    {
+      "id": "https://openalex.org/C138916503",
+      "wikidata": "https://www.wikidata.org/wiki/Q2714551",
+      "display_name": "Link adaptation",
+      "level": 4,
+      "score": 0.6892189979553223
+    },
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.6748234033584595
+    },
+    {
+      "id": "https://openalex.org/C19247436",
+      "wikidata": "https://www.wikidata.org/wiki/Q192727",
+      "display_name": "Physical layer",
+      "level": 3,
+      "score": 0.6664382815361023
+    },
+    {
+      "id": "https://openalex.org/C81978471",
+      "wikidata": "https://www.wikidata.org/wiki/Q1196572",
+      "display_name": "Fading",
+      "level": 3,
+      "score": 0.6065096259117126
+    },
+    {
+      "id": "https://openalex.org/C76862118",
+      "wikidata": "https://www.wikidata.org/wiki/Q1105671",
+      "display_name": "Coding gain",
+      "level": 3,
+      "score": 0.524348795413971
+    },
+    {
+      "id": "https://openalex.org/C31258907",
+      "wikidata": "https://www.wikidata.org/wiki/Q1301371",
+      "display_name": "Computer network",
+      "level": 1,
+      "score": 0.502992570400238
+    },
+    {
+      "id": "https://openalex.org/C164785522",
+      "wikidata": "https://www.wikidata.org/wiki/Q5283966",
+      "display_name": "Diversity gain",
+      "level": 4,
+      "score": 0.4654916524887085
+    },
+    {
+      "id": "https://openalex.org/C158379750",
+      "wikidata": "https://www.wikidata.org/wiki/Q214111",
+      "display_name": "Network packet",
+      "level": 2,
+      "score": 0.4381122589111328
+    },
+    {
+      "id": "https://openalex.org/C555944384",
+      "wikidata": "https://www.wikidata.org/wiki/Q249",
+      "display_name": "Wireless",
+      "level": 2,
+      "score": 0.43215280771255493
+    },
+    {
+      "id": "https://openalex.org/C157764524",
+      "wikidata": "https://www.wikidata.org/wiki/Q1383412",
+      "display_name": "Throughput",
+      "level": 3,
+      "score": 0.4272858500480652
+    },
+    {
+      "id": "https://openalex.org/C11413529",
+      "wikidata": "https://www.wikidata.org/wiki/Q8366",
+      "display_name": "Algorithm",
+      "level": 1,
+      "score": 0.4206453859806061
+    },
+    {
+      "id": "https://openalex.org/C127162648",
+      "wikidata": "https://www.wikidata.org/wiki/Q16858953",
+      "display_name": "Channel (broadcasting)",
+      "level": 2,
+      "score": 0.35208800435066223
+    },
+    {
+      "id": "https://openalex.org/C138660444",
+      "wikidata": "https://www.wikidata.org/wiki/Q5607897",
+      "display_name": "Telecommunications link",
+      "level": 2,
+      "score": 0.26810240745544434
+    },
+    {
+      "id": "https://openalex.org/C57273362",
+      "wikidata": "https://www.wikidata.org/wiki/Q576722",
+      "display_name": "Decoding methods",
+      "level": 2,
+      "score": 0.24889272451400757
+    },
+    {
+      "id": "https://openalex.org/C76155785",
+      "wikidata": "https://www.wikidata.org/wiki/Q418",
+      "display_name": "Telecommunications",
+      "level": 1,
+      "score": 0.24446675181388855
+    }
+  ],
+  "mesh": [],
+  "locations_count": 1,
+  "locations": [
+    {
+      "id": "doi:10.1109/twc.2004.833474",
+      "doi": "https://doi.org/10.1109/twc.2004.833474",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1109/twc.2004.833474",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S63459445",
+        "display_name": "IEEE Transactions on Wireless Communications",
+        "issn_l": "1536-1276",
+        "issn": [
+          "1536-1276",
+          "1558-2248"
+        ],
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": true,
+        "listed_in": [
+          "ccf-b",
+          "cwts-core",
+          "dongbi-a",
+          "jufo-3",
+          "norway-2",
+          "poland-140",
+          "russia-white-list-1"
+        ],
+        "host_organization": "https://openalex.org/P4310319808",
+        "host_organization_name": "Institute of Electrical and Electronics Engineers",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319808"
+        ],
+        "host_organization_lineage_names": [
+          "Institute of Electrical and Electronics Engineers"
+        ],
+        "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "IEEE Transactions on Wireless Communications",
+      "raw_type": "journal-article"
+    }
+  ],
+  "best_oa_location": null,
+  "sustainable_development_goals": [],
+  "study_designs": [],
+  "awards": [],
+  "funders": [],
+  "has_content": {
+    "grobid_xml": false,
+    "pdf": false
+  },
+  "content_urls": null,
+  "referenced_works_count": 19,
+  "referenced_works": [
+    "https://openalex.org/W22878335",
+    "https://openalex.org/W1483997329",
+    "https://openalex.org/W2038136736",
+    "https://openalex.org/W2040075573",
+    "https://openalex.org/W2074369228",
+    "https://openalex.org/W2100359132",
+    "https://openalex.org/W2107948588",
+    "https://openalex.org/W2117433052",
+    "https://openalex.org/W2124577150",
+    "https://openalex.org/W2125136478",
+    "https://openalex.org/W2130319142",
+    "https://openalex.org/W2136493079",
+    "https://openalex.org/W2156408736",
+    "https://openalex.org/W2158714612",
+    "https://openalex.org/W2160923845",
+    "https://openalex.org/W2165542009",
+    "https://openalex.org/W2166545925",
+    "https://openalex.org/W2168847332",
+    "https://openalex.org/W4249365614"
+  ],
+  "related_works": [
+    "https://openalex.org/W7100155757",
+    "https://openalex.org/W2101338751",
+    "https://openalex.org/W7098213810",
+    "https://openalex.org/W7099465279",
+    "https://openalex.org/W7100451605",
+    "https://openalex.org/W2394151219",
+    "https://openalex.org/W2336268346",
+    "https://openalex.org/W2146616928",
+    "https://openalex.org/W2123760852",
+    "https://openalex.org/W2014196418"
+  ],
+  "abstract_inverted_index": {
+    "We": [
+      0,
+      40
+    ],
+    "developed": [
+      1
+    ],
+    "a": [
+      2,
+      16,
+      119,
+      125
+    ],
+    "cross-layer": [
+      3
+    ],
+    "design": [
+      4
+    ],
+    "which": [
+      5
+    ],
+    "combines": [
+      6
+    ],
+    "adaptive": [
+      7
+    ],
+    "modulation": [
+      8
+    ],
+    "and": [
+      9,
+      36,
+      74
+    ],
+    "coding": [
+      10
+    ],
+    "at": [
+      11,
+      22,
+      60,
+      70
+    ],
+    "the": [
+      12,
+      23,
+      42,
+      61,
+      71,
+      92,
+      100,
+      112
+    ],
+    "physical": [
+      13,
+      72
+    ],
+    "layer": [
+      14,
+      64
+    ],
+    "with": [
+      15,
+      85
+    ],
+    "truncated": [
+      17
+    ],
+    "automatic": [
+      18
+    ],
+    "repeat": [
+      19
+    ],
+    "request": [
+      20
+    ],
+    "protocol": [
+      21
+    ],
+    "data": [
+      24,
+      62
+    ],
+    "link": [
+      25,
+      63
+    ],
+    "layer,": [
+      26,
+      73
+    ],
+    "in": [
+      27,
+      46,
+      129
+    ],
+    "order": [
+      28
+    ],
+    "to": [
+      29
+    ],
+    "maximize": [
+      30
+    ],
+    "spectral": [
+      31,
+      44,
+      78,
+      106
+    ],
+    "efficiency": [
+      32,
+      45,
+      79
+    ],
+    "under": [
+      33
+    ],
+    "prescribed": [
+      34
+    ],
+    "delay": [
+      35
+    ],
+    "error": [
+      37,
+      67
+    ],
+    "performance": [
+      38
+    ],
+    "constraints.": [
+      39
+    ],
+    "derive": [
+      41
+    ],
+    "achieved": [
+      43
+    ],
+    "closed-form": [
+      47
+    ],
+    "for": [
+      48
+    ],
+    "transmissions": [
+      49,
+      96
+    ],
+    "over": [
+      50
+    ],
+    "Nakagami-m": [
+      51
+    ],
+    "block": [
+      52
+    ],
+    "fading": [
+      53
+    ],
+    "channels.": [
+      54
+    ],
+    "Numerical": [
+      55
+    ],
+    "results": [
+      56
+    ],
+    "reveal": [
+      57
+    ],
+    "that": [
+      58,
+      86,
+      91,
+      108,
+      118
+    ],
+    "retransmissions": [
+      59,
+      123
+    ],
+    "relieve": [
+      65
+    ],
+    "stringent": [
+      66
+    ],
+    "control": [
+      68
+    ],
+    "requirements": [
+      69
+    ],
+    "thereby": [
+      75
+    ],
+    "enable": [
+      76
+    ],
+    "considerable": [
+      77
+    ],
+    "gain.": [
+      80
+    ],
+    "This": [
+      81
+    ],
+    "gain": [
+      82
+    ],
+    "is": [
+      83
+    ],
+    "comparable": [
+      84
+    ],
+    "offered": [
+      87
+    ],
+    "by": [
+      88
+    ],
+    "diversity,": [
+      89
+    ],
+    "provided": [
+      90
+    ],
+    "maximum": [
+      93,
+      113
+    ],
+    "number": [
+      94,
+      114,
+      121
+    ],
+    "of": [
+      95,
+      115,
+      122
+    ],
+    "per": [
+      97
+    ],
+    "packet": [
+      98
+    ],
+    "equals": [
+      99
+    ],
+    "diversity": [
+      101
+    ],
+    "order.": [
+      102
+    ],
+    "Diminishing": [
+      103
+    ],
+    "returns": [
+      104
+    ],
+    "on": [
+      105
+    ],
+    "efficiency,": [
+      107
+    ],
+    "result": [
+      109
+    ],
+    "when": [
+      110
+    ],
+    "increasing": [
+      111
+    ],
+    "retransmissions,": [
+      116
+    ],
+    "suggest": [
+      117
+    ],
+    "small": [
+      120
+    ],
+    "offers": [
+      124
+    ],
+    "desirable": [
+      126
+    ],
+    "delay-throughput": [
+      127
+    ],
+    "tradeoff,": [
+      128
+    ],
+    "practice.": [
+      130
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 4
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 9
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 5
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 7
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 15
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 16
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 20
+    },
+    {
+      "year": 2019,
+      "cited_by_count": 29
+    },
+    {
+      "year": 2018,
+      "cited_by_count": 40
+    },
+    {
+      "year": 2017,
+      "cited_by_count": 30
+    },
+    {
+      "year": 2016,
+      "cited_by_count": 50
+    },
+    {
+      "year": 2015,
+      "cited_by_count": 42
+    },
+    {
+      "year": 2014,
+      "cited_by_count": 50
+    },
+    {
+      "year": 2013,
+      "cited_by_count": 58
+    },
+    {
+      "year": 2012,
+      "cited_by_count": 69
+    }
+  ],
+  "updated_date": "2026-11-03T10:50:19.383937",
+  "created_date": "2016-06-24T00:00:00"
+}

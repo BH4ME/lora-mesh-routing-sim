@@ -1,0 +1,1203 @@
+{
+  "id": "https://openalex.org/W3046834032",
+  "doi": "https://doi.org/10.3390/s20154273",
+  "title": "LoRaWAN Mesh Networks: A Review and Classification of Multihop Communication",
+  "display_name": "LoRaWAN Mesh Networks: A Review and Classification of Multihop Communication",
+  "publication_year": 2020,
+  "publication_date": "2020-07-31",
+  "ids": {
+    "openalex": "https://openalex.org/W3046834032",
+    "doi": "https://doi.org/10.3390/s20154273",
+    "mag": "3046834032",
+    "pmid": "https://pubmed.ncbi.nlm.nih.gov/32751877",
+    "pmcid": "https://www.ncbi.nlm.nih.gov/pmc/articles/7435450"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.3390/s20154273",
+    "doi": "https://doi.org/10.3390/s20154273",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.3390/s20154273",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S101949793",
+      "display_name": "Sensors",
+      "issn_l": "1424-8220",
+      "issn": [
+        "1424-8220"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "anvur-scientific",
+        "cwts-core",
+        "doaj",
+        "jufo-1",
+        "medline",
+        "norway-1",
+        "poland-100",
+        "russia-white-list-1",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310310987",
+      "host_organization_name": "Multidisciplinary Digital Publishing Institute",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310310987"
+      ],
+      "host_organization_lineage_names": [
+        "Multidisciplinary Digital Publishing Institute"
+      ],
+      "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Sensors",
+    "raw_type": "journal-article"
+  },
+  "volume": null,
+  "type": "review",
+  "indexed_in": [
+    "crossref",
+    "doaj",
+    "pubmed"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "gold",
+    "oa_url": "https://doi.org/10.3390/s20154273",
+    "any_repository_has_fulltext": true
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5067411987",
+        "display_name": "Jeferson Rodrigues Cotrim",
+        "orcid": "https://orcid.org/0000-0003-2651-2496",
+        "observed_orcids": [
+          "https://orcid.org/0000-0003-2651-2496"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I71715416",
+          "display_name": "Universidade Federal do ABC",
+          "ror": "https://ror.org/028kg9j04",
+          "country_code": "BR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I71715416"
+          ]
+        }
+      ],
+      "countries": [
+        "BR"
+      ],
+      "is_corresponding": true,
+      "raw_author_name": "Jeferson Rodrigues Cotrim",
+      "raw_affiliation_strings": [
+        "Center of Engineering, Modeling, and Applied Social Sciences, Federal University of the ABC, Santo André 09210-580, Brazil"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0003-2651-2496",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Center of Engineering, Modeling, and Applied Social Sciences, Federal University of the ABC, Santo André 09210-580, Brazil",
+          "institution_ids": [
+            "https://openalex.org/I71715416"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5027363290",
+        "display_name": "João Henrique Kleinschmidt",
+        "orcid": "https://orcid.org/0000-0001-6706-455X",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-6706-455X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I71715416",
+          "display_name": "Universidade Federal do ABC",
+          "ror": "https://ror.org/028kg9j04",
+          "country_code": "BR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I71715416"
+          ]
+        }
+      ],
+      "countries": [
+        "BR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "João Henrique Kleinschmidt",
+      "raw_affiliation_strings": [
+        "Center of Engineering, Modeling, and Applied Social Sciences, Federal University of the ABC, Santo André 09210-580, Brazil"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0001-6706-455X",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Center of Engineering, Modeling, and Applied Social Sciences, Federal University of the ABC, Santo André 09210-580, Brazil",
+          "institution_ids": [
+            "https://openalex.org/I71715416"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 1,
+  "corresponding_author_ids": [
+    "https://openalex.org/A5067411987"
+  ],
+  "corresponding_institution_ids": [
+    "https://openalex.org/I71715416"
+  ],
+  "apc_list": {
+    "value": 2000,
+    "currency": "CHF",
+    "value_usd": 2112
+  },
+  "apc_paid": {
+    "value": 2000,
+    "currency": "CHF",
+    "value_usd": 2112
+  },
+  "fwci": 0.9157,
+  "has_fulltext": false,
+  "cited_by_count": 137,
+  "citation_normalized_percentile": {
+    "value": 0.73370577,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": false
+  },
+  "cited_by_percentile_year": {
+    "min": 93,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "20",
+    "issue": "15",
+    "first_page": "4273",
+    "last_page": "4273"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T12079",
+    "display_name": "IoT Networks and Protocols",
+    "score": 0.9994999766349792,
+    "subfield": {
+      "id": "https://openalex.org/subfields/2208",
+      "display_name": "Electrical and Electronic Engineering"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T12079",
+      "display_name": "IoT Networks and Protocols",
+      "score": 0.9994999766349792,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10080",
+      "display_name": "Energy Efficient Wireless Sensor Networks",
+      "score": 0.00019999999494757503,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10273",
+      "display_name": "IoT and Edge/Fog Computing",
+      "score": 0.0,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/lorawan",
+      "display_name": "LoRaWAN",
+      "score": 1.0
+    },
+    {
+      "id": "https://openalex.org/keywords/mesh-networks",
+      "display_name": "mesh networks",
+      "score": 0.7390000224113464
+    },
+    {
+      "id": "https://openalex.org/keywords/multi-hop-communication",
+      "display_name": "multi-hop communication",
+      "score": 0.9819999933242798
+    },
+    {
+      "id": "https://openalex.org/keywords/low-power-wide-area-networks",
+      "display_name": "low-power wide-area networks",
+      "score": 0.8700000047683716
+    },
+    {
+      "id": "https://openalex.org/keywords/internet-of-things",
+      "display_name": "Internet of Things",
+      "score": 0.9829999804496765
+    },
+    {
+      "id": "https://openalex.org/keywords/network-topology",
+      "display_name": "network topology",
+      "score": 0.6110000014305115
+    },
+    {
+      "id": "https://openalex.org/keywords/star-topology",
+      "display_name": "star topology",
+      "score": 0.7770000100135803
+    },
+    {
+      "id": "https://openalex.org/keywords/gateways",
+      "display_name": "gateways",
+      "score": 0.39800000190734863
+    },
+    {
+      "id": "https://openalex.org/keywords/energy-efficiency",
+      "display_name": "energy efficiency",
+      "score": 0.6520000100135803
+    },
+    {
+      "id": "https://openalex.org/keywords/smart-cities",
+      "display_name": "smart cities",
+      "score": 0.6800000071525574
+    },
+    {
+      "id": "https://openalex.org/keywords/smart-agriculture",
+      "display_name": "smart agriculture",
+      "score": 0.9890000224113464
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C2776445043",
+      "wikidata": "https://www.wikidata.org/wiki/Q20706829",
+      "display_name": "LPWAN",
+      "level": 3,
+      "score": 0.9165780544281006
+    },
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.6674675941467285
+    },
+    {
+      "id": "https://openalex.org/C105339364",
+      "wikidata": "https://www.wikidata.org/wiki/Q2297740",
+      "display_name": "Software deployment",
+      "level": 2,
+      "score": 0.6443516612052917
+    },
+    {
+      "id": "https://openalex.org/C31258907",
+      "wikidata": "https://www.wikidata.org/wiki/Q1301371",
+      "display_name": "Computer network",
+      "level": 1,
+      "score": 0.6166971325874329
+    },
+    {
+      "id": "https://openalex.org/C123691950",
+      "wikidata": "https://www.wikidata.org/wiki/Q25552104",
+      "display_name": "Mesh networking",
+      "level": 3,
+      "score": 0.6099389791488647
+    },
+    {
+      "id": "https://openalex.org/C199845137",
+      "wikidata": "https://www.wikidata.org/wiki/Q145490",
+      "display_name": "Network topology",
+      "level": 2,
+      "score": 0.6066359281539917
+    },
+    {
+      "id": "https://openalex.org/C31548570",
+      "wikidata": "https://www.wikidata.org/wiki/Q6453712",
+      "display_name": "Wireless mesh network",
+      "level": 4,
+      "score": 0.5995355248451233
+    },
+    {
+      "id": "https://openalex.org/C2776238582",
+      "wikidata": "https://www.wikidata.org/wiki/Q11384",
+      "display_name": "Wide area network",
+      "level": 2,
+      "score": 0.49836254119873047
+    },
+    {
+      "id": "https://openalex.org/C24590314",
+      "wikidata": "https://www.wikidata.org/wiki/Q336038",
+      "display_name": "Wireless sensor network",
+      "level": 2,
+      "score": 0.4655844271183014
+    },
+    {
+      "id": "https://openalex.org/C81860439",
+      "wikidata": "https://www.wikidata.org/wiki/Q251212",
+      "display_name": "Internet of Things",
+      "level": 2,
+      "score": 0.45031407475471497
+    },
+    {
+      "id": "https://openalex.org/C108037233",
+      "wikidata": "https://www.wikidata.org/wiki/Q11375",
+      "display_name": "Wireless network",
+      "level": 3,
+      "score": 0.42831021547317505
+    },
+    {
+      "id": "https://openalex.org/C555944384",
+      "wikidata": "https://www.wikidata.org/wiki/Q249",
+      "display_name": "Wireless",
+      "level": 2,
+      "score": 0.42344337701797485
+    },
+    {
+      "id": "https://openalex.org/C120314980",
+      "wikidata": "https://www.wikidata.org/wiki/Q180634",
+      "display_name": "Distributed computing",
+      "level": 1,
+      "score": 0.3865269124507904
+    },
+    {
+      "id": "https://openalex.org/C76155785",
+      "wikidata": "https://www.wikidata.org/wiki/Q418",
+      "display_name": "Telecommunications",
+      "level": 1,
+      "score": 0.34307345747947693
+    },
+    {
+      "id": "https://openalex.org/C38652104",
+      "wikidata": "https://www.wikidata.org/wiki/Q3510521",
+      "display_name": "Computer security",
+      "level": 1,
+      "score": 0.2952823042869568
+    },
+    {
+      "id": "https://openalex.org/C111919701",
+      "wikidata": "https://www.wikidata.org/wiki/Q9135",
+      "display_name": "Operating system",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 4,
+  "locations": [
+    {
+      "id": "doi:10.3390/s20154273",
+      "doi": "https://doi.org/10.3390/s20154273",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.3390/s20154273",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S101949793",
+        "display_name": "Sensors",
+        "issn_l": "1424-8220",
+        "issn": [
+          "1424-8220"
+        ],
+        "is_oa": true,
+        "is_in_doaj": true,
+        "is_core": true,
+        "listed_in": [
+          "anvur-scientific",
+          "cwts-core",
+          "doaj",
+          "jufo-1",
+          "medline",
+          "norway-1",
+          "poland-100",
+          "russia-white-list-1",
+          "vabb-shw"
+        ],
+        "host_organization": "https://openalex.org/P4310310987",
+        "host_organization_name": "Multidisciplinary Digital Publishing Institute",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310310987"
+        ],
+        "host_organization_lineage_names": [
+          "Multidisciplinary Digital Publishing Institute"
+        ],
+        "type": "journal"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Sensors",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmh:oai:pubmedcentral.nih.gov:7435450",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/7435450",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S2764455111",
+        "display_name": "PubMed Central",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": true,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I1299303238",
+        "host_organization_name": "National Institutes of Health",
+        "host_organization_lineage": [
+          "https://openalex.org/I1299303238"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Sensors (Basel)",
+      "raw_type": "Text"
+    },
+    {
+      "id": "pmid:32751877",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/32751877",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306525036",
+        "display_name": "PubMed",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I1299303238",
+        "host_organization_name": "National Institutes of Health",
+        "host_organization_lineage": [
+          "https://openalex.org/I1299303238"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Sensors (Basel, Switzerland)",
+      "raw_type": "Journal Article"
+    },
+    {
+      "id": "pmh:oai:doaj.org/article:8ad818e0ac2142929b593e2640f8490a",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "https://doaj.org/article/8ad818e0ac2142929b593e2640f8490a",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306401280",
+        "display_name": "DOAJ (DOAJ: Directory of Open Access Journals)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": null,
+        "host_organization_name": null,
+        "host_organization_lineage": [],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by-sa",
+      "license_id": "https://openalex.org/licenses/cc-by-sa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Sensors, Vol 20, Iss 15, p 4273 (2020)",
+      "raw_type": "article"
+    }
+  ],
+  "best_oa_location": {
+    "id": "doi:10.3390/s20154273",
+    "doi": "https://doi.org/10.3390/s20154273",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.3390/s20154273",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S101949793",
+      "display_name": "Sensors",
+      "issn_l": "1424-8220",
+      "issn": [
+        "1424-8220"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "listed_in": [
+        "anvur-scientific",
+        "cwts-core",
+        "doaj",
+        "jufo-1",
+        "medline",
+        "norway-1",
+        "poland-100",
+        "russia-white-list-1",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310310987",
+      "host_organization_name": "Multidisciplinary Digital Publishing Institute",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310310987"
+      ],
+      "host_organization_lineage_names": [
+        "Multidisciplinary Digital Publishing Institute"
+      ],
+      "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Sensors",
+    "raw_type": "journal-article"
+  },
+  "sustainable_development_goals": [
+    {
+      "score": 0.5378999710083008,
+      "id": "https://metadata.un.org/sdg/9",
+      "display_name": "Industry, innovation and infrastructure"
+    }
+  ],
+  "study_designs": [],
+  "awards": [],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320306127",
+      "display_name": "U.S. Department of Veterans Affairs",
+      "ror": "https://ror.org/05rsv9s98"
+    },
+    {
+      "id": "https://openalex.org/F4320321091",
+      "display_name": "Coordenação de Aperfeiçoamento de Pessoal de Nível Superior",
+      "ror": "https://ror.org/00x0ma614"
+    }
+  ],
+  "has_content": {
+    "grobid_xml": false,
+    "pdf": false
+  },
+  "content_urls": null,
+  "referenced_works_count": 58,
+  "referenced_works": [
+    "https://openalex.org/W2031850392",
+    "https://openalex.org/W2105103777",
+    "https://openalex.org/W2134295053",
+    "https://openalex.org/W2150825860",
+    "https://openalex.org/W2243299349",
+    "https://openalex.org/W2294352804",
+    "https://openalex.org/W2296421542",
+    "https://openalex.org/W2413035114",
+    "https://openalex.org/W2499400668",
+    "https://openalex.org/W2525332113",
+    "https://openalex.org/W2542099473",
+    "https://openalex.org/W2559445646",
+    "https://openalex.org/W2562801653",
+    "https://openalex.org/W2564504513",
+    "https://openalex.org/W2576629242",
+    "https://openalex.org/W2579181677",
+    "https://openalex.org/W2597831797",
+    "https://openalex.org/W2617209552",
+    "https://openalex.org/W2620607650",
+    "https://openalex.org/W2756782458",
+    "https://openalex.org/W2768951086",
+    "https://openalex.org/W2770070197",
+    "https://openalex.org/W2784202677",
+    "https://openalex.org/W2795262473",
+    "https://openalex.org/W2799747722",
+    "https://openalex.org/W2799988281",
+    "https://openalex.org/W2876807129",
+    "https://openalex.org/W2885437927",
+    "https://openalex.org/W2889167692",
+    "https://openalex.org/W2901111720",
+    "https://openalex.org/W2910677601",
+    "https://openalex.org/W2913709008",
+    "https://openalex.org/W2914351286",
+    "https://openalex.org/W2935947414",
+    "https://openalex.org/W2941331320",
+    "https://openalex.org/W2943535307",
+    "https://openalex.org/W2949642365",
+    "https://openalex.org/W2955551477",
+    "https://openalex.org/W2964055667",
+    "https://openalex.org/W2964940883",
+    "https://openalex.org/W2971540252",
+    "https://openalex.org/W2975918984",
+    "https://openalex.org/W2981228028",
+    "https://openalex.org/W2981455641",
+    "https://openalex.org/W2982455897",
+    "https://openalex.org/W2990315362",
+    "https://openalex.org/W2996206570",
+    "https://openalex.org/W3006344899",
+    "https://openalex.org/W3009482824",
+    "https://openalex.org/W3009564765",
+    "https://openalex.org/W3009598317",
+    "https://openalex.org/W3011056232",
+    "https://openalex.org/W3011547883",
+    "https://openalex.org/W3014783981",
+    "https://openalex.org/W3015265524",
+    "https://openalex.org/W3030281963",
+    "https://openalex.org/W3095655605",
+    "https://openalex.org/W7015825518"
+  ],
+  "related_works": [
+    "https://openalex.org/W3139226909",
+    "https://openalex.org/W4408215394",
+    "https://openalex.org/W4372311847",
+    "https://openalex.org/W4384826463",
+    "https://openalex.org/W6996002969",
+    "https://openalex.org/W7000935779",
+    "https://openalex.org/W4283212624",
+    "https://openalex.org/W4361987105",
+    "https://openalex.org/W3043328207",
+    "https://openalex.org/W2990760729"
+  ],
+  "abstract_inverted_index": {
+    "The": [
+      0
+    ],
+    "growth": [
+      1
+    ],
+    "of": [
+      2,
+      5,
+      12,
+      34,
+      57,
+      87,
+      112,
+      152,
+      167
+    ],
+    "the": [
+      3,
+      10,
+      58,
+      67,
+      113,
+      149,
+      165
+    ],
+    "Internet": [
+      4
+    ],
+    "Things": [
+      6
+    ],
+    "(IoT)": [
+      7
+    ],
+    "led": [
+      8
+    ],
+    "to": [
+      9,
+      66,
+      69,
+      93,
+      147,
+      157,
+      161
+    ],
+    "deployment": [
+      11
+    ],
+    "many": [
+      13,
+      32
+    ],
+    "applications": [
+      14
+    ],
+    "that": [
+      15,
+      89
+    ],
+    "use": [
+      16
+    ],
+    "wireless": [
+      17,
+      104
+    ],
+    "networks,": [
+      18,
+      101,
+      170
+    ],
+    "like": [
+      19
+    ],
+    "smart": [
+      20,
+      23
+    ],
+    "cities": [
+      21
+    ],
+    "and": [
+      22,
+      45,
+      61,
+      127,
+      135,
+      144,
+      174
+    ],
+    "agriculture.": [
+      24
+    ],
+    "Low": [
+      25
+    ],
+    "Power": [
+      26
+    ],
+    "Wide": [
+      27,
+      50
+    ],
+    "Area": [
+      28,
+      51
+    ],
+    "Networks": [
+      29
+    ],
+    "(LPWANs)": [
+      30
+    ],
+    "meet": [
+      31
+    ],
+    "requirements": [
+      33
+    ],
+    "IoT,": [
+      35
+    ],
+    "such": [
+      36
+    ],
+    "as": [
+      37,
+      177,
+      179
+    ],
+    "energy": [
+      38
+    ],
+    "efficiency,": [
+      39
+    ],
+    "low": [
+      40
+    ],
+    "cost,": [
+      41
+    ],
+    "large": [
+      42
+    ],
+    "coverage": [
+      43
+    ],
+    "area,": [
+      44
+    ],
+    "large-scale": [
+      46
+    ],
+    "deployment.": [
+      47
+    ],
+    "Long": [
+      48
+    ],
+    "Range": [
+      49
+    ],
+    "Network": [
+      52
+    ],
+    "(LoRaWAN)": [
+      53
+    ],
+    "networks": [
+      54,
+      72,
+      79
+    ],
+    "are": [
+      55,
+      80
+    ],
+    "one": [
+      56
+    ],
+    "most": [
+      59
+    ],
+    "studied": [
+      60
+    ],
+    "implemented": [
+      62
+    ],
+    "LPWAN": [
+      63
+    ],
+    "technologies,": [
+      64
+    ],
+    "due": [
+      65
+    ],
+    "facility": [
+      68
+    ],
+    "build": [
+      70
+    ],
+    "private": [
+      71
+    ],
+    "with": [
+      73,
+      171
+    ],
+    "an": [
+      74
+    ],
+    "open": [
+      75,
+      142
+    ],
+    "standard.": [
+      76
+    ],
+    "Typical": [
+      77
+    ],
+    "LoRaWAN": [
+      78,
+      100,
+      168
+    ],
+    "single-hop": [
+      81
+    ],
+    "in": [
+      82
+    ],
+    "a": [
+      83,
+      110,
+      124
+    ],
+    "star": [
+      84
+    ],
+    "topology,": [
+      85
+    ],
+    "composed": [
+      86
+    ],
+    "end-devices": [
+      88
+    ],
+    "transmit": [
+      90
+    ],
+    "data": [
+      91
+    ],
+    "directly": [
+      92
+    ],
+    "gateways.": [
+      94
+    ],
+    "Recently,": [
+      95
+    ],
+    "several": [
+      96
+    ],
+    "studies": [
+      97
+    ],
+    "proposed": [
+      98
+    ],
+    "multihop": [
+      99,
+      115,
+      153
+    ],
+    "thus": [
+      102
+    ],
+    "forming": [
+      103
+    ],
+    "mesh": [
+      105,
+      169
+    ],
+    "networks.": [
+      106
+    ],
+    "This": [
+      107,
+      138
+    ],
+    "article": [
+      108
+    ],
+    "provides": [
+      109
+    ],
+    "review": [
+      111
+    ],
+    "state-of-the-art": [
+      114
+    ],
+    "proposals": [
+      116
+    ],
+    "for": [
+      117
+    ],
+    "LoRaWAN.": [
+      118
+    ],
+    "In": [
+      119
+    ],
+    "addition,": [
+      120
+    ],
+    "we": [
+      121
+    ],
+    "carried": [
+      122
+    ],
+    "out": [
+      123
+    ],
+    "comparative": [
+      125
+    ],
+    "analysis": [
+      126
+    ],
+    "classification,": [
+      128
+    ],
+    "considering": [
+      129
+    ],
+    "technical": [
+      130
+    ],
+    "characteristics,": [
+      131
+    ],
+    "intermediate": [
+      132
+    ],
+    "devices": [
+      133
+    ],
+    "function,": [
+      134
+    ],
+    "network": [
+      136
+    ],
+    "topologies.": [
+      137
+    ],
+    "paper": [
+      139
+    ],
+    "also": [
+      140
+    ],
+    "discusses": [
+      141
+    ],
+    "issues": [
+      143
+    ],
+    "future": [
+      145
+    ],
+    "directions": [
+      146
+    ],
+    "realize": [
+      148
+    ],
+    "full": [
+      150
+    ],
+    "potential": [
+      151
+    ],
+    "networking.": [
+      154
+    ],
+    "We": [
+      155
+    ],
+    "hope": [
+      156
+    ],
+    "encourage": [
+      158
+    ],
+    "other": [
+      159
+    ],
+    "researchers": [
+      160
+    ],
+    "work": [
+      162
+    ],
+    "on": [
+      163
+    ],
+    "improving": [
+      164
+    ],
+    "performance": [
+      166
+    ],
+    "more": [
+      172
+    ],
+    "theoretical": [
+      173
+    ],
+    "simulation": [
+      175
+    ],
+    "analysis,": [
+      176
+    ],
+    "well": [
+      178
+    ],
+    "practical": [
+      180
+    ],
+    "deployments.": [
+      181
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 20
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 20
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 23
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 30
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 28
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 14
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 2
+    }
+  ],
+  "updated_date": "2026-11-01T11:40:01.658920",
+  "created_date": "2020-08-07T00:00:00"
+}

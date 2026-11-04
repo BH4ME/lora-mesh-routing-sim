@@ -1,0 +1,47 @@
+{
+  "application_deadline_s": 30.0,
+  "artifact_files": {
+    "actions": "meshecho_delayed_ack_rx_smoke_seed39000_20261004.actions.jsonl",
+    "attempts": "meshecho_delayed_ack_rx_smoke_seed39000_20261004.attempts.jsonl",
+    "flows": "meshecho_delayed_ack_rx_smoke_seed39000_20261004.flows.jsonl",
+    "runs": "meshecho_delayed_ack_rx_smoke_seed39000_20261004.runs.jsonl",
+    "runs_csv": "meshecho_delayed_ack_rx_smoke_seed39000_20261004.runs.csv",
+    "summary": "meshecho_delayed_ack_rx_smoke_seed39000_20261004.summary.json",
+    "transmissions": "meshecho_delayed_ack_rx_smoke_seed39000_20261004.transmissions.jsonl"
+  },
+  "artifact_sha256": {
+    "actions": "74356fc5823aec6c7edbba8cf515680b5f127260623a4782ba27b33bfe978767",
+    "attempts": "338bbb60285faf9a911d87acf223e55432b50f1260d6df7a2689889eff7363bf",
+    "flows": "f78e5ee8a1ddf9a8c9b115c75bb0e233ca19b9329c8597f4ab8644fc2df93d81",
+    "runs": "31868ff2e91a7cc084b7e119375e3cebbd51d16728183b434d1287b69f4e8488",
+    "runs_csv": "4e6ba0efefe5b33821074a807019791ef49aaeab8e1eda5a96542e5bb8d223d3",
+    "summary": "eacc36f71b09bdf2e90cda00017a955f6fd9d92311c8588baf641aacac68d2bc",
+    "transmissions": "6ec343befb8a7b6d9e61614c289bdec161e38bd1c31ca26b77eaace8973afbb1"
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "mode": "smoke",
+  "parity_exact_all": true,
+  "per_seed_denominators": {
+    "39000": {
+      "delivered_unacked_flood_flows": 0,
+      "delivered_unacked_flows": 0,
+      "scheduled_unicast_flows": 25
+    }
+  },
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "seeds": [
+    39000
+  ],
+  "smoke_manifest_sha256": null,
+  "source_sha256": {
+    "docs/research/meshecho_delayed_ack_rx_diagnostic_design.md": "ac5fcf6c1c9183264a6b1aced812256d913e0a330da5952feaf358b9b182c1ba",
+    "lora_mesh_sim.py": "ca21f85cbeb360ff4dee5fbb5282653b30f5bdff91c57b7b7bdca3edf94053e4",
+    "tests/test_delayed_ack_rx_diagnostic.py": "85b984e4128b367ae10fd478f284934a73053397a32c5869a72ed169db2a1746",
+    "tools/diagnose_ack_failure_causes.py": "777c83db614758855418618ea39ba115640b454b133f37f9f73e076785dd06b5",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_flood_ack_hops.py": "b587af3f48f8c1de2c3896be00e3603e3d34516ace893eec06419bddbd3c243f",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "f61b2bccb154c7ec3f7603c51dd47ff2b8271d68db4baa69e2ccee5a4a1d0d1c"
+  }
+}

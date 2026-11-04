@@ -1,0 +1,512 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          9,
+          22
+        ]
+      ],
+      "date-time": "2026-09-22T20:56:49Z",
+      "timestamp": 1790110609102,
+      "version": "4.0.1"
+    },
+    "reference-count": 39,
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2024,
+              1,
+              1
+            ]
+          ],
+          "date-time": "2024-01-01T00:00:00Z",
+          "timestamp": 1704067200000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/501100011033",
+        "name": "Agencia Estatal de Investigación",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "PDC2023-145809-I00/AEI/10.13039/501100011033"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "PDC2023-145809-I00/AEI/10.13039/501100011033"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/501100011033",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "name": "Recovery and Resilience Mechanism of European Union"
+      },
+      {
+        "name": "European Union-NextGenerationEU",
+        "award": [
+          "PDC2023-145809-I00/AEI/10.13039/501100011033"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "PDC2023-145809-I00/AEI/10.13039/501100011033"
+            ]
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "IEEE Access"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "DOI": "10.1109/access.2024.3443605",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2024,
+          8,
+          14
+        ]
+      ],
+      "date-time": "2024-08-14T13:39:59Z",
+      "timestamp": 1723642799000
+    },
+    "page": "128941-128962",
+    "source": "Crossref",
+    "is-referenced-by-count": 11,
+    "title": [
+      "A Minimalistic Distance-Vector Routing Protocol for LoRa Mesh Networks"
+    ],
+    "prefix": "10.1109",
+    "volume": "12",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0002-3133-0657",
+        "authenticated-orcid": false,
+        "given": "Roger",
+        "family": "Pueyo Centelles",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Computer Architecture Department, Universitat Polit&#x00E8;cnica de Catalunya (BarcelonaTech), Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-9414-646X",
+        "authenticated-orcid": false,
+        "given": "Roc",
+        "family": "Meseguer",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Computer Architecture Department, Universitat Polit&#x00E8;cnica de Catalunya (BarcelonaTech), Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-5438-479X",
+        "authenticated-orcid": false,
+        "given": "Felix",
+        "family": "Freitag",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Computer Architecture Department, Universitat Polit&#x00E8;cnica de Catalunya (BarcelonaTech), Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-9813-7678",
+        "authenticated-orcid": false,
+        "given": "Roger",
+        "family": "Baig Viñas",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Computer Architecture Department, Universitat Polit&#x00E8;cnica de Catalunya (BarcelonaTech), Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-4775-5526",
+        "authenticated-orcid": false,
+        "given": "Leandro",
+        "family": "Navarro",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Computer Architecture Department, Universitat Polit&#x00E8;cnica de Catalunya (BarcelonaTech), Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "263",
+    "reference": [
+      {
+        "key": "ref1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/COMST.2022.3229846"
+      },
+      {
+        "key": "ref2",
+        "volume-title": "LoRaWAN® L2 1.0.4 Specification",
+        "year": "2020"
+      },
+      {
+        "key": "ref3",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3543856"
+      },
+      {
+        "key": "ref4",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/MPRV.2021.3063443"
+      },
+      {
+        "key": "ref5",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3638241"
+      },
+      {
+        "key": "ref6",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.5821/dissertation-2117-360904"
+      },
+      {
+        "key": "ref7",
+        "volume-title": "FLoRa—A Framework for LoRa Simulations",
+        "author": "Slabicki",
+        "year": "2018"
+      },
+      {
+        "key": "ref8",
+        "volume-title": "OMNeT++ Discrete Event Simulator",
+        "year": "2020"
+      },
+      {
+        "key": "ref9",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/COMST.2021.3090409"
+      },
+      {
+        "issue": "15",
+        "key": "ref10",
+        "doi-asserted-by": "crossref",
+        "first-page": "4273",
+        "DOI": "10.3390/s20154273",
+        "article-title": "LoRaWAN mesh networks: A review and classification of multihop communication",
+        "volume": "20",
+        "author": "Cotrim",
+        "year": "2020",
+        "journal-title": "Sensors"
+      },
+      {
+        "key": "ref11",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/MCOM.001.2000053"
+      },
+      {
+        "key": "ref12",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3494673"
+      },
+      {
+        "key": "ref13",
+        "volume-title": "LoRaWAN® Relay Specification TS011-1.0.0",
+        "year": "2022"
+      },
+      {
+        "key": "ref14",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JIOT.2023.3263630"
+      },
+      {
+        "key": "ref15",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2023.3278687"
+      },
+      {
+        "key": "ref16",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WoWMoM.2018.8449743"
+      },
+      {
+        "key": "ref17",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2019.2913985"
+      },
+      {
+        "key": "ref18",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.14257/astl.2018.150.08"
+      },
+      {
+        "key": "ref19",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s19020402"
+      },
+      {
+        "key": "ref20",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WiMOB.2017.8115756"
+      },
+      {
+        "key": "ref21",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/TIM.2018.2814082"
+      },
+      {
+        "key": "ref22",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2019.2898239"
+      },
+      {
+        "issue": "6",
+        "key": "ref23",
+        "doi-asserted-by": "crossref",
+        "first-page": "1368",
+        "DOI": "10.3390/en13061368",
+        "article-title": "Multi-hop LoRA network protocol with minimized latency",
+        "volume": "13",
+        "author": "Mai",
+        "year": "2020",
+        "journal-title": "Energies"
+      },
+      {
+        "key": "ref24",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compeleceng.2022.108242",
+        "article-title": "Multi-radio and multi-hop LoRA communication architecture for large scale IoT deployment",
+        "volume": "102",
+        "author": "Prade",
+        "year": "2022",
+        "journal-title": "Comput. Electr. Eng."
+      },
+      {
+        "issue": "13",
+        "key": "ref25",
+        "doi-asserted-by": "crossref",
+        "first-page": "4314",
+        "DOI": "10.3390/s21134314",
+        "article-title": "A LoRa-based mesh network for peer-to-peer long-range communication",
+        "volume": "21",
+        "author": "Berto",
+        "year": "2021",
+        "journal-title": "Sensors"
+      },
+      {
+        "key": "ref26",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.comcom.2022.12.013"
+      },
+      {
+        "key": "ref27",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JIOT.2023.3281941"
+      },
+      {
+        "key": "ref28",
+        "doi-asserted-by": "crossref",
+        "first-page": "44",
+        "DOI": "10.1016/j.comcom.2024.02.014",
+        "article-title": "AlLoRa: Empowering environmental intelligence through an advanced LoRa-based IoT solution",
+        "volume": "218",
+        "author": "Arratia",
+        "year": "2024",
+        "journal-title": "Comput. Commun."
+      },
+      {
+        "key": "ref29",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2022.3217215"
+      },
+      {
+        "key": "ref30",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/LCOMM.2018.2797057"
+      },
+      {
+        "key": "ref31",
+        "volume-title": "Single Channel LoRaWAN Gateway",
+        "author": "Westenberg",
+        "year": "2020"
+      },
+      {
+        "key": "ref32",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s20041008"
+      },
+      {
+        "key": "ref33",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3560905.3568112"
+      },
+      {
+        "key": "ref34",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/NOMS.2018.8406255"
+      },
+      {
+        "key": "ref35",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ITST.2015.7377400"
+      },
+      {
+        "issue": "15",
+        "key": "ref36",
+        "doi-asserted-by": "crossref",
+        "first-page": "5546",
+        "DOI": "10.3390/s22155546",
+        "article-title": "Survey and comparative study of LoRa-enabled simulators for Internet of Things and wireless sensor networks",
+        "volume": "22",
+        "author": "Idris",
+        "year": "2022",
+        "journal-title": "Sensors"
+      },
+      {
+        "key": "ref37",
+        "volume-title": "FLoRaMesh—A Framework for LoRa Mesh Simulations",
+        "author": "Centelles",
+        "year": "2020"
+      },
+      {
+        "issue": "9",
+        "key": "ref38",
+        "doi-asserted-by": "crossref",
+        "first-page": "1466",
+        "DOI": "10.3390/s16091466",
+        "article-title": "A study of LoRa: Long range & low power networks for the Internet of Things",
+        "volume": "16",
+        "author": "Augustin",
+        "year": "2016",
+        "journal-title": "Sensors"
+      },
+      {
+        "key": "ref39",
+        "volume-title": "RadioLib—Universal Wireless Communication Library for Arduino",
+        "author": "Gromes",
+        "year": "2020"
+      }
+    ],
+    "container-title": [
+      "IEEE Access"
+    ],
+    "original-title": [],
+    "link": [
+      {
+        "URL": "http://xplorestaging.ieee.org/ielx8/6287639/10380310/10636160.pdf?arnumber=10636160",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2024,
+          9,
+          25
+        ]
+      ],
+      "date-time": "2024-09-25T15:28:30Z",
+      "timestamp": 1727278110000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://ieeexplore.ieee.org/document/10636160/"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "references-count": 39,
+    "URL": "https://doi.org/10.1109/access.2024.3443605",
+    "relation": {},
+    "ISSN": [
+      "2169-3536"
+    ],
+    "issn-type": [
+      {
+        "value": "2169-3536",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "mode": "smoke",
+  "seeds": [45000],
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "application_deadline_s": 30.0,
+  "input_sha256": {
+    "lora_mesh_sim.py": "3c4e3e4ad878083ae28ea48079363948aba87b5f050817ac191bac819fb4f74e",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "acac07c6fa4bb441a97dbb046111b3429fbe5c8693a291df897e36f2093ad1e8",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_first_hop_receipt_screen.py": "66dddf7747dbbef477797e9317d707f8d13f40d96bf66b318811d6cceac269b7",
+    "tests/test_first_hop_receipt_screen.py": "7b793a00390d95cbad410b60dc46964111ea733f873ca67e058e0d6431d3c003",
+    "tests/test_receipt_seed_guard.py": "613a11545833366d93b0760539eb864b69a4e5e73d387eb3304aede3b62518ed",
+    "docs/research/meshecho_first_hop_receipt_screen_design.md": "3d5744130bf12275ea8ce2e5b9b1928cf7ad4f2ffd4ce35f07fc474182b6034b"
+  },
+  "prerequisite_manifest_sha256": {}
+}

@@ -1,6 +1,292 @@
+# MeshEcho-CPR SECON 2027 active task
+Full authorized scope: all mandatory P0/P1 in canonical docs/research/secon2027_codex_execution_plan_20261104.md (§11/13/15); real anonymous IEEE10pt <=9-page PDF; per-round tested-source/version to promoted-version mapping and verified GitHub pushes. Hardware conditional only. Do not stop at a milestone.
+
+- [in_progress] P0-A import actual canonical working state into attached isolated checkout, hash and commit dependency baseline; historical seed inventory.
+- [pending] P0-B deterministic correctness fixes, registry, event export, source freeze, run-key lock and audits.
+- [pending] P1-A explicit baseline fidelity/default and matched configurations; clean controls; common exogenous traces.
+- [pending] P1-B registered development pilot, cost and exposure diagnosis; one-time method/matrix/statistics freeze.
+- [pending] P1-C all planned S1/S2/S3 main comparisons, key ablations, finite robustness, audit and paired statistics.
+- [pending] P1-D reproducibility, claims, plots, independent anonymous paper, exported PDF checks and final review.
+- [pending] Final requirements audit and confirmed remote SHA.
+
+User has preauthorized routine implementation, publishing scoped research branch and patch versions. Earlier no-push scope is obsolete. Academic-pipeline checkpoints are recorded automatically pursuant to this explicit continuous-work authorization; integrity gates still require actual evidence.
+
+---
+## Imported historical record (earlier scopes do not override this task)
+
 # Task Plan: MeshEcho Core Rewrite and ICC Evidence
 
+## Active firmware continuation after verified manuscript (2026-10-13)
+
+Previous goal turn made progress: manuscript verification closed the user
+redirect and collected current native39-case evidence. This continuation
+resumes the full algorithm/ESP32/nRF52840 objective; paper stays unchanged.
+
+- [complete] Read current recovery records and production node/core/runtime.
+- [in_progress] Vertical TDD recovery timers/generation, deep-path ACK,
+  endpoint validation, duplicate suppression and bounded queue lifecycle.
+- [in_progress] Agent owns core.hpp + lifecycle tests for retired-ID replay,
+  endpoints, modular time/TTL and generation-matched invalidation. Root owns
+  node/runtime and unified runner; second agent owns runtime regression file.
+- [in_progress] Independent read-only token/driver/budget audit.
+- [pending] Canonical native/radio/three-board gates, nonreserved simulator
+  smoke, firmware release metadata/artifacts and requirement audit.
+- [scope] No manuscript, GitHub, EDAS, reserved-seed or physical-flash changes.
+
+## Current manuscript request: recovered and reverified (2026-10-13)
+
+This is the latest turn boundary. The user asks for visible Meshtastic and
+MeshCore comparisons and formula-led exposition in the same open ICC source.
+The recovered source already contains the completed revision; do not repeat
+the rewrite or resume firmware instead of closing this manuscript request.
+
+- [complete] Read the same canonical 921-line manuscript and revision record.
+  It has 30 numbered equation groups, explicit MT/MC model subsections, a
+  four-policy mechanism table, full-name performance table, three-panel chart,
+  and separate baseline-specific interpretation paragraphs.
+- [complete] Recompile only the same open source with the desktop compiler:
+  success. Four existing author/figure/release checks pass. No new paper edit,
+  simulation, PDF export, version promotion, GitHub push or EDAS operation.
+- [complete] Independent read-only formula/evidence checks found no required
+  correction. Thirty equation groups, 34 unique labels and five citations
+  resolve; the existing 80-run/60-pair CSV supports the reported results.
+  No redundant equations were added merely to raise a count.
+- [firmware checkpoint] Collected pending native session 16324: all 39 Unity
+  cases pass. Updated production preflight, discard cleanup, RREP rejection,
+  strict ACK generation, off-path cancellation and v2 budget countdown are
+  included. Full latest board gates and remaining lifecycle fixes are not done.
+- [scope] The original firmware goal stays active and incomplete. All agents
+  stopped new firmware work for this manuscript request; its recovery state
+  is saved in the firmware handoff. Do not mark that goal complete here.
+- [error resolved] The session catch-up script requires python3, not python.
+
+## Firmware goal continuation after paper closeout (2026-10-13)
+
+Previous turn: progress on the user's intervening manuscript request, with
+firmware tests collected and state saved; full firmware goal remains active.
+
+- [complete] Re-read canonical plan/findings/progress/firmware handoff and
+  authoritative runtime/node/core; no completion inferred from old builds.
+- [in_progress] TDD pre-air budget/generation/flow validation and queue-drop
+  cleanup, strict ACK generation, RREP rejection and lifecycle correction.
+- [in_progress] Independent read-only provenance/relay audit and test-first
+  wire-ToA-derived budget helper plus board entry-point integration.
+- [pending] Runtime multi-hop/recovery/cancel/congestion/replay tests and
+  native + ESP32 SX1262/SX127x + nRF52840 SX1262 build gates.
+- [pending] Nonreserved simulator smoke, release metadata and exact binary
+  paths/checksums, followed by requirement-by-requirement completion audit.
+- [scope] No manuscript edits, reserved-seed reruns, GitHub push, EDAS or
+  physical flashing. Build evidence is not RF validation.
+
+## Latest user request: visible comparison and formula-led explanation
+
+Date: 2026-10-13. This section supersedes the firmware continuation below
+for the current turn; the firmware goal remains incomplete.
+
+- [complete] Recover the same open canonical manuscript and existing paired
+  evidence; current source has 28 numbered equation groups, not zero comparison.
+- [complete] Strengthen full-name Meshtastic-like/MeshCore-like visibility,
+  add implementation-backed wire-length and CPR relay-delay mathematics,
+  explain decision/cost consequences and correct duplicate-suppression wording.
+- [complete] Compile the same open source with the built-in compiler, check
+  references and relevant metadata tests, and save the current revision record.
+- [verified] Final same-source compiler success; 30 equation groups, all labels
+  and citations resolve, four existing tests pass, and 69 wire/ToA/delay
+  assertions agree with the implementation. No new simulator experiment.
+- [scope] No replacement document/PDF export, algorithm change, new simulation,
+  version promotion, GitHub push or EDAS operation.
+- [firmware checkpoint] Collected native session 97104: 23 Unity cases passed.
+  Radio edge tests: 12 passed. Wire aggregate: 14 passed including UBSan;
+  ASan runtime initialization failed before main. Full board gates and
+  prepareTx integration remain outstanding; agents saved their handoff.
+
+## Active firmware goal resumed (2026-10-13)
+
+Previous turn produced a verified manuscript revision and preserved the
+incomplete firmware state; it did not complete the firmware goal. The user
+has now resumed the full algorithm/ESP32/nRF52840 objective.
+
+- [complete] Read current recovery sections and the complete firmware handoff.
+- [in_progress] TDD source/runtime fixes: reject duplicate live IDs, ACK-only
+  route confirmation, physical-start preflight, strict ACK identity, timeout
+  and queue-drop cleanup, recovery generation and route expiry.
+- [in_progress] Independent radio TX_DONE wait and codec validation slices.
+- [pending] Register real Unity cases and verify byte-level three-node flow,
+  repeat/recovery/cancellation, congestion and malformed inputs.
+- [pending] Run canonical native tests and ESP32 SX1262/SX127x plus nRF52840
+  SX1262 builds, then nonreserved simulator smoke and firmware version/docs.
+- [scope] No paper edits, reserved experiment seeds, GitHub push or EDAS writes.
+
+## Current task: ICC comparison and mathematical explanation (2026-10-13)
+
+- [complete] Recover the canonical open manuscript and existing experiment
+  artifacts. The source already has 24 equation groups and four-arm results;
+  old PDF exports are not evidence of the current editor preview.
+- [complete] Audit formula-to-implementation consistency and strengthen
+  the explicit Meshtastic-like/MeshCore-like comparison, derivations and
+  variable definitions without adding unperformed experiments.
+- [complete] Compile only the same open .tex with the built-in compiler,
+  check references and relevant metadata tests, and record the revision.
+- [complete] Final independent read-only check of route lifecycle, conditional
+  probability gains and commitment epochs found no required corrections.
+- [scope] This turn does not authorize firmware work, standalone PDF export,
+  version promotion, GitHub push or EDAS changes.
+- [error resolved] Session catch-up requires python3; python is not installed.
+- [error resolved] Initial sim/ and src/ path probes found no such directories;
+  the simulator is the repository-root lora_mesh_sim.py. No files changed.
+
+### Firmware recovery boundary
+
+The firmware objective remains incomplete. The completed-flow retirement
+fix passes a direct C++ run but needs a new PlatformIO run. Board changes
+now call runtime.prepareTx(now_ms), which is not implemented yet. TX_DONE
+adapter tests are RED; ACK/RREP admission, queue-drop cleanup, route
+provenance and recovery generation still need fixes. The wire maximum-frame
+buffer fix (header 35 to 36 bytes; maximum 85 to 86) passes two standalone
+Unity cases but is not registered in the unified runner. Do not use older
+board builds to certify this worktree.
+
+## 2026-10-13 firmware CPR upgrade continuation
+
+- [in_progress] Port the audited MeshEcho-CPR source/repeat/recovery and
+  ACK-terminated relay semantics into a fixed-memory PlatformIO firmware core.
+- [pending] Add shared native/ESP32/nRF52840 targets and RadioLib adapters,
+  preserving the existing ESP32 prototype as historical code.
+- [pending] Add red/green host tests for route provenance, physical-start
+  repeat ordering, deadline-gated recovery, ACK identity, and relay cancellation.
+- [pending] Build `native`, ESP32 SX1262/SX127x, and nRF52840 SX1262 targets;
+  compile success is not hardware validation.
+- [pending] Run the existing simulator smoke after firmware implementation,
+  update firmware metadata/version only after tests and builds pass, and record
+  all artifacts here before any context compression.
+
+### 2026-10-13 continuation audit
+
+- [verified] Existing `pio test -e native` passes, but the only checked source
+  test is the compatibility `CprCore` facade; production `CprNode/CprRuntime`
+  multi-hop behavior is not covered.
+- [verified] ESP32 SX1262, ESP32 SX127x, and nRF52840 SX1262 compile targets
+  pass. This is compile evidence only, not RF or board validation.
+- [discovered] Relay ACK cancellation builds an observation without copying
+  wire `route_generation`, and the ledger does not verify that the ACK path
+  has the pending relay path as its prefix. Add a failing integration test
+  before changing the implementation.
+- [next] Add one production-node multi-hop route/data/ACK test, then add the
+  recovery-flood relay-cancellation test and implement only the failing slices.
+
+### Firmware checkpoint rule
+
+Before automatic context compression, append current phase, changed files,
+test/build output, and next action to `task_plan.md`, `findings.md`,
+`progress.md`, and `docs/research/meshecho_firmware_upgrade_handoff_20261013.md`.
+On resume, read all four files before editing.
+
+### 2026-10-13 firmware continuation resumed
+
+- [verified] `session-catchup.py` completed with `python3`; the shell has no
+  `python` alias.
+- [in_progress] Audit the target production path and add vertical integration
+  tests before changing the implementation.
+- [pending] Fix only behaviors demonstrated by those tests, then rerun native,
+  ESP32, and nRF52840 builds.
+
+#### Errors encountered
+
+| Error | Attempt | Resolution |
+|---|---|---|
+| `zsh: command not found: python` | session catch-up | Re-ran the same script with `python3`; recovery succeeded. |
+
+## 2026-10-12 four-protocol simulation rerun
+
+- [complete] Re-ran the same-condition four-protocol exposure matrix on
+  `92300..92319` and verified paired identity flags and RX/TX join counts.
+- [complete] Recomputed PDR, airtime, energy, and started-TX reductions from
+  the rerun CSV rather than hand-entered paper values.
+- [complete] Generated and visually checked the publication-quality PNG bar
+  chart and wrote the comparison/novelty assessment report.
+- [complete] Determined that CPR has a substantial simulated trade-off gain,
+  but no defensible breakthrough claim yet.
+- [complete] Preserved the limitation that Meshtastic-like and MeshCore-like
+  are behavior-level models and that this external runner does not emit the
+  formal JSONL/manifest audit bundle.
+
+## 2026-10-12 formula-and-comparison revision
+
+- [complete] Added explicit Meshtastic-like and MeshCore-like equations,
+  four-family table/figure, and shared ledger definitions to the ICC source.
+- [complete] Aligned equations with the implemented runner and CPR ledger,
+  including shortest-candidate MeshCore selection, quality-dependent flooding
+  delay, ACK-gated destination PDR, and validated reverse-path cancellation.
+- [complete] Compiled and rendered the source as a six-page Letter PDF after
+  the direct comparison and result interpretation were added; no Overfull
+  boxes or layout clipping remain.
+- [pending] Do not bump VERSION, push GitHub, or operate EDAS unless the user
+  explicitly requests publication actions for this revision.
+
+## 2026-10-11 four-protocol comparison objective
+
+- [complete] Extended the same-seed external comparison to CPR, legacy
+  MeshEcho, Meshtastic-like, and MeshCore-like in one matrix.
+- [complete] Verified protocol identity, topology/trace/pair-pool equality, and
+  recomputed aggregate PDR, airtime, energy, and started-TX metrics.
+- [complete] Generated a publication-quality four-protocol bar chart from the
+  raw CSV rather than hand-entered values.
+- [complete] Assessed the CPR mechanism conservatively as a strong integrated
+  policy improvement, not a proven breakthrough.
+- [complete] Updated findings/progress and reported the simulator-model and
+  CSV-only audit limitations.
+
+## 2026-10-06 protocol-comparison/formula revision
+
+- [complete] Confirmed the ICC source already contains same-seed
+  Meshtastic-like and MeshCore-like rows, protocol-family table, and explicit
+  caveat that they are simulator abstractions rather than firmware claims.
+- [complete] Added compact mathematical definitions for MeshCore discovery and
+  cache-hit cost, common TX-ledger airtime/energy/PDR metrics, and the CPR
+  per-flow cost decomposition.
+- [complete] Compiled the edited source with local XeLaTeX plus the existing
+  bibliography artifact; PDF is five Letter pages with no LaTeX errors or
+  undefined references.
+- [complete] Rendered all five pages with Poppler and visually checked the
+  equations, tables, figure, author names, and references; no clipping or
+  overlap found.
+- [complete] Dimension-checked the CPR airtime decomposition so it uses only
+  packet ToA; forwarding delays and safety margin remain in deadline budgets.
+- [pending] Do not bump VERSION, rerun experiments, push GitHub, or operate
+  EDAS for this manuscript-only revision unless explicitly requested.
+
 ## 2026-10-06 authoritative completion state
+
+## 2026-10-06 comparison explanation checkpoint
+
+- [complete] Compared the current MeshEcho-CPR source/recovery/relay lifecycle
+  with legacy MeshEcho, Meshtastic-like, and MeshCore-like implementations.
+- [complete] Confirmed the evidence boundary: CPR's ICC holdout directly
+  compares only CPR, CPR-no-cancel, DRC-no-rescue, and DRC. Historical
+  product-like rows use a different 50-node workload and are not a valid
+  numerical delta against the CPR 20-node holdout.
+- [complete] Prepared a user-facing explanation that separates mechanism
+  changes, validated CPR ablation gains, and unproven cross-protocol claims.
+- [pending] No source or paper edit is requested by this question; keep the
+  open ICC LaTeX document unchanged.
+
+## 2026-10-06 ICC acceptance assessment checkpoint
+
+- [complete] Applied the academic-paper-reviewer quick assessment to the
+  current five-page MeshEcho-CPR ICC manuscript.
+- [complete] Estimated paper-level acceptance probability at 20--35% as-is,
+  with a central estimate around 25--30%; this is a calibrated judgment, not
+  an official ICC acceptance-rate statistic.
+- [complete] Identified the decisive risks: incremental-looking novelty,
+  internal rather than named external primary baselines, one narrow workload,
+  and no measured-channel or hardware validation.
+- [complete] Confirmed strengths: clear bounded state machine, auditable ACK
+  ledger, paired untouched holdout, complete provenance, consistent five-page
+  IEEE format, and honest simulation limitations.
+- [pending] Do not edit the open `.tex` for this assessment. A future revision
+  should first add a concrete prior-art difference table and a matched external
+  baseline or second workload; hardware is strengthening evidence, not an ICC
+  universal prerequisite.
 
 - [complete] Rewrote the MeshEcho-SR source/recovery/relay-feedback core as
   MeshEcho-CPR while preserving only the shared PHY/channel/ledger substrate
@@ -5124,3 +5410,120 @@ The prior `c086...` hash is historical and must not identify the BAR run.
   `docs/research/meshecho_ack_proven_route_promotion_candidate.md`; it
   explicitly remains a component until a new F/R/D source FSM and causal
   advantage are demonstrated. Do not open 47xxx/48xxx for this candidate.
+
+## 2026-10-13 ICC comparison revision
+
+- [complete] Add direct Meshtastic-like and MeshCore-like behavior equations
+  and destination-delivery branches to the ICC source.
+- [complete] Add a normalized mechanism-counter definition and holdout values
+  for cache hits, discovery successes, suppressed relays, and fallback work.
+- [complete] Compile the source and verify six pages, 30 numbered equations,
+  no overfull boxes, and no undefined cross-references.
+- [pending] Do not claim universal product superiority without additional
+  traffic, topology, route-depth, and cache-state sensitivity experiments.
+
+## 2026-10-13 Canonical Firmware Target Migration
+
+- [in_progress] Treat `/Users/bh4me_macair/Documents/Codex/lora_mesh_current_version_v2`
+  as the canonical firmware delivery tree because it contains the open ICC
+  manuscript and the user-facing `firmware/meshecho_cpr/test/test_cpr_core.cpp`
+  scaffold.
+- [complete] Re-read the target plan, findings, progress, and firmware handoff
+  before continuing after the workspace split was discovered.
+- [verified] A separate `lora_mesh/firmware/meshecho_cpr` implementation builds
+  at version `0.1.4`, but that evidence does not prove the target tree is done.
+- [in_progress] Port the fixed-memory `CprCore` API expected by the target
+  scaffold, then add shared wire/runtime and PlatformIO ESP32/nRF52840 targets.
+- [pending] Run target-tree native tests and all three board compile gates,
+  update these four Markdown checkpoints with exact artifacts, and only then
+  declare the firmware objective complete.
+
+## 2026-10-13 ICC baseline-formula revision
+
+- [complete] Added a Results-side formula comparison for legacy MeshEcho,
+  Meshtastic-like managed flooding, MeshCore-like cache/discovery routing, and
+  MeshEcho-CPR using one physical-started-airtime ledger.
+- [complete] Added auditable relative airtime and TX-count ratios from the
+  existing 20-seed holdout: ME/MT/MC are 1.63/4.65/1.57 times CPR airtime and
+  1.92/3.90/1.88 times CPR started TX count.
+- [complete] Rebuilt the open ICC source and checked the final 6-page PDF;
+  32 equation labels are present, all five references render, and no overfull
+  boxes, undefined references, or fatal errors remain.
+- [complete] Canonical PDF is
+  `paper/icc2027/icc2027_lora_mesh.pdf` with SHA-256
+`c44081d8ee052f5c95d036370fbe78e402533929a36cdb8385496083da54e590`.
+
+## 2026-10-13 ICC explicit comparison follow-up
+
+- [complete] Add state-transition equations and formula references for all
+  four protocol arms.
+- [complete] Define previously implicit RREQ/RREP and started-request symbols.
+- [complete] Compile with the desktop LaTeX diagnostic.
+- [pending] Render/inspect a fresh PDF and trim to the applicable ICC page
+  limit if the full-width figure causes overflow.
+
+## 2026-10-13 Current user revision: baseline comparison and mathematics
+
+- [complete] Read the open canonical source and existing result report;
+  source already contains 36 equation environments, with repeated cost and
+  transition definitions. The on-disk PDF predates the current source.
+- [complete] Consolidate the four behavior-level baseline definitions,
+  check forwarding constants and physical-TX cost expressions against code,
+  and give CPR a precise source FSM and ACK-cancellation formulation.
+- [complete] Compile the same open source with the built-in compiler; do not
+  replace the document, open another tab, or compile a separate PDF.
+- [boundary] No new simulations, firmware fixes, version bump, push or EDAS
+  submission are part of this manuscript-only request.
+- [diagnostic limitation] The app UI is unavailable to computer-use tools;
+  built-in compilation confirms syntax, not a final exported PDF layout.
+- [error resolved] The catch-up script required `python3`, not `python`;
+  rerunning with `python3` completed without a recovery report.
+- [complete] Restored the front-loaded four-arm comparison table and retained
+  the original paired bar chart. The revised source has 24 core equation
+  groups, with repeated bookkeeping formulas replaced by an explicit FSM,
+  timer/stage limits, correlation-safe probability identities and ACK rules.
+- [error resolved] Standalone compilation cannot read the external .bib or
+  figure input. Embedded existing assets and verified references into the
+  same source, fixed two wide equations, and the built-in compile passed.
+- [verified] Four existing author/figure/release metadata tests pass. Static
+  audits found no missing labels/citations, duplicate labels, Chinese author
+  names, external inputs, body-size hacks or page-height enlargement.
+- [deferred by document scope] No separate PDF was compiled/exported and no
+  final PDF page count or rendered-page visual QA is claimed. The editor
+  remains on the same source; the old disk PDF is not the revised preview.
+
+## 2026-10-13 Latest baseline/formula request recovery
+
+- [complete] Recover the already revised 30-equation open manuscript instead
+  of repeating completed derivations or resuming the older firmware task.
+- [complete] Make all three baseline names and cost differences explicit in
+  the introduction; replace an unsupported component-isolation claim with
+  a formula roadmap tied to the four-arm physical TX ledger.
+- [complete] Verify the 30 equation groups and independent CSV audit, apply
+  the two table-wording fixes, compile the same editor source, and retain
+  the four passing focused paper metadata/data tests. Final compiler success
+  was reconfirmed on 2026-11-04 after interruption.
+- [boundary] No new simulation, firmware work, version promotion, separate
+  PDF build/export, GitHub push or EDAS action in this request.
+- [error resolved] `python` is unavailable; the skill catch-up script ran
+  successfully under `python3` and returned no unsynced-session report.
+- [complete] Manuscript request finished; no claim of completion is made for
+  the separately unfinished firmware objective recorded in its handoff.
+
+## 2026-11-04 SECON execution-document request
+
+- [complete] Prepare a Chinese Markdown handoff for a future Codex run:
+  current evidence, SECON rules, prioritized experiment/code/document work,
+  acceptance gates, release discipline and compaction recovery.
+- [complete] Confirm canonical tree and versions (repository 2.1.27,
+  firmware 0.1.4); read existing plan/findings/progress and seed contract.
+- [complete] Independently audit runner capabilities, experiment design
+  and official SECON requirements before writing executable instructions.
+- [complete] Wrote docs/research/secon2027_codex_execution_plan_20261104.md
+  with startup prompt, priorities, matrices, documentation, release/source
+  mapping, compaction recovery and schedule. Checked 21 existing paths.
+- [complete] Independent review confirmed requirements and corrected stage
+  order, cohort/run-key isolation and packet-type versus phase accounting.
+- [boundary] This turn produces the requested plan only. It does not run
+  experiments, modify the algorithm/manuscript, promote a version, push or
+  register a submission.

@@ -1,0 +1,161 @@
+{
+  "application_deadline_s": 30.0,
+  "artifact_files": {
+    "actions": "meshecho_delayed_ack_rx_explore_39001_39020_20261004.actions.jsonl",
+    "attempts": "meshecho_delayed_ack_rx_explore_39001_39020_20261004.attempts.jsonl",
+    "flows": "meshecho_delayed_ack_rx_explore_39001_39020_20261004.flows.jsonl",
+    "runs": "meshecho_delayed_ack_rx_explore_39001_39020_20261004.runs.jsonl",
+    "runs_csv": "meshecho_delayed_ack_rx_explore_39001_39020_20261004.runs.csv",
+    "summary": "meshecho_delayed_ack_rx_explore_39001_39020_20261004.summary.json",
+    "transmissions": "meshecho_delayed_ack_rx_explore_39001_39020_20261004.transmissions.jsonl"
+  },
+  "artifact_sha256": {
+    "actions": "577bad098d5633e58f8a5a024aaaef3354a83e48331831927c597564c6e7b2ce",
+    "attempts": "ecde0012203eb8cd4733f25aba5ddfd36a88a7dc3bbab1c226d1934a73003983",
+    "flows": "8d843b02ff11e19c7ae8064edcc148d4f22cfd784cf80a223d7c7d8aaa6163ca",
+    "runs": "f52ef9542e9c37546ff4f67a98f0ae7a10766b8689da1f04fa0368a7ec2bb040",
+    "runs_csv": "a0e4d2bfa6836fcba8c8fb3909d7336435d00942118c620be81a2345ccf589c3",
+    "summary": "c7957d249a14eab6f34df549e0c8f2ecedfeb250bb0ce22f5131f9e41ae46f34",
+    "transmissions": "01524624877ee63680f5c230d69cd3bd9cba3acca851f69921f30d8ff4df9dc6"
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "mode": "explore",
+  "parity_exact_all": true,
+  "per_seed_denominators": {
+    "39001": {
+      "delivered_unacked_flood_flows": 3,
+      "delivered_unacked_flows": 3,
+      "scheduled_unicast_flows": 48
+    },
+    "39002": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 50
+    },
+    "39003": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 30
+    },
+    "39004": {
+      "delivered_unacked_flood_flows": 2,
+      "delivered_unacked_flows": 2,
+      "scheduled_unicast_flows": 33
+    },
+    "39005": {
+      "delivered_unacked_flood_flows": 2,
+      "delivered_unacked_flows": 2,
+      "scheduled_unicast_flows": 43
+    },
+    "39006": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 46
+    },
+    "39007": {
+      "delivered_unacked_flood_flows": 6,
+      "delivered_unacked_flows": 6,
+      "scheduled_unicast_flows": 41
+    },
+    "39008": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 45
+    },
+    "39009": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 38
+    },
+    "39010": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 50
+    },
+    "39011": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 33
+    },
+    "39012": {
+      "delivered_unacked_flood_flows": 6,
+      "delivered_unacked_flows": 6,
+      "scheduled_unicast_flows": 48
+    },
+    "39013": {
+      "delivered_unacked_flood_flows": 8,
+      "delivered_unacked_flows": 8,
+      "scheduled_unicast_flows": 36
+    },
+    "39014": {
+      "delivered_unacked_flood_flows": 2,
+      "delivered_unacked_flows": 2,
+      "scheduled_unicast_flows": 40
+    },
+    "39015": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 43
+    },
+    "39016": {
+      "delivered_unacked_flood_flows": 2,
+      "delivered_unacked_flows": 2,
+      "scheduled_unicast_flows": 40
+    },
+    "39017": {
+      "delivered_unacked_flood_flows": 2,
+      "delivered_unacked_flows": 2,
+      "scheduled_unicast_flows": 39
+    },
+    "39018": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 41
+    },
+    "39019": {
+      "delivered_unacked_flood_flows": 1,
+      "delivered_unacked_flows": 1,
+      "scheduled_unicast_flows": 33
+    },
+    "39020": {
+      "delivered_unacked_flood_flows": 4,
+      "delivered_unacked_flows": 4,
+      "scheduled_unicast_flows": 39
+    }
+  },
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "seeds": [
+    39001,
+    39002,
+    39003,
+    39004,
+    39005,
+    39006,
+    39007,
+    39008,
+    39009,
+    39010,
+    39011,
+    39012,
+    39013,
+    39014,
+    39015,
+    39016,
+    39017,
+    39018,
+    39019,
+    39020
+  ],
+  "smoke_manifest_sha256": "222d4f85edda03bdb1449d44094bb6f4b03fc293c7d4be9356b0ba12c33fc471",
+  "source_sha256": {
+    "docs/research/meshecho_delayed_ack_rx_diagnostic_design.md": "ac5fcf6c1c9183264a6b1aced812256d913e0a330da5952feaf358b9b182c1ba",
+    "lora_mesh_sim.py": "ca21f85cbeb360ff4dee5fbb5282653b30f5bdff91c57b7b7bdca3edf94053e4",
+    "tests/test_delayed_ack_rx_diagnostic.py": "85b984e4128b367ae10fd478f284934a73053397a32c5869a72ed169db2a1746",
+    "tools/diagnose_ack_failure_causes.py": "777c83db614758855418618ea39ba115640b454b133f37f9f73e076785dd06b5",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_flood_ack_hops.py": "b587af3f48f8c1de2c3896be00e3603e3d34516ace893eec06419bddbd3c243f",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "f61b2bccb154c7ec3f7603c51dd47ff2b8271d68db4baa69e2ccee5a4a1d0d1c"
+  }
+}

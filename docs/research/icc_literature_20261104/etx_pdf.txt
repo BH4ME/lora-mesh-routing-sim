@@ -1,0 +1,891 @@
+                                   A High-Throughput Path Metric for
+                                      Multi-Hop Wireless Routing
+
+                     Douglas S. J. De Couto Daniel Aguayo John Bicket Robert Morris
+                         M.I.T. Computer Science and Artificial Intelligence Laboratory
+                                  {decouto, aguayo, jbicket, rtm}@csail.mit.edu
+                                       http://www.pdos.lcs.mit.edu/grid
+
+Abstract                                                                             1. Introduction
+This paper presents the expected transmission count metric (ETX), which                 Much of the recent work in ad hoc routing protocols for wireless
+finds high-throughput paths on multi-hop wireless networks. ETX mini-                networks [25, 15, 26] has focused on coping with mobile nodes,
+mizes the expected total number of packet transmissions (including retrans-          rapidly changing topologies, and scalability. Less attention has
+missions) required to successfully deliver a packet to the ultimate destina-
+tion. The ETX metric incorporates the effects of link loss ratios, asymmetry
+                                                                                     been paid to finding high-quality paths in the face of lossy wireless
+in the loss ratios between the two directions of each link, and interference         links. This paper presents measurements of link loss characteris-
+among the successive links of a path. In contrast, the minimum hop-count             tics on a 29-node 802.11b test-bed, and uses these measurements
+metric chooses arbitrarily among the different paths of the same minimum             to motivate the design of a new metric which accounts for lossy
+length, regardless of the often large differences in throughput among those          links: expected transmission count (ETX).
+paths, and ignoring the possibility that a longer path might offer higher               The metric most commonly used by existing ad hoc routing pro-
+throughput.
+   This paper describes the design and implementation of ETX as a metric
+                                                                                     tocols is minimum hop-count. These protocols typically use only
+for the DSDV and DSR routing protocols, as well as modifications to DSDV             links that deliver routing probe packets (query packets, as in DSR
+and DSR which allow them to use ETX. Measurements taken from a 29-                   or AODV, or routing updates, as in DSDV). This approach implic-
+node 802.11b test-bed demonstrate the poor performance of minimum hop-               itly assumes that links either work well or don’t work at all. While
+count, illustrate the causes of that poor performance, and confirm that ETX          often true in wired networks, this is not a reasonable approximation
+improves performance. For long paths the throughput improvement is often             in the wireless case: many wireless links have intermediate loss ra-
+a factor of two or more, suggesting that ETX will become more useful as
+networks grow larger and paths become longer.
+                                                                                     tios. A link that delivers only 50% of packets may not be useful for
+                                                                                     data, but might deliver enough routing update or query packets that
+                                                                                     the routing protocol uses it anyway.
+Categories and Subject Descriptors                                                      Minimizing the hop-count maximizes the distance traveled by
+C.2.1 [Computer-Communication Networks]: Network Archi-                              each hop, which is likely to minimize signal strength and maximize
+tecture and Design—Wireless communication; C.2.2 [Computer-                          the loss ratio. Even if the best route is a minimum hop-count route,
+Communication Networks]: Network Protocols—Routing proto-                            in a dense network there may be many routes of the same min-
+cols                                                                                 imum length, with widely varying qualities; the arbitrary choice
+                                                                                     made by most minimum hop-count metrics is not likely to select
+General Terms                                                                        the best. One contribution of this paper is to quantify these effects
+                                                                                     (Section 2).
+Design, Experimentation, Measurement, Performance                                       One approach to fixing this problem is to mask transmission er-
+                                                                                     rors. For example, the 802.11b ACK mechanism resends lost pack-
+Keywords                                                                             ets, making all but the worst 802.11b links appear loss-free. How-
+Multi-hop wireless networks, Ad hoc networks, Rooftop networks,                      ever, retransmission does not make lossy links desirable for use
+Wireless routing, Route metrics, 802.11b, DSR, DSDV, ETX                             in paths: the retransmissions reduce path throughput and interfere
+                                                                                     with other traffic. Another approach might be to augment minimum
+                                                                                     hop-count routing with a threshold that ignores lossy links, but a
+                                                                                     lossy link may be the only way to reach a certain node, and there
+                                                                                     might be significant loss ratio differences even among the above-
+ This research was supported by grants from NTT Corporation un-                      threshold links.
+der the NTT-MIT collaboration, and by MIT’s Project Oxygen.                             The solution proposed and evaluated in this paper is the ETX
+                                                                                     metric. ETX finds paths with the fewest expected number of trans-
+                                                                                     missions (including retransmissions) required to deliver a packet
+                                                                                     all the way to its destination. The metric predicts the number of re-
+Permission to make digital or hard copies of all or part of this work for            transmissions required using per-link measurements of packet loss
+personal or classroom use is granted without fee provided that copies are            ratios in both directions of each wireless link. The primary goal
+not made or distributed for profit or commercial advantage and that copies
+bear this notice and the full citation on the first page. To copy otherwise, to
+                                                                                     of the ETX design is to find paths with high throughput, despite
+republish, to post on servers or to redistribute to lists, requires prior specific   losses.
+permission and/or a fee.                                                                In order to demonstrate that ETX is effective, this paper presents
+MobiCom ’03, September 14–19, 2003, San Diego, California, USA.                      measurements taken from the test-bed network. These measure-
+Copyright 2003 ACM 1-58113-753-2/03/0009 ...$5.00.
+                 3                                             5                                               6
+             3                            2               36        6              6                         37
+                                      2                            20             24   195
+                 5                                            4                                                   5
+            11                                            7                                                  23
+
+
+
+
+                                                                                                                                                            Approx. 22 m
+                                  4
+                     185     16                       6
+                                                  5
+                                                                                                                       5
+       6                 4
+                                                                                                                      12
+     26              8                    27
+                                              5
+                                  3
+                              9
+       5
+     21
+                                                                                                                                                      5
+                                                                                                                                         28
+                                                                                                                                             6    1
+                                  6               5                      6    5               6        5
+                             25               15                        22   13              14   17                                 5       5
+                                                                                                                                10       6
+
+                                                                             Approx. 79 m
+
+Figure 1: A map of the test-bed. Each circle is a node; the large number is the node ID, and the superscript indicates which floor of
+the building the node is on.
+
+
+ments show that ETX improves the throughput of multi-hop routes                          placed in offices on five consecutive floors of an office building.
+by up to a factor of two over a minimum hop-count metric. ETX                            Their positions are shown in Figure 1.
+provides the most improvement for paths with two or more hops,                              The 802.11b cards are configured to send at one megabit per sec-
+suggesting that transmission count offers increased benefit as net-                      ond (Mbps) with one milliwatt (mW) of transmit power. RTS/CTS
+works grow larger and paths become longer.                                               is turned off, and the cards are set to “ad hoc” (IBSS, DCF) mode.
+   This paper makes the following main contributions. First, it ex-                      Each data packet in the following measurements consists of 24
+plores the details of the performance of minimum hop-count rout-                         bytes of 802.11b preamble, 31 bytes of 802.11b and Ethernet en-
+ing on a wireless test-bed, and explains why minimum hop-count                           capsulation header, 134 bytes of data payload, and 4 bytes of frame
+often finds routes with significantly less throughput than the best                      check sequence: 193 bytes in total. An 802.11b ACK packet takes
+available. Second, it presents the design, implementation, and eval-                     304 microseconds to transmit, the inter-frame gap is 60 microsec-
+uation of the ETX metric. Third, it describes a set of detailed design                   onds, and the minimum expected mandatory back-off time is 310
+changes to the DSDV [25] and DSR [15] protocols (to which ETX                            microseconds, resulting in a total time of 2,218 microseconds per
+is an extension), that enable them to more accurately choose routes                      data packet. This gives a maximum throughput of 451 unicast pack-
+with the best metric.                                                                    ets per second over a loss-free link.
+   This work is part of an effort to deploy a production-quality                            While the test-bed itself carried only the data and control traffic
+multi-hop rooftop 802.11b network. The initial version of that net-                      involved in each experiment, interference of various kinds was in-
+work was almost unusable due to the effects detailed in Section 2.                       evitably present. In particular, each floor of the building has four
+The larger goal of this work is to help make such networks a prac-                       802.11b access points, on various different channels.
+tical reality.                                                                              The DSDV implementation used in this paper is new, with mod-
+   The paper proceeds in Section 2 with an analysis of the problems                      ifications described in Section 4.
+with minimum hop-count routing. Section 3 describes the design
+of the new ETX metric, and Section 4 describes how ETX is imple-                         2.2 Path Throughputs
+mented, including changes to DSDV and DSR. Section 5 evaluates                              Figure 2 compares the throughput of routes found with a min-
+ETX using experiments on the test-bed. Section 6 describes related                       imum hop-count metric to the throughput of the best routes that
+work, and Section 7 concludes the paper.                                                 could be found. Each curve shows the throughput CDF (in pack-
+                                                                                         ets per second) for 100 node pairs; the pairs are randomly selected
+2.    Performance of Minimum-Hop-Count                                                   from the 29×28 = 812 total ordered pairs in the test-bed. A point’s
+                                                                                         x value indicates throughput, in packets per second; the y value in-
+      Routing                                                                            dicates what fraction of pairs had less throughput. The left curve
+  This section shows that minimum hop-count routing typically                            is the throughput CDF achieved by routing data using DSDV with
+finds routes with significantly lower throughput than the best avail-                    the minimum hop-count metric. The right curve is the throughput
+able. The evidence comes from measurements of DSDV on a test-                            CDF for the best known route between each pair of nodes. Packets
+bed network. We explain why minimum hop-count does poorly by                             were only sent between one pair at a time. For each pair, the DSDV
+looking at the distribution of route throughputs and link loss ratios.                   and best-path tests were run immediately after one another, to limit
+                                                                                         variation in link conditions over time.
+2.1 Experimental Test-Bed                                                                   The “best” path between each pair of nodes was found by send-
+   All the data in this paper are the result of measurements taken                       ing data along ten potential best paths, one at a time, and select-
+on a 29-node wireless test-bed. Each node consists of a stationary                       ing the path with the highest throughput. Potential best paths were
+Linux PC with a Cisco/Aironet 340 PCI 802.11b card and an omni-                          identified by running an off-line routing algorithm, using as input
+directional 2.2 dBi dipole antenna (a “rubber duck”). The nodes are                      measurements of per-link loss ratios, similar to those in Section 2.4,
+                                                                                             Packets per second delivered
+                                                        Run R1: 1 mW, 134-byte packets                                                             Run R1: 1 mW, 134-byte packets
+                                          1                                                                                 200
+                                                   Max 4-hop    3-hop    2-hop
+                                                   throughput                                                                     Max 3-hop throughput
+                                                                                                                            150
+
+
+
+
+     Cumulative fraction of node pairs
+                                                                                                                                  Max 4-hop
+                                         0.8                                                                                100
+                                                                                                                            50
+                                         0.6                                                                                 0
+
+
+
+                                                                                                                                     23-19-24-36     23-37-24-36   23-37-19-36   23-12-19-36   23-19-11-36              23-19-20-36   23-19-7-36
+                                         0.4                                                                                                                                                                 23-19-36
+
+
+
+                                         0.2                                                Figure 3: Throughput available between one pair of nodes, 23
+                                                                                            and 36, along the best eight routes tested. The shortest of the
+                                                                        Best static route   routes does not perform the best, and there are a number of
+                                                                        DSDV hopcount
+                                          0                                                 routes with the same number of hops that provide very differ-
+                                               0    50 100 150 200 250 300 350 400 450      ent throughput.
+                                                        Packets per second delivered
+
+                                                                                            about 100 packets per second. The minimum hop-count routes are
+Figure 2: When using the minimum hop-count metric, DSDV                                     slow because they include links with high loss ratios, which cause
+chooses paths with far less throughput than the best available                              bandwidth to be consumed by retransmissions.
+routes. Each line is a throughput CDF for the same 100 ran-
+domly selected node pairs. The left curve is the throughput                                 2.3 Distribution of Path Throughputs
+CDF of DSDV with minimum hop-count. The right curve is                                         Figure 3 illustrates a typical case in which minimum hop-count
+the CDF of the best throughput between each pair, found by                                  routing would not favor the highest-throughput route. The through-
+trying a number of promising paths. The dotted vertical lines                               put of eight routes from node 23 to node 36 is shown. The routes
+mark the theoretical maximum throughput of routes of each                                   are the eight best which were tested in the experiments described
+hop-count.                                                                                  above.
+                                                                                               The graph shows that the shortest path, a two-hop route through
+                                                                                            node 19, does not yield the highest throughput. The best route
+and with a penalty to reflect the reduction in throughput caused by                         is three hops long, but there are a number of available three-hop
+interference between successive hops of multi-hop paths. New link                           routes which provide widely varying performance.
+measurements were collected roughly every hour during the exper-                               A routing protocol that selects randomly from the shortest hop-
+iment; the best paths for each pair were generated using the most                           count routes is unlikely to make the best choice, particularly as the
+recently available loss data.                                                               network grows and the number of possible paths between a given
+   The values in Figure 2 are split into two main ranges, above and                         pair increases.
+below 225 packets per second. The values above 225 correspond to
+pairs that communicated along single-hop paths; those at or below                           2.4 Distribution of Link Loss Ratios
+225 correspond to multi-hop paths. A single-hop direct route can                               Figure 4 helps explain why high-throughput paths are difficult to
+deliver up to about 450 packets per second, but the fastest two-hop                         find. Each vertical bar corresponds to the direct radio link between
+route has only half that capacity. The halving is due to transmis-                          a pair of nodes; the two ends of the bar mark the broadcast packet
+sions on the successive hops interfering with each other: the middle                        delivery ratio in the two directions between the nodes. To measure
+node cannot receive a packet from the first node at the same time                           delivery ratios, each node took a turn sending a series of broadcast
+it is sending a packet to the final node. Similar effects cause the                         packets for five seconds, and counted the number of packets that
+fastest three-hop route to have a capacity of about 450/3 = 150                             the 802.11b hardware reported as transmitted. Packets contained
+packets per second.                                                                         134 bytes of 802.11b data payload. Every other node recorded the
+   Minimum hop-count performs well whenever the shortest route                              number of packets received. The delivery ratio from node X to each
+is also the fastest route, especially when there is a one-hop link with                     node Y is calculated by dividing the number of packets received by
+a low loss ratio. A one-hop link with a loss ratio of less than 50%                         Y by the number sent by X. The loss ratio of a link is one minus
+will outperform any other route. This is the case for all the points                        its delivery ratio. We use the term “ratio” instead of “rate” to avoid
+in the right half of Figure 2. Note that the overhead of DSDV route                         confusion with throughput delivery rates, which are expressed in
+advertisements reduces the maximum link capacity by about 15 to                             packets per second.
+25 packets per second, which is clearly visible in this part of the                            Note that 802.11b broadcasts don’t involve acknowledgements
+graph.                                                                                      or retransmissions. Because 802.11b retransmits lost unicast pack-
+   The left half of the graph shows what happens when minimum                               ets, the unicast packet loss ratio as seen by higher layers is far lower
+hop-count has a choice among a number of multi-hop routes. In                               than the underlying loss ratio (depending on the maximum number
+these cases, the hop-count metric usually picks a route significantly                       of retransmissions allowed).
+slower than the best known. The most extreme cases are the points                              Three features of Figure 4 are important. First, a large fraction
+at the far left, in which minimum hop-count is getting a through-                           of the links have an intermediate delivery ratio in at least one di-
+put close to zero, and the best known route has a throughput of                             rection. That is, they are likely to deliver some routing protocol
+                                                        (a) Pairwise delivery ratios at 1 mW
+
+
+
+
+       Delivery Ratio
+                           1
+                        0.75
+                         0.5
+                        0.25
+                           0
+                               0             100                           200                         300                           400
+                                                                        Link number
+                                                       (b) Pairwise delivery ratios at 30 mW
+
+
+
+
+       Delivery Ratio
+                           1
+                        0.75
+                         0.5
+                        0.25
+                           0
+                               0             100                           200                         300                           400
+                                                                        Link number
+
+
+Figure 4: One-hop packet delivery ratios between each pair of hosts at 1 mW (above) and 30 mW (below). The top and bottom ends
+of each vertical line indicate the delivery ratios in the two directions; the bars in each graph are sorted by the minimum of the two
+directions, so the link numbers do not necessarily correspond. The packet size is 134 bytes of 802.11b data payload. Data for all 406
+pairs of hosts are shown. Many links are asymmetric, and there is a wide range of loss ratios.
+
+
+packets, but would lose many packets if used for data. Second,              twice the throughput. The same objection applies to using the use-
+there is a full spectrum of link delivery ratios, so some advantage         ful throughput of a path’s bottleneck (highest-loss-ratio) link as the
+can be expected from making fine-grained choices between links              path’s metric. ETX, however, addresses each of these concerns.
+when choosing paths. Third, many links have asymmetric delivery                End-to-end delay is another potential metric, but changes with
+ratios.                                                                     network load as interface queue lengths vary; this can cause routes
+   Of the 406 node pairs in Figure 4a (1 mW), there are 124 with            to oscillate away from a good path once the path is used. Our goal is
+links which delivered packets in at least one direction. Of those           to design a metric that is independent of network load; load balanc-
+links, 28 are asymmetric, with forward and reverse delivery ratios          ing can be performed with separate algorithms that use the infor-
+that differ by at least 25%. The 28 asymmetric links involve 22             mation provided by ETX. We have implemented ETX as a metric
+different nodes. Because 802.11b uses link-level ACKs to confirm            for the DSDV and DSR routing protocols.
+delivery, both directions of a link must work well in order to avoid
+retransmissions. Since most nodes in the network are involved in at         3.1 The Metric
+least one asymmetric link, routing protocols must cope with asym-              The ETX of a link is the predicted number of data transmissions
+metry to be effective.                                                      required to send a packet over that link, including retransmissions.
+                                                                            The ETX of a route is the sum of the ETX for each link in the
+3.     ETX Metric Design                                                    route. For example, the ETX of a three-hop route with perfect links
+                                                                            is three; the ETX of a one-hop route with a 50% delivery ratio is
+   This section describes the design of the ETX metric. The met-
+                                                                            two.
+ric’s overall goal is to choose routes with high end-to-end through-
+                                                                               The ETX of a link is calculated using the forward and reverse
+put. Section 2 suggests that the metric must account for the follow-
+                                                                            delivery ratios of the link. The forward delivery ratio, df , is the
+ing issues:
+                                                                            measured probability that a data packet successfully arrives at the
+     • The wide range of link loss ratios.                                  recipient; the reverse delivery ratio, dr , is the probability that the
+                                                                            ACK packet is successfully received. These delivery ratios can
+     • The existence of links with asymmetric loss ratios.                  be measured as described below. The expected probability that a
+                                                                            transmission is successfully received and acknowledged is df × dr .
+     • The interference between successive hops of multi-hop paths.         A sender will retransmit a packet that is not successfully acknowl-
+   A number of superficially attractive metrics are not suitable. Us-       edged. Because each attempt to transmit a packet can be considered
+ing hop-count as the metric while ignoring links with loss ratios           a Bernoulli trial, the expected number of transmissions is:
+above a certain threshold may cause some destinations to be un-
+reachable. Using the product of the per-link delivery ratios as the                                                1
+                                                                                                      ETX =                                    (1)
+path metric, in an attempt to maximize the end-to-end delivery                                                  df × d r
+probability, fails to account for inter-hop interference; this metric
+would view a perfect two-hop route as better than a one-hop route
+with a 10% loss ratio, when in fact the latter would have almost
+  ETX has several important characteristics:                            its probes, causing its neighbors to believe that the reverse delivery
+                                                                        ratio had become zero.
+   • ETX is based on delivery ratios, which directly affect through-       If the highest-throughput path has three or fewer hops, ETX is
+     put.                                                               likely to choose it: the throughput of such paths is determined by
+                                                                        the total number of transmissions, since all of the hops interfere
+   • ETX detects and appropriately handles asymmetry by incor-
+                                                                        with each other [20]. If the best path has four or more hops, ETX
+     porating loss ratios in each direction.
+                                                                        may choose a slower path that has fewer hops, since the increased
+   • ETX can use precise link loss ratio measurements to make           number of transmissions required by extra hops does not slow down
+     fine-grained decisions between routes.                             throughput beyond three hops.
+                                                                           ETX does not specifically account for mobility. ETX may choose
+   • ETX penalizes routes with more hops, which have lower              good paths despite mobility if the underlying routing protocol can
+     throughput due to interference between different hops of the       propagate route metrics quickly enough, and if accurate link mea-
+     same path [20].                                                    surements are available. There is a tradeoff between the accuracy of
+                                                                        link measurements and the protocol’s responsiveness to mobility.
+   • ETX tends to minimize spectrum use, which should maxi-
+     mize overall system capacity.
+                                                                        4. Implementation
+   In addition, ETX may decrease the energy consumed per packet,           The routing system in which ETX is implemented has four main
+as each transmission or retransmission may increase a node’s en-        parts: the Click toolkit [19], and Click-based implementations of
+ergy consumption.                                                       DSDV, DSR, and the ETX link measurement algorithms. The im-
+   The delivery ratios df and dr are measured using dedicated link      plementations can run in user-space, but running in the kernel al-
+probe packets. Each node broadcasts link probes of a fixed size, at     lows use of the priority queuing described below, as well as easy
+an average period τ (one second in the implementation). To avoid        access to transmission failure notification from the 802.11 MAC
+accidental synchronization, τ is jittered by up to ±0.1τ per probe.     layer.
+Because the probes are broadcast, 802.11b does not acknowledge             The DSDV protocol is implemented following the description
+or retransmit them. Every node remembers the probes it receives         by Perkins and Bhagwat [25], with ambiguities resolved by con-
+during the last w seconds (ten seconds in our implementation), al-      sulting Broch et al. [5] and the Rice/CMU implementation in the
+lowing it to calculate the delivery ratio from the sender at any time   ns simulator [1, 27]. The DSR implementation follows the IETF
+t as:                                                                   Internet-Draft, version 9 [16].
+
+                                                                        4.1 Operation of DSDV
+                               count(t − w, t)
+                      r(t) =                                               DSDV is a distance-vector protocol, which uses sequence num-
+                                   w/τ
+                                                                        bers to ensure freshness, and a settling time mechanism to avoid
+   Count(t − w, t) is the number of probes received during the win-     unnecessarily propagating routes with inferior metrics. We made
+dow w, and w/τ is the number of probes that should have been            four changes to the original DSDV design in order to ensure that it
+received. In the case of the link X → Y , this technique allows X       uses the path with the best known metric. Before describing those
+to measure dr , and Y to measure df . Because Y knows it should         changes, we present an overview of how the published version of
+receive a probe from X every τ seconds, Y can correctly calculate       the protocol selects routes.
+the current loss ratio even if no probes arrive from X.                    Every node has a routing table entry for each destination it knows
+   Calculation of a link’s ETX requires both df and dr . Each probe     about. This entry contains four fields: the destination’s identifier
+sent by a node X contains the number of probe packets received by       (IP address), the next hop on the route to that destination, the latest
+X from each of its neighbors during the last w seconds. This allows     sequence number heard for that destination, and the metric. A node
+each neighbor to calculate the df to X whenever it receives a probe     forwards packets to the next hop specified by the current contents
+from X.                                                                 of its routing table.
+   The ETX of a route is the sum of the link metrics. DSR and              Every node periodically broadcasts a route advertisement packet
+DSDV accumulate the route metric as they forward updates and            containing its complete routing table. This advertisement is known
+queries, respectively.                                                  as a full dump, and occurs at the full dump period.
+                                                                           Each node maintains a sequence number for itself, which it incre-
+3.2 Discussion                                                          ments and includes in its own entry in every full dump it originates.
+   ETX makes at least two assumptions about the link layer. First,      The node copies the sequence numbers for the other entries in the
+ETX only makes sense for networks with link-layer retransmis-           full dump from its routing table. The effect is that the sequence
+sion, such as 802.11b. Second, ETX assumes that radios have a           number field in a routing table entry or advertisement entry reflects
+fixed transmit power level. With variable power radios, it might be     the age of that entry’s routing information.
+preferable to maximize hop-count, thereby decreasing interference          When a node receives another node’s route advertisement broad-
+and minimizing the energy used by each packet [29, 12, 18].             cast, it updates its own route entries as follows. Suppose node X
+   ETX does not attempt to route around congested links, and thus       receives an advertisement from Y for destination D with metric m
+should not suffer from the oscillations that sometimes plague load-     and sequence number n. If n is newer than the sequence number
+adaptive routing metrics such as end-to-end delay. To a first ap-       in X’s current entry for D, X replaces its current entry with the
+proximation, the loss measurements used by ETX do not reflect           new route through Y . X also accepts the new route if the sequence
+how busy a link is; a busy link may cause a probe broadcast to be       number is the same, but m is better than the metric of the current
+deferred, but won’t ordinarily cause it to be lost. This won’t always   route. If X has no route to D, it accepts the new route. Otherwise X
+be true, however, since 802.11b broadcasts are vulnerable to colli-     ignores the advertised route.
+sions from hidden terminals, and the 802.11b MAC can be unfair             Each route entry has an associated weighted settling time (WST).
+under high load [4]. As a result, a node might never be able to send    The settling time of a route entry with a given sequence number is
+                                                                            handle_route_ad(Packet p) {
+the amount of time between when a route with the sequence number              foreach Route r in p do
+was first received, and the time when the best route with the same              handle_update(r)
+sequence number was received. The WST is the weighted average               }
+of the settling times for recent sequence numbers, and is updated
+whenever a route with a new sequence number is received.                    handle_update(Route r) {
+   The WST is used together with triggered updates to quickly                 // curr[]: best route for current seq
+                                                                              // old[]: best route for previous seq
+propagate good routes through the network, while avoiding an ex-
+plosion of broadcasts. Whenever a node replaces a route entry with              // add link-metric to r.metric
+a newly received entry, it propagates the new route to its neighbors            update_metric(r);
+by sending a triggered update which contains only the changed in-
+formation. However, triggered updates are not sent until at least               if (r.seq == curr[r.dest].seq
+2×WST has passed since first hearing the current sequence num-                   && r.metric < curr[r.dest].metric) {
+                                                                                  curr[r.dest] = r;
+ber. This prevents nodes from advertising a new route which will                  curr[r.dest].best_time = now;
+likely be later replaced by a better route. In addition, regardless of            schedule_triggered_update(r);
+each route entry’s WST, triggered updates are sent at no more than              } else if (r.seq > curr[r.dest].seq) {
+a maximum specified rate. Triggered updates that are delayed are                  // save best route of last seq no
+batched together and sent at the next available time.                             old[r.dest] = curr[r.dest];
+   Finally, DSDV specifies that triggered updates can become full
+                                                                                  curr[r.dest] = r;
+dumps if a large enough fraction of the routes need a triggered up-               curr[r.dest].first_time = now;
+date. In this case, all routes with an elapsed WST are included in                curr[r.dest].best_time = now;
+the full dump, and the node’s sequence number is incremented.
+                                                                                  // update settling time
+                                                                                  old_wst = old[r.dest].wst;
+4.2 Changes to DSDV                                                               best_t = old[r.dest].best_time;
+    The first change we made affects how the WST is used. The                     first_t = old[r.dest].first_time;
+CMU ns DSDV implementation does not advertise a route until                       curr[r.dest].wst = 0.88*old_wst +
+2×WST has passed since that particular route was heard. How-                        0.12*(best_t - first_t);
+ever, according to our interpretation of the original DSDV descrip-
+                                                                                  schedule_triggered_update(r);
+tion [25], the waiting time before advertising a route should start             }
+when the first route of each sequence number is heard.                          // ignore old seqnos and bad metrics
+    The second change is that our implementation does not use link-         }
+level feedback (i.e. 802.11b transmission failures) to detect broken
+links and produce broken-route messages. Broch et al. [5] report            // returns next hop ip address for dst
+that broken-route messages typically cause all routes to the partic-        lookup_route(IPAddress dst) {
+                                                                              // use old route if we haven’t yet
+ular destination to be broken throughout the whole network, not               // advertised current route
+just those that use the broken link. Our implementation still gener-          if (curr[dst].first_time +
+ates broken-route messages when routing table entries time out, but             2*curr[dst].wst > now)
+this rarely occurs during the experiments presented in this paper.              return old[dst].next_hop;
+    The third change (called no-dump) is that full dumps are never            else
+sent on a triggered update, even if many routes have changed. Trig-             return curr[dst].next_hop;
+                                                                            }
+gered updates contain only the changed routes, and full dumps are
+only sent at the full dump period.
+    The final change (called delay-use) is that a route is not used until   Figure 5: DSDV pseudo-code, including the modifications de-
+it is allowed to be advertised. That is, a new route is not used un-        scribed in Section 4.2. The WST parameters 0.12 and 0.88 are
+til 2×WST has expired since its sequence number was first heard.            chosen to produce a reasonable average.
+With this change, the best route heard with the previous sequence
+number is used until the current sequence number’s WST has ex-
+pired. Unmodified DSDV always uses the latest route accepted for
+a given destination, even if it cannot yet advertise that route.            Triggered updates were issued at a maximum rate of one per sec-
+    The purpose of the last change is to prevent DSDV from using            ond. All DSDV experiments used the three protocol changes de-
+routes with bad metrics. For example, if there is an asymmetric             scribed above, except for Section 5.1.2, which evaluates the delay-
+one-hop route, a node will always hear new sequence numbers                 use modification.
+along the one-hop link first. Without the change, DSDV is forced               The ETX implementation measures link loss ratios with small
+to use the new one-hop route for routing, even if the ETX metric is         probe packets, as described in Section 3.1. Probes contain 134
+poor. In general, shorter routes deliver new sequence numbers first,        bytes of 802.11b payload. An ETX node broadcasts one probe per
+causing the original DSDV to use shortest paths for some fraction           second, and remembers probes received from neighbors over the
+of the time between successive sequence numbers, regardless of the          last ten seconds. Using relatively small probes saves bandwidth;
+metric in use. With this change, DSDV will use the best route with          Section 5 shows that predictions based on small packets are still
+the previous sequence number until the WST has expired and the              useful even when the data traffic consists of large packets.
+best route with the new sequence number has likely been heard.
+    Figure 5 shows pseudo-code for the DSDV routing table update            4.3 DSR Implementation
+and packet forwarding algorithms, including our changes.                      Our DSR implementation follows revision 9 of the IETF Internet-
+    For the experiments in this paper, the full dump period was 15          Draft specification [16], following the requirements for networks
+seconds, and routing table entries were timed out after 60 seconds.         which require bidirectional links to send unicast data. The im-
+plementation is based on one developed by Audun Tornquist at                To use the ETX metric, the implementation was modified in a
+the University of Colorado at Boulder [32]. This section reviews         few simple ways. Link probes are used to measure delivery ratios,
+DSR’s basic operation as described in the draft, and describes our       as in the DSDV implementation. When a node forwards a request,
+modifications to support ETX.                                            it appends not only its own address, but also the metric for the link
+   DSR is a reactive routing protocol, in which a node issues a route    over which it received the request. These metrics are included in
+request only when it has data to send. Route requests are flooded        the route replies sent back to the sender. When a node receives a
+through the network, each node appending its own address to each         request which it has already forwarded, it forwards it again if the
+request it receives, and then re-broadcasting it. Each new request       accumulated route metric is better than the best which it has already
+includes a unique ID, which forwarders use to ensure they only           forwarded with this request ID. This increases the chances that the
+forward each request once.                                               originator will hear about the route with the best metric.
+   The request originator issues new requests for the same destina-         Entries in the link cache are weighted by the metrics which were
+tion after an exponentially increasing back-off time. Route requests     included in the route replies. The Dijkstra algorithm finds the route
+are issued with increasing time-to-live (TTL) values, to minimize        to the destination which has the minimum metric.
+the range and cost of flooding.
+   The destination issues a route reply in response to every for-        4.4 Router Configuration Details
+warded request it receives. Each reply, which includes the route            If a node is sending large volumes of data, there is a danger that
+which was accumulated as the request was forwarded through the           probe packets or routing protocol packets may be dropped or de-
+network, is source-routed back to the originator along the reverse       layed due to a full queue. To mitigate this problem, the imple-
+route. The source node chooses a route using information from the        mentation maintains separate Click queues for data packets, proto-
+route replies it receives, and source-routes data along this route.      col packets, and link probes. Each of these queues can hold five
+   Our implementation stores the results of route replies in a link      packets. These queues all drain into a single queue in the wireless
+cache, which stores information about each link separately. A node       adapter’s memory, managed by the driver, which has a capacity of
+runs Dijkstra’s shortest-path algorithm on its link cache to find the    three packets. Loss-ratio probes enter the adapter’s queue first, fol-
+best route to a destination.                                             lowed by protocol packets, then data packets.
+   DSR uses feedback from the link layer to react to link failures.         The DSDV implementation looks up a packet’s destination in the
+When the 802.11 card signals that no acknowledgment was re-              routing table after dequeuing the packet from the data queue, and
+ceived after the maximum number of retries, the forwarding node          just before handing the packet to the 802.11b card. This avoids
+issues a route error back to the source, which removes the link from     committing to the next hop before queuing, and makes forwarding
+its link cache and then computes a new route. If the source cannot       more responsive to changes in the routing table. This technique
+find a route using its link cache, it issues a new route request.        depends on the fact that the nodes have only one wireless interface.
+   To deal with asymmetric links, each node maintains a blacklist,          The DSR implementation, on the other hand, adds the source-
+which lists immediate neighbors with unidirectional links to the the     route header to data packets before inserting them into the queue.
+node. These are links over which the node might receive broadcast        On a transmission failure or a received route error, a node removes
+requests, but which are unsuitable for unicast traffic.                  and drops all enqueued packets which include the broken link in
+   If a transmission failure occurs when forwarding a route reply,       their source route. This ensures that the node experiencing the
+the neighbor to which the node was trying to forward the reply is        transmission failure does not spend additional time and spectrum
+added to the blacklist, with an entry of unidirectionality probable.     retransmitting more packets over the broken hop.
+From that point, the node will not forward route requests received
+over that link.                                                          5. Evaluation
+   If the asymmetry of the link is not positively determined for some
+                                                                            This section presents experimental results that show that ETX
+time, its entry is downgraded to unidirectionality questionable. If
+                                                                         often finds higher-throughput paths than minimum hop-count, par-
+a route request is received over such a link, the node delays for-
+                                                                         ticularly between distant nodes. It also explores the effects of a
+warding it while it issues a direct, one-hop unicast route request
+                                                                         number of individual design decisions in the ETX algorithm.
+back to the questionable neighbor. If a reply is received, the node
+                                                                            Unless otherwise stated, the experimental setup is as follows.
+forwards the original route request and removes the blacklist entry.
+                                                                         The test-bed, 802.11b configuration, and packet size are as de-
+Otherwise, the node drops the request.
+                                                                         scribed in Section 2.1. The DSDV implementation includes the
+   Entries are removed from the blacklist when the link is deter-
+                                                                         improvements described in Section 4.2 for both ETX and the hop-
+mined to be bidirectional, e.g. by a successful unicast transmission.
+                                                                         count metric. The DSR implementation is as described in Sec-
+   The DSR specification describes optimizations in which nodes
+                                                                         tion 4.3.
+update their link caches using data from packets they forward or
+                                                                            The data presented below were collected during a few separate
+“overhear”. We did not implement any of the optimizations which
+                                                                         “runs”. An entire run takes about 30 hours. A run considers each
+require the wireless interface to operate in promiscuous receive
+                                                                         pair of nodes in turn. For each pair, one “experiment” is run for
+mode. We also did not implement “reply from cache,” in which
+                                                                         each routing protocol variant. At the start of each experiment, the
+forwarding nodes can respond to route requests with information
+                                                                         routing software is reset (all tables are cleared), then the routing
+from their own link caches. All link caches were flushed between
+                                                                         protocol and/or ETX probe algorithm is allowed to run long enough
+experiments, so these decisions should not affect the results pre-
+                                                                         to stabilize (typically 90 seconds). Then the sending node of the
+sented below.
+                                                                         pair sends data packets as fast as 802.11b allows it through the
+   The nodes do not perform packet salvage, in which forwarding
+                                                                         routing system to the destination. The destination measures the rate
+nodes, in the event of a transmission failure or received route error,
+                                                                         at which packets arrive. This arrangement ensures that the results
+attempt to find alternate routes for queued packets. Each forward-
+                                                                         from different protocols for the same pair of nodes are comparable,
+ing node queues only a few packets, so only a small number of
+                                                                         since the relevant experiments are run within a few minutes of each
+packets are dropped in these cases.
+                                                                         other.
+                                                    Run R1: 1 mW, 134-byte packets                                                      Run R1: 1 mW, 134-byte packets
+                                      1                                                                                 450
+                                               Max 4-hop    3-hop      2-hop                                                      y=x
+                                               throughput
+                                                                                                                        400
+
+
+
+
+ Cumulative fraction of node pairs                                                        DSDV ETX packets per second
+                                     0.8                                                                                350
+
+                                                                                                                        300
+                                     0.6
+                                                                                                                        250
+
+                                                                                                                        200
+                                     0.4
+                                                                                                                        150
+
+                                     0.2                                                                                100
+                                                                     Best static route
+                                                                        DSDV ETX                                         50
+                                                                    DSDV Hop-count
+                                      0                                                                                   0
+                                           0    50 100 150 200 250 300 350 400 450                                            0    50 100 150 200 250 300 350 400 450
+                                                    Packets per second delivered                                                    DSDV Hop-count packets per second
+
+Figure 6: ETX finds higher throughput routes than minimum                                Figure 7: The ETX and hop-count data from Figure 6, plotted
+hop-count. This data is taken from the same experimental run                             on a per-pair basis. The x value of each point shows that pair’s
+as Figure 2. Each point represents one of 100 node pairs.                                throughput for DSDV with minimum hop-count; the y value
+                                                                                         shows the throughput for DSDV with ETX. Points above the
+                                                                                         line y = x are pairs where ETX outperformed hop-count.
+   Each graph below is labeled with the run from which it came.
+Graphs with the same run number are comparable. Graphs with
+different run numbers should not be compared, since the network’s
+behavior changes substantially with time. The graphs below do not                        cases the minimum hop-count metric finds the one-hop route, which
+include error bars, but are representative of the many runs we have                      is the best route, and there is no opportunity for ETX to perform
+performed.                                                                               better. The left half corresponds to node pairs with a high direct
+   In DSDV experiments using ETX or minimum hop-count, the                               loss ratio, for which the best route has more than one hop. In this
+routing protocol runs for 90 seconds, immediately after which the                        region, the sensitivity of ETX to differences among the many dif-
+source sends data packets as fast as possible for 30 seconds. As                         ferent paths of the same length allows it often to find better paths
+described in Section 3.2, the heavy load causes the MAC protocol                         than hop-count.
+to become extremely unfair, distorting the ETX measurements. To                             Figure 7 shows the same data as Figure 6, but organized as a
+minimize the effects of MAC unfairness, every node routes packets                        scatter plot to allow a direct comparison between the performance
+using a snapshot of its route table taken at the end of the 90-second                    of each metric for individual pairs. Each pair is represented by
+warm-up period, before any data is sent.                                                 one point; the point’s y value is the throughput obtained by DSDV
+   In DSR experiments with ETX or minimum hop-count, a source                            using ETX, and the x value is the throughput obtained by DSDV
+starts by sending one data packet per second for five seconds. This                      using minimum hop-count. The upper-right quadrant shows pairs
+ensure that DSR finds a route before throughput measurements are                         where ETX and minimum hop-count both used the one-hop path.
+taken. After the five seconds passes, the source sends packets as                           ETX outperforms minimum hop-count by the greatest margin
+fast as possible for 30 seconds. In DSR experiments with ETX, the                        when the hop-count metric uses links with very asymmetric loss
+source waits an additional 15 seconds before initiating the route                        ratios. This is illustrated by the points with x near zero and with
+request, to give the nodes time to accumulate link measurements.                         y relatively large. Minimum hop-count is using links that deliver
+   All experiments run with the appropriate routing overhead. That                       routing updates in one direction but deliver few or no data packets
+is, while measuring the throughput of routing with the ETX met-                          in the other, while ETX correctly avoids those links.
+ric, nodes send periodic ETX broadcast probes. While measuring                              The points for two pairs in Figure 7 lie well below the y = x
+the throughput of DSDV (with either metric), nodes sends DSDV                            line; this is because of variations in link quality between the ETX
+routing advertisements, just as a production routing system would.                       and minimum hop-count tests for those pairs. For the first pair, both
+                                                                                         ETX and hop-count used the same route, so the difference is due
+5.1 Metric Performance with DSDV                                                         to an underlying change in the route’s throughput. For the second
+   Figure 6 compares the throughput CDFs of paths found by DSDV                          pair, ETX used a slower 3-hop path while hop-count used a two-
+using ETX and minimum hop-count, between 100 randomly cho-                               hop path; ETX avoided using one of the links in the two-hop path
+sen node pairs. This data is taken from the same run as in Figure 2,                     because the measured delivery ratios were very poor. It is likely that
+and shows that DSDV using the ETX metric often finds much faster                         the link’s quality was different for the ETX and hop-count tests.
+routes than the minimum hop-count metric.                                                   ETX incurs more overhead than minimum hop-count, due to its
+   There are two main regions in Figure 6. The right half shows                          loss-ratio probes, but this overhead is small compared to the gains
+node pairs that could communicate directly, with loss ratios less                        in throughput that ETX provides. ETX found usable routes for
+than about 50% (i.e. with throughput greater than the maximum                            many pairs where minimum hop-count was delivering essentially
+possible two-hop throughput of 225 packets per second). In these                         zero packets per second.
+                                                   Run R2: 1 mW, 1,386-byte packets                                                           Run R3: 30 mW, 134-byte packets
+                                      1                                                                                          1
+                                               Max 4-hop    3-hop     2-hop                                                               Max 4-hop    3-hop     2-hop
+                                               throughput                                                                                 throughput
+
+
+
+
+ Cumulative fraction of node pairs                                                          Cumulative fraction of node pairs
+                                     0.8                                                                                        0.8
+
+
+                                     0.6                                                                                        0.6
+
+
+                                     0.4                                                                                        0.4
+
+
+                                     0.2                                                                                        0.2
+
+                                                                       DSDV ETX                                                                                   DSDV ETX
+                                                                    DSDV Hop-count                                                                             DSDV Hop-count
+                                      0                                                                                          0
+                                           0     10    20 30 40 50 60 70              80                                              0    50 100 150 200 250 300 350 400 450
+                                                      Packets per second delivered                                                             Packets per second delivered
+
+Figure 8: ETX provides less of a throughput advantage over                                 Figure 9: ETX versus minimum hop-count when transmitting
+minimum hop-count when using large (1,386-byte) packets.                                   at 30 mW, for 40 pairs. Using a higher transmit power pro-
+The small packets used to measure link loss ratios incorrectly                             duces a more highly connected network with many more links
+predict the actual transmission counts for large packets. This                             and a lower average hop-count, but ETX still provides some
+graph shows 40 pairs randomly chosen from the 100 pairs used                               advantage.
+in the previous figures. The maximum 1-hop throughput of
+1,386-byte data packets at 1 Mbps is 82 packets per second.
+                                                                                                                                               Run R1: 1 mW, 134-byte packets
+                                                                                                                                 1
+   Figure 8 shows the throughput for packets with a 1,386-byte pay-                                                                       Max 4-hop    3-hop     2-hop
+                                                                                                                                          throughput
+load. Although ETX still offers an improvement over minimum
+
+
+
+
+                                                                                            Cumulative fraction of node pairs
+hop-count, the gain is not as large as for small packets. This is be-                                                           0.8
+cause ETX is still using small probes to estimate the link metrics.
+Since small packets are more likely to be delivered, ETX is incor-
+rectly over-estimating the quality of each link and causing DSDV
+                                                                                                                                0.6
+to pick sub-optimal routes. For example, if the single-hop direct
+route between two nodes has an ETX probe delivery rate of 51%,
+ETX will use it; however, the delivery rate of 1,386-byte packets
+on such a link is likely to be closer to 1%, so a route with more                                                               0.4
+but higher-quality links would have been preferable. However, the
+small packets are still useful for detecting very asymmetric links,
+which is why ETX’s gain over minimum is more pronounced to the                                                                  0.2
+left of the graph, where hop-count used very asymmetric links.                                                                                                DSDV ETX
+                                                                                                                                                   DSDV Link Handshaking
+   Figure 9 shows the results of ETX versus minimum hop-count                                                                                           DSDV Hop-count
+from a third run with the radios transmitting at 30 mW instead of                                                                0
+1 mW. The packet size is 134 bytes. When nodes send at the higher                                                                     0    50 100 150 200 250 300 350 400 450
+transmit power they have more links, as shown in Figure 4. This                                                                                Packets per second delivered
+makes the network much more connected, decreasing the average
+hop-count required for nodes to communicate. As a result, ETX has                          Figure 10: ETX provides a significant throughput over a sim-
+fewer routes to choose from, and minimum hop-count has a lower                             ple handshaking scheme which avoids very asymmetric routes.
+chance of choosing a bad route. Figure 9 shows that ETX still                              ETX can make fine-grained decisions between links with vary-
+provides some advantage in the more highly connected network.                              ing degrees of asymmetry.
+5.1.1 Impact of Asymmetry
+   Some fraction of ETX’s gains comes from avoiding extremely                              dicate that the node has ‘seen’ another node, but not yet accepted
+asymmetric links. The problem of routing when there are asym-                              routes from it.
+metric links has been addressed in previous work by Lundgren                                  We implemented the handshaking scheme for DSDV with the
+et al. [22] and by Chin et al. [8]. These authors propose a link                           minimum hop-count metric. Figure 10 compares link handshaking
+handshaking scheme to detect and avoid asymmetric links. In this                           to the ETX and minimum-hop-count metrics. Although link hand-
+scheme, a node X only accepts route updates from a neighboring                             shaking often improves over minimum hop-count alone, ETX finds
+node Y if Y is advertising a direct route to X. A node bootstraps                          faster routes. ETX’s link measurements allow ETX to discriminate
+the handshake by advertising provisional route entries, which in-                          between links with varying degrees of asymmetry.
+                                                    Run R1: 1 mW, 134-byte packets                                                       Run R1: 1 mW, 134-byte packets
+                                      1                                                                                    1
+                                               Max 4-hop    3-hop   2-hop                                                           Max 4-hop    3-hop   2-hop
+                                               throughput                                                                           throughput
+
+
+
+
+ Cumulative fraction of node pairs                                                    Cumulative fraction of node pairs
+                                     0.8                                                                                  0.8
+
+
+                                     0.6                                                                                  0.6
+
+
+                                     0.4                                                                                  0.4
+
+
+                                     0.2                                                                                  0.2
+                                                                                                                                                  Best static route
+                                                    DSDV ETX with Delay-use                                                                DSR ETX (no feedback)
+                                                  DSDV ETX without Delay-use                                                           DSR Hop-count (no feedback)
+                                      0                                                                                    0
+                                           0    50 100 150 200 250 300 350 400 450                                              0    50 100 150 200 250 300 350 400 450
+                                                    Packets per second delivered                                                         Packets per second delivered
+
+Figure 11: DSDV ETX with and without the delay-use modi-                             Figure 12: Throughput CDFs for DSR ETX compared with
+fication to DSDV. This modification helps DSDV obey the link                         DSR hop-count, with link-layer transmission feedback dis-
+metric.                                                                              abled. ETX significantly improves initial route selection.
+
+
+5.1.2 Effects of DSDV Modifications
+   Section 4.2 described modifications to DSDV designed to in-                       a number of different links. The experiments for these data were
+crease its responsiveness to metrics. The delay-use modification                     virtually identical to the broadcast delivery tests described in Sec-
+causes DSDV to delay using a newly received route until it is per-                   tion 2.4, except the broadcasting nodes sent packets of eighteen dif-
+mitted to advertise the route (i.e. 2×WST has passed). Figure 11                     ferent sizes, from 50 to 1500 bytes. Seven sets of these experiments
+shows that the delay-use modification improves the performance of                    were conducted over the course of two days, and the results were
+DSDV with ETX.                                                                       averaged to minimize short-term variation. The x values represent
+                                                                                     packet size, and the y values show the delivery ratio for broadcast
+5.2 Metric Performance with DSR                                                      packets of that size. The lines connect the data points for the same
+   This section evaluates the performance of the DSR routing pro-                    host pairs.
+tocol with the ETX metric. As described in Section 4.3, DSR uses                        The figure shows that packet size has a significant effect on de-
+link-layer transmission failure feedback to help it avoid bad routes.                livery ratios. ETX, however, uses a single packet size to estimate
+To isolate the effects of using ETX with DSR, we evaluated DSR                       link metrics. This is likely to lead to inaccurate metrics for packet
+performance both with and without link-layer feedback enabled.                       sizes other than the size used for measurement probes. Further-
+   Figure 12 shows the effect of using the ETX metric with DSR                       more, ETX uses the single packet size measurements to estimate
+without link-layer feedback, for the same 100 pairs as in Figure 2.                  the delivery ratio of link-layer ACK packets. Since 802.11b ACK
+Because DSR never learns about transmission failures, no forward-                    packets are smaller than any 802.11b data packet, ETX always un-
+ing node ever issues any route errors. Thus DSR uses only the best                   derestimates the delivery ratio of ACK packets. ACK packets are
+route found by the initial route request, as determined by the metric.               only 38 bytes in total, including all 802.11b overhead, while the
+   Figure 12 shows that ETX greatly improves initial route selection                 134-byte data packets used in most of the experiments are 193 bytes
+in DSR compared to minimum hop-count. This is consistent with                        with 802.11b overhead.
+the DSDV results in Section 5.1. Minimum hop-count essentially                          Figure 15 shows the accuracy of ETX’s transmission count pre-
+chooses randomly from all the shortest routes the source obtains                     dictions. Each point on the graph represents an experiment on a
+from the initial route request; as illustrated in Figure 3, this is often            link between two randomly selected nodes. For each experiment,
+not the best route. ETX helps the source picks an initial route with                 the two nodes first take turns sending broadcast probes with a 104-
+high throughput.                                                                     byte data payload. Each turn consists of ten probe broadcasts over
+   Figure 13 illustrates the performance of ETX with DSR’s link-                     the course of one second. After sixty seconds (thirty turns for each
+layer feedback enabled. ETX provides a small benefit to some pairs                   node), one of the nodes sends unicast traffic to the other for ten sec-
+in the intermediate and low throughput ranges (the middle and bot-                   onds, as fast as 802.11b allows. Each node logs packets sent and
+tom of the CDF). However, failure feedback alone allows DSR to                       received. For each sent packet—that is, packets which the wireless
+perform almost as well as DSR with ETX.                                              interface actually attempted to transmit—the node asks the 802.11b
+                                                                                     hardware whether the transmission succeeded, and how many times
+5.3 Accuracy of Link Measurements                                                    the hardware re-transmitted the packet. The y values on the graph
+   For all the experiments in this paper, ETX used 134-byte packets                  represent the average actual transmission counts. The x values are
+to estimate link loss ratios. However, the loss ratios experienced                   the expected transmission count based on the broadcast delivery ra-
+by data packets of other sizes are likely to differ from the ETX es-                 tios in the preceding minute, as calculated by Equation 1. Figure
+timate. Figure 14 shows how loss ratios vary with packet size for                    15 shows that ETX tends to overestimate the number of required
+                                                    Run R1: 1 mW, 134-byte packets                                      Run R5: 30 mW, 104-byte packets
+                                      1                                                                 1.8
+                                               Max 4-hop    3-hop    2-hop                                        y=x
+                                               throughput
+
+
+
+
+ Cumulative fraction of node pairs
+                                     0.8
+                                                                                                        1.6
+
+
+
+
+                                                                                         Actual count
+                                     0.6
+                                                                                                        1.4
+                                     0.4
+
+                                                                                                        1.2
+                                     0.2
+                                                                    Best static route
+                                                                          DSR ETX
+                                                                    DSR Hop-count
+                                      0                                                                  1
+                                           0    50 100 150 200 250 300 350 400 450                            1            1.2         1.4         1.6    1.8
+                                                    Packets per second delivered                                                 Predicted count
+
+Figure 13: DSR ETX compared with DSR hop-count, with link-                              Figure 15: Because ETX measures with 134-byte probes, it un-
+layer transmission feedback enabled. ETX only slightly im-                              derestimates ACK delivery ratios and therefore overestimates
+proves overall DSR performance, because link-layer transmis-                            the total number of transmissions per packet. The graph shows
+sion failure feedback already helps DSR avoid links with high                           the average actual transmission count for delivered unicast
+loss ratios.                                                                            packets, versus a prediction based on bidirectional delivery ra-
+                                                                                        tios of broadcast probes in the preceding minute.
+                                                Run R4: 30 mW, various packet sizes
+                                       1
+                                                                                        ing a loss-aware metric instead. Their path metric approximates
+                                     0.8                                                the product of the per-link delivery ratios. As argued in Section 3,
+
+
+
+  Delivery ratio
+                                                                                        this metric is likely to use low-loss paths with many hops in situa-
+                                     0.6                                                tions where a path with a smaller number of higher loss links would
+                                                                                        perform better.
+                                     0.4                                                   Awerbuch et al. [2] present a metric to help find high-throughput
+                                                                                        paths when different links can run at different bit-rates. Since their
+                                     0.2
+                                                                                        metric does not account for losses, it is complementary to ETX.
+                                       0                                                   One solution to high link loss ratios is to improve the appar-
+                                           0     200 400 600 800 1000 1200 1400         ent loss ratio with some form of redundancy. Forward error cor-
+                                                                                        rection, MAC-level acknowledgment and retransmission, and solu-
+                                                          Packet size
+                                                                                        tions such as Snoop-TCP [3] and Tulip [24] all take this approach.
+                                                                                        Even with these techniques it is preferable to use low-loss-ratio
+Figure 14: Delivery ratio decreases for larger packets. The                             rather than high-loss-ratio links: retransmissions (or other redun-
+graph shows the broadcast delivery ratio versus packet size, for                        dancy) reduce useful link capacity and generate interference.
+a few links on the test-bed. The links shown are, from top to                              A number of existing ad hoc wireless routing algorithms collect
+bottom: 12 → 1, 11 → 13, 23 → 36, 21 → 19, and 17 → 18.                                 per-link signal strength information and apply a threshold to avoid
+                                                                                        links with high loss ratios [8, 9, 10, 11, 14, 17, 22, 28]. This ap-
+                                                                                        proach may eliminate links that are necessary for connectivity, or
+transmissions, probably because it underestimates the ACK deliv-
+                                                                                        fail to distinguish accurately between links; both of these are likely
+ery ratio for each link.
+                                                                                        to be issues if many links have intermediate loss ratios.
+                                                                                           Wireless Quality-of-Service (QoS) algorithms approach route se-
+6.                                   Related Work                                       lection from the top down. Some techniques explicitly schedule
+   The behavior of routing protocols over lossy links has been ad-                      transmission slots in time or frequency division MAC layers to pro-
+dressed and evaluated by real implementations in several papers.                        vide bandwidth guarantees [7, 13, 21, 23, 34], while others treat the
+Lundgren et al. [22] coin the term “gray zones” to refer to links                       MAC as opaque, and rely upon it for bandwidth and delay infor-
+that deliver routing protocol data but not data traffic. They propose                   mation and constraints [6, 30, 31]. These approaches are only suc-
+using link handshaking and counting route broadcasts to filter out                      cessful if the lower layers can provide accurate information about
+gray zone links. Chin et al. [8] also propose link handshaking to                       the actual links, such as the average number of usable transmis-
+filter out asymmetric links. Hu and Johnson [14] describe how to                        sion slots, or the achievable throughput. However, none of these
+preemptively issue DSR route requests, based on link SNR values.                        approaches consider the case of lossy links.
+   Yarvis et al. [33] observe that hop-count performs poorly as a                          This paper assumes that the loss ratio of a given link cannot be
+routing metric for a sensor network, and present the results of us-                     controlled by the system. More sophisticated hardware might allow
+transmit power levels to be changed to make links better behaved.        [9] Brian H. Davies and T. R. Davies. The application of packet
+Existing systems exploit this idea, often with a focus on minimizing         switching techniques to combat net radio. Proceedings of the
+the energy consumption required to successfully deliver data [12,            IEEE, 75(1), January 1987.
+18, 29].                                                                [10] Rohit Dube, Cynthia D. Rais, Kuang-Yeh Wang, and
+                                                                             Satish K. Tripathi. Signal stability-based adaptive routing
+                                                                             (SSA) for ad hoc mobile networks. IEEE Personal
+7.    Conclusions                                                            Communications, February 1997.
+   This paper introduces a new metric for multi-hop wireless net-       [11] Tom Goff, Nael B. Abu-Ghazaleh, Dhananjay S. Phatak, and
+works, called ETX. Route selection using ETX accounts for link               Ridvan Kahvecioglu. Preemptive routing in ad hoc networks.
+loss ratios, the asymmetry of the loss ratios in the two directions          In Proc. ACM/IEEE MobiCom, July 2001.
+of each link, and the reduction of throughput due to interference
+                                                                        [12] Wendi Rabiner Heinzelman, Anantha Chandrakasan, and
+among the successive hops of a route. Measurements on a wire-
+                                                                             Hari Balakrishnan. Energy-efficient Communication
+less test-bed show that ETX finds routes with significantly higher
+                                                                             Protocols for Wireless Microsensor Networks. In
+throughputs than a minimum hop-count metric, particularly for paths
+                                                                             Proceedings of the Hawaiian International Conference on
+with two or more hops.
+                                                                             Systems Science, January 2000.
+   Several aspects of ETX could be improved in the future: its pre-
+                                                                        [13] Yu-Ching Hsu, Tzu-Chieh Tsai, Ying-Dar Lin, and Mario
+dictions of loss ratios for different packet sizes, particularly for
+                                                                             Gerla. Bandwidth routing in multi-hop packet radio
+802.11b ACKs; its handling of networks with links that run at a
+                                                                             environment. In Proceedings of the 3rd International Mobile
+variety of bit-rates; and the robustness of ETX probes when com-
+                                                                             Computing Workshop, 1997.
+peting with high levels of data traffic.
+   The protocol implementations described in this paper are avail-      [14] Yih-Chun Hu and David B. Johnson. Design and
+able at http://www.pdos.lcs.mit.edu/grid.                                    demonstration of live audio and video over multihop wireless
+                                                                             ad hoc networks. In Proceedings of the MILCOM 2002.
+                                                                        [15] David B. Johnson. Routing in ad hoc networks of mobile
+8.    Acknowledgments                                                        hosts. In Proc. of the IEEE Workshop on Mobile Computing
+   We are grateful to all the people in our laboratory who were will-        Systems and Applications, pages 158–163, December 1994.
+ing to host wireless nodes. We thank Eddie Kohler for his help with,    [16] David B. Johnson, David A. Maltz, and Yih-Chun Hu. The
+and improvements to, Click; Audun Tornquist for providing the ini-           Dynamic Source Routing protocol for mobile ad hoc
+tial DSR implementation; and Ben Chambers for his help with an               networks (DSR). Internet draft (work in progress), IETF,
+earlier version of this work.                                                April 2003.
+                                                                             http://www.ietf.org/internet-drafts/
+                                                                             draft-ietf-manet-dsr-09.txt.
+9.    References                                                        [17] John Jubin and Janet D. Tornow. The DARPA packet radio
+ [1] The Network Simulator — ns-2, 2003.                                     network protocols. Proceedings of the IEEE, 75(1), January
+     http://www.isi.edu/nsnam/ns.                                            1987.
+ [2] Baruch Awerbuch, David Holmer, and Herbert Rubens. High            [18] Eun-Sun Jung and Nitin Vaidya. A power control MAC
+     throughput route selection in multi-rate ad hoc wireless                protocol for ad hoc networks. In Proc. ACM/IEEE MobiCom,
+     networks. Technical report, Johns Hopkins University,                   September 2002.
+     Computer Science Department, March 2003. Version 2.                [19] Eddie Kohler, Robert Morris, Benjie Chen, John Jannotti,
+ [3] Hari Balakrishnan, Venkata N. Padmanabhan, Srinivasan                   and M. Frans Kaashoek. The Click modular router. ACM
+     Seshan, and Randy H. Katz. A comparison of mechanisms                   Transactions on Computer Systems, 18(4), November 2000.
+     for improving TCP performance of wireless links.                   [20] Jinyang Li, Charles Blake, Douglas S. J. De Couto, Hu Imm
+     IEEE/ACM Transactions on Networking, 6(5), December                     Lee, and Robert Morris. Capacity of ad hoc wireless
+     1997.                                                                   networks. In Proceedings of the 7th ACM International
+ [4] Brahim Bensaou, Yu Wang, and Chi Chung Ko. Fair medium                  Conference on Mobile Computing and Networking, pages
+     access in 802.11 based wireless ad-hoc networks. In First               61–69, Rome, Italy, July 2001.
+     Annual IEEE and ACM International Workshop on Mobile               [21] Chunhung Richard Lin. On-demand QoS routing in multihop
+     Ad Hoc Networking and Computing (MobiHoc), August                       mobile networks. In Proc. IEEE Infocom, April 2001.
+     2000.                                                              [22] Henrik Lundgren, Erik Nordström, and Christian Tschudin.
+ [5] Josh Broch, David A. Maltz, David B. Johnson, Yih-Chun                  Coping with comunication gray zones in IEEE 802.11b
+     Hu, and Jorjeta Jetcheva. A performance comparison of                   based ad hoc networks. In 5th ACM international workshop
+     multi-hop wireless ad hoc network routing protocols. In                 on Wireless mobile multimedia (WoWMoM 2002), September
+     Proc. ACM/IEEE MobiCom, pages 85–97, October 1998.                      2002.
+ [6] Shigang Chen and Klara Nahrstedt. Distributed                      [23] Anastassios Michail and Anthony Ephremides. Algorithms
+     quality-of-service routing in ad hoc networks. IEEE Journal             for routing session traffic in wireless ad-hoc networks with
+     on Selected Areas in Communcations, 17(8), August 1999.                 energy and bandwidth limitations. In Proceedings of 12th
+ [7] T.-W. Chen, J.T. Tsai, and M. Gerla. QoS routing                        IEEE International Symposium on Personal, Indoor and
+     performance in multihop, multimedia, wireless networks. In              Mobile Radio Communications, 2001.
+     Proceedings of IEEE ICUPC ’97, 1997.                               [24] Christina Parsa and J. J. Garcia-Luna-Aceves. TULIP: A
+ [8] Kwan-Wu Chin, John Judge, Aidan Williams, and Roger                     link-level protocol for improving TCP over wireless links. In
+     Kermode. Implementation experience with MANET routing                   Proc. IEEE Wireless Communications and Networking
+     protocols. ACM SIGCOMM Computer Communications                          Conference 1999 (WCNC 99), September 1999.
+     Review, 32(5), November 2002.
+[25] Charles E. Perkins and Pravin Bhagwat. Highly dynamic        [30] Samarth H. Shah and Klara Nahrstedt. Predictive
+     Destination-Sequenced Distance-Vector routing (DSDV) for          location-based QoS routing in mobile ad hoc networks. In
+     mobile computers. In Proc. ACM SIGCOMM Conference                 Proceedings of IEEE International Conference on
+     (SIGCOMM ’94), pages 234–244, August 1993.                        Communications, 2002.
+[26] Charles E. Perkins and Elizabeth M. Royer. Ad hoc            [31] Prasum Sinha, Raghupathy Sivakumar, and Vaduvur
+     On-Demand Distance Vector Routing. In Proceedings of the          Bharghavan. CEDAR: A core-extraction distributed ad hoc
+     2nd IEEE Workshop on Mobile Computing Systems and                 routing algorithm. In Proc. IEEE Infocom, March 1999.
+     Applications, 1999.                                          [32] Audun Tornquist. Modular and adaptive ad hoc routing in
+[27] Rice Monarch Project. Wireless and mobility extensions to         Click. Master’s thesis, University of Colorado, 2001.
+     ns-2. http://www.monarch.cs.rice.edu/                        [33] Mark Yarvis, W. Steven Conner, Lakshman Krishnamurthy,
+     cmu-ns.html.                                                      Jasmeet Chhabra, Brent Elliott, and Alan Mainwaring.
+[28] Ratish J. Punnoose, Pavel V. Nitkin, Josh Broch, and              Real-world experiences with an interactive ad hoc sensor
+     Daniel D. Stancil. Optimizing wireless network protocols          network. In Proceedings of the International Workshop on
+     using real-time predictive propagation modeling. In Radio         Ad Hoc Networking, August 2002.
+     and Wireless Conference (RAWCON), August 1999.               [34] Chenxi Zhu and M. Scott Corson. QoS routing for mobile
+[29] Ram Ramanathan and Regina Rosales-Hain. Topology                  ad hoc networks. In Proc. IEEE Infocom, June 2001.
+     control of multihop wireless networks using transmit power
+     adjustment. In Proc. IEEE Infocom, March 2000.
+

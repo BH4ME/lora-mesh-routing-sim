@@ -1,0 +1,411 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          10,
+          31
+        ]
+      ],
+      "date-time": "2026-10-31T21:45:59Z",
+      "timestamp": 1793483159807,
+      "version": "4.5.0"
+    },
+    "reference-count": 20,
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "issue": "2",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2021-04-01T00:00:00Z",
+          "timestamp": 1617235200000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/IEEE.html"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2021-04-01T00:00:00Z",
+          "timestamp": 1617235200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2021,
+              4,
+              1
+            ]
+          ],
+          "date-time": "2021-04-01T00:00:00Z",
+          "timestamp": 1617235200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      }
+    ],
+    "funder": [
+      {
+        "name": "Spanish Government",
+        "award": [
+          "PID2019-106774RB-C21"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "PID2019-106774RB-C21"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Spanish Government",
+        "award": [
+          "PCI2019-111850-2 (DiPET CHIST-ERA)"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "PCI2019-111850-2 (DiPET CHIST-ERA)"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Spanish Government",
+        "award": [
+          "PCI2019-111851-2"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "PCI2019-111851-2"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Generalitat de Catalunya as Consolidated Research Group",
+        "award": [
+          "2017-SGR-990"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "2017-SGR-990"
+            ]
+          }
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "IEEE Pervasive Comput."
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2021,
+          4,
+          1
+        ]
+      ]
+    },
+    "DOI": "10.1109/mprv.2021.3063443",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2021,
+          3,
+          24
+        ]
+      ],
+      "date-time": "2021-03-24T15:48:16Z",
+      "timestamp": 1616600896000
+    },
+    "page": "63-72",
+    "source": "Crossref",
+    "is-referenced-by-count": 72,
+    "title": [
+      "Beyond the Star of Stars: An Introduction to Multihop and Mesh for LoRa and LoRaWAN"
+    ],
+    "prefix": "10.1109",
+    "volume": "20",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0002-3133-0657",
+        "authenticated-orcid": false,
+        "given": "Roger Pueyo",
+        "family": "Centelles",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Universitat Polit&#x00E8;cnica de Catalunya, Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-5438-479X",
+        "authenticated-orcid": false,
+        "given": "Felix",
+        "family": "Freitag",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Universitat Polit&#x00E8;cnica de Catalunya, Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-9414-646X",
+        "authenticated-orcid": false,
+        "given": "Roc",
+        "family": "Meseguer",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Universitat Polit&#x00E8;cnica de Catalunya, Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-4775-5526",
+        "authenticated-orcid": false,
+        "given": "Leandro",
+        "family": "Navarro",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Universitat Polit&#x00E8;cnica de Catalunya, Barcelona, Spain"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "263",
+    "reference": [
+      {
+        "key": "ref10",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WoWMoM.2018.8449743"
+      },
+      {
+        "key": "ref11",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.14257/astl.2018.150.08"
+      },
+      {
+        "key": "ref12",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s19020402"
+      },
+      {
+        "key": "ref13",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/TIM.2018.2814082"
+      },
+      {
+        "key": "ref14",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s20041008"
+      },
+      {
+        "key": "ref15",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WiMOB.2017.8115793"
+      },
+      {
+        "key": "ref16",
+        "article-title": "RadioHead Packet Radio Library for Embedded Microprocessors",
+        "author": "mccauley",
+        "year": "2014"
+      },
+      {
+        "key": "ref17",
+        "article-title": "Meshtastic&#x2014;An Opensource Hiking, Pilot, Skiing, Secure GPS Mesh Communicator",
+        "author": "hester",
+        "year": "2020"
+      },
+      {
+        "key": "ref18",
+        "article-title": "Pymesh&#x2014;LoRa Full-Mesh Network Technology",
+        "year": "2020"
+      },
+      {
+        "key": "ref19",
+        "year": "2020"
+      },
+      {
+        "key": "ref4",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/LWC.2016.2647247"
+      },
+      {
+        "key": "ref3",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/MCOM.2017.1600613"
+      },
+      {
+        "key": "ref6",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s18113995"
+      },
+      {
+        "key": "ref5",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WoWMoM.2019.8793051"
+      },
+      {
+        "key": "ref8",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.procs.2018.04.063"
+      },
+      {
+        "key": "ref7",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JIOT.2016.2579198"
+      },
+      {
+        "key": "ref2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s16091466"
+      },
+      {
+        "key": "ref1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.icte.2017.12.005"
+      },
+      {
+        "key": "ref9",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WiMOB.2017.8115756"
+      },
+      {
+        "key": "ref20",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1177/1550147717699412"
+      }
+    ],
+    "container-title": [
+      "IEEE Pervasive Computing"
+    ],
+    "original-title": [],
+    "link": [
+      {
+        "URL": "http://xplorestaging.ieee.org/ielx7/7756/9442715/09385408.pdf?arnumber=9385408",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2022,
+          5,
+          10
+        ]
+      ],
+      "date-time": "2022-05-10T10:52:21Z",
+      "timestamp": 1652179941000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://ieeexplore.ieee.org/document/9385408/"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2021,
+          4,
+          1
+        ]
+      ]
+    },
+    "references-count": 20,
+    "journal-issue": {
+      "issue": "2"
+    },
+    "URL": "https://doi.org/10.1109/mprv.2021.3063443",
+    "relation": {},
+    "ISSN": [
+      "1536-1268",
+      "1558-2590"
+    ],
+    "issn-type": [
+      {
+        "value": "1536-1268",
+        "type": "print"
+      },
+      {
+        "value": "1558-2590",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2021,
+          4,
+          1
+        ]
+      ]
+    }
+  }
+}

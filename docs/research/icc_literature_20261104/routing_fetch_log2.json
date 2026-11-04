@@ -1,0 +1,40 @@
+[
+  {
+    "id": "exor_crossref_search",
+    "url": "https://api.crossref.org/works?query.bibliographic=ExOR+opportunistic+multi-hop+routing+wireless+networks+Biswas+Morris+2005&rows=5",
+    "final_url": "https://api.crossref.org/works?query.bibliographic=ExOR+opportunistic+multi-hop+routing+wireless+networks+Biswas+Morris+2005&rows=5",
+    "file": "docs/research/icc_literature_20261104/exor_crossref_search.json",
+    "bytes": 26581
+  },
+  {
+    "id": "gossip_crossref_search",
+    "url": "https://api.crossref.org/works?query.bibliographic=Gossip-based+ad+hoc+routing+Haas+Halpern+Li+2002&rows=3",
+    "error": "HTTP Error 429: Too Many Requests"
+  },
+  {
+    "id": "broadcast_openalex",
+    "url": "https://api.openalex.org/works/https://doi.org/10.1145/313451.313525",
+    "final_url": "https://api.openalex.org/works/https://doi.org/10.1145/313451.313525",
+    "file": "docs/research/icc_literature_20261104/broadcast_openalex.json",
+    "bytes": 15488
+  },
+  {
+    "id": "exor_openalex",
+    "url": "https://api.openalex.org/works?search=ExOR+opportunistic+multi-hop+routing+for+wireless+networks&per-page=2",
+    "final_url": "https://api.openalex.org/works?search=ExOR+opportunistic+multi-hop+routing+for+wireless+networks&per-page=2",
+    "file": "docs/research/icc_literature_20261104/exor_openalex.json",
+    "bytes": 35111
+  },
+  {
+    "id": "trickle_pdf",
+    "url": "https://www.usenix.org/legacy/events/nsdi04/tech/full_papers/levis/levis.pdf",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "dsr_rfc",
+    "url": "https://www.rfc-editor.org/rfc/rfc4728.txt",
+    "final_url": "https://www.rfc-editor.org/rfc/rfc4728.txt",
+    "file": "docs/research/icc_literature_20261104/dsr_rfc.txt",
+    "bytes": 265706
+  }
+]

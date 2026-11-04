@@ -3,10 +3,18 @@
 This file tracks simulation baselines before further optimization.
 
 The repository-wide release version is tracked separately in `VERSION`. The
-current repository release is `2.1.22`; the firmware prototype remains
+current repository release is `2.1.27`; the firmware prototype remains
 `2.1.2`; simulation CSV baselines keep
 their existing `smart-calm-sim-v2` identity so historical comparisons remain
 stable.
+
+## `meshecho-sim-v2.1.27`
+
+- Status: MeshEcho-CPR source/recovery revision and audited ICC package.
+- The root `VERSION` is the canonical simulator/repository release identifier;
+  the firmware prototype keeps its independent `2.1.2` identity.
+- Paired development/holdout manifests and the four-protocol comparison remain
+  versioned artifacts; historical CSV baselines are not rewritten.
 
 ## `meshecho-sim-v2.1.22`
 

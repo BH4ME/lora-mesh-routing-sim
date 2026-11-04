@@ -1,0 +1,1396 @@
+{
+  "id": "https://openalex.org/W4361987105",
+  "doi": "https://doi.org/10.1109/jiot.2023.3263630",
+  "title": "LoRaHop: Multihop Support for LoRaWAN Uplink and Downlink Messaging",
+  "display_name": "LoRaHop: Multihop Support for LoRaWAN Uplink and Downlink Messaging",
+  "publication_year": 2023,
+  "publication_date": "2023-03-31",
+  "ids": {
+    "openalex": "https://openalex.org/W4361987105",
+    "doi": "https://doi.org/10.1109/jiot.2023.3263630"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1109/jiot.2023.3263630",
+    "doi": "https://doi.org/10.1109/jiot.2023.3263630",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1109/jiot.2023.3263630",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S2480266640",
+      "display_name": "IEEE Internet of Things Journal",
+      "issn_l": "2327-4662",
+      "issn": [
+        "2327-4662",
+        "2372-2541"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "ccf-c",
+        "cwts-core",
+        "dongbi-b",
+        "jufo-2",
+        "norway-2",
+        "poland-200",
+        "russia-white-list-1"
+      ],
+      "host_organization": "https://openalex.org/P4310319808",
+      "host_organization_name": "Institute of Electrical and Electronics Engineers",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319808"
+      ],
+      "host_organization_lineage_names": [
+        "Institute of Electrical and Electronics Engineers"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "IEEE Internet of Things Journal",
+    "raw_type": "journal-article"
+  },
+  "volume": null,
+  "type": "article",
+  "indexed_in": [
+    "crossref"
+  ],
+  "open_access": {
+    "is_oa": false,
+    "oa_status": "closed",
+    "oa_url": null,
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5072364348",
+        "display_name": "Pei Tian",
+        "orcid": "https://orcid.org/0000-0002-8344-5835",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-8344-5835"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I19820366",
+          "display_name": "Chinese Academy of Sciences",
+          "ror": "https://ror.org/034t30j35",
+          "country_code": "CN",
+          "type": "government",
+          "lineage": [
+            "https://openalex.org/I19820366"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210111959",
+          "display_name": "Shanghai Advanced Research Institute",
+          "ror": "https://ror.org/02br7py06",
+          "country_code": "CN",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I19820366",
+            "https://openalex.org/I4210111959"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210165038",
+          "display_name": "University of Chinese Academy of Sciences",
+          "ror": "https://ror.org/05qbk4x57",
+          "country_code": "CN",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I19820366",
+            "https://openalex.org/I4210165038"
+          ]
+        }
+      ],
+      "countries": [
+        "CN"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Pei Tian",
+      "raw_affiliation_strings": [
+        "Shanghai Advanced Research Institute, Chinese Academy of Sciences, Shanghai, China",
+        "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing, China"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0002-8344-5835",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Shanghai Advanced Research Institute, Chinese Academy of Sciences, Shanghai, China",
+          "institution_ids": [
+            "https://openalex.org/I19820366",
+            "https://openalex.org/I4210111959"
+          ]
+        },
+        {
+          "raw_affiliation_string": "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing, China",
+          "institution_ids": [
+            "https://openalex.org/I19820366",
+            "https://openalex.org/I4210165038"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5047260782",
+        "display_name": "Carlo Alberto Boano",
+        "orcid": "https://orcid.org/0000-0001-7647-3734",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-7647-3734"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4092182",
+          "display_name": "Graz University of Technology",
+          "ror": "https://ror.org/00d7xrm67",
+          "country_code": "AT",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I4092182"
+          ]
+        }
+      ],
+      "countries": [
+        "AT"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Carlo Alberto Boano",
+      "raw_affiliation_strings": [
+        "Institute of Technical Informatics, Graz University of Technology, Graz, Austria"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0001-7647-3734",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Technical Informatics, Graz University of Technology, Graz, Austria",
+          "institution_ids": [
+            "https://openalex.org/I4092182"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5019774322",
+        "display_name": "Xiaoyuan Ma",
+        "orcid": "https://orcid.org/0000-0001-6655-3001",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-6655-3001"
+        ]
+      },
+      "institutions": [],
+      "countries": [],
+      "is_corresponding": false,
+      "raw_author_name": "Xiaoyuan Ma",
+      "raw_affiliation_strings": [
+        "Digital Technology, Svenska Kullagerfabriken Group, Shanghai, China"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0001-6655-3001",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Digital Technology, Svenska Kullagerfabriken Group, Shanghai, China",
+          "institution_ids": []
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5056113267",
+        "display_name": "Jianming Wei",
+        "orcid": "https://orcid.org/0000-0002-2444-1260",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-2444-1260"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I19820366",
+          "display_name": "Chinese Academy of Sciences",
+          "ror": "https://ror.org/034t30j35",
+          "country_code": "CN",
+          "type": "government",
+          "lineage": [
+            "https://openalex.org/I19820366"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210111959",
+          "display_name": "Shanghai Advanced Research Institute",
+          "ror": "https://ror.org/02br7py06",
+          "country_code": "CN",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I19820366",
+            "https://openalex.org/I4210111959"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I4210165038",
+          "display_name": "University of Chinese Academy of Sciences",
+          "ror": "https://ror.org/05qbk4x57",
+          "country_code": "CN",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I19820366",
+            "https://openalex.org/I4210165038"
+          ]
+        }
+      ],
+      "countries": [
+        "CN"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Jianming Wei",
+      "raw_affiliation_strings": [
+        "Shanghai Advanced Research Institute, Chinese Academy of Sciences, Shanghai, China",
+        "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing, China"
+      ],
+      "raw_orcid": "https://orcid.org/0000-0002-2444-1260",
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Shanghai Advanced Research Institute, Chinese Academy of Sciences, Shanghai, China",
+          "institution_ids": [
+            "https://openalex.org/I19820366",
+            "https://openalex.org/I4210111959"
+          ]
+        },
+        {
+          "raw_affiliation_string": "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing, China",
+          "institution_ids": [
+            "https://openalex.org/I19820366",
+            "https://openalex.org/I4210165038"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 2,
+  "institutions_distinct_count": 4,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": {
+    "value": 2345,
+    "currency": "USD",
+    "value_usd": 2345
+  },
+  "apc_paid": null,
+  "fwci": 2.5174,
+  "has_fulltext": false,
+  "cited_by_count": 34,
+  "citation_normalized_percentile": {
+    "value": 0.90281914,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 89,
+    "max": 99
+  },
+  "biblio": {
+    "volume": "10",
+    "issue": "17",
+    "first_page": "15376",
+    "last_page": "15392"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T12079",
+    "display_name": "IoT Networks and Protocols",
+    "score": 0.9994999766349792,
+    "subfield": {
+      "id": "https://openalex.org/subfields/2208",
+      "display_name": "Electrical and Electronic Engineering"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T12079",
+      "display_name": "IoT Networks and Protocols",
+      "score": 0.9994999766349792,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10080",
+      "display_name": "Energy Efficient Wireless Sensor Networks",
+      "score": 0.0005000000237487257,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10273",
+      "display_name": "IoT and Edge/Fog Computing",
+      "score": 0.0,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/lorawan",
+      "display_name": "LoRaWAN",
+      "score": 0.8939999938011169
+    },
+    {
+      "id": "https://openalex.org/keywords/multi-hop-communication",
+      "display_name": "multi-hop communication",
+      "score": 0.7929999828338623
+    },
+    {
+      "id": "https://openalex.org/keywords/mesh-networks",
+      "display_name": "mesh networks",
+      "score": 0.7419999837875366
+    },
+    {
+      "id": "https://openalex.org/keywords/low-power-wide-area-networks",
+      "display_name": "low-power wide-area networks",
+      "score": 0.8930000066757202
+    },
+    {
+      "id": "https://openalex.org/keywords/relay-nodes",
+      "display_name": "relay nodes",
+      "score": 0.5
+    },
+    {
+      "id": "https://openalex.org/keywords/rendezvous",
+      "display_name": "rendezvous",
+      "score": 0.6100000143051147
+    },
+    {
+      "id": "https://openalex.org/keywords/energy-efficiency",
+      "display_name": "energy efficiency",
+      "score": 0.6980000138282776
+    },
+    {
+      "id": "https://openalex.org/keywords/network-coverage",
+      "display_name": "network coverage",
+      "score": 0.9340000152587891
+    },
+    {
+      "id": "https://openalex.org/keywords/hyaluronidase",
+      "display_name": "hyaluronidase",
+      "score": 0.6370000243186951
+    },
+    {
+      "id": "https://openalex.org/keywords/network-scalability",
+      "display_name": "network scalability",
+      "score": 0.4749999940395355
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.8078859448432922
+    },
+    {
+      "id": "https://openalex.org/C31258907",
+      "wikidata": "https://www.wikidata.org/wiki/Q1301371",
+      "display_name": "Computer network",
+      "level": 1,
+      "score": 0.7938638925552368
+    },
+    {
+      "id": "https://openalex.org/C187713609",
+      "wikidata": "https://www.wikidata.org/wiki/Q2465461",
+      "display_name": "Default gateway",
+      "level": 2,
+      "score": 0.6146492958068848
+    },
+    {
+      "id": "https://openalex.org/C31395832",
+      "wikidata": "https://www.wikidata.org/wiki/Q1318674",
+      "display_name": "Testbed",
+      "level": 2,
+      "score": 0.6083270907402039
+    },
+    {
+      "id": "https://openalex.org/C138660444",
+      "wikidata": "https://www.wikidata.org/wiki/Q5607897",
+      "display_name": "Telecommunications link",
+      "level": 2,
+      "score": 0.5614221692085266
+    },
+    {
+      "id": "https://openalex.org/C48044578",
+      "wikidata": "https://www.wikidata.org/wiki/Q727490",
+      "display_name": "Scalability",
+      "level": 2,
+      "score": 0.5033037066459656
+    },
+    {
+      "id": "https://openalex.org/C2778156585",
+      "wikidata": "https://www.wikidata.org/wiki/Q174053",
+      "display_name": "Relay",
+      "level": 3,
+      "score": 0.4949437975883484
+    },
+    {
+      "id": "https://openalex.org/C158379750",
+      "wikidata": "https://www.wikidata.org/wiki/Q214111",
+      "display_name": "Network packet",
+      "level": 2,
+      "score": 0.4669989347457886
+    },
+    {
+      "id": "https://openalex.org/C123691950",
+      "wikidata": "https://www.wikidata.org/wiki/Q25552104",
+      "display_name": "Mesh networking",
+      "level": 3,
+      "score": 0.4625062346458435
+    },
+    {
+      "id": "https://openalex.org/C105339364",
+      "wikidata": "https://www.wikidata.org/wiki/Q2297740",
+      "display_name": "Software deployment",
+      "level": 2,
+      "score": 0.4496496319770813
+    },
+    {
+      "id": "https://openalex.org/C93996380",
+      "wikidata": "https://www.wikidata.org/wiki/Q44127",
+      "display_name": "Server",
+      "level": 2,
+      "score": 0.4359460771083832
+    },
+    {
+      "id": "https://openalex.org/C2776445043",
+      "wikidata": "https://www.wikidata.org/wiki/Q20706829",
+      "display_name": "LPWAN",
+      "level": 3,
+      "score": 0.4160429835319519
+    },
+    {
+      "id": "https://openalex.org/C120314980",
+      "wikidata": "https://www.wikidata.org/wiki/Q180634",
+      "display_name": "Distributed computing",
+      "level": 1,
+      "score": 0.3499298691749573
+    },
+    {
+      "id": "https://openalex.org/C555944384",
+      "wikidata": "https://www.wikidata.org/wiki/Q249",
+      "display_name": "Wireless",
+      "level": 2,
+      "score": 0.30155885219573975
+    },
+    {
+      "id": "https://openalex.org/C2776238582",
+      "wikidata": "https://www.wikidata.org/wiki/Q11384",
+      "display_name": "Wide area network",
+      "level": 2,
+      "score": 0.2464180588722229
+    },
+    {
+      "id": "https://openalex.org/C76155785",
+      "wikidata": "https://www.wikidata.org/wiki/Q418",
+      "display_name": "Telecommunications",
+      "level": 1,
+      "score": 0.1637895703315735
+    },
+    {
+      "id": "https://openalex.org/C111919701",
+      "wikidata": "https://www.wikidata.org/wiki/Q9135",
+      "display_name": "Operating system",
+      "level": 1,
+      "score": 0.12450000643730164
+    },
+    {
+      "id": "https://openalex.org/C163258240",
+      "wikidata": "https://www.wikidata.org/wiki/Q25342",
+      "display_name": "Power (physics)",
+      "level": 2,
+      "score": 0.09961605072021484
+    },
+    {
+      "id": "https://openalex.org/C62520636",
+      "wikidata": "https://www.wikidata.org/wiki/Q944",
+      "display_name": "Quantum mechanics",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C121332964",
+      "wikidata": "https://www.wikidata.org/wiki/Q413",
+      "display_name": "Physics",
+      "level": 0,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 1,
+  "locations": [
+    {
+      "id": "doi:10.1109/jiot.2023.3263630",
+      "doi": "https://doi.org/10.1109/jiot.2023.3263630",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1109/jiot.2023.3263630",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S2480266640",
+        "display_name": "IEEE Internet of Things Journal",
+        "issn_l": "2327-4662",
+        "issn": [
+          "2327-4662",
+          "2372-2541"
+        ],
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": true,
+        "listed_in": [
+          "ccf-c",
+          "cwts-core",
+          "dongbi-b",
+          "jufo-2",
+          "norway-2",
+          "poland-200",
+          "russia-white-list-1"
+        ],
+        "host_organization": "https://openalex.org/P4310319808",
+        "host_organization_name": "Institute of Electrical and Electronics Engineers",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319808"
+        ],
+        "host_organization_lineage_names": [
+          "Institute of Electrical and Electronics Engineers"
+        ],
+        "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "IEEE Internet of Things Journal",
+      "raw_type": "journal-article"
+    }
+  ],
+  "best_oa_location": null,
+  "sustainable_development_goals": [
+    {
+      "display_name": "Industry, innovation and infrastructure",
+      "score": 0.8970999717712402,
+      "id": "https://metadata.un.org/sdg/9"
+    }
+  ],
+  "study_designs": [],
+  "awards": [
+    {
+      "id": "https://openalex.org/G5354570255",
+      "display_name": null,
+      "funder_award_id": "51827814",
+      "funder_id": "https://openalex.org/F4320321001",
+      "funder_display_name": "National Natural Science Foundation of China"
+    },
+    {
+      "id": "https://openalex.org/G5828427987",
+      "display_name": null,
+      "funder_award_id": "20DZ1201002",
+      "funder_id": "https://openalex.org/F4320336652",
+      "funder_display_name": "Science and Technology Innovation Plan Of Shanghai Science and Technology Commission"
+    }
+  ],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320321001",
+      "display_name": "National Natural Science Foundation of China",
+      "ror": "https://ror.org/01h0zpd94"
+    },
+    {
+      "id": "https://openalex.org/F4320322725",
+      "display_name": "China Scholarship Council",
+      "ror": "https://ror.org/04atp4p48"
+    },
+    {
+      "id": "https://openalex.org/F4320336652",
+      "display_name": "Science and Technology Innovation Plan Of Shanghai Science and Technology Commission",
+      "ror": null
+    }
+  ],
+  "has_content": {
+    "pdf": false,
+    "grobid_xml": false
+  },
+  "content_urls": null,
+  "referenced_works_count": 64,
+  "referenced_works": [
+    "https://openalex.org/W2106710314",
+    "https://openalex.org/W2116878889",
+    "https://openalex.org/W2132680304",
+    "https://openalex.org/W2146971820",
+    "https://openalex.org/W2294352804",
+    "https://openalex.org/W2525332113",
+    "https://openalex.org/W2542099473",
+    "https://openalex.org/W2548196616",
+    "https://openalex.org/W2597140867",
+    "https://openalex.org/W2604897232",
+    "https://openalex.org/W2606248001",
+    "https://openalex.org/W2624810752",
+    "https://openalex.org/W2724757769",
+    "https://openalex.org/W2740929749",
+    "https://openalex.org/W2756782458",
+    "https://openalex.org/W2794046418",
+    "https://openalex.org/W2794869384",
+    "https://openalex.org/W2795262473",
+    "https://openalex.org/W2796363983",
+    "https://openalex.org/W2798521665",
+    "https://openalex.org/W2798625911",
+    "https://openalex.org/W2800297764",
+    "https://openalex.org/W2887209751",
+    "https://openalex.org/W2891998166",
+    "https://openalex.org/W2898095929",
+    "https://openalex.org/W2898664533",
+    "https://openalex.org/W2899430518",
+    "https://openalex.org/W2902663063",
+    "https://openalex.org/W2917931339",
+    "https://openalex.org/W2929741483",
+    "https://openalex.org/W2936196102",
+    "https://openalex.org/W2943535307",
+    "https://openalex.org/W2964055667",
+    "https://openalex.org/W2970833853",
+    "https://openalex.org/W2982455897",
+    "https://openalex.org/W2996206570",
+    "https://openalex.org/W2999638909",
+    "https://openalex.org/W3002398604",
+    "https://openalex.org/W3013305688",
+    "https://openalex.org/W3013392717",
+    "https://openalex.org/W3015265524",
+    "https://openalex.org/W3029546932",
+    "https://openalex.org/W3032415887",
+    "https://openalex.org/W3035932795",
+    "https://openalex.org/W3045885991",
+    "https://openalex.org/W3092157719",
+    "https://openalex.org/W3109521264",
+    "https://openalex.org/W3110936923",
+    "https://openalex.org/W3114088270",
+    "https://openalex.org/W3135893753",
+    "https://openalex.org/W3154730583",
+    "https://openalex.org/W3164517584",
+    "https://openalex.org/W3165624780",
+    "https://openalex.org/W3186823562",
+    "https://openalex.org/W3214172595",
+    "https://openalex.org/W4200613634",
+    "https://openalex.org/W4210256263",
+    "https://openalex.org/W4285275089",
+    "https://openalex.org/W4293791020",
+    "https://openalex.org/W4297818341",
+    "https://openalex.org/W6791348873",
+    "https://openalex.org/W6795531722",
+    "https://openalex.org/W6796036052",
+    "https://openalex.org/W6966489497"
+  ],
+  "related_works": [
+    "https://openalex.org/W7117564405",
+    "https://openalex.org/W4405846287",
+    "https://openalex.org/W4283212624",
+    "https://openalex.org/W3035780619",
+    "https://openalex.org/W4352981992",
+    "https://openalex.org/W2800297764",
+    "https://openalex.org/W4408215394",
+    "https://openalex.org/W4416932860",
+    "https://openalex.org/W2914351286",
+    "https://openalex.org/W2889167692"
+  ],
+  "abstract_inverted_index": {
+    "LoRaWAN": [
+      0,
+      107,
+      129,
+      185,
+      199,
+      224,
+      252,
+      276
+    ],
+    "is": [
+      1,
+      80
+    ],
+    "one": [
+      2
+    ],
+    "of": [
+      3,
+      73,
+      83,
+      106,
+      180,
+      222,
+      264,
+      273
+    ],
+    "the": [
+      4,
+      71,
+      74,
+      81,
+      112,
+      155,
+      178,
+      220,
+      271
+    ],
+    "most": [
+      5
+    ],
+    "popular": [
+      6
+    ],
+    "protocols": [
+      7
+    ],
+    "to": [
+      8,
+      50,
+      59,
+      114,
+      120,
+      144,
+      161,
+      231,
+      239,
+      248,
+      270
+    ],
+    "build": [
+      9
+    ],
+    "low-power": [
+      10
+    ],
+    "wide": [
+      11
+    ],
+    "area": [
+      12
+    ],
+    "networks.": [
+      13
+    ],
+    "Unfortunately,": [
+      14
+    ],
+    "it": [
+      15
+    ],
+    "adopts": [
+      16
+    ],
+    "a": [
+      17,
+      47,
+      116,
+      125,
+      146,
+      168,
+      250,
+      274
+    ],
+    "star": [
+      18
+    ],
+    "topology,": [
+      19
+    ],
+    "which": [
+      20,
+      63,
+      90
+    ],
+    "limits": [
+      21
+    ],
+    "network": [
+      22,
+      118,
+      163,
+      202,
+      225,
+      253,
+      277
+    ],
+    "coverage": [
+      23,
+      221
+    ],
+    "and": [
+      24,
+      95,
+      119,
+      137,
+      148,
+      175,
+      201,
+      204,
+      233,
+      267
+    ],
+    "may": [
+      25
+    ],
+    "also": [
+      26
+    ],
+    "cause": [
+      27
+    ],
+    "an": [
+      28,
+      104,
+      209,
+      223
+    ],
+    "unnecessary": [
+      29
+    ],
+    "decrease": [
+      30
+    ],
+    "in": [
+      31,
+      92,
+      262
+    ],
+    "energy": [
+      32,
+      66,
+      235,
+      265
+    ],
+    "efficiency": [
+      33,
+      266
+    ],
+    "as": [
+      34,
+      36,
+      68,
+      70,
+      158,
+      160
+    ],
+    "well": [
+      35,
+      69,
+      159
+    ],
+    "scalability.": [
+      37
+    ],
+    "In": [
+      38,
+      98
+    ],
+    "fact,": [
+      39
+    ],
+    "end-devices": [
+      40,
+      110,
+      193
+    ],
+    "that": [
+      41,
+      108,
+      170,
+      176,
+      215,
+      245,
+      254
+    ],
+    "are": [
+      42
+    ],
+    "deployed": [
+      43
+    ],
+    "far": [
+      44
+    ],
+    "away": [
+      45
+    ],
+    "from": [
+      46
+    ],
+    "gateway": [
+      48
+    ],
+    "need": [
+      49
+    ],
+    "increase": [
+      51
+    ],
+    "their": [
+      52,
+      65,
+      195
+    ],
+    "transmission": [
+      53
+    ],
+    "power": [
+      54
+    ],
+    "or": [
+      55,
+      86,
+      152
+    ],
+    "spreading": [
+      56
+    ],
+    "factor": [
+      57
+    ],
+    "(SF)": [
+      58
+    ],
+    "sustain": [
+      60
+    ],
+    "reliable": [
+      61,
+      147
+    ],
+    "communications,": [
+      62
+    ],
+    "increases": [
+      64
+    ],
+    "expenditure": [
+      67
+    ],
+    "size": [
+      72
+    ],
+    "collision": [
+      75
+    ],
+    "domain.": [
+      76
+    ],
+    "The": [
+      77
+    ],
+    "only": [
+      78
+    ],
+    "alternative": [
+      79
+    ],
+    "deployment": [
+      82,
+      96
+    ],
+    "additional": [
+      84
+    ],
+    "gateways": [
+      85,
+      200
+    ],
+    "dedicated": [
+      87
+    ],
+    "relay": [
+      88,
+      122
+    ],
+    "nodes,": [
+      89
+    ],
+    "results": [
+      91,
+      213
+    ],
+    "higher": [
+      93
+    ],
+    "costs": [
+      94
+    ],
+    "efforts.": [
+      97
+    ],
+    "this": [
+      99
+    ],
+    "work,": [
+      100
+    ],
+    "we": [
+      101
+    ],
+    "introduce": [
+      102
+    ],
+    "LoRaHop,": [
+      103
+    ],
+    "extension": [
+      105
+    ],
+    "enriches": [
+      109
+    ],
+    "with": [
+      111,
+      131,
+      197
+    ],
+    "ability": [
+      113
+    ],
+    "form": [
+      115
+    ],
+    "mesh": [
+      117,
+      156,
+      181
+    ],
+    "seamlessly": [
+      121
+    ],
+    "packets": [
+      123
+    ],
+    "to/from": [
+      124
+    ],
+    "gateway,": [
+      126
+    ],
+    "thereby": [
+      127
+    ],
+    "providing": [
+      128
+    ],
+    "networks": [
+      130
+    ],
+    "multihop": [
+      132,
+      251
+    ],
+    "support": [
+      133
+    ],
+    "for": [
+      134
+    ],
+    "both": [
+      135
+    ],
+    "uplink": [
+      136
+    ],
+    "downlink": [
+      138
+    ],
+    "messaging.": [
+      139
+    ],
+    "LoRaHop": [
+      140,
+      166,
+      189,
+      216,
+      247
+    ],
+    "leverages": [
+      141
+    ],
+    "concurrent": [
+      142
+    ],
+    "transmissions": [
+      143
+    ],
+    "enable": [
+      145
+    ],
+    "efficient": [
+      149
+    ],
+    "data": [
+      150
+    ],
+    "collection": [
+      151
+    ],
+    "dissemination": [
+      153
+    ],
+    "over": [
+      154
+    ],
+    "network,": [
+      157
+    ],
+    "simplify": [
+      162
+    ],
+    "formation.": [
+      164
+    ],
+    "Furthermore,": [
+      165
+    ],
+    "embeds": [
+      167
+    ],
+    "mechanism": [
+      169
+    ],
+    "simplifies": [
+      171
+    ],
+    "rendezvous": [
+      172
+    ],
+    "across": [
+      173
+    ],
+    "devices": [
+      174
+    ],
+    "minimizes": [
+      177
+    ],
+    "impact": [
+      179
+    ],
+    "operations": [
+      182
+    ],
+    "on": [
+      183,
+      190,
+      208
+    ],
+    "existing": [
+      184
+    ],
+    "transmissions.": [
+      186
+    ],
+    "We": [
+      187
+    ],
+    "implement": [
+      188
+    ],
+    "off-the-shelf": [
+      191
+    ],
+    "LoRa": [
+      192
+    ],
+    "(ensuring": [
+      194
+    ],
+    "interoperability": [
+      196
+    ],
+    "commercial": [
+      198
+    ],
+    "servers),": [
+      203
+    ],
+    "evaluate": [
+      205
+    ],
+    "its": [
+      206
+    ],
+    "performance": [
+      207
+    ],
+    "outdoor": [
+      210
+    ],
+    "testbed.": [
+      211
+    ],
+    "Our": [
+      212,
+      241
+    ],
+    "show": [
+      214
+    ],
+    "can": [
+      217
+    ],
+    "effectively": [
+      218
+    ],
+    "extend": [
+      219
+    ],
+    "while": [
+      226
+    ],
+    "improving": [
+      227
+    ],
+    "reliability": [
+      228
+    ],
+    "by": [
+      229,
+      237
+    ],
+    "up": [
+      230,
+      238
+    ],
+    "98.33%": [
+      232
+    ],
+    "reducing": [
+      234
+    ],
+    "consumption": [
+      236
+    ],
+    "48.02%.": [
+      240
+    ],
+    "findings": [
+      242
+    ],
+    "further": [
+      243
+    ],
+    "demonstrate": [
+      244
+    ],
+    "using": [
+      246,
+      256,
+      278
+    ],
+    "create": [
+      249
+    ],
+    "communicates": [
+      255
+    ],
+    "low": [
+      257
+    ],
+    "SFs": [
+      258
+    ],
+    "brings": [
+      259
+    ],
+    "significant": [
+      260
+    ],
+    "benefits": [
+      261
+    ],
+    "terms": [
+      263
+    ],
+    "scalability": [
+      268
+    ],
+    "compared": [
+      269
+    ],
+    "use": [
+      272
+    ],
+    "single-hop": [
+      275
+    ],
+    "high": [
+      279
+    ],
+    "SFs.": [
+      280
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 8
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 13
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 12
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 1
+    }
+  ],
+  "updated_date": "2026-11-01T11:40:01.658920",
+  "created_date": "2023-04-05T00:00:00"
+}

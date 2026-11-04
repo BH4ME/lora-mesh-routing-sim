@@ -1,0 +1,173 @@
+{
+  "application_deadline_s": 30.0,
+  "artifacts": {
+    "actions": {
+      "file": "meshecho_first_edge_ack_signal_smoke_seed42000_20261004.actions.jsonl",
+      "sha256": "fb7eeb07a0cf3110a3aff1665648f807f756d52113fdbf2632e314a075e594b4"
+    },
+    "epochs": {
+      "file": "meshecho_first_edge_ack_signal_smoke_seed42000_20261004.epochs.jsonl",
+      "sha256": "962c12eb515c28da5257581420bf11fcebb531f4d5b8624a2cfc5a5293e14af4"
+    },
+    "flows": {
+      "file": "meshecho_first_edge_ack_signal_smoke_seed42000_20261004.flows.jsonl",
+      "sha256": "3f8a710cc8af4b8a45f2d519aabb04f26579792579e7737c23d7cd135400096c"
+    },
+    "paths": {
+      "file": "meshecho_first_edge_ack_signal_smoke_seed42000_20261004.paths.jsonl",
+      "sha256": "5577f3636aa7f454d3b2e23c826ed0e67aec034457a22d57cd50648bd6fe67ed"
+    },
+    "predictor_rows": {
+      "file": "meshecho_first_edge_ack_signal_smoke_seed42000_20261004.predictor_rows.jsonl",
+      "sha256": "a65107be1c5fb5ba57ef6c0af610fc5ee475f744f7613826b56958ab750db9ab"
+    },
+    "runs": {
+      "file": "meshecho_first_edge_ack_signal_smoke_seed42000_20261004.runs.jsonl",
+      "sha256": "6aeb624b761789dec1266bed82bf1d71f5335ebc1a0aabbfc6a47c2f0178e547"
+    },
+    "summary": {
+      "file": "meshecho_first_edge_ack_signal_smoke_seed42000_20261004.summary.json",
+      "sha256": "29c7588f05d7f82614416f6d08c778f19b02ec656937b52ac9e0f8581d1af455"
+    },
+    "transmissions": {
+      "file": "meshecho_first_edge_ack_signal_smoke_seed42000_20261004.transmissions.jsonl",
+      "sha256": "8d539147c53a67bbe5aa650911172b0de2479a48185ed432e68b3118d9eea7e7"
+    }
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "mode": "smoke",
+  "predictor_model": null,
+  "prerequisite_manifest_sha256": {},
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "seeds": [
+    42000
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_first_edge_ack_signal_gate.md": "1fc1ea54c0962e88ef80e8aef9c5d0546c96f39525b1fec01bf407938587d5ef",
+    "lora_mesh_sim.py": "165fff13ac3839045b41bf39a8e9451503c50e0c66ca4cc39c92709e5eaf2875",
+    "tests/test_first_edge_ack_signal.py": "3a5318345eb23c2550e606fa59e48089c5338576a43a36ad1236aa4f45d5733e",
+    "tools/diagnose_ack_failure_causes.py": "777c83db614758855418618ea39ba115640b454b133f37f9f73e076785dd06b5",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_first_edge_ack_signal.py": "d0a3e5746002ba06f6a3cbf20f6fa286cc7be5a7bf1cfe4d7642ec90400f0d91",
+    "tools/diagnose_flood_ack_hops.py": "b587af3f48f8c1de2c3896be00e3603e3d34516ace893eec06419bddbd3c243f",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "f61b2bccb154c7ec3f7603c51dd47ff2b8271d68db4baa69e2ccee5a4a1d0d1c"
+  },
+  "summary": {
+    "A_flows": 2,
+    "B_flows": 2,
+    "C_deadline_feasible_flows": 2,
+    "C_flows": 2,
+    "ack_attempts_without_source_adjacent_tx": 0,
+    "alternate_path_gate_passed": null,
+    "delivered_unacked_flood_flows": 2,
+    "destination_adjacent_diversity_epochs": 10,
+    "destination_flood_epochs": 10,
+    "epochs_with_causal_ack": 10,
+    "final_hop_failure_causes": {
+      "capture_collision": 2
+    },
+    "final_hop_predictor_failures": 2,
+    "final_hop_predictor_samples": 10,
+    "final_hop_predictor_successes": 8,
+    "initial_f_epochs": 6,
+    "late_final_hop_txs": 0,
+    "original_direct_epochs": 4,
+    "original_multihop_epochs": 6,
+    "path_screen_fraction_of_source_final_failures": 1.0,
+    "physical_destination_flood_decodes": 37,
+    "predictor_by_path_type": {
+      "direct": {
+        "fading_block_crossings": 0,
+        "failures": 2,
+        "samples": 4,
+        "successes": 2
+      },
+      "multihop": {
+        "fading_block_crossings": 0,
+        "failures": 0,
+        "samples": 6,
+        "successes": 6
+      }
+    },
+    "predictor_by_q_bin": {
+      "-12_to_-6": {
+        "failures": 1,
+        "samples": 1,
+        "successes": 0
+      },
+      "-6_to_0": {
+        "failures": 0,
+        "samples": 0,
+        "successes": 0
+      },
+      "0_to_6": {
+        "failures": 1,
+        "samples": 2,
+        "successes": 1
+      },
+      "6_to_12": {
+        "failures": 0,
+        "samples": 2,
+        "successes": 2
+      },
+      "ge_12": {
+        "failures": 0,
+        "samples": 5,
+        "successes": 5
+      },
+      "lt_-12": {
+        "failures": 0,
+        "samples": 0,
+        "successes": 0
+      }
+    },
+    "predictor_training_support": {
+      "failures": 2,
+      "passed": false,
+      "samples": 10,
+      "seeds": 1,
+      "successes": 8
+    },
+    "predictor_validation": null,
+    "r_to_f_epochs": 4,
+    "rejected_path_decodes": 0,
+    "scheduled_flows": 49,
+    "screen_by_epoch_type": {
+      "R_to_F": {
+        "A_flows": 0,
+        "B_flows": 0,
+        "C_deadline_feasible_flows": 0,
+        "C_flows": 0,
+        "source_final_failed_flows": 0
+      },
+      "initial_F": {
+        "A_flows": 2,
+        "B_flows": 2,
+        "C_deadline_feasible_flows": 2,
+        "C_flows": 2,
+        "source_final_failed_flows": 2
+      }
+    },
+    "screen_by_original_path_type": {
+      "direct": {
+        "A_flows": 2,
+        "B_flows": 2,
+        "C_deadline_feasible_flows": 2,
+        "C_flows": 2,
+        "source_final_failed_flows": 2
+      },
+      "multihop": {
+        "A_flows": 0,
+        "B_flows": 0,
+        "C_deadline_feasible_flows": 0,
+        "C_flows": 0,
+        "source_final_failed_flows": 0
+      }
+    },
+    "source_adjacent_diversity_epochs": 10,
+    "source_final_failed_flows": 2,
+    "valid_path_decodes": 37
+  }
+}

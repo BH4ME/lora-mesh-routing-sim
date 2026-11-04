@@ -1,4 +1,214 @@
+# Progress
+2026-11-04 Asia/Shanghai: Read handoff, execution plan and current/historical planning state. Created persistent full-scope goal. Started managed worktree at canonical HEAD. No source edits, simulations or seed exposure yet. planning-with-files session catchup succeeded. Three read-only agents inventory seeds/dependencies, correctness and experiment architecture.
+
+---
+## Imported historical record (earlier scopes do not override this task)
+
 # Progress Log
+
+## Active firmware continuation (2026-10-13)
+
+- Recovered all four current Markdown checkpoints and read production headers.
+  Selected tdd, systematic-debugging and planning-with-files for this turn.
+- Delegated exclusive core/lifecycle red-green work, runtime vertical tests,
+  and a read-only token/radio/budget audit. Root owns node/runtime production.
+- Next runtime regression exercises repeat timing anchored to physical TX
+  start and per-flow route_bound, then full recovery FLOOD/ACK provenance.
+
+## Current manuscript request: verification-only recovery (2026-10-13)
+
+- Read academic-paper revision and planning-with-files instructions, then
+  recovered the canonical manuscript and the existing completed revision.
+- No repeated manuscript rewrite: the requested full-name baseline comparison
+  and 30 numbered equation groups are already in the same open source.
+- Recompiled that source with the desktop compiler: success. Re-ran the four
+  author/figure/release checks: OK; existing ResourceWarnings are unchanged.
+- Delegated read-only mathematical and result-evidence checks, without new
+  simulations, new build directories, PDF exports, version changes or pushes.
+- Both independent checks completed with no required revision. MT/MC/CPR
+  formulas match the evaluated Python implementations; existing four-arm CSVs
+  support the reported means, gains, paired intervals and delivery costs.
+  All 34 labels and five cited bibliography keys resolve without duplicates.
+- Collected earlier firmware native session 16324: 39 Unity cases passed.
+  Stopped further firmware implementation at the current manuscript boundary
+  and saved implemented changes and remaining work in its handoff document.
+
+## Firmware goal continued after manuscript closeout (2026-10-13)
+
+- Recovered the canonical four Markdown files and source headers. Selected
+  tdd, systematic-debugging and planning-with-files for this continuation.
+- Root owns core/node/runtime and formal runner registration. Delegated one
+  runtime preflight test, an independent read-only provenance audit, and a
+  separate budget helper/main integration slice with exclusive file ownership.
+- Next gate: demonstrate late queued initial flood RED before implementing
+  prepareTx and app/controller retirement on rejection.
+
+## Latest paper request resumed (2026-10-13)
+
+- Read academic-paper revision instructions and planning-with-files recovery.
+  Catch-up succeeds with python3; the python alias remains unavailable.
+- Recovered the same open canonical .tex and existing revision/evidence files.
+  Kept all existing paper and firmware changes; no stale PDF used as evidence.
+- Collected pending native run: 23 Unity cases passed. Firmware agents saved
+  radio/wire handoff and ended their sessions. No further firmware implementation
+  is part of this paper-focused turn.
+- Completed targeted in-place edits after read-only comparison/formula audits:
+  full result-table names, three baseline-specific interpretation paragraphs,
+  wire-length and relay-delay equations, and duplicate-FLOOD clarification.
+- First compile exposed a delimiter pair crossing an aligned equation row;
+  fixed that syntax without changing the mathematics. Built-in compiler then
+  passed, and passed again after the final n_P path-count clarification.
+- Four existing author/figure/release tests passed, as did 69 direct
+  implementation-backed wire/ToA/delay assertions. No simulation was run.
+  Thirty numbered equation groups and all label/citation references check out.
+- Existing figure-data ResourceWarnings are nonfatal and unchanged. Saved this
+  revision without changing VERSION, exporting PDF, pushing GitHub or using EDAS.
+
+## Firmware goal resumed (2026-10-13)
+
+- Re-read canonical recovery files and inspected node/controller/runtime/main.
+- Delegated exclusive radio-adapter and wire-test work, plus one-at-a-time
+  runtime regression construction. Production node/controller/runtime remain
+  main-agent-owned to avoid concurrent edits.
+- No current full build is yet claimed; next slices begin with duplicate-ID
+  rejection and cold-flow ACK-proven route confirmation.
+
+## Current ICC comparison follow-up (2026-10-13)
+
+- Recovered the latest manuscript and recent planning sections; selected
+  academic-paper revision and planning-with-files recovery.
+- Stopped new firmware work at the user-request boundary and retained all
+  changes. Firmware test/board agents provided exact incomplete-state notes.
+- Delegated read-only checks of mathematical definitions and existing paired
+  result arithmetic. No new simulation or external publication action ran.
+- Recovered source had 24 equation groups. Revised source has 28, including
+  commitment/start epochs, ACK-installed route lifecycle, conditional stage
+  gains and pooled delivery cost. The four-arm table now gives full protocol
+  names and formula references and explicitly distinguishes initial DATA
+  flooding from MC RREQ/RREP discovery.
+- Built-in compiler succeeded for the same open source after edits. All label
+  references and five citations resolve with no duplicate labels.
+- Four author/figure/release metadata unittest cases passed. Existing unclosed
+  file ResourceWarnings in figure-data code are unchanged and nonfatal.
+- Independently recalculated all four pooled delivery-cost values from the
+  existing 80-row CSV; all rounded values in the paper match.
+- Final independent formula review found no required corrections. Clarified
+  first-applicable-branch precedence in the route lifecycle update.
+- No separate PDF export, final rendered-page count, visual QA, version bump,
+  GitHub push, EDAS change or new simulation is claimed.
+
+## 2026-10-13 firmware integration audit continuation
+
+- [verified] Native PlatformIO test passes, but reports zero Unity cases because
+  the current test is a plain assertion executable around the compatibility
+  facade.
+- [verified] `pio run -e esp32dev_sx1262 -e esp32dev_sx127x -e nrf52840_sx1262`
+  passes; no hardware or OTA validation has occurred.
+- [in_progress] Add production `CprNode/CprRuntime` integration coverage for
+  multi-hop DATA/ACK and ACK-terminated flood relay cancellation.
+
+## 2026-10-13 ICC comparison/formula layout checkpoint
+
+- [complete] Kept the explicit four-arm mathematical comparison in the ICC
+  source: legacy MeshEcho, Meshtastic-like managed flooding, MeshCore-like
+  cache/discovery routing, and MeshEcho-CPR.
+- [complete] Final source contains 33 labeled equations, including the
+  protocol-specific forwarding, discovery, reliability, airtime, ACK, and
+  relay-cancellation definitions, plus the comparison table and three-panel
+  holdout figure.
+- [verified] Recompiled with the editor compiler and local XeLaTeX/BibTeX;
+  final PDF is six Letter pages with no Overfull boxes or undefined references.
+- [verified] Rendered all six pages with Poppler; author names are `Zu Gao` and
+  `Zhi Quan`, and the Meshtastic/MeshCore rows, formulas, table, and chart are
+  visible in the final PDF.
+- [limitation] Meshtastic and MeshCore rows remain behavior-level simulator
+  models under a shared packet/PHY ledger, not hardware measurements or
+  firmware clones.
+
+## 2026-10-13 firmware CPR upgrade started
+
+- Read the firmware handoff and current repository state after the ICC formula
+  revision. The old ESP32 Smart-CALM project is not the CPR implementation.
+- Started a separate `firmware/meshecho_cpr/` PlatformIO project so the new
+  algorithm can be tested natively and built for ESP32/nRF52840 without
+  destabilizing the historical prototype.
+- Next action: implement the shared wire/core headers and test the state
+  transitions before adding radio-specific `main.cpp` adapters.
+
+## 2026-10-12 four-protocol simulation rerun
+
+- [complete] Re-ran the paired exposure comparison for seeds `92300..92319`
+  across MeshEcho-CPR, legacy MeshEcho, Meshtastic-like, and MeshCore-like.
+- [complete] Verified 80 run rows, 60 paired rows, all trace/topology/pair-pool
+  identity flags true, and zero incomplete RX/TX joins.
+- [complete] Generated the standalone three-panel bar chart
+  `results/meshecho_four_protocol_comparison_92300_92319_20261012_rerun.png`
+  directly from the raw per-seed CSV.
+- [complete] Calculated paired gains and wrote the reproducible report at
+  `docs/results/meshecho_four_protocol_comparison_20261012.md`.
+- [complete] Assessed novelty conservatively: CPR is a strong integrated
+  policy improvement in this simulation, but the evidence does not justify a
+  breakthrough or first-of-kind claim.
+- [limitation] The external runner emits CSV comparison artifacts rather than
+  the formal CPR manifest plus full JSONL audit bundle; keep the result labeled
+  behavior-level simulation evidence.
+
+## 2026-10-12 formula-and-comparison revision
+
+- [complete] Updated the ICC source to make Meshtastic-like managed flooding
+  and MeshCore-like shortest-candidate source routing explicit in equations,
+  table, and a four-family bar figure.
+- [complete] Corrected the behavior-level mathematics to match the runner:
+  quality-dependent flooding delay, cache TTL/discovery cost, ACK-gated CPR
+  destination PDR, conditional expected airtime, and reverse-path validity
+  for relay cancellation.
+- [complete] Removed duplicate/temporary equation code, reduced repeated prose,
+  and kept the manuscript at six Letter pages with 26 numbered equations after
+  the direct comparison and results interpretation were added.
+- [verified] Fresh Tectonic build `paper/icc2027/build-2_1_48-hpPcBx/`
+  succeeds with no Overfull boxes; only nonfatal Underfull warnings remain.
+- [limitation] The built-in editor compiler cannot resolve the external figure
+  include in its isolated temp directory; the project-relative build succeeds.
+
+## 2026-10-11 four-protocol comparison objective
+
+- Superseded by the 2026-10-12 rerun section above. The same-condition matrix
+  and bar chart are now complete; the remaining limitation is the CSV-only
+  audit boundary described above.
+
+## 2026-10-06 protocol-comparison/formula revision
+
+- Edited `paper/icc2027/icc2027_lora_mesh.tex` to make the two external
+  protocol abstractions mathematical rather than table-only comparisons.
+- Added equations for MeshCore cache/discovery cost, common ledger metrics,
+  and CPR per-flow airtime; preserved the audited holdout values and caveats.
+- Built `paper/icc2027/build-cpr-formula/icc2027_lora_mesh.pdf` with local
+  XeLaTeX/xdvipdfmx. `pdfinfo` reports 5 Letter pages; log scan reports no
+  overfull boxes, LaTeX errors, or unresolved references.
+- Dimension-checked the CPR airtime equation and rebuilt after separating ToA
+  from forwarding delay/safety-margin budget terms.
+- Rendered pages to `paper/icc2027/build-cpr-formula/rendered2/` and checked
+  all pages visually. No version bump, GitHub push, simulation rerun, or EDAS
+  action was performed.
+
+## 2026-10-06 comparison explanation checkpoint
+
+- Read-only comparison completed for MeshEcho-CPR, legacy MeshEcho,
+  Meshtastic-like, and MeshCore-like.
+- No ICC source edit, version bump, simulation rerun, or publication action was
+  performed for this question. The open LaTeX editor file remains unchanged.
+- Final response will state the CPR mechanism advances, the directly audited
+  ablation gains, and the limitation that historical product-like rows are not
+  cross-comparable with the CPR holdout.
+
+## 2026-10-06 ICC acceptance assessment checkpoint
+
+- Completed a read-only quick reviewer assessment of the current ICC paper.
+- Current estimate: 20--35% paper-level acceptance probability, central
+  estimate 25--30%; no official ICC 2027 acceptance rate is available in the
+  repository.
+- No `.tex` edit, compile, simulation rerun, version bump, GitHub push, or
+  EDAS action was performed. The open LaTeX file remains unchanged.
 
 ## 2026-10-06 authoritative completion state
 
@@ -5009,3 +5219,204 @@ validation or keep the claims explicitly simulation-only.
   protocol-family matrices as historical. No new seeds are to be run.
 - Next action is verification and staged release review, followed by commit and
   push only if every audit and test passes.
+
+## 2026-10-13 - Four-protocol comparison formula revision
+
+- [in_progress] Revised the ICC source so the four protocol families are
+  compared on both deadline ACK success and destination delivery, not only in
+  prose or a results table.
+- [complete] Added explicit destination-delivery branch equations for legacy
+  MeshEcho, Meshtastic-like flooding, and MeshCore-like cache/discovery routing
+  beside the existing ACK branch equation.
+- [complete] Added the empty-RREQ convention for MeshCore and made the
+  Meshtastic duplicate-suppression deadline flow-indexed.
+- [complete] Preserved the behavior-level-model disclaimer; the named protocol
+  rows are not claims about official firmware or hardware measurements.
+- [complete] Compiled the open ICC source successfully; the PDF is 6 pages,
+  has 30 numbered equations, and has no overfull boxes or undefined references.
+
+## 2026-10-13 - ICC four-protocol formula and layout closeout
+
+- [complete] Kept explicit Meshtastic-like and MeshCore-like cost, timing,
+  cache/discovery, reliability, action-map, and ledger equations alongside
+  legacy MeshEcho and MeshEcho-CPR.
+- [complete] Retained the four-family comparison table and bar chart while
+  removing duplicated prose and duplicate cost explanations.
+- [complete] Recompiled with the desktop compiler and a full XeLaTeX/BibTeX
+  build; final PDF is six pages with 30 numbered equations, no undefined
+  references, and no overfull boxes. The canonical PDF is the checked
+  `build-final-user-formula-compare6` artifact.
+
+## 2026-10-13 Canonical Firmware Target Migration
+
+- Read the four persistent recovery files before continuing the firmware goal.
+- Re-ran the separate reference-tree native test and ESP32 SX1262/SX127x plus
+  nRF52840 SX1262 builds; all passed at reference-tree version `0.1.4`.
+- Found that the canonical target tree still has only one `CprCore` scaffold
+  test. Work is therefore being ported into the target tree instead of being
+  reported from the reference tree.
+- Next action: implement the target `CprCore` API and board-neutral runtime,
+  then rerun all target-tree gates and record output paths here.
+
+## 2026-10-13 ICC baseline-formula revision
+
+- Edited `paper/icc2027/icc2027_lora_mesh.tex` in place after the user asked
+  for explicit Meshtastic/MeshCore comparisons and more formulas.
+- Added `eq:result-mechanism-decomp` plus direct holdout ratios for airtime
+  and started TX count; retained the four-protocol table and observables.
+- Built with the desktop compiler and full
+  `latexmk -g -xelatex -bibtex -interaction=nonstopmode -halt-on-error`.
+- Final artifact:
+  `paper/icc2027/build-user-baseline-formula-results-20261013i/` and
+  canonical `paper/icc2027/icc2027_lora_mesh.pdf`; 6 pages, all references
+  visible, with no overfull boxes, undefined references, or fatal errors.
+
+## 2026-10-13 ICC explicit state-transition revision
+
+- [complete] Added algorithm-level state transitions for Meshtastic-like
+  duplicate-versus-commit forwarding, MeshCore-like cache hit/discovery,
+  legacy MeshEcho route/fallback, and CPR initial/repeat/recovery ordering.
+- [complete] Added a formula-gate row to the four-protocol table, closed the
+  RREQ/RREP and started-request symbol definitions, and enlarged the paired
+  four-protocol figure to column width.
+- [verified] `compile_latex_document` succeeds for the open source. The source
+  now contains 36 numbered equations; the on-disk PDF still needs final
+  rendered page-count and figure visual QA before submission.
+
+## 2026-10-13 Current manuscript revision resumed
+
+- Read canonical source, task plan, findings, progress and existing four-arm
+  report. Redirected firmware agents to read-only manuscript/code audits.
+- Built-in compiler accepts the pre-revision source. No separate PDF was
+  compiled or exported; the existing on-disk PDF is not the new preview.
+- Current task is a scoped comparison/mathematics revision. New experiments,
+  firmware updates and publication actions remain out of scope.
+- Completed in-place comparison/mathematics revision: front-loaded four-arm
+  table; exact legacy recurrence; MT delay/cost/union bounds; MC cache,
+  discovery sequence and conditional costs; CPR physical-start FSM, timer
+  requests, stage bounds, conditional PDR, source ACK validation and local
+  pre-commit cancellation savings. The source has 24 equation groups.
+- Embedded the existing paired chart and five verified references to make
+  the same open .tex self-contained for the built-in compiler. Removed tiny
+  bibliography text and page-height enlargement; retained IEEEtran 10pt.
+- First revised compile exposed missing external .bib plus two wide
+  formulas. After local repair, both subsequent built-in compiles succeeded.
+  One patch attempt failed atomically on an unused context hunk; a corrected
+  patch applied. One tool script had a JavaScript delimiter error and made
+  no edits; corrected call applied normally.
+- Four existing author/figure/release metadata tests passed. Existing
+  unclosed-file ResourceWarnings in figure tests are nonfatal and unchanged.
+- No standalone PDF export, visual page QA, version bump, GitHub push or
+  EDAS mutation was performed. Do not hand off the older disk PDF as new.
+
+## 2026-10-13 Latest request recovery: comparison/formulas
+
+- Recovered the completed 30-equation manuscript revision and read the full
+  same open TeX. Built-in compilation passed before the final prose edit.
+- Explicitly named all three baselines and their cost differences in the
+  introduction. Replaced a component-isolation claim with a direct formula
+  roadmap; no measured result, equation or figure value was changed.
+- Firmware agents stopped writing and retained their unfinished test state.
+  Independent read-only manuscript/formula and CSV audits are in progress.
+- The planning skill's `python` invocation failed because only `python3`
+  exists; the corrected catch-up invocation succeeded with no report.
+
+## 2026-11-04 Manuscript revision completion after interruption
+
+- Confirmed the saved final wording and all 30 equation environments; the
+  original open TeX compiled successfully with the desktop compiler.
+- Four focused checks had passed before interruption (two figure-data,
+  one author and one release-metadata test). No new simulation was run.
+- The independent numerical audit matched the complete 20261012 four-arm
+  CSV bundle; the 20261006 external-comparison bundle has only three arms.
+- Table wording now says duplicate suppression before commitment, and CPR
+  explicitly starts with routed DATA before its one repeat and recovery.
+- Scoped diff whitespace check passed. No separate PDF export, page-count
+  claim, version bump, push or EDAS action. Manuscript request complete;
+  firmware remains unfinished as recorded in the dedicated handoff.
+
+## 2026-11-04 Explicit protocol comparison and mathematical revision
+
+- Read the completed PDF/code audit and revised the same open ICC TeX in
+  place for the user's request to make Meshtastic/MeshCore comparisons and
+  equations more prominent. Full handoff: docs/research/icc_comparison_formula_revision_20261104.md.
+- Increased numbered equation groups from 30 to 36, with six explanatory
+  derivations; named baselines in section titles and a full-name figure legend.
+  Enlarged the existing chart to two columns and added pooled airtime/ACK.
+- Corrected the controller-versus-radio TX bound and disclosed the existing
+  return-flood and concurrent-ACK generation defects plus the one-hop-heavy
+  successful-path distribution. No algorithm defect was claimed fixed.
+- Three independent scoped mathematical/numeric reviews passed. Final saved
+  source compiled successfully with the built-in editor compiler; references,
+  author names and scoped whitespace checks passed.
+- Codex UI inspection was denied by CUA; current-page visual QA and page count
+  remain unverified. No separate PDF export, new simulation, version bump,
+  GitHub push or EDAS action. The old on-disk PDF is not the new preview.
+
+## 2026-11-04 Verified literature expansion
+
+- Expanded the same ICC manuscript from 5 to 26 cited sources: 13 journal
+  articles, 10 conference/workshop papers, 1 book chapter and 2 official
+  project documents. Every final reference is used substantively in the body;
+  26 unique keys / 37 citation occurrences, with 23 verified DOIs.
+- Live Crossref/OpenAlex/publisher/author-repository checks verified metadata,
+  content support and indexed citation relationships. Reading scope is
+  recorded per source; no blanket full-text or Shenzhen University access
+  claim. Excluded an obviously erroneous Trickle citing record from evidence.
+- Rewrote related work and connected sources to ToA, directional DATA/ACK
+  loss, routing/cache use, flood suppression, finite retries, correlated losses
+  and paired simulation. Retained explicit attribution of CPR-specific rules
+  and identities to this implementation/analysis.
+- Synchronized inline IEEE bibliography and references.bib in first-citation
+  order. Prior files are backed up under docs/research/icc_literature_20261104/.
+- Final built-in compile succeeded; citation, DOI, label, author and whitespace
+  checks passed. All 36 numbered equation environments and the existing result
+  figure are byte-identical to the pre-literature revision.
+- User audit table: docs/research/icc_citation_audit_20261104.md. Resume state:
+  docs/research/icc_literature_revision_20261104.md. No new simulation, separate
+  PDF export, version bump, GitHub push or EDAS action.
+
+## 2026-11-04 SECON task-book preparation
+
+- User requests a document to give another Codex for experiment upgrades
+  and missing documentation. Read canonical checkpoints and version files.
+- Delegated read-only repository/seed inventory, experiment-design review
+  and official SECON requirement verification. No experiments started.
+- Planning skill session catch-up completed under python3 without a report.
+
+### SECON task-book recovery checkpoint (2026-11-04)
+
+- Recovered the summary and reread current task_plan/progress. Canonical root
+  remains lora_mesh_current_version_v2; the similarly named cwd is not the
+  evidence source. Only a Markdown execution handoff is authorized this turn.
+- All three read-only agents completed. Requirements: SECON 2027, Nov 30
+  full-paper deadline (timezone unspecified), 9 pages including references,
+  double blind, IEEE conference 10pt; Lisbon May 5-7, 2027. Cite official URLs.
+- Inventory found exposed default seeds, missing external full evidence,
+  overwrite risks, and split labels without enforced seed isolation. Prioritize
+  these before new performance runs. Historic 92300-92319 is not fresh holdout.
+- Experiment review found no-cancel also disables ledger capacity eviction;
+  isolate ACK-only cancellation or disclose a component-level ablation.
+- VERSION participates in source hashes. Bind every result to its frozen
+  tested source/version; never rewrite old manifests after release promotion.
+- Next: write docs/research/secon2027_codex_execution_plan_20261104.md,
+  review feasibility and path accuracy, record completion and deliver link.
+- Do not run simulations, change algorithm/TeX/version, push, or use EDAS.
+
+### SECON task-book completed (2026-11-04)
+
+- Created docs/research/secon2027_codex_execution_plan_20261104.md: Chinese
+  executable handoff, copyable startup prompt, official rules, repository
+  inventory, P0/P1 gates, fair baselines, ablations, staged experiment budget,
+  statistics, conditional algorithm upgrades, optional RF validation, document
+  inventory, anonymous paper plan, release mapping and recovery checkpoints.
+- Verified all 21 referenced existing source/test/result paths, current
+  versions, balanced Markdown fences and whitespace. Did not run simulations.
+- Independent requirements review found no correction needed. Experiment
+  review led to three fixes: select algorithms in development before formal
+  validation; manage execution by frozen cohort/config/arm/seed run keys;
+  avoid double-counting airtime across packet types and algorithm stages.
+- Version remains 2.1.27 and firmware 0.1.4. No algorithm, firmware, ICC TeX,
+  result artifacts, publication or remote Git state changed by this task.
+- Deliver the Markdown link. Future implementation starts by reading this
+  task book and canonical checkpoints; this turn does not start that work.

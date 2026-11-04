@@ -1,0 +1,201 @@
+{
+  "application_deadline_s": 30.0,
+  "artifacts": {
+    "actions": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.actions.jsonl",
+      "sha256": "25e593caf6abd7544b6c188e1ca72100be48ac0216155fe013f48e89185d469a"
+    },
+    "authorization": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.authorization.json",
+      "sha256": "abaeed71ddf0619fb3f6451df12c61be234f5716093276fee16700faf940385a"
+    },
+    "candidate_epochs": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.candidate_epochs.jsonl",
+      "sha256": "2436e0d9a6f2d7f1301997fc00ac9ccea71042f293d99889ba026a366678d1cb"
+    },
+    "destination_ack_decodes": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.destination_ack_decodes.jsonl",
+      "sha256": "ad07cec2fb3bfea02a8c4c511c63507898332b405f36b9955880d19d2fadf7a3"
+    },
+    "flood_decodes": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.flood_decodes.jsonl",
+      "sha256": "0a60e30e744f9de595220ddfb1f407d0a3cb388d4e87cdcdeebc5d657d8205f6"
+    },
+    "flows": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.flows.jsonl",
+      "sha256": "69027ed85a52d0be9c047493845f08af1e9044c8a733d3f1b00ef0745bf0cb03"
+    },
+    "rows": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.rows.jsonl",
+      "sha256": "830cbafbefbaa9b3088846427d11459f91dae1650333aa88a377bdb8352745ed"
+    },
+    "runs": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.runs.jsonl",
+      "sha256": "84ef01cd05b230f2ef2bf7a40f6ecda30210d3992af7b54062c38612e7552f92"
+    },
+    "summary": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.summary.json",
+      "sha256": "ca586f29c9e2ad68281b61ea530ce16dc357d966a577486c02e9257e5aaeed71"
+    },
+    "transmissions": {
+      "file": "meshecho_destination_backup_smoke_seed46000_v2_20261005.transmissions.jsonl",
+      "sha256": "0ad45b596bb4a36f1889fe78ed4534f6fa0418cadc17641118f099b6edb40eac"
+    }
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "input_sha256": {
+    "docs/research/meshecho_destination_certified_backup_screen.md": "dbc73dbab2b434476ec130f044987501fadc7a665fb466ecb4d3b3afc43906fb",
+    "lora_mesh_sim.py": "3c4e3e4ad878083ae28ea48079363948aba87b5f050817ac191bac819fb4f74e",
+    "tests/test_destination_backup_screen_runner.py": "b6265f5143e2653ff22f8ea69b7577cfef59859269b30e22c2005b57a06a3db6",
+    "tests/test_destination_backup_seed_guard.py": "61bf945532ec9ce344c75fab105d7c58c6a8d293d235b4f79c32cd0c44d9dc21",
+    "tests/test_destination_certified_backup.py": "e1670c264b60cc634f86a79df9b56203c94441f303f206815e22213091cac84a",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_destination_certified_backup.py": "8f5fe6dcb4e6df88ae5de8de482aa3ee5e26a9078484cf9db8e24346c390a42e",
+    "tools/run_destination_backup_screen.py": "ff0dd326bc353f2bc6ba7219e8d78d74b08029026192fa4e542a66f617294eca",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "af629d801c6b7df1932d18a1dcedd506de3bcbc926d3c45fe09dc6e98b90934d"
+  },
+  "mode": "smoke",
+  "prerequisite_manifest_sha256": {},
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "seeds": [
+    46000
+  ],
+  "stage_authorization_sha256": "abaeed71ddf0619fb3f6451df12c61be234f5716093276fee16700faf940385a",
+  "summary": {
+    "backup_age_bins": {
+      "le_120_s": 4,
+      "le_60_s": 1,
+      "no_age_limit": 4
+    },
+    "by_age": {
+      "le_120_s": {
+        "0_5_s": {
+          "failed_primary_relay_decode_count": 3,
+          "nominal_cost_substitution_eligible_count": 3,
+          "nominated_flow_count": 4,
+          "proxy_feasible_count": 3,
+          "source_ack_headroom_count": 0,
+          "source_ack_outcome_unassessable_count": 0
+        },
+        "2_s": {
+          "failed_primary_relay_decode_count": 3,
+          "nominal_cost_substitution_eligible_count": 3,
+          "nominated_flow_count": 4,
+          "proxy_feasible_count": 3,
+          "source_ack_headroom_count": 0,
+          "source_ack_outcome_unassessable_count": 0
+        }
+      },
+      "le_60_s": {
+        "0_5_s": {
+          "failed_primary_relay_decode_count": 1,
+          "nominal_cost_substitution_eligible_count": 1,
+          "nominated_flow_count": 1,
+          "proxy_feasible_count": 1,
+          "source_ack_headroom_count": 0,
+          "source_ack_outcome_unassessable_count": 0
+        },
+        "2_s": {
+          "failed_primary_relay_decode_count": 1,
+          "nominal_cost_substitution_eligible_count": 1,
+          "nominated_flow_count": 1,
+          "proxy_feasible_count": 1,
+          "source_ack_headroom_count": 0,
+          "source_ack_outcome_unassessable_count": 0
+        }
+      },
+      "no_age_limit": {
+        "0_5_s": {
+          "failed_primary_relay_decode_count": 3,
+          "nominal_cost_substitution_eligible_count": 3,
+          "nominated_flow_count": 4,
+          "proxy_feasible_count": 3,
+          "source_ack_headroom_count": 0,
+          "source_ack_outcome_unassessable_count": 0
+        },
+        "2_s": {
+          "failed_primary_relay_decode_count": 3,
+          "nominal_cost_substitution_eligible_count": 3,
+          "nominated_flow_count": 4,
+          "proxy_feasible_count": 3,
+          "source_ack_headroom_count": 0,
+          "source_ack_outcome_unassessable_count": 0
+        }
+      }
+    },
+    "by_wait": {
+      "0_5_s": {
+        "candidate_cost_assessable": true,
+        "candidate_nominal_all_start_success_added_airtime_s": 0.637184,
+        "candidate_nominal_optimistic_added_airtime_s": 0.637184,
+        "candidate_nominal_success_added_airtime_s": 0.637184,
+        "cost_substitution_fraction_equal_seed_mean": 0.11177692749750429,
+        "cost_substitution_fraction_pooled": 0.11177692749750429,
+        "failed_primary_relay_decode_le_120_s": 3,
+        "failed_primary_seed_count": 1,
+        "nominal_cost_substitution_eligible_count": 3,
+        "nominal_credited_reverse_ack_airtime_s": 0.30873599999999995,
+        "nominal_redundant_relay_data_airtime_s": 0.0,
+        "nominal_redundant_relay_starts": 0,
+        "nominal_relay_data_airtime_s": 0.307968,
+        "nominal_relay_start_unassessable_count": 0,
+        "nominal_relay_starts": 3,
+        "nominal_success_reverse_ack_airtime_s": 0.30873599999999995,
+        "optimistic_cost_substitution_margin_s": 5.825791999999629,
+        "proxy_feasible_seed_count": 1,
+        "proxy_prr_ge_0_5_deadline_feasible_count": 3,
+        "r_nomination_min_extra_toa_s": 0.020479999999999998,
+        "r_nomination_min_wire_bytes": 24,
+        "source_ack_gain_ceiling_equal_seed_mean": 0.0,
+        "source_ack_headroom_ceiling_fraction": 0.0,
+        "source_ack_headroom_proxy_count": 0,
+        "source_ack_outcome_unassessable_count": 0,
+        "stock_f_recovery_airtime_eligible_s": 6.462975999999628
+      },
+      "2_s": {
+        "candidate_cost_assessable": true,
+        "candidate_nominal_all_start_success_added_airtime_s": 0.637184,
+        "candidate_nominal_optimistic_added_airtime_s": 0.637184,
+        "candidate_nominal_success_added_airtime_s": 0.637184,
+        "cost_substitution_fraction_equal_seed_mean": 0.11177692749750429,
+        "cost_substitution_fraction_pooled": 0.11177692749750429,
+        "failed_primary_relay_decode_le_120_s": 3,
+        "failed_primary_seed_count": 1,
+        "nominal_cost_substitution_eligible_count": 3,
+        "nominal_credited_reverse_ack_airtime_s": 0.30873599999999995,
+        "nominal_redundant_relay_data_airtime_s": 0.0,
+        "nominal_redundant_relay_starts": 0,
+        "nominal_relay_data_airtime_s": 0.307968,
+        "nominal_relay_start_unassessable_count": 0,
+        "nominal_relay_starts": 3,
+        "nominal_success_reverse_ack_airtime_s": 0.30873599999999995,
+        "optimistic_cost_substitution_margin_s": 5.825791999999629,
+        "proxy_feasible_seed_count": 1,
+        "proxy_prr_ge_0_5_deadline_feasible_count": 3,
+        "r_nomination_min_extra_toa_s": 0.020479999999999998,
+        "r_nomination_min_wire_bytes": 24,
+        "source_ack_gain_ceiling_equal_seed_mean": 0.0,
+        "source_ack_headroom_ceiling_fraction": 0.0,
+        "source_ack_headroom_proxy_count": 0,
+        "source_ack_outcome_unassessable_count": 0,
+        "stock_f_recovery_airtime_eligible_s": 6.462975999999628
+      }
+    },
+    "candidate_f_epochs": 4,
+    "candidate_f_epochs_without_actual_ack_tx": 0,
+    "cost_gate_passed": null,
+    "exposure_gate_passed": null,
+    "f_ack_min_extra_toa_s_known": 0.0,
+    "f_ack_min_wire_bytes_known": 8,
+    "necessary_gate_passed": null,
+    "nominated_initial_direct_r": 4,
+    "primary_timer_s": 2.0,
+    "scheduled_unicast_flows": 40,
+    "seeds": [
+      46000
+    ],
+    "sensitivity_timer_s": 0.5
+  }
+}

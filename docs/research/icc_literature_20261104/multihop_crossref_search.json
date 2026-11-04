@@ -1,0 +1,2959 @@
+[
+  {
+    "query": "LoRa multi-hop routing mesh reliability",
+    "error": "HTTP Error 429: Too Many Requests"
+  },
+  {
+    "query": "LoRa mesh multi-hop routing survey",
+    "url": "https://api.crossref.org/works?query=LoRa+mesh+multi-hop+routing+survey&rows=25",
+    "items": [
+      {
+        "DOI": "10.2139/ssrn.5986425",
+        "title": [
+          "LoRaMesher: An open-source library for multi-hop LoRa mesh networks"
+        ],
+        "author": [
+          {
+            "given": "Roger",
+            "family": "Baig",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Joan",
+            "family": "Miquel",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Felix",
+            "family": "Freitag",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025
+            ]
+          ]
+        },
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.2139/ssrn.5986425"
+      },
+      {
+        "DOI": "10.1109/icitisee57756.2022.10057806",
+        "title": [
+          "HEAT Routing Algorithm for Multi-Hop Communication in IoT-Enabled LoRa-Based Wireless Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Hoang-Kha",
+            "family": "Huynh",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Ho Chi Minh City University of Technology (HCMUT) Vietnam National University Ho Chi Minh City (VNU-HCM) Ho Chi,Minh City,Vietnam"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Hoang-Anh",
+            "family": "Pham",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Ho Chi Minh City University of Technology (HCMUT) Vietnam National University Ho Chi Minh City (VNU-HCM) Ho Chi,Minh City,Vietnam"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              12,
+              13
+            ]
+          ]
+        },
+        "container-title": [
+          "2022 6th International Conference on Information Technology, Information Systems and Electrical Engineering (ICITISEE)"
+        ],
+        "is-referenced-by-count": 1,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/10057587/10057600/10057806.pdf?arnumber=10057806",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/icitisee57756.2022.10057806"
+      },
+      {
+        "DOI": "10.5120/21515-4484",
+        "title": [
+          "A Survey on Load Management Schemes in Routing Algorithms of Multi-Hop, Multi-Gateway Wireless Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Aditya",
+            "family": "Saxena",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jyoti",
+            "family": "Singhai",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Deepak",
+            "family": "Raghuvanshi",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2015,
+              7,
+              18
+            ]
+          ]
+        },
+        "container-title": [
+          "International Journal of Computer Applications"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.5120/21515-4484"
+      },
+      {
+        "DOI": "10.21275/v5i6.nov164434",
+        "title": [
+          "A Comparative Analysis of Channel Switching Latency for OLSR Routing Protocols in Conventional and SDN Multi-Hop Wireless Mesh Networks"
+        ],
+        "author": null,
+        "published": {
+          "date-parts": [
+            [
+              2016,
+              6,
+              5
+            ]
+          ]
+        },
+        "container-title": [
+          "International Journal of Science and Research (IJSR)"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.21275/v5i6.nov164434"
+      },
+      {
+        "DOI": "10.1109/wcnc.2008.369",
+        "title": [
+          "A Location-Aware Routing Metric (ALARM) for Multi-Hop, Multi-Channel Wireless Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Eiman",
+            "family": "Alotaibi",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sumit",
+            "family": "Roy",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2008,
+              3
+            ]
+          ]
+        },
+        "container-title": [
+          "2008 IEEE Wireless Communications and Networking Conference"
+        ],
+        "is-referenced-by-count": 9,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/4489030/4489031/04489400.pdf?arnumber=4489400",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/wcnc.2008.369"
+      },
+      {
+        "DOI": "10.1109/glocom.2008.ecp.1011",
+        "title": [
+          "Multi-Hop Effective Bandwidth Based Routing in Multi-Radio Wireless Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Hongkun",
+            "family": "Li",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yu",
+            "family": "Cheng",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Chi",
+            "family": "Zhou",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2008
+            ]
+          ]
+        },
+        "container-title": [
+          "IEEE GLOBECOM 2008 - 2008 IEEE Global Telecommunications Conference"
+        ],
+        "is-referenced-by-count": 10,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/4697774/4697775/04698786.pdf?arnumber=4698786",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/glocom.2008.ecp.1011"
+      },
+      {
+        "DOI": "10.2139/ssrn.4691490",
+        "title": [
+          "Multi-Hop Routing Algorithm in Lora Sparse Monitoring Network Using Backward Equilibrium for Ecological Environment Monitoring"
+        ],
+        "author": [
+          {
+            "given": "Zijian",
+            "family": "Tang",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Hailong",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Liangjun",
+            "family": "Zhou",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Tie",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xi",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2024
+            ]
+          ]
+        },
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.2139/ssrn.4691490"
+      },
+      {
+        "DOI": "10.1109/vetecs.2011.5956132",
+        "title": [
+          "Routing in Multi-Radio Multi-Channel Multi-Hop Wireless Mesh Networks with Bandwidth Guarantees"
+        ],
+        "author": [
+          {
+            "given": "Ronghui",
+            "family": "Hou",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "King-Shan",
+            "family": "Lui",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jiandong",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2011,
+              5
+            ]
+          ]
+        },
+        "container-title": [
+          "2011 IEEE 73rd Vehicular Technology Conference (VTC Spring)"
+        ],
+        "is-referenced-by-count": 1,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/5954014/5956103/05956132.pdf?arnumber=5956132",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/vetecs.2011.5956132"
+      },
+      {
+        "DOI": "10.2139/ssrn.4614619",
+        "title": [
+          "Multi-Hop Routing Algorithm in Lora Sparse Monitoring Network Using Backward Equilibrium for Ecological Environment Monitoring"
+        ],
+        "author": [
+          {
+            "given": "Zijian",
+            "family": "Tang",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Liangjun",
+            "family": "Zhou",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Hailong",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Tie",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xi",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2023
+            ]
+          ]
+        },
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.2139/ssrn.4614619"
+      },
+      {
+        "DOI": "10.1109/ccnc08.2007.215",
+        "title": [
+          "A Cross-Layer Routing Scheme for Multi-Channel Multi-Hop Wireless Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Xing-Jian",
+            "family": "Zhu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Geng-Sheng",
+            "family": "Kuo",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2008
+            ]
+          ]
+        },
+        "container-title": [
+          "2008 5th IEEE Consumer Communications and Networking Conference"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/4446297/4446298/04446513.pdf?arnumber=4446513",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/ccnc08.2007.215"
+      },
+      {
+        "DOI": "10.1109/tencon55691.2022.9977930",
+        "title": [
+          "Self-Organizing Multi-hop LoRa Mesh Network for Wide Area Air Quality Monitoring"
+        ],
+        "author": [
+          {
+            "given": "Carlo",
+            "family": "Miras",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Electrical and Electronics Engineering Institute, University of the Philippines,Diliman Quezon City,Philippines"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Isabel",
+            "family": "Austria",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Electrical and Electronics Engineering Institute, University of the Philippines,Diliman Quezon City,Philippines"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Darvy",
+            "family": "Ong",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Electrical and Electronics Engineering Institute, University of the Philippines,Diliman Quezon City,Philippines"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              11,
+              1
+            ]
+          ]
+        },
+        "container-title": [
+          "TENCON 2022 - 2022 IEEE Region 10 Conference (TENCON)"
+        ],
+        "is-referenced-by-count": 4,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/9977436/9977454/09977930.pdf?arnumber=9977930",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/tencon55691.2022.9977930"
+      },
+      {
+        "DOI": "10.1109/milcom.2017.8170838",
+        "title": [
+          "Distributed split-path routing strategy for multi-hop mesh networks"
+        ],
+        "author": [
+          {
+            "given": "Paulo Alexandre",
+            "family": "Regis",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Shamik",
+            "family": "Sengupta",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2017,
+              10
+            ]
+          ]
+        },
+        "container-title": [
+          "MILCOM 2017 - 2017 IEEE Military Communications Conference (MILCOM)"
+        ],
+        "is-referenced-by-count": 2,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/8125230/8170714/08170838.pdf?arnumber=8170838",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/milcom.2017.8170838"
+      },
+      {
+        "DOI": "10.1109/globecom38437.2019.9013776",
+        "title": [
+          "An Effective Routing with Delay Minimization for Multi-Hop Wireless Mesh Network"
+        ],
+        "author": [
+          {
+            "given": "Yuan",
+            "family": "Chai",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xiao-Jun",
+            "family": "Zeng",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              12
+            ]
+          ]
+        },
+        "container-title": [
+          "2019 IEEE Global Communications Conference (GLOBECOM)"
+        ],
+        "is-referenced-by-count": 3,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/8968653/9013108/09013776.pdf?arnumber=9013776",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/globecom38437.2019.9013776"
+      },
+      {
+        "DOI": "10.1109/infocomwkshps54753.2022.9798302",
+        "title": [
+          "Cost Effective Routing in Large-scale Multi-hop LoRa Networks"
+        ],
+        "author": [
+          {
+            "given": "Silin",
+            "family": "Feng",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "University of Electronic Science and Technology of China,Chengdu,China,611731"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jiajun",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Electronic Science and Technology of China,Chengdu,China,611731"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Zhiwei",
+            "family": "Zhao",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Electronic Science and Technology of China,Chengdu,China,611731"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              2
+            ]
+          ]
+        },
+        "container-title": [
+          "IEEE INFOCOM 2022 - IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS)"
+        ],
+        "is-referenced-by-count": 10,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/9797887/9797888/09798302.pdf?arnumber=9798302",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/infocomwkshps54753.2022.9798302"
+      },
+      {
+        "DOI": "10.1109/ieacon64690.2025.11254006",
+        "title": [
+          "AODV-inspired Routing with Next-Hop Caching and Path Selection for LoRa Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Melissa Jia",
+            "family": "Ying Chong",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "University of Southampton Malaysia,Iskandar Puteri,Johor,Malaysia"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Shoon",
+            "family": "Kit Lim",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Southampton Malaysia,Iskandar Puteri,Johor,Malaysia"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Kei Kheng",
+            "family": "Tan",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Southampton Malaysia,Southampton,U.K.,SO17 1BJ"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jing",
+            "family": "Huey Khor",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Southampton Malaysia,Connected Intelligence Research Group,Iskandar Puteri,Johor,Malaysia"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              9,
+              8
+            ]
+          ]
+        },
+        "container-title": [
+          "2025 IEEE Industrial Electronics and Applications Conference (IEACon)"
+        ],
+        "is-referenced-by-count": 1,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx8/11251383/11252550/11254006.pdf?arnumber=11254006",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/ieacon64690.2025.11254006"
+      },
+      {
+        "DOI": "10.1109/icoin.2008.4472752",
+        "title": [
+          "Hop-Count Based Congestion-Aware Multi-path Routing in Wireless Mesh Network"
+        ],
+        "author": [
+          {
+            "given": "Hung Quoc",
+            "family": "Vo",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Choong Seon",
+            "family": "Hong",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2008,
+              1
+            ]
+          ]
+        },
+        "container-title": [
+          "2008 International Conference on Information Networking"
+        ],
+        "is-referenced-by-count": 5,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/4470165/4472737/04472752.pdf?arnumber=4472752",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/icoin.2008.4472752"
+      },
+      {
+        "DOI": "10.1007/978-3-540-72697-5_28",
+        "title": [
+          "A Flexible Tree-Based Routing Protocol with a Mesh Relaying Node in Multi-hop Wireless Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Hyun-Ki",
+            "family": "Kim",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Tae-Jin",
+            "family": "Lee",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": null,
+        "container-title": [
+          "Lecture Notes in Computer Science",
+          "Wired/Wireless Internet Communications"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://link.springer.com/content/pdf/10.1007/978-3-540-72697-5_28.pdf",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1007/978-3-540-72697-5_28"
+      },
+      {
+        "DOI": "10.1142/9789812833495_0021",
+        "title": [
+          "Multi-hop, Multi-path and Load Balanced Routing in Wireless Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Sumita",
+            "family": "Mishra",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Networking, Security &amp; Systems Administration, Rochester Institute of Technology, Rochester, NY, USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Nirmala",
+            "family": "Shenoy",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Networking, Security &amp; Systems Administration, Rochester Institute of Technology, Rochester, NY, USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2009,
+              9
+            ]
+          ]
+        },
+        "container-title": [
+          "Encyclopedia on Ad Hoc and Ubiquitous Computing"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.1142/9789812833495_0021"
+      },
+      {
+        "DOI": "10.1145/1023720.1023732",
+        "title": [
+          "Routing in multi-radio, multi-hop wireless mesh networks"
+        ],
+        "author": [
+          {
+            "given": "Richard",
+            "family": "Draves",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Microsoft Research, Redmond, WA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Jitendra",
+            "family": "Padhye",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Microsoft Research, Redmond, WA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Brian",
+            "family": "Zill",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Microsoft Research, Redmond, WA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2004,
+              9,
+              26
+            ]
+          ]
+        },
+        "container-title": [
+          "Proceedings of the 10th annual international conference on Mobile computing and networking"
+        ],
+        "is-referenced-by-count": 1042,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "https://dl.acm.org/doi/10.1145/1023720.1023732",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://dl.acm.org/doi/pdf/10.1145/1023720.1023732",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1145/1023720.1023732"
+      },
+      {
+        "DOI": "10.1109/lcn.2007.86",
+        "title": [
+          "Non-Bifurcated Routing in Wireless Multi-Hop Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Abdullah-Al",
+            "family": "Mahmood",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "University of Alberta, Canada"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Ehab S.",
+            "family": "Elmallah",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Alberta, Canada"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Ahmed",
+            "family": "Kamal",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Iowa State University, USA"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2007,
+              10
+            ]
+          ]
+        },
+        "container-title": [
+          "32nd IEEE Conference on Local Computer Networks (LCN 2007)"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/4367784/4367785/04367855.pdf?arnumber=4367855",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/lcn.2007.86"
+      },
+      {
+        "DOI": "10.1109/isci57775.2022.00011",
+        "title": [
+          "Multi-hop Routing Optimization of Transmission-Line Monitoring Based on the LoRa Technology"
+        ],
+        "author": [
+          {
+            "given": "Yimei",
+            "family": "Zhao",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Anshun Power Supply Bureau, China Southern Power Grid,Anshun,China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Junjie",
+            "family": "Song",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "College of Computer Science and Technology, Guizhou University,State Key Laboratory of Public Big Data,Guiyang,China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Xin",
+            "family": "Che",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "College of Control Science and Engineering, Zhejiang University,Hangzhou,China"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022,
+              12
+            ]
+          ]
+        },
+        "container-title": [
+          "2022 IEEE 10th International Conference on Smart City and Informatization (iSCI)"
+        ],
+        "is-referenced-by-count": 4,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/10062217/10062497/10062575.pdf?arnumber=10062575",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/isci57775.2022.00011"
+      },
+      {
+        "DOI": "10.1109/globecom52923.2024.10901589",
+        "title": [
+          "MAGELLAN: A distributed MAB-based algorithm for Energy-Fair and Reliable Routing in Multi-Hop LoRa networks"
+        ],
+        "author": [
+          {
+            "given": "Antonio",
+            "family": "Scarvaglieri",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "University of Catania,Italy"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Andrea",
+            "family": "Panebianco",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "CNIT Catania Research Unit,Italy"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Fabio",
+            "family": "Busacca",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Catania,Italy"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              12,
+              8
+            ]
+          ]
+        },
+        "container-title": [
+          "GLOBECOM 2024 - 2024 IEEE Global Communications Conference"
+        ],
+        "is-referenced-by-count": 3,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx8/10900933/10900934/10901589.pdf?arnumber=10901589",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/globecom52923.2024.10901589"
+      },
+      {
+        "DOI": "10.1109/incos.2010.50",
+        "title": [
+          "A Novel Routing Scheme with High Sensitive Sensing for Multi Hop Wireless Mesh Network"
+        ],
+        "author": [
+          {
+            "given": "Shamsad",
+            "family": "Parvin",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Takeo",
+            "family": "Fujii",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2010,
+              11
+            ]
+          ]
+        },
+        "container-title": [
+          "2010 International Conference on Intelligent Networking and Collaborative Systems"
+        ],
+        "is-referenced-by-count": 1,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/5701808/5702069/05702132.pdf?arnumber=5702132",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/incos.2010.50"
+      },
+      {
+        "DOI": "10.6109/jkiice.2024.29.7.956",
+        "title": [
+          "Routing Protocol to Enhance Network Lifetime in Multi-hop LoRa Network"
+        ],
+        "author": [
+          {
+            "given": "Hyung-Kun",
+            "family": "Park",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              7,
+              31
+            ]
+          ]
+        },
+        "container-title": [
+          "Journal of the Korea Institute of Information and Communication Engineering"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE12293271",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.6109/jkiice.2024.29.7.956"
+      },
+      {
+        "DOI": "10.1016/j.comcom.2010.06.025",
+        "title": [
+          "Interference-aware routing for multi-hop Wireless Mesh Networks"
+        ],
+        "author": [
+          {
+            "given": "Eiman",
+            "family": "Alotaibi",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Vishwanath",
+            "family": "Ramamurthi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Marwan",
+            "family": "Batayneh",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Biswanath",
+            "family": "Mukherjee",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2010,
+              10
+            ]
+          ]
+        },
+        "container-title": [
+          "Computer Communications"
+        ],
+        "is-referenced-by-count": 13,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "https://api.elsevier.com/content/article/PII:S0140366410002860?httpAccept=text/xml",
+            "content-type": "text/xml",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://api.elsevier.com/content/article/PII:S0140366410002860?httpAccept=text/plain",
+            "content-type": "text/plain",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          }
+        ],
+        "URL": "https://doi.org/10.1016/j.comcom.2010.06.025"
+      }
+    ]
+  },
+  {
+    "query": "LoRaBlink multi-hop",
+    "url": "https://api.crossref.org/works?query=LoRaBlink+multi-hop&rows=25",
+    "items": [
+      {
+        "DOI": "10.5353/th_b3731937",
+        "title": [
+          "Transmission scheduling in single-hop and multi-hop wireless networks"
+        ],
+        "author": [
+          {
+            "given": "Daiqin",
+            "family": "Yang",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": null,
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.5353/th_b3731937"
+      },
+      {
+        "DOI": "10.1109/infcom.2004.1354675",
+        "title": [
+          "Hop-by-hop congestion control over a wireless multi-hop network"
+        ],
+        "author": [
+          {
+            "family": "Yung Yi",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "S.",
+            "family": "Shakkottai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": null,
+        "container-title": [
+          "IEEE INFOCOM 2004"
+        ],
+        "is-referenced-by-count": 10,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/9369/29753/01354675.pdf?arnumber=1354675",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/infcom.2004.1354675"
+      },
+      {
+        "DOI": "10.2139/ssrn.4741237",
+        "title": [
+          "Learning Multi-Hop Paths for Multi-Hop Knowledge Graph Reasoning"
+        ],
+        "author": [
+          {
+            "given": "Hao",
+            "family": "Liu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Sheng",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Bing",
+            "family": "Zeng",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Yang",
+            "family": "Xu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Dong",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2024
+            ]
+          ]
+        },
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.2139/ssrn.4741237"
+      },
+      {
+        "DOI": "10.70729/ijser151104",
+        "title": [
+          "Multi-Hop Multi-Environment Relay Assisted CRNs"
+        ],
+        "author": [
+          {
+            "given": "Sudip",
+            "family": "Mukherjee",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Chinmoy",
+            "family": "Maji",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2016,
+              11,
+              27
+            ]
+          ]
+        },
+        "container-title": [
+          "International Journal of Scientific Engineering and Research"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.70729/ijser151104"
+      },
+      {
+        "DOI": "10.58837/chula.the.2011.1557",
+        "title": [
+          "การออกแบบการส่งไร้สายแบบ Multi-Hop สำหรับโครงข่ายเข้าถึงสื่อสารไร้สายร่วมกับสื่อสารผ่านเส้นใยแสง"
+        ],
+        "author": [
+          {
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "ปณยา",
+            "family": "เพ็งบุญ",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": null,
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": "<jats:p>การให้บริการ WOBAN คือการนำข้อดีของทั้งเทคโนโลยี FTTH และ WLAN มารวมกันนั่นคือ ความน่าเชื่อถือของระบบ และอัตรารับส่งข้อมูลที่สูงจาก FTTH และ ความยืดหยุ่นของ WLAN วิทยานิพนธ์นี้ มีจุดประสงค์จะนำเสนออัลกอริทึมสำหรับออกแบบ WOBAN โดยพิจารณาเงื่อนไขต่างๆของการสื่อสัญญาณข้อมูลระหว่างกันของผู้ใช้บริการแบบ multi-hop บนทอพอโลยีแบบตาข่าย (mesh topology) นอกจากนี้ยังพิจารณาถึงการแก้ไขในกรณี ONU กิดความเสียหายหรืออยู่ในสภาพที่ใช้การไม่ได้ อัลกอรึทึมที่จำลองขึ้นมานั้นจะพิจารณาในส่วน wireless part ที่มีการเชื่อมต่อกันระหว่างผู้ใช้บริการแบบ multi-hop ซึ่งในแต่ละข่ายเชื่อมโยงระหว่าง 2 access point (AP) ใดๆจะเป็นระยะทางที่สั้นที่สุด และตำแหน่งของ ONU ที่เหมาะสมจะถูก minimize ด้วยแนวความคิดของ Greedy approach มากไปกว่านั้นอัลกอรึทึมที่ออกแบบขึ้นมานั้นยังสามารถเลือกจำนวน hop ที่ต้องการได้ในการเข้าสู่ ONU ได้รวมถึง กำหนดเส้นทางป้องกันเมื่อเกิดเหตุขัดข้องกับ ONU ใดๆ ผลจากการทดสอบพบว่า ในพื้นที่จำลองขนาด 500 x 500 ตารางเมตร และสุ่มผู้ใช้บริการ 100 ราย จะได้ว่าสำหรับกรณีผู้ใช้บริการเชื่อมต่อสู่ ONU ภายใน 2, 3 และ 4 hop ใช้จำนวน ONU ทั้งสิ้น 29, 14 และ 9 ตัวตามลำดับ เมื่อกำหนดเงื่อนไขในการให้บริการของ ONU และ AP ของผู้ใช้บริการ โดยใช้ทฤษฎี wireless propagation ร่วมด้วย จะได้ผลว่า ONU มีระยะการให้บริการที่ 100 เมตร โดยมีอัตรารับส่งข้อมูล 900 Mb/s ส่วน AP ของผู้ใช้บริการมีระยะการให้บริการที่ 70 เมตร และมีอัตรารับส่งข้อมูล 300 Mb/s ทดสอบอัลรึทึมที่เพิ่มเงื่อนไขระยะทางในพื้นที่ทดสอบเดิมและผู้บริการเดิม จะได้ว่า กรณีผู้ใช้บริการเชื่อมต่อสู่ ONU ภายใน 2, 3 และ 4 hop ใช้จำนวน ONU ทั้งสิ้น 30, 15 และ 10 ตัว ตามลำดับ รวมทั้งคำนวณอัตรารับส่งข้อมูลของผู้ใช้บริการที่ได้รับน้อยที่สุด จะได้เท่ากับ 150, 30, 12.5 Mb/s ตามลำดับ หลังจากเพิ่มเงื่อนไขเส้นทางป้องกัน จะได้ผลว่า อัตรารับส่งข้อมูลของผู้ใช้บริการที่ได้รับน้อยที่สุดในขณะที่เกิดความผิดปกติของระบบ จะลดลงแหลือ 9.375, 2.57, 1.04 Mb/s ในกรณี 2, 3, 4 hop ตามลำดับ สุดท้ายเมื่อทดสอบอัลกอริทึมกับแผนที่จริงขนาดประมาณ 500 x 800 เมตร มีจำนวนผู้ใช้บริการ 214 หลังคาเรือน ใช้จำนวน ONU ทั้งสิ้น 61, 32 และ 26 ตัว ในกรณี 2, 3 และ 4 hop ตามลำดับ ในกรณีปกติ อัตรารับส่งข้อมูลของผู้ใช้บริการที่น้อยที่สุดในกรณีปกติที่ 2, 3 และ 4 hop นั้นเป็น 100, 33.33, 18.75 Mb/s ตามลำดับ และอัตรารับส่งข้อมูลของผู้ใช้บริการที่ได้รับน้อยที่สุดในขณะที่เกิดความผิดปกติของระบบ จะลดลงเหลือ 8.65, 2.27, 1.04 Mb/s ตามลำดับ</jats:p>",
+        "link": null,
+        "URL": "https://doi.org/10.58837/chula.the.2011.1557"
+      },
+      {
+        "DOI": "10.11606/t.3.2008.tde-15092008-155340",
+        "title": [
+          "Formulação algébrica para a modelagem de algoritmos de roteamento multi-restritivo hop-by-hop."
+        ],
+        "author": [
+          {
+            "given": "Walmara de Paula",
+            "family": "Herman",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": null,
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://www.teses.usp.br/teses/disponiveis/3/3142/tde-15092008-155340/publico/Tese_Walmara.pdf",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.11606/t.3.2008.tde-15092008-155340"
+      },
+      {
+        "DOI": "10.1007/springerreference_57767",
+        "title": [
+          "Multi-Hop Radio Networks, Ad Hoc Networks"
+        ],
+        "author": null,
+        "published": null,
+        "container-title": [
+          "SpringerReference"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.1007/springerreference_57767"
+      },
+      {
+        "DOI": "10.1007/springerreference_73087",
+        "title": [
+          "Video Delivery over Wireless Multi-Hop Networks"
+        ],
+        "author": null,
+        "published": null,
+        "container-title": [
+          "SpringerReference"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.1007/springerreference_73087"
+      },
+      {
+        "DOI": "10.5220/0010824200003116",
+        "title": [
+          "An Effective Method to Answer Multi-hop Questions by Single-hop QA System"
+        ],
+        "author": [
+          {
+            "given": "Kong",
+            "family": "Yuntao",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "School of Information Science, Japan Advanced Institute of Science and Technology, Nomi, Japan, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Nguyen",
+            "family": "Phuong",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Information Science, Japan Advanced Institute of Science and Technology, Nomi, Japan, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Teeradaj",
+            "family": "Racharak",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Information Science, Japan Advanced Institute of Science and Technology, Nomi, Japan, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Tung",
+            "family": "Le",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Information Science, Japan Advanced Institute of Science and Technology, Nomi, Japan, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Nguyen",
+            "family": "Minh",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Information Science, Japan Advanced Institute of Science and Technology, Nomi, Japan, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2022
+            ]
+          ]
+        },
+        "container-title": [
+          "Proceedings of the 14th International Conference on Agents and Artificial Intelligence"
+        ],
+        "is-referenced-by-count": 2,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.5220/0010824200003116"
+      },
+      {
+        "DOI": "10.1109/icc.2008.466",
+        "title": [
+          "Hop-by-Hop Frame Aggregation for VoIP on Multi-Hop Wireless Networks"
+        ],
+        "author": [
+          {
+            "given": "K.",
+            "family": "Lee",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "S.",
+            "family": "Yun",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "I.",
+            "family": "Kang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "H.",
+            "family": "Kim",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2008
+            ]
+          ]
+        },
+        "container-title": [
+          "2008 IEEE International Conference on Communications"
+        ],
+        "is-referenced-by-count": 10,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/4533035/4533036/04533502.pdf?arnumber=4533502",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/icc.2008.466"
+      },
+      {
+        "DOI": "10.7717/peerj-cs.1029/fig-1",
+        "title": [
+          "Figure 1: Multi-hop communication from CH to sink."
+        ],
+        "author": null,
+        "published": null,
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.7717/peerj-cs.1029/fig-1"
+      },
+      {
+        "DOI": "10.4108/icst.wicon2008.4806",
+        "title": [
+          "HxH: A Hop-by-Hop Transport Protocol for Multi-Hop Wireless Networks"
+        ],
+        "author": [
+          {
+            "given": "Daniel",
+            "family": "Scofield",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Lei",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Daniel",
+            "family": "Zappala",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2008
+            ]
+          ]
+        },
+        "container-title": [
+          "Proceedings of the 4th International ICST Conference on Wireless Internet"
+        ],
+        "is-referenced-by-count": 4,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.4108/icst.wicon2008.4806"
+      },
+      {
+        "DOI": "10.1002/9781118571026.ch3",
+        "title": [
+          "Application Areas for Multi‐hop and Ad‐Hoc Networking"
+        ],
+        "author": null,
+        "published": {
+          "date-parts": [
+            [
+              2013,
+              3,
+              12
+            ]
+          ]
+        },
+        "container-title": [
+          "WiFi, WiMAX, and LTE Multi‐Hop Mesh Networks"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781118571026.ch3",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1002/9781118571026.ch3"
+      },
+      {
+        "DOI": "10.31390/gradschool_dissertations.783",
+        "title": [
+          "Relay Selection Strategies for Multi-hop Cooperative Networks"
+        ],
+        "author": [
+          {
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Hui",
+            "family": "Sun",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Louisiana State University and Agricultural and Mechanical College"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": null,
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": null,
+        "URL": "https://doi.org/10.31390/gradschool_dissertations.783"
+      },
+      {
+        "DOI": "10.1002/9781118571026.ch2",
+        "title": [
+          "Architectural Requirements for Multi‐hop and Ad‐Hoc Networking"
+        ],
+        "author": null,
+        "published": {
+          "date-parts": [
+            [
+              2013,
+              3,
+              12
+            ]
+          ]
+        },
+        "container-title": [
+          "WiFi, WiMAX, and LTE Multi‐Hop Mesh Networks"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781118571026.ch2",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1002/9781118571026.ch2"
+      },
+      {
+        "DOI": "10.1109/saconet.2013.6654567",
+        "title": [
+          "Synchronized multi-hop protocol with high throughput for an IEEE 802.11 multi-hop wireless network"
+        ],
+        "author": [
+          {
+            "given": "Xinru",
+            "family": "Yao",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yasushi",
+            "family": "Wakahara",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2013,
+              6
+            ]
+          ]
+        },
+        "container-title": [
+          "2013 International Conference on Smart Communications in Network Technologies (SaCoNeT)"
+        ],
+        "is-referenced-by-count": 5,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/6597023/6654562/06654567.pdf?arnumber=6654567",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/saconet.2013.6654567"
+      },
+      {
+        "DOI": "10.1109/tnet.2006.890121",
+        "title": [
+          "Hop-by-Hop Congestion Control Over a Wireless Multi-Hop Network"
+        ],
+        "author": [
+          {
+            "given": "Yung",
+            "family": "Yi",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Sanjay",
+            "family": "Shakkottai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2007,
+              2
+            ]
+          ]
+        },
+        "container-title": [
+          "IEEE/ACM Transactions on Networking"
+        ],
+        "is-referenced-by-count": 176,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/90/4100704/04100728.pdf?arnumber=4100728",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/tnet.2006.890121"
+      },
+      {
+        "DOI": "10.1007/s11277-013-1352-0",
+        "title": [
+          "Multi-hop Multi-band Intelligent Relay-Based Architecture for LTE-Advanced Multi-hop Wireless Cellular Networks"
+        ],
+        "author": [
+          {
+            "given": "Hrishikesh",
+            "family": "Venkataraman",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Dipesh",
+            "family": "Gandhi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Vikrant",
+            "family": "Tomar",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2013,
+              8,
+              30
+            ]
+          ]
+        },
+        "container-title": [
+          "Wireless Personal Communications"
+        ],
+        "is-referenced-by-count": 10,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://link.springer.com/content/pdf/10.1007/s11277-013-1352-0.pdf",
+            "content-type": "application/pdf",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "http://link.springer.com/article/10.1007/s11277-013-1352-0/fulltext.html",
+            "content-type": "text/html",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "http://link.springer.com/content/pdf/10.1007/s11277-013-1352-0",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1007/s11277-013-1352-0"
+      },
+      {
+        "DOI": "10.1093/ietcom/e91-b.5.1568",
+        "title": [
+          "Multi-Hop Link Capacity of Multi-Route Multi-Hop MRC Diversity for a Virtual Cellular Network"
+        ],
+        "author": [
+          {
+            "given": "I.",
+            "family": "DAOU",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "E.",
+            "family": "KUDOH",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "F.",
+            "family": "ADACHI",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2008,
+              5,
+              1
+            ]
+          ]
+        },
+        "container-title": [
+          "IEICE Transactions on Communications"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "https://www.jstage.jst.go.jp/article/transcom/E91.B/5/E91.B_5_1568/_pdf",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1093/ietcom/e91-b.5.1568"
+      },
+      {
+        "DOI": "10.1109/access.2020.2969232",
+        "title": [
+          "A Hop-by-Hop Relay Selection Strategy in Multi-Hop Cognitive Relay Networks"
+        ],
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0001-9046-5191",
+            "authenticated-orcid": false,
+            "given": "Hui",
+            "family": "Sun",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0003-1300-8733",
+            "authenticated-orcid": false,
+            "given": "Mort",
+            "family": "Naraghi-Pour",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-7262-9607",
+            "authenticated-orcid": false,
+            "given": "Weixing",
+            "family": "Sheng",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-8011-7940",
+            "authenticated-orcid": false,
+            "given": "Renli",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2020
+            ]
+          ]
+        },
+        "container-title": [
+          "IEEE Access"
+        ],
+        "is-referenced-by-count": 11,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/6287639/8948470/08968363.pdf?arnumber=8968363",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/access.2020.2969232"
+      },
+      {
+        "DOI": "10.1109/icccn.2016.7568556",
+        "title": [
+          "Performance Analysis of a Hop-by-Hop Relay Selection Strategy in Multi-Hop Networks"
+        ],
+        "author": [
+          {
+            "given": "Hui",
+            "family": "Sun",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Mort",
+            "family": "Naraghi-Pour",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2016,
+              8
+            ]
+          ]
+        },
+        "container-title": [
+          "2016 25th International Conference on Computer Communication and Networks (ICCCN)"
+        ],
+        "is-referenced-by-count": 4,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/7566809/7568456/07568556.pdf?arnumber=7568556",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/icccn.2016.7568556"
+      },
+      {
+        "DOI": "10.1109/wcnc.2006.1683543",
+        "title": [
+          "GMSP: a generalized multi-hop security protocol for heterogeneous multi-hop wireless network"
+        ],
+        "author": [
+          {
+            "family": "Bin Xie",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "A.",
+            "family": "Kumar",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "S.",
+            "family": "Srinivasan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "D.P.",
+            "family": "Agrawal",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2006
+            ]
+          ]
+        },
+        "container-title": [
+          "IEEE Wireless Communications and Networking Conference, 2006. WCNC 2006."
+        ],
+        "is-referenced-by-count": 3,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/11060/34935/01683543.pdf?arnumber=1683543",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/wcnc.2006.1683543"
+      },
+      {
+        "DOI": "10.20944/preprints201905.0027.v1",
+        "title": [
+          "AMHRP: Adaptive Multi-Hop Routing Protocol to Improve Network Lifetime for Multi-Hop Wireless Body Area Network"
+        ],
+        "author": [
+          {
+            "given": "Muhammad",
+            "family": "Mateen Yaqoob",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Kulsoom",
+            "family": "Fatima",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-6605-498X",
+            "authenticated-orcid": false,
+            "given": "Shahab",
+            "family": "Shamshirband",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Amir",
+            "family": "Mosavi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Waqar",
+            "family": "Khurshid",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              5,
+              5
+            ]
+          ]
+        },
+        "container-title": null,
+        "is-referenced-by-count": 0,
+        "abstract": "<jats:p>A Wireless Body Area Sensor Network (WBASN) is combination of numerous sense nodes, positioned onto/close or inside a person body. Wireless Body Area Sensor Networks (WBASN) is a developing automation trend that exploits wireless sensor nodes to put instantaneous wearable well-being of ill person to improve individual&amp;rsquo;s existence. The sensor nodes might be used outwardly to observe abundant health parameters (like heart activity, blood pressure and cholesterol) of an ill person at a vital site within hospital. Hence the goal of WBASN is much crucial, enhancing the lifetime of nodes is compulsory to sustain many issues such as utility and efficiency. It is essential to evaluate time that when the first node will die it we want to refresh or change the battery reason is that loss of crucial information is not tolerable. The lifetime is termed as the time interval when a first node dies out due to battery exhaustion.&amp;nbsp; In our proposed protocol life time of a network is the main concern as well other protocol related issues such as throughput, path loss, and residual energy. Bio-sensors are used for deployment on human body. Poisson distribution and equilibrium model techniques have been used for attaining the required results. Multi-hop network topology and random network node deployment used to achieve minimum energy consumption and longer network lifetime.</jats:p>",
+        "link": null,
+        "URL": "https://doi.org/10.20944/preprints201905.0027.v1"
+      },
+      {
+        "DOI": "10.1109/wicom.2009.5301249",
+        "title": [
+          "Study of Adaptive Routing with Multi-Hop Diversity in Multi-Hop Virtual Cellular Network"
+        ],
+        "author": [
+          {
+            "given": "Jinpeng",
+            "family": "Wang",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Shufang",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jingbo",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2009,
+              9
+            ]
+          ]
+        },
+        "container-title": [
+          "2009 5th International Conference on Wireless Communications, Networking and Mobile Computing"
+        ],
+        "is-referenced-by-count": 0,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/5300798/5300799/05301249.pdf?arnumber=5301249",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/wicom.2009.5301249"
+      },
+      {
+        "DOI": "10.1109/adcom.2007.41",
+        "title": [
+          "Hop-by-Hop versus End-to-End Congestion Control in Wireless Multi-Hop UWB Networks"
+        ],
+        "author": [
+          {
+            "given": "P.",
+            "family": "Reena",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Lillykutty",
+            "family": "Jacob",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "published": {
+          "date-parts": [
+            [
+              2007,
+              12
+            ]
+          ]
+        },
+        "container-title": [
+          "15th International Conference on Advanced Computing and Communications (ADCOM 2007)"
+        ],
+        "is-referenced-by-count": 5,
+        "abstract": null,
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx5/4425922/4425923/04425981.pdf?arnumber=4425981",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ],
+        "URL": "https://doi.org/10.1109/adcom.2007.41"
+      }
+    ]
+  }
+]

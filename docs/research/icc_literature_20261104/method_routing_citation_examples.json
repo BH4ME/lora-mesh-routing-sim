@@ -1,0 +1,244 @@
+[
+  {
+    "key": "liu2004truncated",
+    "id": "https://openalex.org/W2151222548",
+    "cited_by_count": 932,
+    "url": "https://api.openalex.org/works?filter=cites:W2151222548&per-page=2",
+    "query_count": 931,
+    "examples": [
+      {
+        "id": "https://openalex.org/W2124531909",
+        "title": "Cross-layer design: a survey and the road ahead",
+        "doi": "https://doi.org/10.1109/mcom.2005.1561928",
+        "year": 2005,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2157473159",
+        "title": "Queuing with adaptive modulation and coding over wireless links: cross-Layer analysis and design",
+        "doi": "https://doi.org/10.1109/twc.2005.847005",
+        "year": 2005,
+        "references_target": true
+      }
+    ],
+    "accepted_examples": [
+      {
+        "id": "https://openalex.org/W2124531909",
+        "title": "Cross-layer design: a survey and the road ahead",
+        "doi": "https://doi.org/10.1109/mcom.2005.1561928",
+        "year": 2005,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2157473159",
+        "title": "Queuing with adaptive modulation and coding over wireless links: cross-Layer analysis and design",
+        "doi": "https://doi.org/10.1109/twc.2005.847005",
+        "year": 2005,
+        "references_target": true
+      }
+    ],
+    "rejected_examples": []
+  },
+  {
+    "key": "srinivasan2008beta",
+    "id": "https://openalex.org/W2047282676",
+    "cited_by_count": 305,
+    "url": "https://api.openalex.org/works?filter=cites:W2047282676&per-page=2",
+    "query_count": 304,
+    "examples": [
+      {
+        "id": "https://openalex.org/W2160343401",
+        "title": "Collection tree protocol",
+        "doi": "https://doi.org/10.1145/1644038.1644040",
+        "year": 2009,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2085093677",
+        "title": "Radio link quality estimation in wireless sensor networks",
+        "doi": "https://doi.org/10.1145/2240116.2240123",
+        "year": 2012,
+        "references_target": true
+      }
+    ],
+    "accepted_examples": [
+      {
+        "id": "https://openalex.org/W2160343401",
+        "title": "Collection tree protocol",
+        "doi": "https://doi.org/10.1145/1644038.1644040",
+        "year": 2009,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2085093677",
+        "title": "Radio link quality estimation in wireless sensor networks",
+        "doi": "https://doi.org/10.1145/2240116.2240123",
+        "year": 2012,
+        "references_target": true
+      }
+    ],
+    "rejected_examples": []
+  },
+  {
+    "key": "glasserman1992crn",
+    "id": "https://openalex.org/W2171554447",
+    "cited_by_count": 188,
+    "url": "https://api.openalex.org/works?filter=cites:W2171554447&per-page=2",
+    "query_count": 188,
+    "examples": [
+      {
+        "id": "https://openalex.org/W1964916079",
+        "title": "Monte Carlo methods for security pricing",
+        "doi": "https://doi.org/10.1016/s0165-1889(97)00028-6",
+        "year": 1997,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2151832703",
+        "title": "Applications of Malliavin calculus to Monte Carlo methods in finance",
+        "doi": "https://doi.org/10.1007/s007800050068",
+        "year": 1999,
+        "references_target": true
+      }
+    ],
+    "accepted_examples": [
+      {
+        "id": "https://openalex.org/W1964916079",
+        "title": "Monte Carlo methods for security pricing",
+        "doi": "https://doi.org/10.1016/s0165-1889(97)00028-6",
+        "year": 1997,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2151832703",
+        "title": "Applications of Malliavin calculus to Monte Carlo methods in finance",
+        "doi": "https://doi.org/10.1007/s007800050068",
+        "year": 1999,
+        "references_target": true
+      }
+    ],
+    "rejected_examples": []
+  },
+  {
+    "key": "ni1999broadcaststorm",
+    "id": "https://openalex.org/W2014550373",
+    "cited_by_count": 3162,
+    "url": "https://api.openalex.org/works?filter=cites:W2014550373&per-page=2",
+    "query_count": 3161,
+    "examples": [
+      {
+        "id": "https://openalex.org/W2148251644",
+        "title": "Directed diffusion",
+        "doi": "https://doi.org/10.1145/345910.345920",
+        "year": 2000,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2125957038",
+        "title": "Spray and wait",
+        "doi": "https://doi.org/10.1145/1080139.1080143",
+        "year": 2005,
+        "references_target": true
+      }
+    ],
+    "accepted_examples": [
+      {
+        "id": "https://openalex.org/W2148251644",
+        "title": "Directed diffusion",
+        "doi": "https://doi.org/10.1145/345910.345920",
+        "year": 2000,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2125957038",
+        "title": "Spray and wait",
+        "doi": "https://doi.org/10.1145/1080139.1080143",
+        "year": 2005,
+        "references_target": true
+      }
+    ],
+    "rejected_examples": []
+  },
+  {
+    "key": "biswas2005exor",
+    "id": "https://openalex.org/W2141151352",
+    "cited_by_count": 1356,
+    "url": "https://api.openalex.org/works?filter=cites:W2141151352&per-page=2",
+    "query_count": 1356,
+    "examples": [
+      {
+        "id": "https://openalex.org/W2149863032",
+        "title": "XORs in the Air: Practical Wireless Network Coding",
+        "doi": "https://doi.org/10.1109/tnet.2008.923722",
+        "year": 2008,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2046980951",
+        "title": "A survey on wireless mesh networks",
+        "doi": "https://doi.org/10.1109/mcom.2005.1509968",
+        "year": 2005,
+        "references_target": true
+      }
+    ],
+    "accepted_examples": [
+      {
+        "id": "https://openalex.org/W2149863032",
+        "title": "XORs in the Air: Practical Wireless Network Coding",
+        "doi": "https://doi.org/10.1109/tnet.2008.923722",
+        "year": 2008,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2046980951",
+        "title": "A survey on wireless mesh networks",
+        "doi": "https://doi.org/10.1109/mcom.2005.1509968",
+        "year": 2005,
+        "references_target": true
+      }
+    ],
+    "rejected_examples": []
+  },
+  {
+    "key": "levis2004trickle",
+    "id": "https://openalex.org/W2058632086",
+    "cited_by_count": 1150,
+    "url": "https://api.openalex.org/works?filter=cites:W2058632086&per-page=2",
+    "query_count": 1149,
+    "examples": [
+      {
+        "id": "https://openalex.org/W4232948727",
+        "title": "Adult sibling experience, roles, relationshhips and future concerns - a review of the literature in learning disabilities",
+        "doi": "https://doi.org/10.1111/j",
+        "year": 1996,
+        "references_target": true
+      },
+      {
+        "id": "https://openalex.org/W2125555950",
+        "title": "Contiki - a lightweight and flexible operating system for tiny networked sensors",
+        "doi": "https://doi.org/10.1109/lcn.2004.38",
+        "year": 2004,
+        "references_target": true
+      }
+    ],
+    "accepted_examples": [
+      {
+        "id": "https://openalex.org/W2125555950",
+        "title": "Contiki - a lightweight and flexible operating system for tiny networked sensors",
+        "doi": "https://doi.org/10.1109/lcn.2004.38",
+        "year": 2004,
+        "references_target": true
+      }
+    ],
+    "rejected_examples": [
+      {
+        "id": "https://openalex.org/W4232948727",
+        "title": "Adult sibling experience, roles, relationshhips and future concerns - a review of the literature in learning disabilities",
+        "doi": "https://doi.org/10.1111/j",
+        "year": 1996,
+        "references_target": true,
+        "rejection_reason": "Index record predates cited publication; exclude this apparent indexing error from corroborating examples."
+      }
+    ]
+  }
+]

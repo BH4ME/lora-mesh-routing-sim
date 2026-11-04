@@ -1,0 +1,109 @@
+{
+  "application_deadline_s": 30.0,
+  "artifacts": {
+    "actions": {
+      "file": "meshecho_first_hop_receipt_smoke_seed45000_v2_20261005.actions.jsonl",
+      "sha256": "50463a4cfbbd2fe48b659f5391e4ced21e99e9233c4026b27754fc100d33d7a3"
+    },
+    "authorization": {
+      "file": "meshecho_first_hop_receipt_smoke_seed45000_v2_20261005.authorization.json",
+      "sha256": "6e1a32b050fd5dce3c89b75b4493b982fa747e108f38184dec70f34ba3925d3b"
+    },
+    "first_hop_decodes": {
+      "file": "meshecho_first_hop_receipt_smoke_seed45000_v2_20261005.first_hop_decodes.jsonl",
+      "sha256": "1503f0137e409140b40950832f5d5f1613155e5d9871c9912ce079ee256fd08c"
+    },
+    "flows": {
+      "file": "meshecho_first_hop_receipt_smoke_seed45000_v2_20261005.flows.jsonl",
+      "sha256": "37411788cce4e7ae0ebcf258c9908f5564cab1df93a49c52c404c7d434cd1d0c"
+    },
+    "initial_r_rows": {
+      "file": "meshecho_first_hop_receipt_smoke_seed45000_v2_20261005.initial_r_rows.jsonl",
+      "sha256": "998908e5a4f0d34f6b3e139433db3f51708efc7d99665e9723bb9161044ca836"
+    },
+    "runs": {
+      "file": "meshecho_first_hop_receipt_smoke_seed45000_v2_20261005.runs.jsonl",
+      "sha256": "2f68a7d10aa83eb09a53fea11ccffdddff4d48f803aa87d3031a4edf91292c73"
+    },
+    "summary": {
+      "file": "meshecho_first_hop_receipt_smoke_seed45000_v2_20261005.summary.json",
+      "sha256": "a86fc0d29ea552354f3a541f7ce3a85739bd64271fae3c3d388efc4c1514970f"
+    },
+    "transmissions": {
+      "file": "meshecho_first_hop_receipt_smoke_seed45000_v2_20261005.transmissions.jsonl",
+      "sha256": "d46a4c9f5125d41ec51bbf20e453aa83a0ae9b72ba142ee7c61f06d65a80812c"
+    }
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "mode": "smoke",
+  "prerequisite_manifest_sha256": {},
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "seeds": [
+    45000
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_first_hop_receipt_screen_design.md": "3d5744130bf12275ea8ce2e5b9b1928cf7ad4f2ffd4ce35f07fc474182b6034b",
+    "lora_mesh_sim.py": "3c4e3e4ad878083ae28ea48079363948aba87b5f050817ac191bac819fb4f74e",
+    "tests/test_first_hop_receipt_screen.py": "5a9903928db0bcb49e0d5b005b2c9caa48f9c92b3f57a834a12a977100e7ea0c",
+    "tests/test_receipt_seed_guard.py": "613a11545833366d93b0760539eb864b69a4e5e73d387eb3304aede3b62518ed",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_first_hop_receipt_screen.py": "db7e19d888d934501f5246a2337ecc50d457557b000785aaf3862e32d02a623e",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "acac07c6fa4bb441a97dbb046111b3429fbe5c8693a291df897e36f2093ad1e8"
+  },
+  "stage_authorization_sha256": "6e1a32b050fd5dce3c89b75b4493b982fa747e108f38184dec70f34ba3925d3b",
+  "summary": {
+    "active_capacity_excluded_failures": 0,
+    "all_scheduled_unicast_flows": 42,
+    "already_source_acked_at_early_trigger_failures": 0,
+    "both_deadline_admissions": 3,
+    "censored_direct_initial_r_flows": 0,
+    "censored_multihop_initial_r_flows": 0,
+    "decoded_multihop_first_hops": 24,
+    "direct_first_hop_failures": 2,
+    "direct_initial_r_flows": 7,
+    "early_only_available_admissions": 0,
+    "early_only_deadline_admissions": 0,
+    "failed_multihop_fraction_of_multihop_no_guard_ack": 0.375,
+    "failed_multihop_no_guard_ack": 3,
+    "failed_multihop_no_guard_ack_delivered_by_deadline": 3,
+    "failed_multihop_no_guard_ack_delivered_unacked": 0,
+    "failed_multihop_no_guard_ack_seed_count": 1,
+    "failed_multihop_no_guard_ack_source_acked_by_deadline": 3,
+    "failed_multihop_no_guard_ack_undelivered_unacked": 0,
+    "fixed_only_deadline_admissions": 0,
+    "gate_1_exposure_passed": null,
+    "gate_2_delivered_unacked": 0,
+    "gate_2_residual_opportunity_passed": null,
+    "gate_2_residual_unacked_early_opportunities": 0,
+    "gate_2_seed_count": 0,
+    "gate_2_undelivered_unacked": 0,
+    "gate_3_receipt_cost_passed": null,
+    "gate_4_optimistic_ceiling_passed": null,
+    "initial_r_flows": 34,
+    "late_initial_r_starts": 0,
+    "multihop_initial_r_flows": 27,
+    "multihop_initial_r_no_guard_ack": 8,
+    "necessary_gate_passed": null,
+    "neither_deadline_admissions": 0,
+    "nominal_early_f_admissions": 3,
+    "nominal_fixed_f_admissions": 3,
+    "optimistic_destination_pdr_gain_equal_seed_mean": 0.0,
+    "optimistic_destination_pdr_gain_pooled": 0.0,
+    "optimistic_source_ack_pdr_gain_equal_seed_mean": 0.0,
+    "optimistic_source_ack_pdr_gain_pooled": 0.0,
+    "receipt_lower_bound_airtime_fraction_equal_seed_mean": 0.021251194939186268,
+    "receipt_lower_bound_airtime_s": 1.2349439999999998,
+    "receipt_toa_s": 0.051455999999999995,
+    "receipt_upper_coverage_airtime_fraction_equal_seed_mean": 0.023907594306584554,
+    "receipt_upper_coverage_airtime_s": 1.3893119999999999,
+    "receipt_wire_bytes": 17,
+    "residual_unacked_early_delivered": 0,
+    "residual_unacked_early_opportunities": 0,
+    "residual_unacked_early_undelivered": 0,
+    "source_busy_at_early_trigger_failures": 0,
+    "source_busy_at_fixed_trigger_failures": 0,
+    "whole_network_tx_airtime_s": 58.11174399999585
+  }
+}

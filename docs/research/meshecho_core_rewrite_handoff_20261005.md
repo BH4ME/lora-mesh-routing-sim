@@ -1,5 +1,23 @@
 # MeshEcho Core Rewrite Handoff
 
+## 2026-10-06 protocol-comparison/formula revision
+
+- The open ICC manuscript was revised in place after the user requested that
+  Meshtastic-like and MeshCore-like comparisons be written into the method,
+  not left as prose/table context, and that the algorithm contain more
+  equations.
+- Added explicit MeshCore cache-hit/discovery airtime, common ledger metric,
+  and CPR per-flow airtime equations. The final local build remains five
+  pages and was visually checked on every page.
+- The CPR airtime equation uses only packet ToA; forwarding delays and safety
+  margin remain in the deadline feasibility budget, so the equation is
+  dimensionally consistent.
+- Current manuscript build artifact:
+  `paper/icc2027/build-cpr-formula/icc2027_lora_mesh.pdf`.
+- This revision intentionally changes only the paper source and build output;
+  it does not authorize a VERSION bump, new simulation cohort, GitHub push, or
+  EDAS submission.
+
 ## 2026-10-06 authoritative completion state
 
 - The MeshEcho-SR-to-CPR algorithm rewrite, ICC paper revision, formal
@@ -170,3 +188,26 @@ CPR source, contract, paper, formal artifacts, and gate reports.
 The package was subsequently committed as `7d2753c` plus verification commit
 `ad24baa` and pushed to `origin/version/v2`. The two large RX-attempt ledgers
 were accepted by GitHub with a recommended-size warning.
+# 2026-10-06 comparison explanation checkpoint
+
+- The current user question is explanatory only; no ICC `.tex` edit is
+  authorized or needed.
+- CPR is a source/recovery/relay-feedback successor. Legacy MeshEcho,
+  Meshtastic-like, and MeshCore-like remain historical/qualitative baselines
+  unless rerun under the frozen CPR workload.
+- Preserve the distinction between mechanism progress and a proven
+  cross-protocol performance claim.
+
+# 2026-10-06 ICC acceptance assessment checkpoint
+
+- Current five-page MeshEcho-CPR paper was assessed in read-only reviewer
+  mode. Estimated paper-level acceptance is 20--35% as-is, central estimate
+  25--30%; this is not an official ICC venue statistic.
+- Review strengths: clear CPR state machine, auditable ACK-terminated relay
+  ledger, paired development/holdout controls, complete provenance, and
+  clean IEEE format.
+- Review risks: novelty may read as a familiar mechanism combination, the
+  current manuscript lacks a same-condition named external baseline, the main
+  evidence is one narrow workload, and no measured-channel validation is
+  reported.
+- No manuscript edit was made during this assessment.

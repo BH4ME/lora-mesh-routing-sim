@@ -1,0 +1,64 @@
+{
+  "airtime_means": {
+    "meshecho-cpr": 7.0546175999998635,
+    "meshecho-cpr-nocancel": 10.405990399999869,
+    "meshecho-drc-no-rescue": 9.88232959999989
+  },
+  "audit_tool_sha256": "a41166de2b8a689db40776c9cb73bbd33ba6ed62abff9632bd7a7012b6f3214b",
+  "checks": {
+    "ack_lower_bounds": true,
+    "airtime_vs_no_cancel": true,
+    "airtime_vs_no_rescue": true,
+    "artifact_audit": true,
+    "delivery_lower_bounds": true,
+    "incomplete_rx_tx_zero": true,
+    "recovery_exposure": true,
+    "repeat_exposure": true,
+    "scheduled_flow_denominator": true
+  },
+  "development_prerequisite": null,
+  "exposure": {
+    "F_RECOVERY": 26,
+    "R_INITIAL": 589,
+    "R_REPEAT": 40
+  },
+  "manifest": "results/meshecho_cpr_development_92200_92219_20261006.manifest.json",
+  "manifest_sha256": "d37d0fc48c5f61a802a5427e5d77c65b0dd0d28c4f02e7e52e3e7691535ba891",
+  "paired_statistics": [
+    {
+      "ack_pdr_ci_high": 0.008605579127458341,
+      "ack_pdr_ci_low": -0.01059572205724658,
+      "ack_pdr_mean": -0.0009950714648941205,
+      "airtime_ci_high": -2.447204138322496,
+      "airtime_ci_low": -4.255541461677511,
+      "airtime_mean": -3.3513728000000036,
+      "comparator": "meshecho-cpr-nocancel",
+      "delivery_pdr_ci_high": 0.007211033633509875,
+      "delivery_pdr_ci_low": -0.0013082558557320958,
+      "delivery_pdr_mean": 0.0029513888888888897,
+      "relative_airtime_ci_high": -0.23867586947006997,
+      "relative_airtime_ci_low": -0.4152070821300861,
+      "relative_airtime_mean": -0.32694147580007804,
+      "seed_count": 20
+    },
+    {
+      "ack_pdr_ci_high": 0.05602181462687933,
+      "ack_pdr_ci_low": 0.020722102933501296,
+      "ack_pdr_mean": 0.03837195878019031,
+      "airtime_ci_high": -1.7804033150884522,
+      "airtime_ci_low": -3.8750206849116013,
+      "airtime_mean": -2.8277120000000266,
+      "comparator": "meshecho-drc-no-rescue",
+      "delivery_pdr_ci_high": 0.05614856018751124,
+      "delivery_pdr_ci_low": 0.01899660242097352,
+      "delivery_pdr_mean": 0.03757258130424238,
+      "relative_airtime_ci_high": -0.1777142945842582,
+      "relative_airtime_ci_low": -0.3868372656824582,
+      "relative_airtime_mean": -0.2822757801333582,
+      "seed_count": 20
+    }
+  ],
+  "passed": true,
+  "schema": "meshecho-cpr-population-audit-v1",
+  "stage": "development"
+}

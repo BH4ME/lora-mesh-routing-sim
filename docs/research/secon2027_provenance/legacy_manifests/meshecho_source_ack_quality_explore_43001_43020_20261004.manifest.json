@@ -1,0 +1,312 @@
+{
+  "application_deadline_s": 30.0,
+  "artifacts": {
+    "runs": {
+      "file": "meshecho_source_ack_quality_explore_43001_43020_20261004.runs.jsonl",
+      "sha256": "fb9903a16732ffc13dd2ffe186203949c7fcc49e329f6a2f4a284a22d38dd9cd"
+    },
+    "summary": {
+      "file": "meshecho_source_ack_quality_explore_43001_43020_20261004.summary.json",
+      "sha256": "bfb4567df36155b0a3d1edd08ff3533023b84a4181bc15d9824630312f17a4d9"
+    }
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "exploration_fit": {
+    "quality_field": "q",
+    "reason": "ridge-logistic Newton solver did not converge",
+    "status": "no_go",
+    "support": {
+      "ready_for_validation": false
+    }
+  },
+  "mode": "explore",
+  "prerequisite_manifest_sha256": {
+    "smoke_manifest": "97513ee5378446836a05e82b4e2ef3618fb1684f55bdc72ddcea3ec0522fefd1"
+  },
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "python_minor": [
+    3,
+    9
+  ],
+  "seeds": [
+    43001,
+    43002,
+    43003,
+    43004,
+    43005,
+    43006,
+    43007,
+    43008,
+    43009,
+    43010,
+    43011,
+    43012,
+    43013,
+    43014,
+    43015,
+    43016,
+    43017,
+    43018,
+    43019,
+    43020
+  ],
+  "sensitivity_fit": {
+    "quality_field": "q_clean",
+    "reason": "ridge-logistic Newton solver did not converge",
+    "status": "no_go",
+    "support": {
+      "ready_for_validation": false
+    }
+  },
+  "sensitivity_validation_score": null,
+  "source_sha256": {
+    "docs/research/meshecho_source_ack_snr_signal_gate.md": "dde63707612511b94e53ba684b206e35a4542f05f7e3d5f8d9bc9242f7652192",
+    "lora_mesh_sim.py": "165fff13ac3839045b41bf39a8e9451503c50e0c66ca4cc39c92709e5eaf2875",
+    "tests/test_source_ack_quality_gate.py": "27229e954304693d4278b24c21fa71267d87912a49cb17985b6ade432670222e",
+    "tests/test_source_ack_quality_model.py": "256b62a3aa960e2ae5c0fcc03745670550be3569764ca031c67b4b84d73d0995",
+    "tests/test_source_ack_snr.py": "fef7b420b5fb463d985c0412ce2dc3436969d18a2c4a94ffefe1d42cb45f9213",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_source_ack_snr.py": "a7937f42e8ad2ab820f0d73e1f9223b6bc1e2647337580e2051252073aaeb451",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_source_ack_quality_gate.py": "48ec73815a1e91284aeb465702510881b12e1e1e0648ecd0ac2ce2016fbb3f52",
+    "tools/run_sr_experiment.py": "f61b2bccb154c7ec3f7603c51dd47ff2b8271d68db4baa69e2ccee5a4a1d0d1c",
+    "tools/source_ack_quality_model.py": "8d494ad565179309863e1121f9504148837889146b2e68a520c247cc29ed84a0"
+  },
+  "stage_authorization_sha256": "354f9a25619899b8cfc4b7d161ea5014e6867f528af0d35012fb2c26da44cc32",
+  "summary": {
+    "by_path_type": {
+      "direct": {
+        "eligible_decisions": 140,
+        "eligible_r_ack_misses": 61,
+        "eligible_r_ack_successes": 79,
+        "full_r_ack_misses": 61,
+        "full_r_ack_successes": 79,
+        "initial_r_decisions": 140,
+        "later_recovery_ack_successes": 53,
+        "later_recovery_attempts": 61
+      },
+      "multihop": {
+        "eligible_decisions": 557,
+        "eligible_r_ack_misses": 128,
+        "eligible_r_ack_successes": 429,
+        "full_r_ack_misses": 128,
+        "full_r_ack_successes": 429,
+        "initial_r_decisions": 557,
+        "later_recovery_ack_successes": 103,
+        "later_recovery_attempts": 128
+      }
+    },
+    "by_seed": {
+      "43001": {
+        "eligible_decisions": 28,
+        "eligible_r_ack_misses": 5,
+        "eligible_r_ack_successes": 23,
+        "full_r_ack_misses": 5,
+        "full_r_ack_successes": 23,
+        "initial_r_decisions": 28
+      },
+      "43002": {
+        "eligible_decisions": 34,
+        "eligible_r_ack_misses": 12,
+        "eligible_r_ack_successes": 22,
+        "full_r_ack_misses": 12,
+        "full_r_ack_successes": 22,
+        "initial_r_decisions": 34
+      },
+      "43003": {
+        "eligible_decisions": 35,
+        "eligible_r_ack_misses": 13,
+        "eligible_r_ack_successes": 22,
+        "full_r_ack_misses": 13,
+        "full_r_ack_successes": 22,
+        "initial_r_decisions": 35
+      },
+      "43004": {
+        "eligible_decisions": 27,
+        "eligible_r_ack_misses": 10,
+        "eligible_r_ack_successes": 17,
+        "full_r_ack_misses": 10,
+        "full_r_ack_successes": 17,
+        "initial_r_decisions": 27
+      },
+      "43005": {
+        "eligible_decisions": 23,
+        "eligible_r_ack_misses": 6,
+        "eligible_r_ack_successes": 17,
+        "full_r_ack_misses": 6,
+        "full_r_ack_successes": 17,
+        "initial_r_decisions": 23
+      },
+      "43006": {
+        "eligible_decisions": 29,
+        "eligible_r_ack_misses": 5,
+        "eligible_r_ack_successes": 24,
+        "full_r_ack_misses": 5,
+        "full_r_ack_successes": 24,
+        "initial_r_decisions": 29
+      },
+      "43007": {
+        "eligible_decisions": 43,
+        "eligible_r_ack_misses": 11,
+        "eligible_r_ack_successes": 32,
+        "full_r_ack_misses": 11,
+        "full_r_ack_successes": 32,
+        "initial_r_decisions": 43
+      },
+      "43008": {
+        "eligible_decisions": 36,
+        "eligible_r_ack_misses": 12,
+        "eligible_r_ack_successes": 24,
+        "full_r_ack_misses": 12,
+        "full_r_ack_successes": 24,
+        "initial_r_decisions": 36
+      },
+      "43009": {
+        "eligible_decisions": 38,
+        "eligible_r_ack_misses": 4,
+        "eligible_r_ack_successes": 34,
+        "full_r_ack_misses": 4,
+        "full_r_ack_successes": 34,
+        "initial_r_decisions": 38
+      },
+      "43010": {
+        "eligible_decisions": 41,
+        "eligible_r_ack_misses": 11,
+        "eligible_r_ack_successes": 30,
+        "full_r_ack_misses": 11,
+        "full_r_ack_successes": 30,
+        "initial_r_decisions": 41
+      },
+      "43011": {
+        "eligible_decisions": 40,
+        "eligible_r_ack_misses": 7,
+        "eligible_r_ack_successes": 33,
+        "full_r_ack_misses": 7,
+        "full_r_ack_successes": 33,
+        "initial_r_decisions": 40
+      },
+      "43012": {
+        "eligible_decisions": 49,
+        "eligible_r_ack_misses": 14,
+        "eligible_r_ack_successes": 35,
+        "full_r_ack_misses": 14,
+        "full_r_ack_successes": 35,
+        "initial_r_decisions": 49
+      },
+      "43013": {
+        "eligible_decisions": 28,
+        "eligible_r_ack_misses": 10,
+        "eligible_r_ack_successes": 18,
+        "full_r_ack_misses": 10,
+        "full_r_ack_successes": 18,
+        "initial_r_decisions": 28
+      },
+      "43014": {
+        "eligible_decisions": 35,
+        "eligible_r_ack_misses": 10,
+        "eligible_r_ack_successes": 25,
+        "full_r_ack_misses": 10,
+        "full_r_ack_successes": 25,
+        "initial_r_decisions": 35
+      },
+      "43015": {
+        "eligible_decisions": 38,
+        "eligible_r_ack_misses": 7,
+        "eligible_r_ack_successes": 31,
+        "full_r_ack_misses": 7,
+        "full_r_ack_successes": 31,
+        "initial_r_decisions": 38
+      },
+      "43016": {
+        "eligible_decisions": 33,
+        "eligible_r_ack_misses": 14,
+        "eligible_r_ack_successes": 19,
+        "full_r_ack_misses": 14,
+        "full_r_ack_successes": 19,
+        "initial_r_decisions": 33
+      },
+      "43017": {
+        "eligible_decisions": 37,
+        "eligible_r_ack_misses": 10,
+        "eligible_r_ack_successes": 27,
+        "full_r_ack_misses": 10,
+        "full_r_ack_successes": 27,
+        "initial_r_decisions": 37
+      },
+      "43018": {
+        "eligible_decisions": 40,
+        "eligible_r_ack_misses": 18,
+        "eligible_r_ack_successes": 22,
+        "full_r_ack_misses": 18,
+        "full_r_ack_successes": 22,
+        "initial_r_decisions": 40
+      },
+      "43019": {
+        "eligible_decisions": 36,
+        "eligible_r_ack_misses": 5,
+        "eligible_r_ack_successes": 31,
+        "full_r_ack_misses": 5,
+        "full_r_ack_successes": 31,
+        "initial_r_decisions": 36
+      },
+      "43020": {
+        "eligible_decisions": 27,
+        "eligible_r_ack_misses": 5,
+        "eligible_r_ack_successes": 22,
+        "full_r_ack_misses": 5,
+        "full_r_ack_successes": 22,
+        "initial_r_decisions": 27
+      }
+    },
+    "eligible_decisions": 697,
+    "eligible_diagnostics": {
+      "ack_age_s": {
+        "at_most_30": {
+          "r_ack_misses": 42,
+          "r_ack_successes": 140,
+          "records": 182
+        },
+        "over_30": {
+          "r_ack_misses": 147,
+          "r_ack_successes": 368,
+          "records": 515
+        }
+      },
+      "fading_block": {
+        "different": {
+          "r_ack_misses": 157,
+          "r_ack_successes": 338,
+          "records": 495
+        },
+        "same": {
+          "r_ack_misses": 32,
+          "r_ack_successes": 170,
+          "records": 202
+        }
+      },
+      "prior_ack_interference": {
+        "captured": {
+          "r_ack_misses": 1,
+          "r_ack_successes": 10,
+          "records": 11
+        },
+        "none": {
+          "r_ack_misses": 188,
+          "r_ack_successes": 498,
+          "records": 686
+        }
+      }
+    },
+    "eligible_r_ack_misses": 189,
+    "eligible_r_ack_successes": 508,
+    "exclusions": 0,
+    "initial_r_ack_misses": 189,
+    "initial_r_ack_successes": 508,
+    "initial_r_decisions": 697,
+    "later_recovery_ack_successes": 156,
+    "later_recovery_attempts": 189,
+    "missing_q_decisions": 0
+  },
+  "validation_score": null
+}

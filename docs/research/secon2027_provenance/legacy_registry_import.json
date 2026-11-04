@@ -1,0 +1,929 @@
+{
+  "schema": "secon2027-legacy-seed-import-v1",
+  "source_head": "ea0af90b8146ba5b8d7d518ae43997d9550e7ca4",
+  "historical_cohorts": [
+    {
+      "cohort_id": "legacy_sr_holdout",
+      "seed_range_inclusive": [
+        4001,
+        4040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_mag_design.md",
+          "line": 44,
+          "sha256": "dcbe41fe3eae0dc2f875b85e2a9bf87ae8d9ff4de5d377ca009a47edf0e66730"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_dhr_holdout",
+      "seed_range_inclusive": [
+        10001,
+        10040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_dhr_design.md",
+          "line": 131,
+          "sha256": "862e7f307db6ac992235e90c34bfb7e3793e69d3168ee91d133d1db636a26d59"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_bar_holdout",
+      "seed_range_inclusive": [
+        17001,
+        17040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_bar_dev_results.md",
+          "line": 58,
+          "sha256": "72ac39527c36bd31f94bf67a3a4aa27331621fd9c7f2903581aca87c30b8c458"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_afs_holdout",
+      "seed_range_inclusive": [
+        24001,
+        24040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_afs_dev_results.md",
+          "line": 68,
+          "sha256": "a54fa3e493619f8d40309a74b679bef374a08c3c3ef173634d86fbba2326aaa6"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_deadline_reserved_smoke_development",
+      "seed_range_inclusive": [
+        28000,
+        28040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_deadline_reserved_core_design.md",
+          "line": 253,
+          "sha256": "54e8193459b20a8c5f8edfd970102210cb169b824ed8fb95eac414c7c71ef908"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_deadline_reserved_holdout",
+      "seed_range_inclusive": [
+        29001,
+        29040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_deadline_reserved_core_design.md",
+          "line": 255,
+          "sha256": "54e8193459b20a8c5f8edfd970102210cb169b824ed8fb95eac414c7c71ef908"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_source_branch_development",
+      "seed_range_inclusive": [
+        35001,
+        35040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_source_branch_diagnostic_design.md",
+          "line": 97,
+          "sha256": "13fa7ae2678a4d9e8dfe4f04ddeec57d35a7ae51f34c6d7658fb194d56683da3"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_source_branch_holdout",
+      "seed_range_inclusive": [
+        36001,
+        36040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_source_branch_diagnostic_design.md",
+          "line": 98,
+          "sha256": "13fa7ae2678a4d9e8dfe4f04ddeec57d35a7ae51f34c6d7658fb194d56683da3"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_first_edge_signal_validation",
+      "seed_range_inclusive": [
+        42101,
+        42120
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_first_edge_ack_signal_gate.md",
+          "line": 120,
+          "sha256": "1fc1ea54c0962e88ef80e8aef9c5d0546c96f39525b1fec01bf407938587d5ef"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_source_ack_signal_validation",
+      "seed_range_inclusive": [
+        43101,
+        43120
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_source_ack_quality_explore_results.md",
+          "line": 58,
+          "sha256": "70e524dacc185b26680450615311a51e210ba9cac0086e2ce06d495c545e2d5e"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_dbr_development",
+      "seed_range_inclusive": [
+        44001,
+        44020
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_deadline_backup_core_draft.md",
+          "line": 157,
+          "sha256": "02fe8acf2ed3c4ac444268c802f3f9f17dfcf44c23796455e43ec46d1a5365fc"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_dbr_holdout",
+      "seed_range_inclusive": [
+        44101,
+        44140
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_deadline_backup_core_draft.md",
+          "line": 157,
+          "sha256": "02fe8acf2ed3c4ac444268c802f3f9f17dfcf44c23796455e43ec46d1a5365fc"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_dbr_smoke",
+      "seed_range_inclusive": [
+        44200,
+        44200
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_deadline_backup_core_draft.md",
+          "line": 156,
+          "sha256": "02fe8acf2ed3c4ac444268c802f3f9f17dfcf44c23796455e43ec46d1a5365fc"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_dcb_smoke_development",
+      "seed_range_inclusive": [
+        47000,
+        47020
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_dcb_protocol_contract.md",
+          "line": 168,
+          "sha256": "0d73ab25dd0aeca9cc178f5f42b19f375e110c3174eb6e1d661406e135910bf3"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_dcb_holdout",
+      "seed_range_inclusive": [
+        48001,
+        48040
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_dcb_protocol_contract.md",
+          "line": 169,
+          "sha256": "0d73ab25dd0aeca9cc178f5f42b19f375e110c3174eb6e1d661406e135910bf3"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_matched_trigger_closed",
+      "seed_range_inclusive": [
+        49401,
+        49440
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_core_rewrite_handoff_20261005.md",
+          "line": 99,
+          "sha256": "53874d876a8f8523f304308b47daae1f6e8791f6812f33ee82904f6b2e64ae9f"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_drc_holdout",
+      "seed_range_inclusive": [
+        63001,
+        63020
+      ],
+      "historical_status": "reserved_or_closed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_drc_population_contract_20261006.md",
+          "line": 42,
+          "sha256": "cb57e4dfe692405fbfb510bb72b978584b322859b183e1411cb1130e391e1b13"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_observability_diagnostic",
+      "seed_range_inclusive": [
+        11001,
+        11003
+      ],
+      "historical_status": "exposed_documented_without_matching_result_seed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "progress.md",
+          "line": 2884,
+          "sha256": "5d8acbffefe468add3e09403551790a9fa6f29cb891d153ae191053d91f2783e"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_first_hop_witness",
+      "seed_range_inclusive": [
+        12001,
+        12003
+      ],
+      "historical_status": "exposed_documented_without_matching_result_seed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "task_plan.md",
+          "line": 3623,
+          "sha256": "3fa2bc0b36c35bfbfd085aeaaf56611d6027baab9a51d5e5e082cc1a50478fac"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_source_ack_smoke_accident",
+      "seed_range_inclusive": [
+        43000,
+        43000
+      ],
+      "historical_status": "exposed_documented_without_matching_result_seed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "docs/research/meshecho_source_ack_snr_signal_gate.md",
+          "line": 29,
+          "sha256": "dde63707612511b94e53ba684b206e35a4542f05f7e3d5f8d9bc9242f7652192"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_dcb_pilot",
+      "seed_range_inclusive": [
+        49101,
+        49103
+      ],
+      "historical_status": "exposed_documented_without_matching_result_seed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "progress.md",
+          "line": 5038,
+          "sha256": "5d8acbffefe468add3e09403551790a9fa6f29cb891d153ae191053d91f2783e"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_drc_smoke_label_conflict",
+      "seed_range_inclusive": [
+        91002,
+        91002
+      ],
+      "historical_status": "exposed_documented_without_matching_result_seed",
+      "secon_disposition": "retired",
+      "source": [
+        {
+          "path": "progress.md",
+          "line": 473,
+          "sha256": "5d8acbffefe468add3e09403551790a9fa6f29cb891d153ae191053d91f2783e"
+        }
+      ],
+      "first_run_time": null,
+      "note": "Historic timestamps and source/config versions vary; preserve provenance, do not invent."
+    },
+    {
+      "cohort_id": "legacy_artifact_1_101",
+      "seed_range_inclusive": [
+        1,
+        101
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 92,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_200_201",
+      "seed_range_inclusive": [
+        200,
+        201
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 2,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_300_301",
+      "seed_range_inclusive": [
+        300,
+        301
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 2,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_400_401",
+      "seed_range_inclusive": [
+        400,
+        401
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 2,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_1100_1101",
+      "seed_range_inclusive": [
+        1100,
+        1101
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 1,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_1200_1201",
+      "seed_range_inclusive": [
+        1200,
+        1201
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 1,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_1300_1301",
+      "seed_range_inclusive": [
+        1300,
+        1301
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 1,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_1400_1401",
+      "seed_range_inclusive": [
+        1400,
+        1401
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 1,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_2001_2020",
+      "seed_range_inclusive": [
+        2001,
+        2020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 1,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_3001_3020",
+      "seed_range_inclusive": [
+        3001,
+        3020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 16,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_5000_5020",
+      "seed_range_inclusive": [
+        5000,
+        5020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 8,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_6000_6020",
+      "seed_range_inclusive": [
+        6000,
+        6020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 8,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_7000_7020",
+      "seed_range_inclusive": [
+        7000,
+        7020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 8,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_8000_8020",
+      "seed_range_inclusive": [
+        8000,
+        8020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 8,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_9000_9020",
+      "seed_range_inclusive": [
+        9000,
+        9020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 8,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_14001_14003",
+      "seed_range_inclusive": [
+        14001,
+        14003
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 1,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_16000_16020",
+      "seed_range_inclusive": [
+        16000,
+        16020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 8,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_18001_18003",
+      "seed_range_inclusive": [
+        18001,
+        18003
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 2,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_22001_22003",
+      "seed_range_inclusive": [
+        22001,
+        22003
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 2,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_23000_23040",
+      "seed_range_inclusive": [
+        23000,
+        23040
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 12,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_34000_34005",
+      "seed_range_inclusive": [
+        34000,
+        34005
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 8,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_37000_37003",
+      "seed_range_inclusive": [
+        37000,
+        37003
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 4,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_38000_38020",
+      "seed_range_inclusive": [
+        38000,
+        38020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 16,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_39000_39020",
+      "seed_range_inclusive": [
+        39000,
+        39020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 16,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_40000_40020",
+      "seed_range_inclusive": [
+        40000,
+        40020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 40,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_41000_41020",
+      "seed_range_inclusive": [
+        41000,
+        41020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 33,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_42000_42020",
+      "seed_range_inclusive": [
+        42000,
+        42020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 18,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_43001_43020",
+      "seed_range_inclusive": [
+        43001,
+        43020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 3,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_43200_43200",
+      "seed_range_inclusive": [
+        43200,
+        43200
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 3,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_45000_45020",
+      "seed_range_inclusive": [
+        45000,
+        45020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 27,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_46000_46020",
+      "seed_range_inclusive": [
+        46000,
+        46020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 22,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_49201_49210",
+      "seed_range_inclusive": [
+        49201,
+        49210
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 1,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_49301_49310",
+      "seed_range_inclusive": [
+        49301,
+        49310
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 7,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_49400_49400",
+      "seed_range_inclusive": [
+        49400,
+        49400
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 5,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_61001_61001",
+      "seed_range_inclusive": [
+        61001,
+        61001
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 9,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_62001_62020",
+      "seed_range_inclusive": [
+        62001,
+        62020
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 18,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_91000_91000",
+      "seed_range_inclusive": [
+        91000,
+        91000
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 18,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_92010_92011",
+      "seed_range_inclusive": [
+        92010,
+        92011
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 18,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_92020_92029",
+      "seed_range_inclusive": [
+        92020,
+        92029
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 27,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_92100_92109",
+      "seed_range_inclusive": [
+        92100,
+        92109
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 9,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_92200_92219",
+      "seed_range_inclusive": [
+        92200,
+        92219
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 9,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    },
+    {
+      "cohort_id": "legacy_artifact_92300_92319",
+      "seed_range_inclusive": [
+        92300,
+        92319
+      ],
+      "historical_status": "exposed",
+      "secon_disposition": "retired",
+      "artifact_count": 15,
+      "provenance_inventory": "historical_seed_inventory.json#artifacts",
+      "first_run_time": null
+    }
+  ],
+  "conservative_retired_namespace": [
+    0,
+    999999
+  ],
+  "proposed_development": {
+    "cohort_id": "secon2027_development_v1",
+    "seeds": [
+      2027000,
+      2027001,
+      2027002
+    ],
+    "state": "proposal_not_registered",
+    "contract": null
+  },
+  "validation_cohort": "Do not assign until development method and matrix freeze; choose disjoint high-number namespace after checking registry.",
+  "caveats": [
+    "Artifact seed IDs take precedence over filename IDs and old untouched labels.",
+    "Document range extraction includes code-line/page ranges: use curated cohorts, not every raw mention, as semantic evidence.",
+    "Results outside source tree or in deleted /tmp paths cannot be independently recovered from this inventory. The broad retired namespace prevents their known IDs from being reused.",
+    "The 91002 manifest actually declares seed 91000. Both IDs remain retired; do not assert 91002 truly ran from filename alone.",
+    "43000 ran once in memory during a prior audit with no saved performance artifact; it is exposed.",
+    "45001 was partially exposed in a failed attempt before later full 45001–45020 run; retain first-attempt failure history."
+  ]
+}

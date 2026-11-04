@@ -1,0 +1,224 @@
+{
+  "application_deadline_s": 30.0,
+  "artifacts": {
+    "actions": {
+      "file": "meshecho_first_edge_ack_signal_explore_42001_42020_20261004.actions.jsonl",
+      "sha256": "0c6ee3d1a98f16fd86058c5d0d4b5738ba57a771aeabe8fbefd5913fa1057409"
+    },
+    "epochs": {
+      "file": "meshecho_first_edge_ack_signal_explore_42001_42020_20261004.epochs.jsonl",
+      "sha256": "14f2eef1bdff4baed2848a6e79d5bb27f2baf3c5517eef523b1383fe4399e429"
+    },
+    "flows": {
+      "file": "meshecho_first_edge_ack_signal_explore_42001_42020_20261004.flows.jsonl",
+      "sha256": "7c49f038a5faed6c8fd1db4cc8c77577da7090bd0108e44780b741023a53af0e"
+    },
+    "paths": {
+      "file": "meshecho_first_edge_ack_signal_explore_42001_42020_20261004.paths.jsonl",
+      "sha256": "27b57e17ac84c30b47e7f11f1f826286b713d4afb35c4cf25fc89241ef673a74"
+    },
+    "predictor_rows": {
+      "file": "meshecho_first_edge_ack_signal_explore_42001_42020_20261004.predictor_rows.jsonl",
+      "sha256": "33155238e43fc5ca2b6fce4175907b98f7219f3b88fb3d5d7e11ab05d094178f"
+    },
+    "runs": {
+      "file": "meshecho_first_edge_ack_signal_explore_42001_42020_20261004.runs.jsonl",
+      "sha256": "587a87643491905259b74b12fe8b3c050a4768be725337346d372610209fceac"
+    },
+    "summary": {
+      "file": "meshecho_first_edge_ack_signal_explore_42001_42020_20261004.summary.json",
+      "sha256": "b2f2710956a801eb525e4430e273367b26c5fc78adb330294e853b979f4f811c"
+    },
+    "transmissions": {
+      "file": "meshecho_first_edge_ack_signal_explore_42001_42020_20261004.transmissions.jsonl",
+      "sha256": "88113e5bcf0338fd5820b7545abaf491dfeed9c6d62857d34eabd45c7e67512e"
+    }
+  },
+  "case_sha256": "b3cfb113aded1b1487cf2a5426225cb1188143384a6fe90b770b855e5273b491",
+  "drain_until_s": 630.0,
+  "mode": "explore",
+  "predictor_model": {
+    "intercept": 0.6531055838340354,
+    "model": "nonnegative_slope_ridge_logistic_q_only",
+    "q_feature_scale": 12.0,
+    "slope": 1.8200337351777707,
+    "slope_ridge": 1.0,
+    "training_by_path_type": {
+      "direct": {
+        "failures": 15,
+        "passed": false,
+        "samples": 85,
+        "seeds": 20,
+        "success_rate": 0.8235294117647058,
+        "successes": 70
+      },
+      "multihop": {
+        "failures": 5,
+        "passed": false,
+        "samples": 136,
+        "seeds": 20,
+        "success_rate": 0.9632352941176471,
+        "successes": 131
+      }
+    },
+    "training_samples": 221,
+    "training_seeds": 20,
+    "training_success_rate": 0.9095022624434389,
+    "training_successes": 201
+  },
+  "prerequisite_manifest_sha256": {
+    "smoke_manifest": "19b2342e84964d93346711caf0e27468d11599c4cfb7cbcb725dab2a34fddd69"
+  },
+  "protocol": "meshecho-dhr-flood-ack-delay",
+  "seeds": [
+    42001,
+    42002,
+    42003,
+    42004,
+    42005,
+    42006,
+    42007,
+    42008,
+    42009,
+    42010,
+    42011,
+    42012,
+    42013,
+    42014,
+    42015,
+    42016,
+    42017,
+    42018,
+    42019,
+    42020
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_first_edge_ack_signal_gate.md": "1fc1ea54c0962e88ef80e8aef9c5d0546c96f39525b1fec01bf407938587d5ef",
+    "lora_mesh_sim.py": "165fff13ac3839045b41bf39a8e9451503c50e0c66ca4cc39c92709e5eaf2875",
+    "tests/test_first_edge_ack_signal.py": "3a5318345eb23c2550e606fa59e48089c5338576a43a36ad1236aa4f45d5733e",
+    "tools/diagnose_ack_failure_causes.py": "777c83db614758855418618ea39ba115640b454b133f37f9f73e076785dd06b5",
+    "tools/diagnose_delayed_ack_rx.py": "7493ee072697845673ee66fbe7a2c537f247e1ac1f43733043d094906d16e4c1",
+    "tools/diagnose_first_edge_ack_signal.py": "d0a3e5746002ba06f6a3cbf20f6fa286cc7be5a7bf1cfe4d7642ec90400f0d91",
+    "tools/diagnose_flood_ack_hops.py": "b587af3f48f8c1de2c3896be00e3603e3d34516ace893eec06419bddbd3c243f",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "f61b2bccb154c7ec3f7603c51dd47ff2b8271d68db4baa69e2ccee5a4a1d0d1c"
+  },
+  "summary": {
+    "A_flows": 18,
+    "B_flows": 8,
+    "C_deadline_feasible_flows": 6,
+    "C_flows": 6,
+    "ack_attempts_without_source_adjacent_tx": 9,
+    "alternate_path_gate_passed": false,
+    "delivered_unacked_flood_flows": 29,
+    "destination_adjacent_diversity_epochs": 213,
+    "destination_flood_epochs": 230,
+    "epochs_with_causal_ack": 230,
+    "final_hop_failure_causes": {
+      "capture_collision": 9,
+      "probabilistic_no_interference": 9,
+      "probabilistic_with_interference": 2
+    },
+    "final_hop_predictor_failures": 20,
+    "final_hop_predictor_samples": 221,
+    "final_hop_predictor_successes": 201,
+    "initial_f_epochs": 90,
+    "late_final_hop_txs": 0,
+    "original_direct_epochs": 85,
+    "original_multihop_epochs": 145,
+    "path_screen_fraction_of_source_final_failures": 0.3,
+    "physical_destination_flood_decodes": 748,
+    "predictor_by_path_type": {
+      "direct": {
+        "fading_block_crossings": 2,
+        "failures": 15,
+        "samples": 85,
+        "successes": 70
+      },
+      "multihop": {
+        "fading_block_crossings": 9,
+        "failures": 5,
+        "samples": 136,
+        "successes": 131
+      }
+    },
+    "predictor_by_q_bin": {
+      "-12_to_-6": {
+        "failures": 0,
+        "samples": 0,
+        "successes": 0
+      },
+      "-6_to_0": {
+        "failures": 4,
+        "samples": 4,
+        "successes": 0
+      },
+      "0_to_6": {
+        "failures": 7,
+        "samples": 31,
+        "successes": 24
+      },
+      "6_to_12": {
+        "failures": 4,
+        "samples": 54,
+        "successes": 50
+      },
+      "ge_12": {
+        "failures": 5,
+        "samples": 132,
+        "successes": 127
+      },
+      "lt_-12": {
+        "failures": 0,
+        "samples": 0,
+        "successes": 0
+      }
+    },
+    "predictor_training_support": {
+      "failures": 20,
+      "passed": true,
+      "samples": 221,
+      "seeds": 20,
+      "successes": 201
+    },
+    "predictor_validation": null,
+    "r_to_f_epochs": 140,
+    "rejected_path_decodes": 0,
+    "scheduled_flows": 820,
+    "screen_by_epoch_type": {
+      "R_to_F": {
+        "A_flows": 13,
+        "B_flows": 4,
+        "C_deadline_feasible_flows": 3,
+        "C_flows": 3,
+        "source_final_failed_flows": 13
+      },
+      "initial_F": {
+        "A_flows": 5,
+        "B_flows": 4,
+        "C_deadline_feasible_flows": 3,
+        "C_flows": 3,
+        "source_final_failed_flows": 7
+      }
+    },
+    "screen_by_original_path_type": {
+      "direct": {
+        "A_flows": 14,
+        "B_flows": 4,
+        "C_deadline_feasible_flows": 3,
+        "C_flows": 3,
+        "source_final_failed_flows": 15
+      },
+      "multihop": {
+        "A_flows": 4,
+        "B_flows": 4,
+        "C_deadline_feasible_flows": 3,
+        "C_flows": 3,
+        "source_final_failed_flows": 5
+      }
+    },
+    "source_adjacent_diversity_epochs": 199,
+    "source_final_failed_flows": 20,
+    "valid_path_decodes": 748
+  }
+}

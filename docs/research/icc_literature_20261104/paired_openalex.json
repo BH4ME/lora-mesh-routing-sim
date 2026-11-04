@@ -1,0 +1,1133 @@
+{
+  "id": "https://openalex.org/W2171554447",
+  "doi": "https://doi.org/10.1287/mnsc.38.6.884",
+  "title": "Some Guidelines and Guarantees for Common Random Numbers",
+  "display_name": "Some Guidelines and Guarantees for Common Random Numbers",
+  "publication_year": 1992,
+  "publication_date": "1992-06-01",
+  "ids": {
+    "openalex": "https://openalex.org/W2171554447",
+    "doi": "https://doi.org/10.1287/mnsc.38.6.884",
+    "mag": "2171554447"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1287/mnsc.38.6.884",
+    "doi": "https://doi.org/10.1287/mnsc.38.6.884",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1287/mnsc.38.6.884",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S33323087",
+      "display_name": "Management Science",
+      "issn_l": "0025-1909",
+      "issn": [
+        "0025-1909",
+        "1526-5501"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "abdc-a-star",
+        "anvur-class-a",
+        "anvur-scientific",
+        "cwts-core",
+        "erih-plus",
+        "fnege-1-star",
+        "ft50",
+        "jufo-3",
+        "ki-jl-1",
+        "norway-2",
+        "poland-200",
+        "russia-white-list-1",
+        "utd24",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310315699",
+      "host_organization_name": "Institute for Operations Research and the Management Sciences",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310315699"
+      ],
+      "host_organization_lineage_names": [
+        "Institute for Operations Research and the Management Sciences"
+      ],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Management Science",
+    "raw_type": "journal-article"
+  },
+  "volume": null,
+  "type": "article",
+  "indexed_in": [
+    "crossref"
+  ],
+  "open_access": {
+    "is_oa": false,
+    "oa_status": "closed",
+    "oa_url": null,
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5026619574",
+        "display_name": "Paul Glasserman",
+        "orcid": "https://orcid.org/0000-0002-9577-0205",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-9577-0205"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I78577930",
+          "display_name": "Columbia University",
+          "ror": "https://ror.org/00hj8s172",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I78577930"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Paul Glasserman",
+      "raw_affiliation_strings": [
+        "Graduate School of Business, Columbia University, New York, New York 10027"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Graduate School of Business, Columbia University, New York, New York 10027",
+          "institution_ids": [
+            "https://openalex.org/I78577930"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5110433984",
+        "display_name": "David D. W. Yao",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I78577930",
+          "display_name": "Columbia University",
+          "ror": "https://ror.org/00hj8s172",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I78577930"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "David D. Yao",
+      "raw_affiliation_strings": [
+        "IE/OR Department, Columbia University, New York, New York 10027"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "IE/OR Department, Columbia University, New York, New York 10027",
+          "institution_ids": [
+            "https://openalex.org/I78577930"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 1,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [
+    "https://openalex.org/I78577930"
+  ],
+  "apc_list": null,
+  "apc_paid": null,
+  "fwci": 10.2687,
+  "has_fulltext": false,
+  "cited_by_count": 188,
+  "citation_normalized_percentile": {
+    "value": 0.98673329,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 89,
+    "max": 100
+  },
+  "biblio": {
+    "volume": "38",
+    "issue": "6",
+    "first_page": "884",
+    "last_page": "908"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T11195",
+    "display_name": "Simulation Techniques and Applications",
+    "score": 0.9994999766349792,
+    "subfield": {
+      "id": "https://openalex.org/subfields/1803",
+      "display_name": "Management Science and Operations Research"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/18",
+      "display_name": "Decision Sciences"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/2",
+      "display_name": "Social Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T11195",
+      "display_name": "Simulation Techniques and Applications",
+      "score": 0.9994999766349792,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1803",
+        "display_name": "Management Science and Operations Research"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/18",
+        "display_name": "Decision Sciences"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/2",
+        "display_name": "Social Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T11810",
+      "display_name": "Complex Systems and Decision Making",
+      "score": 0.0,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1803",
+        "display_name": "Management Science and Operations Research"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/18",
+        "display_name": "Decision Sciences"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/2",
+        "display_name": "Social Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T13286",
+      "display_name": "Modeling and Simulation Systems",
+      "score": 0.0,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1703",
+        "display_name": "Computational Theory and Mathematics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/common-random-numbers",
+      "display_name": "common random numbers",
+      "score": 0.996999979019165
+    },
+    {
+      "id": "https://openalex.org/keywords/variance-reduction",
+      "display_name": "variance reduction",
+      "score": 0.9789999723434448
+    },
+    {
+      "id": "https://openalex.org/keywords/stochastic-simulation",
+      "display_name": "stochastic simulation",
+      "score": 0.8130000233650208
+    },
+    {
+      "id": "https://openalex.org/keywords/discrete-event-simulation",
+      "display_name": "discrete event simulation",
+      "score": 0.7490000128746033
+    },
+    {
+      "id": "https://openalex.org/keywords/event-timing",
+      "display_name": "event timing",
+      "score": 0.6010000109672546
+    },
+    {
+      "id": "https://openalex.org/keywords/monotonicity",
+      "display_name": "monotonicity",
+      "score": 0.9279999732971191
+    },
+    {
+      "id": "https://openalex.org/keywords/continuity",
+      "display_name": "continuity",
+      "score": 0.9430000185966492
+    },
+    {
+      "id": "https://openalex.org/keywords/structural-comparison",
+      "display_name": "structural comparison",
+      "score": 0.9549999833106995
+    },
+    {
+      "id": "https://openalex.org/keywords/sensitivity-analysis",
+      "display_name": "sensitivity analysis",
+      "score": 0.984000027179718
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C72169020",
+      "wikidata": "https://www.wikidata.org/wiki/Q194404",
+      "display_name": "Monotonic function",
+      "level": 2,
+      "score": 0.7444500923156738
+    },
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.6859258413314819
+    },
+    {
+      "id": "https://openalex.org/C2779662365",
+      "wikidata": "https://www.wikidata.org/wiki/Q5416694",
+      "display_name": "Event (particle physics)",
+      "level": 2,
+      "score": 0.6177957057952881
+    },
+    {
+      "id": "https://openalex.org/C196083921",
+      "wikidata": "https://www.wikidata.org/wiki/Q7915758",
+      "display_name": "Variance (accounting)",
+      "level": 2,
+      "score": 0.6087248921394348
+    },
+    {
+      "id": "https://openalex.org/C2778112365",
+      "wikidata": "https://www.wikidata.org/wiki/Q3511065",
+      "display_name": "Sequence (biology)",
+      "level": 2,
+      "score": 0.6044691205024719
+    },
+    {
+      "id": "https://openalex.org/C2777212361",
+      "wikidata": "https://www.wikidata.org/wiki/Q5127848",
+      "display_name": "Class (philosophy)",
+      "level": 2,
+      "score": 0.587400496006012
+    },
+    {
+      "id": "https://openalex.org/C204323151",
+      "wikidata": "https://www.wikidata.org/wiki/Q905424",
+      "display_name": "Range (aeronautics)",
+      "level": 2,
+      "score": 0.5192068219184875
+    },
+    {
+      "id": "https://openalex.org/C148220186",
+      "wikidata": "https://www.wikidata.org/wiki/Q7111912",
+      "display_name": "Outcome (game theory)",
+      "level": 2,
+      "score": 0.5133067965507507
+    },
+    {
+      "id": "https://openalex.org/C2780586882",
+      "wikidata": "https://www.wikidata.org/wiki/Q7520643",
+      "display_name": "Simple (philosophy)",
+      "level": 2,
+      "score": 0.42302969098091125
+    },
+    {
+      "id": "https://openalex.org/C126255220",
+      "wikidata": "https://www.wikidata.org/wiki/Q141495",
+      "display_name": "Mathematical optimization",
+      "level": 1,
+      "score": 0.38757285475730896
+    },
+    {
+      "id": "https://openalex.org/C80444323",
+      "wikidata": "https://www.wikidata.org/wiki/Q2878974",
+      "display_name": "Theoretical computer science",
+      "level": 1,
+      "score": 0.33654654026031494
+    },
+    {
+      "id": "https://openalex.org/C33923547",
+      "wikidata": "https://www.wikidata.org/wiki/Q395",
+      "display_name": "Mathematics",
+      "level": 0,
+      "score": 0.25112777948379517
+    },
+    {
+      "id": "https://openalex.org/C144237770",
+      "wikidata": "https://www.wikidata.org/wiki/Q747534",
+      "display_name": "Mathematical economics",
+      "level": 1,
+      "score": 0.18799635767936707
+    },
+    {
+      "id": "https://openalex.org/C154945302",
+      "wikidata": "https://www.wikidata.org/wiki/Q11660",
+      "display_name": "Artificial intelligence",
+      "level": 1,
+      "score": 0.12129408121109009
+    },
+    {
+      "id": "https://openalex.org/C159985019",
+      "wikidata": "https://www.wikidata.org/wiki/Q181790",
+      "display_name": "Composite material",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C138885662",
+      "wikidata": "https://www.wikidata.org/wiki/Q5891",
+      "display_name": "Philosophy",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C134306372",
+      "wikidata": "https://www.wikidata.org/wiki/Q7754",
+      "display_name": "Mathematical analysis",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C54355233",
+      "wikidata": "https://www.wikidata.org/wiki/Q7162",
+      "display_name": "Genetics",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C192562407",
+      "wikidata": "https://www.wikidata.org/wiki/Q228736",
+      "display_name": "Materials science",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C121955636",
+      "wikidata": "https://www.wikidata.org/wiki/Q4116214",
+      "display_name": "Accounting",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C144133560",
+      "wikidata": "https://www.wikidata.org/wiki/Q4830453",
+      "display_name": "Business",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C121332964",
+      "wikidata": "https://www.wikidata.org/wiki/Q413",
+      "display_name": "Physics",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C62520636",
+      "wikidata": "https://www.wikidata.org/wiki/Q944",
+      "display_name": "Quantum mechanics",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C86803240",
+      "wikidata": "https://www.wikidata.org/wiki/Q420",
+      "display_name": "Biology",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C111472728",
+      "wikidata": "https://www.wikidata.org/wiki/Q9471",
+      "display_name": "Epistemology",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 1,
+  "locations": [
+    {
+      "id": "doi:10.1287/mnsc.38.6.884",
+      "doi": "https://doi.org/10.1287/mnsc.38.6.884",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1287/mnsc.38.6.884",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S33323087",
+        "display_name": "Management Science",
+        "issn_l": "0025-1909",
+        "issn": [
+          "0025-1909",
+          "1526-5501"
+        ],
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": true,
+        "listed_in": [
+          "abdc-a-star",
+          "anvur-class-a",
+          "anvur-scientific",
+          "cwts-core",
+          "erih-plus",
+          "fnege-1-star",
+          "ft50",
+          "jufo-3",
+          "ki-jl-1",
+          "norway-2",
+          "poland-200",
+          "russia-white-list-1",
+          "utd24",
+          "vabb-shw"
+        ],
+        "host_organization": "https://openalex.org/P4310315699",
+        "host_organization_name": "Institute for Operations Research and the Management Sciences",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310315699"
+        ],
+        "host_organization_lineage_names": [
+          "Institute for Operations Research and the Management Sciences"
+        ],
+        "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Management Science",
+      "raw_type": "journal-article"
+    }
+  ],
+  "best_oa_location": null,
+  "sustainable_development_goals": [],
+  "study_designs": [],
+  "awards": [],
+  "funders": [],
+  "has_content": {
+    "grobid_xml": false,
+    "pdf": false
+  },
+  "content_urls": null,
+  "referenced_works_count": 26,
+  "referenced_works": [
+    "https://openalex.org/W1525685818",
+    "https://openalex.org/W1963687814",
+    "https://openalex.org/W1971095127",
+    "https://openalex.org/W1971253270",
+    "https://openalex.org/W1980502066",
+    "https://openalex.org/W1984491120",
+    "https://openalex.org/W1986121256",
+    "https://openalex.org/W1994166982",
+    "https://openalex.org/W1994965433",
+    "https://openalex.org/W1997302350",
+    "https://openalex.org/W2015344028",
+    "https://openalex.org/W2025021403",
+    "https://openalex.org/W2034526654",
+    "https://openalex.org/W2039032281",
+    "https://openalex.org/W2055514360",
+    "https://openalex.org/W2056508626",
+    "https://openalex.org/W2067911502",
+    "https://openalex.org/W2070953949",
+    "https://openalex.org/W2094856255",
+    "https://openalex.org/W2096201539",
+    "https://openalex.org/W2096992152",
+    "https://openalex.org/W2114659506",
+    "https://openalex.org/W2141154302",
+    "https://openalex.org/W2318382601",
+    "https://openalex.org/W2333138963",
+    "https://openalex.org/W2802739963"
+  ],
+  "related_works": [
+    "https://openalex.org/W1976013120",
+    "https://openalex.org/W3152467741",
+    "https://openalex.org/W4256113604",
+    "https://openalex.org/W4234972134",
+    "https://openalex.org/W1997302350",
+    "https://openalex.org/W2106409203",
+    "https://openalex.org/W2012803856",
+    "https://openalex.org/W2039914408",
+    "https://openalex.org/W2000308911",
+    "https://openalex.org/W2128443332"
+  ],
+  "abstract_inverted_index": {
+    "Common": [
+      0
+    ],
+    "random": [
+      1
+    ],
+    "numbers": [
+      2
+    ],
+    "(CRN)": [
+      3
+    ],
+    "is": [
+      4,
+      50,
+      97
+    ],
+    "a": [
+      5,
+      38,
+      72,
+      145
+    ],
+    "widely-used": [
+      6
+    ],
+    "technique": [
+      7
+    ],
+    "for": [
+      8,
+      47,
+      94,
+      104,
+      194
+    ],
+    "reducing": [
+      9
+    ],
+    "variance": [
+      10
+    ],
+    "in": [
+      11,
+      71,
+      144,
+      152,
+      182,
+      197
+    ],
+    "comparing": [
+      12
+    ],
+    "stochastic": [
+      13
+    ],
+    "systems": [
+      14,
+      46,
+      91,
+      106
+    ],
+    "through": [
+      15,
+      191
+    ],
+    "simulation.": [
+      16,
+      147
+    ],
+    "Its": [
+      17
+    ],
+    "popularity": [
+      18
+    ],
+    "derives": [
+      19
+    ],
+    "from": [
+      20,
+      123
+    ],
+    "its": [
+      21
+    ],
+    "intuitive": [
+      22
+    ],
+    "appeal": [
+      23
+    ],
+    "and": [
+      24,
+      67,
+      81,
+      92,
+      99,
+      113,
+      165,
+      180
+    ],
+    "ease": [
+      25
+    ],
+    "of": [
+      26,
+      41,
+      45,
+      69,
+      90,
+      125,
+      136,
+      142,
+      159,
+      174,
+      185,
+      199
+    ],
+    "implementation.": [
+      27
+    ],
+    "However,": [
+      28
+    ],
+    "though": [
+      29
+    ],
+    "CRN": [
+      30,
+      70,
+      96
+    ],
+    "has": [
+      31,
+      53,
+      59
+    ],
+    "been": [
+      32
+    ],
+    "observed": [
+      33
+    ],
+    "to": [
+      34,
+      118,
+      156
+    ],
+    "work": [
+      35
+    ],
+    "well": [
+      36
+    ],
+    "with": [
+      37,
+      110
+    ],
+    "broad": [
+      39
+    ],
+    "range": [
+      40
+    ],
+    "models,": [
+      42
+    ],
+    "the": [
+      43,
+      65,
+      76,
+      134,
+      140,
+      183
+    ],
+    "class": [
+      44
+    ],
+    "which": [
+      48,
+      95
+    ],
+    "it": [
+      49
+    ],
+    "provably": [
+      51
+    ],
+    "advantageous": [
+      52
+    ],
+    "remained": [
+      54
+    ],
+    "rather": [
+      55,
+      138
+    ],
+    "limited.": [
+      56
+    ],
+    "This": [
+      57
+    ],
+    "paper": [
+      58
+    ],
+    "two": [
+      60
+    ],
+    "purposes:": [
+      61
+    ],
+    "We": [
+      62,
+      84,
+      148
+    ],
+    "first": [
+      63
+    ],
+    "discuss": [
+      64
+    ],
+    "effectiveness": [
+      66
+    ],
+    "optimality": [
+      68
+    ],
+    "general": [
+      73
+    ],
+    "setting,": [
+      74
+    ],
+    "stressing": [
+      75
+    ],
+    "roles": [
+      77
+    ],
+    "played": [
+      78
+    ],
+    "by": [
+      79
+    ],
+    "monotonicity": [
+      80,
+      179
+    ],
+    "continuity": [
+      82,
+      181
+    ],
+    "properties.": [
+      83
+    ],
+    "then": [
+      85
+    ],
+    "present": [
+      86
+    ],
+    "specific,": [
+      87
+    ],
+    "new": [
+      88
+    ],
+    "classes": [
+      89
+    ],
+    "comparisons": [
+      93
+    ],
+    "beneficial": [
+      98
+    ],
+    "even": [
+      100
+    ],
+    "optimal.": [
+      101
+    ],
+    "Our": [
+      102,
+      120
+    ],
+    "conclusions": [
+      103
+    ],
+    "these": [
+      105
+    ],
+    "are": [
+      107,
+      189
+    ],
+    "largely": [
+      108
+    ],
+    "consistent": [
+      109
+    ],
+    "simulation": [
+      111
+    ],
+    "practice": [
+      112
+    ],
+    "lend": [
+      114
+    ],
+    "further": [
+      115
+    ],
+    "theoretical": [
+      116
+    ],
+    "support": [
+      117
+    ],
+    "folklore.": [
+      119
+    ],
+    "results": [
+      121,
+      151
+    ],
+    "differ": [
+      122
+    ],
+    "those": [
+      124
+    ],
+    "previous": [
+      126
+    ],
+    "analyses": [
+      127
+    ],
+    "primarily": [
+      128
+    ],
+    "because": [
+      129
+    ],
+    "we": [
+      130,
+      171
+    ],
+    "put": [
+      131
+    ],
+    "conditions": [
+      132,
+      175
+    ],
+    "on": [
+      133
+    ],
+    "timing": [
+      135,
+      184
+    ],
+    "events,": [
+      137
+    ],
+    "than": [
+      139
+    ],
+    "sequence": [
+      141
+    ],
+    "states,": [
+      143
+    ],
+    "discrete-event": [
+      146
+    ],
+    "formulate": [
+      149
+    ],
+    "our": [
+      150
+    ],
+    "three": [
+      153,
+      157
+    ],
+    "settings": [
+      154
+    ],
+    "corresponding": [
+      155
+    ],
+    "applications": [
+      158
+    ],
+    "CRN:": [
+      160
+    ],
+    "distributional": [
+      161
+    ],
+    "comparisons,": [
+      162,
+      164
+    ],
+    "structural": [
+      163
+    ],
+    "sensitivity": [
+      166
+    ],
+    "analysis.": [
+      167
+    ],
+    "In": [
+      168
+    ],
+    "each": [
+      169
+    ],
+    "case,": [
+      170
+    ],
+    "make": [
+      172
+    ],
+    "use": [
+      173
+    ],
+    "that": [
+      176
+    ],
+    "simultaneously": [
+      177
+    ],
+    "ensure": [
+      178
+    ],
+    "events.": [
+      186
+    ],
+    "These": [
+      187
+    ],
+    "properties": [
+      188
+    ],
+    "established": [
+      190
+    ],
+    "explicit": [
+      192
+    ],
+    "recursions": [
+      193
+    ],
+    "event": [
+      195
+    ],
+    "epochs": [
+      196
+    ],
+    "terms": [
+      198
+    ],
+    "increasing,": [
+      200
+    ],
+    "continuous": [
+      201
+    ],
+    "functions.": [
+      202
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 26
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 8
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 5
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 6
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 7
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 5
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 10
+    },
+    {
+      "year": 2019,
+      "cited_by_count": 2
+    },
+    {
+      "year": 2018,
+      "cited_by_count": 4
+    },
+    {
+      "year": 2017,
+      "cited_by_count": 2
+    },
+    {
+      "year": 2016,
+      "cited_by_count": 4
+    },
+    {
+      "year": 2015,
+      "cited_by_count": 3
+    },
+    {
+      "year": 2014,
+      "cited_by_count": 2
+    },
+    {
+      "year": 2013,
+      "cited_by_count": 1
+    },
+    {
+      "year": 2012,
+      "cited_by_count": 14
+    }
+  ],
+  "updated_date": "2026-11-03T10:50:19.383937",
+  "created_date": "2016-06-24T00:00:00"
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "key": "wong_publisher",
+    "url": "https://dl.acm.org/doi/10.1145/3638241",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "key": "wong_author_pdf",
+    "url": "https://eprints.ums.edu.my/id/eprint/44907/1/FULLTEXT.pdf",
+    "error": "HTTP Error 401: Unauthorized"
+  },
+  {
+    "key": "cotrim_pmc",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7435450/",
+    "final_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7435450/",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 268430,
+    "file": "docs/research/icc_literature_20261104/multihop_cotrim_pmc.html"
+  },
+  {
+    "key": "pueyo2024_author_pdf",
+    "url": "https://upcommons.upc.edu/bitstreams/42b2fb3b-672d-4bd4-bea7-167794f61c67/download",
+    "error": "HTTP Error 418: I'm a teapot"
+  },
+  {
+    "key": "sole2022_repository",
+    "url": "https://hdl.handle.net/2117/377515",
+    "error": "HTTP Error 418: I'm a teapot"
+  },
+  {
+    "key": "smarthop_repository",
+    "url": "https://lirias.kuleuven.be/handle/20.500.12942/694103",
+    "final_url": "https://kuleuven.limo.libis.be/discovery/search?query=any,contains,LIRIAS3709399&tab=LIRIAS&search_scope=lirias_profile&vid=32KUL_KUL:Lirias&offset=0",
+    "status": 200,
+    "content_type": "text/html",
+    "bytes": 4811,
+    "file": "docs/research/icc_literature_20261104/multihop_smarthop_repository.html"
+  },
+  {
+    "key": "mrt_crossref",
+    "url": "https://api.crossref.org/works/10.1016/j.comcom.2022.12.013",
+    "final_url": "https://api.crossref.org/works/10.1016/j.comcom.2022.12.013",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 22586,
+    "file": "docs/research/icc_literature_20261104/multihop_mrt_crossref.json"
+  },
+  {
+    "key": "zhu_publisher",
+    "url": "https://ieeexplore.ieee.org/document/8637935",
+    "final_url": "https://ieeexplore.ieee.org/document/8637935",
+    "status": 202,
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 0,
+    "file": "docs/research/icc_literature_20261104/multihop_zhu_publisher.html"
+  }
+]

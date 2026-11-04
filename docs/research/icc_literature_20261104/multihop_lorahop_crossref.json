@@ -1,0 +1,719 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2026,
+          10,
+          31
+        ]
+      ],
+      "date-time": "2026-10-31T20:02:00Z",
+      "timestamp": 1793476920527,
+      "version": "4.5.0"
+    },
+    "reference-count": 69,
+    "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+    "issue": "17",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              1
+            ]
+          ],
+          "date-time": "2023-09-01T00:00:00Z",
+          "timestamp": 1693526400000
+        },
+        "content-version": "vor",
+        "delay-in-days": 0,
+        "URL": "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/IEEE.html"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              1
+            ]
+          ],
+          "date-time": "2023-09-01T00:00:00Z",
+          "timestamp": 1693526400000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2023,
+              9,
+              1
+            ]
+          ],
+          "date-time": "2023-09-01T00:00:00Z",
+          "timestamp": 1693526400000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/501100001809",
+        "name": "Special Fund for Basic Research on Scientific Instruments of the National Natural Science Foundation of China",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "51827814"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "51827814"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/501100001809",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/501100018625",
+        "name": "Science and Technology Innovation Plan of Shanghai Science and Technology Commission",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "20DZ1201002"
+        ],
+        "award-info": [
+          {
+            "award-number": [
+              "20DZ1201002"
+            ]
+          }
+        ],
+        "id": [
+          {
+            "id": "10.13039/501100018625",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "DOI": "10.13039/501100004543",
+        "name": "China Scholarship Council",
+        "doi-asserted-by": "publisher",
+        "id": [
+          {
+            "id": "10.13039/501100004543",
+            "id-type": "DOI",
+            "asserted-by": "publisher"
+          }
+        ]
+      },
+      {
+        "name": "TU Graz LEAD Project “Dependable IoT in Adverse Environments.”"
+      }
+    ],
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "IEEE Internet Things J."
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2023,
+          9,
+          1
+        ]
+      ]
+    },
+    "DOI": "10.1109/jiot.2023.3263630",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2023,
+          3,
+          31
+        ]
+      ],
+      "date-time": "2023-03-31T17:49:49Z",
+      "timestamp": 1680284989000
+    },
+    "page": "15376-15392",
+    "source": "Crossref",
+    "is-referenced-by-count": 34,
+    "title": [
+      "LoRaHop: Multihop Support for LoRaWAN Uplink and Downlink Messaging"
+    ],
+    "prefix": "10.1109",
+    "volume": "10",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0002-8344-5835",
+        "authenticated-orcid": false,
+        "given": "Pei",
+        "family": "Tian",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Shanghai Advanced Research Institute, Chinese Academy of Sciences, Shanghai, China"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-7647-3734",
+        "authenticated-orcid": false,
+        "given": "Carlo Alberto",
+        "family": "Boano",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Institute of Technical Informatics, Graz University of Technology, Graz, Austria"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-6655-3001",
+        "authenticated-orcid": false,
+        "given": "Xiaoyuan",
+        "family": "Ma",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Digital Technology, Svenska Kullagerfabriken Group, Shanghai, China"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-2444-1260",
+        "authenticated-orcid": false,
+        "given": "Jianming",
+        "family": "Wei",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Shanghai Advanced Research Institute, Chinese Academy of Sciences, Shanghai, China"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "member": "263",
+    "reference": [
+      {
+        "key": "ref13",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/2988287.2989163"
+      },
+      {
+        "key": "ref57",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s18113718"
+      },
+      {
+        "key": "ref12",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/DCOSS.2017.10"
+      },
+      {
+        "key": "ref56",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/IPSN.2018.00013"
+      },
+      {
+        "key": "ref15",
+        "first-page": "25",
+        "article-title": "p-CARMA: Politely scaling LoRaWAN",
+        "author": "kouvelas",
+        "year": "2020",
+        "journal-title": "Proc 17th EWSN Conf"
+      },
+      {
+        "key": "ref59",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1002/itl2.165"
+      },
+      {
+        "key": "ref14",
+        "first-page": "1",
+        "article-title": "Analysis of capacity and scalability of the LoRa low power wide area network technology",
+        "author": "mikhaylov",
+        "year": "2016",
+        "journal-title": "Proc 22nd Eur Wireless Conf"
+      },
+      {
+        "key": "ref58",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/IOTM.0001.2000072"
+      },
+      {
+        "key": "ref53",
+        "article-title": "ChirpStack, open-source LoRaWAN&#x00AE; network server",
+        "author": "brocaar",
+        "year": "2022"
+      },
+      {
+        "key": "ref52",
+        "year": "2021",
+        "journal-title": "RAK7243 gateway"
+      },
+      {
+        "key": "ref11",
+        "year": "2019",
+        "journal-title": "The things indoor gateway"
+      },
+      {
+        "key": "ref55",
+        "first-page": "1",
+        "article-title": "Data compression in wireless sensor nodes with LoRa",
+        "author": "s?c?leanu",
+        "year": "2018",
+        "journal-title": "Proc 10th ECAI Conf"
+      },
+      {
+        "key": "ref10",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/jsan6020007"
+      },
+      {
+        "key": "ref54",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/1278972.1278979"
+      },
+      {
+        "key": "ref17",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JIOT.2020.3009228"
+      },
+      {
+        "key": "ref16",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JIOT.2022.3185619"
+      },
+      {
+        "key": "ref19",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3055031.3055034"
+      },
+      {
+        "key": "ref18",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/TIM.2018.2814082"
+      },
+      {
+        "key": "ref51",
+        "author": "boano",
+        "year": "2017",
+        "journal-title": "EWSN Dependability Competition Experiences and Lessons Learned"
+      },
+      {
+        "key": "ref50",
+        "first-page": "54",
+        "article-title": "A competition to push the dependability of low-power wireless protocols to the edge",
+        "author": "schuß",
+        "year": "2017",
+        "journal-title": "Proc 14th EWSN Conf"
+      },
+      {
+        "key": "ref46",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/TII.2022.3145846"
+      },
+      {
+        "key": "ref45",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2018.2883151"
+      },
+      {
+        "key": "ref48",
+        "first-page": "151",
+        "article-title": "SERVOUS: Cross-technology neighbour discovery and rendezvous for low-power wireless devices",
+        "author": "hofmann",
+        "year": "2021",
+        "journal-title": "Proc 18th EWSN Conf"
+      },
+      {
+        "key": "ref47",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3055366.3055367"
+      },
+      {
+        "key": "ref42",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ICNP49622.2020.9259407"
+      },
+      {
+        "key": "ref41",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3462755"
+      },
+      {
+        "key": "ref44",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WoWMoM49955.2020.00017"
+      },
+      {
+        "key": "ref43",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/JIOT.2018.2878942"
+      },
+      {
+        "key": "ref49",
+        "first-page": "30",
+        "article-title": "Moving beyond competitions: Extending D-cube to seamlessly benchmark low-power wireless systems",
+        "author": "schuß",
+        "year": "2018",
+        "journal-title": "Proc 1st CPSBench Workshop"
+      },
+      {
+        "key": "ref8",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3302506.3310396"
+      },
+      {
+        "key": "ref7",
+        "year": "2022",
+        "journal-title": "Networks of 'things'"
+      },
+      {
+        "key": "ref9",
+        "first-page": "39",
+        "article-title": "Impact of temperature variations on the reliability of LoRa&#x2014;An experimental evaluation",
+        "author": "boano",
+        "year": "2018",
+        "journal-title": "Proc 7th SENSORNETS Conf"
+      },
+      {
+        "key": "ref4",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s18041118"
+      },
+      {
+        "key": "ref3",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/s20030648"
+      },
+      {
+        "key": "ref6",
+        "year": "2017",
+        "journal-title": "LoRaWAN Specification v1 1"
+      },
+      {
+        "key": "ref5",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.3390/fi12010013"
+      },
+      {
+        "key": "ref40",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3384419.3430715"
+      },
+      {
+        "key": "ref35",
+        "first-page": "73",
+        "article-title": "Efficient network flooding and time synchronization with glossy",
+        "author": "ferrari",
+        "year": "2011",
+        "journal-title": "Proc 10th IPSN Conf"
+      },
+      {
+        "key": "ref34",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ICITACEE53184.2021.9617492"
+      },
+      {
+        "key": "ref37",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/IPSN.2018.00014"
+      },
+      {
+        "key": "ref36",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3274783.3274849"
+      },
+      {
+        "key": "ref31",
+        "first-page": "35",
+        "article-title": "Cloud IoT based greenhouse monitoring system",
+        "volume": "5",
+        "author": "keerthi",
+        "year": "2015",
+        "journal-title": "Int J Eng Res Appl"
+      },
+      {
+        "key": "ref30",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3293534"
+      },
+      {
+        "key": "ref33",
+        "author": "arkian",
+        "year": "2020",
+        "journal-title": "Potable Water Management with Integrated Fog Computing and LoRaWAN Technologies"
+      },
+      {
+        "key": "ref32",
+        "first-page": "77",
+        "article-title": "AgriLoRa: A digital twin framework for smart agriculture",
+        "volume": "11",
+        "author": "angin",
+        "year": "2020",
+        "journal-title": "J Wireless Mobile Netw Ubiquitous Comput Depend Appl"
+      },
+      {
+        "key": "ref2",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ISBA.2018.8311466"
+      },
+      {
+        "key": "ref1",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1007/978-3-030-30241-2_20"
+      },
+      {
+        "key": "ref39",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/COMST.2018.2870643"
+      },
+      {
+        "key": "ref38",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/INFOCOM41043.2020.9155423"
+      },
+      {
+        "key": "ref24",
+        "article-title": "Multi-hop LoRaWAN: Including a forwarding node",
+        "author": "van de velde",
+        "year": "2017"
+      },
+      {
+        "key": "ref68",
+        "first-page": "106",
+        "article-title": "Synchronous transmissions made easy: Design your network stack with Baloo",
+        "author": "jacob",
+        "year": "2019",
+        "journal-title": "Proc 16th EWSN Conf"
+      },
+      {
+        "key": "ref23",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2019.2913985"
+      },
+      {
+        "key": "ref67",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/2994551.2994558"
+      },
+      {
+        "key": "ref26",
+        "first-page": "361",
+        "article-title": "LoRa for the Internet of Things",
+        "author": "bor",
+        "year": "2016",
+        "journal-title": "Proc 1st MadCom Workshop"
+      },
+      {
+        "key": "ref25",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/MNET.001.1900269"
+      },
+      {
+        "key": "ref69",
+        "first-page": "180",
+        "article-title": "OSF: An open-source framework for synchronous flooding over multiple physical layers",
+        "author": "baddeley",
+        "year": "2022",
+        "journal-title": "Proc 19th EWSN Conf"
+      },
+      {
+        "key": "ref20",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1016/j.procs.2018.04.063"
+      },
+      {
+        "key": "ref64",
+        "first-page": "132",
+        "article-title": "Concurrent transmissions for multi-hop communication on ultra-wideband radios",
+        "author": "lobba",
+        "year": "2020",
+        "journal-title": "Proc 17th EWSN Conf"
+      },
+      {
+        "key": "ref63",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/DCOSS54816.2022.00014"
+      },
+      {
+        "key": "ref22",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/WF-IoT.2019.8767242"
+      },
+      {
+        "key": "ref66",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/2517351.2517358"
+      },
+      {
+        "key": "ref21",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/TII.2019.2958620"
+      },
+      {
+        "key": "ref65",
+        "first-page": "1",
+        "article-title": "Low-power wireless bus",
+        "author": "ferrari",
+        "year": "2012",
+        "journal-title": "Proc 10th ACM SenSys Conf"
+      },
+      {
+        "key": "ref28",
+        "first-page": "115",
+        "article-title": "ChirpBox: An infrastructure-less LoRa testbed",
+        "author": "tian",
+        "year": "2021",
+        "journal-title": "Proc 18th EWSN Conf"
+      },
+      {
+        "key": "ref27",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/ACCESS.2017.2755858"
+      },
+      {
+        "key": "ref29",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3410159"
+      },
+      {
+        "key": "ref60",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1145/3485730.3485928"
+      },
+      {
+        "key": "ref62",
+        "first-page": "1",
+        "article-title": "CurvingLoRa to boost LoRa network throughput via concurrent transmission",
+        "author": "li",
+        "year": "2022",
+        "journal-title": "Proc 19th NSDI Conf"
+      },
+      {
+        "key": "ref61",
+        "doi-asserted-by": "publisher",
+        "DOI": "10.1109/INFOCOM42981.2021.9488695"
+      }
+    ],
+    "container-title": [
+      "IEEE Internet of Things Journal"
+    ],
+    "original-title": [],
+    "link": [
+      {
+        "URL": "http://xplorestaging.ieee.org/ielx7/6488907/10227658/10089848.pdf?arnumber=10089848",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "similarity-checking"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2023,
+          9,
+          11
+        ]
+      ],
+      "date-time": "2023-09-11T19:12:39Z",
+      "timestamp": 1694459559000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://ieeexplore.ieee.org/document/10089848/"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2023,
+          9,
+          1
+        ]
+      ]
+    },
+    "references-count": 69,
+    "journal-issue": {
+      "issue": "17"
+    },
+    "URL": "https://doi.org/10.1109/jiot.2023.3263630",
+    "relation": {},
+    "ISSN": [
+      "2327-4662",
+      "2372-2541"
+    ],
+    "issn-type": [
+      {
+        "value": "2327-4662",
+        "type": "electronic"
+      },
+      {
+        "value": "2372-2541",
+        "type": "electronic"
+      }
+    ],
+    "subject": [],
+    "published": {
+      "date-parts": [
+        [
+          2023,
+          9,
+          1
+        ]
+      ]
+    }
+  }
+}

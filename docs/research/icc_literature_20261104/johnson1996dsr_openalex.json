@@ -1,0 +1,737 @@
+{
+  "id": "https://openalex.org/W2157457404",
+  "doi": "https://doi.org/10.1007/978-0-585-29603-6_5",
+  "title": "Dynamic Source Routing in Ad Hoc Wireless Networks",
+  "display_name": "Dynamic Source Routing in Ad Hoc Wireless Networks",
+  "publication_year": 2007,
+  "publication_date": "2007-08-25",
+  "ids": {
+    "openalex": "https://openalex.org/W2157457404",
+    "doi": "https://doi.org/10.1007/978-0-585-29603-6_5",
+    "mag": "2157457404"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1007/978-0-585-29603-6_5",
+    "doi": "https://doi.org/10.1007/978-0-585-29603-6_5",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1007/978-0-585-29603-6_5",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S4306463937",
+      "display_name": "Springer eBooks",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": "https://openalex.org/P4310319965",
+      "host_organization_name": "Springer Nature",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319965"
+      ],
+      "host_organization_lineage_names": [
+        "Springer Nature"
+      ],
+      "type": "ebook platform"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "The Kluwer International Series in Engineering and Computer Science",
+    "raw_type": "book-chapter"
+  },
+  "volume": {
+    "id": "https://openalex.org/W4239012567",
+    "display_name": "Mobile Computing"
+  },
+  "type": "book-chapter",
+  "indexed_in": [
+    "crossref"
+  ],
+  "open_access": {
+    "is_oa": false,
+    "oa_status": "closed",
+    "oa_url": null,
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5109003364",
+        "display_name": "David B. Johnson",
+        "orcid": "https://orcid.org/0009-0004-9000-1791",
+        "observed_orcids": [
+          "https://orcid.org/0009-0004-9000-1791"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I74973139",
+          "display_name": "Carnegie Mellon University",
+          "ror": "https://ror.org/05x2bcf33",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I74973139"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "David B. Johnson",
+      "raw_affiliation_strings": [
+        "Computer Science Department, Carnegie Mellon University, 5000 Forbes Avenue, Pittsburgh, PA, 15213-3891, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Computer Science Department, Carnegie Mellon University, 5000 Forbes Avenue, Pittsburgh, PA, 15213-3891, USA",
+          "institution_ids": [
+            "https://openalex.org/I74973139"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5110471094",
+        "display_name": "David A. Maltz",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I74973139",
+          "display_name": "Carnegie Mellon University",
+          "ror": "https://ror.org/05x2bcf33",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I74973139"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "David A. Maltz",
+      "raw_affiliation_strings": [
+        "Computer Science Department, Carnegie Mellon University, 5000 Forbes Avenue, Pittsburgh, PA, 15213-3891, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Computer Science Department, Carnegie Mellon University, 5000 Forbes Avenue, Pittsburgh, PA, 15213-3891, USA",
+          "institution_ids": [
+            "https://openalex.org/I74973139"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 1,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [
+    "https://openalex.org/I74973139"
+  ],
+  "apc_list": null,
+  "apc_paid": null,
+  "fwci": 1409.6815,
+  "has_fulltext": false,
+  "cited_by_count": 8554,
+  "citation_normalized_percentile": {
+    "value": 1.0,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+  },
+  "cited_by_percentile_year": {
+    "min": 99,
+    "max": 100
+  },
+  "biblio": {
+    "volume": null,
+    "issue": null,
+    "first_page": "153",
+    "last_page": "181"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T10246",
+    "display_name": "Mobile Ad Hoc Networks",
+    "score": 0.9994999766349792,
+    "subfield": {
+      "id": "https://openalex.org/subfields/1705",
+      "display_name": "Computer Networks and Communications"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/17",
+      "display_name": "Computer Science"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T10246",
+      "display_name": "Mobile Ad Hoc Networks",
+      "score": 0.9994999766349792,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10651",
+      "display_name": "IPv6, Mobility, Handover, Networks, Security",
+      "score": 9.999999747378752e-05,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T11896",
+      "display_name": "Opportunistic and Delay-Tolerant Networks",
+      "score": 9.999999747378752e-05,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1705",
+        "display_name": "Computer Networks and Communications"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/dynamic-source-routing",
+      "display_name": "dynamic source routing",
+      "score": 0.9909999966621399
+    },
+    {
+      "id": "https://openalex.org/keywords/ad-hoc-networks",
+      "display_name": "ad hoc networks",
+      "score": 0.8790000081062317
+    },
+    {
+      "id": "https://openalex.org/keywords/mobile-nodes",
+      "display_name": "mobile nodes",
+      "score": 0.8090000152587891
+    },
+    {
+      "id": "https://openalex.org/keywords/packet-forwarding",
+      "display_name": "packet forwarding",
+      "score": 0.6650000214576721
+    },
+    {
+      "id": "https://openalex.org/keywords/routing-overhead",
+      "display_name": "routing overhead",
+      "score": 0.7570000290870667
+    },
+    {
+      "id": "https://openalex.org/keywords/host-mobility",
+      "display_name": "host mobility",
+      "score": 0.7950000166893005
+    },
+    {
+      "id": "https://openalex.org/keywords/host-density",
+      "display_name": "host density",
+      "score": 0.6449999809265137
+    },
+    {
+      "id": "https://openalex.org/keywords/route-length",
+      "display_name": "route length",
+      "score": 0.7049999833106995
+    },
+    {
+      "id": "https://openalex.org/keywords/routing-protocols",
+      "display_name": "routing protocols",
+      "score": 0.4620000123977661
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C31258907",
+      "wikidata": "https://www.wikidata.org/wiki/Q1301371",
+      "display_name": "Computer network",
+      "level": 1,
+      "score": 0.8139898777008057
+    },
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.7267342209815979
+    },
+    {
+      "id": "https://openalex.org/C204739117",
+      "wikidata": "https://www.wikidata.org/wiki/Q1368373",
+      "display_name": "Optimized Link State Routing Protocol",
+      "level": 4,
+      "score": 0.6568893194198608
+    },
+    {
+      "id": "https://openalex.org/C47318570",
+      "wikidata": "https://www.wikidata.org/wiki/Q8026863",
+      "display_name": "Wireless Routing Protocol",
+      "level": 4,
+      "score": 0.6501137018203735
+    },
+    {
+      "id": "https://openalex.org/C91280400",
+      "wikidata": "https://www.wikidata.org/wiki/Q4085781",
+      "display_name": "Mobile ad hoc network",
+      "level": 3,
+      "score": 0.5858110189437866
+    },
+    {
+      "id": "https://openalex.org/C94523657",
+      "wikidata": "https://www.wikidata.org/wiki/Q4085781",
+      "display_name": "Wireless ad hoc network",
+      "level": 3,
+      "score": 0.5746192336082458
+    },
+    {
+      "id": "https://openalex.org/C32244324",
+      "wikidata": "https://www.wikidata.org/wiki/Q4680755",
+      "display_name": "Adaptive quality of service multi-hop routing",
+      "level": 5,
+      "score": 0.5560045838356018
+    },
+    {
+      "id": "https://openalex.org/C126831891",
+      "wikidata": "https://www.wikidata.org/wiki/Q221673",
+      "display_name": "Host (biology)",
+      "level": 2,
+      "score": 0.5327467918395996
+    },
+    {
+      "id": "https://openalex.org/C190526755",
+      "wikidata": "https://www.wikidata.org/wiki/Q4678071",
+      "display_name": "Ad hoc wireless distribution service",
+      "level": 5,
+      "score": 0.5070428848266602
+    },
+    {
+      "id": "https://openalex.org/C104954878",
+      "wikidata": "https://www.wikidata.org/wiki/Q1648707",
+      "display_name": "Routing protocol",
+      "level": 3,
+      "score": 0.45401325821876526
+    },
+    {
+      "id": "https://openalex.org/C9659607",
+      "wikidata": "https://www.wikidata.org/wiki/Q1268903",
+      "display_name": "Dynamic Source Routing",
+      "level": 4,
+      "score": 0.4531446397304535
+    },
+    {
+      "id": "https://openalex.org/C158379750",
+      "wikidata": "https://www.wikidata.org/wiki/Q214111",
+      "display_name": "Network packet",
+      "level": 2,
+      "score": 0.4437685012817383
+    },
+    {
+      "id": "https://openalex.org/C29436982",
+      "wikidata": "https://www.wikidata.org/wiki/Q3700557",
+      "display_name": "Destination-Sequenced Distance Vector routing",
+      "level": 5,
+      "score": 0.4353402256965637
+    },
+    {
+      "id": "https://openalex.org/C2779960059",
+      "wikidata": "https://www.wikidata.org/wiki/Q7113681",
+      "display_name": "Overhead (engineering)",
+      "level": 2,
+      "score": 0.41721537709236145
+    },
+    {
+      "id": "https://openalex.org/C120314980",
+      "wikidata": "https://www.wikidata.org/wiki/Q180634",
+      "display_name": "Distributed computing",
+      "level": 1,
+      "score": 0.3879522979259491
+    },
+    {
+      "id": "https://openalex.org/C555944384",
+      "wikidata": "https://www.wikidata.org/wiki/Q249",
+      "display_name": "Wireless",
+      "level": 2,
+      "score": 0.20640531182289124
+    },
+    {
+      "id": "https://openalex.org/C76155785",
+      "wikidata": "https://www.wikidata.org/wiki/Q418",
+      "display_name": "Telecommunications",
+      "level": 1,
+      "score": 0.12005731463432312
+    },
+    {
+      "id": "https://openalex.org/C86803240",
+      "wikidata": "https://www.wikidata.org/wiki/Q420",
+      "display_name": "Biology",
+      "level": 0,
+      "score": 0.054152876138687134
+    },
+    {
+      "id": "https://openalex.org/C111919701",
+      "wikidata": "https://www.wikidata.org/wiki/Q9135",
+      "display_name": "Operating system",
+      "level": 1,
+      "score": 0.04612541198730469
+    },
+    {
+      "id": "https://openalex.org/C18903297",
+      "wikidata": "https://www.wikidata.org/wiki/Q7150",
+      "display_name": "Ecology",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 10,
+  "locations": [
+    {
+      "id": "doi:10.1007/978-0-585-29603-6_5",
+      "doi": "https://doi.org/10.1007/978-0-585-29603-6_5",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1007/978-0-585-29603-6_5",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306463937",
+        "display_name": "Springer eBooks",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/P4310319965",
+        "host_organization_name": "Springer Nature",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319965"
+        ],
+        "host_organization_lineage_names": [
+          "Springer Nature"
+        ],
+        "type": "ebook platform"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "The Kluwer International Series in Engineering and Computer Science",
+      "raw_type": "book-chapter"
+    },
+    {
+      "id": "pmh:oai:CiteSeerX.psu:10.1.1.129.426",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.129.426",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "http://www.cs.cornell.edu/people/egs/615/johnson-dsr.pdf",
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:CiteSeerX.psu:10.1.1.20.5059",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.5059",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "http://www.cs.colorado.edu/~rhan/CSCI_7143_001_Fall_2002/Papers/Johnson96_DSR.pdf",
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:CiteSeerX.psu:10.1.1.320.3782",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.320.3782",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "http://www.ee.iitb.ac.in/~comlab/seminar/nishant1_Ref2.pdf",
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:CiteSeerX.psu:10.1.1.334.6342",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.334.6342",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "http://www.loria.fr/~ichris/Teaching/Articles/dsr.pdf",
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:CiteSeerX.psu:10.1.1.336.423",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.336.423",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "http://www.utc.edu/Faculty/Li-Yang/CNS-reading/Dynamic-Source-Routing-johnson-dsr.pdf",
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:CiteSeerX.psu:10.1.1.37.1126",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.37.1126",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "http://piggy.cs.nthu.edu.tw/paper/Mobile/././PS/johns-adhoc2.ps.gz",
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:CiteSeerX.psu:10.1.1.44.4661",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.44.4661",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "http://www.ics.uci.edu/~atm/adhoc/paper-collection/johnson-dsr.ps.gz",
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:CiteSeerX.psu:10.1.1.61.1977",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.61.1977",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "http://www.monarch.cs.cmu.edu/monarch-papers/kluwer-adhoc.pdf",
+      "raw_type": "text"
+    },
+    {
+      "id": "mag:2965940991",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "https://dblp.uni-trier.de/db/conf/mobidata/mobidata1994.html#0001M94",
+      "pdf_url": null,
+      "source": null,
+      "license": null,
+      "license_id": null,
+      "version": null,
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": null,
+      "raw_type": null
+    }
+  ],
+  "best_oa_location": null,
+  "sustainable_development_goals": [],
+  "study_designs": [],
+  "awards": [],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320306076",
+      "display_name": "National Science Foundation",
+      "ror": "https://ror.org/021nxhr62"
+    },
+    {
+      "id": "https://openalex.org/F4320310207",
+      "display_name": "Carnegie Mellon University",
+      "ror": "https://ror.org/05x2bcf33"
+    },
+    {
+      "id": "https://openalex.org/F4320332180",
+      "display_name": "Defense Advanced Research Projects Agency",
+      "ror": "https://ror.org/02caytj08"
+    }
+  ],
+  "has_content": {
+    "pdf": false,
+    "grobid_xml": false
+  },
+  "content_urls": null,
+  "referenced_works_count": 29,
+  "referenced_works": [
+    "https://openalex.org/W1962291",
+    "https://openalex.org/W80313940",
+    "https://openalex.org/W106527558",
+    "https://openalex.org/W1540641082",
+    "https://openalex.org/W1590810061",
+    "https://openalex.org/W1629946144",
+    "https://openalex.org/W1685072120",
+    "https://openalex.org/W1728701145",
+    "https://openalex.org/W1844553361",
+    "https://openalex.org/W1970139083",
+    "https://openalex.org/W1976013238",
+    "https://openalex.org/W1994980566",
+    "https://openalex.org/W2013983674",
+    "https://openalex.org/W2017157149",
+    "https://openalex.org/W2044927986",
+    "https://openalex.org/W2099057525",
+    "https://openalex.org/W2102907001",
+    "https://openalex.org/W2124651399",
+    "https://openalex.org/W2137028319",
+    "https://openalex.org/W2148099880",
+    "https://openalex.org/W2150519657",
+    "https://openalex.org/W2226521520",
+    "https://openalex.org/W2248064281",
+    "https://openalex.org/W4205730365",
+    "https://openalex.org/W4230038347",
+    "https://openalex.org/W4235381699",
+    "https://openalex.org/W4236944153",
+    "https://openalex.org/W4240536681",
+    "https://openalex.org/W4253747132"
+  ],
+  "related_works": [
+    "https://openalex.org/W2185009627",
+    "https://openalex.org/W2104120254",
+    "https://openalex.org/W7098221403",
+    "https://openalex.org/W2076601282",
+    "https://openalex.org/W2167565369",
+    "https://openalex.org/W7097514802",
+    "https://openalex.org/W2153369372",
+    "https://openalex.org/W2031633458",
+    "https://openalex.org/W1679752501",
+    "https://openalex.org/W2735491198"
+  ],
+  "abstract_inverted_index": null,
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 40
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 49
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 46
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 63
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 90
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 133
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 116
+    },
+    {
+      "year": 2019,
+      "cited_by_count": 151
+    },
+    {
+      "year": 2018,
+      "cited_by_count": 181
+    },
+    {
+      "year": 2017,
+      "cited_by_count": 203
+    },
+    {
+      "year": 2016,
+      "cited_by_count": 286
+    },
+    {
+      "year": 2015,
+      "cited_by_count": 371
+    },
+    {
+      "year": 2014,
+      "cited_by_count": 438
+    },
+    {
+      "year": 2013,
+      "cited_by_count": 499
+    },
+    {
+      "year": 2012,
+      "cited_by_count": 482
+    }
+  ],
+  "updated_date": "2026-11-03T10:50:19.383937",
+  "created_date": "2016-06-24T00:00:00"
+}

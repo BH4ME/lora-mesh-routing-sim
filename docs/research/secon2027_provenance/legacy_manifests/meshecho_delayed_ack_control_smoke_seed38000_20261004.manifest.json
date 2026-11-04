@@ -1,0 +1,71 @@
+{
+  "application_deadline_s": 30.0,
+  "artifact_sha256": {
+    "actions": "0cdacd8aa07e553f363fcc2e27e0cfee7f09d3fe470bee65330ee166886ff2e8",
+    "extended_tx": "0a84b43b8b7d12d20068779490fabd32a3da164b0302b01dde057e3b26074261",
+    "flows": "b6a26ee7acbb44d4c43074be49880655b66445caf4068d1db8a20a8e15ec6d86",
+    "paired": "5f372eacd7a94a52f7916361fae034f2411d36e760fb8209ec64928cc1f04dd9",
+    "per_seed": "071bddf5c3a289f578f1ca097da26ddc4faefc9f384306f11992fc460c7a1076",
+    "receipts": "e0b08049ca3bed25811603a5d79b143541cb176c09eeaac96ab20132b367b538",
+    "runs": "006d71342bc15ca72730d73735cad793968fedb16280b45a65a726a7d2a702a1",
+    "tx": "0a84b43b8b7d12d20068779490fabd32a3da164b0302b01dde057e3b26074261"
+  },
+  "case": {
+    "area_m": 8250.0,
+    "bw_hz": 125000,
+    "capture_threshold_db": 6.0,
+    "cr": 1,
+    "duration_s": 600.0,
+    "edge_prr_threshold": 0.9,
+    "key": "recurring_fading",
+    "matched_rreq_timing": true,
+    "max_graph_hops": 4,
+    "max_hops": 6,
+    "min_graph_hops": 2,
+    "nodes": 50,
+    "pair_count": 4,
+    "pair_mode": "connected-multihop",
+    "pair_schedule": "poisson",
+    "path_loss_exp": 2.75,
+    "payload_bytes": 32,
+    "rate_per_min": 4.0,
+    "route_ttl_s": 600.0,
+    "sf": 7,
+    "shadow_sigma_db": 4.0,
+    "temporal_fading_interval_s": 60.0,
+    "temporal_fading_sigma_db": 6.0,
+    "traffic": "unicast",
+    "traffic_pattern": "standard",
+    "tx_power_dbm": 17.0
+  },
+  "complete_packet_toa_for_included_tx": true,
+  "extended_airtime_scope": "bounded 660-s TX-start sensitivity, not all eventual TX",
+  "extended_cost_window_limited": true,
+  "extended_observed_tail_unstarted": false,
+  "extended_tx_start_cutoff_s": 660.0,
+  "fixed_flood_ack_delay_s": 2.0,
+  "generation_horizon_s": 600.0,
+  "primary_cost_window_limited": false,
+  "primary_tx_start_cutoff_s": 630.0,
+  "protocols": [
+    "meshecho-dhr-flood-ack-delay",
+    "meshecho-dhr-flood"
+  ],
+  "runs": 2,
+  "seed_split": "smoke",
+  "seeds": [
+    38000
+  ],
+  "source_sha256": {
+    "docs/research/meshecho_delayed_ack_control_design.md": "86396835b850d9dfd7fc5753acb414a5c12208aafba1e9602fe0dca93c1d8441",
+    "docs/research/meshecho_dhr_design.md": "862e7f307db6ac992235e90c34bfb7e3793e69d3168ee91d133d1db636a26d59",
+    "lora_mesh_sim.py": "cfc7e36b7c2c78096eaefaa27b49f70b877e4d43fa76fbaef6d34d5b16d2d383",
+    "tests/test_delayed_ack_control_runner.py": "742e4134d8f54e5d00708840e2f2694746b9671fde4471dc3e051c96ce814852",
+    "tests/test_delayed_flood_ack_control.py": "ff0a75b45617a92883d2665549c70d2c0f1598f096077194abef644b1a344bda",
+    "tests/test_meshecho_dhr.py": "0f6825b1bae3222a1bd6a2275f515887087600f27d055de7cf9b8e0e31d1d7b8",
+    "tools/run_delayed_ack_control.py": "566f593fbfa07b8459ebcebbb101ff8a1cab170a09c819b4a7b433e603427108",
+    "tools/run_fair_multihop_probe.py": "0fce2adbf1ec610276618ae2d1f17ee8a5adb4511d316c461ec2f2a1142f8b1e",
+    "tools/run_sr_experiment.py": "8dfdb0fdb487144923e1854f803c76f7302d7b4743081a5b3fbfb9d493c74508"
+  },
+  "stock_fixed_f_parity": true
+}
