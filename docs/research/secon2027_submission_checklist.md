@@ -1,6 +1,6 @@
 # SECON 2027 candidate and submission checklist
 
-This checklist tracks a reviewable manuscript and reproducibility package. No EDAS submission, registration, payment or external message has been performed. Formal numerical and PDF acceptance checks are complete on the final v3 artifact identified below; external publication is tracked separately until its exact remote SHA is verified.
+This checklist tracks a reviewable manuscript and reproducibility package. No EDAS submission, registration, payment or external message has been performed. Formal numerical and PDF acceptance checks are complete on the final v3 artifact identified below, and final artifact publication has been verified against the exact remote SHA.
 
 ## Verified venue rules
 
@@ -43,7 +43,7 @@ Checked items below are supported by completed evidence, including the independe
 - [x] Check PDF text, annotations and metadata for author, affiliation, local user-path and identifying repository-link leakage.
 - [x] Reconcile the AI-assistance disclosure with the final text, diagram code and software assistance under the applicable IEEE policy.
 - [x] Record final source/PDF hashes, Tectonic0.17.0, render/font/metadata diagnostics in `paper/secon2027/manuscript_manifest.json` and `PDF_QA.md`.
-- [ ] Record the final closeout commit and matching authenticated remote SHA; earlier2.1.29publication does not substitute for it.
+- [x] Final2.1.30artifact commit `e653315803c46abf80fb6d3476eee3b5f7fd34a4` matches the authenticated remoteSHA. `secon2027_publication_receipt.json` records exacttree/objects and nonforce publication.
 
 The exact audit, analysis, figure and archive-restoration commands are documented in `../reproducibility/secon2027_reproduce.md`. Its standalone utilities are under `artifacts/secon2027/reproduction_helpers/`.
 
@@ -68,3 +68,5 @@ The final anonymous file is `paper/secon2027/meshecho-secon2027-anonymous.pdf`, 
 Independent execution-side and supervisor reviews agree. `results/secon2027/gates/formal-v1/final-pdf-qa-v3.json`, `docs/research/secon2027_supervisor_final_pdf_review.json` and the manuscript manifest bind the exact file and source hashes. PDFmetadata author is blank; extracted text, annotations and the6public-reference links reveal no author names, affiliation, email, personal repository or local path. The final radio row explicitly states915MHz and the limitations explicitly state that no duty-cycle or listen-before-talk enforcement is modeled.
 
 The sole Acknowledgment paragraph is the nonidentifying AI-assistance disclosure. The recorded IEEEpolicy explicitly requires this disclosure in the acknowledgments section; no human/funding acknowledgments or invented declarations are included. The v1ten-page draft and v2without the explicit radio-scope sentence are superseded internal builds, not the delivered manuscript. NoEDASsubmission occurred.
+
+Final publication: `e653315803c46abf80fb6d3476eee3b5f7fd34a4`. Raw and analysis/paper packages are both recoverable from the work branch; the separate anonymousPDF is the exact v3 file above. Final95-item execution status is closed for requiredP0/P1, with optional conditions and RF nonvalidation explicitly retained.

@@ -1,0 +1,919 @@
+{
+  "verified_at": "2026-11-04T11:03:43.319705+00:00",
+  "transport": "Authenticated official GitHub Git Database REST API",
+  "branch": "codex/meshecho-secon2027",
+  "base": "30e7bd42ecee5ff3d538601df8146934eca680fa",
+  "local_commit": "e653315803c46abf80fb6d3476eee3b5f7fd34a4",
+  "remote_commit": "e653315803c46abf80fb6d3476eee3b5f7fd34a4",
+  "tree": "f01fd53024d02d5089bcc35bac326907a77142cb",
+  "exact_object_identity_preserved": true,
+  "force": false,
+  "blob_count": 113,
+  "blobs": [
+    {
+      "path": "CHANGELOG.md",
+      "sha": "6c2ecd658a0f7d387d39e04f9e5d12ba6b9df39d",
+      "bytes": 22973,
+      "verified": true,
+      "seconds": 1.4656303329975344,
+      "attempts": 1
+    },
+    {
+      "path": "VERSION",
+      "sha": "ac127842c0f8c92c805bd2947d2b2ee367db0004",
+      "bytes": 7,
+      "verified": true,
+      "seconds": 1.2307958749879617,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/README.md",
+      "sha": "846e3360bf56f976eba896ba03abe66348994914",
+      "bytes": 2507,
+      "verified": true,
+      "seconds": 1.279759124998236,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-analysis-paper-2.1.30.index.json",
+      "sha": "72d75089682704f292649ce55b6353dfa56883ef",
+      "bytes": 281816,
+      "verified": true,
+      "seconds": 1.5710162909817882,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-analysis-paper-2.1.30.parts.index.json",
+      "sha": "b9b0fe6d66477001bea9db90f2c21c0b5dcadc5a",
+      "bytes": 282424,
+      "verified": true,
+      "seconds": 1.8394821250112727,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-analysis-paper-2.1.30.tar.gz.part-001",
+      "sha": "498abedac096a0f827e7fadbb3d38a44c603dfbe",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 3.973745291994419,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-analysis-paper-2.1.30.tar.gz.part-002",
+      "sha": "d04c13ee2639b613e287b7f070c9e7a06c5d6f71",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 4.4718299160012975,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-analysis-paper-2.1.30.tar.gz.part-003",
+      "sha": "f5c6780194daf46e42f6949d1f07da9733bc566c",
+      "bytes": 1589656,
+      "verified": true,
+      "seconds": 5.83586020799703,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport-history.json",
+      "sha": "e7ebef44448f38ebeb3e2e2d641c0024835308f6",
+      "bytes": 5774,
+      "verified": true,
+      "seconds": 0.7667665419867262,
+      "attempts": 1
+    },
+    {
+      "path": "configs/secon2027/seed_registry.json",
+      "sha": "ad8e95cb0a4c870043779820604ef81e53b4eaff",
+      "bytes": 597512,
+      "verified": true,
+      "seconds": 2.46692170901224,
+      "attempts": 1
+    },
+    {
+      "path": "docs/project-management/secon2027_release_map.md",
+      "sha": "33b2192cd41362eae3641827f76a42c8ba081bc1",
+      "bytes": 10899,
+      "verified": true,
+      "seconds": 0.9676599590166006,
+      "attempts": 1
+    },
+    {
+      "path": "docs/reproducibility/secon2027_reproduce.md",
+      "sha": "74fe6f9b425829e5ac6780c68bfb4249827f910a",
+      "bytes": 25773,
+      "verified": true,
+      "seconds": 1.2468907080183271,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_acceptance_execution.md",
+      "sha": "97b53909fa1bf2a48007a9a53ce84e83c77c75d3",
+      "bytes": 58362,
+      "verified": true,
+      "seconds": 1.5435134999861475,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_checkpoint.md",
+      "sha": "f75357144f33599f01c41a53b3226b49fe0a06a2",
+      "bytes": 23945,
+      "verified": true,
+      "seconds": 1.0861956250155345,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_claim_evidence.md",
+      "sha": "711c3e804c33fd47255998c15855c2c60554c3fb",
+      "bytes": 15794,
+      "verified": true,
+      "seconds": 0.8177801659912802,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_final_package_restore_review.json",
+      "sha": "c1884d49957f4f6e560ef5c57110e446e27ed3e6",
+      "bytes": 2136,
+      "verified": true,
+      "seconds": 0.8020185840141494,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_final_paper_claims_review.json",
+      "sha": "56eb541bdc157eb7976b127353e99820f107d5c8",
+      "bytes": 48372,
+      "verified": true,
+      "seconds": 17.26160070800688,
+      "attempts": 2
+    },
+    {
+      "path": "docs/research/secon2027_final_paper_claims_review.md",
+      "sha": "1f0bd27eca5297a6adc2744a939003d4ee113d73",
+      "bytes": 6317,
+      "verified": true,
+      "seconds": 0.8920669170038309,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_final_statistics_review.json",
+      "sha": "a7ce0cb00ad851a24fa264f98e163b334eb19887",
+      "bytes": 902979,
+      "verified": true,
+      "seconds": 3.1389474169991445,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_final_statistics_review.md",
+      "sha": "04ced9b5cb8c396595364d482c0a7db1cd2ad713",
+      "bytes": 10688,
+      "verified": true,
+      "seconds": 0.898699375014985,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_paper_blueprint.md",
+      "sha": "8e0463861e1b80958509c8ba1ff91350174531e0",
+      "bytes": 37948,
+      "verified": true,
+      "seconds": 1.4695817919855472,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_submission_checklist.md",
+      "sha": "dc3de231170341866c070be1061773bd2c9e5c56",
+      "bytes": 9793,
+      "verified": true,
+      "seconds": 0.9796332499827258,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_documents_review.json",
+      "sha": "000b38a0385d7f3a6abc72b846fa864ed74d20d3",
+      "bytes": 30163,
+      "verified": true,
+      "seconds": 2.2085251660028007,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_documents_review.md",
+      "sha": "3db03c0e42e86f10203637a0ae3241b4129aaf35",
+      "bytes": 9897,
+      "verified": true,
+      "seconds": 0.8538462909928057,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_figures_review.json",
+      "sha": "bac6a8f88591e0a8f059e05744ce63a3ae3f2913",
+      "bytes": 7090,
+      "verified": true,
+      "seconds": 0.8019109579909127,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_foundation_review.json",
+      "sha": "18c9b653604613eb05262a19a93690a84e30976b",
+      "bytes": 247539,
+      "verified": true,
+      "seconds": 9.128121082991129,
+      "attempts": 2
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_foundation_review.md",
+      "sha": "15adfa8c3a497a35b43518477f3d9dc3a7c7be68",
+      "bytes": 38848,
+      "verified": true,
+      "seconds": 2.3744219999935012,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_pdf_review.json",
+      "sha": "477c4efb1b89492764bf18f33d2701462b231cc8",
+      "bytes": 9827,
+      "verified": true,
+      "seconds": 1.0032026250264607,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_pdf_review_v2.json",
+      "sha": "d240f231978b82062de5dc9534c87f4362f37bc1",
+      "bytes": 7950,
+      "verified": true,
+      "seconds": 1.0096625839942135,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_release_review.json",
+      "sha": "ab030e99a1d5c6570b16aaa95edce62757268c85",
+      "bytes": 5577,
+      "verified": true,
+      "seconds": 0.8529417919926345,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_results_review.json",
+      "sha": "f041911384be0ffd09c1cb305aa7f00fa6b49747",
+      "bytes": 20553,
+      "verified": true,
+      "seconds": 1.9363712909980677,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_final_results_review.md",
+      "sha": "f9838de69f0eabf6406820488458fa4f2c296719",
+      "bytes": 14581,
+      "verified": true,
+      "seconds": 0.9828510420047678,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_archive_review.md",
+      "sha": "c812818f63b19cd1cb330d7b681095be51a81231",
+      "bytes": 6757,
+      "verified": true,
+      "seconds": 17.457724457985023,
+      "attempts": 2
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_exposure_review.json",
+      "sha": "5662a3c7bc76e14a2acb151f0b1e45fcd280b770",
+      "bytes": 2651876,
+      "verified": true,
+      "seconds": 3.8403056249953806,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_exposure_review.md",
+      "sha": "b73eec0bed137056805a993ebfeb88d7806f6739",
+      "bytes": 10123,
+      "verified": true,
+      "seconds": 0.9137610409816261,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_exposure_review.py",
+      "sha": "a3ff2dd1869c87cb7d6f9b627e931f67953e2cdd",
+      "bytes": 35858,
+      "verified": true,
+      "seconds": 1.1864239170099609,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_freeze_review.json",
+      "sha": "e796ec528e93b181da05bc5b071aeddb590b9bef",
+      "bytes": 25630,
+      "verified": true,
+      "seconds": 1.1221600419958122,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_freeze_review.md",
+      "sha": "1fb775d326aa12e81e7fbeb51868d3e70ed1d079",
+      "bytes": 9570,
+      "verified": true,
+      "seconds": 0.8475380830059294,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_raw_review.log",
+      "sha": "e2b50ae188e3efb58d2ced5d518735aa5c7da958",
+      "bytes": 5862,
+      "verified": true,
+      "seconds": 0.7780599580146372,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_raw_review.md",
+      "sha": "b74d0e3fc798c7182e5ae970ac7c5a07d0a9d456",
+      "bytes": 3812,
+      "verified": true,
+      "seconds": 1.3029118749836925,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_raw_review.py",
+      "sha": "7fd56f8411a655f2dbd12fb34d4c30a606714aba",
+      "bytes": 27423,
+      "verified": true,
+      "seconds": 1.2922082919976674,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_raw_review_initial.py",
+      "sha": "d56e4f774112c1e01eaee83e9938b5493bbce932",
+      "bytes": 27356,
+      "verified": true,
+      "seconds": 1.1221018749929499,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_s1_s3_exposure.json",
+      "sha": "e6b444e6bc2983f9503cb06c34491bbfbf360ce0",
+      "bytes": 508878,
+      "verified": true,
+      "seconds": 2.4040866249997634,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_s1_s3_exposure.py",
+      "sha": "5a77ff7433ecbb41761b4ccbd1c2609a030ebdcc",
+      "bytes": 19111,
+      "verified": true,
+      "seconds": 4.664549999986775,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_statistics_review.json",
+      "sha": "0a3b69941132d04a009c53a4adddb41425b23b13",
+      "bytes": 545725,
+      "verified": true,
+      "seconds": 3.155314832984004,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_formal_statistics_review.md",
+      "sha": "cc1828bb758e7159039fa5fc94edbbec3a3b75ba",
+      "bytes": 7421,
+      "verified": true,
+      "seconds": 2.3258456670155283,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_original_reads.json",
+      "sha": "4ae6d0e37448adab7f8472a63991b960ecbcb312",
+      "bytes": 5156,
+      "verified": true,
+      "seconds": 0.7631077920086682,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_pilot_archive_review.json",
+      "sha": "a93d8e3073e9bb406fbd6460b1be2095107f1d24",
+      "bytes": 665238,
+      "verified": true,
+      "seconds": 3.1074185829784255,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_pilot_archive_review.md",
+      "sha": "361b6d7ca67e2234b0b0f19f973ae94538246cae",
+      "bytes": 6001,
+      "verified": true,
+      "seconds": 1.0823061670234893,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_pilot_v2_raw_review.json",
+      "sha": "0c27e076e30332569001c0d053ae28d49a69c9f9",
+      "bytes": 577533,
+      "verified": true,
+      "seconds": 3.264649249991635,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_pilot_v2_raw_review.md",
+      "sha": "775cce6b5077704e39290ffe796be5b2d6442a8d",
+      "bytes": 15820,
+      "verified": true,
+      "seconds": 0.9218542079906911,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_pilot_v2_s2_details.json",
+      "sha": "c7b7059d77fe2a7c2c3f535743d96768078a2b8e",
+      "bytes": 2005225,
+      "verified": true,
+      "seconds": 2.7448126660019625,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_pilot_v2_s2_details.md",
+      "sha": "a0107567a1c5c7724197cb7a79f2fff1bce26242",
+      "bytes": 10329,
+      "verified": true,
+      "seconds": 0.9082102910033427,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_pilot_v2_s2_details.py",
+      "sha": "d1e2c966c012fcba48506494907788f503ae9a99",
+      "bytes": 14888,
+      "verified": true,
+      "seconds": 1.236150708020432,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_release_2_1_29_review.json",
+      "sha": "36424cdff5d24c0f369036668fed2315c1821c53",
+      "bytes": 1426,
+      "verified": true,
+      "seconds": 1.5315082090091892,
+      "attempts": 1
+    },
+    {
+      "path": "docs/research/secon2027_supervisor_statistics_review.md",
+      "sha": "e10b26dcbd26c25e380ae92972090e80659b5c6f",
+      "bytes": 2696,
+      "verified": true,
+      "seconds": 1.0716307089896873,
+      "attempts": 1
+    },
+    {
+      "path": "docs/results/secon2027_evaluation.md",
+      "sha": "12f05de583636e58100677ef9fc263b3624f8486",
+      "bytes": 32529,
+      "verified": true,
+      "seconds": 1.5707289169949945,
+      "attempts": 1
+    },
+    {
+      "path": "docs/results/secon2027_formal_mechanisms.md",
+      "sha": "9c72a727190cffd83985c53b9b7d9965eb9e01cd",
+      "bytes": 14188,
+      "verified": true,
+      "seconds": 0.9040002090041526,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/FIGURES.md",
+      "sha": "249c6f882b3e4758f74f130ab1cc0245f690f161",
+      "bytes": 3987,
+      "verified": true,
+      "seconds": 0.9433145840012003,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/PDF_QA.md",
+      "sha": "6a189b12ec8599dfb2bdb7281fd7a449b089ce78",
+      "bytes": 4293,
+      "verified": true,
+      "seconds": 1.5454160000081174,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/build_figures.py",
+      "sha": "7957f4d0c58d906bcce32fd8fe9755b1cca58177",
+      "bytes": 24190,
+      "verified": true,
+      "seconds": 2.552261749980971,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/compile_diagnostics.json",
+      "sha": "b11afad097223b23661c4dd7210097bef7bc079a",
+      "bytes": 19212,
+      "verified": true,
+      "seconds": 1.0738921250158455,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/controller_timing.tex",
+      "sha": "0ac7f45ad770e63b5350db68c33b838776fc5d8d",
+      "bytes": 3303,
+      "verified": true,
+      "seconds": 0.9092572920199018,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/discussion.tex",
+      "sha": "0c67ee87583148d6553ce9586f24c6faa2ec072b",
+      "bytes": 2424,
+      "verified": true,
+      "seconds": 0.968502667004941,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/evaluation.tex",
+      "sha": "555bb38ed795905c05f59d9f810ca2411822cbe7",
+      "bytes": 8897,
+      "verified": true,
+      "seconds": 1.0264330000209156,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/component_effects.pdf",
+      "sha": "14269a37f3d20bf8a79ebd171a36ff057994cab1",
+      "bytes": 16087,
+      "verified": true,
+      "seconds": 1.0615557910059579,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/component_effects.png",
+      "sha": "6bbb91433bce4da8c23f01a308b29c3819b8ba73",
+      "bytes": 50687,
+      "verified": true,
+      "seconds": 1.2736700829991605,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/component_effects.svg",
+      "sha": "6bbd8066660dbca1f8bb2b969056f8e1e6cacdad",
+      "bytes": 26562,
+      "verified": true,
+      "seconds": 0.9190917919913772,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/figure_manifest.json",
+      "sha": "b4fbaf757d4bad4fd8f631d7b7149e5b0f05e44a",
+      "bytes": 5678,
+      "verified": true,
+      "seconds": 0.9690214589936659,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/latency_cost.pdf",
+      "sha": "6c2f434f5be0883ef9d8eaf98768b3e13f0256f0",
+      "bytes": 21369,
+      "verified": true,
+      "seconds": 1.2066300000005867,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/latency_cost.svg",
+      "sha": "759082914a6f636ab2a060b8b8d88fc166ae977a",
+      "bytes": 46289,
+      "verified": true,
+      "seconds": 1.241213000001153,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/main_results.pdf",
+      "sha": "4e0686448def47f98a08a2bc4432c8878d0f703b",
+      "bytes": 19662,
+      "verified": true,
+      "seconds": 1.075902207987383,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/main_results.svg",
+      "sha": "c76073aeb92caa8d426b265d407349531d036c61",
+      "bytes": 51057,
+      "verified": true,
+      "seconds": 1.4466749580169562,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/robustness.pdf",
+      "sha": "9e07d8d5202157b60282caab3f902842dd14d47d",
+      "bytes": 19996,
+      "verified": true,
+      "seconds": 1.141494417010108,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v1/robustness.svg",
+      "sha": "06ca72d6ff74ff632ba178cf78890ece934da411",
+      "bytes": 55970,
+      "verified": true,
+      "seconds": 1.2576303340028971,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/component_effects.pdf",
+      "sha": "16737f4207b2475a24acb329129691e5c6176c0d",
+      "bytes": 15608,
+      "verified": true,
+      "seconds": 1.0467187920003198,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/component_effects.png",
+      "sha": "09b5d670f164049c95a1f2643dd098e588b1521f",
+      "bytes": 47348,
+      "verified": true,
+      "seconds": 1.3502370829810388,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/component_effects.svg",
+      "sha": "2a32d31d53c98765affb22d21e6d08838a5f0a66",
+      "bytes": 23753,
+      "verified": true,
+      "seconds": 1.257569124980364,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/component_effects_source.csv",
+      "sha": "9c1a49a3c73cdb7847ed6b57892cbfe86d0485cd",
+      "bytes": 87791,
+      "verified": true,
+      "seconds": 1.9890739170077723,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/figure_manifest.json",
+      "sha": "c22850b020403924e0923705f7a8460a5ebaa315",
+      "bytes": 5678,
+      "verified": true,
+      "seconds": 0.8074056670011487,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/latency_cost.pdf",
+      "sha": "9fc6335beea2e94cc4f8ea1991cc48b476ba8be1",
+      "bytes": 21369,
+      "verified": true,
+      "seconds": 1.0955394589982461,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/latency_cost.png",
+      "sha": "5b430ef0d1d6f65c5f9ad71c29430ca7715cbe71",
+      "bytes": 56107,
+      "verified": true,
+      "seconds": 1.9343067909940146,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/latency_cost.svg",
+      "sha": "e7a2be5e338538145d176471a7e708309961dae5",
+      "bytes": 46289,
+      "verified": true,
+      "seconds": 2.8049168330035172,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/latency_cost_source.csv",
+      "sha": "0ccdc645125a9458ef2f18e96100291469ac1ae0",
+      "bytes": 13162,
+      "verified": true,
+      "seconds": 1.8664281659875996,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/main_results.pdf",
+      "sha": "d804483c719e33084fcb15cd68a0979a62dd40e7",
+      "bytes": 19662,
+      "verified": true,
+      "seconds": 0.9369332080241293,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/main_results.png",
+      "sha": "2d7452abf5318f0a8d9bdead485347453d3e6955",
+      "bytes": 44298,
+      "verified": true,
+      "seconds": 1.1605049170029815,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/main_results.svg",
+      "sha": "69685db7c73470834596534bf221cf2d8e1c47bf",
+      "bytes": 51057,
+      "verified": true,
+      "seconds": 1.2117478330037557,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/main_results_source.csv",
+      "sha": "dd79c129bc0ebd0d32204dafcf29e02184fb95b6",
+      "bytes": 15562,
+      "verified": true,
+      "seconds": 1.12567162499181,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/robustness.pdf",
+      "sha": "d205404cf6eb8389f07f20993ddb1c6f8663cee1",
+      "bytes": 19996,
+      "verified": true,
+      "seconds": 17.056500708014937,
+      "attempts": 2
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/robustness.png",
+      "sha": "e6ec6bd979b725ab945ee37effee52362eb6b059",
+      "bytes": 93129,
+      "verified": true,
+      "seconds": 1.3907504999951925,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/robustness.svg",
+      "sha": "39a7184171850b0e1905a76ff47c1cfdc8dd7e7f",
+      "bytes": 55970,
+      "verified": true,
+      "seconds": 1.3776104580028914,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/robustness_source.csv",
+      "sha": "c230f6e3d029cf715599ceb0465fc39b4033bd7a",
+      "bytes": 14236,
+      "verified": true,
+      "seconds": 1.1601633329992183,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/introduction.tex",
+      "sha": "ec95dba0fbaa2f7aa24cddc7ec9b7c6062a0fe3b",
+      "bytes": 2880,
+      "verified": true,
+      "seconds": 1.0326845830131788,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/main.tex",
+      "sha": "9ef873e46c272b08b4d7a0009ec40ea9cffbc9a7",
+      "bytes": 2834,
+      "verified": true,
+      "seconds": 1.1230084160051774,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/manuscript_manifest.json",
+      "sha": "99eeb3ea8187ac22970428504d3a16e25ad5f770",
+      "bytes": 9711,
+      "verified": true,
+      "seconds": 7.851888541976223,
+      "attempts": 2
+    },
+    {
+      "path": "paper/secon2027/meshecho-secon2027-anonymous.pdf",
+      "sha": "480398ceb0d6657b98a4088d8e8c05aa04247b83",
+      "bytes": 186064,
+      "verified": true,
+      "seconds": 1.417102209001314,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/methods.tex",
+      "sha": "d927819805956a59991e9517be417e262044b268",
+      "bytes": 11240,
+      "verified": true,
+      "seconds": 0.9662050420010928,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/references.bib",
+      "sha": "c0da00101a1ad8f4ff87b2b94bf138ea944adeac",
+      "bytes": 9572,
+      "verified": true,
+      "seconds": 0.8288133750029374,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/related_work.tex",
+      "sha": "08bcb04a8ab1b7884ed3d2068961e9f188bf2f02",
+      "bytes": 3367,
+      "verified": true,
+      "seconds": 0.9618552910105791,
+      "attempts": 1
+    },
+    {
+      "path": "paper/secon2027/results.tex",
+      "sha": "440325e2802238a5139a4b1df02f284aab52ceb0",
+      "bytes": 9719,
+      "verified": true,
+      "seconds": 1.0603910829813685,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/closeout-prepromotion-tests.json",
+      "sha": "4a106ba3c15d242bee22696627aec8a2db629936",
+      "bytes": 968,
+      "verified": true,
+      "seconds": 0.8926627920009196,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/closeout-prepromotion-tests.log",
+      "sha": "dd9d431ed98ed5df9031ebb9c9d2fdf2a9879e87",
+      "bytes": 2443,
+      "verified": true,
+      "seconds": 1.2982714590034448,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/closeout-tested-inputs.json",
+      "sha": "a68124fdfad77869d2c48610545371a6b48a70b4",
+      "bytes": 27316,
+      "verified": true,
+      "seconds": 0.9813204160018358,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/final-pdf-qa-v3.json",
+      "sha": "06c58a7d97ee1f739f714b578307fa8f56a13206",
+      "bytes": 9158,
+      "verified": true,
+      "seconds": 0.8187456669984385,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/final-pdf-qa.json",
+      "sha": "cdffdeccfa13a4cdaafa1c507a6ccd5b96e56b5a",
+      "bytes": 9250,
+      "verified": true,
+      "seconds": 0.9833668750070501,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/final-scoped-diff-review.json",
+      "sha": "258c69ba400913e7ebca463ab943664070e675da",
+      "bytes": 856,
+      "verified": true,
+      "seconds": 0.9366580420173705,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/icc-preservation-check.json",
+      "sha": "689b05378602c09dc1f53cbcba29ab1d0378fe8c",
+      "bytes": 40937,
+      "verified": true,
+      "seconds": 1.251880916999653,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/promoted-2.1.30-regression.json",
+      "sha": "2e10aa7cdea84e6aee440342fb510ca0c4b8f85f",
+      "bytes": 662,
+      "verified": true,
+      "seconds": 0.7125415420159698,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/promoted-2.1.30-regression.log",
+      "sha": "db830ab35e1f396da4c2f5c861fcea2f2bf3a884",
+      "bytes": 2282,
+      "verified": true,
+      "seconds": 1.383188167004846,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/promoted-source-comparison.json",
+      "sha": "8ddec7a506933f8dea5f91a4525959f75ba6b681",
+      "bytes": 472,
+      "verified": true,
+      "seconds": 0.9604617499862798,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/publication-transport4m-006/independent-transport-review.json",
+      "sha": "8f954bd885e9e425bce6fd9b9d5f18b181099dd9",
+      "bytes": 1302,
+      "verified": true,
+      "seconds": 1.14498124999227,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/publication-transport4m-006/publication-verified.json",
+      "sha": "37f0ade237c45c8a94498e2e616f1dbfce9f40ac",
+      "bytes": 32604,
+      "verified": true,
+      "seconds": 1.2723881249839906,
+      "attempts": 1
+    },
+    {
+      "path": "results/secon2027/gates/formal-v1/transport-lineage-checkout.json",
+      "sha": "e8f3b640fe2b9e3c407bda78d3b008a633068851",
+      "bytes": 308,
+      "verified": true,
+      "seconds": 0.872559583018301,
+      "attempts": 1
+    }
+  ],
+  "global_network_or_auth_changes": false
+}

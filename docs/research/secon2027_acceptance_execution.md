@@ -1,10 +1,10 @@
 # SECON 2027 执行侧独立验收状态
 
-## 当前状态：正式证据及最终 PDF 完成，发布收尾中
+## 当前状态：必需 P0/P1 完成交付，条件 P2 未开展
 
 更新日期：**2026-11-04**。本次状态覆盖正式 raw 分块归档干净恢复、两套
-独立统计复核和 2.1.30 promotion fixtures 完成之后，最终 v3 稿件/PDF 已通过，最终发布
-关闭之前。**不宣称 95 项全部通过，不宣称已达到投稿或整体交付完成。**
+独立统计复核和 2.1.30 promotion fixtures 完成之后，最终 v3 稿件/PDF、可恢复包及精确远端发布核验均已完成。
+**95 项逐一有结论：90 项已完成或边界已核，5 项条件未触发；不把未开展的硬件项目写成已验证，不宣称已经投稿。**
 本文件只更新执行侧记录；监督方原 `secon2027_acceptance_matrix.md`、
 冻结 method decision、contract、plan 和历史科学证据均不改写。
 
@@ -39,9 +39,10 @@
   SHA256 `e477617e417a5c089bfeac3f4725e40e54e39e666071a1711c5c0e0f749eb1fd`，186064B。三轮逐页视觉核验、26字体嵌入、27引用、
   匿名metadata/链接均通过；915MHz及无duty-cycle/LBT已明确。原始失败
   草稿和v2核验保留为历史，不是当前待办。
-- **实质待完成：**科学材料、claim-evidence和匿名PDF已定稿；剩余是
-  分块传输、最终analysis/paper包、限定提交及其匹配远端SHA。已确认的
-  早期2.1.29发布不替代最终2.1.30closeout。
+- **最终发布已验：**2.1.30artifact commit `e653315803c46abf80fb6d3476eee3b5f7fd34a4` 与认证GitHub远端一致。
+  raw发布30e7bd42包含114个小分片；完整归档hash不变。最终analysis/paper包
+  1230文件干净恢复通过，四份CSV和四张PNG重画后逐字节相同。文稿、数据、
+  统计和seed不因传输重包装改变。最终文件和完整校验说明位于用户outputs。
 
 本次新增的是文档状态核对：读取现有报告、日志、hash 和实体产物，不运行
 模拟、重复研究 seeds、重跑全量审计或改写 frozen evidence。以下原历史
@@ -394,11 +395,11 @@ arms/统计或主张门槛，也未改变历史 manifest。未发现此次行政
 
 | A01 | 已验 | P：488 项真实工作状态导入、明确隔离 checkout 与来源映射；managed attachment 失败已披露，后续实验均使用明确隔离路径。 |
 | A02 | 已验 | P/checkpoint 的任务书、根规划、交接、审查与固件文件读取记录保留；NF/NH/NG 将本轮适用边界与历史材料区分。 |
-| A03 | 部分已验／待最终 | P 保留原资产、导入 diff 和无关工作；NI 182 项 ICC/paper 两处未变。最终 2.1.30 closeout 的限定 staging/commit 清单仍待根执行关闭。 |
-| A04 | 进行中／待最终 | O/NH 有执行前官方 URL、规则及 IEEE AI policy；最终 ≤9 页候选、政策与匿名性复核待最新版 PDF。时区/提前注册日期未凭空填为 AoE。 |
-| A05 | 进行中／持续 | NG checkpoint 保留 P0、429、pilot failure、freeze、43-key pause/resume、760 completion 与 closeout 时序；最后 PDF/发布状态仍须随实际完成补记。 |
-| A06 | 科研顺序已验／待最终 | Q→T/V→NF→NQ/NS 顺序已保存，first formal start 晚于 gate/freeze；post-start erratum 如实保留。论文收敛和最终发布仍未完成。 |
-| A07 | 部分已验／待最终 | NW 独立 SECON 项目已建立，NI 182 项 ICC 保全通过；无 EDAS/付款/邮件动作。最终交付只应称经检查的候选材料，候选 PDF 验收待完成。 |
+| A03 | 已验 | 限定提交已完成；全部新增对象均属于SECON任务，ICC182项原资产保持原hash；大归档分片与可恢复诊断包有明确映射。 |
+| A04 | 已验 | 最终9页IEEE10pt匿名稿已实测；官方规则/IEEEAI披露复核完成。时区及未来EDAS注册细节仍不臆造，候选交付不等于提交。 |
+| A05 | 已验 | checkpoint及release receipt已同步完整P0/pilot失败/冻结/行政勘误/760运行/PDF/小分片发布时序，所有早期条目标为历史。 |
+| A06 | 已验 | 开发→一次冻结→完整正式证据→统计→真实PDF→精确远端发布全部闭环；post-starterratum及失败记录如实保留。 |
+| A07 | 已验 | 独立SECON稿、ICC182项保全、匿名9页PDF及可恢复交付完成；无EDAS/付款/邮件动作。 |
 | B01 | 已验 | NF/NQ 冻结 166 项实际源码、tested 2.1.29 及合同配置；NA 从 11 块恢复全部原始材料并使用包内保存源码完成 760 审计，不能仅以 Git HEAD 代替快照。 |
 | B02 | 已验 | P 历史 581 结果/614 实际 seed/零解析错误和 0..999999 保守排除保留；92200/92300 等历史计划按已暴露处理，未重新命名为正式 fresh seeds。 |
 | B03 | 已验 | NF registry 明确 development2027000–2027002 与 formal2027100–2027119；正式 cohort 在 first start 前登记并冻结，之后全部暴露，760 计划键完成状态有日志/manifest 支持。 |
@@ -453,7 +454,7 @@ arms/统计或主张门槛，也未改变历史 manifest。未发现此次行政
 | F06 | 边界已验 | NF/NS 预先规定 unadjusted descriptive95%intervals，无 multiplicity-controlled significance/noninferiority；跨 0/1 区间和负结果保留，不补设事后界值。 |
 | F07 | 已验 | 四张formal-v2论文图的145来源行和16输出hash一致，全部图PDF字体嵌入；最终9页PDF已逐页视觉通过。图manifest及final_figures_review、final_pdf_review绑定。 |
 | F08 | 已验 | 最终claim_evidence及final_paper_claims_review串联正文→图/CSV→run→manifest→冻结source；v3仅补915MHz/duty-cycle/LBT边界，数字及145来源行不变。 |
-| G01 | 进行中／持续 | NG checkpoint 已 prepend 当前 760complete/2.1.30/出版进行中状态并保留历史；其中先前 running restore/fixtures 等时点须在最终 closeout 更新，不改历史记录。 |
+| G01 | 已验 | 最终checkpoint同步真实完成状态与source/plan/PDF/archive/release identities，早期记录完整保留。 |
 | G02 | 已验（原文冻结） | NF 合同实体/一次正式冻结节及 hash 已绑定 plan/source/gate；post-start erratum 独立存在。原 developmentopening 作为历史不一致公开解释，不改合同 bytes 来消除矛盾。 |
 | G03 | 已验 | NF registry 记录完整 formal 20 seeds、760 planned keys、首次暴露及完成状态；development/pilot 和 formal 用途分开，已暴露 seed 不重新标 fresh。 |
 | G04 | 已验 | NF repo 内 experiment_matrix.json 与 plan 嵌入 matrix 一致，canonical SHA3cc6bab3de7c7767c3fbf845deb156f945db13d98361f0dc5b7bf7e769cc6ea3；等价导航在 NG 复现指南。 |
@@ -462,9 +463,9 @@ arms/统计或主张门槛，也未改变历史 manifest。未发现此次行政
 | G07 | 已验 | ND `docs/results/secon2027_evaluation.md` 已完成；38means、30pairedcells 真实 CI、所有 controls/robustness/secondary/机制口径和不利结果均已表化并 CSV 回验。 |
 | G08 | 已验 | claim_evidence已定稿并绑定manuscript_manifest和完整formal表，不再是待填支架；正式与历史/实现主张分开。 |
 | G09 | 已验 | 最终复现指南列保存源审计/完整分析/图命令及所有依赖、资源、hash；raw干净恢复760通过，最终analysis/paper包1230文件恢复且四图来源CSV/PNG字节一致。 |
-| G10 | PDF与规则已验／发布待关闭 | submission_checklist已按760正式结果与同一v3PDF更新；final2.1.30出版SHA项目仍随H06完成，未执行EDAS。 |
+| G10 | 已验 | submission_checklist全部当前交付项均有实测记录；未来实际提交事项单列，未冒充EDAS已提交。 |
 | G11 | 披露已验；实测未做 | NH 固件 validation 记录明确 0.1.4、无新增板级/RF/功耗；旧 native/build 不当新 RF 证据。必需披露已具备，条件 P2 未开展。 |
-| G12 | 部分已验／待发布 | NGrelease_map 已记录 tested 2.1.29→promotion 2.1.30、161/34tests、165/166 及 rawarchive；最终限定 closeout commit 及匹配 remote full SHA 仍待实际写入。 |
+| G12 | 已验 | tested2.1.29→promoted2.1.30、161/34测试、165/166源比较、两个归档及精确远端artifact commite653315803c46abf80fb6d3476eee3b5f7fd34a4均记录。 |
 | G13 | 已验 | 独立SECON完整稿件9页，27项真实文献、实际正式结果和负结果完整；manuscript_manifest绑定源文件、Tectonic0.17.0和PDF。 |
 | G14 | 已验 | 同一v3PDF的text/metadata/annotations及6条公开产品文献链接均通过无身份扫描；无作者、单位、邮箱、私人仓库/机器路径或虚构资助。 |
 | G15 | 已验 | 最终v3实测9Letter页、IEEE10pt、26字体全嵌入无Type3、27引用解析；全部页面视觉通过。v1十页失败保留，不冒充最终稿。 |
@@ -473,27 +474,21 @@ arms/统计或主张门槛，也未改变历史 manifest。未发现此次行政
 | H02 | 已验（至 promotion 验证） | NF/NQ 正式冻结 161tests→760 仿真/audit/NS 分析在前；NP 再 161 pre-tests 通过后提升 2.1.30，post 34 fixtures 通过。此顺序不证明最终发布已经完成。 |
 | H03 | 已验 | NP 明确 tested 2.1.29/promotion 2.1.30；165/166formal inputs 不变且仅 VERSION 变化，contract/hash/历史 manifest 不回写；整个 repo 新增工具不冒称 VERSION-only。 |
 | H04 | 已验 | NPpromoted-2.1.30-regression 为 34 passed/exit0，controller/frozen-worker/analyzer 开发 fixtures；未重跑 formal 研究 seed 为升版改标签。 |
-| H05 | 进行中／待最终提交 | NA 从 rawparts 恢复等于声明 snapshot 已验；早期 2.1.29commit 映射保留。本轮 2.1.30 源码/工具/最终稿/文档的 scoped closeout commit 与恢复映射仍待根执行验实。 |
-| H06 | 进行中／待远端核验 | 早期 2.1.29commit95eee87e7757bcd8316088fee2517bc6a796801d 已验证远端；本轮 rawparts 及 final closeout 发布另跟踪。未取得最终 2.1.30commit 与匹配 remote full SHA，不提前通过。 |
-| H07 | 部分已验／待发布结束 | NG 保留 HTTPS 失败/SSH443 成功的历史、当前上传记录、无 tag/merge 声明；不覆盖历史 release 或隐瞒失败。最终 push/conflict 结果随 H06 实际关闭。 |
+| H05 | 已验 | 限定artifact commite653315803c46abf80fb6d3476eee3b5f7fd34a4保留源码/工具/最终论文/诊断及三片analysis包；恢复1230文件和四图重画通过。 |
+| H06 | 已验 | 官方认证GitHubref匹配artifact commite653315803c46abf80fb6d3476eee3b5f7fd34a4；raw30e7bd42另有精确SHA证据。发布非force，所有新blob/tree/commit身份核对。 |
+| H07 | 已验 | 所有网络失败及成功transport日志保留；原local1e和11大片未丢弃，新114小片wholeSHA一致；无tag、merge或历史发布覆盖。 |
 | H08 | 边界已验 | NH 固件仍 0.1.4；NP/ND 本轮是复现研究发布、保留 S3 负结果且不宣称普遍性能提升，tested/promotion 不混同；最终发布文案仍须遵守。 |
 | I01 | 条件未触发（P2） | 本轮没有固件改动或新 native/板级 gate 承诺，NH 记录现有固件状态；未开展不等于通过实物验证，也不阻断已授权仿真主线。 |
 | I02 | 条件未触发（P2） | 未开展 RF/功耗测量、无新设备数据；NH 明确披露，设备缺失未被用作省略必需仿真/控制/稳健性的理由。 |
 | I03 | 边界已验 | B/NH/ND/NW 均限制为行为模型与模拟环境，无官方产品公平硬件比较、实物认证、电池寿命或 device-energy 优势结论。 |
 | J01 | 已验／持续更新 | NF 预算来自完整 pilot 且含控制/稳健性/失败余量；NE 已给 actual worker/RSS/storage，不把内部日期或预算估算冒充完成。稿件/发布剩余工作按实际推进。 |
-| J02 | 科研身份已验／待发布 | NF/NP 测试源码/版本映射与 NA 恢复已验；最终 2.1.30 限定 closeout commit 和确认 GitHub full SHA 仍待 H05/H06，不能借早期 release 替代。 |
+| J02 | 已验 | 测试源码/版本及raw恢复身份完备，最终2.1.30artifact commite653315803c46abf80fb6d3476eee3b5f7fd34a4已在远端核验。 |
 | J03 | 已验 | NF/NQ/NS/ND 完整四主模型 default/matched、3 clean controls×2 场景、10/60s 有限 robustness 已完成；原合同/methoddecision 保持冻结，负结果全部保留。 |
 | J04 | 已验 | 原始证据、独立审计、完整统计、最终claim链与9页PDF全部绑定；最终analysis/paper包d60a67eb…含1230文件，干净恢复及四图重画通过，失败历史保留。 |
-| J05 | 文档实体齐备／待最终同步 | G01–G12 实体均存在，ND 新 evaluation 和 NH 硬件披露已完；checkpoint/claimregister/submissionchecklist/reproduce/releasemap 需与最新 PDF/最终包/remote hash 一致后才整体通过。 |
+| J05 | 已验 | 第11节必要文档全部存在并按最终source/PDF/归档/远端身份同步；独立review与当前执行结论分开保留。 |
 | J06 | 已验 | v3匿名IEEE10pt九页PDF已由执行侧与监督方对同一SHA独立渲染检查；适用AI披露保留且不含身份。 |
-| J07 | 待最终 | 最终自包含交付说明须列真实结果/不利结论、未证明范围、最新版候选 PDF、可恢复包、tested/promoted 映射和远端 full SHA；当前不能宣布整体完成或投稿成功。 |
+| J07 | 已验 | 最终交付说明和文件索引包含完成范围、S2获益/S3失败边界、未开展RF、匿名PDF、两个可恢复包、tested/promoted映射和远端核验；无投稿成功声明。 |
 
-### 当前仍需根执行关闭的关口
+### 最终关闭与未触发条件
 
-本次不以“全表已补齐”替代完成事实。最终PDF与正文—图—CSV—run—manifest追溯已关闭。当前开放项是：analysis/paper最终包与文档同步；2.1.30限定closeout commit、成功发布和匹配远端fullSHA。根执行取得相应实测证据后
-再逐行更新本表，保留本次 v1 页数不合格和早期阶段的完整时序。
-
-正式 raw 恢复、统计复核和机制暴露项无须为这些文档/PDF/发布工作重跑
-研究仿真；任何后来发现的科学错误应按冻结失败/纠错边界单独处理，不能
-通过删 seed、重命名版本或回写旧 contract 解决。条件未触发的 D06/D10/E03/
-I01/I02 不是缺失的必需实验，也不算已经完成硬件或扩展验证。
+必需科学证据、最终PDF、claim链、归档恢复/重画和artifact commit `e653315803c46abf80fb6d3476eee3b5f7fd34a4` 的远端验证均已完成。后续文档receipt提交不改变任何科学或PDF产物。D06/D10/E03/I01/I02五项条件未触发，仍明确保留，不算新增算法/容量优越性/硬件验证。没有研究seed重跑、结果筛选、旧manifest覆盖或自动EDAS动作。

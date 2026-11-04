@@ -1,3 +1,13 @@
+# Completed P0/P1 delivery — 2026-11-04 Asia/Shanghai
+
+Required P0/P1 work is complete. Formal dataset:760/760,20seeds/cell,tested2.1.29,source63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee,plan5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0. No simulation running; do not rerun formal seeds. All adverse/undefined outcomes and originalpilotfailure remain. Metadata promotion2.1.30;161prepromotion+34postfixturespass; onlyVERSIONdiffers among166frozeninputs.
+
+FinalanonymousIEEE10ptPDF:9pages/186064B,SHAe477617e417a5c089bfeac3f4725e40e54e39e666071a1711c5c0e0f749eb1fd. Rawwhole475828160B/SHA81776e12501e56945dd8aad6a37bb68e5f6e4b41d66c88ae041e7689e490d067/14667members/760saved-sourceauditspass. Finalanalysis-paper9978264B/SHAd60a67eb549905af087968b3c1ab496851ef78ebf38f8e9be6c26c29584e66e9/1230members; cleanrestore+4CSV/4PNGbyte-identicalre-renderpass.
+
+Verified GitHubartifact commit **e653315803c46abf80fb6d3476eee3b5f7fd34a4**, parentrawdelivery30e7bd42ecee5ff3d538601df8146934eca680fa. Both remoteidentities match authenticatedAPI. Currenttinyfollow-up onlyrecordsfinalreceipts/checklists; finalmetadata-tipreceiptis inoutputs. Source/figure/PDF/archive immutable. Originalunpublished1ecommitarchived locally;11largeparts retained;114new<=4MiBrawparts preservewholearchive. Noforce/tag/merge. Temporarytaskuploadbranchcleanedafterfinaltipverification.
+
+95requirements eachhavecurrentdisposition;90fulfilled/bounded,5conditionalnottriggered. Firmware0.1.4unchanged; noRF/energy/boardvalidation orEDASsubmission. All182importedICC/paperassets unchanged. Userdeliverables are inoutputs; fullinternalpackage is separatefromanonymousPDF. Earliercheckpoints below are historical and do not represent currentpendingwork.
+
 # Final artifact checkpoint — 2026-11-04 Asia/Shanghai
 
 Scientific P0/P1 work, full760formal analysis, independent raw/statistics/exposure reviews and final9-page anonymousIEEE10ptPDF are complete. No simulation remains running. Formaltested2.1.29/source63e3809a…/plan5f1a12fe…; promotedrelease2.1.30 with161prepromotion+34postpromotionfixturespassed. Allnegative/undefinedresults remain. PDF `paper/secon2027/meshecho-secon2027-anonymous.pdf`,SHAe477617e417a5c089bfeac3f4725e40e54e39e666071a1711c5c0e0f749eb1fd,186064B; v3explicit915MHz/no duty-cycle/LBT,9pages,26embeddedfonts,27citations,anonymous andvisualQApassed.
