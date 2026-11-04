@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-q",
+    "tests/test_meshecho_cpr.py",
+    "tests/test_meshecho_cpr_controller.py",
+    "tests/test_meshecho_drc.py",
+    "tests/test_meshecho_drc_controller.py",
+    "tests/test_cpr_experiment.py",
+    "tests/test_cpr_external_comparison.py",
+    "tests/test_common_ack_baselines.py",
+    "tests/test_secon_cpr_correctness.py",
+    "tests/test_secon_experiment.py",
+    "tests/test_secon_scenarios.py",
+    "tests/test_secon_orchestration_review.py",
+    "tests/test_secon_frozen_worker.py",
+    "tests/test_secon_analysis.py"
+  ],
+  "cwd": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo",
+  "tested_version": "2.1.29",
+  "started_at": "2026-11-04T10:03:14.627499+00:00",
+  "completed_at": "2026-11-04T10:03:40.125002+00:00",
+  "exit_code": 0,
+  "scope": "Development regression fixtures only; no formal research-seed simulations"
+}

@@ -1,0 +1,269 @@
+{
+  "created_at": "2026-11-04T10:13:28.037964+00:00",
+  "pdf": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-build-v2/main.pdf",
+  "pdf_sha256": "08ad22c727fa080fc1dc2696e56deba7513e070037420ba28beff7808dd83c54",
+  "pdf_bytes": 186002,
+  "page_count": 9,
+  "metadata": {
+    "/Creator": "LaTeX with hyperref",
+    "/Title": "Deadline-Constrained Recovery and Cancellation in LoRa Mesh Networks",
+    "/Subject": "Anonymous review manuscript",
+    "/Keywords": "LoRa, mesh networks, routing recovery, simulation",
+    "/Producer": "xdvipdfmx (0.1)",
+    "/CreationDate": "D:20261104101107-00'00'"
+  },
+  "uris": [
+    "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+    "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+    "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+    "https://github.com/meshcore-dev/MeshCore/blob/81dbae592ffad40b4212bc0b37e82b38da08f4bc/docs/faq.md",
+    "https://github.com/meshcore-dev/MeshCore/blob/81dbae592ffad40b4212bc0b37e82b38da08f4bc/docs/faq.md",
+    "https://meshtastic.org/docs/overview/mesh-algo/"
+  ],
+  "font_command": [
+    "/Users/bh4me_macair/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/poppler/bin/pdffonts",
+    "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-build-v2/main.pdf"
+  ],
+  "font_output": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nIHAIZV+NimbusRomNo9L-Regu            Type 1C           Custom           yes yes yes      5  0\nBZIVMZ+NimbusRomNo9L-MediItal        Type 1C           Custom           yes yes yes      6  0\nIXFAWU+NimbusRomNo9L-Medi            Type 1C           Custom           yes yes yes      7  0\nTQTHRL+CMSY9                         Type 1C           Builtin          yes yes yes      8  0\nYEUUOC+CMR9                          Type 1C           Builtin          yes yes yes      9  0\nAKHCZK+CMMI9                         Type 1C           Builtin          yes yes yes     10  0\nVDVGTR+CMR10                         Type 1C           Builtin          yes yes yes     17  0\nCAFSZL+CMMI10                        Type 1C           Builtin          yes yes yes     18  0\nDDIEWW+CMSY10                        Type 1C           Builtin          yes yes yes     19  0\nFKPJSN+CMMI7                         Type 1C           Builtin          yes yes yes     48  0\nPVTTLK+CMEX10                        Type 1C           Builtin          yes yes yes     49  0\nJAGKKY+CMBX10                        Type 1C           Builtin          yes yes yes     50  0\nNOMARO+CMR7                          Type 1C           Builtin          yes yes yes     51  0\nKPXLOM+CMMI5                         Type 1C           Builtin          yes yes yes     52  0\nUTACNV+CMSY7                         Type 1C           Builtin          yes yes yes     53  0\nFZDNHS+MSBM10                        Type 1C           Builtin          yes yes yes     55  0\nDZGKAF+NimbusRomNo9L-ReguItal        Type 1C           Custom           yes yes yes     56  0\nGJMHKB+CMR6                          Type 1C           Builtin          yes yes yes     60  0\nNITCSQ+CMMI8                         Type 1C           Builtin          yes yes yes     61  0\nUBBQTN+CMR8                          Type 1C           Builtin          yes yes yes     62  0\nLPOGEQ+CMMI6                         Type 1C           Builtin          yes yes yes     63  0\nGQYLQL+NimbusMonL-Regu               Type 1C           Custom           yes yes yes     65  0\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes     90  0\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes    103  0\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes    121  0\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes    134  0\n",
+  "font_size_char_counts": [
+    [
+      "9.963",
+      26580
+    ],
+    [
+      "7.97",
+      6960
+    ],
+    [
+      "8.966",
+      2873
+    ],
+    [
+      "6.376",
+      178
+    ],
+    [
+      "6.837",
+      132
+    ],
+    [
+      "7.176",
+      115
+    ],
+    [
+      "6.974",
+      108
+    ],
+    [
+      "6.847",
+      92
+    ],
+    [
+      "7.611",
+      72
+    ],
+    [
+      "8.3",
+      66
+    ],
+    [
+      "23.91",
+      61
+    ],
+    [
+      "6.76",
+      59
+    ],
+    [
+      "6.94",
+      54
+    ],
+    [
+      "6.862",
+      54
+    ],
+    [
+      "6.951",
+      54
+    ],
+    [
+      "7.169",
+      49
+    ],
+    [
+      "8.194",
+      41
+    ],
+    [
+      "8.287",
+      38
+    ],
+    [
+      "8.698",
+      32
+    ],
+    [
+      "5.81",
+      31
+    ],
+    [
+      "5.978",
+      21
+    ],
+    [
+      "10.959",
+      16
+    ],
+    [
+      "1.993",
+      12
+    ],
+    [
+      "2.796",
+      8
+    ],
+    [
+      "6.983",
+      4
+    ],
+    [
+      "4.409",
+      4
+    ],
+    [
+      "4.244",
+      4
+    ],
+    [
+      "3.735",
+      4
+    ],
+    [
+      "4.395",
+      4
+    ],
+    [
+      "4.38",
+      2
+    ],
+    [
+      "4.904",
+      2
+    ],
+    [
+      "5.004",
+      2
+    ],
+    [
+      "4.703",
+      2
+    ],
+    [
+      "6.811",
+      2
+    ],
+    [
+      "4.323",
+      2
+    ],
+    [
+      "4.545",
+      2
+    ],
+    [
+      "3.943",
+      2
+    ],
+    [
+      "2.947",
+      2
+    ],
+    [
+      "2.81",
+      2
+    ],
+    [
+      "4.981",
+      1
+    ]
+  ],
+  "checks": {
+    "page_count_le_9": true,
+    "all_pages_letter": true,
+    "author_metadata_empty": true,
+    "no_identifying_text_metadata_links": true,
+    "no_unresolved_reference_markers": true,
+    "no_type3_fonts": true,
+    "all_fonts_embedded": true
+  },
+  "pages": [
+    {
+      "page": 1,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-01.png",
+      "sha256": "bf19ffe6603ac5c1d4683c54fa7e108f3771addfa069b5577bc95f3f613fd37e"
+    },
+    {
+      "page": 2,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-02.png",
+      "sha256": "87e8a3301afcf33b37d83df3caffe4607c1dd04c225df269d2874073cafccbb7"
+    },
+    {
+      "page": 3,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-03.png",
+      "sha256": "5be45677af119b47341b3a9ef5c9a5e5c5597b545f33d20e0adf675985f9f268"
+    },
+    {
+      "page": 4,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-04.png",
+      "sha256": "676bd8f77e49084cd41bf5b488fad9a34b4ba821458c0c69c569b44e21cec782"
+    },
+    {
+      "page": 5,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-05.png",
+      "sha256": "8711055eedf2958c4aa456297b89dee1fc8ebedecfc3862ce1e9836cdfa144eb"
+    },
+    {
+      "page": 6,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-06.png",
+      "sha256": "e794f86d829eda756b03d936bdeb10c174ea2b84d26f16fcb044587873b5856c"
+    },
+    {
+      "page": 7,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-07.png",
+      "sha256": "0ee28c146fec8797f99c234b65be1c5a61f64c41251f5c4a130658e66d10101c"
+    },
+    {
+      "page": 8,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-08.png",
+      "sha256": "2a673c554b2fe633a1c1637504a0316a548fa79c4758913483e1cc2e38d9cb8d"
+    },
+    {
+      "page": 9,
+      "width_pt": 612,
+      "height_pt": 792,
+      "render": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v2/page-09.png",
+      "sha256": "a8ac83377a5bb7a0e916825c9df0dfef1337316f067f2cc90e20abb7636c7afc"
+    }
+  ],
+  "visual_review": "PASS: all9 rendered pages inspected independently by execution root. No clipping, overlap, blank pages, missing glyphs or unreadable plots/tables/equations. Standard two-column layout retained.",
+  "body_font": "IEEE conference10pt source; dominant body glyph size9.963pt in PDF",
+  "ai_disclosure": "Nonidentifying AI-assistance disclosure in Acknowledgment retained because IEEEpolicy explicitly requires this section; no author/fundingacknowledgments.",
+  "visual_reviewed_at": "2026-11-04T10:18:03.140742+00:00",
+  "qa_script_sha256": "e83fa9c8c80f67dda2afe022fbc8015306ffa43a1f5afba8ebdde6144f8da661"
+}

@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.1.30 - Complete frozen SECON evaluation and reproduction tools
+
+- Preserve all 760 formal runs, complete raw-event statistics, independent reviews, and recoverable split archives. Add portable restoration/inspection utilities and table-bound manuscript figure generation.
+- Formal results remain tested version 2.1.29, snapshot `63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee`; the simulator, methods, parameters and frozen contract are unchanged. The closeout regression passed all 161 tests before this metadata promotion. No research seed was rerun for the version change.
+- Report adverse S3 recovery results and deadline/drain limits, with descriptive paired intervals. This research artifact release does not establish a general performance upgrade or RF-device validation.
+
+## 2.1.29 - Correct invalid-route recovery rejection
+
+- Import the missing `CprDecision` used by the production recovery rejection branch, with an event-driven concurrent-flow regression. Preserve the original failed pilot (48 complete, one failure, 23 unstarted).
+- The corrected 72-run development pilot and frozen 161 tests passed on tested version 2.1.28; promotion to 2.1.29 passed 58 fixture checks. Historical manifests retain their actual tested versions.
+
 ## 2.1.28 - SECON correctness and reproducible evidence foundation
 
 - Reject returning/looped source floods before forwarding; separate live-flow ACK confirmation from shared route cache updates, preserving newer same-path confirmation evidence on old-flow timeout.

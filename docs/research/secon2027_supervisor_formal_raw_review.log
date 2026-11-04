@@ -1,0 +1,190 @@
+checked 50/760 S1-default/meshtastic/2027109
+checked 100/760 S1-matched/meshecho-cpr-matched/2027119
+checked 150/760 S1-matched/meshcore-matched/2027109
+checked 200/760 S2-default/meshecho/2027119
+checked 250/760 S2-matched/meshecho-cpr-matched/2027109
+checked 300/760 S2-matched/meshtastic-matched/2027119
+checked 350/760 S2-matched/meshecho-cpr-norepeat/2027109
+checked 400/760 S3-default/meshecho-cpr/2027119
+checked 450/760 S3-default/meshcore/2027109
+checked 500/760 S3-matched/meshecho-matched/2027119
+checked 550/760 S3-matched/meshecho-cpr-noackcancel/2027109
+checked 600/760 S3-matched/meshecho-cpr-norecovery/2027119
+checked 650/760 R-deadline-10-S2-matched/meshtastic-matched/2027109
+checked 700/760 R-deadline-60-S2-matched/meshecho-cpr-matched/2027119
+checked 750/760 R-deadline-60-S2-matched/meshcore-matched/2027109
+checked 760/760 R-deadline-60-S2-matched/meshcore-matched/2027119
+{
+  "status": "discrepancies",
+  "totals": {
+    "N": 51145,
+    "ACK": 23836,
+    "delivery": 32925,
+    "TX": 574959,
+    "airtime_s": 51774.079744000075,
+    "requests": 622290,
+    "RX": 11499180,
+    "actions": 328785,
+    "accepted_ACK_records": 23836,
+    "rejected_ACK_records": 78
+  },
+  "issues": [
+    {
+      "kind": "manifest-count",
+      "where": "S2-matched/meshecho-cpr-norepeat/2027100/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-default/meshecho-cpr/2027101/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-default/meshecho-cpr/2027104/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-default/meshecho-cpr/2027105/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-default/meshecho-cpr/2027107/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-default/meshecho-cpr/2027108/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-default/meshecho-cpr/2027110/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-default/meshecho-cpr/2027116/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-default/meshecho-cpr/2027118/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-matched/2027101/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-matched/2027104/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-matched/2027105/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-matched/2027107/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-matched/2027108/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-matched/2027110/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-matched/2027116/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-matched/2027118/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027100/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027101/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027106/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027107/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027108/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027113/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027114/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027116/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-noackcancel/2027118/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027100/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027102/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027103/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027104/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027105/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027106/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027108/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027109/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027111/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norepeat/2027119/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norecovery/2027107/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norecovery/2027110/accepted_acks"
+    },
+    {
+      "kind": "manifest-count",
+      "where": "S3-matched/meshecho-cpr-norecovery/2027111/accepted_acks"
+    }
+  ],
+  "out": "/Users/bh4me_macair/Documents/Codex/lora_mesh_current_version_v2/docs/research/secon2027_supervisor_formal_raw_review.json"
+}

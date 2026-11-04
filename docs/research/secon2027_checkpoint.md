@@ -1,3 +1,23 @@
+# Final artifact checkpoint — 2026-11-04 Asia/Shanghai
+
+Scientific P0/P1 work, full760formal analysis, independent raw/statistics/exposure reviews and final9-page anonymousIEEE10ptPDF are complete. No simulation remains running. Formaltested2.1.29/source63e3809a…/plan5f1a12fe…; promotedrelease2.1.30 with161prepromotion+34postpromotionfixturespassed. Allnegative/undefinedresults remain. PDF `paper/secon2027/meshecho-secon2027-anonymous.pdf`,SHAe477617e417a5c089bfeac3f4725e40e54e39e666071a1711c5c0e0f749eb1fd,186064B; v3explicit915MHz/no duty-cycle/LBT,9pages,26embeddedfonts,27citations,anonymous andvisualQApassed.
+
+Rawdelivery SUCCESS: exactGitHubSHA30e7bd42ecee5ff3d538601df8146934eca680fa verified10:53:28UTC. WholearchiveSHA81776e12501e56945dd8aad6a37bb68e5f6e4b41d66c88ae041e7689e490d067/475828160B unchanged.114<=4MiBtransportparts replacefailedlargeuploadformat; original11parts+local1e commit preserved underarchive/meshecho-secon2027-raw-45m andportabletransporthistory. Savedsourcecleanrestore760passed plusindependentnewpartstreamchecks. Checkout nowbasedonpublished30e;128workingfilehashesunchangedthroughmixedreset,stagingwasempty.
+
+Remaining delivery steps only: complete separatefinalanalysis/paperarchive restorationcheck; update95itemliveacceptanceandfinalpublicationreceipts; scoped2.1.30closeoutcommit and exactremoteSHAverification using successfulsmall-objectGitAPItransport. The whole475MBrawtar and historical45MiBparts mustnotbestaged. Currenttemporaryuploadbranchcontains7smallfiles; removeafterfinalremoteverified. NoEDAS/RF/hardwareclaims. User-facingfiles belongin outputs/; anonymousPDFseparatefrominternalresearchpackage. Allfollowingentriesarehistoricalstagecheckpoints.
+
+# Current closeout state — 2026-11-04 18:06 Asia/Shanghai
+
+All 760 frozen formal simulations and full raw-only analysis are complete. Do not rerun simulations. Plan `5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0`, snapshot `63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee`, tested2.1.29. Analysis `results/secon2027/analysis/formal-v1`, complete760, n20/cell, Python3.9.6 NumPy1.26.4 Matplotlib3.7.5. Supervisor raw/exposure/statistics reviews pass; initial raw-checker ACK discrepancy corrected transparently.
+
+Root regression161passed; VERSION now2.1.30 for post-simulation reproduction/figure tooling. Promoted fixture check session71995 running when this entry was written. Only VERSION differs among166frozen inputs; no formal data relabeled. All182importedICC/paper-relatedfiles unchanged inbothisolated/canonical per savedhashcheck.
+
+Raw archive475828160B SHA81776e12501e56945dd8aad6a37bb68e5f6e4b41d66c88ae041e7689e490d067/14667members split11parts≤45MiB. Commit1e487d2327d27ae21fc000449a5f254c1621d92ccontains parts but not fulltar. HTTPS resolved140.82.114.3 via observedAlibabaDNS(ECS8.8.8.0/24) succeeds withverifiedTLS; pushsession73342currently transferring, no globalconfigchange. Do notclaimnewremoteuntilverified;priorremote95eee87…verified. Fulltar mustnotbestaged.
+
+Paperagent ownsfinalpaper+claimregister+compile; seedagent ownsfinalevaluation; correctnessagent independently auditsnumbers/claims. Supervisor cleanrawrestore auditinprogress. Root ownsrelease/reproduce/checklist/acceptance/outputpackaging/PDFfinalQA/remoteverification. Needfinalanonymous≤9page10ptPDF, separatefinalanalysis/paperarchive,95itemcloseout,status/sourcehashmapping,andfinalpushSHA. NoEDAS/RF/hardwareclaim.
+
+The following entries are preserved historical stage checkpoints; their earlier pending/unexposed language is not the current state.
+
 # SECON 2027 执行检查点
 
 更新时间：2026-11-04 Asia/Shanghai。完整持续目标：任务书所有必需 P0/P1、可复现 GitHub 发布与实际匿名 IEEE10pt ≤9 页 PDF；未完成，不得在阶段结束时标为完成。
@@ -91,3 +111,44 @@ PlanSHA 3729b05d983845dda0ecca1804f1b4307c2e5869402656a5896ec32e91c1232f, snapsh
 - Methoddecision §9 written with observedS3DATA/ACK/collision/queue populations; fixedCPR retained, no newcandidate. Allnegativeoutcomes remain.
 - Newcohortsecon2027-validation-v1 reserves2027100..119. Plan5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0, source63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee,tested2.1.29;161frozencheckspass. Main480+controls120+deadline/drainrobustness160;20seedunit,10000pairedbootstrap,descriptiveunadjusted95%,allcriteria/claims/failures/budgetfrozen beforeexposure.
 - Currentreleasestaging2.1.29 includes minimalimportfix+eventregression,completepilotarchives andformalpre-exposurearchive. Pushthenlaunch760frozenkeys withwork/dispatch_frozen_plan.py (4workers),exclusivegatelogs. Formalgenerationnotstartedyet.
+
+##2.1.29 commit made; network push failed; formal launch next
+
+- Localcommit95eee87e7757bcd8316088fee2517bc6a796801d. Firstgitpushfailedexit128:cannot connectgithub.com443after75s. Do notclaimremoteupdated; preserve publication-attempt-001.json and retryboundednetworkcommand.
+- Independentformalverify confirms166savedinputs,760registeredkeys,20reservedseeds,methodhashestoauditedpilot,properthreecontrolsand161tests. Formalruntimeunchangedbypublicationavailability.
+- Nextlaunch fourworkersfromexactfrozenplan;work/dispatch_frozen_plan.py recordscommandsandstopsnewsubmissionsonfailure. Readprocess/logbeforeanyresume.
+
+## Administrative pause and same-plan continuation
+
+- Contract's historical opening language contradicted its already frozen formal section. Concern arrived after firstexecution;parentdispatch83150stopped,4inflightfinished:43complete/0failed/717unstarted;all20formal seeds exposed. No partialperformancesummary or tuning.
+- Timestampederratum `docs/research/secon2027_formal_contract_erratum.md` references exact originalcontractSHA0db4fc2e724f441e190693e3f8d37b7912e2d4baa5555515c6f132481f309eff andexisting gate/freeze dates. Originalcontract/snapshot/plan/manifestsunchanged. Supervisor explicitly approved same-planadministrativeclarification after observing exposure.
+- Resume original760plan withnewdispatchlogdir;runner verifies/skips43complete and executes717remaining. No newseed/cohort, no scientificchange, no infrastructure retry.
+
+##2.1.29remoteSHA confirmed; formal sameplan running
+
+- GitHubSSH443existingkeyauthentication succeeded;push95eee87…exit0;officialauthenticatedAPIrefs/heads/codex/meshecho-secon2027 returnedexact95eee87e7757bcd8316088fee2517bc6a796801d. No global network/originchange. Evidencepublication-verified.json.
+- Originalformaldispatchsession87928endedSIGTERMforadministrativepause;inflightallcompleted43,no scientificfailure. Resume session3618 usesdispatch-resume-001 andverifiesexistingkeys. Continue sameplan; checklog/workersbeforeanyrestart.
+
+## Active handoff at formal mid-run
+
+- Continue originalfullP0/P1goal, notjustbugfix. Liveformalresumeexecsession3618;driverlogchatwork/formal-v1-dispatch-resume-001.log;gate dispatch-resume-001/dispatch.jsonl. Lastseen441/760,0failed. Parentfirstsession87928stoppedonlyadministrativepause43; all43complete andhashpreserved;resumeusesverify-existing. No new scientificplan/source.
+- Release2.1.29commit95eee87e7757bcd8316088fee2517bc6a796801d alreadySSH443pushedandAPIverified; storedoriginHTTPSstillunchanged/failing. Forlaterpush use `git -c core.sshCommand="ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=8" push ssh://git@ssh.github.com:443/BH4ME/lora-mesh-routing-sim.git HEAD:refs/heads/codex/meshecho-secon2027`; verifyvia `gh api repos/BH4ME/lora-mesh-routing-sim/git/ref/heads/codex/meshecho-secon2027 --jq .object.sha`.
+- Paperagent hascomplete nonnumeric6pagedraft andstrict760figurebuilder paper/secon2027/build_figures.py; formal figures/results notgeneratedyet. TemporaryTectonicPDFwork/paper-draft-tectonic-v2/main.pdf works; TinyTeXfailedCourierpcrr8t. Agentawaits760/analysis tofinalizenumbers. Keep≤9pages actualanonymousPDF,visual/font/metadata checks.
+- Seedagentpreparedwork/formal-mechanism-inspection.py (portable --root/--plan/--out,gate760/uniquekeys,audit,allprospectivecriteria+controltoggle/zeroexposurechecks),4syntheticchecks. Do notrunfulluntil760complete. Agentawaits signal. Rootanalyzer remainsfrozenSHA7fd757a780e9725bd3d1992790eaad4a6cc3be7b48f7adcce674a729990eeb54.
+- After760: run full audit and raw-onlyanalyze_secon2027.py toexclusive results/secon2027/analysis/formal-v1; assignmechanismagentfullreport andpaperagentfigure/resultsafteranalysis;independentcorrectnessagentnumericalclaimreview. Supervisorrootalsoindependentrawauditavailable; no messagingauthorizationneeded/requested here.
+- Finalarchive:work/archive_evidence.py verifiedtar+perfileindex helper; fullformalrawpredicted7.51GB,compresslikely>100MB mustsplitchunks≤45MiB forGitHub. Preservefulltarorindexlocally,stagechunks+indexonly. Outputsfolderonlyuserdeliverables. User-facingPDF+result/repropackage,GitHubscopedfinalcommit/pushverifyrequired.
+- Recoveryhelpers copied artifacts/secon2027/reproduction_helpers/,notfrozenruntimeinputs. Requiredreprodocupdated stagesbutfinalstats/commands/archivehashpending. Need submissionchecklist,finalevaluation/claimmap/acceptancecloseout,actualPDFartifact,andfinalremoteSHA. NoRFclaim;noEDAS/email/payment. Negativeformalresultsandweakexposuremustremain.
+
+##760formalexecution complete;fullaudit/analysis/archive in progress
+
+- Sameformalplan5f1a12fe…/source63e380…:760/760completion,0failure;resumedispatchsession3618exit0. No researchsimulationremainsrunning.
+- Rootfullanalyzer (includesall-keysource/eventaudit) session37442: `/usr/bin/python3 tools/analyze_secon2027.py --plan results/secon2027/plans/formal-v1.json --out-dir results/secon2027/analysis/formal-v1`,loggates/formal-v1/analysis.log. Do notrestartoroverwriteexclusiveanalysisdirwhilealive.
+- seed_inventory agent nowrunningindependentformalmechanisminspection andwillwrite docs/results/secon2027_formal_mechanisms.md +gateaudit/diagnostics; no newresearchseeds. Rootparentalsohasindependentrawreviewavailable.
+- Rawfullarchivecreation started viawork/archive_evidence.py formal-v1-raw-evidence; includesimmutable760runs/source/plan/registry/config/erratum/dispatch+frozenchecks. Do notmutateregistryorarchivedfilesuntilitfinishes. Postaudit/analysis/PDFmetadatawillbeaseparatepackage,avoidingmutablefilesintar. Splitverifiedfullgzinto≤45MiBparts forGitHub;fulltarretainedlocallynotstaged.
+- correctnessagentfinishedpolishingreproduce.md andsubmissionchecklist;rootownsnow. Theyneedfinalactualcost/archiveSHA/analysis/PDFverification. Paperagentawaitscompleteanalysis forfiguregeneration+resultsfill;6pagedraftcurrentlyvalidatedbyTectonic.
+
+## Formalrawarchive verified and split for publication
+
+- `formal-v1-raw-evidence.tar.gz` SHA25681776e12501e56945dd8aad6a37bb68e5f6e4b41d66c88ae041e7689e490d067,475828160bytes,14667memberhashesverified. All760runartifacts/source/plan/registry+fixeddispatch/adminrecords included; post-runanalysis/diagnostic/PDF package remainsseparate pendingoutputs.
+- Splitinto11parts≤45MiB withwholearchiveandper-partSHA index `formal-v1-raw-evidence.parts.index.json`. Fulltarretainedlocally;stageonlyparts/indexduetoGitHub100MBfilelimit. Rawarchivecreation done;registry maynowreceive finalstatusmetadata.
+- Rootanalyzer andseedagent fullaudits stillrunningper-attemptworkers, roughly430/760atlastobserver; no failure. Do notrestartorclaimformalstatisticscomplete.

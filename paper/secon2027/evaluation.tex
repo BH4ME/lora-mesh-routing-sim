@@ -1,0 +1,165 @@
+\section{Evaluation Method}
+\label{sec:evaluation}
+
+We executed all 760 runs of a frozen plan on one tested source snapshot
+(version 2.1.29), with 20 predeclared seeds per condition. Every key
+completed on its first attempt and passed the formal evidence audit.
+Development pilots are excluded from these performance estimates.
+
+\subsection{Comparison scope}
+
+Table~\ref{tab:models} summarizes the implemented models. All use the
+same custom packet encoding, radio model, application traffic, and
+measurement deadline. The encoding does not reproduce product encryption,
+authentication, or complete wire formats. The Meshtastic-like model is
+inspired by managed flooding~\cite{meshtasticdocs}. The Meshtastic-like and
+MeshCore-like models omit application retransmission, although the
+reviewed official implementations or documentation describe retry and
+flood fallback~\cite{meshtasticfirmware,meshcore}. The Meshtastic source
+reference pins release v2.7.26.54e0d8d; the MeshCore FAQ pins companion-v1.18.0.
+These are documented antecedents, not the implementations executed by
+the simulator. Their limitations are part
+of the interpretation of each result, not resolved by parameter matching.
+
+\begin{table}[t]
+\caption{Implemented behavioral models. These are not product firmware runs.}
+\label{tab:models}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.19\columnwidth}>{\raggedright\arraybackslash}p{0.36\columnwidth}>{\raggedright\arraybackslash}p{0.38\columnwidth}@{}}
+\toprule
+Model & Initial route acquisition & Subsequent source behavior \\
+\midrule
+MeshEcho-CPR & Useful DATA flood; ACK confirms path & Cached route, one repeat, one admitted recovery flood \\
+Legacy MeshEcho & RREQ/RREP with candidate collection & Cached route; limited discovery/fallback policy \\
+Meshtastic-like & Useful DATA flood per message & Duplicate suppression; no application retransmission \\
+MeshCore-like & RREQ/RREP; first reply gives route & Cached route; no application retransmission \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two regimes are reported separately. The implemented-default regime
+uses each model's resolved defaults under shared PHY and workload settings.
+The matched regime aligns only parameters with comparable meaning:
+MeshCore-like route TTL becomes 600~s, and Meshtastic-like and MeshCore-like
+flood base delay/jitter become 0.45/0.65~s. The corresponding defaults are
+300~s for the MeshCore-like TTL, 0.75/0.75~s for Meshtastic-like delays,
+and 0.5/0.7~s for MeshCore-like delays. CPR and legacy MeshEcho already
+use 600~s and 0.45/0.65~s. SNR-dependent delay functions, route-learning
+semantics, discovery collection, and retry policies remain distinct.
+Equal base delays do not imply equal total forwarding delay.
+
+Each clean CPR control retains the reference's resolved parameters except
+its named switch. ACK-only cancellation, repeat, and recovery controls are
+defined in Section~\ref{sec:cpr}. Any additional differing effective
+parameter makes a comparison a mixed-policy comparison; it cannot enter
+the clean ablation panel.
+
+\subsection{Common environment and scenario validity}
+
+\begin{table}[t]
+\caption{Frozen common environment and finite scenario axes.}
+\label{tab:settings}
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.32\columnwidth}>{\raggedright\arraybackslash}p{0.63\columnwidth}@{}}
+\toprule
+Parameter & Value \\
+\midrule
+Topology & 20 nodes, $5\times4$ grid, 1000-m spacing; position jitter fraction 0.025 \\
+Propagation & Path-loss exponent 2.75; extra loss 20 dB for neighbors, 80 dB otherwise \\
+Random channel & Shadowing / temporal fading SD 2 / 2 dB; 60-s fading interval; 0.01-s channel bins \\
+Radio / application & 915 MHz, SF7, 125 kHz, coding rate 4/5; 17 dBm; 6-dB capture threshold; 32-byte payload \\
+Endpoints / hop limit & $5\leftrightarrow9$, $10\leftrightarrow14$; $H=6$ \\
+Duration / deadline & 240-s traffic generation; 30-s deadline and drain in main cases \\
+S1 & No link fault; 8 offered flows/min, whole network \\
+S2 & S1 plus 80-dB attenuation on edges 7--8 and 12--13 in $[80,160)$ s \\
+S3 & No link fault; 40 offered flows/min, whole network \\
+Deadline response & S2 matched, 10 / 30 / 60-s deadline and corresponding drain \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:settings} specifies the common environment. Traffic uses
+Poisson arrivals over four directed endpoint pairs. The grid's fault-free
+shortest paths have four hops; six-hop structural alternatives avoid the
+two S2 fault edges. These are synthetic stress conditions, not a calibrated
+deployment. The two fault-free loads reuse S1 and S3; they are two observed
+points, not a saturation-threshold sweep.
+
+The scenario generator supplies shared topology, application arrivals,
+endpoint pairs, and exogenous channel/fault fields. Their content hashes
+match within each paired case and seed. Channel outcomes use a
+link/time-bin field, avoiding dependence on how many prior random draws
+another protocol consumed. This is a controlled coupling of the model's
+environment; protocols can still transmit at different times, encounter
+different interference, and obtain different outcomes. Common random
+numbers do not guarantee variance reduction for every system
+\cite{glasserman1992crn}.
+
+Scenario interpretation uses observed initial-route choices, actual
+fault-edge transmissions, repeat/recovery starts, and contention/state
+diagnostics. Fault exposure depends on each transmission's start time;
+mere interval overlap is insufficient. Structural reachability is an
+offline diagnostic, not a guarantee of decoding or ACK return. All flows
+remain in the scheduled denominator.
+
+\subsection{Frozen population and statistical quantities}
+
+A run identity binds cohort, configuration, source snapshot, case, arm,
+and seed. The plan contains 480 main runs (three settings, two regimes,
+four models, 20 seeds), 120 component-control runs (three controls in S2/S3
+matched), and 160 extra deadline-response runs (10/60 s, four models,
+20 seeds). The 30-s response reuses S2 matched. The fixed corrected
+controller was retained after development without selecting a new
+candidate on formal outcomes. Seeds 2027100--2027119 were registered as
+a separate validation cohort before formal execution; all are retained.
+The sample size was fixed, with no outcome selection or precision stopping.
+Default/matched duplicates are reported separately and do not increase
+the independent seed count to 40.
+
+Source/configuration hashes, completion records, shared-input identities,
+and physical-event joins passed audit before aggregation. Independent
+reviews checked the full raw population, statistics, and exposed paths.
+Source, plan, tables, event hashes, and correction history are retained
+in the reproducibility package.
+
+The reproducibility record includes a post-start administrative erratum
+clarifying stale development-stage headings after 43 runs had completed;
+the original freeze, scientific settings, seed cohort, and 760-key plan
+remained unchanged. Execution continued with the remaining registered keys,
+without a partial performance summary or parameter selection at that pause.
+
+Each seed, rather than each packet, is the analysis unit. For a metric
+$X$, each arm's estimate is $n^{-1}\sum_s X_s$. For comparator $c$,
+the paired confirmation effect and airtime ratio are
+\begin{equation}
+\begin{aligned}
+\overline{\delta P_A}&=\frac{1}{n}\sum_s
+ (P_{A,s}^{\mathrm{CPR}}-P_{A,s}^{c}),\\
+G_A&=\exp\left\{\frac{1}{n}\sum_s
+\log\left(\frac{A_s^{\mathrm{CPR}}}{A_s^c}\right)\right\}.
+\end{aligned}
+\label{eq:paired}
+\end{equation}
+The second quantity is a geometric mean of seed-level ratios, not a ratio
+of pooled means. The analysis uses 10,000 paired seed resamples and
+percentile 95\% intervals. These intervals are descriptive and unadjusted
+for multiple comparisons; they do not establish confirmatory significance,
+noninferiority, or universal dominance. The present $n=20$ supports finite,
+descriptive replication of the chosen scenarios rather than precise
+characterization of all operating conditions.
+
+Generation lasts 240~s in every deadline case; the drain equals its
+10-, 30-, or 60-s deadline. This axis therefore changes the accounting
+horizon together with the application constraint. The plan includes no
+cross-deadline inferential contrast. Connected points describe the finite
+response and must not be read as a continuous fitted relationship.
+
+An undefined seed-level quantity remains undefined in its all-seed
+summary; zero timely deliveries do not yield zero cost per delivery.
+Success-only latency accompanies the unfinished fraction. The packet/stage
+airtime partition reconstructs the total. ACK checks, successful
+cancellations, and capacity evictions remain distinct; emitted events
+cannot reconstruct exact peak ledger occupancy.

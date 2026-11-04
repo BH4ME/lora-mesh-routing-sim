@@ -1,0 +1,50 @@
+\section{Introduction}
+\label{sec:introduction}
+
+LoRa's long frames make mesh reliability sensitive to airtime,
+radio configuration, and message length~\cite{augustin2016study,bor2016scale}.
+A delivered message is not necessarily a confirmed transaction: a valid
+ACK must also reach the source before the deadline. Forward delivery
+and reverse confirmation therefore need separate measurements.
+
+Reusing a known route confines forwarding. Missing confirmation, however,
+does not identify whether DATA or ACK was lost, a relay was busy, or the
+route failed. Repetition may overcome a transient loss; broader
+forwarding may find another path. Either can instead add contention.
+A recovery policy must bound additional work, admit it against remaining
+time, and define when feedback can still cancel a queued transmission.
+
+MeshEcho-CPR addresses these decisions with a finite controller. An
+ACK-confirmed route is tried first when locally feasible; a routed flow
+can then repeat once and attempt one recovery flood. A flow initially
+served by a flood has neither later stage. A matching ACK can cancel a
+relay copy only before that copy commits to the radio schedule. The source
+also distinguishes a live message's confirmation from shared cache
+evidence, because concurrent messages can confirm or invalidate routes
+in a different order from their creation.
+
+The research question is when this combination changes the trade-off
+between timely source confirmation and physical transmit airtime, and
+which component causes the change. Source routing, finite retries,
+flooding, and ACK-assisted coordination have established antecedents
+\cite{johnson1996dsr,liu2004truncated,biswas2005exor}. The contribution
+here is a precise interaction of these mechanisms and an auditable
+evaluation of its conditions of benefit and failure. A generic
+retry-followed-by-flood sequence is not claimed as new.
+
+We provide an executable-policy specification with
+finite source-stage bounds, explicit state limits, and a defined
+cancellation boundary. Our measurements retain every
+scheduled flow and every physical transmission, plus clean controls for
+the repeat, recovery, and ACK-cancellation components. A frozen 760-run
+study with 20 paired seeds per condition exposes both the benefit of
+recovery under path disruption and its substantial confirmation penalty
+under higher traffic contention. The recovery control changes timely
+confirmation in opposite directions: $+8.32$ percentage points in the
+disrupted setting and $-15.99$ points in the contention setting. This
+reversal, rather than a universal efficiency claim, is the principal
+empirical finding.
+The comparison concerns MeshEcho-CPR, legacy MeshEcho, Meshtastic-like,
+and MeshCore-like behavioral models. The last two omit documented
+product mechanisms; their results cannot establish performance superiority
+over official firmware.

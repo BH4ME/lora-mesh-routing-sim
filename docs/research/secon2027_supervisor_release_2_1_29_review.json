@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-11-04T09:08:49.941160+00:00",
+  "commit": "95eee87e7757bcd8316088fee2517bc6a796801d",
+  "formal_plan": "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0",
+  "formal_snapshot": "63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee",
+  "manifest_files": 166,
+  "matching_commit_files": 166,
+  "differences": [],
+  "issues": [],
+  "pilot_formal_runtime": [
+    {
+      "path": "lora_mesh_sim.py",
+      "pilot_to_formal_equal": true
+    },
+    {
+      "path": "meshecho_cpr.py",
+      "pilot_to_formal_equal": true
+    },
+    {
+      "path": "meshecho_drc.py",
+      "pilot_to_formal_equal": true
+    },
+    {
+      "path": "meshecho_utility.py",
+      "pilot_to_formal_equal": true
+    },
+    {
+      "path": "tools/secon2027_experiment.py",
+      "pilot_to_formal_equal": true
+    },
+    {
+      "path": "tools/analyze_secon2027.py",
+      "pilot_to_formal_equal": true
+    }
+  ],
+  "remote_verified": true,
+  "remote_verification": {
+    "recorded_at": "2026-11-04T09:19:49.365610+00:00",
+    "url": "https://api.github.com/repos/BH4ME/lora-mesh-routing-sim/git/ref/heads/codex/meshecho-secon2027",
+    "returned_commit": "95eee87e7757bcd8316088fee2517bc6a796801d",
+    "matches_reviewed_commit": true,
+    "transport_note": "github.com HTTPS timed out; executor pushed through existing authenticated SSH on port443; supervisor independently read official GitHub API"
+  }
+}

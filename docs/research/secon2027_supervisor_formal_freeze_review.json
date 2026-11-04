@@ -1,0 +1,530 @@
+{
+  "schema": "secon2027-supervisor-formal-freeze-review-v1",
+  "status": "frozen_chain_verified_documentation_finding_closed_by_transparent_erratum",
+  "reviewed_execution_root": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo",
+  "reviewer_scope": "Read-only independent formal-freeze boundary review; no simulation, freeze, registration, constructor/BFS rerun, or analysis-test rerun.",
+  "finding": {
+    "id": "F1",
+    "status": "closed-by-transparent-administrative-erratum",
+    "severity": "documentation-boundary",
+    "title": "Frozen contract retains incompatible development-only status text",
+    "file": "docs/research/secon2027_experiment_contract.md",
+    "lines": [
+      1,
+      3,
+      55,
+      59
+    ],
+    "frozen_sha256": "0db4fc2e724f441e190693e3f8d37b7912e2d4baa5555515c6f132481f309eff",
+    "evidence": [
+      "Title says development draft.",
+      "Opening says executable source/config/run-key freeze pending and This document authorizes no formal validation cohort.",
+      "Later one-time formal method/matrix section specifies exact formal cohort and 760-run matrix.",
+      "formal-v1 and its embedded gate bind this same contract hash."
+    ],
+    "implication": "The cryptographic chain is internally consistent, but its frozen human-readable status is contradictory. This is not evidence of a scientific population mismatch.",
+    "disposition": "Closed by the dated post-exposure administrative erratum, with original hashes, 43 prior completions, single attempts and same-plan resume independently verified. Original frozen bytes remain preserved; final manuscript/package must retain chronology and cite the erratum.",
+    "exposure_status_at_final_check": "Formal execution started after freeze; all 20 seeds were exposed by this read-only observation. A pre-exposure re-freeze can no longer describe formal-v1."
+  },
+  "checked_population": {
+    "total": 760,
+    "primary": 480,
+    "clean_controls": 120,
+    "deadline_drain_robustness": 160,
+    "seeds": [
+      2027100,
+      2027101,
+      2027102,
+      2027103,
+      2027104,
+      2027105,
+      2027106,
+      2027107,
+      2027108,
+      2027109,
+      2027110,
+      2027111,
+      2027112,
+      2027113,
+      2027114,
+      2027115,
+      2027116,
+      2027117,
+      2027118,
+      2027119
+    ],
+    "deadline30_reference": "Existing S2-matched primary rows, no duplicate reference",
+    "candidate_comparison": "cases, arms and seeds equal formal-matrix-candidate.json; only top-level measured budget differs"
+  },
+  "scientific_boundary": {
+    "method": "Corrected fixed CPR retained before validation; S3 negative pilot performance remains explicit.",
+    "complete_population": "Every scheduled flow and all 20 planned seeds retained; no result/exposure-dependent removal or replacement; undefined all-seed estimands remain undefined.",
+    "statistics": "Equal-weight seed means; paired fraction differences and mean paired log airtime ratios; 10000 paired percentile resamples; 95% unadjusted descriptive intervals; analysis-only RNG seed 20271104; no multiplicity-controlled significance, noninferiority, guaranteed precision or powered-sample claim.",
+    "sample_size": "20 is a finite resource-based descriptive replication budget; no sequential precision stopping.",
+    "deadline_drain": "240 s generation + 10/30/60 s deadline/drain gives 250/270/300 s cutoff. Full ToA charged for frames starting by cutoff; source admission deadline changes for CPR while other model source policies remain as declared. Cross-deadline cost is not a timer-only contrast.",
+    "exposure": "Prospective S1 cached/multihop, S2 actual fault-edge/path intersection, S3 offered-load/contention and component exposure rules constrain claims, never inclusion.",
+    "capacity": "Existing S3-default CPR pilot source state-capacity-drop counts are 5,0,0 for seeds 2027000,2027001,2027002; relay capacity evictions are 0,0,0. Zero relay evictions do not imply no source-state capacity pressure; peak relay occupancy remains unknown.",
+    "configuration": "Default and matched identities remain separate; no pooling duplicate effective CPR/ME configurations into n=40.",
+    "scope_limits": "Two-point S1/S3 load response, finite deadline axis; no saturation threshold, memory optimization, calibrated RF, official firmware equivalence or hardware validation claim."
+  },
+  "pilot_evidence": {
+    "plan_sha256": "0c49a69a5c3725c9f72ff2e28ed870d10db1df7eec4319f6397097b84a2c85e7",
+    "source_snapshot": "ee890e25030782fc01208ee4ce1f20863c6ade5322ac954ad67ae48b594056a2",
+    "tested_version": "2.1.28",
+    "audit": {
+      "completed": 72,
+      "failed": 0,
+      "missing": 0,
+      "completed_keys_exactly_match_plan": true,
+      "audited_at": "2026-11-04T08:52:04.266681+00:00"
+    },
+    "test_record": {
+      "passed": 161,
+      "reviewer_reran": false
+    },
+    "resource_arithmetic_independently_reconstructed": true,
+    "formal_two_times_estimated_raw_gib": 13.990868159834248,
+    "resource_policy": "4 workers, 4 h envelope, 18 GiB raw budget, 2x reserve; estimates are not upper bounds. Stop new submissions on failure; preserve in-flight and failed evidence; at most 2 explicitly justified infrastructure attempts."
+  },
+  "pre_exposure_observation": {
+    "observed_at": "2026-11-04T09:00:43Z",
+    "started_records": 142,
+    "formal_seed_hits": 0,
+    "registry_formal_status": "not_registered",
+    "registry_sha256": "a61660f947cf2cdef3588ff05f227295c2c024d5569562eda3fac5e34e717bf0",
+    "started_inventory_sha256": "3d9051617da2884856561ff210a95e93cb135c9b681c0c5940ff39944441ebff"
+  },
+  "exposure_timeline": {
+    "gate_frozen_at": "2026-11-04T09:01:06.320060+00:00",
+    "cohort_registered_at": "2026-11-04T09:01:06.320879+00:00",
+    "plan_frozen_at": "2026-11-04T09:01:52.961637+00:00",
+    "earliest_observed_formal_started": [
+      "results/secon2027/runs/b239340c4eab2a3a9efe701b9d53251b6d066b8b4bcb4af8f4a9cfc3119009cb/attempt-001/started.json",
+      "2026-11-04T09:06:36.647153+00:00",
+      2027102,
+      "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+    ],
+    "earliest_formal_start_after_gate_and_freeze": true,
+    "observed_formal_starts": 35,
+    "all_20_seeds_observed": true,
+    "note": "Live execution was concurrently progressing. These are timestamped observations, not a final run count or complete formal outcome audit. Mutable registry byte hash omitted because fields and hash were sampled at different instants."
+  },
+  "evidence": {
+    "observed_at": "2026-11-04T09:07:11.282867+00:00",
+    "checks": {
+      "plan_logical_hash": true,
+      "matrix_logical_hash": true,
+      "embedded_matrix_matches_file": true,
+      "embedded_gate_matches_file": true,
+      "snapshot_inventory_logical_hash": true,
+      "snapshot_166_files_hash_and_size": true,
+      "snapshot_no_extra_files": true,
+      "contract_binding": true,
+      "method_decision_binding": true,
+      "pilot_mechanism_report_binding": true,
+      "pilot_plan_binding": true,
+      "seven_method_files_unchanged_from_pilot": true,
+      "all_760_run_records_exactly_reconstructed": true,
+      "760_unique_keys": true,
+      "registry_exact_plan_keys": true,
+      "registry_exact_seeds": true,
+      "registry_formal_plan_active": true,
+      "no_seed_namespace_overlap": true
+    },
+    "bad_snapshot_files": [],
+    "file_sha256": {
+      "docs/research/secon2027_method_decision.md": "5b842194f59719e47a42f79f24b03aafc0b92597d382907df01b3acdd32f59ba",
+      "docs/research/secon2027_formal_matrix_static_review.md": "5a10947fe593bd3b0873b0da5ad246d0ec48220de346bfe3b893ca2b60b2220e",
+      "docs/research/secon2027_experiment_contract.md": "0db4fc2e724f441e190693e3f8d37b7912e2d4baa5555515c6f132481f309eff",
+      "docs/research/secon2027_analysis_spec.md": "1677f896770c014f0a3560d50c2441ecc0b363ab06e888a67e5ac9b66d87f6e5",
+      "configs/secon2027/experiment_matrix.json": "8cc1d79ddb1a91007bd124c1c1fa43f74b667657b024521882dde1fabcd034a0",
+      "results/secon2027/gates/development-method-freeze.json": "8c3f2166e128ec4d9e17e0d828b1d95df2b9141a3d4d34b04a29a91497d642ee",
+      "results/secon2027/plans/formal-v1.json": "e738c34f726718027c46ff832aea8ca1bb095fa1e4a9cb5c8d25f271012e4052",
+      "results/secon2027/gates/pilot-v2/audit.json": "af181d12025fe8a89bb0b7b247e6a2b43aae1fc08fe1921ea788cba87b39b525",
+      "results/secon2027/gates/pilot-v2/resource-costs.json": "04e8d527c0676770c65a678102d3b7c6a12c511e79a3eed76931bd04163404bc",
+      "results/secon2027/gates/pilot-v2/frozen-test-command.json": "6c8a23016ff4d85c365bc3ba3a0dbeb2f18abc72e2d1a101dad149807e9b7e6c",
+      "results/secon2027/gates/pilot-v2/mechanism-inspection.json": "a80622436f55e8097124f875bbaf4f8019c56ec87845ac53d4ed8bf644783f13",
+      "results/secon2027/gates/pilot-v1/incident.json": "fea89706823a66f05380b94bb69f15113b816fa7b8b63fda8ab372f4e17c3c60"
+    },
+    "plan_sha256": "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0",
+    "source_snapshot": "63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee",
+    "snapshot_file_count": 166,
+    "tested_version": "2.1.29",
+    "matrix_canonical_sha256": "3cc6bab3de7c7767c3fbf845deb156f945db13d98361f0dc5b7bf7e769cc6ea3",
+    "gate_frozen_at": "2026-11-04T09:01:06.320060+00:00",
+    "cohort_registered_at": "2026-11-04T09:01:06.320879+00:00",
+    "plan_frozen_at": "2026-11-04T09:01:52.961637+00:00",
+    "cohort_status": "exposed",
+    "seed_state_counts": {
+      "exposed": 20
+    },
+    "first_run_at": "2026-11-04T09:06:36.648585+00:00",
+    "execution_history_count": 65,
+    "started_count": 177,
+    "started_parse_errors": [],
+    "started_seed_counts": {
+      "2027000": 48,
+      "2027001": 47,
+      "2027002": 47,
+      "2027100": 2,
+      "2027101": 2,
+      "2027102": 2,
+      "2027103": 2,
+      "2027104": 2,
+      "2027105": 2,
+      "2027106": 2,
+      "2027107": 2,
+      "2027108": 2,
+      "2027109": 2,
+      "2027110": 2,
+      "2027111": 2,
+      "2027112": 2,
+      "2027113": 2,
+      "2027114": 2,
+      "2027115": 1,
+      "2027116": 1,
+      "2027117": 1,
+      "2027118": 1,
+      "2027119": 1
+    },
+    "started_inventory_sha256": "773698cd1f307df1f3e34f514166e0f879b58f5ebf78dfc65b5707b7c93d5708",
+    "formal_started": [
+      [
+        "results/secon2027/runs/012d9bae8f06535ef8fa4cebc6b90ef64c23cedf0ce9f6d0f1f0eca23e8668c2/attempt-001/started.json",
+        "2026-11-04T09:06:40.828141+00:00",
+        2027107,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/059c50f1fcf437dade2924cb5f3fc19e234f899554a66c30216c96be8060d24c/attempt-001/started.json",
+        "2026-11-04T09:06:36.649154+00:00",
+        2027103,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/1806ca17387aa70efcf4fb9f864f8202b343f58a221ace4b7210900f7d4d8b6c/attempt-001/started.json",
+        "2026-11-04T09:06:52.209072+00:00",
+        2027116,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/1b952134cb4de95ca7af484db1cf239dfc2666322cc1313fc1bf0bf2fc10e3b1/attempt-001/started.json",
+        "2026-11-04T09:07:01.439004+00:00",
+        2027105,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/1ba5bc851348ca748058183999f50ef4e8604bbbc626c2342d4121cf30e02e92/attempt-001/started.json",
+        "2026-11-04T09:06:49.474333+00:00",
+        2027113,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/3b6a92aa0eceb58a028ce4137908dff7ee60c7016fbb0702c95235b2807a2dcb/attempt-001/started.json",
+        "2026-11-04T09:06:46.817246+00:00",
+        2027111,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/4847849a59dcd74a0a605bbc36d8bceba28d32a76967779afd9d6cd1e7443826/attempt-001/started.json",
+        "2026-11-04T09:06:57.557417+00:00",
+        2027101,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/4a2c4999976ead4e6c55794108b7e46e2b8846d354e4d8d0295500bdfcd06b42/attempt-001/started.json",
+        "2026-11-04T09:07:02.942319+00:00",
+        2027107,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/4a9710151c2cb085cd50ba8d205a0af12c228772184d0e9539bd8d67cebea3f3/attempt-001/started.json",
+        "2026-11-04T09:07:01.358161+00:00",
+        2027104,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/5625e6112803c407e0ade5281a3f7e6537279e55259428ac900be87424df37ab/attempt-001/started.json",
+        "2026-11-04T09:06:51.084186+00:00",
+        2027115,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/64506d22b6b01ae6e22e1776c7a3355587d392e42ab15e25eaa72264cf2ce71e/attempt-001/started.json",
+        "2026-11-04T09:06:36.651053+00:00",
+        2027101,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/68722b543982ce58fee55f0215d2a62de068e0a13f3327f026cfe88c4b7ded4c/attempt-001/started.json",
+        "2026-11-04T09:07:08.927455+00:00",
+        2027112,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/6e91cd1921fdb16f959395239383cd63942e5b9bc8cb374ee8856c55c45a245f/attempt-001/started.json",
+        "2026-11-04T09:06:45.315988+00:00",
+        2027109,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/7088d2a56059c92fbed92d15b13cbd55126229ce0a4e1dd97d7f4d830153e2c5/attempt-001/started.json",
+        "2026-11-04T09:07:05.451678+00:00",
+        2027109,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/76042bb2859e56c6225d7b1b728c68b78ddec8dd4081760ea38b2278e417171b/attempt-001/started.json",
+        "2026-11-04T09:06:40.223314+00:00",
+        2027104,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/7b9c1e64ce5be8fed6aa345c9b16fbae19a1bb9edf0decc2cb384d38df1e36d7/attempt-001/started.json",
+        "2026-11-04T09:07:07.937665+00:00",
+        2027111,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/7fbb0c401ea9d5b3486a2ab9d41de706ada96eee4846d1c4b8c0df31951c2d61/attempt-001/started.json",
+        "2026-11-04T09:06:58.439425+00:00",
+        2027103,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/876a12e1c7c199e70cfeb9355baf12bbaefdb40464994ded2afe1be3d5cef025/attempt-001/started.json",
+        "2026-11-04T09:07:05.320966+00:00",
+        2027108,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/879314c2a1c31e4771432a0064b6dad93e40543034a19bac2ba4d0f3e7d3cdf0/attempt-001/started.json",
+        "2026-11-04T09:07:10.180093+00:00",
+        2027113,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/95d4a8dd7ffd0fd8dfd7b049642d10fafae5d497fc18cb92135f9f89737ac9e0/attempt-001/started.json",
+        "2026-11-04T09:06:36.647554+00:00",
+        2027100,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/96225fd31af30abae7b58f6e8b9fc81d686b16e3a77b61441b5abe2f2759a44f/attempt-001/started.json",
+        "2026-11-04T09:06:40.732525+00:00",
+        2027106,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/97102fc359a046368fcfcac04ae3cd0445b769daedcf93df0913bd5f5dd36759/attempt-001/started.json",
+        "2026-11-04T09:06:40.495387+00:00",
+        2027105,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/aeea5784416afadbf81c6b2039fedcc293300e0580f061487a9a2c4d8752bba3/attempt-001/started.json",
+        "2026-11-04T09:06:47.923828+00:00",
+        2027112,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/af18a1ad50c50e7f3c7062ef7c75edeac5d8c846c8a67942fea5f67aad187688/attempt-001/started.json",
+        "2026-11-04T09:06:54.032582+00:00",
+        2027118,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/b239340c4eab2a3a9efe701b9d53251b6d066b8b4bcb4af8f4a9cfc3119009cb/attempt-001/started.json",
+        "2026-11-04T09:06:36.647153+00:00",
+        2027102,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/b4198110acf2bc2ad3034870afaaed73649e965f87a8ca7cfde0263bf9a94200/attempt-001/started.json",
+        "2026-11-04T09:07:07.121318+00:00",
+        2027110,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/ce2536fccf4a368fc5725a31dfcfc155624e9d878ff7cff13044e85cee396f8c/attempt-001/started.json",
+        "2026-11-04T09:06:53.900913+00:00",
+        2027117,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/d46eb7b8c0ae143c13c522a694a322e9f1240e3f77ff2de4b6a2c15974e7b195/attempt-001/started.json",
+        "2026-11-04T09:06:45.708723+00:00",
+        2027110,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/d72a64cf5f4a5f86e07b9b88f6619653e9accb10067ec2d9b7cb5a4b83ed478e/attempt-001/started.json",
+        "2026-11-04T09:06:57.048531+00:00",
+        2027100,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/d8a061437f4b827f65d8ab5b074e2149dbafb4db01f1eece675e8581a71607c6/attempt-001/started.json",
+        "2026-11-04T09:07:02.167434+00:00",
+        2027106,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/dd2a91d7fd5b945524aa4b6c501728b7ab8c589de63b4d6464f2eb1cd9e386dc/attempt-001/started.json",
+        "2026-11-04T09:06:44.091621+00:00",
+        2027108,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/e3077f65d4b6c7246ef4fb2f4cbb942e9aa14351c1e5ed0ae9ff24c8bc873766/attempt-001/started.json",
+        "2026-11-04T09:06:57.826536+00:00",
+        2027102,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/ef708c15447f5fdf78672f0e0752cc544d4c2aa75542b98be28ae4b200d5bfe1/attempt-001/started.json",
+        "2026-11-04T09:07:11.025927+00:00",
+        2027114,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/f7b532d69be1798993c2e735bb55fec9b7bd8d3522a0cf3a10b61aab61c98678/attempt-001/started.json",
+        "2026-11-04T09:06:55.224610+00:00",
+        2027119,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ],
+      [
+        "results/secon2027/runs/fb9557d271bf8b9ed05208d06ff709604319bcd9f47c8035b0d8545512e7c5d8/attempt-001/started.json",
+        "2026-11-04T09:06:50.054666+00:00",
+        2027114,
+        "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0"
+      ]
+    ],
+    "case_counts": {
+      "S1-default": 80,
+      "S1-matched": 80,
+      "S2-default": 80,
+      "S2-matched": 140,
+      "S3-default": 80,
+      "S3-matched": 140,
+      "R-deadline-10-S2-matched": 80,
+      "R-deadline-60-S2-matched": 80
+    },
+    "method_source_sha256": {
+      "lora_mesh_sim.py": "e80beb763e3f63bccfc13d15a27275de432138f6774e56d3649c9f8bc43f4d01",
+      "meshecho_cpr.py": "c7e24fdfdbbdf5b27d2da5dba7ced73ba6d8c2a3178d3197bb202b5409067d8e",
+      "meshecho_drc.py": "db1fca8012eb1225c7a77385d2b121be5c04c4bf99264e4ceec4b0acc907019e",
+      "meshecho_utility.py": "d82ab28c339b5ccd7de92316c16e142b1646fbd9ec2988c4b6c932bd6771ea62",
+      "tools/run_cpr_experiment.py": "d43dcfa30eda47af2a40e99f429f21b5815c6fac97d6e90d161a37b63b96019f",
+      "tools/run_drc_experiment.py": "e1ac79e951f1aeca9b85cee9c893d513e05b5c9600f2dd3c9eef29d078810d8f",
+      "tools/secon2027_scenarios.py": "d83ebbf9f57a448c220a32f452f3e6e9bffe4a40580acd6f6e11909ddc25d061"
+    },
+    "pilot_budget": {
+      "completed_runs": 72,
+      "peak_rss_bytes": 360251392,
+      "raw_attempt_bytes": 706194269,
+      "total_wall_seconds": 301.925714167
+    },
+    "formal_budget": {
+      "ablation_runs": 120,
+      "concurrency": 4,
+      "concurrency_rss_estimate_bytes": 1441005568,
+      "estimated_four_worker_ideal_seconds": 828.7053656225311,
+      "estimated_raw_bytes": 7511290148.641974,
+      "estimated_serial_seconds": 3314.8214624901243,
+      "estimation_rule": "main case/arm means from full72 pilot; controls use corresponding CPR mean; robustness scales S2matched by accounting horizon/270; estimates are not hard performance guarantees;2x reserve for audit/retry;concurrency4 cap from16GiB memory and360251392B measured max workerRSS",
+      "expected_runs": 760,
+      "failure_policy": "Any nonzero run stops new submissions; in-flight keys finish and remain preserved. No scientific retry or unplanned seed. Infrastructure retry only explicit bounded policy.",
+      "host_memory_bytes": 17179869184,
+      "main_runs": 480,
+      "max_raw_storage_gib": 18,
+      "max_runtime_hours": 4,
+      "measured_single_worker_peak_rss_bytes": 360251392,
+      "pilot_plan_path": "results/secon2027/plans/development-pilot-v2.json",
+      "pilot_resource_report": "results/secon2027/gates/pilot-v2/resource-costs.json",
+      "robustness_runs": 160,
+      "status": "frozen-after-complete-development-gate",
+      "storage_reserve_multiplier": 2,
+      "time_reserve_multiplier": 2
+    }
+  },
+  "erratum_review": {
+    "reviewed_at": "2026-11-04T09:12:00.354550+00:00",
+    "erratum_recorded_at": "2026-11-04T09:09:21.850292+00:00",
+    "erratum_path": "docs/research/secon2027_formal_contract_erratum.md",
+    "erratum_sha256": "24cb723f156e45e9ed44b1a9bbfb4f40346dbca8457a22803927216f1f0ea0e4",
+    "pause_path": "results/secon2027/gates/formal-v1/administrative-pause.json",
+    "pause_sha256": "84c11038a3f2aa59e46d4129c4b292a7a64a30f5e257a7ba129f6246093f603f",
+    "pause_counts": {
+      "completed": 43,
+      "failed": 0,
+      "unstarted": 717
+    },
+    "pause_seeds": [
+      2027100,
+      2027101,
+      2027102,
+      2027103,
+      2027104,
+      2027105,
+      2027106,
+      2027107,
+      2027108,
+      2027109,
+      2027110,
+      2027111,
+      2027112,
+      2027113,
+      2027114,
+      2027115,
+      2027116,
+      2027117,
+      2027118,
+      2027119
+    ],
+    "paused_completed_records_verified": 43,
+    "bad_completed_or_resume_records": [],
+    "original_plan_file_sha256": "e738c34f726718027c46ff832aea8ca1bb095fa1e4a9cb5c8d25f271012e4052",
+    "original_gate_file_sha256": "8c3f2166e128ec4d9e17e0d828b1d95df2b9141a3d4d34b04a29a91497d642ee",
+    "original_contract_file_sha256": "0db4fc2e724f441e190693e3f8d37b7912e2d4baa5555515c6f132481f309eff",
+    "original_method_decision_file_sha256": "5b842194f59719e47a42f79f24b03aafc0b92597d382907df01b3acdd32f59ba",
+    "resume_dispatch_snapshot_sha256": "21bccd504750ac17ee9aec76c6ef03cc22bb70067fa2a730c9bcd4965406b1ab",
+    "resume_dispatch_record_count": 167,
+    "resume_first_record": {
+      "event": "started",
+      "pid": 84789,
+      "at_epoch": 1793783361.937927,
+      "plan_sha256": "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0",
+      "concurrency": 4,
+      "keys": 760
+    },
+    "bad_resume_commands": [],
+    "all_43_preserved_single_attempt_and_verified_existing": true,
+    "pause_binding_matches_plan": true,
+    "resume_commands_keep_original_plan_and_no_retry": true
+  },
+  "pending": [
+    "The full formal 760-run completion, raw-result audit, exposure outcomes and analyses remain outside this freeze review and require their own final checks."
+  ],
+  "excluded_work": [
+    "No simulations executed.",
+    "No seed registrations or freezes performed.",
+    "No execution-tree files modified.",
+    "No ICC TeX or bibliography files modified.",
+    "No repeated constructor/BFS checks or 18-test analysis suite."
+  ],
+  "formal_frozen_test_record": {
+    "command_record": "results/secon2027/gates/formal-v1/frozen-test-command.json",
+    "log": "results/secon2027/gates/formal-v1/frozen-tests.log",
+    "source_snapshot": "63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee",
+    "exit_code": 0,
+    "passed": 161,
+    "warnings": 11,
+    "seconds": 14.26,
+    "reviewer_reran": false,
+    "sha256": {
+      "results/secon2027/gates/formal-v1/frozen-test-command.json": "1a12635df587fe5972122e9c32614abd72defd80ba6ad7a871eb131cbb994d8e",
+      "results/secon2027/gates/formal-v1/frozen-tests.log": "3aae292eb2fe70143cb8f20d4a9cf5ef5d18755c31f564b7fb0171c5a4200e08"
+    }
+  }
+}

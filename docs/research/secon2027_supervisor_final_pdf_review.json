@@ -1,0 +1,143 @@
+{
+  "checked_at": "2026-11-04T10:29:48.553323+00:00",
+  "source_pdf": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-build-v3/main.pdf",
+  "pdf_sha256": "e477617e417a5c089bfeac3f4725e40e54e39e666071a1711c5c0e0f749eb1fd",
+  "pdf_bytes": 186064,
+  "temporary_review_dir": "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm",
+  "pages": [
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-1.png",
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-2.png",
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-3.png",
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-4.png",
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-5.png",
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-6.png",
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-7.png",
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-8.png",
+    "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page-9.png"
+  ],
+  "commands": {
+    "info": {
+      "command": [
+        "/opt/homebrew/bin/pdfinfo",
+        "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/review.pdf"
+      ],
+      "exit_code": 0,
+      "stdout": "Title:           Deadline-Constrained Recovery and Cancellation in LoRa Mesh Networks\nSubject:         Anonymous review manuscript\nKeywords:        LoRa, mesh networks, routing recovery, simulation\nCreator:         LaTeX with hyperref\nProducer:        xdvipdfmx (0.1)\nCreationDate:    Wed Nov  4 18:20:23 2026 CST\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           9\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       186064 bytes\nOptimized:       no\nPDF version:     1.5\n",
+      "stderr": ""
+    },
+    "fonts": {
+      "command": [
+        "/opt/homebrew/bin/pdffonts",
+        "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/review.pdf"
+      ],
+      "exit_code": 0,
+      "stdout": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nIHAIZV+NimbusRomNo9L-Regu            Type 1C           Custom           yes yes yes      5  0\nBZIVMZ+NimbusRomNo9L-MediItal        Type 1C           Custom           yes yes yes      6  0\nIXFAWU+NimbusRomNo9L-Medi            Type 1C           Custom           yes yes yes      7  0\nTQTHRL+CMSY9                         Type 1C           Builtin          yes yes yes      8  0\nYEUUOC+CMR9                          Type 1C           Builtin          yes yes yes      9  0\nAKHCZK+CMMI9                         Type 1C           Builtin          yes yes yes     10  0\nVDVGTR+CMR10                         Type 1C           Builtin          yes yes yes     17  0\nCAFSZL+CMMI10                        Type 1C           Builtin          yes yes yes     18  0\nDDIEWW+CMSY10                        Type 1C           Builtin          yes yes yes     19  0\nFKPJSN+CMMI7                         Type 1C           Builtin          yes yes yes     48  0\nPVTTLK+CMEX10                        Type 1C           Builtin          yes yes yes     49  0\nJAGKKY+CMBX10                        Type 1C           Builtin          yes yes yes     50  0\nNOMARO+CMR7                          Type 1C           Builtin          yes yes yes     51  0\nKPXLOM+CMMI5                         Type 1C           Builtin          yes yes yes     52  0\nUTACNV+CMSY7                         Type 1C           Builtin          yes yes yes     53  0\nFZDNHS+MSBM10                        Type 1C           Builtin          yes yes yes     55  0\nDZGKAF+NimbusRomNo9L-ReguItal        Type 1C           Custom           yes yes yes     56  0\nGJMHKB+CMR6                          Type 1C           Builtin          yes yes yes     60  0\nNITCSQ+CMMI8                         Type 1C           Builtin          yes yes yes     61  0\nUBBQTN+CMR8                          Type 1C           Builtin          yes yes yes     62  0\nLPOGEQ+CMMI6                         Type 1C           Builtin          yes yes yes     63  0\nGQYLQL+NimbusMonL-Regu               Type 1C           Custom           yes yes yes     65  0\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes     90  0\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes    103  0\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes    121  0\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes    134  0\n",
+      "stderr": ""
+    },
+    "text": {
+      "command": [
+        "/opt/homebrew/bin/pdftotext",
+        "-layout",
+        "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/review.pdf",
+        "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/review.txt"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "render": {
+      "command": [
+        "/opt/homebrew/bin/pdftoppm",
+        "-r",
+        "110",
+        "-png",
+        "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/review.pdf",
+        "/var/folders/hl/vl6nk1r117n72pf41vjt8pz80000gn/T/secon-final-v3-pdf-review-cpmjgypm/page"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "source_read_hashes": {
+    "paper/secon2027/build_figures.py": "b92f5156cf976da71cc3513f0b472359cf212b1e54a3726bc48ac739bea75b9a",
+    "paper/secon2027/controller_timing.tex": "8a6eaafdd952c738870da86386d0a371d45062e5629785198476897f00406bf7",
+    "paper/secon2027/discussion.tex": "e4f0d786fa87a8f3b7177b80bb173b001c3bb5b2bb2758c20a09ceaf795036b9",
+    "paper/secon2027/evaluation.tex": "def6effdf145a7fcf2a357c1402fdd1234bc6aff9da7167fccb146b0fd47aa33",
+    "paper/secon2027/introduction.tex": "95df18ed9765bc7ff9c97c967c0849f6284baf7796ff3c62c8e9a1700083243f",
+    "paper/secon2027/main.tex": "48d3d1c2ec8f4cbf81cbfb48ff270ed7ed38d4ff1f88bc7294715462325d9b14",
+    "paper/secon2027/methods.tex": "3f83c893cba6defd213de5cbe01ab54af615cc00e98eeb8cc7bb277a481ed5be",
+    "paper/secon2027/references.bib": "b16a95a04468dcdb20749564c218ec130956b8575064bd761c526bf990a6e6d3",
+    "paper/secon2027/related_work.tex": "cffc51112764702f0080740904285450eaa19687bbd9d6260b633ddd5baca378",
+    "paper/secon2027/results.tex": "bdf6253411123237995935b0f3a7780fd7743dc4e75a428d4a4c9786146dff3b"
+  },
+  "identical_rendered_pages_to_reviewed_v2": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "changed_pages_requiring_review": [
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "anonymity_text_checks": {
+    "identities": [],
+    "unresolved": []
+  },
+  "metadata_and_uri_inspection": {
+    "from_qa": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/paper-final-independent-qa-v3/qa.json",
+    "qa_sha256": "de2f062d0087d8ab3b76fd90b046eeb882400ef4846790f3b0f44c45e49a2db9",
+    "metadata": {
+      "/Creator": "LaTeX with hyperref",
+      "/Title": "Deadline-Constrained Recovery and Cancellation in LoRa Mesh Networks",
+      "/Subject": "Anonymous review manuscript",
+      "/Keywords": "LoRa, mesh networks, routing recovery, simulation",
+      "/Producer": "xdvipdfmx (0.1)",
+      "/CreationDate": "D:20261104102023-00'00'"
+    },
+    "uris": [
+      "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+      "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+      "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+      "https://github.com/meshcore-dev/MeshCore/blob/81dbae592ffad40b4212bc0b37e82b38da08f4bc/docs/faq.md",
+      "https://github.com/meshcore-dev/MeshCore/blob/81dbae592ffad40b4212bc0b37e82b38da08f4bc/docs/faq.md",
+      "https://meshtastic.org/docs/overview/mesh-algo/"
+    ],
+    "checks": {
+      "page_count_le_9": true,
+      "all_pages_letter": true,
+      "author_metadata_empty": true,
+      "no_identifying_text_metadata_links": true,
+      "no_unresolved_reference_markers": true,
+      "no_type3_fonts": true,
+      "all_fonts_embedded": true
+    },
+    "reviewed_qa_source": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/final_pdf_qa.py"
+  },
+  "visual_review_complete": true,
+  "previous_pdf_sha256": "08ad22c727fa080fc1dc2696e56deba7513e070037420ba28beff7808dd83c54",
+  "visual_findings": [],
+  "visual_review_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "visual_notes": [
+    "All9pages covered: pages1–4 pixel-identical to already visually reviewed v2; independently inspected new pages5–9.",
+    "TableII explicitly shows915MHz; page9 limit explicitly says without duty-cycle/LBT enforcement.",
+    "Standard readable two-column text/tables/equations; no observed truncation or overlapping figures/captions/references.",
+    "All used fonts embedded; main body nominal10pt (PDF dominant9.963pt).",
+    "Metadata and all6 link annotations inspected: only public Meshtastic/MeshCore references, no author/repository identity.",
+    "No unresolved references or personal identities detected."
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "analysis_directory": "results/secon2027/analysis/formal-v1",
+  "analysis_source_sha256": "7fd757a780e9725bd3d1992790eaad4a6cc3be7b48f7adcce674a729990eeb54",
+  "complete_runs": 760,
+  "created_at": "2026-11-04T10:05:11.046815+00:00",
+  "dimensions": "7.12 inch wide vector PDF/SVG;220dpi PNG previews;TrueType PDF fonts;editable SVG text",
+  "environment": {
+    "matplotlib": "3.7.5",
+    "numpy": "1.26.4",
+    "python": "3.9.6"
+  },
+  "figure_notes": {
+    "component_effects": "Six clean component effects, S2/S3 matched. Positive ACK differences favor full CPR; airtime ratios below one indicate less airtime. Existing paired estimates/intervals only; negative, null, adverse and undefined effects remain visible.",
+    "latency_cost": "Matched cases. Latency is the mean of each seed's timely-success p95, with existing descriptive95% intervals; unfinished fraction uses every scheduled flow. Undefined success quantiles remain labeled. CPR full physical airtime decomposes existing packet/stage means; hatched segments are ACKs. Cost decomposition has no invented component intervals.",
+    "main_results": "All six main cases and four primary arms; equal-weight means of 20 seeds. Bars are existing descriptive, unadjusted 95% bootstrap intervals. No cases or adverse effects omitted.",
+    "robustness": "Predeclared deadline10/30/60 and two-point load8/40 comparisons. Lines join observations only; no fitted response or intermediate measurements. Deadline changes both application horizon and drain; traffic generation remains240s. Existing all-seed intervals; identical effective parameters checked except the explicit deadline field."
+  },
+  "inputs": {
+    "analysis.json": {
+      "bytes": 302868,
+      "sha256": "8ab85b0313dd99b499947b3c481bd16ab96a0ca0418dae522699de7f659156ef"
+    },
+    "cost_summary.csv": {
+      "bytes": 30179,
+      "sha256": "e8e9a92be26f6136157dcb9e04c26152129d110d5f614a3ae3b1847023cae671"
+    },
+    "paired_effects.csv": {
+      "bytes": 156464,
+      "sha256": "30323f08da14bef59b8c2e78b52dd27de74f3719a1028e691c07bfdf47c34aa3"
+    },
+    "planned_runs.csv": {
+      "bytes": 224835,
+      "sha256": "8f68b77ebd3d6711d8f5fccecd2fccb585cc1d6cd19bb87c36ec514c9b6498fe"
+    },
+    "results/secon2027/plans/formal-v1.json": {
+      "bytes": 1614177,
+      "sha256": "e738c34f726718027c46ff832aea8ca1bb095fa1e4a9cb5c8d25f271012e4052"
+    },
+    "runs.csv": {
+      "bytes": 1024270,
+      "sha256": "95e8f0cfded9eedd2c3235e5a2e3f092ff768161bfa3cc24bdb69540b36da425"
+    },
+    "summary.csv": {
+      "bytes": 368130,
+      "sha256": "748639f4a1559dbd1a922d53e93bc2717882e927386d5ee40c6c1e8d73cff639"
+    }
+  },
+  "outputs": {
+    "component_effects.pdf": {
+      "bytes": 15608,
+      "sha256": "2afa40a1a82aa69d2fe9065c63c42f0648ae59bf513300e0eec0a3cdf6e3a96a"
+    },
+    "component_effects.png": {
+      "bytes": 47348,
+      "sha256": "eb7517b32ded6f764d85348cce4f8dd3b7e0e44b87a2a9cd60ea65f9f2996fcc"
+    },
+    "component_effects.svg": {
+      "bytes": 23753,
+      "sha256": "9b2a3297e91138019c38c070a46d6b1cc80e9d717894b9607477597a372deade"
+    },
+    "component_effects_source.csv": {
+      "bytes": 87791,
+      "sha256": "898c103f97169afcee600d39b1f4d80e680b4c65019797d7c1dd4f41f81da968"
+    },
+    "latency_cost.pdf": {
+      "bytes": 21369,
+      "sha256": "27e134dbc2469a540d5556a666080236f47350509fc8386537a67c691659e615"
+    },
+    "latency_cost.png": {
+      "bytes": 56107,
+      "sha256": "a42547a6637080bec130b9c33ebc5f58e0af12a9183922cff4dd30cdaf0adefd"
+    },
+    "latency_cost.svg": {
+      "bytes": 46289,
+      "sha256": "2727d1029a99afd63ae0901f521c3a82ebd7b0ce4de78916d775cb6d721c4dc4"
+    },
+    "latency_cost_source.csv": {
+      "bytes": 13162,
+      "sha256": "7d2803027804e609be670a9ee07efbd456279109c217526c230c676721753c00"
+    },
+    "main_results.pdf": {
+      "bytes": 19662,
+      "sha256": "dd50c685d1d5dbc40aa2404f9a40ea3f92edf43a0e053d624da6d98f96791163"
+    },
+    "main_results.png": {
+      "bytes": 44298,
+      "sha256": "72b28d423214c4215ba300dcfbb610938d75b0492a2b3de1a1b665761f118cd2"
+    },
+    "main_results.svg": {
+      "bytes": 51057,
+      "sha256": "c8a4f873c3c7ccc6f2576f4116785ded8e9c5dadcf418d4f233bdf9eb7d16e78"
+    },
+    "main_results_source.csv": {
+      "bytes": 15562,
+      "sha256": "89828186ed43726b384de41b587701d7d1ed47b59fd1468ec334b86987be421e"
+    },
+    "robustness.pdf": {
+      "bytes": 19996,
+      "sha256": "6be0d60f2e755892fcf9a226430acbd319cb860e10a691fabde779d8381b04d9"
+    },
+    "robustness.png": {
+      "bytes": 93129,
+      "sha256": "d14c262a74420e1bd65a547206c0db617307fcc2520ecc70819bc5686026a247"
+    },
+    "robustness.svg": {
+      "bytes": 55970,
+      "sha256": "9331802e84f45282b7b27b81b985925302c2e7a517973b7cca714071a893cbe9"
+    },
+    "robustness_source.csv": {
+      "bytes": 14236,
+      "sha256": "d59c4d9a490a217bff19697af0e4ab22d8245d9a2d87fcbd12f6229604b765e7"
+    }
+  },
+  "plan_sha256": "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0",
+  "retained_failure_records": [],
+  "schema": "secon2027-paper-figures-v1",
+  "script_sha256": "b92f5156cf976da71cc3513f0b472359cf212b1e54a3726bc48ac739bea75b9a",
+  "seeds": [
+    2027100,
+    2027101,
+    2027102,
+    2027103,
+    2027104,
+    2027105,
+    2027106,
+    2027107,
+    2027108,
+    2027109,
+    2027110,
+    2027111,
+    2027112,
+    2027113,
+    2027114,
+    2027115,
+    2027116,
+    2027117,
+    2027118,
+    2027119
+  ],
+  "source_snapshot": "63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee",
+  "statistics": "Existing table means and descriptive unadjusted95% intervals; no re-bootstrap or seed selection",
+  "status": "complete"
+}

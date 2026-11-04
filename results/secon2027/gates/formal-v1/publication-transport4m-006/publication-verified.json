@@ -1,0 +1,992 @@
+{
+  "verified_at": "2026-11-04T10:53:28.409945+00:00",
+  "transport": "Authenticated official GitHub Git Database REST API",
+  "branch": "codex/meshecho-secon2027",
+  "base": "95eee87e7757bcd8316088fee2517bc6a796801d",
+  "local_commit": "30e7bd42ecee5ff3d538601df8146934eca680fa",
+  "remote_commit": "30e7bd42ecee5ff3d538601df8146934eca680fa",
+  "tree": "651ed2402a85a66ea22e2deb271ca11e75012ad8",
+  "exact_object_identity_preserved": true,
+  "force": false,
+  "blob_count": 123,
+  "blobs": [
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.index.json",
+      "sha": "1ccd0739aae1d10f81d58eadb3045dd0496217a6",
+      "bytes": 3515572,
+      "verified": true,
+      "seconds": 13.604811500001233,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.parts.index.json",
+      "sha": "4d976d75c3cb1c945e649b225680ba9e24baa8d1",
+      "bytes": 3517714,
+      "verified": true,
+      "seconds": 9.741010583005846
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.parts.index.json",
+      "sha": "2dffc798b92da0ebd93ac79af38e654e2e1ab486",
+      "bytes": 3537445,
+      "verified": true,
+      "seconds": 12.036952417023713,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-001",
+      "sha": "f6679d8f7f0f18c299b88ba20fc18ce98aa733b0",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 17.123593083000742,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-002",
+      "sha": "96a346ff8931b2a5d4d68735b12c95b0fc25b335",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 5.4829456669976935,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-003",
+      "sha": "f0868589d166a79144f317effefd744146b63380",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.26954358399962,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-004",
+      "sha": "8f38c6c4cdb877077dea39f04e933b12940f9402",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 17.46608554100385,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-005",
+      "sha": "d05a5d82e303e5686a59ce4cd159a12b9ff88702",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.415859666012693,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-006",
+      "sha": "0da2a0290f3842aa2135252775a735d4b53a1fef",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 32.69122329200036,
+      "attempts": 2
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-007",
+      "sha": "94b937b4db0abe10054c1351bcf90f92d4c26edc",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.71226095900056,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-008",
+      "sha": "c222b6c28cad406aabcf993e55aedec3c5dc8f3e",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 42.26163304201327,
+      "attempts": 2
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-009",
+      "sha": "691239ddd736b81a119659fd131b8a1ab4a141c5",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.693935041985242,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-010",
+      "sha": "00cb8e15596ae477492076f059710a98656d02a9",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.642284250003286,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-011",
+      "sha": "858b883aa8c18684ffd805193bd222417e77d44f",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 31.690965415997198,
+      "attempts": 2
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-012",
+      "sha": "a3f9e4206e2a34f3caf3e452eaca428c2d74e4ff",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.500393125024857,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-013",
+      "sha": "e1bfcf52483e7aa75ba8b4c9b25942dd5f1cb838",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.351770833978662,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-014",
+      "sha": "b80c081b37ae7db90c5022f9fbc7ce6acb41bcb3",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.451499374990817,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-015",
+      "sha": "69c3b383ffe55de718dd9ac538632579dcc87216",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.603001959010726,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-016",
+      "sha": "b6d1fb3597111b82a8ab16483da313fbc413c024",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 27.64738108299207,
+      "attempts": 2
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-017",
+      "sha": "542bdb51493748f0d84115aa297219c6b4ce414f",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.439969457976986,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-018",
+      "sha": "8772eab331f6eceabed80c18d4e6c103b7fb18b7",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.220247249992099,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-019",
+      "sha": "5599f1d262d07e78e8b2e150cf3b60b2728cbf7b",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.729058666998753,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-020",
+      "sha": "d09b29e8d8484a6d48076d6fdeaa0cecd469c2fc",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 18.09094737499254,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-021",
+      "sha": "18bdb1c36ec5e0c950f7399f36a76bc98713960b",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.563178041978972,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-022",
+      "sha": "e0ff3a1d1deaf37a2ff6272722ae572ed7e11af0",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.81627258300432,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-023",
+      "sha": "0f32aa0a982e1f6c9dda73c49aebfe897033c932",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 17.100316374999238,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-024",
+      "sha": "425c2b8fc49d2a4c36181c248f76d494b153a2fb",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.518021583004156,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-025",
+      "sha": "330cdf8c53e1423e907a8408b97ff4194b0867c2",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.496222832996864,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-026",
+      "sha": "e918a34e14f8959772ecab58db03deaac4301b71",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.790747249993728,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-027",
+      "sha": "8c6846c0934f48f3aa4b089bf1c9074b77492748",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.121965917001944,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-028",
+      "sha": "6b2d855ddb3be34afe82a4d5aab3863211597675",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.834996541991131,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-029",
+      "sha": "bd679f419d79ee65a0b5a4f4bb655368864e17ba",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.539107832999434,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-030",
+      "sha": "7640414ecf16c6ec1428fb2e807a7fe22ce738d1",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.832113541982835,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-031",
+      "sha": "044f31e13906abbe55d1e0d9959e8cec47cc5ab6",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.715492291987175,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-032",
+      "sha": "290699bf300e6109f1593b9cf3a10f340fab71db",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 17.109971416997723,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-033",
+      "sha": "7f3c28475bd858d65f34b13520c464e2b6cac8d0",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.093668541987427,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-034",
+      "sha": "e24f6bdd3899dab7501474d7f082021b815beaef",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.313063915993553,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-035",
+      "sha": "6e9455116f5a6acad3bd619890a8573cf51b74bd",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 10.290553541999543,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-036",
+      "sha": "31b26ba3facb83e7c327f8731fa5c4f411b96f6e",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.382709583995165,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-037",
+      "sha": "34b57046df6933fa12ef9fd98d28e37771d3452f",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.180291124997893,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-038",
+      "sha": "ddfa89783b4c98ccf609b6ead7c099e67de75699",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.914137707994087,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-039",
+      "sha": "c072dab174999c8d3adf1f3d7180b7e4106ae09e",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.93768266600091,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-040",
+      "sha": "b8cc09aafb42aeefea657e394be9d61bcc1d95a8",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.841193166997982,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-041",
+      "sha": "97bdf8ddec97a0f76cc1f24006f1bfcfab2b3e4b",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.331028500018874,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-042",
+      "sha": "e36e20eb04a8d015b5bd628eb412a1b3901eda62",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.404547125013778,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-043",
+      "sha": "c35973d209b8f46ca9d07f041c26f6fe74218bd7",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.620650124998065,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-044",
+      "sha": "533af8bd0ef1fb29330cae9bc17f750dba3acc1f",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.543850166985067,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-045",
+      "sha": "c33b629bf7b146bedd608b13d0d597294279aeef",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.688961208012188,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-046",
+      "sha": "c5f4d0d77d9a9211c9c853d3a50579b3e68d5155",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.864463166013593,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-047",
+      "sha": "f420fce06b7d6c04f63274008d3d071686fe8b15",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.408890332997544,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-048",
+      "sha": "4ca7ac5084a3e14c94fde9220960454e95a00bc6",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.512312583014136,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-049",
+      "sha": "502224ceeed3c2f48337c4cdb5c116749b7cac8a",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.658464125008322,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-050",
+      "sha": "34c08ad0869a343a141253b743f3bf698e772242",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.385391834017355,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-051",
+      "sha": "992f266a9eb45eeba1b9ee9573f2dfb51cb070a9",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.047838166996371,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-052",
+      "sha": "8e5519c679af0285d4b00ba337693e80f3eb96ed",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.85330541699659,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-053",
+      "sha": "aa2a83c0e6a2816beb31529dbf7ba9aeee92a2b2",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.780105999991065,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-054",
+      "sha": "f3cf46a4c8ed02b669d657efb333326d46cd9e57",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.828356542013353,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-055",
+      "sha": "3ed457f302c30da3b2d168f61238a8e01e77ba5b",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.895191624993458,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-056",
+      "sha": "fb571e6006e57d53e134b5415d0bd744c3e76c41",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.818174917018041,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-057",
+      "sha": "7dbe6eb64a60d6d9337a7e5112a33a5151b44ec4",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.509335959010059,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-058",
+      "sha": "4e8e2703e941ea0ebac6a95dd8c2289f92060894",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 10.642122332996223,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-059",
+      "sha": "4de17daf4129096bd9cbbf0a3958b1bc4abcdc49",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 10.301352667011088,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-060",
+      "sha": "7bf7e4f503fecb2f3b25ba787b5541542d2b6990",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.796822666015942,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-061",
+      "sha": "431b4bd286f0125c2b61cff097def43a0ce7e21b",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.829538834019331,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-062",
+      "sha": "ffc127836e60d9a7881f4b9bfcc55271a657d785",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.551391167013207,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-063",
+      "sha": "2e889a4265081cdc517fb13f9cad55eee89e207a",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.05849208298605,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-064",
+      "sha": "a48ad35144fc308e58c6fc7b53766dcb0e7f7643",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.800328167009866,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-065",
+      "sha": "ca4dd52d2db8496b29270e3cda50da9e8766b88a",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.087060458987253,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-066",
+      "sha": "fb7a8c7e5c8944051beaf7136697cfdd7c821df9",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.430195374996401,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-067",
+      "sha": "bd93c171f88e02f2537535a8b48d98e7ad30c28e",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.302107958006673,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-068",
+      "sha": "c4db961f9ad093a5ee96f2c3720e7c0dcac78ab6",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 18.900950792012736,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-069",
+      "sha": "c88e0af005ae89fe6b0b0d14f6d9fdad21aa8273",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.049915832991246,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-070",
+      "sha": "7eb9caf3d815e44dae04eb667810b5086268781b",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.569610125006875,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-071",
+      "sha": "8727dd8d26729993ffcbec72160818736f15f6c9",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 35.64828041600413,
+      "attempts": 2
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-072",
+      "sha": "86178b8e66005ba762559892d1d3c10f14253484",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.04077383299591,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-073",
+      "sha": "6daa608011d89afb11a776d6ff88f25506dc6af5",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 28.94149545900291,
+      "attempts": 2
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-074",
+      "sha": "03a4d3886c56d0b8fa264840bdb8d297cf43a51c",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 6.6662371669954155,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-075",
+      "sha": "99a155e83c1e3fb0b8f3eb66a22bea6c00426530",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.204230167000787,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-076",
+      "sha": "5850cf4d48473594da6e8e6b8cb14a3c41657cb1",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 41.13070524999057,
+      "attempts": 2
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-077",
+      "sha": "c1c2d7e6c20efba00707cf95a3647427d0638229",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.07898304099217,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-078",
+      "sha": "da13c86eb861503d9c31c44d21647847174f089b",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.7192134160141,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-079",
+      "sha": "1d0e62235d8010b8c3722b253ba81fedc3bf4c9d",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 10.427298459020676,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-080",
+      "sha": "26f3e0f1ec67db147674b4141dd76ffc29eb7daa",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.798167750006542,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-081",
+      "sha": "eab2d7b69370802a9e74d3cabc56f08ca6c9e484",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.1094081250194,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-082",
+      "sha": "db1e61667f521725f7dd45de51ab29b9a421126f",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.603504250000697,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-083",
+      "sha": "bcbe0c29e6878dc8bac5e04776db017b24192ea0",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.229852457996458,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-084",
+      "sha": "641f7bccd600ead901457479a630cfdcde975cd1",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.28940299997339,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-085",
+      "sha": "42937ad62e3fdd83fbcb87194989dec50a9be2b0",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.49749204199179,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-086",
+      "sha": "957735e7a435268477ddaef643017d185d469537",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.015515959006734,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-087",
+      "sha": "874a83cf06296e092b5a73cd866f0fce862a937c",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.950176584010478,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-088",
+      "sha": "a60f29b72561aaf36d6980d724141d57fbf985c0",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.593621125008212,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-089",
+      "sha": "ba6fb1cc19ff28d6576cc90f01f50f5311eb19ce",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 17.87604062500759,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-090",
+      "sha": "8dc32303b651ddde40a1ca017e513771b4f99c9d",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.08857383299619,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-091",
+      "sha": "a20b2441508ea64f87ecd6a7d3284464af550dbb",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.891680791013641,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-092",
+      "sha": "3a2911a9068b84f17f53f99be403d45e573de30c",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 18.854934374976438,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-093",
+      "sha": "12125cb01bb05d260679550c74cb261f7b7ae25d",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 6.714027083013207,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-094",
+      "sha": "5088ca0b0d28e4af154e7c59d72e6f76925df2f4",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.939480375003768,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-095",
+      "sha": "a22675c480e5c885b9e7abd5d6ee2de8906fa0d7",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.131831167003838,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-096",
+      "sha": "ea0024133fc7f91b878304b69c39de1cd0b6a7cd",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.178639082994778,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-097",
+      "sha": "a2c21606448837deec28777d2d944a585e7f1395",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 14.3878677499888,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-098",
+      "sha": "41377717d4cff23633bb1aecdaff66ad2ae0d301",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.507046959013678,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-099",
+      "sha": "0a2665f250a7615769c234595c696097f8adbade",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.24097141699167,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-100",
+      "sha": "5440413a76d6076c8854c016455ffc6484289e5a",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.673189916007686,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-101",
+      "sha": "b2c19963275718663475265236b7de96a35bdbf0",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.749801708006999,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-102",
+      "sha": "ad2801a26c66b5f7adc0a26ddf046fdb7626a74d",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.886187625001185,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-103",
+      "sha": "80aa07fc26c136c2b1189c1e69780d9e1c7e4f1d",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.443021915998543,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-104",
+      "sha": "4bebc2a77554280913b68d08cb648ddc77ba7cdd",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.449946541979443,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-105",
+      "sha": "bca83e955277dfd5f95ceca040e68d8aa847970b",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 16.009424874995602,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-106",
+      "sha": "d90da833b12e404838165e7ee57e81e243a0fa4a",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 15.273696584015852,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-107",
+      "sha": "6f1e17066de2df283b0f04225969dd004cadd17a",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.227705917001003,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-108",
+      "sha": "a3ea5487a9687541e652e20373561c2dd9e120b4",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 8.798784374987008,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-109",
+      "sha": "9cc85efcce4b2a3a58c5417acdc5f6ad92188c63",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 17.585114542016527,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-110",
+      "sha": "418244694e2be0ec952611da377b87fefd1a8933",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 13.929252458008705,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-111",
+      "sha": "b5e5f64910e48795191985bd9e4ccf9a40c06c8e",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 18.94885662497836,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-112",
+      "sha": "5f4f0ca56ebab087fcc8ecdd70ce7ea892ed91f1",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 11.383892250014469,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-113",
+      "sha": "653dc76699d1dcce6d5377d5f9c625fd93fbf554",
+      "bytes": 4194304,
+      "verified": true,
+      "seconds": 12.285767833993305,
+      "attempts": 1
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.tar.gz.part-114",
+      "sha": "9bc2f6282cf35efe6a80481dd100a49a6dd5eff5",
+      "bytes": 1871808,
+      "verified": true,
+      "seconds": 16.4785378749948,
+      "attempts": 2
+    },
+    {
+      "path": "artifacts/secon2027/reproduction_helpers/archive_evidence.py",
+      "sha": "22fe49fc1f30f74a2dd6c0744b61cc803584cd99",
+      "bytes": 2119,
+      "verified": true,
+      "seconds": 1.4979483330098446
+    },
+    {
+      "path": "artifacts/secon2027/reproduction_helpers/dispatch_frozen_plan.py",
+      "sha": "2022e1682d50c9df975aafc7e3ebc8ef34350420",
+      "bytes": 2040,
+      "verified": true,
+      "seconds": 2.962739207985578
+    },
+    {
+      "path": "artifacts/secon2027/reproduction_helpers/inspect_formal_mechanisms.py",
+      "sha": "9ec5c99cbef9ce318ca84c6328509ce82ed58465",
+      "bytes": 28353,
+      "verified": true,
+      "seconds": 1.128837249998469
+    },
+    {
+      "path": "artifacts/secon2027/reproduction_helpers/restore_evidence.py",
+      "sha": "b53250f04ac2cf008d4fbb41730588a6f6bca5a3",
+      "bytes": 1300,
+      "verified": true,
+      "seconds": 0.8449992919922806
+    },
+    {
+      "path": "artifacts/secon2027/reproduction_helpers/split_archive.py",
+      "sha": "63550af1ed306f909704ec6edddcc50ce1143b2f",
+      "bytes": 1276,
+      "verified": true,
+      "seconds": 0.8186513329856098
+    },
+    {
+      "path": "docs/research/secon2027_formal_contract_erratum.md",
+      "sha": "0fbf9e30bd9111327bb0e2df1121e9a186854352",
+      "bytes": 3233,
+      "verified": true,
+      "seconds": 1.0267671660112683
+    }
+  ],
+  "global_network_or_auth_changes": false
+}

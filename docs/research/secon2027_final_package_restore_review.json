@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-11-04T10:59:02.889446+00:00",
+  "archive_sha256": "d60a67eb549905af087968b3c1ab496851ef78ebf38f8e9be6c26c29584e66e9",
+  "restored_members": 1230,
+  "all_member_hashes_match_after_figure_reproduction": true,
+  "restored_source_figure_command": [
+    "/usr/bin/python3",
+    "paper/secon2027/build_figures.py",
+    "--analysis-dir",
+    "results/secon2027/analysis/formal-v1",
+    "--out-dir",
+    "work/reproduced-paper-figures"
+  ],
+  "figure_generation_exit_code": 0,
+  "source_csv_and_png_checks": [
+    {
+      "file": "main_results_source.csv",
+      "byte_identical": true,
+      "sha256": "89828186ed43726b384de41b587701d7d1ed47b59fd1468ec334b86987be421e"
+    },
+    {
+      "file": "main_results.png",
+      "byte_identical": true,
+      "sha256": "72b28d423214c4215ba300dcfbb610938d75b0492a2b3de1a1b665761f118cd2"
+    },
+    {
+      "file": "component_effects_source.csv",
+      "byte_identical": true,
+      "sha256": "898c103f97169afcee600d39b1f4d80e680b4c65019797d7c1dd4f41f81da968"
+    },
+    {
+      "file": "component_effects.png",
+      "byte_identical": true,
+      "sha256": "eb7517b32ded6f764d85348cce4f8dd3b7e0e44b87a2a9cd60ea65f9f2996fcc"
+    },
+    {
+      "file": "robustness_source.csv",
+      "byte_identical": true,
+      "sha256": "d59c4d9a490a217bff19697af0e4ab22d8245d9a2d87fcbd12f6229604b765e7"
+    },
+    {
+      "file": "robustness.png",
+      "byte_identical": true,
+      "sha256": "d14c262a74420e1bd65a547206c0db617307fcc2520ecc70819bc5686026a247"
+    },
+    {
+      "file": "latency_cost_source.csv",
+      "byte_identical": true,
+      "sha256": "7d2803027804e609be670a9ee07efbd456279109c217526c230c676721753c00"
+    },
+    {
+      "file": "latency_cost.png",
+      "byte_identical": true,
+      "sha256": "a42547a6637080bec130b9c33ebc5f58e0af12a9183922cff4dd30cdaf0adefd"
+    }
+  ],
+  "new_figure_manifest_sha256": "e1ce88a6385226a01131511d84cd29d683e7c75b9ad120633ea42d5414dc1e09",
+  "pdf_svg_note": "Re-export metadata/IDs can differ; source rows and PNG renderings are byte-identical",
+  "simulation_executed": false,
+  "statistics_resampled": false,
+  "status": "pass"
+}

@@ -1,0 +1,19 @@
+{
+  "reviewed_at": "2026-11-04T11:01:24.811304+00:00",
+  "scope": "Final2.1.30paper/statistics/reproduction delivery; no new simulator change",
+  "staged_scientific_input_changes": [
+    "VERSION"
+  ],
+  "formal_input_count": 166,
+  "untouched_formal_inputs": 165,
+  "all_new_blobs_at_most_4MiB": true,
+  "raw_and_final_archives_hash_verified": true,
+  "source_tests": "161prepromotion and34postpromotion fixtures; no formal seed rerun",
+  "diff_whitespace_check": "Handwritten/implementation paths pass. Matplotlib-generated SVG whitespace and CSV CRLF plus one verbatim supervisor-review trailing blank line retained to preserve audited hashes.",
+  "independent_reviews": [
+    "secon2027_final_statistics_review",
+    "secon2027_final_paper_claims_review",
+    "secon2027_supervisor_final_pdf_review",
+    "secon2027_final_package_restore_review"
+  ]
+}

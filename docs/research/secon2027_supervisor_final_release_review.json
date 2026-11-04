@@ -1,0 +1,142 @@
+{
+  "checked_at": "2026-11-04T10:18:30.253437+00:00",
+  "scope": "Pre-final-commit source promotion and raw archive commit review; final remote and closeout commit pending",
+  "formal_snapshot": "63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee",
+  "frozen_input_count": 166,
+  "missing": [],
+  "changes": [
+    {
+      "path": "VERSION",
+      "frozen_sha256": "8f6678846c01b22a40969151d99458e86d05b97590d1131815ace8f8b43d98eb",
+      "current_sha256": "dcf91fe3646ed2f0eb3f3a33c37e4477b8089c2198d87b9665690bebb06950d0",
+      "current_value": "2.1.30\n"
+    }
+  ],
+  "raw_commit": "1e487d2327d27ae21fc000449a5f254c1621d92c",
+  "raw_parts_in_commit": [
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-001",
+      "commit_blob": "cd5b83dd8080ea9a8af43d25531127a32ab449e5",
+      "current_blob": "cd5b83dd8080ea9a8af43d25531127a32ab449e5",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-002",
+      "commit_blob": "813ec266ca993788fd054946a0024faf8c962214",
+      "current_blob": "813ec266ca993788fd054946a0024faf8c962214",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-003",
+      "commit_blob": "61dbcacbc1aa1f1abbcfef07319f0ab37c176a8f",
+      "current_blob": "61dbcacbc1aa1f1abbcfef07319f0ab37c176a8f",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-004",
+      "commit_blob": "7b8c80881ce7edd9978e3686f7e46c6405ede289",
+      "current_blob": "7b8c80881ce7edd9978e3686f7e46c6405ede289",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-005",
+      "commit_blob": "6426fd0e15aa79fc6ffc011221d4618722ac42e5",
+      "current_blob": "6426fd0e15aa79fc6ffc011221d4618722ac42e5",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-006",
+      "commit_blob": "2077b907463775d526083447a3dfbc72747ec6ef",
+      "current_blob": "2077b907463775d526083447a3dfbc72747ec6ef",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-007",
+      "commit_blob": "d77f92921674e3c247b13a618c2f5ad96bd124e8",
+      "current_blob": "d77f92921674e3c247b13a618c2f5ad96bd124e8",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-008",
+      "commit_blob": "80c02775cd332f8cb8c86c537fdb8898211e1181",
+      "current_blob": "80c02775cd332f8cb8c86c537fdb8898211e1181",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-009",
+      "commit_blob": "f919b0de26b2e2bf359a7a5d137ad5dcb3533544",
+      "current_blob": "f919b0de26b2e2bf359a7a5d137ad5dcb3533544",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-010",
+      "commit_blob": "e6480d56e9a1eef199765616f3597f1742b4bdef",
+      "current_blob": "e6480d56e9a1eef199765616f3597f1742b4bdef",
+      "matches": true
+    },
+    {
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-011",
+      "commit_blob": "2f43c560c1f56d2f84e25b9315cd4800b577f0e4",
+      "current_blob": "2f43c560c1f56d2f84e25b9315cd4800b577f0e4",
+      "matches": true
+    }
+  ],
+  "test_evidence": {
+    "closeout-prepromotion-tests.json": {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q",
+        "tests/test_meshecho_cpr.py",
+        "tests/test_meshecho_cpr_controller.py",
+        "tests/test_meshecho_drc.py",
+        "tests/test_meshecho_drc_controller.py",
+        "tests/test_cpr_experiment.py",
+        "tests/test_cpr_external_comparison.py",
+        "tests/test_common_ack_baselines.py",
+        "tests/test_secon_cpr_correctness.py",
+        "tests/test_secon_experiment.py",
+        "tests/test_secon_scenarios.py",
+        "tests/test_secon_orchestration_review.py",
+        "tests/test_secon_frozen_worker.py",
+        "tests/test_secon_analysis.py"
+      ],
+      "cwd": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo",
+      "tested_version": "2.1.29",
+      "started_at": "2026-11-04T10:03:14.627499+00:00",
+      "completed_at": "2026-11-04T10:03:40.125002+00:00",
+      "exit_code": 0,
+      "scope": "Development regression fixtures only; no formal research-seed simulations"
+    },
+    "promoted-2.1.30-regression.json": {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "-q",
+        "tests/test_meshecho_cpr.py",
+        "tests/test_meshecho_cpr_controller.py",
+        "tests/test_secon_frozen_worker.py",
+        "tests/test_secon_analysis.py"
+      ],
+      "cwd": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo",
+      "promoted_version": "2.1.30",
+      "formal_tested_version": "2.1.29",
+      "started_at": "2026-11-04T10:05:35.625304+00:00",
+      "completed_at": "2026-11-04T10:05:52.810402+00:00",
+      "exit_code": 0,
+      "scope": "Development/controller/frozen-worker/analyzer fixtures only; no formal research-seed simulations"
+    }
+  },
+  "test_log_sha256": {
+    "closeout-prepromotion-tests.log": "f4725095b833dfee9f7c0c4d75bcc564f9c72e900940ee4877cb8ae1d385f04d",
+    "promoted-2.1.30-regression.log": "3bdac1374d265c7639b5c423bcd6dfa2e9bf944a4c4d3b280cf1a9169f9341b6"
+  },
+  "prepromotion_tests_passed": 161,
+  "postpromotion_tests_passed": 34
+}

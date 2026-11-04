@@ -1,0 +1,56 @@
+\RequirePackage[T1]{fontenc}
+\documentclass[conference,10pt]{IEEEtran}
+\usepackage{amsmath,amssymb,booktabs,graphicx,url,array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Deadline-Constrained Recovery and Cancellation in LoRa Mesh Networks},pdfauthor={},pdfsubject={Anonymous review manuscript},pdfkeywords={LoRa, mesh networks, routing recovery, simulation}}
+\title{Deadline-Constrained Recovery and Cancellation in LoRa Mesh Networks}
+\author{Anonymous authors}
+\begin{document}
+\maketitle
+\begin{abstract}
+Timely confirmation in a LoRa mesh requires both delivery of an application
+message and return of its acknowledgment before a deadline. Reusing a
+known route limits forwarding, but an unconfirmed attempt leaves the
+source uncertain whether to repeat or broaden dissemination. MeshEcho-CPR
+combines local deadline admission, at most one same-path repeat and one
+recovery flood, and ACK-driven cancellation of uncommitted relay copies.
+It separates message confirmation from shared route updates to preserve
+newer evidence under concurrent flows. We evaluate the fixed controller
+with three behavioral comparators and three component controls in 760
+prespecified runs using 20 paired seeds per condition. Recovery has
+opposite effects across two stress settings. With prescribed link
+disruption, full CPR raises timely confirmation by 8.32 percentage points
+over its no-recovery control (descriptive 95\% interval 4.90--11.63), at a
+geometric mean airtime ratio of 1.27. Under higher traffic contention, it
+reduces confirmation by 15.99 points (interval $-19.41$ to $-12.64$), at
+an airtime ratio of 1.66. ACK cancellation reduces airtime in both settings,
+while its confirmation effect is uncertain under contention. Physical
+event accounting and exposed-route reconstruction retain unsuccessful
+flows and identify where recovery actually runs. The results establish a
+conditional trade-off in the declared simulator, motivating contention-aware
+recovery admission; they do not establish product-firmware superiority or
+hardware performance.
+\end{abstract}
+\begin{IEEEkeywords}
+LoRa, mesh networks, routing recovery, relay cancellation, reproducible simulation
+\end{IEEEkeywords}
+
+\input{introduction}
+\input{related_work}
+\input{methods}
+\input{evaluation}
+\input{results}
+\input{discussion}
+
+\section*{Acknowledgment}
+\textit{AI assistance.} OpenAI Codex assisted with literature organization,
+drafting the abstract and Sections~\ref{sec:introduction}--\ref{sec:discussion},
+the diagram and quantitative figure code, and development and verification
+of the simulation and analysis software described in this paper. Its
+outputs contributed manuscript text, code, and analysis explanations.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}

@@ -1,0 +1,365 @@
+{
+  "schema": "secon2027-manuscript-review-v1",
+  "created_at_utc": "2026-11-04T10:25:17.007112+00:00",
+  "formal_plan_sha256": "5f1a12fe49bf7fc0ea32cc048a3595ed0bd290811f952a47c5a33b0cded2cbb0",
+  "formal_source_snapshot": "63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee",
+  "formal_tested_version": "2.1.29",
+  "formal_runs": 760,
+  "seeds": [
+    2027100,
+    2027101,
+    2027102,
+    2027103,
+    2027104,
+    2027105,
+    2027106,
+    2027107,
+    2027108,
+    2027109,
+    2027110,
+    2027111,
+    2027112,
+    2027113,
+    2027114,
+    2027115,
+    2027116,
+    2027117,
+    2027118,
+    2027119
+  ],
+  "pdf": {
+    "build_relative_to_chat": "work/paper-final-build-v3/main.pdf",
+    "sha256": "e477617e417a5c089bfeac3f4725e40e54e39e666071a1711c5c0e0f749eb1fd",
+    "bytes": 186064,
+    "pages": 9,
+    "page_sizes_points": [
+      [
+        612.0,
+        792.0
+      ],
+      [
+        612.0,
+        792.0
+      ],
+      [
+        612.0,
+        792.0
+      ],
+      [
+        612.0,
+        792.0
+      ],
+      [
+        612.0,
+        792.0
+      ],
+      [
+        612.0,
+        792.0
+      ],
+      [
+        612.0,
+        792.0
+      ],
+      [
+        612.0,
+        792.0
+      ],
+      [
+        612.0,
+        792.0
+      ]
+    ],
+    "metadata": {
+      "format": "PDF 1.5",
+      "title": "Deadline-Constrained Recovery and Cancellation in LoRa Mesh Networks",
+      "author": "",
+      "subject": "Anonymous review manuscript",
+      "keywords": "LoRa, mesh networks, routing recovery, simulation",
+      "creator": "LaTeX with hyperref",
+      "producer": "xdvipdfmx (0.1)",
+      "creationDate": "D:20261104102023-00'00'",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null
+    },
+    "render_scale": 1.4,
+    "visual_review": "all9v3pages rendered and inspected; no clipping, overlap, unreadable labels, or unintended blank pages"
+  },
+  "compiler": {
+    "name": "Tectonic",
+    "version": "0.17.0",
+    "binary": "/Applications/ChatGPT.app/Contents/Resources/tectonic/tectonic",
+    "exit_code": 0,
+    "diagnostic_json_sha256": "bb8211a8ebf5a1d21e55edfe759b906be350947336be0094d257f0bd253bc608",
+    "final_overfull": false,
+    "final_undefined_references": false,
+    "final_font_warning": false,
+    "remaining_warnings": "Underfull boxes, mainly long pinned URLs and paragraph/float justification; visually inspected"
+  },
+  "fonts": [
+    {
+      "xref": 5,
+      "font": "IHAIZV+NimbusRomNo9L-Regu",
+      "type": "Type1",
+      "embedded_bytes": 10191
+    },
+    {
+      "xref": 6,
+      "font": "BZIVMZ+NimbusRomNo9L-MediItal",
+      "type": "Type1",
+      "embedded_bytes": 2505
+    },
+    {
+      "xref": 7,
+      "font": "IXFAWU+NimbusRomNo9L-Medi",
+      "type": "Type1",
+      "embedded_bytes": 7224
+    },
+    {
+      "xref": 8,
+      "font": "TQTHRL+CMSY9",
+      "type": "Type1",
+      "embedded_bytes": 635
+    },
+    {
+      "xref": 9,
+      "font": "YEUUOC+CMR9",
+      "type": "Type1",
+      "embedded_bytes": 1514
+    },
+    {
+      "xref": 10,
+      "font": "AKHCZK+CMMI9",
+      "type": "Type1",
+      "embedded_bytes": 825
+    },
+    {
+      "xref": 17,
+      "font": "VDVGTR+CMR10",
+      "type": "Type1",
+      "embedded_bytes": 4836
+    },
+    {
+      "xref": 18,
+      "font": "CAFSZL+CMMI10",
+      "type": "Type1",
+      "embedded_bytes": 6216
+    },
+    {
+      "xref": 19,
+      "font": "DDIEWW+CMSY10",
+      "type": "Type1",
+      "embedded_bytes": 1471
+    },
+    {
+      "xref": 48,
+      "font": "FKPJSN+CMMI7",
+      "type": "Type1",
+      "embedded_bytes": 2491
+    },
+    {
+      "xref": 49,
+      "font": "PVTTLK+CMEX10",
+      "type": "Type1",
+      "embedded_bytes": 1212
+    },
+    {
+      "xref": 50,
+      "font": "JAGKKY+CMBX10",
+      "type": "Type1",
+      "embedded_bytes": 357
+    },
+    {
+      "xref": 51,
+      "font": "NOMARO+CMR7",
+      "type": "Type1",
+      "embedded_bytes": 1591
+    },
+    {
+      "xref": 52,
+      "font": "KPXLOM+CMMI5",
+      "type": "Type1",
+      "embedded_bytes": 463
+    },
+    {
+      "xref": 53,
+      "font": "UTACNV+CMSY7",
+      "type": "Type1",
+      "embedded_bytes": 452
+    },
+    {
+      "xref": 55,
+      "font": "FZDNHS+MSBM10",
+      "type": "Type1",
+      "embedded_bytes": 450
+    },
+    {
+      "xref": 56,
+      "font": "DZGKAF+NimbusRomNo9L-ReguItal",
+      "type": "Type1",
+      "embedded_bytes": 8306
+    },
+    {
+      "xref": 60,
+      "font": "GJMHKB+CMR6",
+      "type": "Type1",
+      "embedded_bytes": 449
+    },
+    {
+      "xref": 61,
+      "font": "NITCSQ+CMMI8",
+      "type": "Type1",
+      "embedded_bytes": 2177
+    },
+    {
+      "xref": 62,
+      "font": "UBBQTN+CMR8",
+      "type": "Type1",
+      "embedded_bytes": 1189
+    },
+    {
+      "xref": 63,
+      "font": "LPOGEQ+CMMI6",
+      "type": "Type1",
+      "embedded_bytes": 1011
+    },
+    {
+      "xref": 65,
+      "font": "GQYLQL+NimbusMonL-Regu",
+      "type": "Type1",
+      "embedded_bytes": 4043
+    },
+    {
+      "xref": 90,
+      "font": "BMQQDV+DejaVuSans",
+      "type": "Type0",
+      "embedded_bytes": 14160
+    },
+    {
+      "xref": 103,
+      "font": "BMQQDV+DejaVuSans",
+      "type": "Type0",
+      "embedded_bytes": 13984
+    },
+    {
+      "xref": 121,
+      "font": "BMQQDV+DejaVuSans",
+      "type": "Type0",
+      "embedded_bytes": 15580
+    },
+    {
+      "xref": 134,
+      "font": "BMQQDV+DejaVuSans",
+      "type": "Type0",
+      "embedded_bytes": 15872
+    }
+  ],
+  "body_font": "embedded NimbusRomNo9L Times-compatible; dominant size9.963PDFpoints=10TeXpoints",
+  "citation_checks": {
+    "used": 27,
+    "bib_entries": 27,
+    "undefined": [],
+    "unused": [],
+    "duplicate_labels": [],
+    "undefined_refs": [],
+    "nocite": false
+  },
+  "anonymous_scan": {
+    "pdf_author_blank": true,
+    "text_identifier_matches": [],
+    "uri_count": 6,
+    "identifying_uri_matches": [],
+    "all_links": [
+      "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+      "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+      "https://github.com/meshtastic/firmware/blob/54e0d8d0ab2ff56b3a9ce967e53f79e49af560fb/src/mesh/NextHopRouter.cpp",
+      "https://github.com/meshcore-dev/MeshCore/blob/81dbae592ffad40b4212bc0b37e82b38da08f4bc/docs/faq.md",
+      "https://github.com/meshcore-dev/MeshCore/blob/81dbae592ffad40b4212bc0b37e82b38da08f4bc/docs/faq.md",
+      "https://meshtastic.org/docs/overview/mesh-algo/"
+    ],
+    "AI_disclosure": "nonidentifying acknowledgment required by recorded IEEE Conference Author Center policy; no author/funding acknowledgment"
+  },
+  "source_files": [
+    {
+      "path": "paper/secon2027/controller_timing.tex",
+      "sha256": "8a6eaafdd952c738870da86386d0a371d45062e5629785198476897f00406bf7",
+      "bytes": 3303
+    },
+    {
+      "path": "paper/secon2027/discussion.tex",
+      "sha256": "e4f0d786fa87a8f3b7177b80bb173b001c3bb5b2bb2758c20a09ceaf795036b9",
+      "bytes": 2424
+    },
+    {
+      "path": "paper/secon2027/evaluation.tex",
+      "sha256": "def6effdf145a7fcf2a357c1402fdd1234bc6aff9da7167fccb146b0fd47aa33",
+      "bytes": 8897
+    },
+    {
+      "path": "paper/secon2027/introduction.tex",
+      "sha256": "95df18ed9765bc7ff9c97c967c0849f6284baf7796ff3c62c8e9a1700083243f",
+      "bytes": 2880
+    },
+    {
+      "path": "paper/secon2027/main.tex",
+      "sha256": "48d3d1c2ec8f4cbf81cbfb48ff270ed7ed38d4ff1f88bc7294715462325d9b14",
+      "bytes": 2834
+    },
+    {
+      "path": "paper/secon2027/methods.tex",
+      "sha256": "3f83c893cba6defd213de5cbe01ab54af615cc00e98eeb8cc7bb277a481ed5be",
+      "bytes": 11240
+    },
+    {
+      "path": "paper/secon2027/related_work.tex",
+      "sha256": "cffc51112764702f0080740904285450eaa19687bbd9d6260b633ddd5baca378",
+      "bytes": 3367
+    },
+    {
+      "path": "paper/secon2027/results.tex",
+      "sha256": "bdf6253411123237995935b0f3a7780fd7743dc4e75a428d4a4c9786146dff3b",
+      "bytes": 9719
+    },
+    {
+      "path": "paper/secon2027/references.bib",
+      "sha256": "b16a95a04468dcdb20749564c218ec130956b8575064bd761c526bf990a6e6d3",
+      "bytes": 9572
+    },
+    {
+      "path": "paper/secon2027/build_figures.py",
+      "sha256": "b92f5156cf976da71cc3513f0b472359cf212b1e54a3726bc48ac739bea75b9a",
+      "bytes": 24190
+    },
+    {
+      "path": "paper/secon2027/figures/formal-v2/figure_manifest.json",
+      "sha256": "f03046d53e9e8f5c08abf1d0727e8953cffa33d7887810d41668a59addd247af",
+      "bytes": 5678
+    }
+  ],
+  "independent_claim_review": {
+    "path": "docs/research/secon2027_final_paper_claims_review.json",
+    "sha256": "239b6b429ffe4f38907e88dcd6316aa1cdb6ac98edfadc6a8bcab7949ec644ae",
+    "scope_note": "Bound v2 numeric/figure review; v3 changes only915MHz parameter disclosure and no duty-cycle/LBT modeling statement; result numbers,145figure source rows and16figure outputs unchanged. Current source hashes above are authoritative."
+  },
+  "acceptance": {
+    "pdf_layout": true,
+    "numeric_claims": true,
+    "formal_population": true,
+    "anonymous_metadata": true,
+    "embedded_fonts": true,
+    "no_type3": true,
+    "submission_performed": false
+  },
+  "previous_pdf": {
+    "build_relative_to_chat": "work/paper-final-build-v2/main.pdf",
+    "sha256": "08ad22c727fa080fc1dc2696e56deba7513e070037420ba28beff7808dd83c54",
+    "pages": 9,
+    "status": "superseded by explicit915MHz/duty-cycle/LBT disclosure"
+  },
+  "v3_scope_delta": {
+    "evaluation.tex": "Added915MHz carrier to common parameter row.",
+    "discussion.tex": "Explicit no duty-cycle or listen-before-talk(LBT) enforcement modeled.",
+    "scientific_source_data_or_statistics_changed": false
+  }
+}

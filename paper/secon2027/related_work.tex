@@ -1,0 +1,56 @@
+\section{Related Work}
+\label{sec:related}
+
+LoRa capacity depends on airtime, radio configuration, timing, and
+interference~\cite{bor2016scale,georgiou2017scale}. LoRaWAN studies also
+distinguish received DATA from confirmed communication because ACK traffic
+consumes constrained resources~\cite{vandenabeele2017scalability}.
+Collision/capture experiments and ns-3 modeling motivate explicit reception
+and interference treatment~\cite{rahmadhani2018concurrent,to2018lorans3}.
+These studies do not calibrate the present simulator: inter-SF interference
+and multi-interferer capture introduce further effects
+\cite{croce2018orthogonality,heusse2023capacity}, and single-gateway results
+do not establish multi-hop mesh performance.
+
+Multi-hop LoRa research spans distinct relay/router architectures and
+routing, access, and energy objectives
+\cite{cotrim2020lorawanmesh,wong2024multihop}. Smart-Hop uses
+spreading-factor-dependent range in a low-latency multi-hop design
+\cite{ahmar2022smarthop}, while MLoRa targets economical coverage and
+balanced energy use~\cite{feng2022cost}. Other approaches use SF clustering
+to balance airtime~\cite{zhu2019improving} or time-on-air metrics in
+distance-vector routing~\cite{pueyo2024minimalistic}. An ESP32 mesh library
+and LoRaHop provide implementation evidence for proactive routing and
+bidirectional LoRaWAN relaying, respectively
+\cite{sole2022implementation,tian2023lorahop}. Their architectures and
+hardware evidence cannot be treated as same-condition CPR baselines.
+
+Source-route discovery and reuse are established by DSR
+\cite{johnson1996dsr}, and finite ARQ exposes a delay--reliability trade-off
+\cite{liu2004truncated}. Forward DATA and reverse ACK reception jointly
+enter ETX's link cost~\cite{decouto2003etx}. Bursty low-power wireless
+reception~\cite{srinivasan2008beta} further cautions against treating retry
+outcomes as independent. CPR uses missing confirmation and local time
+budgets; it does not implement an ETX estimator or derive reliability by
+multiplying independent stage-success probabilities. Common-random-number
+methods motivate shared-environment comparisons, although their variance
+benefit is conditional on the system~\cite{glasserman1992crn}.
+
+Redundant flooding creates contention and collision opportunities
+\cite{ni1999broadcaststorm}. Trickle suppresses broadcasts after overhearing
+consistent summaries~\cite{levis2004trickle}, while ExOR coordinates
+opportunistic forwarding using acknowledgment information
+\cite{biswas2005exor}. Official Meshtastic and MeshCore mechanisms likewise
+include learned routes, retries, and flooding
+\cite{meshtasticfirmware,meshcore}. Retry-to-flood recovery and ACK-assisted
+suppression are therefore antecedents. CPR examines their specific
+interaction with deadline admission, live-message confirmation, cache
+evidence, and the point at which a relay send becomes committed.
+
+The Meshtastic-like and MeshCore-like baselines are simplified behavioral
+models. They omit official retry behavior; the former also omits next-hop
+learning, while the latter uses RREQ/RREP rather than the documented
+first-message DATA flood and delivery-report path learning. Comparisons
+with these models cannot establish superiority over current product
+firmware. Component controls isolate narrower CPR policy effects without
+removing this external-fidelity limitation.

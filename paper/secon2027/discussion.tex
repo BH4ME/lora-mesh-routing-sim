@@ -1,0 +1,41 @@
+\section{Discussion and Conclusion}
+\label{sec:discussion}
+
+The principal result is a boundary on fixed recovery: it improves timely
+confirmation in the disrupted-path setting but worsens it under the
+higher offered load. Local deadline feasibility is insufficient to decide
+whether a recovery flood is beneficial to a shared channel. The clean
+control reveals this limitation even though recovery-associated deliveries
+exist and full CPR has higher destination delivery. Contention-aware
+admission is a motivated future direction, not a policy evaluated here.
+
+The external behavioral models omit documented retry and learning
+behavior; custom frame lengths omit product framing and security overhead.
+Parameter matching does not resolve these limits, so the results do not
+establish product-firmware superiority. Twenty seeds, three scenarios,
+and three deadlines provide finite descriptive evidence, not generality
+across topology, traffic, and radio settings.
+
+The radio model includes half-duplex operation, overlapping transmissions,
+capture/interference decisions, and probabilistic reception, but has no
+hardware calibration in this study. LoRa capture, imperfect spreading-factor
+orthogonality, and aggregate interference can change real reception
+behavior~\cite{rahmadhani2018concurrent,croce2018orthogonality,heusse2023capacity}.
+The grid and fault fields are controlled stress settings. No duty-cycle or
+listen-before-talk (LBT) enforcement is modeled. Fixed PHY, local timing,
+and simplified queues leave device CAD timing, clock error, and application
+diversity outside the claimed scope.
+Transmit airtime does not measure whole-device energy or battery life.
+
+Finite source stages and state limits do not guarantee delivery or bound
+all simulator/firmware memory. Zero evictions do not measure peak ledger
+occupancy. Canceled copies can change later contention, so their counts
+alone do not establish network cost savings.
+
+MeshEcho-CPR makes source-stage admission, route-evidence concurrency,
+and the relay commitment boundary explicit. In the completed study,
+same-path repeat improves confirmation in both tested component settings,
+and ACK cancellation modestly reduces airtime. Recovery supplies a
+conditional benefit with a substantial failure mode: its S2 gain of
+8.32~pp becomes a 15.99-pp loss in S3. A useful recovery design must
+therefore account for channel contention as well as remaining time.

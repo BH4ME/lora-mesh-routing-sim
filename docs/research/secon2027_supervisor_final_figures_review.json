@@ -1,0 +1,136 @@
+{
+  "checked_at": "2026-11-04T10:12:23.268243+00:00",
+  "manifest_sha256": "f03046d53e9e8f5c08abf1d0727e8953cffa33d7887810d41668a59addd247af",
+  "outputs": [
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/component_effects.pdf",
+      "bytes": 15608,
+      "sha256": "2afa40a1a82aa69d2fe9065c63c42f0648ae59bf513300e0eec0a3cdf6e3a96a",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/component_effects.png",
+      "bytes": 47348,
+      "sha256": "eb7517b32ded6f764d85348cce4f8dd3b7e0e44b87a2a9cd60ea65f9f2996fcc",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/component_effects.svg",
+      "bytes": 23753,
+      "sha256": "9b2a3297e91138019c38c070a46d6b1cc80e9d717894b9607477597a372deade",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/component_effects_source.csv",
+      "bytes": 87791,
+      "sha256": "898c103f97169afcee600d39b1f4d80e680b4c65019797d7c1dd4f41f81da968",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/latency_cost.pdf",
+      "bytes": 21369,
+      "sha256": "27e134dbc2469a540d5556a666080236f47350509fc8386537a67c691659e615",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/latency_cost.png",
+      "bytes": 56107,
+      "sha256": "a42547a6637080bec130b9c33ebc5f58e0af12a9183922cff4dd30cdaf0adefd",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/latency_cost.svg",
+      "bytes": 46289,
+      "sha256": "2727d1029a99afd63ae0901f521c3a82ebd7b0ce4de78916d775cb6d721c4dc4",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/latency_cost_source.csv",
+      "bytes": 13162,
+      "sha256": "7d2803027804e609be670a9ee07efbd456279109c217526c230c676721753c00",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/main_results.pdf",
+      "bytes": 19662,
+      "sha256": "dd50c685d1d5dbc40aa2404f9a40ea3f92edf43a0e053d624da6d98f96791163",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/main_results.png",
+      "bytes": 44298,
+      "sha256": "72b28d423214c4215ba300dcfbb610938d75b0492a2b3de1a1b665761f118cd2",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/main_results.svg",
+      "bytes": 51057,
+      "sha256": "c8a4f873c3c7ccc6f2576f4116785ded8e9c5dadcf418d4f233bdf9eb7d16e78",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/main_results_source.csv",
+      "bytes": 15562,
+      "sha256": "89828186ed43726b384de41b587701d7d1ed47b59fd1468ec334b86987be421e",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/robustness.pdf",
+      "bytes": 19996,
+      "sha256": "6be0d60f2e755892fcf9a226430acbd319cb860e10a691fabde779d8381b04d9",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/robustness.png",
+      "bytes": 93129,
+      "sha256": "d14c262a74420e1bd65a547206c0db617307fcc2520ecc70819bc5686026a247",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/robustness.svg",
+      "bytes": 55970,
+      "sha256": "9331802e84f45282b7b27b81b985925302c2e7a517973b7cca714071a893cbe9",
+      "matches": true
+    },
+    {
+      "file": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo/paper/secon2027/figures/formal-v2/robustness_source.csv",
+      "bytes": 14236,
+      "sha256": "d59c4d9a490a217bff19697af0e4ab22d8245d9a2d87fcbd12f6229604b765e7",
+      "matches": true
+    }
+  ],
+  "font_checks": {
+    "main_results": {
+      "exit_code": 0,
+      "output": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes     15  0\n",
+      "stderr": ""
+    },
+    "component_effects": {
+      "exit_code": 0,
+      "output": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes     15  0\n",
+      "stderr": ""
+    },
+    "robustness": {
+      "exit_code": 0,
+      "output": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes     15  0\n",
+      "stderr": ""
+    },
+    "latency_cost": {
+      "exit_code": 0,
+      "output": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nBMQQDV+DejaVuSans                    CID TrueType      Identity-H       yes yes yes     15  0\n",
+      "stderr": ""
+    }
+  },
+  "visual_review": {
+    "method": "Direct visual inspection of all four current PNG previews, with hashes matching the PDF/SVG/PNG producer manifest; final integrated PDF still pending independent inspection",
+    "findings": [],
+    "notes": [
+      "All six main conditions and four models are labeled.",
+      "Component plot retains S3 adverse recovery and null ACK-cancellation confirmation effects.",
+      "Deadline and two-load-point plots show actual points and intervals without extra observations.",
+      "Latency/unfinished/cost plot distinguishes success-conditioned latency, all-flow failures and hatched ACK cost.",
+      "At the intended two-column width, labels, legends and error bars are legible; no observed cropping or overlap."
+    ]
+  },
+  "final_manuscript_verified": false
+}

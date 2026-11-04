@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-11-04T10:05:50.909964+00:00",
+  "formal_tested_version": "2.1.29",
+  "promoted_version": "2.1.30",
+  "formal_snapshot": "63e3809a1929e2bf1816c3192b7a9a4096aac90a0a85ac8196b72996c57ccdee",
+  "frozen_input_count": 166,
+  "unchanged_count": 165,
+  "changed_frozen_paths": [
+    "VERSION"
+  ],
+  "note": "Only VERSION differs among frozen inputs. New post-simulation utilities/paper files are separately identified by the closeout tooling manifest."
+}

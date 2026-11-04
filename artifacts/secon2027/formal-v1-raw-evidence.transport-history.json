@@ -1,0 +1,144 @@
+{
+  "archive_bytes": 475828160,
+  "archive_sha256": "81776e12501e56945dd8aad6a37bb68e5f6e4b41d66c88ae041e7689e490d067",
+  "base_commit": "95eee87e7757bcd8316088fee2517bc6a796801d",
+  "change_scope": "Transport partition and delivery lineage only. Frozen archive bytes, run evidence, analysis values, and original commit record are preserved.",
+  "new_delivery_commit": "30e7bd42ecee5ff3d538601df8146934eca680fa",
+  "new_delivery_tree": "651ed2402a85a66ea22e2deb271ca11e75012ad8",
+  "new_parts_index": "artifacts/secon2027/formal-v1-raw-evidence.transport4m.parts.index.json",
+  "original_additions": [
+    {
+      "bytes": 3517714,
+      "git_blob_sha1": "4d976d75c3cb1c945e649b225680ba9e24baa8d1",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.parts.index.json",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "cd5b83dd8080ea9a8af43d25531127a32ab449e5",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-001",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "813ec266ca993788fd054946a0024faf8c962214",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-002",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "61dbcacbc1aa1f1abbcfef07319f0ab37c176a8f",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-003",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "7b8c80881ce7edd9978e3686f7e46c6405ede289",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-004",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "6426fd0e15aa79fc6ffc011221d4618722ac42e5",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-005",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "2077b907463775d526083447a3dfbc72747ec6ef",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-006",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "d77f92921674e3c247b13a618c2f5ad96bd124e8",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-007",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "80c02775cd332f8cb8c86c537fdb8898211e1181",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-008",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "f919b0de26b2e2bf359a7a5d137ad5dcb3533544",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-009",
+      "type": "blob"
+    },
+    {
+      "bytes": 47185920,
+      "git_blob_sha1": "e6480d56e9a1eef199765616f3597f1742b4bdef",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-010",
+      "type": "blob"
+    },
+    {
+      "bytes": 3968960,
+      "git_blob_sha1": "2f43c560c1f56d2f84e25b9315cd4800b577f0e4",
+      "mode": "100644",
+      "path": "artifacts/secon2027/formal-v1-raw-evidence.tar.gz.part-011",
+      "type": "blob"
+    },
+    {
+      "bytes": 2119,
+      "git_blob_sha1": "22fe49fc1f30f74a2dd6c0744b61cc803584cd99",
+      "mode": "100644",
+      "path": "artifacts/secon2027/reproduction_helpers/archive_evidence.py",
+      "type": "blob"
+    },
+    {
+      "bytes": 2040,
+      "git_blob_sha1": "2022e1682d50c9df975aafc7e3ebc8ef34350420",
+      "mode": "100644",
+      "path": "artifacts/secon2027/reproduction_helpers/dispatch_frozen_plan.py",
+      "type": "blob"
+    },
+    {
+      "bytes": 28353,
+      "git_blob_sha1": "9ec5c99cbef9ce318ca84c6328509ce82ed58465",
+      "mode": "100644",
+      "path": "artifacts/secon2027/reproduction_helpers/inspect_formal_mechanisms.py",
+      "type": "blob"
+    },
+    {
+      "bytes": 1300,
+      "git_blob_sha1": "b53250f04ac2cf008d4fbb41730588a6f6bca5a3",
+      "mode": "100644",
+      "path": "artifacts/secon2027/reproduction_helpers/restore_evidence.py",
+      "type": "blob"
+    },
+    {
+      "bytes": 1276,
+      "git_blob_sha1": "63550af1ed306f909704ec6edddcc50ce1143b2f",
+      "mode": "100644",
+      "path": "artifacts/secon2027/reproduction_helpers/split_archive.py",
+      "type": "blob"
+    },
+    {
+      "bytes": 3233,
+      "git_blob_sha1": "0fbf9e30bd9111327bb0e2df1121e9a186854352",
+      "mode": "100644",
+      "path": "docs/research/secon2027_formal_contract_erratum.md",
+      "type": "blob"
+    }
+  ],
+  "original_archival_ref_local_only": "refs/heads/archive/meshecho-secon2027-raw-45m",
+  "original_delivery_commit": "1e487d2327d27ae21fc000449a5f254c1621d92c",
+  "original_delivery_commit_byte_count": 263,
+  "original_delivery_commit_raw_utf8": "tree ccfad2cb98bd6982cf87d1d84e0219ecad7eec7d\nparent 95eee87e7757bcd8316088fee2517bc6a796801d\nauthor BH4ME <gaozu@chinaham.com> 1793785576 +0800\ncommitter BH4ME <gaozu@chinaham.com> 1793785576 +0800\n\nPreserve all 760 frozen formal runs and administrative erratum\n",
+  "original_parts_index_sha256": "bc9d34574666a5185d51a9b3b87e976eff508b12c7bedaa0951abc228699d407",
+  "recorded_at": "2026-11-04T10:43:01.283812+00:00",
+  "recover_original_delivery": "Reassemble and verify the identical whole archive using the transport4m index. Split into 47185920-byte parts (last part shorter), verify each against the historical parts index, restore the 18 original paths using their recorded modes and blob IDs on the base commit tree, and hash the recorded raw commit bytes. This reconstructs the original commit identity without changing or rerunning experiments."
+}

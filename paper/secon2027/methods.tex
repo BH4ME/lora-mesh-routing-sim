@@ -1,0 +1,225 @@
+\section{System Model and Measurements}
+\label{sec:model}
+
+We study unicast application messages in a packet-level LoRa mesh model.
+Each flow $i$ has unique identity, source $s_i$, destination $d_i$,
+enqueue time $a_i$, and relative deadline $\Delta_i$:
+\begin{equation}
+D_i=a_i+\Delta_i.
+\label{eq:deadline}
+\end{equation}
+The source observes its local flow state, cached path, radio queue,
+configured PHY and timers, and decoded packets. Relays additionally use
+received SNR and their configured role to schedule forwarding. No protocol
+receives future faults, global reachability, or a destination-delivery
+oracle. Offline graph diagnostics characterize the environment only.
+
+Let $t_i^{D}$ be the first eligible destination reception and $t_i^{A}$
+the first accepted source ACK; missing observations have time infinity.
+For all $N$ scheduled flows, timely delivery and confirmation are
+\begin{equation}
+P_D=\frac{1}{N}\sum_i\mathbf{1}[t_i^{D}\le D_i],\qquad
+P_A=\frac{1}{N}\sum_i\mathbf{1}[t_i^{A}\le D_i].
+\label{eq:outcomes}
+\end{equation}
+Capacity rejection, no-start flows, and deadline misses remain in $N$.
+An overheard routed packet is eligible delivery only when the destination
+is its designated next hop. Delivery without timely confirmation is an
+outcome, not by itself a diagnosis of ACK-channel loss.
+
+For a fixed generation-plus-drain cutoff $C$, charge every distinct physical
+transmission $q$ starting at $t_q\le C$:
+\begin{equation}
+A=\sum_{q:t_q\le C}T(L_q),\qquad
+C_D=\frac{A}{\sum_i\mathbf{1}[t_i^{D}\le D_i]}.
+\label{eq:physical-cost}
+\end{equation}
+$T(L)$ is full-frame LoRa time on air, using the standard symbol and
+payload-length calculation~\cite{augustin2016study}. All DATA, ACK,
+discovery, duplicate, and recovery transmissions are charged. A frame
+starting before the cutoff is charged in full even if it ends later.
+$C_D$ is undefined with zero timely deliveries. Requests and cancellations
+are separate events; neither is a physical transmission.
+
+For CPR, a path carrying $n$ node identifiers, useful payload of $P$ bytes,
+and optional stage marker $m$ has modeled lengths
+\begin{equation}
+\begin{aligned}
+L_{D/F}(n,m)&=12+2n+P+\mathbf{1}[m\ne\varnothing],\\
+L_A(n,m)&=12+2n+\mathbf{1}[m\ne\varnothing].
+\end{aligned}
+\label{eq:wire}
+\end{equation}
+The ten-byte common header plus path count/index fields and two-byte node
+IDs define this custom encoding. CPR's request ID equals its flow ID and
+adds no discovery-ID extension. Cache generations and confirmation revisions
+are local state. These lengths do not reproduce official product framing,
+encryption, or authentication overhead.
+
+\section{MeshEcho-CPR}
+\label{sec:cpr}
+
+\input{controller_timing}
+
+\subsection{Local admission and finite source stages}
+
+A queued send has request-creation time, commitment time $k_q$, and reserved
+physical start $t_q$. With the local radio reserved until $b_v$,
+\begin{equation}
+t_q=\max(k_q,b_v),\qquad e_q=t_q+T(L_q).
+\label{eq:commit}
+\end{equation}
+An admitted request commits at $k_q$ and reserves $[t_q,e_q)$ immediately.
+It cannot be canceled later, even when $t_q>k_q$. Admission hooks receive
+the proposed start, so queue delay enters the source's deadline check.
+
+Let $h=|p|-1$ be cached-path hops, $H$ the hop limit, and $\epsilon$ a
+safety margin. The source computes a route budget
+\begin{equation}
+B_R(p,m)=h\{T(L_D(h+1,m))+T(L_A(h+1,m))\}+\epsilon.
+\label{eq:route-budget}
+\end{equation}
+For flood base delay $b$ and uniform jitter width $j$, it uses
+\begin{equation}
+\begin{aligned}
+B_F(m)={}&H\{T(L_F(H+1,m))+T(L_A(H+1,m))\}\\
+&+(H-1)(b+j+0.35)+\epsilon.
+\end{aligned}
+\label{eq:flood-budget}
+\end{equation}
+The 0.35-s term is the configured model's maximum weak-link delay addition.
+The synthetic maximum path sizes this admission budget; actual transmitted
+frames are charged at their actual path lengths. An action fits when
+\begin{equation}
+\operatorname{fits}(t,B,D)\iff t<D\ \land\ t+B\le D.
+\label{eq:fits}
+\end{equation}
+These are local admission estimates. They do not bound all relay queues,
+interference, loss, or successful ACK return time.
+
+At the initial opportunity, the source chooses \texttt{R\_INITIAL} only
+when its cached path is READY, unexpired, and feasible with the unmarked
+route budget. Otherwise it attempts \texttt{F\_INITIAL} using the unmarked
+flood budget. This initial-flood branch includes absent, quarantined,
+expired, and locally infeasible routes. If neither action fits, no frame
+starts and the flow remains in the denominator.
+
+For a routed initial start $t_0$, define $B_1=B_R(p_i,1)$. At
+$\min(D_i,t_0+B_1)$, a still-live, unconfirmed flow can request one repeat
+on exactly the saved path. At its proposed start $t_1$, the repeat requires
+the same current READY route generation, unexpired state, and a feasible
+marked-frame budget. Only after this repeat has a recorded physical start
+does full CPR observe for recovery at $\min(D_i,t_1+B_1)$. A still-unconfirmed
+flow may then request one recovery flood, again requiring the same READY
+generation and its own proposed-start budget. Failed repeat admission does
+not skip directly to recovery. An initial-flood flow arms neither stage.
+Figure~\ref{fig:controller-timing} separates this source-stage order from
+the relay's request, commitment, and physical-start times.
+
+Diagnostic action names alone do not identify rejection causes. In the
+implemented recovery branch, the action
+\texttt{DROP\_DEADLINE\_INFEASIBLE} is also emitted with reason
+\texttt{stale-route-generation} when the saved route is no longer current
+and READY, even if the remaining deadline admits the flood budget. Such
+an event rejects that recovery start; it does not demonstrate a shortage
+of deadline slack or immediately erase the live flow. Cause-specific counts
+must inspect the reason and corresponding route/time state.
+
+The initial packet is unmarked, the repeat has marker 1, and recovery has
+marker 2. All retain the same flow ID and deadline. A valid ACK from any
+actually started eligible stage completes the flow once and cancels its
+remaining uncommitted source requests. Deadline expiry also retires pending
+work; committed transmissions remain charged. Equal-time decoded receptions
+precede deadline timers, permitting an eligible ACK at $D_i$, while a new
+source stage cannot start at $D_i$.
+
+If $N_i(m)$ counts DATA/FLOOD transmissions by the original source,
+\begin{equation}
+\begin{gathered}
+N_i(m)\le1,\quad m\in\{\varnothing,1,2\},\\
+\sum_mN_i(m)\le
+\begin{cases}1,&\text{initial flood},\\3,&\text{initial route}.
+\end{cases}
+\end{gathered}
+\label{eq:source-bound}
+\end{equation}
+Unique flow identity, once-only stage guards, and rejection of a flood
+returning to its source establish this bound. It excludes ACKs and other
+nodes' forwarding; it is not a network-wide three-transmission bound.
+
+\subsection{Forwarding and message confirmation}
+
+Routed DATA follows the designated next hop. A FLOOD is processed only if
+its flow/request IDs agree, its marker is supported, and its simple path
+starts at the origin and ends at the decoded sender with the correct path
+index. The receiver must be absent from the path and cannot be the origin.
+For incoming path length $n$, require $1\le n\le H$ and
+$1\le\mathrm{TTL}\le H-n+1$. Reception appends the receiver; a destination
+can ACK on the last permitted hop, whereas further forwarding requires
+remaining TTL and relay eligibility. Initial and recovery duplicate keys
+remain distinct. Duplicate suppression cancels only an uncommitted handle.
+
+An ACK traverses the accepted path in reverse. At the source, it must match
+a live flow, reversed endpoints, flow/request identity, supported stage,
+simple path, source index, and decoded preceding transmitter; it must carry
+no application payload and arrive by $D_i$. Its stage must have a recorded
+start no later than the ACK reception. Routed initial/repeat ACKs must
+match the saved path exactly; initial-flood/recovery ACKs may confirm their
+corresponding discovered path. Replay after retirement cannot complete a
+flow again. These are honest-packet simulator checks, not authentication.
+
+Message confirmation is separate from shared-cache mutation. Store a route
+as $(p,g,\rho,\mathrm{expiry},\mathrm{phase})$, with generation $g$ and
+confirmation revision $\rho$. A valid ACK for the current READY, unexpired
+path refreshes expiry, preserves $g$, and increments $\rho$. Otherwise its
+path may replace the cache only if the stage's captured destination epoch
+still matches the current epoch. A stale ACK can therefore confirm its
+message without overwriting a newer different route. Shared generation
+changes are not ACK-rejection conditions. A routed-flow timeout may
+quarantine a READY route only if both saved $g$ and $\rho$ still match;
+an older timeout cannot invalidate a newer same-path confirmation, including
+one recorded at the same timestamp.
+
+\subsection{Relay cancellation and component controls}
+
+Each pending relay record holds endpoints, flow/request IDs, marker,
+observed path, and the exact send handle. A locally decoded ACK $a$ can
+cancel handle $q$ at relay $v$ only when
+\begin{equation}
+\begin{aligned}
+\operatorname{cancel}(v,q,a)={}&\operatorname{decoded}(v,a)
+\land\operatorname{match}(q,a)\\
+&\land[v\notin\operatorname{path}(a)]\\
+&\land\operatorname{uncommitted}(q)
+\land\neg\operatorname{canceled}(q).
+\end{aligned}
+\label{eq:cancel}
+\end{equation}
+Matching includes endpoints, identity, marker, empty payload, a simple
+correctly oriented ACK path, valid reverse index, and decoded sender.
+The relay must be off the ACK path. It need not know the source's current
+cache generation or deadline. Count decoded ACK checks separately from
+successful cancellations: checks can encounter no pending handle or a
+committed one. Their ratio is not success among eligible pending copies,
+and canceled-copy counts are not network-wide counterfactual airtime savings.
+
+The ACK-only control disables relay ACK cancellation while retaining ledger
+capacity, eviction, source ACK processing, and duplicate suppression. The
+no-repeat control emits no repeat and reserves the nominal observation slot,
+opening recovery eligibility at $t_0+2B_R(p_i,1)$; recovery still passes its
+own deadline and route checks. Queue changes can make later timelines
+differ. The no-recovery control retains the initial transmission and repeat.
+The historical whole-ledger-off control changes a broader policy and is
+not an ACK-only ablation. Clean controls require resolved parameters to
+differ only in their named switch.
+
+The authoritative route and active-flow capacities are eight per source;
+the cancellation ledger holds eight records per relay and evicts its oldest
+entry, canceling it only if uncommitted. Separate inherited limits remain:
+128 pending flood entries and 128 seen keys per node, with a 30-s seen TTL.
+Destination-epoch storage is bounded by route plus active-flow capacity;
+the retired-flow ring stores 256 IDs per protocol instance. These component
+limits do not bound the entire simulator's event/evidence memory. Path
+validation costs $O(H)$; the current shared Python ledger scans can cost
+$O(N_{\mathrm{nodes}}K)$ for ledger capacity $K$, so whole operations are
+not claimed constant-time.

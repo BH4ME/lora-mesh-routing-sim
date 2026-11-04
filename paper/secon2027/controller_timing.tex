@@ -1,0 +1,63 @@
+% Reproducible vector diagram. Logical order and schematic timing only;
+% positions are not measured latency or drawn to time scale.
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+  x=1cm,y=1cm,>=Latex,
+  stage/.style={draw,rounded corners=1pt,align=center,font=\small,
+    text width=2.35cm,minimum height=0.78cm,inner sep=4pt},
+  annotation/.style={align=center,font=\footnotesize},
+  flow/.style={->,line width=0.65pt}]
+
+\node[anchor=west,font=\bfseries\small] at (0,3.5)
+  {(a) Source-stage order for full CPR};
+\node[stage] (select) at (1.25,2.1) {Initial local\\opportunity};
+\node[stage] (initial) at (5,2.1) {Routed initial\\marker absent, $t_0$};
+\node[stage] (repeat) at (9,2.1) {Same-path repeat\\marker 1, $t_1$};
+\node[stage] (recovery) at (13,2.1) {Recovery flood\\marker 2};
+\draw[flow] (select) -- node[annotation,above,yshift=12pt] {READY route\\and budget fit} (initial);
+\draw[flow] (initial) -- node[annotation,above,yshift=12pt] {No ACK yet\\observe at $t_0+B_1$} (repeat);
+\draw[flow] (repeat) -- node[annotation,above,yshift=12pt] {No ACK yet\\observe at $t_1+B_1$} (recovery);
+
+\node[stage] (cold) at (5,0.55) {Initial DATA flood\\marker absent};
+\draw[flow] (select.south) |- (cold.west);
+\node[annotation] at (2.5,1.08) {Otherwise,\\if flood fits};
+\node[annotation,anchor=west,text width=6.7cm] at (6.8,0.55)
+  {No repeat or recovery on this branch.\\
+   Each later stage on the routed branch rechecks route and deadline at its proposed start.};
+\node[annotation,text width=15cm] at (7.1,-0.55)
+  {A valid ACK from any actually started eligible stage completes the live flow.
+   Deadline expiry also retires it.\\
+   Both stop pending source work; committed sends remain charged.
+   Rejected admission creates no physical TX.};
+
+\node[anchor=west,font=\bfseries\small] at (0,-1.4)
+  {(b) One relay copy: commitment can precede physical start};
+\draw[->,line width=0.65pt] (0.5,-2.25) -- (14.5,-2.25) node[right,font=\small] {time};
+\fill[black!12] (2,-2.1) rectangle (6,-2.4);
+\fill[black!38] (6,-2.1) rectangle (10,-2.4);
+\fill[black!75] (10,-2.1) rectangle (13,-2.4);
+\foreach \x/\lab in {2/{request $r_q$},6/{commit $k_q$},10/{start $t_q$},13/{end $e_q$}} {
+  \draw (\x,-2.06) -- (\x,-2.53);
+  \node[annotation,below] at (\x,-2.55) {\lab};
+}
+\node[annotation] at (4,-1.85) {Uncommitted};
+\node[annotation] at (8,-1.85) {Reserved in queue};
+\node[annotation] at (11.5,-1.85) {Physical TX};
+\draw[->,dashed] (4,-3.65) -- (4,-2.42);
+\node[annotation,below,text width=4.2cm] at (4,-3.65)
+  {Matching off-path ACK can cancel this pending copy};
+\draw[->,dashed] (8,-3.65) -- (8,-2.42);
+\node[annotation,below,text width=4.8cm] at (8.7,-3.65)
+  {ACK is too late to cancel, even before physical start};
+\end{tikzpicture}
+\caption{Logical source stages and the relay commitment boundary. In (a),
+$B_1=B_R(p_i,1)$; observation times are capped at $D_i$, and a new stage
+cannot start at $D_i$. Arrows show conditional stage order, not guaranteed
+transmissions. The no-repeat control reserves the nominal observation slot
+before recovery. In (b), the time axis is schematic, with
+$t_q=\max(k_q,b_v)$ and $e_q=t_q+T(L_q)$; no latency measurements are
+encoded. Eligibility also requires the matching conditions in
+Eq.~\eqref{eq:cancel}.}
+\label{fig:controller-timing}
+\end{figure*}

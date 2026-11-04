@@ -1,0 +1,690 @@
+{
+  "review_started_at": "2026-11-04T10:13:12.182993+00:00",
+  "execution_root": "/Users/bh4me_macair/Documents/Codex/2026-11-04/meshecho-secon2027/work/repo",
+  "scope": "G01-G06,G10-G14,G16,I01-I03,J01; source-only G13/G14; no PDF compile/visual review",
+  "read_snapshot": {
+    "docs/research/secon2027_checkpoint.md": {
+      "sha256": "262a35f97304c7d5839a50c37dc388ecb27c2af5dae09a6b941141261d92377c",
+      "bytes": 22231,
+      "mtime": "2026-11-04T10:06:48.801814+00:00"
+    },
+    "docs/research/secon2027_experiment_contract.md": {
+      "sha256": "0db4fc2e724f441e190693e3f8d37b7912e2d4baa5555515c6f132481f309eff",
+      "bytes": 18037,
+      "mtime": "2026-11-04T08:59:18.697304+00:00"
+    },
+    "configs/secon2027/seed_registry.json": {
+      "sha256": "2b15e5ad71a34f08780817e5a0191d1124b09d0c08711350e006d27d88a60923",
+      "bytes": 597512,
+      "mtime": "2026-11-04T09:33:23.976261+00:00"
+    },
+    "configs/secon2027/experiment_matrix.json": {
+      "sha256": "8cc1d79ddb1a91007bd124c1c1fa43f74b667657b024521882dde1fabcd034a0",
+      "bytes": 15165,
+      "mtime": "2026-11-04T08:59:18.698639+00:00"
+    },
+    "docs/research/secon2027_baseline_fidelity.md": {
+      "sha256": "72be01ff3ec42ba2797847f453e9debfa113df2cfa555cd117842b1f8ea69775",
+      "bytes": 13866,
+      "mtime": "2026-11-04T08:41:29.754522+00:00"
+    },
+    "docs/research/secon2027_algorithm_spec.md": {
+      "sha256": "977c3ffef6c63642f2c7c0b6c7346489d2677b6b288b67653b8f7e672bb0fe30",
+      "bytes": 26026,
+      "mtime": "2026-11-04T08:48:30.890850+00:00"
+    },
+    "docs/research/secon2027_submission_checklist.md": {
+      "sha256": "b8251db93690f450a951f90a42e531585e8f58ad4ea01c0c6719232505e3e142",
+      "bytes": 7885,
+      "mtime": "2026-11-04T09:32:45.907324+00:00"
+    },
+    "docs/results/secon2027_firmware_validation.md": {
+      "sha256": "5d1ed19a7697aca5fca3b0acbc97650cb13005e249da7e950c9e66dd325cc0f2",
+      "bytes": 788,
+      "mtime": "2026-11-04T08:31:05.145868+00:00"
+    },
+    "docs/project-management/secon2027_release_map.md": {
+      "sha256": "a3097345ec1fd6df6fda34580c7b0a8f70a43fd712511fbbed7d0668726f306d",
+      "bytes": 9873,
+      "mtime": "2026-11-04T10:08:53.218758+00:00"
+    },
+    "docs/reproducibility/secon2027_reproduce.md": {
+      "sha256": "d5b08dcc5210e5a8fe4d0d4929aa30f81742d7c730bdc540342daff9bbf50250",
+      "bytes": 21048,
+      "mtime": "2026-11-04T10:09:21.239033+00:00"
+    },
+    "docs/research/secon2027_formal_contract_erratum.md": {
+      "sha256": "24cb723f156e45e9ed44b1a9bbfb4f40346dbca8457a22803927216f1f0ea0e4",
+      "bytes": 3233,
+      "mtime": "2026-11-04T09:09:21.865539+00:00"
+    },
+    "docs/research/secon2027_official_requirements.md": {
+      "sha256": "426743c4ac6be6bd7fe0aeb35d428381a41f81f0b14b96ea7eb84bc613178e0a",
+      "bytes": 4949,
+      "mtime": "2026-11-04T07:28:15.397584+00:00"
+    },
+    "docs/research/secon2027_method_decision.md": {
+      "sha256": "5b842194f59719e47a42f79f24b03aafc0b92597d382907df01b3acdd32f59ba",
+      "bytes": 6075,
+      "mtime": "2026-11-04T08:57:02.890697+00:00"
+    },
+    "docs/research/secon2027_claim_evidence.md": {
+      "sha256": "1754864fb534ed5d4fc9e5ea6b5b383ef6f7270b583de7ecda8c5cd8077ccb16",
+      "bytes": 19942,
+      "mtime": "2026-11-04T09:16:18.469269+00:00"
+    },
+    "docs/results/secon2027_evaluation.md": {
+      "sha256": "cff27af5d3f6c597544f58dcb9c3a7dbb932b0e1b35ff150eab112057a2e7921",
+      "bytes": 32529,
+      "mtime": "2026-11-04T10:09:40.939859+00:00"
+    },
+    "results/secon2027/plans/formal-v1.json": {
+      "sha256": "e738c34f726718027c46ff832aea8ca1bb095fa1e4a9cb5c8d25f271012e4052",
+      "bytes": 1614177,
+      "mtime": "2026-11-04T09:01:53.044482+00:00"
+    },
+    "paper/secon2027/FIGURES.md": {
+      "sha256": "01ef6bac771cf1be29a277f63ad541e795178a738612e4cf2faa11ed77a4db8a",
+      "bytes": 3392,
+      "mtime": "2026-11-04T09:15:21.826651+00:00"
+    },
+    "paper/secon2027/build_figures.py": {
+      "sha256": "b92f5156cf976da71cc3513f0b472359cf212b1e54a3726bc48ac739bea75b9a",
+      "bytes": 24190,
+      "mtime": "2026-11-04T10:04:23.423202+00:00"
+    },
+    "paper/secon2027/controller_timing.tex": {
+      "sha256": "8a6eaafdd952c738870da86386d0a371d45062e5629785198476897f00406bf7",
+      "bytes": 3303,
+      "mtime": "2026-11-04T09:14:38.551176+00:00"
+    },
+    "paper/secon2027/discussion.tex": {
+      "sha256": "e50f0e968c410f89f78e7361092d0ac896528c654ba76a22e72239e0c666dc92",
+      "bytes": 2381,
+      "mtime": "2026-11-04T10:11:07.388132+00:00"
+    },
+    "paper/secon2027/evaluation.tex": {
+      "sha256": "5937712fcce08e2d10c02f90689518064e4b9a565f2499e5f06b76f6001ff19d",
+      "bytes": 8888,
+      "mtime": "2026-11-04T10:11:07.298632+00:00"
+    },
+    "paper/secon2027/introduction.tex": {
+      "sha256": "95df18ed9765bc7ff9c97c967c0849f6284baf7796ff3c62c8e9a1700083243f",
+      "bytes": 2880,
+      "mtime": "2026-11-04T10:11:07.387828+00:00"
+    },
+    "paper/secon2027/main.tex": {
+      "sha256": "48d3d1c2ec8f4cbf81cbfb48ff270ed7ed38d4ff1f88bc7294715462325d9b14",
+      "bytes": 2834,
+      "mtime": "2026-11-04T10:11:07.298247+00:00"
+    },
+    "paper/secon2027/methods.tex": {
+      "sha256": "3f83c893cba6defd213de5cbe01ab54af615cc00e98eeb8cc7bb277a481ed5be",
+      "bytes": 11240,
+      "mtime": "2026-11-04T08:49:11.676419+00:00"
+    },
+    "paper/secon2027/references.bib": {
+      "sha256": "b16a95a04468dcdb20749564c218ec130956b8575064bd761c526bf990a6e6d3",
+      "bytes": 9572,
+      "mtime": "2026-11-04T08:49:11.679881+00:00"
+    },
+    "paper/secon2027/related_work.tex": {
+      "sha256": "cffc51112764702f0080740904285450eaa19687bbd9d6260b633ddd5baca378",
+      "bytes": 3367,
+      "mtime": "2026-11-04T08:49:11.677680+00:00"
+    },
+    "paper/secon2027/results.tex": {
+      "sha256": "bdf6253411123237995935b0f3a7780fd7743dc4e75a428d4a4c9786146dff3b",
+      "bytes": 9719,
+      "mtime": "2026-11-04T10:08:25.956358+00:00"
+    }
+  },
+  "missing": [],
+  "review_completed_at": "2026-11-04T10:17:19.071829+00:00",
+  "final_read_snapshot": {
+    "docs/research/secon2027_checkpoint.md": {
+      "sha256": "262a35f97304c7d5839a50c37dc388ecb27c2af5dae09a6b941141261d92377c",
+      "bytes": 22231,
+      "mtime": "2026-11-04T10:06:48.801814+00:00"
+    },
+    "docs/research/secon2027_experiment_contract.md": {
+      "sha256": "0db4fc2e724f441e190693e3f8d37b7912e2d4baa5555515c6f132481f309eff",
+      "bytes": 18037,
+      "mtime": "2026-11-04T08:59:18.697304+00:00"
+    },
+    "configs/secon2027/seed_registry.json": {
+      "sha256": "2b15e5ad71a34f08780817e5a0191d1124b09d0c08711350e006d27d88a60923",
+      "bytes": 597512,
+      "mtime": "2026-11-04T09:33:23.976261+00:00"
+    },
+    "configs/secon2027/experiment_matrix.json": {
+      "sha256": "8cc1d79ddb1a91007bd124c1c1fa43f74b667657b024521882dde1fabcd034a0",
+      "bytes": 15165,
+      "mtime": "2026-11-04T08:59:18.698639+00:00"
+    },
+    "docs/research/secon2027_baseline_fidelity.md": {
+      "sha256": "72be01ff3ec42ba2797847f453e9debfa113df2cfa555cd117842b1f8ea69775",
+      "bytes": 13866,
+      "mtime": "2026-11-04T08:41:29.754522+00:00"
+    },
+    "docs/research/secon2027_algorithm_spec.md": {
+      "sha256": "977c3ffef6c63642f2c7c0b6c7346489d2677b6b288b67653b8f7e672bb0fe30",
+      "bytes": 26026,
+      "mtime": "2026-11-04T08:48:30.890850+00:00"
+    },
+    "docs/research/secon2027_submission_checklist.md": {
+      "sha256": "b8251db93690f450a951f90a42e531585e8f58ad4ea01c0c6719232505e3e142",
+      "bytes": 7885,
+      "mtime": "2026-11-04T09:32:45.907324+00:00"
+    },
+    "docs/results/secon2027_firmware_validation.md": {
+      "sha256": "5d1ed19a7697aca5fca3b0acbc97650cb13005e249da7e950c9e66dd325cc0f2",
+      "bytes": 788,
+      "mtime": "2026-11-04T08:31:05.145868+00:00"
+    },
+    "docs/project-management/secon2027_release_map.md": {
+      "sha256": "a3097345ec1fd6df6fda34580c7b0a8f70a43fd712511fbbed7d0668726f306d",
+      "bytes": 9873,
+      "mtime": "2026-11-04T10:08:53.218758+00:00"
+    },
+    "docs/reproducibility/secon2027_reproduce.md": {
+      "sha256": "d5b08dcc5210e5a8fe4d0d4929aa30f81742d7c730bdc540342daff9bbf50250",
+      "bytes": 21048,
+      "mtime": "2026-11-04T10:09:21.239033+00:00"
+    },
+    "docs/research/secon2027_formal_contract_erratum.md": {
+      "sha256": "24cb723f156e45e9ed44b1a9bbfb4f40346dbca8457a22803927216f1f0ea0e4",
+      "bytes": 3233,
+      "mtime": "2026-11-04T09:09:21.865539+00:00"
+    },
+    "docs/research/secon2027_official_requirements.md": {
+      "sha256": "426743c4ac6be6bd7fe0aeb35d428381a41f81f0b14b96ea7eb84bc613178e0a",
+      "bytes": 4949,
+      "mtime": "2026-11-04T07:28:15.397584+00:00"
+    },
+    "docs/research/secon2027_method_decision.md": {
+      "sha256": "5b842194f59719e47a42f79f24b03aafc0b92597d382907df01b3acdd32f59ba",
+      "bytes": 6075,
+      "mtime": "2026-11-04T08:57:02.890697+00:00"
+    },
+    "docs/research/secon2027_claim_evidence.md": {
+      "sha256": "013309e182fa3f3d93ca62f79842ac260942d484b402c590a9de32d3c1e276df",
+      "bytes": 14774,
+      "mtime": "2026-11-04T10:14:41.471044+00:00"
+    },
+    "docs/results/secon2027_evaluation.md": {
+      "sha256": "cff27af5d3f6c597544f58dcb9c3a7dbb932b0e1b35ff150eab112057a2e7921",
+      "bytes": 32529,
+      "mtime": "2026-11-04T10:09:40.939859+00:00"
+    },
+    "results/secon2027/plans/formal-v1.json": {
+      "sha256": "e738c34f726718027c46ff832aea8ca1bb095fa1e4a9cb5c8d25f271012e4052",
+      "bytes": 1614177,
+      "mtime": "2026-11-04T09:01:53.044482+00:00"
+    },
+    "paper/secon2027/FIGURES.md": {
+      "sha256": "a0079fe89091081b24393a2c2da15bbc68b955914fb86a5f9536e353bafbb33b",
+      "bytes": 3987,
+      "mtime": "2026-11-04T10:14:41.474349+00:00"
+    },
+    "paper/secon2027/build_figures.py": {
+      "sha256": "b92f5156cf976da71cc3513f0b472359cf212b1e54a3726bc48ac739bea75b9a",
+      "bytes": 24190,
+      "mtime": "2026-11-04T10:04:23.423202+00:00"
+    },
+    "paper/secon2027/controller_timing.tex": {
+      "sha256": "8a6eaafdd952c738870da86386d0a371d45062e5629785198476897f00406bf7",
+      "bytes": 3303,
+      "mtime": "2026-11-04T09:14:38.551176+00:00"
+    },
+    "paper/secon2027/discussion.tex": {
+      "sha256": "e50f0e968c410f89f78e7361092d0ac896528c654ba76a22e72239e0c666dc92",
+      "bytes": 2381,
+      "mtime": "2026-11-04T10:11:07.388132+00:00"
+    },
+    "paper/secon2027/evaluation.tex": {
+      "sha256": "5937712fcce08e2d10c02f90689518064e4b9a565f2499e5f06b76f6001ff19d",
+      "bytes": 8888,
+      "mtime": "2026-11-04T10:11:07.298632+00:00"
+    },
+    "paper/secon2027/introduction.tex": {
+      "sha256": "95df18ed9765bc7ff9c97c967c0849f6284baf7796ff3c62c8e9a1700083243f",
+      "bytes": 2880,
+      "mtime": "2026-11-04T10:11:07.387828+00:00"
+    },
+    "paper/secon2027/main.tex": {
+      "sha256": "48d3d1c2ec8f4cbf81cbfb48ff270ed7ed38d4ff1f88bc7294715462325d9b14",
+      "bytes": 2834,
+      "mtime": "2026-11-04T10:11:07.298247+00:00"
+    },
+    "paper/secon2027/methods.tex": {
+      "sha256": "3f83c893cba6defd213de5cbe01ab54af615cc00e98eeb8cc7bb277a481ed5be",
+      "bytes": 11240,
+      "mtime": "2026-11-04T08:49:11.676419+00:00"
+    },
+    "paper/secon2027/references.bib": {
+      "sha256": "b16a95a04468dcdb20749564c218ec130956b8575064bd761c526bf990a6e6d3",
+      "bytes": 9572,
+      "mtime": "2026-11-04T08:49:11.679881+00:00"
+    },
+    "paper/secon2027/related_work.tex": {
+      "sha256": "cffc51112764702f0080740904285450eaa19687bbd9d6260b633ddd5baca378",
+      "bytes": 3367,
+      "mtime": "2026-11-04T08:49:11.677680+00:00"
+    },
+    "paper/secon2027/results.tex": {
+      "sha256": "bdf6253411123237995935b0f3a7780fd7743dc4e75a428d4a4c9786146dff3b",
+      "bytes": 9719,
+      "mtime": "2026-11-04T10:08:25.956358+00:00"
+    }
+  },
+  "changed_during_review": [
+    "docs/research/secon2027_claim_evidence.md",
+    "paper/secon2027/FIGURES.md"
+  ],
+  "canonical_prior_evidence": {
+    "docs/research/secon2027_supervisor_formal_freeze_review.md": {
+      "sha256": "640a901ef52ae152a91757bb6f18999856da72c7a1a8149ea00cd1088fc00d5c",
+      "bytes": 9570,
+      "mtime": "2026-11-04T09:18:13.339849+00:00"
+    },
+    "docs/research/secon2027_supervisor_formal_raw_review.md": {
+      "sha256": "54079ff32382070f524a4f99607f876b75ca23e11c8f44546258c7a720982e87",
+      "bytes": 3812,
+      "mtime": "2026-11-04T09:47:15.968053+00:00"
+    },
+    "docs/research/secon2027_supervisor_formal_statistics_review.md": {
+      "sha256": "49c444330ed78f85c8023731e4255d0dd1343a0c75bdc8089e3d136f8d1172ae",
+      "bytes": 7421,
+      "mtime": "2026-11-04T10:01:09.228066+00:00"
+    },
+    "docs/research/secon2027_supervisor_formal_exposure_review.md": {
+      "sha256": "db12f4eaea6ff19c1e71e7b24a34b6c7e97e0a17a77993fc27db24799cbf3c05",
+      "bytes": 10123,
+      "mtime": "2026-11-04T09:52:38.118081+00:00"
+    },
+    "docs/research/secon2027_supervisor_formal_archive_review.md": {
+      "sha256": "000f39dc0671c164685e573a61a1a821bc917428995ee74869ff5744d6471846",
+      "bytes": 6757,
+      "mtime": "2026-11-04T10:07:13.203868+00:00"
+    },
+    "docs/research/icc_citation_audit_20261104.md": {
+      "sha256": "577c64bc9ff9703e32c400899101f85555777a4c89eeb5917ee21697d0f9ef9d",
+      "bytes": 7450,
+      "mtime": "2026-11-04T06:55:34.905165+00:00"
+    },
+    "docs/research/icc_literature_20261104/selected_sources_index.json": {
+      "sha256": "82b790999f81a577d1d4a0d672248dc3f8adbea2f3afabd2a2347dcb8f22665f",
+      "bytes": 9941,
+      "mtime": "2026-11-04T06:52:42.431663+00:00"
+    }
+  },
+  "paper_figure_assets": {
+    "paper/secon2027/figures/formal-v1/component_effects.pdf": {
+      "sha256": "047145cf5c1765859b6afef7c5381dbee9e944cd512691af03967cad22d41653",
+      "bytes": 16087,
+      "mtime": "2026-11-04T09:58:56.006949+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/component_effects.png": {
+      "sha256": "b2af08ac430f4e0cb1256e6653dc2e031667592628feada65d52ba0c48b0eb0b",
+      "bytes": 50687,
+      "mtime": "2026-11-04T09:58:56.680661+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/component_effects.svg": {
+      "sha256": "cfd85832142b7f3056018662ef099b7d63ed1c7f1cf829d51079a614d8c70657",
+      "bytes": 26562,
+      "mtime": "2026-11-04T09:58:56.349764+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/component_effects_source.csv": {
+      "sha256": "898c103f97169afcee600d39b1f4d80e680b4c65019797d7c1dd4f41f81da968",
+      "bytes": 87791,
+      "mtime": "2026-11-04T09:58:56.684435+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/figure_manifest.json": {
+      "sha256": "f6ac1708c6fbd7e8f56124d935eaa3fcc2358f53790c0fd544725e88f4c9146d",
+      "bytes": 5678,
+      "mtime": "2026-11-04T09:58:59.218882+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/latency_cost.pdf": {
+      "sha256": "b9de6e59be9514a9405df47b8797811f2e6bcbc27348fde6a29f86be5b81a278",
+      "bytes": 21369,
+      "mtime": "2026-11-04T09:58:58.501411+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/latency_cost.png": {
+      "sha256": "a42547a6637080bec130b9c33ebc5f58e0af12a9183922cff4dd30cdaf0adefd",
+      "bytes": 56107,
+      "mtime": "2026-11-04T09:58:59.211097+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/latency_cost.svg": {
+      "sha256": "362f167298cb9bf467452f2c9623d6f55c57c6049501446e2df7bf44a0c7d6dc",
+      "bytes": 46289,
+      "mtime": "2026-11-04T09:58:58.852168+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/latency_cost_source.csv": {
+      "sha256": "7d2803027804e609be670a9ee07efbd456279109c217526c230c676721753c00",
+      "bytes": 13162,
+      "mtime": "2026-11-04T09:58:59.213810+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/main_results.pdf": {
+      "sha256": "90b60d0645e1d84714b5cd6588a743cbdcec529a233e73ffaa4e0bd8ef338306",
+      "bytes": 19662,
+      "mtime": "2026-11-04T09:58:54.625060+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/main_results.png": {
+      "sha256": "72b28d423214c4215ba300dcfbb610938d75b0492a2b3de1a1b665761f118cd2",
+      "bytes": 44298,
+      "mtime": "2026-11-04T09:58:55.300947+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/main_results.svg": {
+      "sha256": "b303209c75cde32a372e1c3628a02f2a1f5ad61b8a01d5127935510dc897de21",
+      "bytes": 51057,
+      "mtime": "2026-11-04T09:58:54.951679+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/main_results_source.csv": {
+      "sha256": "89828186ed43726b384de41b587701d7d1ed47b59fd1468ec334b86987be421e",
+      "bytes": 15562,
+      "mtime": "2026-11-04T09:58:55.303706+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/robustness.pdf": {
+      "sha256": "acaf799b8c322021b33f2a15e1e916c9ec7885e06c7c367e143df368f1158c51",
+      "bytes": 19996,
+      "mtime": "2026-11-04T09:58:57.318149+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/robustness.png": {
+      "sha256": "d14c262a74420e1bd65a547206c0db617307fcc2520ecc70819bc5686026a247",
+      "bytes": 93129,
+      "mtime": "2026-11-04T09:58:57.920900+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/robustness.svg": {
+      "sha256": "ba995e507eff5415a89040a8eec78ab437a64032b73802c71170b8c3abff4d95",
+      "bytes": 55970,
+      "mtime": "2026-11-04T09:58:57.595369+00:00"
+    },
+    "paper/secon2027/figures/formal-v1/robustness_source.csv": {
+      "sha256": "d59c4d9a490a217bff19697af0e4ab22d8245d9a2d87fcbd12f6229604b765e7",
+      "bytes": 14236,
+      "mtime": "2026-11-04T09:58:57.923572+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/component_effects.pdf": {
+      "sha256": "2afa40a1a82aa69d2fe9065c63c42f0648ae59bf513300e0eec0a3cdf6e3a96a",
+      "bytes": 15608,
+      "mtime": "2026-11-04T10:05:07.132783+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/component_effects.png": {
+      "sha256": "eb7517b32ded6f764d85348cce4f8dd3b7e0e44b87a2a9cd60ea65f9f2996fcc",
+      "bytes": 47348,
+      "mtime": "2026-11-04T10:05:07.660038+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/component_effects.svg": {
+      "sha256": "9b2a3297e91138019c38c070a46d6b1cc80e9d717894b9607477597a372deade",
+      "bytes": 23753,
+      "mtime": "2026-11-04T10:05:07.396405+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/component_effects_source.csv": {
+      "sha256": "898c103f97169afcee600d39b1f4d80e680b4c65019797d7c1dd4f41f81da968",
+      "bytes": 87791,
+      "mtime": "2026-11-04T10:05:07.663766+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/figure_manifest.json": {
+      "sha256": "f03046d53e9e8f5c08abf1d0727e8953cffa33d7887810d41668a59addd247af",
+      "bytes": 5678,
+      "mtime": "2026-11-04T10:05:11.054928+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/latency_cost.pdf": {
+      "sha256": "27e134dbc2469a540d5556a666080236f47350509fc8386537a67c691659e615",
+      "bytes": 21369,
+      "mtime": "2026-11-04T10:05:10.117880+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/latency_cost.png": {
+      "sha256": "a42547a6637080bec130b9c33ebc5f58e0af12a9183922cff4dd30cdaf0adefd",
+      "bytes": 56107,
+      "mtime": "2026-11-04T10:05:11.041710+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/latency_cost.svg": {
+      "sha256": "2727d1029a99afd63ae0901f521c3a82ebd7b0ce4de78916d775cb6d721c4dc4",
+      "bytes": 46289,
+      "mtime": "2026-11-04T10:05:10.478399+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/latency_cost_source.csv": {
+      "sha256": "7d2803027804e609be670a9ee07efbd456279109c217526c230c676721753c00",
+      "bytes": 13162,
+      "mtime": "2026-11-04T10:05:11.046535+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/main_results.pdf": {
+      "sha256": "dd50c685d1d5dbc40aa2404f9a40ea3f92edf43a0e053d624da6d98f96791163",
+      "bytes": 19662,
+      "mtime": "2026-11-04T10:05:06.161536+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/main_results.png": {
+      "sha256": "72b28d423214c4215ba300dcfbb610938d75b0492a2b3de1a1b665761f118cd2",
+      "bytes": 44298,
+      "mtime": "2026-11-04T10:05:06.720248+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/main_results.svg": {
+      "sha256": "c8a4f873c3c7ccc6f2576f4116785ded8e9c5dadcf418d4f233bdf9eb7d16e78",
+      "bytes": 51057,
+      "mtime": "2026-11-04T10:05:06.427501+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/main_results_source.csv": {
+      "sha256": "89828186ed43726b384de41b587701d7d1ed47b59fd1468ec334b86987be421e",
+      "bytes": 15562,
+      "mtime": "2026-11-04T10:05:06.723272+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/robustness.pdf": {
+      "sha256": "6be0d60f2e755892fcf9a226430acbd319cb860e10a691fabde779d8381b04d9",
+      "bytes": 19996,
+      "mtime": "2026-11-04T10:05:08.650498+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/robustness.png": {
+      "sha256": "d14c262a74420e1bd65a547206c0db617307fcc2520ecc70819bc5686026a247",
+      "bytes": 93129,
+      "mtime": "2026-11-04T10:05:09.490166+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/robustness.svg": {
+      "sha256": "9331802e84f45282b7b27b81b985925302c2e7a517973b7cca714071a893cbe9",
+      "bytes": 55970,
+      "mtime": "2026-11-04T10:05:09.096866+00:00"
+    },
+    "paper/secon2027/figures/formal-v2/robustness_source.csv": {
+      "sha256": "d59c4d9a490a217bff19697af0e4ab22d8245d9a2d87fcbd12f6229604b765e7",
+      "bytes": 14236,
+      "mtime": "2026-11-04T10:05:09.494075+00:00"
+    }
+  },
+  "items": [
+    {
+      "id": "G01",
+      "status": "待验",
+      "assessment": "当前18:06顶栏已将正式760 runs与旧历史段区分，保存快照/版本/命令/事故/下一动作；但仍含promoted fixture71995、push73342、clean restore等运行中状态。最终交付须更新已退出会话、当前HEAD/远端、最终PDF/包与下一动作。",
+      "files": [
+        "docs/research/secon2027_checkpoint.md"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "通过",
+      "assessment": "冻结合同实际SHA与formal plan一致；正式节包括问题、指标、760键、20 seeds、三场景、controls、deadline/drain轴、bootstrap、失败/负结果/资源规则。先冻结后执行时序成立；开头过期文字由保留原字节的事后勘误透明解释，不能改写原合同。",
+      "files": [
+        "docs/research/secon2027_experiment_contract.md",
+        "docs/research/secon2027_formal_contract_erratum.md",
+        "results/secon2027/plans/formal-v1.json"
+      ]
+    },
+    {
+      "id": "G03",
+      "status": "通过",
+      "assessment": "registry机器记录20个formal seeds全部exposed；760 planned keys与plan严格相等，760 started+760 completed历史，760产物路径，无development seed重叠。顶层frozen-before-exposure是历史冻结事件，非声称当前未暴露。完整原始审计复用已通过独立报告。",
+      "files": [
+        "configs/secon2027/seed_registry.json"
+      ]
+    },
+    {
+      "id": "G04",
+      "status": "通过",
+      "assessment": "实体matrix与plan内嵌matrix逐对象相等；38 cells各20键，480 main+120 controls+160额外deadline，30s复用S2-matched；schema/arms/环境/统计/预算/失败规则齐全。",
+      "files": [
+        "configs/secon2027/experiment_matrix.json",
+        "results/secon2027/plans/formal-v1.json"
+      ]
+    },
+    {
+      "id": "G05",
+      "status": "通过",
+      "assessment": "四模型机制/参数/default与matched/ACK/重传/缓存/帧长/信息可见性/遗漏项明确。Meshtastic和MeshCore官方release/commit/file hashes已记录；承认官方retry与learning而模型省略，不冒称产品性能。",
+      "files": [
+        "docs/research/secon2027_baseline_fidelity.md"
+      ]
+    },
+    {
+      "id": "G06",
+      "status": "通过",
+      "assessment": "规格A1–A12给出本地输入、state/FSM、wire/ToA、commit/start、预算/上界假设、缓存并发、clean controls、状态容量和O(NK)扫描边界；23个具名测试在formal saved source均存在。主要预算/取消规则抽读代码匹配。规格主文锚定早期snapshot并记录import修复；最终formal继承关系由冻结审查/plan成立，建议追加formal snapshot导航但勿改冻结来源。",
+      "files": [
+        "docs/research/secon2027_algorithm_spec.md",
+        "docs/research/secon2027_baseline_fidelity.md"
+      ]
+    },
+    {
+      "id": "G10",
+      "status": "待验",
+      "assessment": "官方规则/未知时区与注册节点/未提交/作者信息/AI声明边界已记录；checklist仍把已完成760、analysis、raw restore列未完成，最终PDF页数/字体/视觉/匿名/标题一致与closeoutSHA待root绑定实测。不能以编译成功替代。",
+      "files": [
+        "docs/research/secon2027_submission_checklist.md",
+        "docs/research/secon2027_official_requirements.md"
+      ]
+    },
+    {
+      "id": "G11",
+      "status": "通过",
+      "assessment": "独立固件状态文件明确未做新native/board/RF/功耗，本轮无已识别多节点或仪器；保留0.1.4和历史未解问题，不用旧build/native证明Python/RF等价。满足披露。",
+      "files": [
+        "docs/results/secon2027_firmware_validation.md"
+      ]
+    },
+    {
+      "id": "G12",
+      "status": "待验",
+      "assessment": "release map真实区分tested2.1.27/2.1.28/2.1.29与promoted2.1.28/2.1.29/2.1.30；记录失败pilot和两次已验证发布。第三轮研究数据/166输入映射/parts commit已记，但最终closeout commit与远端SHA尚未在本文件闭环。",
+      "files": [
+        "docs/project-management/secon2027_release_map.md"
+      ]
+    },
+    {
+      "id": "G13",
+      "status": "通过",
+      "assessment": "仅本次读取的源码快照通过：独立SECON主文/六章节/向量时序图/4组结果图/Bib与生成器齐全；11组编号公式与规格/已冻结统计口径一致，27项文献全部正文实引，38次条目引用，无孤立/未定义/重复key，无MASS/虚构RF。保留高负载negative result及baseline fidelity限制。最终PDF由root另验。",
+      "files": [
+        "paper/secon2027/main.tex",
+        "paper/secon2027/methods.tex",
+        "paper/secon2027/evaluation.tex",
+        "paper/secon2027/results.tex",
+        "paper/secon2027/references.bib"
+      ]
+    },
+    {
+      "id": "G14",
+      "status": "待验",
+      "assessment": "源码匿名子项通过：Anonymous authors、空pdfauthor、无姓名/学校/邮箱/用户目录/作者仓库链接；私有作者说明在内部checklist为Zu Gao/Zhi Quan/Shenzhen University，无无外部资助句。AI-assistance的Acknowledgment段不含身份。完整条目仍需root对同一最新PDF文本/元数据/注释/链接实查。",
+      "files": [
+        "paper/secon2027/main.tex",
+        "docs/research/secon2027_submission_checklist.md"
+      ]
+    },
+    {
+      "id": "G16",
+      "status": "待验",
+      "assessment": "内部可恢复包和匿名审稿材料的分离策略已写明；raw11parts/全包/14667成员/760 saved-source audit已有独立恢复证据。最终analysis/paper包与可恢复发布位置、PDF可见链接和匿名artifact实际边界待closeout；不能将内部含身份路径的raw包直接称匿名材料。",
+      "files": [
+        "docs/reproducibility/secon2027_reproduce.md",
+        "docs/research/secon2027_submission_checklist.md"
+      ]
+    },
+    {
+      "id": "I01",
+      "status": "不适用",
+      "assessment": "条件P2本轮未承担新固件变更/native/板级gate；仅保留历史记录并明确非当前验证，不阻断仿真主线。",
+      "files": [
+        "docs/results/secon2027_firmware_validation.md"
+      ]
+    },
+    {
+      "id": "I02",
+      "status": "不适用",
+      "assessment": "本轮没有RF或功耗实测，故节点/天线/仪器/功耗实验验收不适用，论文如实披露。",
+      "files": [
+        "docs/results/secon2027_firmware_validation.md",
+        "paper/secon2027/discussion.tex"
+      ]
+    },
+    {
+      "id": "I03",
+      "status": "通过",
+      "assessment": "论文/方法/fidelity/firmware状态均区分行为模型、Python仿真、历史原型和官方产品；未声称RF认证、真实产品公平硬件性能或整机电池优势。",
+      "files": [
+        "paper/secon2027/discussion.tex",
+        "docs/results/secon2027_firmware_validation.md",
+        "docs/research/secon2027_baseline_fidelity.md"
+      ]
+    },
+    {
+      "id": "J01",
+      "status": "待验",
+      "assessment": "pilot实测驱动760-run预算与2倍余量已完成；正式实测4423.191694785 summed worker seconds、最大RSS398163968B、raw7098305927B、archive475828160B及恢复570.836s已记。剩余PDF/最终包/上传/复核的耗时和磁盘预算/关键路径尚应在最终checkpoint明确，保留全部必需项，不扩展可选RF/扫描。",
+      "files": [
+        "docs/reproducibility/secon2027_reproduce.md",
+        "docs/research/secon2027_checkpoint.md"
+      ]
+    }
+  ],
+  "status_counts": {
+    "待验": 6,
+    "通过": 8,
+    "不适用": 2
+  },
+  "checks": {
+    "references": 27,
+    "unique_cited_keys": 27,
+    "citation_occurrences": 38,
+    "uncited_references": [],
+    "undefined_citations": [],
+    "duplicate_citation_keys": [],
+    "numbered_equation_groups": 11,
+    "named_regression_references": 23,
+    "missing_named_tests_in_formal_snapshot": [],
+    "source_identity_scan_matches": [],
+    "matrix_equals_frozen_plan": true,
+    "registered_keys_equals_frozen_plan": true,
+    "formal_registry_history": {
+      "started": 760,
+      "completed": 760
+    },
+    "formal_seeds": [
+      2027100,
+      2027101,
+      2027102,
+      2027103,
+      2027104,
+      2027105,
+      2027106,
+      2027107,
+      2027108,
+      2027109,
+      2027110,
+      2027111,
+      2027112,
+      2027113,
+      2027114,
+      2027115,
+      2027116,
+      2027117,
+      2027118,
+      2027119
+    ]
+  },
+  "limits": [
+    "Read-only execution tree; no simulation, tests, compilation, EDAS or new literature retrieval.",
+    "G13/G14 source statements refer only to the captured read-time hashes, not an independently inspected final PDF.",
+    "Prior raw/statistics/archive conclusions are reused with their report hashes; not re-executed here.",
+    "Any files changed after these snapshots require targeted review; pending means closeout evidence incomplete, not scientific failure."
+  ]
+}
